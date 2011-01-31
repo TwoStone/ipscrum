@@ -25,8 +25,7 @@ body {
   margin: 0px;
   border: 0px;
   padding: 0px;
-  /* Outlined for test */
-  /* background: #fff; */
+  background: #fff;
   direction: ltr;
 }
 a, a:visited, a:hover {

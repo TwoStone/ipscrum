@@ -2,9 +2,7 @@
 
 body {
 	margin: 15px;
-	background-image: url("images/fhdw_logo.png");
-	background-position: 20px;
-	background-repeat: no-repeat;
+	background: url("images/fhdw_logo.png") no-repeat 20px !important;
 }
 
 
