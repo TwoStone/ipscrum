@@ -3,12 +3,12 @@ package fhdw.ipscrum.shared.model;
 public abstract class ProductBacklogItem {
 
 	private String name;
-	private Integer aufwand;
+	private Integer manDayCosts;
 	
-	public ProductBacklogItem(String name, Integer aufwand) {
+	public ProductBacklogItem(String name, Integer manDayCosts) {
 		super();
 		this.name = name;
-		this.aufwand = aufwand;
+		this.manDayCosts = manDayCosts;
 	}
 
 	public final String getName() {
@@ -19,17 +19,17 @@ public abstract class ProductBacklogItem {
 		this.name = name;
 	}
 
-	public final Integer getAufwand() {
-		return aufwand;
+	public final Integer getManDayCosts() {
+		return manDayCosts;
 	}
 
-	public final void setAufwand(Integer aufwand) {
-		this.aufwand = aufwand;
+	public final void setManDayCosts(Integer manDayCosts) {
+		this.manDayCosts = manDayCosts;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductBacklogItem [aufwand=" + aufwand + ", name=" + name
+		return "ProductBacklogItem [aufwand=" + manDayCosts + ", name=" + name
 				+ "]";
 	}
 
@@ -37,7 +37,7 @@ public abstract class ProductBacklogItem {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((aufwand == null) ? 0 : aufwand.hashCode());
+		result = prime * result + ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -51,10 +51,10 @@ public abstract class ProductBacklogItem {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductBacklogItem other = (ProductBacklogItem) obj;
-		if (aufwand == null) {
-			if (other.aufwand != null)
+		if (manDayCosts == null) {
+			if (other.manDayCosts != null)
 				return false;
-		} else if (!aufwand.equals(other.aufwand))
+		} else if (!manDayCosts.equals(other.manDayCosts))
 			return false;
 		if (name == null) {
 			if (other.name != null)
