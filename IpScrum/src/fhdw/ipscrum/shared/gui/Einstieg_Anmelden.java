@@ -13,11 +13,16 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RichTextArea;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 
 public class Einstieg_Anmelden{
 	
 	
-	public void einstieg(RootPanel rootPanel) {
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public void einstieg(final RootPanel rootPanel) {
 		
 		/* Adding the mainPanel to the static HTML page inside the tag with ID="mainPanel" */
 		
@@ -36,7 +41,7 @@ public class Einstieg_Anmelden{
 		horizontalPanel.add(lblBenutzername);
 		lblBenutzername.setWidth("90px");
 		
-		TextBox textBox = new TextBox();
+		final TextBox textBox = new TextBox();
 		horizontalPanel.add(textBox);
 		textBox.setWidth("150px");
 		
@@ -48,7 +53,16 @@ public class Einstieg_Anmelden{
 		horizontalPanel.add(passwordTextBox);
 		passwordTextBox.setWidth("150px");
 		
+		
 		Button button = new Button("New button");
+		button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				String benutzername = textBox.getText();
+				rootPanel.clear();
+				Einstieg_Angemeldet angemeldet = new Einstieg_Angemeldet();
+				angemeldet.einstieg(rootPanel, benutzername);
+			}
+		});
 		button.setText("Login");
 		horizontalPanel.add(button);
 		
