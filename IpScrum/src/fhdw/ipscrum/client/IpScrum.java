@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RichTextArea;
 
-import fhdw.ipscrum.shared.gui.Einstieg_Anmelden;
+import fhdw.ipscrum.client.gui.Einstieg_Anmelden;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
