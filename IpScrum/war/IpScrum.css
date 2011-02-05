@@ -2,7 +2,6 @@
 
 body {
 	margin: 15px;
-	background: url("images/fhdw_logo.png") no-repeat 20px !important;
 }
 
 
@@ -36,4 +35,10 @@ h1 {
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
   margin: 15px 6px 6px;
+}
+
+.header {
+   font-size: 30pt;
+   text-align: center;	
+   font-weight: bold;
 }

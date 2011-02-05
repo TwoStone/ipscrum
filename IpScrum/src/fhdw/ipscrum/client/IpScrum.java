@@ -4,6 +4,17 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.RichTextArea;
+
+import fhdw.ipscrum.shared.gui.Einstieg_Anmelden;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -20,8 +31,13 @@ public class IpScrum implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
-		/* Adding the mainPanel to the static HTML page inside the tag with ID="mainPanel" */
-		RootPanel.get("mainPanel").add(mainPanel);
+
+RootPanel rootPanel = RootPanel.get("mainPanel");
+rootPanel.add(mainPanel);
+
+	Einstieg_Anmelden einstieg = new Einstieg_Anmelden();
+	einstieg.einstieg(rootPanel);
+
+
 	}
 }
