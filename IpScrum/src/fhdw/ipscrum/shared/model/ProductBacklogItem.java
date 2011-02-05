@@ -4,13 +4,19 @@ public abstract class ProductBacklogItem {
 
 	private String name;
 	private Integer manDayCosts;
+	private final ProductBacklog backlog;
 	
-	public ProductBacklogItem(String name, Integer manDayCosts) {
+	public ProductBacklogItem(String name, Integer manDayCosts, ProductBacklog backlog) {
 		super();
 		this.name = name;
 		this.manDayCosts = manDayCosts;
+		this.backlog = backlog;
 	}
 
+	public ProductBacklog getBacklog() {
+		return backlog;
+	}
+	
 	public final String getName() {
 		return name;
 	}
@@ -37,7 +43,9 @@ public abstract class ProductBacklogItem {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
+		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
+		result = prime * result
+				+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -51,6 +59,11 @@ public abstract class ProductBacklogItem {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductBacklogItem other = (ProductBacklogItem) obj;
+		if (backlog == null) {
+			if (other.backlog != null)
+				return false;
+		} else if (!backlog.equals(other.backlog))
+			return false;
 		if (manDayCosts == null) {
 			if (other.manDayCosts != null)
 				return false;
