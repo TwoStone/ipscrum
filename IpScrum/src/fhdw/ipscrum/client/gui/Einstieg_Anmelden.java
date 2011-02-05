@@ -1,23 +1,23 @@
 package fhdw.ipscrum.client.gui;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.RichTextArea;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 
-public class Einstieg_Anmelden{
+public class Einstieg_Anmelden extends Composite{ 
 	
-	
-	public void einstieg(RootPanel rootPanel) {
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public void einstieg(final RootPanel rootPanel) {
 		
 		/* Adding the mainPanel to the static HTML page inside the tag with ID="mainPanel" */
 		
@@ -36,7 +36,7 @@ public class Einstieg_Anmelden{
 		horizontalPanel.add(lblBenutzername);
 		lblBenutzername.setWidth("90px");
 		
-		TextBox textBox = new TextBox();
+		final TextBox textBox = new TextBox();
 		horizontalPanel.add(textBox);
 		textBox.setWidth("150px");
 		
@@ -48,7 +48,19 @@ public class Einstieg_Anmelden{
 		horizontalPanel.add(passwordTextBox);
 		passwordTextBox.setWidth("150px");
 		
+		
 		Button button = new Button("New button");
+		button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				String benutzername = textBox.getText();
+				if (benutzername.equals("")){
+					Window.alert("Bitte einen Benutzernamen eingeben!"); 
+				}else{
+				rootPanel.clear();
+				Einstieg_Angemeldet angemeldet = new Einstieg_Angemeldet();
+				angemeldet.einstieg(rootPanel, benutzername);}
+			}
+		});
 		button.setText("Login");
 		horizontalPanel.add(button);
 		
