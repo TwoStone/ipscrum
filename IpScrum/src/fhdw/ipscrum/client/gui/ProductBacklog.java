@@ -83,7 +83,7 @@ public class ProductBacklog  extends Composite{
 		Image image_1 = new Image("images/downarrow.png");
 		grid.setWidget(2, 0, image_1);
 		
-		Image image_4 = new Image("images/delete-icon.png");
+		Image image_4 = new Image("images/delete.png");
 		grid.setWidget(2, 1, image_4);
 		
 		Image image_3 = new Image("images/bottomarrow.png");
