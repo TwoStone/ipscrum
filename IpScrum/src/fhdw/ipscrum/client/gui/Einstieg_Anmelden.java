@@ -11,22 +11,20 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 public class Einstieg_Anmelden extends Composite{ 
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
-	public void einstieg(final RootPanel rootPanel) {
-		
-		/* Adding the mainPanel to the static HTML page inside the tag with ID="mainPanel" */
+public Einstieg_Anmelden(){
+	
+		FlowPanel flowPanel = new FlowPanel();
+		flowPanel.setSize("800px", "600");
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		rootPanel.add(horizontalPanel, 15, 15);
-		horizontalPanel.setSize("800px", "40px");
-		
-		Label label = new Label("");
-		horizontalPanel.add(label);
+		horizontalPanel.setSpacing(20);
+		flowPanel.add(horizontalPanel);
+		horizontalPanel.setSize("800", "60");
 		
 		Image image_1 = new Image("images/fhdw_logo.png");
 		horizontalPanel.add(image_1);
@@ -50,27 +48,27 @@ public class Einstieg_Anmelden extends Composite{
 		
 		
 		Button button = new Button("New button");
-		button.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				String benutzername = textBox.getText();
-				if (benutzername.equals("")){
-					Window.alert("Bitte einen Benutzernamen eingeben!"); 
-				}else{
-				rootPanel.clear();
-				Einstieg_Angemeldet angemeldet = new Einstieg_Angemeldet();
-				angemeldet.einstieg(rootPanel, benutzername);}
-			}
-		});
-		button.setText("Login");
 		horizontalPanel.add(button);
-		
-		Image image = new Image("images/Black_Line.PNG");
-		rootPanel.add(image, 10, 55);
-		image.setSize("780px", "16px");
-		
-		Label lblWillkommenBeimIntegrationsprojekt = new Label("Willkommen beim Integrationsprojekt der Studiengruppe HFW408");
-		rootPanel.add(lblWillkommenBeimIntegrationsprojekt, 15, 90);
-		lblWillkommenBeimIntegrationsprojekt.setWidth("780px");
-		lblWillkommenBeimIntegrationsprojekt.setStyleName("header");
-	}
-}
+		//		button.addClickHandler(new ClickHandler() {
+		//			public void onClick(ClickEvent event) {
+		//				String benutzername = textBox.getText();
+		//				if (benutzername.equals("")){
+		//					Window.alert("Bitte einen Benutzernamen eingeben!"); 
+		//				}else{
+		//				rootPanel.clear();
+		//				Einstieg_Angemeldet angemeldet = new Einstieg_Angemeldet();
+		//				angemeldet.einstieg(rootPanel, benutzername);}
+		//		);
+				button.setText("Login");
+				
+				HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
+				flowPanel.add(horizontalPanel_1);
+				horizontalPanel_1.setSize("800", "300");
+				
+				Label lblWillkommenBeimIntegrationsprojekt = new Label("Willkommen beim Integrationsprojekt der Studiengruppe HFW408");
+				lblWillkommenBeimIntegrationsprojekt.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+				lblWillkommenBeimIntegrationsprojekt.setSize("800", "300");
+				horizontalPanel_1.add(lblWillkommenBeimIntegrationsprojekt);
+
+
+}}
