@@ -4,17 +4,12 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.RichTextArea;
 
-import fhdw.ipscrum.client.gui.Einstieg_Anmelden;
+import fhdw.ipscrum.client.gui.StartView;
+import fhdw.ipscrum.client.gui.StartLoggedInView;
+import fhdw.ipscrum.client.gui.ProductBacklogView;
+import fhdw.ipscrum.client.gui.ProjectCreateView;
+import fhdw.ipscrum.client.gui.ProjectOverviewView;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -32,12 +27,19 @@ public class IpScrum implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 
-RootPanel rootPanel = RootPanel.get("mainPanel");
-rootPanel.add(mainPanel);
+		
+		RootPanel rootPanel = RootPanel.get("mainPanel");
+		
+ProductBacklogView pb = new ProductBacklogView();
+StartLoggedInView einstieg = new StartLoggedInView();
+StartView einstieg_angemeldet = new StartView();
+ProjectCreateView pe = new ProjectCreateView();
+ProjectOverviewView pue = new ProjectOverviewView();
+//DialogBox dialog = new DialogBox();
+//dialog.add(einstieg);
+//dialog.show();
 
-	Einstieg_Anmelden einstieg = new Einstieg_Anmelden();
-	einstieg.einstieg(rootPanel);
-
-
+rootPanel.add(pb); 	
 	}
-}
+ }
+	
