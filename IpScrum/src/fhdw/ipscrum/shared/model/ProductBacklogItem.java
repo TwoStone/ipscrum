@@ -14,6 +14,17 @@ public abstract class ProductBacklogItem {
 		this.backlog = backlog;
 		this.release = release;
 	}
+	
+	/**
+	 * leerer Konstruktor für Gruppe 2 benötigt
+	 * @author stefan
+	 * 
+	 */
+	public ProductBacklogItem(){
+		// dummy Initialisierung
+		this.release = new Release();
+		this.backlog = new ProductBacklog();
+	}
 
 	public Release getRelease() {
 		return release;
