@@ -1,10 +1,12 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.Vector;
+
 public class Project {
 
 	private String name;
 	private ProductBacklog backlog;
-	private Release releasePlan;
+	private Vector<Release> releasePlan;
 
 	public Project(String name) {
 		super();
@@ -16,19 +18,13 @@ public class Project {
 		this.backlog = backlog;
 	}
 
-	public Project(String name, ProductBacklog backlog, Release releasePlan) {
-		this(name, backlog);
-		this.releasePlan = releasePlan;
-	}
-
-	public void setReleasePlan(Release releasePlan) {
-		this.releasePlan = releasePlan;
-	}
-	
-	public Release getReleasePlan() {
+	public Vector<Release> getReleasePlan() {
+		if(this.releasePlan==null){
+			this.releasePlan = new Vector<Release>();
+		}
 		return releasePlan;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -57,7 +53,7 @@ public class Project {
 		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-				+ ((releasePlan == null) ? 0 : releasePlan.hashCode());
+				+ ((this.getReleasePlan() == null) ? 0 : this.getReleasePlan().hashCode());
 		return result;
 	}
 
@@ -80,10 +76,10 @@ public class Project {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (releasePlan == null) {
-			if (other.releasePlan != null)
+		if (this.getReleasePlan() == null) {
+			if (other.getReleasePlan() != null)
 				return false;
-		} else if (!releasePlan.equals(other.releasePlan))
+		} else if (!this.getReleasePlan().equals(other.getReleasePlan()))
 			return false;
 		return true;
 	}

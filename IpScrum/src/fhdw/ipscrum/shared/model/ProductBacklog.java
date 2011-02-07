@@ -28,19 +28,41 @@ public class ProductBacklog {
 	}
 	
 	public void moveUp(ProductBacklogItem item){
-		//TODO
+		Integer position = this.getItemPositionInList(item);
+		if(position>0){
+			this.getItems().remove(item);
+			this.getItems().insertElementAt(item, position-1);
+		}
 	}
 
 	public void moveDown(ProductBacklogItem item){
-		//TODO
+		Integer position = this.getItemPositionInList(item);
+		if(position>-1 && position<(this.countItems()-1)){
+			this.getItems().remove(item);
+			this.getItems().insertElementAt(item, position+1);
+		}
 	}
 	
 	public void addItemAfter(ProductBacklogItem newItem, ProductBacklogItem itemBefore){
-		//TODO
+		Integer position = this.getItemPositionInList(itemBefore);
+		if(position>-1 && position<(this.countItems()-1)){
+			this.getItems().insertElementAt(newItem, position+1);
+		}else{
+			this.addItem(newItem);
+		}
 	}
 
 	public void addItemBefore(ProductBacklogItem newItem, ProductBacklogItem itemAfter){
-		//TODO
+		Integer position = this.getItemPositionInList(itemAfter);
+		if(position>=0){
+			if(position==0){
+				this.addItemOnTop(newItem);
+			}else{
+				this.getItems().insertElementAt(newItem, position-1);
+			}
+		}else{
+			this.addItem(newItem);
+		}
 	}
 
 	public void addItemOnTop(ProductBacklogItem item){
@@ -72,7 +94,7 @@ public class ProductBacklog {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((items == null) ? 0 : items.hashCode());
+		result = prime * result + ((this.getItems() == null) ? 0 : this.getItems().hashCode());
 		return result;
 	}
 
@@ -85,11 +107,31 @@ public class ProductBacklog {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductBacklog other = (ProductBacklog) obj;
-		if (items == null) {
-			if (other.items != null)
+		if (this.getItems() == null) {
+			if (other.getItems() != null)
 				return false;
-		} else if (!items.equals(other.items))
+		} else if (!this.getItems().equals(other.getItems()))
 			return false;
 		return true;
+	}
+	
+	/**
+	 * Returns the position of the ProductBacklogItem within
+	 * the list.
+	 * @param item
+	 * @return
+	 * Values between 0 ... n are valid positions
+	 * Value -1 means that the element is not in the list;
+	 */
+	public Integer getItemPositionInList(ProductBacklogItem item){
+		int count = 0;
+		for(ProductBacklogItem current : this.getItems()){
+			if(current.equals(item)){
+				return count;
+			}
+			count++;
+		}
+		
+		return -1;
 	}
 }

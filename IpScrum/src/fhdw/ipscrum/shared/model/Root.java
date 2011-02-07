@@ -113,11 +113,11 @@ public class Root implements SerializationRoot{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((persons == null) ? 0 : persons.hashCode());
+		result = prime * result + ((this.getPersons() == null) ? 0 : this.getPersons().hashCode());
 		result = prime * result
-				+ ((projects == null) ? 0 : projects.hashCode());
-		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
-		result = prime * result + ((teams == null) ? 0 : teams.hashCode());
+				+ ((this.getProjects() == null) ? 0 : this.getProjects().hashCode());
+		result = prime * result + ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
+		result = prime * result + ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
 		return result;
 	}
 
@@ -130,25 +130,25 @@ public class Root implements SerializationRoot{
 		if (getClass() != obj.getClass())
 			return false;
 		Root other = (Root) obj;
-		if (persons == null) {
-			if (other.persons != null)
+		if (this.getPersons() == null) {
+			if (other.getPersons() != null)
 				return false;
-		} else if (!persons.equals(other.persons))
+		} else if (!this.getPersons().equals(other.getPersons()))
 			return false;
-		if (projects == null) {
-			if (other.projects != null)
+		if (this.getProjects() == null) {
+			if (other.getProjects() != null)
 				return false;
-		} else if (!projects.equals(other.projects))
+		} else if (!this.getProjects().equals(other.getProjects()))
 			return false;
-		if (roles == null) {
-			if (other.roles != null)
+		if (this.getRoles() == null) {
+			if (other.getRoles() != null)
 				return false;
-		} else if (!roles.equals(other.roles))
+		} else if (!this.getRoles().equals(other.getRoles()))
 			return false;
-		if (teams == null) {
-			if (other.teams != null)
+		if (this.getTeams() == null) {
+			if (other.getTeams() != null)
 				return false;
-		} else if (!teams.equals(other.teams))
+		} else if (!this.getTeams().equals(other.getTeams()))
 			return false;
 		return true;
 	}

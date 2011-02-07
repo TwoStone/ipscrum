@@ -40,7 +40,7 @@ public class Release {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
+		result = prime * result + ((this.getSprints() == null) ? 0 : this.getSprints().hashCode());
 		return result;
 	}
 
@@ -53,10 +53,10 @@ public class Release {
 		if (getClass() != obj.getClass())
 			return false;
 		Release other = (Release) obj;
-		if (sprints == null) {
-			if (other.sprints != null)
+		if (this.getSprints() == null) {
+			if (other.getSprints() != null)
 				return false;
-		} else if (!sprints.equals(other.sprints))
+		} else if (!this.getSprints().equals(other.getSprints()))
 			return false;
 		return true;
 	}
