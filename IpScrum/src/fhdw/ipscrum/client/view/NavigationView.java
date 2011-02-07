@@ -32,7 +32,7 @@ public class NavigationView extends Composite implements INavigationView{
 		personalverwaltung = new Button("New button");
 		personalverwaltung.setText("Personalverwaltung");
 		concreteMenuPanel.add(personalverwaltung, 126, 10);
-		personalverwaltung.setSize("140px", "30px");
+		personalverwaltung.setSize("163px", "30px");
 		
 		masterMainPanel = new FlowPanel();
 		innerMasterPanel.add(masterMainPanel);
