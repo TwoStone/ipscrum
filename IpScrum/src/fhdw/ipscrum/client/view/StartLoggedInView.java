@@ -1,20 +1,22 @@
 package fhdw.ipscrum.client.view;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.TextBox;
 
-public class StartLoggedInView extends Composite{ 
+import fhdw.ipscrum.client.view.interfaces.IRootView;
+
+public class StartLoggedInView extends Composite implements IRootView{ 
+	
+	public static IRootView createView(){
+		return new StartLoggedInView();
+	}
 	
 public StartLoggedInView(){
 	
@@ -25,7 +27,7 @@ public StartLoggedInView(){
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(20);
 		flowPanel.add(horizontalPanel);
-		horizontalPanel.setSize("800", "60");
+		horizontalPanel.setSize("800px", "60");
 		
 		Image image_1 = new Image("images/fhdw_logo.png");
 		horizontalPanel.add(image_1);
@@ -71,7 +73,7 @@ public StartLoggedInView(){
 				Label lblWillkommenBeimIntegrationsprojekt = new Label("Willkommen beim Integrationsprojekt der Studiengruppe HFW408");
 				lblWillkommenBeimIntegrationsprojekt.setStyleName("header");
 				lblWillkommenBeimIntegrationsprojekt.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-				lblWillkommenBeimIntegrationsprojekt.setSize("800", "300");
+				lblWillkommenBeimIntegrationsprojekt.setSize("758px", "300");
 				horizontalPanel_1.add(lblWillkommenBeimIntegrationsprojekt);
 
 
