@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.gui;
+package fhdw.ipscrum.client.view;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;

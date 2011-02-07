@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.gui;
+package fhdw.ipscrum.client.view;
 
 import java.util.ArrayList;
 

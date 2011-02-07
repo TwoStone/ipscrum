@@ -5,11 +5,11 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import fhdw.ipscrum.client.gui.StartView;
-import fhdw.ipscrum.client.gui.StartLoggedInView;
-import fhdw.ipscrum.client.gui.ProductBacklogView;
-import fhdw.ipscrum.client.gui.ProjectCreateView;
-import fhdw.ipscrum.client.gui.ProjectOverviewView;
+import fhdw.ipscrum.client.view.ProductBacklogView;
+import fhdw.ipscrum.client.view.ProjectCreateView;
+import fhdw.ipscrum.client.view.ProjectOverviewView;
+import fhdw.ipscrum.client.view.StartLoggedInView;
+import fhdw.ipscrum.client.view.StartView;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
