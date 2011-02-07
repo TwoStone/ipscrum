@@ -92,7 +92,7 @@ public class ProjectView extends Composite implements IProjectView{
 	public Panel getMasterReleasePanel() {
 		return masterReleasePanel;
 	}
-	public AbstractHasData<Project> getSelectedPBI(){
+	public AbstractHasData<Project> getSelectedProject(){
 		return tableProject;
 	}
 	

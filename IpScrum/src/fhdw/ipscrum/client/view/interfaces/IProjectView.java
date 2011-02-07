@@ -12,6 +12,6 @@ public interface IProjectView extends IView{
 	public abstract HasClickHandlers getImgDeleteProject();
 	public abstract Panel getMasterProductBackloglPanel();
 	public abstract Panel getMasterReleasePanel();
-	public abstract AbstractHasData<Project> getSelectedPBI();
+	public abstract AbstractHasData<Project> getSelectedProject();
 	
 }
