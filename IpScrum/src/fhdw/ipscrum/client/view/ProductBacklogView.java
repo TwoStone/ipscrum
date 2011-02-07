@@ -92,10 +92,10 @@ public class ProductBacklogView  extends Composite{
 		Image image_7 = new Image("images/save.png");
 		grid.setWidget(3, 1, image_7);
 		
-		ProductBacklogItem pbi1 = new ProductBacklogItem("PBI Controller", 3,null) {
+		ProductBacklogItem pbi1 = new ProductBacklogItem("PBI Controller", 3,null,null) {
 		};
 		
-		ProductBacklogItem pbi2 = new ProductBacklogItem("Feature GUI", 9,null) {
+		ProductBacklogItem pbi2 = new ProductBacklogItem("Feature GUI", 9,null,null) {
 		};
 		
 		ArrayList list = new ArrayList();
