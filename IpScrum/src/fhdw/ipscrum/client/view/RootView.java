@@ -4,11 +4,11 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.view.interfaces.IRootView;
-import com.google.gwt.user.client.ui.Image;
 
 public class RootView extends Composite implements IRootView {
 	private Button btnLogin;
@@ -16,6 +16,7 @@ public class RootView extends Composite implements IRootView {
 	private TextBox inputUserName;
 	private Button button;
 	private VerticalPanel contentPanel;
+	private final FlowPanel flowPanel;
 
 	public static IRootView createView() {
 		return new RootView();
@@ -23,7 +24,7 @@ public class RootView extends Composite implements IRootView {
 
 	private RootView() {
 
-		FlowPanel flowPanel = new FlowPanel();
+		flowPanel = new FlowPanel();
 		initWidget(flowPanel);
 		flowPanel.setSize("1000px", "700px");
 

@@ -2,7 +2,6 @@ package fhdw.ipscrum.client.presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.view.RootView;
@@ -17,16 +16,14 @@ public class RootPresenter extends Presenter<IRootView> {
 	@Override
 	protected IRootView createView() {
 		final IRootView rootView = RootView.createView();
-		final Label dummyLabel = new Label("Du bist jetzt angemeldet als:");
 		
 		rootView.getBtnLogin().addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				//TODO Benutzerprüfung
+				new NavigationPresenter(rootView.getContentPanel());
 				rootView.deactivateLogin();
-				dummyLabel.setText(dummyLabel.getText()+rootView.getInputUserName().getText());
-				rootView.getContentPanel().add(dummyLabel);
 			}
 		});
 		

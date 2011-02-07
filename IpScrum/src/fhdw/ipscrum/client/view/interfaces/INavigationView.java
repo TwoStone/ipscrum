@@ -5,11 +5,10 @@ import com.google.gwt.user.client.ui.Panel;
 
 public interface INavigationView extends IView{
 
-	public abstract HasClickHandlers getPersonalverwaltung();
+	public abstract HasClickHandlers getBtnVerwaltung();
 	
-	public abstract HasClickHandlers getProjekte();
+	public abstract HasClickHandlers getBtnProjekte();
 	
-	public abstract Panel getMasterMainPanel();
-	
+	public abstract Panel getContentPanel();
 	
 }
