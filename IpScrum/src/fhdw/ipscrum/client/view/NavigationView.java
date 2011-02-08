@@ -22,11 +22,11 @@ public class NavigationView extends Composite implements INavigationView {
 	private NavigationView() {
 		innerMasterPanel = new FlowPanel();
 		initWidget(innerMasterPanel);
-		innerMasterPanel.setSize("1000", "650");
+		innerMasterPanel.setSize("1000px", "650px");
 
 		AbsolutePanel concreteMenuPanel = new AbsolutePanel();
 		innerMasterPanel.add(concreteMenuPanel);
-		concreteMenuPanel.setSize("1000", "50");
+		concreteMenuPanel.setSize("1000px", "50px");
 		
 				btnProjekte = new Button("New button");
 				concreteMenuPanel.add(btnProjekte, 10, 10);
@@ -40,7 +40,7 @@ public class NavigationView extends Composite implements INavigationView {
 
 		masterMainPanel = new FlowPanel();
 		innerMasterPanel.add(masterMainPanel);
-		masterMainPanel.setSize("1000", "600");
+		masterMainPanel.setSize("1000px", "600px");
 	}
 
 	public HasClickHandlers getBtnVerwaltung() {
