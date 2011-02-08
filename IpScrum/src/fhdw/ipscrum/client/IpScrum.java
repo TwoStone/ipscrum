@@ -18,8 +18,8 @@ public class IpScrum implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		Project p1 = new Project("Testprojekt 1");
 		ProductBacklog bl = new ProductBacklog();
+		Project p1 = new Project("Testprojekt 1",bl);
 		bl.addItem(new ProductBacklogItem("Test",2,bl,null) {
 		});
 		bl.addItem(new ProductBacklogItem("Test 2",5,bl,null) {
@@ -27,9 +27,9 @@ public class IpScrum implements EntryPoint {
 		p1.setBacklog(bl);
 		
 		SessionManager.getInstance().getModel().addProject(p1);
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3"));
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 4"));
+		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2",new ProductBacklog()));
+		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3",new ProductBacklog()));
+		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 4",new ProductBacklog()));
 		new RootPresenter(RootPanel.get("mainPanel"));
 	}
  }
