@@ -37,17 +37,18 @@ public class ProjectView extends Composite implements IProjectView{
 		absolutePanel.setSize("1000px", "600px");
 		
 		masterProductBackloglPanel = new VerticalPanel();
+		masterProductBackloglPanel.setStyleName("box");
 		absolutePanel.add(masterProductBackloglPanel, 500, 0);
-		masterProductBackloglPanel.setSize("500px", "600px");
+		masterProductBackloglPanel.setSize("495px", "594px");
 		
 		VerticalPanel masterProductReleasePanel = new VerticalPanel();
 		absolutePanel.add(masterProductReleasePanel);
-		masterProductReleasePanel.setSize("500", "600");
+		masterProductReleasePanel.setSize("495px", "600px");
 		
 		AbsolutePanel concreteProjectPanel = new AbsolutePanel();
 		concreteProjectPanel.setStyleName("box");
 		masterProductReleasePanel.add(concreteProjectPanel);
-		concreteProjectPanel.setSize("500px", "275px");
+		concreteProjectPanel.setSize("495px", "275px");
 		
 		FlowPanel projectMenuPanel = new FlowPanel();
 		concreteProjectPanel.add(projectMenuPanel, 10, 34);
@@ -74,16 +75,18 @@ public class ProjectView extends Composite implements IProjectView{
 		concreteProjectPanel.add(tableProject, 10, 65);
 		tableProject.setSize("450px", "200px");
 		
-		Label lblProjekte = new Label("Projekte");
+		Label lblProjekte = new Label("Projekte\u00FCbersicht");
+		lblProjekte.setStyleName("LabelElement");
 		concreteProjectPanel.add(lblProjekte, 10, 5);
 		
 		masterReleasePanel = new VerticalPanel();
+		masterReleasePanel.setStyleName("box");
 		masterReleasePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		masterReleasePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		masterProductReleasePanel.add(masterReleasePanel);
 		masterProductReleasePanel.setCellVerticalAlignment(masterReleasePanel, HasVerticalAlignment.ALIGN_MIDDLE);
 		masterProductReleasePanel.setCellHorizontalAlignment(masterReleasePanel, HasHorizontalAlignment.ALIGN_CENTER);
-		masterReleasePanel.setSize("500px", "300px");
+		masterReleasePanel.setSize("495px", "300px");
 	}
 	public HasClickHandlers getImgNewProject() {
 		return imgNewProject;

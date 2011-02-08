@@ -57,10 +57,14 @@ h1 {
 }
 .box {
 	border-width:1px;
-	border-style:solid;
+	border-style:groove;
 	border-color:back;
 }
 
 .tableBorder {
 	border: medium groove;
+}
+.LabelElement {
+	font-size: 12pt;
+	font-weight: bold;
 }

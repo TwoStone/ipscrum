@@ -30,6 +30,7 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 	private Image imgDelete;
 	private Image imgArrowUp;
 	private CellTable<ProductBacklogItem> tableProductbacklog;
+	private Label lblAktionen;
 	
 	public static IProductBacklogView createView(){
 		return new ProductBacklogView();
@@ -38,7 +39,6 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 	public ProductBacklogView() {
 		
 		FlowPanel concreteProductBacklogPanel = new FlowPanel();
-		concreteProductBacklogPanel.setStyleName("box");
 		initWidget(concreteProductBacklogPanel);
 		concreteProductBacklogPanel.setSize("500px", "600px");
 		
@@ -56,7 +56,7 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 			}
 		};
 		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		tableProductbacklog.addColumn(bezeichnung, "Bezeichnung");
 		
 		TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
@@ -66,7 +66,7 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 			}
 		};
 		aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
 		tableProductbacklog.setSize("335px", "268px");
 		
@@ -74,7 +74,7 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 		verticalPanel.setStyleName("box");
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.add(verticalPanel, 351, 39);
+		horizontalPanel.add(verticalPanel, 351, 68);
 		verticalPanel.setSize("139px", "165px");
 		
 		Grid pbMenu = new Grid(4, 2);
@@ -105,8 +105,14 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 		imgDelete = new Image("images/delete.png");
 		pbMenu.setWidget(3, 1, imgDelete);
 		
-		Label lblProductBacklog = new Label("Product Backlog");
+		Label lblProductBacklog = new Label("Product Backlog Eintr\u00E4ge");
+		lblProductBacklog.setStyleName("LabelElement");
 		horizontalPanel.add(lblProductBacklog, 10, 10);
+		
+		lblAktionen = new Label("Aktionen");
+		lblAktionen.setStyleName("LabelElement");
+		horizontalPanel.add(lblAktionen, 351, 39);
+		lblAktionen.setSize("122px", "23px");
 	}
 
 	
