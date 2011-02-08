@@ -89,7 +89,7 @@ public class ReleaseView extends Composite implements IReleaseView{
 	 * @see fhdw.ipscrum.client.view.IReleaseView#refreshProjects(java.util.Vector)
 	 */
 	@Override
-	public void refreshProjects(Vector<Release> Release) {
+	public void refreshReleases(Vector<Release> Release) {
 		this.getReleaseTable().setRowData(Release);
 	}
 }
