@@ -11,7 +11,7 @@ public class Person implements IPerson {
 	private String lastname;
 	private final Vector<Role> roles;
 
-	public Person(String firstname, String lastname, Date dateOfBirth) {
+	public Person(String firstname, String lastname) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
