@@ -14,7 +14,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
-public class StartView extends Composite{
+import fhdw.ipscrum.client.view.interfaces.IView;
+
+public class StartView extends Composite implements IView{
 	
 	
 	public StartView(){

@@ -42,3 +42,38 @@ public class RootPresenter extends Presenter<IRootView> {
 	
 	
 }
+//public class RootPresenter extends Presenter<INavigationView> {
+//
+//	public RootPresenter(Panel parent) {
+//		super(parent);
+//	}
+//
+//	@Override
+//	protected INavigationView createView() {
+//		final INavigationView rootView = NavigationView.createView();
+//		
+////		rootView.getBtnLogin().addClickHandler(new ClickHandler() {
+////			
+////			@Override
+////			public void onClick(ClickEvent event) {
+////				//TODO Benutzerprüfung
+////				new NavigationPresenter(rootView.getContentPanel());
+////				rootView.deactivateLogin();
+////			}
+////		});
+////		
+////		rootView.getButtonLogout().addClickHandler(new ClickHandler() {
+////			
+////			@Override
+////			public void onClick(ClickEvent event) {
+////				//TODO Aktivitäten auf dem ContentPanel
+////				rootView.activateLogin();
+////				rootView.getContentPanel().clear();
+////			}
+////		});
+//		
+//		return rootView;
+//	}
+	
+	
+//}
