@@ -16,6 +16,7 @@ public class Person implements IPerson {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.roles = new Vector<Role>();
+		// TODO: Add default role "Ticketsystem-Benutzer";
 	}
 
 	@Override
