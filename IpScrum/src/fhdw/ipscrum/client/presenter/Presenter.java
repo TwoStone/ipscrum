@@ -29,5 +29,9 @@ public abstract class Presenter<T extends IView>{
 	}
 
 	protected abstract T createView();
+	
+	protected T getView(){
+		return myView;
+	}
 
 }
