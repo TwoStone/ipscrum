@@ -2,7 +2,6 @@ package fhdw.ipscrum.client.presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.view.NavigationView;
@@ -17,7 +16,6 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 	@Override
 	protected INavigationView createView() {
 		final INavigationView concreteView = NavigationView.createView();
-		final Label dummy = new Label();
 		
 		concreteView.getBtnProjekte().addClickHandler(new ClickHandler() {
 			

@@ -5,13 +5,14 @@ import java.util.Vector;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
@@ -37,20 +38,16 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 	public ProductBacklogView() {
 		
 		FlowPanel concreteProductBacklogPanel = new FlowPanel();
+		concreteProductBacklogPanel.setStyleName("box");
 		initWidget(concreteProductBacklogPanel);
-		concreteProductBacklogPanel.setSize("500", "600");
+		concreteProductBacklogPanel.setSize("500px", "600px");
 		
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.setSize("500", "600");
-		horizontalPanel.setSpacing(20);
+		AbsolutePanel horizontalPanel = new AbsolutePanel();
+		horizontalPanel.setSize("500px", "600px");
 		concreteProductBacklogPanel.add(horizontalPanel);
 		
 		tableProductbacklog = new CellTable<ProductBacklogItem>();
-		horizontalPanel.add(tableProductbacklog);
-		horizontalPanel.setCellVerticalAlignment(tableProductbacklog, HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.setCellHorizontalAlignment(tableProductbacklog, HasHorizontalAlignment.ALIGN_CENTER);
+		horizontalPanel.add(tableProductbacklog, 10, 39);
 		
 		TextColumn<ProductBacklogItem> bezeichnung = new TextColumn<ProductBacklogItem>() {
 			@Override
@@ -71,12 +68,14 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 		aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
-		tableProductbacklog.setSize("250", "500");
+		tableProductbacklog.setSize("335px", "268px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setStyleName("box");
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.add(verticalPanel);
+		horizontalPanel.add(verticalPanel, 351, 39);
+		verticalPanel.setSize("139px", "165px");
 		
 		Grid pbMenu = new Grid(4, 2);
 		verticalPanel.add(pbMenu);
@@ -105,6 +104,9 @@ public class ProductBacklogView  extends Composite implements IProductBacklogVie
 		
 		imgDelete = new Image("images/delete.png");
 		pbMenu.setWidget(3, 1, imgDelete);
+		
+		Label lblProductBacklog = new Label("Product Backlog");
+		horizontalPanel.add(lblProductBacklog, 10, 10);
 	}
 
 	

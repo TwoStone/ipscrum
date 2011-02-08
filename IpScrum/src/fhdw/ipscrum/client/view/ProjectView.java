@@ -13,9 +13,11 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.IProjectView;
 import fhdw.ipscrum.shared.model.Project;
+import com.google.gwt.user.client.ui.Label;
 
 public class ProjectView extends Composite implements IProjectView{
 	private Image imgNewProject;
@@ -42,16 +44,14 @@ public class ProjectView extends Composite implements IProjectView{
 		absolutePanel.add(masterProductReleasePanel);
 		masterProductReleasePanel.setSize("500", "600");
 		
-		VerticalPanel concreteProjectPanel = new VerticalPanel();
+		AbsolutePanel concreteProjectPanel = new AbsolutePanel();
 		concreteProjectPanel.setStyleName("box");
-		concreteProjectPanel.setBorderWidth(1);
-		concreteProjectPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		masterProductReleasePanel.add(concreteProjectPanel);
 		concreteProjectPanel.setSize("500px", "275px");
 		
 		FlowPanel projectMenuPanel = new FlowPanel();
-		concreteProjectPanel.add(projectMenuPanel);
-		projectMenuPanel.setSize("480px", "25px");
+		concreteProjectPanel.add(projectMenuPanel, 10, 34);
+		projectMenuPanel.setSize("450px", "25px");
 		
 		imgNewProject = new Image("images/newfile.png");
 		projectMenuPanel.add(imgNewProject);
@@ -60,6 +60,7 @@ public class ProjectView extends Composite implements IProjectView{
 		projectMenuPanel.add(imgDeleteProject);
 		
 		tableProject = new CellTable<Project>();
+		tableProject.setSelectionModel(new SingleSelectionModel<Project>());
 		
 		TextColumn<Project> bezeichnung = new TextColumn<Project>() {
 			@Override
@@ -70,8 +71,11 @@ public class ProjectView extends Composite implements IProjectView{
 		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		tableProject.addColumn(bezeichnung, "Bezeichnung");
-		concreteProjectPanel.add(tableProject);
-		tableProject.setSize("480px", "250px");
+		concreteProjectPanel.add(tableProject, 10, 65);
+		tableProject.setSize("450px", "200px");
+		
+		Label lblProjekte = new Label("Projekte");
+		concreteProjectPanel.add(lblProjekte, 10, 5);
 		
 		masterReleasePanel = new VerticalPanel();
 		masterReleasePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -93,8 +97,10 @@ public class ProjectView extends Composite implements IProjectView{
 	public Panel getMasterReleasePanel() {
 		return masterReleasePanel;
 	}
-	public CellTable<Project> getSelectedProject(){
-		return tableProject;
+	
+	@SuppressWarnings("unchecked")
+	public SingleSelectionModel<Project> getSelectedProject(){
+		return (SingleSelectionModel<Project>) tableProject.getSelectionModel();
 	}
 
 	private CellTable<Project> getProjectTable(){
