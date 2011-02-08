@@ -1,7 +1,8 @@
 package fhdw.ipscrum.client.view;
 
+import java.util.Vector;
+
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.cellview.client.AbstractHasData;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -13,7 +14,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import fhdw.ipscrum.client.view.interfaces.INavigationView;
 import fhdw.ipscrum.client.view.interfaces.IProjectView;
 import fhdw.ipscrum.shared.model.Project;
 
@@ -43,10 +43,21 @@ public class ProjectView extends Composite implements IProjectView{
 		masterProductReleasePanel.setSize("500", "600");
 		
 		VerticalPanel concreteProjectPanel = new VerticalPanel();
-		concreteProjectPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		concreteProjectPanel.setStyleName("box");
+		concreteProjectPanel.setBorderWidth(1);
 		concreteProjectPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		masterProductReleasePanel.add(concreteProjectPanel);
 		concreteProjectPanel.setSize("500", "275");
+		
+		FlowPanel projectMenuPanel = new FlowPanel();
+		concreteProjectPanel.add(projectMenuPanel);
+		projectMenuPanel.setSize("480", "25");
+		
+		imgNewProject = new Image("images/newfile.png");
+		projectMenuPanel.add(imgNewProject);
+		
+		imgDeleteProject = new Image("images/delete.png");
+		projectMenuPanel.add(imgDeleteProject);
 		
 		tableProject = new CellTable<Project>();
 		
@@ -60,17 +71,7 @@ public class ProjectView extends Composite implements IProjectView{
 		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		tableProject.addColumn(bezeichnung, "Bezeichnung");
 		concreteProjectPanel.add(tableProject);
-		tableProject.setSize("100", "250px");
-		
-		FlowPanel projectMenuPanel = new FlowPanel();
-		masterProductReleasePanel.add(projectMenuPanel);
-		projectMenuPanel.setSize("500", "25");
-		
-		imgNewProject = new Image("images/newfile.png");
-		projectMenuPanel.add(imgNewProject);
-		
-		imgDeleteProject = new Image("images/delete.png");
-		projectMenuPanel.add(imgDeleteProject);
+		tableProject.setSize("480", "250px");
 		
 		masterReleasePanel = new VerticalPanel();
 		masterReleasePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -92,9 +93,16 @@ public class ProjectView extends Composite implements IProjectView{
 	public Panel getMasterReleasePanel() {
 		return masterReleasePanel;
 	}
-	public AbstractHasData<Project> getSelectedProject(){
+	public CellTable<Project> getSelectedProject(){
+		return tableProject;
+	}
+
+	private CellTable<Project> getProjectTable(){
 		return tableProject;
 	}
 	
-	
+	@Override
+	public void refreshProjects(Vector<Project> projects) {
+		this.getProjectTable().setRowData(projects);
+	}
 }

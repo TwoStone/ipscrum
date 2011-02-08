@@ -24,8 +24,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onClick(ClickEvent event) {
 				concreteView.getContentPanel().clear();
-				dummy.setText("Hier kommt die Projektverwaltung hin!");
-				concreteView.getContentPanel().add(dummy);
+				new ProjectPresenter(concreteView.getContentPanel());
 			}
 		});
 		

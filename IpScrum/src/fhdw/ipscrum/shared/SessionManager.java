@@ -1,4 +1,4 @@
-package fhdw.ipscrum.server;
+package fhdw.ipscrum.shared;
 
 import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;

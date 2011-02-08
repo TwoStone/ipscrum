@@ -55,3 +55,8 @@ h1 {
 .bold {
    font-weight: bold;
 }
+.box {
+	border-width:1px;
+	border-style:solid;
+	border-color:back;
+}
