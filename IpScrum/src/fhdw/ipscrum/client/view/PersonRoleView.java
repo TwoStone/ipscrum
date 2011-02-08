@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
@@ -60,7 +61,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		cellListAssignedRoles.setStyleName("tableBorder");
 		horizontalPanelPersonRoles.add(cellListAssignedRoles);
 		cellListAssignedRoles.setSize("200px", "100%");
-		final SingleSelectionModel<IRole> selModelAssignedRoles = new SingleSelectionModel<IRole>();
+		SingleSelectionModel<IRole> selModelAssignedRoles = new SingleSelectionModel<IRole>();
 		cellListAssignedRoles.setSelectionModel(selModelAssignedRoles);
 		
 		HorizontalPanel horizontalPanelPersonButtons = new HorizontalPanel();
@@ -98,6 +99,8 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		cellListRoles.setStyleName("tableBorder");
 		verticalPanelRoles.add(cellListRoles);
 		cellListRoles.setSize("100%", "300px");
+		MultiSelectionModel<IRole> selModelAvailRoles = new MultiSelectionModel<IRole>();
+		cellListRoles.setSelectionModel(selModelAvailRoles);
 		
 		btnRoleNew = new Button("Neue Rolle anlegen");
 		verticalPanelRoles.add(btnRoleNew);
