@@ -8,16 +8,12 @@ public class Project {
 	private ProductBacklog backlog;
 	private Vector<Release> releasePlan;
 
-	public Project(String name) {
+	public Project(String name, ProductBacklog backlog) {
 		super();
 		this.name = name;
-	}
-	
-	public Project(String name, ProductBacklog backlog) {
-		this(name);
 		this.backlog = backlog;
 	}
-
+	
 	public Vector<Release> getReleasePlan() {
 		if(this.releasePlan==null){
 			this.releasePlan = new Vector<Release>();
