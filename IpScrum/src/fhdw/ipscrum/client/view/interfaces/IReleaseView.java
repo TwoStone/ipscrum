@@ -20,6 +20,6 @@ public interface IReleaseView extends IView{
 
 	public abstract CellTable<Release> getSelectedRelease();
 
-	public abstract void refreshProjects(Vector<Release> Release);
+	public abstract void refreshReleases(Vector<Release> Release);
 
 }
