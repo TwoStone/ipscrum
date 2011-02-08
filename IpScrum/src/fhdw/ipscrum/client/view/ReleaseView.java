@@ -12,11 +12,18 @@ import com.google.gwt.user.client.ui.Image;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
 import fhdw.ipscrum.shared.model.Release;
 
+
+
 public class ReleaseView extends Composite implements IReleaseView{
 	private Image imgNewFile;
 	private Image imgDetails;
 	private Image imgDelete;
 	private CellTable<Release> tableRelease;
+	
+	public static IReleaseView createView(){
+		return new ReleaseView();
+	}
+	
 	public ReleaseView() {
 		
 		FlowPanel verticalPanel = new FlowPanel();
