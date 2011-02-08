@@ -31,7 +31,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onClick(ClickEvent event) {
 				concreteView.getContentPanel().clear();
-				new PersonRoleMngmtPresenter(concreteView.getContentPanel());
+				new PersonRolePresenter(concreteView.getContentPanel());
 			}
 		});
 		

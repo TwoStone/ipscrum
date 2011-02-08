@@ -9,14 +9,12 @@ public class Person implements IPerson {
 
 	private String firstname;
 	private String lastname;
-	private Date dateOfBirth;
 	private final Vector<Role> roles;
 
 	public Person(String firstname, String lastname, Date dateOfBirth) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.dateOfBirth = dateOfBirth;
 		this.roles = new Vector<Role>();
 	}
 
@@ -41,16 +39,6 @@ public class Person implements IPerson {
 	}
 
 	@Override
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	@Override
-	public void setDateOfBirth(Date birthday) {
-		this.dateOfBirth = birthday;
-	}
-
-	@Override
 	public Vector<Role> getRoles() {
 		return roles;
 	}
@@ -70,8 +58,6 @@ public class Person implements IPerson {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
-		result = prime * result
 				+ ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result
 				+ ((lastname == null) ? 0 : lastname.hashCode());
@@ -88,11 +74,6 @@ public class Person implements IPerson {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (dateOfBirth == null) {
-			if (other.dateOfBirth != null)
-				return false;
-		} else if (!dateOfBirth.equals(other.dateOfBirth))
-			return false;
 		if (firstname == null) {
 			if (other.firstname != null)
 				return false;
@@ -113,7 +94,6 @@ public class Person implements IPerson {
 
 	@Override
 	public String toString() {
-		return this.getFirstname() + " " + this.getLastname() + " ("
-				+ this.getDateOfBirth() + ")";
+		return this.getFirstname() + " " + this.getLastname();
 	}
 }
