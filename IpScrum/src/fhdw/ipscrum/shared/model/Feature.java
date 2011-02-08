@@ -29,13 +29,8 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	}
 /* End of constructor section */
 	
-@Override
-	public boolean equals(Object obj) {
-		// TODO Implement method equals in class Feature!
-		return super.equals(obj);
-	}
 
-	/* Start of business logic section */
+/* Start of business logic section */
 	/**
 	 * this method adds a hint to a feature
 	 * @param hint 
@@ -64,6 +59,12 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	 */
 	public int countRelations(){
 		return this.getRelations().size();
+	}
+	/**
+	 * Sets the state of the feature to "closed".
+	 */
+	public void close(){
+		this.setState(new Closed());
 	}
 /* End of business logic section */
 
@@ -109,6 +110,60 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 		this.editor = editor;
 	}
 /* End of getter / setter section */
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime
+				* result
+				+ ((acceptanceCriteria == null) ? 0 : acceptanceCriteria
+						.hashCode());
+		result = prime * result + ((editor == null) ? 0 : editor.hashCode());
+		result = prime * result + ((hints == null) ? 0 : hints.hashCode());
+		result = prime * result
+				+ ((relations == null) ? 0 : relations.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		return result;
+	}
+
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (!super.equals(obj))
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Feature other = (Feature) obj;
+	if (acceptanceCriteria == null) {
+		if (other.acceptanceCriteria != null)
+			return false;
+	} else if (!acceptanceCriteria.equals(other.acceptanceCriteria))
+		return false;
+	if (editor == null) {
+		if (other.editor != null)
+			return false;
+	} else if (!editor.equals(other.editor))
+		return false;
+	if (hints == null) {
+		if (other.hints != null)
+			return false;
+	} else if (!hints.equals(other.hints))
+		return false;
+	if (relations == null) {
+		if (other.relations != null)
+			return false;
+	} else if (!relations.equals(other.relations))
+		return false;
+	if (state == null) {
+		if (other.state != null)
+			return false;
+	} else if (!state.equals(other.state))
+		return false;
+	return true;
+}
+
 	
 
 }
