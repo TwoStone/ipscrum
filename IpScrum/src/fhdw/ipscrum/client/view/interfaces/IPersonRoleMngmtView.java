@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.view.interfaces;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.cellview.client.CellTable;
 
 public interface IPersonRoleMngmtView extends IView {
 
@@ -20,4 +22,6 @@ public interface IPersonRoleMngmtView extends IView {
 
 	public abstract HasClickHandlers getButtonRoleDelete();
 
+	public abstract CellList getRoleList();
+	public abstract CellTable getPersonTable();
 }

@@ -33,8 +33,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onClick(ClickEvent event) {
 				concreteView.getContentPanel().clear();
-				dummy.setText("Hier kommt die allgemeine Verwaltung hin!");
-				concreteView.getContentPanel().add(dummy);
+				new PersonRoleMngmtPresenter(concreteView.getContentPanel());
 			}
 		});
 		
