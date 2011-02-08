@@ -1,8 +1,10 @@
 package fhdw.ipscrum.shared.model;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
@@ -36,21 +38,45 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	 * @param hint 
 	 *  
 	 */
-	public void addHint(Hint hint){
+	public void addHint(Hint hint) throws DoubleDefinitionException{
+		Iterator<Hint> iterator = this.getHints().iterator();
+		while (iterator.hasNext()){
+			Hint current = iterator.next();
+			if (current.equals(hint)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
 		this.getHints().add(hint);
 	}
 	/**
 	 * this method adds a relation to a feature
 	 * @param relation
 	 */
-	public void addRelation(Relation relation){
+	public void addRelation(Relation relation) throws DoubleDefinitionException{
+		Iterator<Relation> iterator = this.getRelations().iterator();
+		while (iterator.hasNext()){
+			Relation current = iterator.next();
+			if (current.equals(relation)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
 		this.getRelations().add(relation);
 	}
 	/**
 	 * this method adds an acceptance criterion to a feature
 	 * @param acceptanceCriterion
 	 */
-	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion){
+	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException{
+		Iterator<AcceptanceCriterion> iterator = this.getAcceptanceCriteria().iterator();
+		while (iterator.hasNext()){
+			AcceptanceCriterion current = iterator.next();
+			if (current.equals(acceptanceCriterion)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
 		this.getAcceptanceCriteria().add(acceptanceCriterion);
 	}
 	/**
