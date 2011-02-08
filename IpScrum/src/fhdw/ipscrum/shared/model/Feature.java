@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -17,10 +18,11 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklogItem*/ {
 /* Start of attribute section */
 	private IFeatureState state;
-	private Collection<Relation> relations;
-	private Collection<Hint> hints;
-	private Collection<AcceptanceCriterion> acceptanceCriteria;
+	private List<Relation> relations;
+	private List<Hint> hints;
+	private List<AcceptanceCriterion> acceptanceCriteria;
 	private IPerson editor;
+	private String description;
 /* End of attribute section*/
 	
 	
@@ -29,9 +31,15 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	public Feature(){	
 		//TODO: Define the way of initializing a Feature
 	}
+	
+	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog, Release release) {
+		super(name, manDayCosts, backlog, release);
+		this.setDescription(description);
+	}
 /* End of constructor section */
 	
-
+	
+	
 /* Start of business logic section */
 	/**
 	 * this method adds a hint to a feature
@@ -103,28 +111,28 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 		this.state = state;
 	}
 
-	public Collection<Relation> getRelations() {
+	public List<Relation> getRelations() {
 		return relations;
 	}
 
-	public void setRelations(Collection<Relation> relations) {
+	public void setRelations(List<Relation> relations) {
 		this.relations = relations;
 	}
 
-	public Collection<Hint> getHints() {
+	public List<Hint> getHints() {
 		return hints;
 	}
 
-	public void setHints(Collection<Hint> hints) {
+	public void setHints(List<Hint> hints) {
 		this.hints = hints;
 	}
 
-	public Collection<AcceptanceCriterion> getAcceptanceCriteria() {
+	public List<AcceptanceCriterion> getAcceptanceCriteria() {
 		return acceptanceCriteria;
 	}
 
 	public void setAcceptanceCriteria(
-			Collection<AcceptanceCriterion> acceptanceCriteria) {
+			List<AcceptanceCriterion> acceptanceCriteria) {
 		this.acceptanceCriteria = acceptanceCriteria;
 	}
 
@@ -137,6 +145,14 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	}
 /* End of getter / setter section */
 	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

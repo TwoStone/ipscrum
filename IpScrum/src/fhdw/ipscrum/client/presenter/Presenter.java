@@ -11,10 +11,16 @@ public abstract class Presenter<T extends IView>{
 	
 	private final Panel parent;
 	private final T myView;
+	
 	private final Event<EventArgs> finished = new Event<EventArgs>();
+	private final Event<EventArgs> aborted = new Event<EventArgs>();
 
 	public IEvent<EventArgs> getFinished() {
 		return finished;
+	}
+	
+	public IEvent<EventArgs> getAborted() {
+		return aborted;
 	}
 	
 	public Presenter(Panel parent) {
@@ -25,8 +31,18 @@ public abstract class Presenter<T extends IView>{
 	}
 	
 	protected void finish(){
+		onFinish();
 		this.finished.fire(this, new EventArgs());
 	}
+	
+	protected void onFinish() {	}
+	
+	protected void abort(){
+		onAbort();
+		this.aborted.fire(this, new EventArgs());
+	}
+	
+	protected void onAbort() {}
 
 	protected abstract T createView();
 	
