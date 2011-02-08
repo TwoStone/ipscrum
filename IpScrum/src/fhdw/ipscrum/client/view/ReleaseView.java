@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Vector;
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
@@ -52,21 +53,21 @@ public class ReleaseView extends Composite implements IReleaseView{
 	 * @see fhdw.ipscrum.client.view.IReleaseView#getImgNewFile()
 	 */
 	@Override
-	public Image getImgNewFile() {
+	public HasClickHandlers getImgNewFile() {
 		return imgNewFile;
 	}
 	/* (non-Javadoc)
 	 * @see fhdw.ipscrum.client.view.IReleaseView#getImgDetails()
 	 */
 	@Override
-	public Image getImgDetails() {
+	public HasClickHandlers getImgDetails() {
 		return imgDetails;
 	}
 	/* (non-Javadoc)
 	 * @see fhdw.ipscrum.client.view.IReleaseView#getImgDelete()
 	 */
 	@Override
-	public Image getImgDelete() {
+	public HasClickHandlers getImgDelete() {
 		return imgDelete;
 	}
 	/* (non-Javadoc)
