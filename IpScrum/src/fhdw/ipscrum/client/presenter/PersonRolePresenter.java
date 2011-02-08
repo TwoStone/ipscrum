@@ -54,7 +54,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 	 */
 	private void updateGuiTables() {
 		personTable.setRowData(personList);
-		assignedRoleList.setRowData((this.getSelectedPerson() != null) ? this.getSelectedPerson().getRoles() : null);
+		assignedRoleList.setRowData((this.getSelectedPerson() != null) ? this.getSelectedPerson().getRoles() : new Vector<Role>());
 		availRoleList.setRowData(roleList);
 	}
 
