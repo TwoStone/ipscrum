@@ -46,7 +46,7 @@ public abstract class Presenter<T extends IView>{
 
 	protected abstract T createView();
 	
-	protected T getView(){
+	public T getView(){
 		return myView;
 	}
 
