@@ -32,11 +32,11 @@ public class ProjectView extends Composite implements IProjectView{
 		
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		initWidget(absolutePanel);
-		absolutePanel.setSize("1000", "600");
+		absolutePanel.setSize("1000px", "600px");
 		
 		masterProductBackloglPanel = new VerticalPanel();
 		absolutePanel.add(masterProductBackloglPanel, 500, 0);
-		masterProductBackloglPanel.setSize("500", "600");
+		masterProductBackloglPanel.setSize("500px", "600px");
 		
 		VerticalPanel masterProductReleasePanel = new VerticalPanel();
 		absolutePanel.add(masterProductReleasePanel);
@@ -47,11 +47,11 @@ public class ProjectView extends Composite implements IProjectView{
 		concreteProjectPanel.setBorderWidth(1);
 		concreteProjectPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		masterProductReleasePanel.add(concreteProjectPanel);
-		concreteProjectPanel.setSize("500", "275");
+		concreteProjectPanel.setSize("500px", "275px");
 		
 		FlowPanel projectMenuPanel = new FlowPanel();
 		concreteProjectPanel.add(projectMenuPanel);
-		projectMenuPanel.setSize("480", "25");
+		projectMenuPanel.setSize("480px", "25px");
 		
 		imgNewProject = new Image("images/newfile.png");
 		projectMenuPanel.add(imgNewProject);
@@ -71,7 +71,7 @@ public class ProjectView extends Composite implements IProjectView{
 		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		tableProject.addColumn(bezeichnung, "Bezeichnung");
 		concreteProjectPanel.add(tableProject);
-		tableProject.setSize("480", "250px");
+		tableProject.setSize("480px", "250px");
 		
 		masterReleasePanel = new VerticalPanel();
 		masterReleasePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -79,7 +79,7 @@ public class ProjectView extends Composite implements IProjectView{
 		masterProductReleasePanel.add(masterReleasePanel);
 		masterProductReleasePanel.setCellVerticalAlignment(masterReleasePanel, HasVerticalAlignment.ALIGN_MIDDLE);
 		masterProductReleasePanel.setCellHorizontalAlignment(masterReleasePanel, HasHorizontalAlignment.ALIGN_CENTER);
-		masterReleasePanel.setSize("500", "300");
+		masterReleasePanel.setSize("500px", "300px");
 	}
 	public HasClickHandlers getImgNewProject() {
 		return imgNewProject;
