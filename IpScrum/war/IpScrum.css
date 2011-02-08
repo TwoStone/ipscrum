@@ -60,3 +60,7 @@ h1 {
 	border-style:solid;
 	border-color:back;
 }
+
+.tableBorder {
+	border: medium groove;
+}
