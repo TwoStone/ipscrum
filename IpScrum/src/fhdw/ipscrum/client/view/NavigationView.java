@@ -8,9 +8,19 @@ import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.MenuItemSeparator;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.INavigationView;
 
 public class NavigationView extends Composite implements INavigationView {
+
+	// ######## Events ############
+	private final Event<EventArgs> projectEvent = new Event<EventArgs>();
+	private final Event<EventArgs> personenEvent = new Event<EventArgs>();
+	private final Event<EventArgs> teamEvent = new Event<EventArgs>();
+
+	// ######## Ende Events #######
 
 	private MenuItem mntmProjekte;
 	private MenuItem mntmPersonenstammdaten;
@@ -30,20 +40,33 @@ public class NavigationView extends Composite implements INavigationView {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		innerMasterPanel.add(verticalPanel);
 		verticalPanel.setWidth("100%");
-		
+
 		MenuBar menuBar = new MenuBar(false);
 		verticalPanel.add(menuBar);
-		
-		mntmProjekte = new MenuItem("Projekte", false, (Command) null);
+
+		mntmProjekte = new MenuItem("Projekte", false, new Command() {
+			public void execute() {
+				projectEvent.fire(NavigationView.this, new EventArgs());
+			}
+		});
 		menuBar.addItem(mntmProjekte);
-		
+
 		MenuItemSeparator separator = new MenuItemSeparator();
 		menuBar.addSeparator(separator);
-		
-		mntmPersonenstammdaten = new MenuItem("Personen-Stammdaten", false, (Command) null);
+
+		mntmPersonenstammdaten = new MenuItem("Personen-Stammdaten", false,
+				new Command() {
+			public void execute() {
+				personenEvent.fire(NavigationView.this, new EventArgs());
+			}
+		});
 		menuBar.addItem(mntmPersonenstammdaten);
-		
-		mntmTeamzuordnung = new MenuItem("Teamzuordnung", false, (Command) null);
+
+		mntmTeamzuordnung = new MenuItem("Teamzuordnung", false, new Command() {
+			public void execute() {
+				teamEvent.fire(NavigationView.this, new EventArgs());
+			}
+		});
 		menuBar.addItem(mntmTeamzuordnung);
 
 		masterMainPanel = new FlowPanel();
@@ -51,16 +74,19 @@ public class NavigationView extends Composite implements INavigationView {
 		masterMainPanel.setSize("1000px", "600px");
 	}
 
-	public MenuItem getMntmProjekte() {
-		return this.mntmProjekte;
+	@Override
+	public void addPersonEventHandler(EventHandler<EventArgs> arg) {
+		personenEvent.add(arg);
 	}
-
-	public MenuItem getMntmPersonenstammdaten() {
-		return this.mntmPersonenstammdaten;
+	
+	@Override
+	public void addProjectEventHandler(EventHandler<EventArgs> arg) {
+		projectEvent.add(arg);
 	}
-
-	public MenuItem getMntmTeamzuordnung() {
-		return this.mntmTeamzuordnung;
+	
+	@Override
+	public void addTeamEventHandler(EventHandler<EventArgs> arg) {
+		teamEvent.add(arg);
 	}
 
 	public FlowPanel getContentPanel() {

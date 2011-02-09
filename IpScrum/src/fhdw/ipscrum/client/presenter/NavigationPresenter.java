@@ -1,9 +1,10 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.NavigationView;
 import fhdw.ipscrum.client.view.interfaces.INavigationView;
 
@@ -17,22 +18,28 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 	protected INavigationView createView() {
 		final INavigationView concreteView = NavigationView.createView();
 		
-		concreteView.getMntmProjekte().setCommand(new Command() {
-			public void execute() {
+		concreteView.addProjectEventHandler(new EventHandler<EventArgs>() {
+			
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
 				new ProjectPresenter(concreteView.getContentPanel());
 			}
 		});
 		
-		concreteView.getMntmPersonenstammdaten().setCommand(new Command() {
-			public void execute() {
+		concreteView.addPersonEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
 				new PersonRolePresenter(concreteView.getContentPanel());
 			}
 		});
 		
-		concreteView.getMntmTeamzuordnung().setCommand(new Command() {
-			public void execute() {
+		concreteView.addTeamEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
 				Window.alert("Teamzuordnung not ready yet."); // TODO
 			}
 		});
