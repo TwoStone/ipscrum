@@ -7,7 +7,6 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.CreateProjectView;
 import fhdw.ipscrum.client.view.interfaces.ICreateProjectView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.Project;
 
 public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
@@ -24,7 +23,7 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 			
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				SessionManager.getInstance().getModel().addProject(new Project(view.getProjectName(), new ProductBacklog()));
+				SessionManager.getInstance().getModel().addProject(new Project(view.getProjectName()));
 				finish();
 			}
 		});
