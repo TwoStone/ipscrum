@@ -5,10 +5,11 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
+import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.Release;
 
 public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
@@ -23,14 +24,47 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	@Override
 	protected IProductBacklogView createView() {
 		final IProductBacklogView view = new ProductBacklogView();
-		final DialogBox newBox = new DialogBox();
-		newBox.setGlassEnabled(true);
 		
 		view.addNewPBIEventHandler(new EventHandler<EventArgs>() {
 			
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				FeaturePresenter presenter = new FeaturePresenter(newBox, project.getBacklog(), new Release());
+				
+				final DialogBox newBox = new DialogBox();
+				final FeaturePresenter presenter = new FeaturePresenter(newBox, project.getBacklog());
+				newBox.setGlassEnabled(true);
+				
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						project.getBacklog().addItem(presenter.getFeature());
+						view.refreshProductBacklog(project.getBacklog().getItems());
+						newBox.hide();
+					}
+					
+				});
+				
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						newBox.hide();
+					}
+				});
+				
+				newBox.center();
+			}
+		});
+		
+		view.addPBIDetailsEventHandler(new EventHandler<PBIArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, PBIArgs eventArgs) {
+				final DialogBox newBox = new DialogBox();
+				//TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst der Typ SICHERGESTELLT WERDEN
+				final FeaturePresenter presenter = new FeaturePresenter(newBox, (Feature)eventArgs.getPbi());
+				newBox.setGlassEnabled(true);
 				
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
