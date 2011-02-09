@@ -88,6 +88,18 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			}
 		});
 		
+		view.addDeletePBIEventHandler(new EventHandler<PBIArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, PBIArgs eventArgs) {
+				if(eventArgs.getPbi()!=null){
+					project.getBacklog().removeItem(eventArgs.getPbi());
+					view.refreshProductBacklog(project.getBacklog().getItems());
+				}
+			}
+			
+		});
+		
 		return view;
 	}
 	
