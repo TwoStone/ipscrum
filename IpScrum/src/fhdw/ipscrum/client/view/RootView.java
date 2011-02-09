@@ -1,12 +1,16 @@
 package fhdw.ipscrum.client.view;
 
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import fhdw.ipscrum.client.view.interfaces.IRootView;
 
@@ -36,11 +40,25 @@ public class RootView extends Composite implements IRootView {
 		inputUserName.setText("Benutzername");
 		loginpanel.add(inputUserName, 590, 10);
 		inputUserName.setSize("112px", "20px");
+		inputUserName.addFocusHandler(new FocusHandler() {
+			public void onFocus(FocusEvent event) {
+				if (inputUserName.getText().equals("Benutzername")) {
+					inputUserName.setText("");
+				}
+			}
+		});
 
 		inputPassword = new TextBox();
-		inputPassword.setText("Password");
+		inputPassword.setText("Passwort");
 		loginpanel.add(inputPassword, 716, 10);
 		inputPassword.setSize("112px", "20px");
+		inputPassword.addFocusHandler(new FocusHandler() {
+			public void onFocus(FocusEvent event) {
+				if (inputPassword.getText().equals("Passwort")) {
+					inputPassword.setText("");
+				}
+			}
+		});
 
 		btnLogin = new Button("Login");
 		loginpanel.add(btnLogin, 852, 10);
