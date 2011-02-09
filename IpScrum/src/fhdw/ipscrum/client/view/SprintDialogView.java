@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.view;
 
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -10,7 +11,12 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
+
+import fhdw.ipscrum.client.events.EventHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 
 public class SprintDialogView extends Composite implements ISprintDialogView {
 
@@ -20,6 +26,10 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	private Button zuordnen_button;
 	private Button ok_button;
 	private Button abb_button;
+	
+	private final Event<EventArgs> okEvent = new Event<EventArgs>();
+	private final Event<EventArgs> cancelEvent = new Event<EventArgs>();
+	private final Event<EventArgs> relateEvent = new Event<EventArgs>();
 
 	public SprintDialogView() {
 		
@@ -83,6 +93,11 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		zuordnen_button.setText("Zuordnen");
 		zuordnenPanel.add(zuordnen_button);
 		zuordnen_button.setSize("100px", "28px");
+		zuordnen_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				relateEvent.fire(SprintDialogView.this, new EventArgs());
+			}
+		});
 		
 		VerticalPanel bottomPanel = new VerticalPanel();
 		bottomPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
@@ -100,11 +115,21 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		ok_button.setText("OK");
 		buttonPanel.add(ok_button);
 		ok_button.setSize("100px", "28px");
+		ok_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				okEvent.fire(SprintDialogView.this, new EventArgs());
+			}
+		});
 		
 		abb_button = new Button("New button");
 		abb_button.setText("Abberchen");
 		buttonPanel.add(abb_button);
 		abb_button.setSize("100px", "28px");
+		abb_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				cancelEvent.fire(SprintDialogView.this, new EventArgs());
+			}
+		});
 	}
 
 	/* (non-Javadoc)
@@ -131,28 +156,19 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		return teams;
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ISprintDialogView#getZuordnen_button()
-	 */
 	@Override
-	public Button getZuordnen_button() {
-		return zuordnen_button;
+	public void addRelateHandler(EventHandler<EventArgs> args) {
+		relateEvent.add(args);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ISprintDialogView#getOk_button()
-	 */
 	@Override
-	public Button getOk_button() {
-		return ok_button;
+	public void addOkHandler(EventHandler<EventArgs> args) {
+		okEvent.add(args);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ISprintDialogView#getAbb_button()
-	 */
 	@Override
-	public Button getAbb_button() {
-		return abb_button;
+	public void addCancelHandler(EventHandler<EventArgs> args) {
+		cancelEvent.add(args);
 	}
 
 }

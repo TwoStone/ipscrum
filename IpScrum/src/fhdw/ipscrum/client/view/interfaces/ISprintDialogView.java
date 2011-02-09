@@ -1,9 +1,10 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.datepicker.client.DateBox;
+
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
 
 public interface ISprintDialogView extends IView{
 
@@ -13,10 +14,10 @@ public interface ISprintDialogView extends IView{
 
 	public abstract ListBox getTeams();
 
-	public abstract HasClickHandlers getZuordnen_button();
+	public abstract void addRelateHandler(EventHandler<EventArgs> args);
 
-	public abstract HasClickHandlers getOk_button();
+	public abstract void addOkHandler(EventHandler<EventArgs> args);
 
-	public abstract HasClickHandlers getAbb_button();
+	public abstract void addCancelHandler(EventHandler<EventArgs> args);
 
 }
