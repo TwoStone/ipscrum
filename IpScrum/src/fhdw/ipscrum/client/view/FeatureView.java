@@ -43,9 +43,9 @@ public class FeatureView extends Composite implements IFeatureView {
 	private CellTable<Hint> hintTable;
 	private Label lblAkzptanzkriterien;
 	private CellTable<AcceptanceCriterion> criteriaTable;
-	private Event<RemoveRelationEventArgs> removeRelationEvent;
-	private Event<RemoveCriterionEventArgs> removeCriterionEvent;
-	private Event<RemoveHintEventArgs> removeHintEvent;
+	private Event<RemoveRelationEventArgs> removeRelationEvent = new Event<RemoveRelationEventArgs>();
+	private Event<RemoveCriterionEventArgs> removeCriterionEvent = new Event<RemoveCriterionEventArgs>();
+	private Event<RemoveHintEventArgs> removeHintEvent = new Event<RemoveHintEventArgs>();
 	private SimplePanel addHintPanel;
 	private SimplePanel addCriterionPanel;
 	
