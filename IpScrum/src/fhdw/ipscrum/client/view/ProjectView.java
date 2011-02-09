@@ -2,6 +2,8 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Vector;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
@@ -11,15 +13,28 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.ProjectEventArgs;
 import fhdw.ipscrum.client.view.interfaces.IProjectView;
 import fhdw.ipscrum.shared.model.Project;
-import com.google.gwt.user.client.ui.Label;
 
 public class ProjectView extends Composite implements IProjectView{
+	
+//####### Events ###############
+	
+	private final Event<EventArgs> newProjectEvent = new Event<EventArgs>();
+	private final Event<ProjectEventArgs> deleteProjectEvent = new Event<ProjectEventArgs>();
+	private final Event<ProjectEventArgs> projectSelectionEvent = new Event<ProjectEventArgs>();
+//##### Ende ##################
+	
 	private Image imgNewProject;
 	private Image imgDeleteProject;
 	private VerticalPanel masterProductBackloglPanel;
@@ -55,13 +70,37 @@ public class ProjectView extends Composite implements IProjectView{
 		projectMenuPanel.setSize("450px", "25px");
 		
 		imgNewProject = new Image("images/newfile.png");
+		imgNewProject.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				newProjectEvent.fire(ProjectView.this, new EventArgs());
+			}
+		});
 		projectMenuPanel.add(imgNewProject);
 		
 		imgDeleteProject = new Image("images/delete.png");
+		imgDeleteProject.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				Project selected = ProjectView.this.getSelectedProject().getSelectedObject();
+			
+				if(selected!=null){
+					deleteProjectEvent.fire(ProjectView.this, new ProjectEventArgs(selected));
+				}
+			}
+		});
 		projectMenuPanel.add(imgDeleteProject);
 		
 		tableProject = new CellTable<Project>();
 		tableProject.setSelectionModel(new SingleSelectionModel<Project>());
+		tableProject.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
+			public void onSelectionChange(SelectionChangeEvent event) {
+				SingleSelectionModel<Project> model = (SingleSelectionModel<Project>)tableProject.getSelectionModel(); 
+				Project selected = model.getSelectedObject();
+					if (selected != null) {
+						projectSelectionEvent.fire(ProjectView.this, new ProjectEventArgs(selected));
+					}
+			}
+		});
 		
 		TextColumn<Project> bezeichnung = new TextColumn<Project>() {
 			@Override
@@ -102,12 +141,27 @@ public class ProjectView extends Composite implements IProjectView{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public SingleSelectionModel<Project> getSelectedProject(){
+	private SingleSelectionModel<Project> getSelectedProject(){
 		return (SingleSelectionModel<Project>) tableProject.getSelectionModel();
 	}
 
 	private CellTable<Project> getProjectTable(){
 		return tableProject;
+	}
+	
+	@Override
+	public void addDeleteProjectEventHandler(EventHandler<ProjectEventArgs> arg) {
+		deleteProjectEvent.add(arg);
+	}
+	
+	@Override
+	public void addNewProjectEventHandler(EventHandler<EventArgs> arg) {
+		newProjectEvent.add(arg);
+	}
+	
+	@Override
+	public void addProjectSelectionHandler(EventHandler<ProjectEventArgs> arg) {
+		projectSelectionEvent.add(arg);
 	}
 	
 	@Override

@@ -2,18 +2,21 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.Vector;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.view.client.SingleSelectionModel;
 
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.ProjectEventArgs;
 import fhdw.ipscrum.shared.model.Project;
 
 public interface IProjectView extends IView{
 
-	public abstract HasClickHandlers getImgNewProject();
-	public abstract HasClickHandlers getImgDeleteProject();
+	public abstract void addNewProjectEventHandler(EventHandler<EventArgs> arg);
+	public abstract void addDeleteProjectEventHandler(EventHandler<ProjectEventArgs> arg);
+	public abstract void addProjectSelectionHandler(EventHandler<ProjectEventArgs> arg);
+	
 	public abstract Panel getMasterProductBackloglPanel();
 	public abstract Panel getMasterReleasePanel();
-	public abstract SingleSelectionModel<Project> getSelectedProject();
+	
 	public abstract void refreshProjects(Vector<Project> projects);
 }
