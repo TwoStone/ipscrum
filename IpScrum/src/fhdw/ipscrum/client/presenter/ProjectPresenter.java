@@ -1,8 +1,8 @@
 package fhdw.ipscrum.client.presenter;
 
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
+
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ProjectEventArgs;
@@ -19,7 +19,6 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 	@Override
 	protected IProjectView createView() {
 		final IProjectView view = new ProjectView();
-		final Label dummy = new Label();
 		
 		view.addNewProjectEventHandler(new EventHandler<EventArgs>() {
 			
@@ -44,9 +43,10 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 
 			@Override
 			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
-				dummy.setText("Delete Project Click Event fired");
-				view.getMasterReleasePanel().add(dummy);
-				view.getMasterProductBackloglPanel().clear();
+				if(eventArgs.getProject()!=null){
+					SessionManager.getInstance().getModel().removeProject(eventArgs.getProject());
+					view.refreshProjects(SessionManager.getInstance().getModel().getProjects());
+				}
 			}
 		});
 		

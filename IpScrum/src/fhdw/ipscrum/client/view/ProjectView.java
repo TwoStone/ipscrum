@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -34,6 +35,9 @@ public class ProjectView extends Composite implements IProjectView{
 	private final Event<ProjectEventArgs> deleteProjectEvent = new Event<ProjectEventArgs>();
 	private final Event<ProjectEventArgs> projectSelectionEvent = new Event<ProjectEventArgs>();
 //##### Ende ##################
+//##### Tempräre Daten ########
+	private Project currentlySelected;
+//#############################
 	
 	private Image imgNewProject;
 	private Image imgDeleteProject;
@@ -65,6 +69,36 @@ public class ProjectView extends Composite implements IProjectView{
 		masterProductReleasePanel.add(concreteProjectPanel);
 		concreteProjectPanel.setSize("495px", "275px");
 		
+		ScrollPanel scrollPanel = new ScrollPanel();
+		concreteProjectPanel.add(scrollPanel, 10, 72);
+		scrollPanel.setSize("450px", "200px");
+		
+		tableProject = new CellTable<Project>();
+		
+		TextColumn textColumn = new TextColumn<Project>() {
+			@Override
+			public String getValue(Project object) {
+				return object.toString();
+			}
+		};
+		tableProject.addColumn(textColumn, "Projektbezeichnung");
+		scrollPanel.setWidget(tableProject);
+		tableProject.setSelectionModel(new SingleSelectionModel<Project>());
+		tableProject.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@SuppressWarnings("unchecked")
+			public void onSelectionChange(SelectionChangeEvent event) {
+				SingleSelectionModel<Project> model = (SingleSelectionModel<Project>)tableProject.getSelectionModel(); 
+				Project selected = model.getSelectedObject();
+					if (selected != null) {
+						currentlySelected = selected;
+						projectSelectionEvent.fire(ProjectView.this, new ProjectEventArgs(selected));
+					}else{
+						currentlySelected = null;
+					}
+			}
+		});
+		tableProject.setSize("100%", "100%");
+		
 		FlowPanel projectMenuPanel = new FlowPanel();
 		concreteProjectPanel.add(projectMenuPanel, 10, 34);
 		projectMenuPanel.setSize("450px", "25px");
@@ -80,39 +114,12 @@ public class ProjectView extends Composite implements IProjectView{
 		imgDeleteProject = new Image("images/delete.png");
 		imgDeleteProject.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Project selected = ProjectView.this.getSelectedProject().getSelectedObject();
-			
-				if(selected!=null){
-					deleteProjectEvent.fire(ProjectView.this, new ProjectEventArgs(selected));
+				if(currentlySelected!=null){
+					deleteProjectEvent.fire(ProjectView.this, new ProjectEventArgs(currentlySelected));
 				}
 			}
 		});
 		projectMenuPanel.add(imgDeleteProject);
-		
-		tableProject = new CellTable<Project>();
-		tableProject.setSelectionModel(new SingleSelectionModel<Project>());
-		tableProject.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			@SuppressWarnings("unchecked")
-			public void onSelectionChange(SelectionChangeEvent event) {
-				SingleSelectionModel<Project> model = (SingleSelectionModel<Project>)tableProject.getSelectionModel(); 
-				Project selected = model.getSelectedObject();
-					if (selected != null) {
-						projectSelectionEvent.fire(ProjectView.this, new ProjectEventArgs(selected));
-					}
-			}
-		});
-		
-		TextColumn<Project> bezeichnung = new TextColumn<Project>() {
-			@Override
-			public String getValue(Project object) {
-				return object.toString();
-			}
-		};
-		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProject.addColumn(bezeichnung, "Bezeichnung");
-		concreteProjectPanel.add(tableProject, 10, 65);
-		tableProject.setSize("450px", "200px");
 		
 		Label lblProjekte = new Label("Projekte\u00FCbersicht");
 		lblProjekte.setStyleName("LabelElement");
@@ -140,11 +147,6 @@ public class ProjectView extends Composite implements IProjectView{
 		return masterReleasePanel;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private SingleSelectionModel<Project> getSelectedProject(){
-		return (SingleSelectionModel<Project>) tableProject.getSelectionModel();
-	}
-
 	private CellTable<Project> getProjectTable(){
 		return tableProject;
 	}

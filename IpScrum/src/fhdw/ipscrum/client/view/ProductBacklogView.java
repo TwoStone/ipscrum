@@ -24,6 +24,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class ProductBacklogView extends Composite implements
 		IProductBacklogView {
@@ -32,6 +33,7 @@ public class ProductBacklogView extends Composite implements
 	private final Event<EventArgs> newPBIEvent = new Event<EventArgs>();
 	private final Event<PBIArgs> detailPBIEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiSelectedEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> deleteSelectedEvent = new Event<PBIArgs>();
 
 	// ###### Ende Events ###########
 
@@ -47,6 +49,7 @@ public class ProductBacklogView extends Composite implements
 	private Image imgArrowUp;
 	private CellTable<ProductBacklogItem> tableProductbacklog;
 	private Label lblAktionen;
+	private ScrollPanel scrollPanel;
 
 	public static IProductBacklogView createView() {
 		return new ProductBacklogView();
@@ -62,38 +65,6 @@ public class ProductBacklogView extends Composite implements
 		AbsolutePanel horizontalPanel = new AbsolutePanel();
 		horizontalPanel.setSize("500px", "600px");
 		concreteProductBacklogPanel.add(horizontalPanel);
-
-		tableProductbacklog = new CellTable<ProductBacklogItem>();
-		horizontalPanel.add(tableProductbacklog, 10, 39);
-
-		TextColumn<ProductBacklogItem> bezeichnung = new TextColumn<ProductBacklogItem>() {
-			@Override
-			public String getValue(ProductBacklogItem pbi) {
-				return pbi.getName();
-			}
-		};
-		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProductbacklog.addColumn(bezeichnung, "Bezeichnung");
-
-		TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
-			@Override
-			public String getValue(ProductBacklogItem pbi) {
-				return pbi.getManDayCosts().toString();
-			}
-		};
-		aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
-		tableProductbacklog.setSize("335px", "268px");
-		tableProductbacklog.setSelectionModel(new SingleSelectionModel());
-		tableProductbacklog.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			
-			public void onSelectionChange(SelectionChangeEvent event) {
-				SingleSelectionModel<ProductBacklogItem> model = (SingleSelectionModel<ProductBacklogItem>)tableProductbacklog.getSelectionModel();
-				currentlySelected = model.getSelectedObject();
-			}
-		});
 
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("box");
@@ -138,6 +109,13 @@ public class ProductBacklogView extends Composite implements
 		pbMenu.setWidget(3, 0, imgDoubleArrowDown);
 
 		imgDelete = new Image("images/delete.png");
+		imgDelete.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				if(currentlySelected!=null){
+					deleteSelectedEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+				}
+			}
+		});
 		pbMenu.setWidget(3, 1, imgDelete);
 
 		Label lblProductBacklog = new Label("Product Backlog Eintr\u00E4ge");
@@ -148,12 +126,47 @@ public class ProductBacklogView extends Composite implements
 		lblAktionen.setStyleName("LabelElement");
 		horizontalPanel.add(lblAktionen, 351, 39);
 		lblAktionen.setSize("122px", "23px");
+		
+		scrollPanel = new ScrollPanel();
+		horizontalPanel.add(scrollPanel, 10, 40);
+		scrollPanel.setSize("320px", "250px");
+		
+				tableProductbacklog = new CellTable<ProductBacklogItem>();
+				scrollPanel.setWidget(tableProductbacklog);
+				tableProductbacklog.setSize("100%", "100%");
+				
+						TextColumn<ProductBacklogItem> bezeichnung = new TextColumn<ProductBacklogItem>() {
+							@Override
+							public String getValue(ProductBacklogItem pbi) {
+								return pbi.getName();
+							}
+						};
+						bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+						bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+						tableProductbacklog.addColumn(bezeichnung, "Bezeichnung");
+						
+								TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
+									@Override
+									public String getValue(ProductBacklogItem pbi) {
+										return pbi.getManDayCosts().toString();
+									}
+								};
+								aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+								aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+								tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
+								tableProductbacklog.setSelectionModel(new SingleSelectionModel());
+								tableProductbacklog.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+									
+									public void onSelectionChange(SelectionChangeEvent event) {
+										SingleSelectionModel<ProductBacklogItem> model = (SingleSelectionModel<ProductBacklogItem>)tableProductbacklog.getSelectionModel();
+										currentlySelected = model.getSelectedObject();
+									}
+								});
 	}
 
 	@Override
 	public void addDeletePBIEventHandler(EventHandler<PBIArgs> arg) {
-		// TODO Auto-generated method stub
-
+		deleteSelectedEvent.add(arg);
 	}
 
 	@Override
