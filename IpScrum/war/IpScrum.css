@@ -63,8 +63,12 @@ h1 {
 
 .tableBorder {
 	border: medium groove;
+	overflow: auto;
 }
 .LabelElement {
 	font-size: 12pt;
 	font-weight: bold;
+}
+.allocationButtonPanel {
+	padding-top: 125px;
 }

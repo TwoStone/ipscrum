@@ -67,20 +67,25 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		
 		HorizontalPanel horizontalPanelPersonButtons = new HorizontalPanel();
 		verticalPanel.add(horizontalPanelPersonButtons);
+		horizontalPanelPersonButtons.setWidth("100%");
 		verticalPanel.setCellHorizontalAlignment(horizontalPanelPersonButtons, HasHorizontalAlignment.ALIGN_CENTER);
 		
 		btnPersonNew = new Button("Neue Person anlegen");
 		horizontalPanelPersonButtons.add(btnPersonNew);
+		btnPersonNew.setWidth("100%");
 		
 		btnPersonModify = new Button("Editieren");
 		horizontalPanelPersonButtons.add(btnPersonModify);
+		btnPersonModify.setWidth("100%");
 		
 		btnPersonRemove = new Button("Entfernen");
 		horizontalPanelPersonButtons.add(btnPersonRemove);
+		btnPersonRemove.setWidth("100%");
 		
 		VerticalPanel verticalPanelAllocationButtons = new VerticalPanel();
+		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
+		verticalPanelAllocationButtons.setHeight("");
 		horizontalPanel.add(verticalPanelAllocationButtons);
-		horizontalPanel.setCellVerticalAlignment(verticalPanelAllocationButtons, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		buttonRemoveRoleFromPerson = new Button("->");
 		verticalPanelAllocationButtons.add(buttonRemoveRoleFromPerson);
