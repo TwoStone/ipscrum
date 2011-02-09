@@ -6,9 +6,9 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -16,7 +16,6 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
-import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class PersonRoleView extends Composite implements IPersonRoleView {
 	private CellTable<IPerson> cellTablePersons;
