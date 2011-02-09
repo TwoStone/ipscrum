@@ -41,7 +41,7 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 	 * @param release
 	 */
 	public FeaturePresenter(Panel parent, ProductBacklog backlog, Release release) {
-		this(parent,new Feature("", "", 0, backlog, release));
+		this(parent,new Feature("", "", 0, backlog));
 	}
 	
 	/**
