@@ -16,6 +16,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class PersonRoleView extends Composite implements IPersonRoleView {
 	private CellTable<IPerson> cellTablePersons;
@@ -28,6 +29,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 	private Button buttonAddRoleToPerson;
 	private Button btnRoleNew;
 	private Button btnRoleRemove;
+	private ScrollPanel scrollPanelPersons;
 
 	public static IPersonRoleView createView() {
 		return new PersonRoleView();
@@ -46,14 +48,17 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		verticalPanel.add(lblPersonen);
 		
 		HorizontalPanel horizontalPanelPersonRoles = new HorizontalPanel();
-		horizontalPanelPersonRoles.setStyleName("scrollable");
 		verticalPanel.add(horizontalPanelPersonRoles);
 		horizontalPanelPersonRoles.setSize("", "300px");
 		
+		scrollPanelPersons = new ScrollPanel();
+		scrollPanelPersons.setStyleName("tableBorder");
+		scrollPanelPersons.setSize("300px", "300px");
+		horizontalPanelPersonRoles.add(scrollPanelPersons);
+		
 		cellTablePersons = new CellTable<IPerson>();
-		cellTablePersons.setStyleName("tableBorder");
-		horizontalPanelPersonRoles.add(cellTablePersons);
-		cellTablePersons.setSize("300px", "100%");
+		scrollPanelPersons.setWidget(cellTablePersons);
+		cellTablePersons.setSize("100%", "100%");
 		final SingleSelectionModel<IPerson> selModelPersons = new SingleSelectionModel<IPerson>();
 		cellTablePersons.setSelectionModel(selModelPersons);
 		
