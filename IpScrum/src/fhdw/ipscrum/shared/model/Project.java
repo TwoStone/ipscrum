@@ -5,13 +5,13 @@ import java.util.Vector;
 public class Project {
 
 	private String name;
-	private ProductBacklog backlog;
+	private final ProductBacklog backlog;
 	private Vector<Release> releasePlan;
 
-	public Project(String name, ProductBacklog backlog) {
+	public Project(String name) {
 		super();
 		this.name = name;
-		this.backlog = backlog;
+		this.backlog = new ProductBacklog();
 	}
 	
 	public Vector<Release> getReleasePlan() {
@@ -33,10 +33,6 @@ public class Project {
 		return backlog;
 	}
 	
-	public void setBacklog(ProductBacklog backlog) {
-		this.backlog = backlog;
-	}
-
 	@Override
 	public String toString() {
 		return "Project [name=" + name + "]";

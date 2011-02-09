@@ -7,14 +7,13 @@ public abstract class ProductBacklogItem extends Observable{
 	private String name;
 	private Integer manDayCosts;
 	private final ProductBacklog backlog;
-	private final Release release;
+	private Release release;
 	
-	public ProductBacklogItem(String name, Integer manDayCosts, ProductBacklog backlog, Release release) {
+	public ProductBacklogItem(String name, Integer manDayCosts, ProductBacklog backlog) {
 		super();
 		this.name = name;
 		this.manDayCosts = manDayCosts;
 		this.backlog = backlog;
-		this.release = release;
 	}
 	
 	/**
@@ -28,6 +27,10 @@ public abstract class ProductBacklogItem extends Observable{
 		this.backlog = new ProductBacklog();
 	}
 
+	public void setRelease(Release release) {
+		this.release = release;
+	}
+	
 	public Release getRelease() {
 		return release;
 	}
