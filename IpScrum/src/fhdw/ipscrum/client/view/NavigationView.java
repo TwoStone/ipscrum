@@ -3,15 +3,17 @@ package fhdw.ipscrum.client.view;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.MenuItemSeparator;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.INavigationView;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.PushButton;
 
 public class NavigationView extends Composite implements INavigationView {
 
@@ -27,6 +29,7 @@ public class NavigationView extends Composite implements INavigationView {
 	private MenuItem mntmTeamzuordnung;
 	private FlowPanel masterMainPanel;
 	private final FlowPanel innerMasterPanel;
+	private PushButton pshbtnSpeichern;
 
 	public static INavigationView createView() {
 		return new NavigationView();
@@ -37,12 +40,12 @@ public class NavigationView extends Composite implements INavigationView {
 		initWidget(innerMasterPanel);
 		innerMasterPanel.setSize("1000px", "650px");
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		innerMasterPanel.add(verticalPanel);
-		verticalPanel.setWidth("100%");
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		innerMasterPanel.add(horizontalPanel);
+		horizontalPanel.setWidth("100%");
 
 		MenuBar menuBar = new MenuBar(false);
-		verticalPanel.add(menuBar);
+		horizontalPanel.add(menuBar);
 
 		mntmProjekte = new MenuItem("Projekte", false, new Command() {
 			public void execute() {
@@ -68,6 +71,10 @@ public class NavigationView extends Composite implements INavigationView {
 			}
 		});
 		menuBar.addItem(mntmTeamzuordnung);
+		
+		pshbtnSpeichern = new PushButton("Speichern");
+		pshbtnSpeichern.setHeight("16px");
+		horizontalPanel.add(pshbtnSpeichern);
 
 		masterMainPanel = new FlowPanel();
 		innerMasterPanel.add(masterMainPanel);
