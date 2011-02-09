@@ -5,7 +5,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 
 /**
@@ -17,16 +16,9 @@ public class IpScrum implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		Project p1 = new Project("Testprojekt 1");
-		p1.getBacklog().addItem(new ProductBacklogItem("Test",2,p1.getBacklog()) {
-		});
-		p1.getBacklog().addItem(new ProductBacklogItem("Test 2",5,p1.getBacklog()) {
-		});
-		
-		SessionManager.getInstance().getModel().addProject(p1);
+		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 1"));
 		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));
 		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3"));
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 4"));
 		new RootPresenter(RootPanel.get("mainPanel"));
 	}
  }

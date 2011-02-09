@@ -2,7 +2,8 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Vector;
 
-import com.google.gwt.user.cellview.client.AbstractHasData;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -14,6 +15,8 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
@@ -21,17 +24,20 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
 
 public class ProductBacklogView extends Composite implements
 		IProductBacklogView {
 
 	// ########## Events #############
 	private final Event<EventArgs> newPBIEvent = new Event<EventArgs>();
+	private final Event<PBIArgs> detailPBIEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> pbiSelectedEvent = new Event<PBIArgs>();
 
 	// ###### Ende Events ###########
 
+	// TMP Arguments
+	private ProductBacklogItem currentlySelected;
+	
 	private Image imgDoubleArrowUp;
 	private Image imgArrowDown;
 	private Image imgDoubleArrowDown;
@@ -46,6 +52,7 @@ public class ProductBacklogView extends Composite implements
 		return new ProductBacklogView();
 	}
 
+	@SuppressWarnings("unchecked")
 	public ProductBacklogView() {
 
 		FlowPanel concreteProductBacklogPanel = new FlowPanel();
@@ -79,6 +86,14 @@ public class ProductBacklogView extends Composite implements
 		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
 		tableProductbacklog.setSize("335px", "268px");
+		tableProductbacklog.setSelectionModel(new SingleSelectionModel());
+		tableProductbacklog.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			
+			public void onSelectionChange(SelectionChangeEvent event) {
+				SingleSelectionModel<ProductBacklogItem> model = (SingleSelectionModel<ProductBacklogItem>)tableProductbacklog.getSelectionModel();
+				currentlySelected = model.getSelectedObject();
+			}
+		});
 
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("box");
@@ -109,6 +124,11 @@ public class ProductBacklogView extends Composite implements
 		pbMenu.setWidget(1, 0, imgArrowUp);
 
 		imgDetails = new Image("images/details.png");
+		imgDetails.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(ProductBacklogView.this.currentlySelected));
+			}
+		});
 		pbMenu.setWidget(1, 1, imgDetails);
 
 		imgArrowDown = new Image("images/downarrow.png");
@@ -149,7 +169,7 @@ public class ProductBacklogView extends Composite implements
 
 	public void addPBIDetailsEventHandler(
 			fhdw.ipscrum.client.events.EventHandler<PBIArgs> arg) {
-
+		detailPBIEvent.add(arg);
 	};
 
 	@Override
@@ -169,6 +189,11 @@ public class ProductBacklogView extends Composite implements
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void addPBISelectedEventHandler(EventHandler<PBIArgs> arg) {
+		pbiSelectedEvent.add(arg);
+	}
 
 	@Override
 	public void refreshProductBacklog(
@@ -176,7 +201,8 @@ public class ProductBacklogView extends Composite implements
 		this.getTableProductBacklog().setRowData(ProductBacklogItem);
 	}
 
-	private AbstractHasData<ProductBacklogItem> getTableProductBacklog() {
+	private CellTable<ProductBacklogItem> getTableProductBacklog() {
 		return this.tableProductbacklog;
 	}
+	
 }

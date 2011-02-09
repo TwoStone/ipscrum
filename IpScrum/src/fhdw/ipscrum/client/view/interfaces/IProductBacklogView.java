@@ -17,6 +17,8 @@ public interface IProductBacklogView extends IView{
 	public abstract void addNewPBIEventHandler(EventHandler<EventArgs> arg);
 	public abstract void addDeletePBIEventHandler(EventHandler<PBIArgs> arg);
 	
+	public abstract void addPBISelectedEventHandler(EventHandler<PBIArgs> arg);
+	
 	public abstract void refreshProductBacklog(
 			Vector<ProductBacklogItem> ProductBacklogItem);
 
