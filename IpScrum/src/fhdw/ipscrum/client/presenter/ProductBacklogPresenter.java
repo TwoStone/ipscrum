@@ -23,26 +23,34 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	@Override
 	protected IProductBacklogView createView() {
 		final IProductBacklogView view = new ProductBacklogView();
-		final DialogBox box = new DialogBox();
-		box.setGlassEnabled(true);
+		final DialogBox newBox = new DialogBox();
+		newBox.setGlassEnabled(true);
 		
 		view.addNewPBIEventHandler(new EventHandler<EventArgs>() {
 			
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				FeaturePresenter presenter = new FeaturePresenter(box, project.getBacklog(), new Release());
+				FeaturePresenter presenter = new FeaturePresenter(newBox, project.getBacklog(), new Release());
 				
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
 						view.refreshProductBacklog(project.getBacklog().getItems());
-						box.hide();
+						newBox.hide();
 					}
 					
 				});
 				
-				box.center();
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						newBox.hide();
+					}
+				});
+				
+				newBox.center();
 			}
 		});
 		
