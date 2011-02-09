@@ -39,7 +39,7 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 	 * @param backlog
 	 * @param release
 	 */
-	public FeaturePresenter(Panel parent, ProductBacklog backlog, Release release) {
+	public FeaturePresenter(Panel parent, ProductBacklog backlog) {
 		this(parent,new Feature("", "", 0, backlog));
 	}
 	
@@ -212,7 +212,6 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 
 	private void updateView(Feature feature) {
 		this.getView().getName().setText(feature.getName());
-		
 		this.getView().getComplexity().setValue(feature.getManDayCosts());
 		this.getView().getDescription().setText(feature.getDescription());
 
