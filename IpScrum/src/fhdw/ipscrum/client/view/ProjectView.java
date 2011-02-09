@@ -77,8 +77,8 @@ public class ProjectView extends Composite implements IProjectView{
 		
 		TextColumn textColumn = new TextColumn<Project>() {
 			@Override
-			public String getValue(Project object) {
-				return object.toString();
+			public String getValue(Project project) {
+				return project.getName();
 			}
 		};
 		tableProject.addColumn(textColumn, "Projektbezeichnung");

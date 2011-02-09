@@ -34,6 +34,7 @@ public class ProductBacklogView extends Composite implements
 	private final Event<PBIArgs> detailPBIEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiSelectedEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> deleteSelectedEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> pbiDownEvent = new Event<PBIArgs>();
 
 	// ###### Ende Events ###########
 
@@ -104,6 +105,13 @@ public class ProductBacklogView extends Composite implements
 
 		imgArrowDown = new Image("images/downarrow.png");
 		pbMenu.setWidget(2, 0, imgArrowDown);
+		imgArrowDown.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+			}
+		});
 
 		imgDoubleArrowDown = new Image("images/bottomarrow.png");
 		pbMenu.setWidget(3, 0, imgDoubleArrowDown);
@@ -187,8 +195,7 @@ public class ProductBacklogView extends Composite implements
 
 	@Override
 	public void addPBIDownEventHandler(EventHandler<PBIArgs> arg) {
-		// TODO Auto-generated method stub
-
+		pbiDownEvent.add(arg);
 	}
 
 	@Override

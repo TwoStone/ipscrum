@@ -2,14 +2,17 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
-public class Release {
+public class Release implements IRelease {
 
 	private Vector<ISprint> sprints;
+	private final Project project;
 	
-	public Release() {
+	public Release(Project project) {
 		super();
+		this.project = project;
 	}
 	
 	public Vector<ISprint> getSprints() {
@@ -27,6 +30,10 @@ public class Release {
 		this.getSprints().remove(sprint);
 	}
 	
+	public Project getProject() {
+		return project;
+	}
+	
 	public Integer countSprints(){
 		return this.getSprints().size();
 	}
@@ -40,7 +47,8 @@ public class Release {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.getSprints() == null) ? 0 : this.getSprints().hashCode());
+		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
 		return result;
 	}
 
@@ -53,6 +61,11 @@ public class Release {
 		if (getClass() != obj.getClass())
 			return false;
 		Release other = (Release) obj;
+		if (project == null) {
+			if (other.project != null)
+				return false;
+		} else if (!project.equals(other.project))
+			return false;
 		if (this.getSprints() == null) {
 			if (other.getSprints() != null)
 				return false;

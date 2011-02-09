@@ -1,5 +1,9 @@
 package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.exceptions.NoSprintDefined;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public abstract class ProductBacklogItem extends Observable{
@@ -7,12 +11,13 @@ public abstract class ProductBacklogItem extends Observable{
 	private String name;
 	private Integer manDayCosts;
 	private final ProductBacklog backlog;
-	private Release release;
+	private IRelease release;
+	private IPerson lastEditor;
+	private ISprint sprint;
 	
-	public ProductBacklogItem(String name, Integer manDayCosts, ProductBacklog backlog) {
+	public ProductBacklogItem(String name, ProductBacklog backlog) {
 		super();
 		this.name = name;
-		this.manDayCosts = manDayCosts;
 		this.backlog = backlog;
 	}
 	
@@ -23,15 +28,15 @@ public abstract class ProductBacklogItem extends Observable{
 	 */
 	public ProductBacklogItem(){
 		// dummy Initialisierung
-		this.release = new Release();
+//		this.release = new Release();
 		this.backlog = new ProductBacklog();
 	}
 
-	public void setRelease(Release release) {
+	public void setRelease(IRelease release) {
 		this.release = release;
 	}
 	
-	public Release getRelease() {
+	public IRelease getRelease() {
 		return release;
 	}
 	
@@ -54,6 +59,29 @@ public abstract class ProductBacklogItem extends Observable{
 	public final void setManDayCosts(Integer manDayCosts) {
 		this.manDayCosts = manDayCosts;
 	}
+	
+	public IPerson getLastEditor() {
+		return lastEditor;
+	}
+	
+	public void setLastEditor(IPerson lastEditor) {
+		this.lastEditor = lastEditor;
+	}
+	
+	public ISprint getSprint() {
+		return sprint;
+	}
+	
+	public void setSprint(ISprint sprint) throws NoSprintDefined {
+		for(ISprint current : this.backlog.getProject().getSprintsWithinProject()){
+			if(current.equals(sprint)){
+				this.sprint = sprint;
+				return;
+			}
+		}
+		//TODO Textkonstante bauen
+		throw new NoSprintDefined("Es können nur bereits vorhandene Sprints zugeordnet werden!");
+	}
 
 	@Override
 	public String toString() {
@@ -64,12 +92,15 @@ public abstract class ProductBacklogItem extends Observable{
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
+		result = prime * result
+				+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
 		result = prime * result
 				+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((release == null) ? 0 : release.hashCode());
+		result = prime * result + ((sprint == null) ? 0 : sprint.hashCode());
 		return result;
 	}
 
@@ -77,7 +108,7 @@ public abstract class ProductBacklogItem extends Observable{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -86,6 +117,11 @@ public abstract class ProductBacklogItem extends Observable{
 			if (other.backlog != null)
 				return false;
 		} else if (!backlog.equals(other.backlog))
+			return false;
+		if (lastEditor == null) {
+			if (other.lastEditor != null)
+				return false;
+		} else if (!lastEditor.equals(other.lastEditor))
 			return false;
 		if (manDayCosts == null) {
 			if (other.manDayCosts != null)
@@ -101,6 +137,11 @@ public abstract class ProductBacklogItem extends Observable{
 			if (other.release != null)
 				return false;
 		} else if (!release.equals(other.release))
+			return false;
+		if (sprint == null) {
+			if (other.sprint != null)
+				return false;
+		} else if (!sprint.equals(other.sprint))
 			return false;
 		return true;
 	}

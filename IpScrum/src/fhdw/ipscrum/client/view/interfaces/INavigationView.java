@@ -10,6 +10,7 @@ public interface INavigationView extends IView{
 	public abstract void addProjectEventHandler(EventHandler<EventArgs> arg);
 	public abstract void addPersonEventHandler(EventHandler<EventArgs> arg);
 	public abstract void addTeamEventHandler(EventHandler<EventArgs> arg);
+	public abstract void addSaveEventHandler(EventHandler<EventArgs> arg);
 	
 	public abstract Panel getContentPanel();
 }

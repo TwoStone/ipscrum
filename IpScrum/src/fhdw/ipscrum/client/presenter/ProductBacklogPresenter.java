@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 
 public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
@@ -98,6 +99,18 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				}
 			}
 			
+		});
+		
+		view.addPBIDownEventHandler(new EventHandler<PBIArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, PBIArgs eventArgs) {
+				ProductBacklogItem pbi = eventArgs.getPbi();
+				if(pbi!=null){
+					project.getBacklog().moveUp(pbi);
+					view.refreshProductBacklog(project.getBacklog().getItems());
+				}
+			}
 		});
 		
 		return view;

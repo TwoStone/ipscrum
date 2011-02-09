@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.view;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -21,6 +23,7 @@ public class NavigationView extends Composite implements INavigationView {
 	private final Event<EventArgs> projectEvent = new Event<EventArgs>();
 	private final Event<EventArgs> personenEvent = new Event<EventArgs>();
 	private final Event<EventArgs> teamEvent = new Event<EventArgs>();
+	private final Event<EventArgs> saveEvent = new Event<EventArgs>();
 
 	// ######## Ende Events #######
 
@@ -75,6 +78,13 @@ public class NavigationView extends Composite implements INavigationView {
 		pshbtnSpeichern = new PushButton("Speichern");
 		pshbtnSpeichern.setHeight("16px");
 		horizontalPanel.add(pshbtnSpeichern);
+		pshbtnSpeichern.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				saveEvent.fire(NavigationView.this, new EventArgs());
+			}
+		});
 
 		masterMainPanel = new FlowPanel();
 		innerMasterPanel.add(masterMainPanel);
@@ -94,6 +104,11 @@ public class NavigationView extends Composite implements INavigationView {
 	@Override
 	public void addTeamEventHandler(EventHandler<EventArgs> arg) {
 		teamEvent.add(arg);
+	}
+	
+	@Override
+	public void addSaveEventHandler(EventHandler<EventArgs> arg) {
+		saveEvent.add(arg);
 	}
 
 	public FlowPanel getContentPanel() {

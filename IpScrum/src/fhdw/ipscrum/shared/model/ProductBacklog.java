@@ -5,7 +5,12 @@ import java.util.Vector;
 public class ProductBacklog {
 
 	private Vector<ProductBacklogItem> items;
+	private Project project;
 
+	/**
+	 * Es muss direkt nach der Erzeugung der Setter für Projekt gesetzt
+	 * werden.
+	 */
 	public ProductBacklog() {
 		super();
 	}
@@ -85,6 +90,20 @@ public class ProductBacklog {
 		return this.getItems().size();
 	}
 
+	public Project getProject() {
+		return project;
+	}
+	
+	/**
+	 * Initialisiert nur einmalig!
+	 * @param project
+	 */
+	public void setProject(Project project) {
+		if(this.project==null){
+			this.project = project;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "ProductBacklog [items=" + items + "]";
