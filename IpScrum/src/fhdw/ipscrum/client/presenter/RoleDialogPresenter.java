@@ -1,55 +1,55 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Panel;
 
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
+import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.Role;
-import fhdw.ipscrum.shared.model.Root;
 
 
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 	private Role role;
-	private Root root;
-	private IRoleDialogView concreteView;
+	final IRoleDialogView view = new RoleDialogView();
 	
 	public RoleDialogPresenter(Panel parent) {
 		super(parent);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public RoleDialogPresenter(Panel parent, Role selectedRole) {
+		super(parent);
+		this.role = selectedRole;
 	}
 
 	@Override
 	protected IRoleDialogView createView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	private void createRole(){
-		this.role = new Role(this.getView().getRole().getText());
-		this.root.getRoles().add(this.role);
-	}
-	
-	private void changeRole(Role role){
-		role.setDescription(this.getView().getRole().getText());
-		this.role = role;
-	}
-	
-	private void setupClickEvents() {
-		concreteView.getOk_button().addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				
+		final Role roleHandler = this.role;
+		view.addOkEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				if(role != null){
+					roleHandler.setDescription(view.getRole().getText());
+				} else {
+					Role role = new Role(view.getRole().getText());
+					SessionManager.getInstance().getModel().addRole(role);					
+				} 
+				finish();
 			}
-		});	
-		
-		concreteView.getAbb_button_1().addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				
+		});
+
+		view.addCancelEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				finish();
 			}
-		});	
-		
-	
-	
+		});
+		return view;
 	}
+	
+
 }

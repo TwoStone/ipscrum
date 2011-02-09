@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.view;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
@@ -11,13 +13,19 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 
 public class RoleDialogView extends Composite implements IRoleDialogView {
-
+	
+	private final Event<EventArgs> okEvent = new Event<EventArgs>();
+	private final Event<EventArgs> cancelEvent = new Event<EventArgs>();
+	
 	private TextBox role;
 	private Button ok_button;
-	private Button abb_button_1;
+	private Button abb_button;
 
 	public RoleDialogView() {
 		
@@ -57,11 +65,21 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 		ok_button.setText("OK");
 		buttonPanel.add(ok_button);
 		ok_button.setSize("100px", "28px");
+		ok_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				okEvent.fire(RoleDialogView.this, new EventArgs());
+			}
+		});
 		
-		abb_button_1 = new Button("New button");
-		abb_button_1.setText("Abberchen");
-		buttonPanel.add(abb_button_1);
-		abb_button_1.setSize("100px", "28px");
+		abb_button = new Button("New button");
+		abb_button.setText("Abberchen");
+		buttonPanel.add(abb_button);
+		abb_button.setSize("100px", "28px");
+		abb_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				cancelEvent.fire(RoleDialogView.this, new EventArgs());
+			}
+		});
 	}
 
 	/* (non-Javadoc)
@@ -72,20 +90,14 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 		return role;
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IRoleDialogView#getOk_button()
-	 */
+
 	@Override
-	public HasClickHandlers getOk_button() {
-		return ok_button;
+	public void addOkEventHandler(EventHandler<EventArgs> args) {
+		okEvent.add(args);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IRoleDialogView#getAbb_button_1()
-	 */
 	@Override
-	public HasClickHandlers getAbb_button_1() {
-		return abb_button_1;
+	public void addCancelEventHandler(EventHandler<EventArgs> args) {
+		cancelEvent.add(args);
 	}
-
 }
