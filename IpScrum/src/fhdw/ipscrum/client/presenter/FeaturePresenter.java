@@ -1,7 +1,5 @@
 package fhdw.ipscrum.client.presenter;
 
-import org.jdom.adapters.CrimsonDOMAdapter;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -54,11 +52,11 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 	public FeaturePresenter(Panel parent, Feature feature) {
 		super(parent);
 		this.myFeature = feature;
-		this.setFeatureValues();
-		this.bindViewEvents();
+		this.updateView(this.myFeature);
+		this.registerViewEvents();
 	}
 
-	private void bindViewEvents() {
+	private void registerViewEvents() {
 		this.getView().getSave().addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -213,17 +211,17 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 		return new FeatureView();
 	}
 
-	private void setFeatureValues() {
-		this.getView().getName().setText(myFeature.getName());
+	private void updateView(Feature feature) {
+		this.getView().getName().setText(feature.getName());
 		
-		this.getView().getComplexity().setValue(myFeature.getManDayCosts());
-		this.getView().getDescription().setText(myFeature.getDescription());
+		this.getView().getComplexity().setValue(feature.getManDayCosts());
+		this.getView().getDescription().setText(feature.getDescription());
 
-		this.getView().getHints().setRowData(0, myFeature.getHints());
-		this.getView().getRelations().setRowData(0, myFeature.getRelations());
-		this.getView().getCriteria().setRowData(0, myFeature.getAcceptanceCriteria());
+		this.getView().getHints().setRowData(0, feature.getHints());
+		this.getView().getRelations().setRowData(0, feature.getRelations());
+		this.getView().getCriteria().setRowData(0, feature.getAcceptanceCriteria());
 		
-		this.myFeature.getState().accept(new IFeatureVisitor() {
+		feature.getState().accept(new IFeatureVisitor() {
 			
 			@Override
 			public void handleOpen(Open open) {

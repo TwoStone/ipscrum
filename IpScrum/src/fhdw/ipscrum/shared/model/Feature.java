@@ -36,6 +36,7 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog, Release release) {
 		super(name, manDayCosts, backlog, release);
 		this.setDescription(description);
+		this.state = new Open();
 		this.relations = new ArrayList<Relation>();
 		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
 		this.hints = new ArrayList<Hint>();
