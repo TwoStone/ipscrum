@@ -13,10 +13,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import fhdw.ipscrum.client.view.interfaces.IRootView;
+import com.google.gwt.user.client.ui.PasswordTextBox;
 
 public class RootView extends Composite implements IRootView {
 	private Button btnLogin;
-	private TextBox inputPassword;
+	private PasswordTextBox inputPassword;
 	private TextBox inputUserName;
 	private Button button;
 	private VerticalPanel contentPanel;
@@ -48,17 +49,10 @@ public class RootView extends Composite implements IRootView {
 			}
 		});
 
-		inputPassword = new TextBox();
+		inputPassword = new PasswordTextBox();
 		inputPassword.setText("Passwort");
 		loginpanel.add(inputPassword, 716, 10);
 		inputPassword.setSize("112px", "20px");
-		inputPassword.addFocusHandler(new FocusHandler() {
-			public void onFocus(FocusEvent event) {
-				if (inputPassword.getText().equals("Passwort")) {
-					inputPassword.setText("");
-				}
-			}
-		});
 
 		btnLogin = new Button("Login");
 		loginpanel.add(btnLogin, 852, 10);
