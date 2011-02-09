@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.view;
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -66,7 +68,7 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 	 * @see fhdw.ipscrum.client.view.IRoleDialogView#getRole()
 	 */
 	@Override
-	public TextBox getRole() {
+	public HasText getRole() {
 		return role;
 	}
 
@@ -74,7 +76,7 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 	 * @see fhdw.ipscrum.client.view.IRoleDialogView#getOk_button()
 	 */
 	@Override
-	public Button getOk_button() {
+	public HasClickHandlers getOk_button() {
 		return ok_button;
 	}
 
@@ -82,7 +84,7 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 	 * @see fhdw.ipscrum.client.view.IRoleDialogView#getAbb_button_1()
 	 */
 	@Override
-	public Button getAbb_button_1() {
+	public HasClickHandlers getAbb_button_1() {
 		return abb_button_1;
 	}
 

@@ -1,14 +1,15 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.HasText;
 
-public interface IRoleDialogView {
 
-	public abstract TextBox getRole();
+public interface IRoleDialogView extends IView{
 
-	public abstract Button getOk_button();
+	public abstract HasText getRole();
 
-	public abstract Button getAbb_button_1();
+	public abstract HasClickHandlers getOk_button();
+
+	public abstract HasClickHandlers getAbb_button_1();
 
 }

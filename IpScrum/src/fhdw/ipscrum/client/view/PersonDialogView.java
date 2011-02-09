@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.view;
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -84,7 +86,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getAbb_button()
 	 */
 	@Override
-	public Button getAbb_button() {
+	public HasClickHandlers getAbb_button() {
 		return abb_button;
 	}
 
@@ -92,7 +94,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getVorname()
 	 */
 	@Override
-	public TextBox getVorname() {
+	public HasText getVorname() {
 		return vorname;
 	}
 
@@ -100,7 +102,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getNachname()
 	 */
 	@Override
-	public TextBox getNachname() {
+	public HasText getNachname() {
 		return nachname;
 	}
 
@@ -108,7 +110,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getOk_button()
 	 */
 	@Override
-	public Button getOk_button() {
+	public HasClickHandlers getOk_button() {
 		return ok_button;
 	}
 	

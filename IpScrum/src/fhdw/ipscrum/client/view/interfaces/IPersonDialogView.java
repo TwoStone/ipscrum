@@ -1,16 +1,18 @@
 package fhdw.ipscrum.client.view.interfaces;
 
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.TextBox;
 
-public interface IPersonDialogView {
+public interface IPersonDialogView extends IView {
 
-	public abstract Button getAbb_button();
+	public abstract HasClickHandlers getAbb_button();
 
-	public abstract TextBox getVorname();
+	public abstract HasText getVorname();
 
-	public abstract TextBox getNachname();
+	public abstract HasText getNachname();
 
-	public abstract Button getOk_button();
+	public abstract HasClickHandlers getOk_button();
 
 }
