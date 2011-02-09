@@ -30,7 +30,6 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 	private final Feature myFeature;
 	
 	public Feature getFeature() {
-		this.getFeatureValues();
 		return myFeature;
 	}
 
@@ -202,8 +201,8 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 	}
 
 	private void save() {
-		// TODO Auto-generated method stub
-		
+		updateModel();
+		finish();
 	}
 
 	@Override
@@ -236,7 +235,7 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 		
 	}
 	
-	private void getFeatureValues() {
+	private void updateModel() {
 		this.myFeature.setName(this.getView().getName().getText());
 		this.myFeature.setManDayCosts(this.getView().getComplexity().getValue());
 		this.myFeature.setDescription(this.getView().getDescription().getText());
