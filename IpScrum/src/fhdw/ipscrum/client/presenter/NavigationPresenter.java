@@ -1,7 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.view.NavigationView;
@@ -17,25 +17,26 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 	protected INavigationView createView() {
 		final INavigationView concreteView = NavigationView.createView();
 		
-		concreteView.getBtnProjekte().addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
+		concreteView.getMntmProjekte().setCommand(new Command() {
+			public void execute() {
 				concreteView.getContentPanel().clear();
 				new ProjectPresenter(concreteView.getContentPanel());
 			}
 		});
 		
-		concreteView.getBtnVerwaltung().addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
+		concreteView.getMntmPersonenstammdaten().setCommand(new Command() {
+			public void execute() {
 				concreteView.getContentPanel().clear();
 				new PersonRolePresenter(concreteView.getContentPanel());
 			}
 		});
 		
+		concreteView.getMntmTeamzuordnung().setCommand(new Command() {
+			public void execute() {
+				Window.alert("Teamzuordnung not ready yet."); // TODO
+			}
+		});
+		
 		return concreteView;
 	}
-
 }

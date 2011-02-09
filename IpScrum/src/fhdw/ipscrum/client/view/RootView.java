@@ -50,9 +50,9 @@ public class RootView extends Composite implements IRootView {
 		loginpanel.add(button, 924, 10);
 		button.setSize("66px", "28px");
 		
-		Image image = new Image("images/fhdw-logo.PNG");
+		Image image = new Image("images/logoSmall.png");
 		loginpanel.add(image, 0, 0);
-		image.setSize("105px", "50px");
+		image.setSize("157px", "50px");
 
 		contentPanel = new VerticalPanel();
 		flowPanel.add(contentPanel);
