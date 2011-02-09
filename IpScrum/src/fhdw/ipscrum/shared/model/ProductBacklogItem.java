@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model;
 
-public abstract class ProductBacklogItem {
+import fhdw.ipscrum.shared.observer.Observable;
+
+public abstract class ProductBacklogItem extends Observable{
 
 	private String name;
 	private Integer manDayCosts;

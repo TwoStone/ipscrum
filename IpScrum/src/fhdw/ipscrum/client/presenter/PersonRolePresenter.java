@@ -70,6 +70,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 				return object.getFirstname();
 			}
 		};
+		
 		personTable.addColumn(colFirstname, "Vorname");
 		
 		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {

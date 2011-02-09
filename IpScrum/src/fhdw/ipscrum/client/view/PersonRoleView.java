@@ -46,6 +46,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		verticalPanel.add(lblPersonen);
 		
 		HorizontalPanel horizontalPanelPersonRoles = new HorizontalPanel();
+		horizontalPanelPersonRoles.setStyleName("scrollable");
 		verticalPanel.add(horizontalPanelPersonRoles);
 		horizontalPanelPersonRoles.setSize("", "300px");
 		

@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
+import org.jdom.adapters.CrimsonDOMAdapter;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -22,8 +24,10 @@ import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
+import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.Observer;
 
-public class FeaturePresenter extends Presenter<IFeatureView> {
+public class FeaturePresenter extends Presenter<IFeatureView>  implements Observer{
 
 	private final Feature myFeature;
 	
@@ -133,8 +137,6 @@ public class FeaturePresenter extends Presenter<IFeatureView> {
 	}
 
 	private void removeHint(Hint hint) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void removeCriterion(AcceptanceCriterion criterion) {
@@ -172,8 +174,28 @@ public class FeaturePresenter extends Presenter<IFeatureView> {
 	}
 
 	private void createCriterion() {
-		// TODO Auto-generated method stub
+		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(this.getView().getAddCriterionPanel());
+		presenter.getFinished().add(new EventHandler<EventArgs>() {
+			
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				try {
+					FeaturePresenter.this.myFeature.addAcceptanceCriterion(presenter.getCriterion());
+					FeaturePresenter.this.getView().getAddCriterionPanel().clear();
+				} catch (DoubleDefinitionException e) {
+					Window.alert(e.getMessage());
+				}
+				
+			}
+		});
 		
+		presenter.getAborted().add(new EventHandler<EventArgs>() {
+			
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				FeaturePresenter.this.getView().getAddCriterionPanel().clear();
+			}
+		});
 	}
 
 	private void closeFeature() {
@@ -247,6 +269,12 @@ public class FeaturePresenter extends Presenter<IFeatureView> {
 		this.myFeature.getState().accept(editableChecker);
 		
 		return editableChecker.getResult();
+	}
+
+	@Override
+	public void update(Observable observable, Object argument) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

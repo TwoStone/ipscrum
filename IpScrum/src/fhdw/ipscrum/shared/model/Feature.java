@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,9 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog, Release release) {
 		super(name, manDayCosts, backlog, release);
 		this.setDescription(description);
+		this.relations = new ArrayList<Relation>();
+		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
+		this.hints = new ArrayList<Hint>();
 	}
 /* End of constructor section */
 	

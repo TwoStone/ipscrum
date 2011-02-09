@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.view.interfaces.ITextView;
+import fhdw.ipscrum.client.view.widgets.QuestionDialog;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 
 public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
@@ -47,7 +48,21 @@ public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				AcceptanceCriterionPresenter.this.abort();
+				QuestionDialog question = new QuestionDialog("Abbrechen?", "Wollen sie den Vorgang wirklich abbrechen?");
+				question.getAbortButton().addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+					}
+				});
+				question.getOkayButton().addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						AcceptanceCriterionPresenter.this.abort();
+					}
+				});
+				question.center();
 			}
 		});
 	}
