@@ -1,12 +1,12 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HasText;
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
 
 public interface ICreateProjectView extends IView{
 
-	public abstract HasClickHandlers getBtnCreateProject();
-
-	public abstract HasText getTxtBoxBezeichnung();
+	public abstract void addSaveProjectHandler(EventHandler<EventArgs> args);
+	public abstract String getProjectName();
+	public abstract void setProjectName(String name);
 
 }

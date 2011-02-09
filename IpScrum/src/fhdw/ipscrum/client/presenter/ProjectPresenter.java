@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
@@ -24,9 +25,18 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				dummy.setText("New Project Click Event fired");
-				view.getMasterProductBackloglPanel().add(dummy);
-				view.getMasterReleasePanel().clear();
+				final DialogBox box = new DialogBox();
+				box.setGlassEnabled(true);
+				CreateProjectPresenter presenter = new CreateProjectPresenter(box);
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						view.refreshProjects(SessionManager.getInstance().getModel().getProjects());
+						box.hide();
+					}
+				});
+				box.center();
 			}
 		});
 		
