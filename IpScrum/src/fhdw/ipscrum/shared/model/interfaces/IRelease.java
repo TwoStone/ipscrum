@@ -1,14 +1,15 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-import java.util.Vector;
+import java.util.HashSet;
 
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.Project;
 
 public interface IRelease {
 
-	public abstract Vector<ISprint> getSprints();
+	public abstract HashSet<ISprint> getSprints();
 
-	public abstract void addSprint(ISprint sprint);
+	public abstract void addSprint(ISprint sprint) throws NoSprintDefinedException;
 
 	public abstract void removeSprint(ISprint sprint);
 

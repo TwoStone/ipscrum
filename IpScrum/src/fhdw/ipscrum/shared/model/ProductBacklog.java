@@ -15,6 +15,15 @@ public class ProductBacklog {
 		super();
 	}
 	
+	/**
+	 * Returns all ProductBacklogItems of the this 
+	 * Backlog.
+	 * <br />
+	 * <b>Attention</b><br />
+	 * For adding and removing Items to/from the list
+	 * please use the methods of the Backlog.
+	 * Else we cannot guarantee the consistency!
+	 */
 	public Vector<ProductBacklogItem> getItems() {
 		if(this.items==null){
 			this.items = new Vector<ProductBacklogItem>();
@@ -49,29 +58,35 @@ public class ProductBacklog {
 	}
 	
 	public void addItemAfter(ProductBacklogItem newItem, ProductBacklogItem itemBefore){
-		Integer position = this.getItemPositionInList(itemBefore);
-		if(position>-1 && position<(this.countItems()-1)){
-			this.getItems().insertElementAt(newItem, position+1);
-		}else{
-			this.addItem(newItem);
+		if(!this.isItemInList(newItem)){
+			Integer position = this.getItemPositionInList(itemBefore);
+			if(position>-1 && position<(this.countItems()-1)){
+				this.getItems().insertElementAt(newItem, position+1);
+			}else{
+				this.addItem(newItem);
+			}
 		}
 	}
 
 	public void addItemBefore(ProductBacklogItem newItem, ProductBacklogItem itemAfter){
-		Integer position = this.getItemPositionInList(itemAfter);
-		if(position>=0){
-			if(position==0){
-				this.addItemOnTop(newItem);
+		if(!this.isItemInList(newItem)){
+			Integer position = this.getItemPositionInList(itemAfter);
+			if(position>=0){
+				if(position==0){
+					this.addItemOnTop(newItem);
+				}else{
+					this.getItems().insertElementAt(newItem, position-1);
+				}
 			}else{
-				this.getItems().insertElementAt(newItem, position-1);
+				this.addItem(newItem);
 			}
-		}else{
-			this.addItem(newItem);
 		}
 	}
 
 	public void addItemOnTop(ProductBacklogItem item){
-		this.getItems().insertElementAt(item, 0);
+		if(!this.isItemInList(item)){
+			this.getItems().insertElementAt(item, 0);
+		}
 	}
 	
 	/**
@@ -79,7 +94,9 @@ public class ProductBacklog {
 	 * @param item to be add
 	 */
 	public void addItem(ProductBacklogItem item){
-		this.getItems().add(item);
+		if(!this.isItemInList(item)){
+			this.getItems().add(item);
+		}
 	}
 	
 	public void removeItem(ProductBacklogItem item){
@@ -152,5 +169,14 @@ public class ProductBacklog {
 		}
 		
 		return -1;
+	}
+	
+	private boolean isItemInList(ProductBacklogItem item){
+		for(ProductBacklogItem current : this.items){
+			if(current.equals(item)){
+				return true;
+			}
+		}
+		return false;
 	}
 }

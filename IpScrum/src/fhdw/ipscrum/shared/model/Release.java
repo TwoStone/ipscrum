@@ -1,13 +1,14 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.Vector;
+import java.util.HashSet;
 
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class Release implements IRelease {
 
-	private Vector<ISprint> sprints;
+	private HashSet<ISprint> sprints;
 	private final Project project;
 	
 	public Release(Project project) {
@@ -15,15 +16,29 @@ public class Release implements IRelease {
 		this.project = project;
 	}
 	
-	public Vector<ISprint> getSprints() {
+	/**
+	 * Return all Sprints which are added to
+	 * the release.
+	 * <br />
+	 * <b>Attention</b><br />
+	 * In fact of providing the consistency you have
+	 * to use, for adding and removing a sprint
+	 * to a release, the methods of the release.
+	 */
+	public HashSet<ISprint> getSprints() {
 		if(sprints==null){
-			this.sprints = new Vector<ISprint>();
+			this.sprints = new HashSet<ISprint>();
 		}
 		return sprints;
 	}
 	
-	public void addSprint(ISprint sprint){
-		this.getSprints().add(sprint);
+	public void addSprint(ISprint sprint) throws NoSprintDefinedException{
+		if(this.project.isSprintDefined(sprint)){
+			this.getSprints().add(sprint);
+		}else{
+			//TODO Textkonstante bauen
+			throw new NoSprintDefinedException("Nur bereits erstelle Sprints können dem Release zugeordnet werden.");
+		}
 	}
 	
 	public void removeSprint(ISprint sprint){

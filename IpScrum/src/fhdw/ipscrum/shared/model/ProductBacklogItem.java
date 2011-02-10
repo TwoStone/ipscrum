@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.exceptions.NoSprintDefined;
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -72,15 +72,13 @@ public abstract class ProductBacklogItem extends Observable{
 		return sprint;
 	}
 	
-	public void setSprint(ISprint sprint) throws NoSprintDefined {
-		for(ISprint current : this.backlog.getProject().getSprintsWithinProject()){
-			if(current.equals(sprint)){
+	public void setSprint(ISprint sprint) throws NoSprintDefinedException {
+		if(this.backlog.getProject().isSprintDefined(sprint)){
 				this.sprint = sprint;
-				return;
-			}
+		}else{
+			//TODO Textkonstante bauen
+			throw new NoSprintDefinedException("Es können nur bereits vorhandene Sprints zugeordnet werden!");
 		}
-		//TODO Textkonstante bauen
-		throw new NoSprintDefined("Es können nur bereits vorhandene Sprints zugeordnet werden!");
 	}
 
 	@Override

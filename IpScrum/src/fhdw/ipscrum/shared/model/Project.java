@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.Vector;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
@@ -8,7 +9,8 @@ public class Project {
 
 	private String name;
 	private final ProductBacklog backlog;
-	private Vector<Release> releasePlan;
+	private HashSet<Release> releasePlan;
+	private HashSet<ISprint> sprints;
 
 	public Project(String name) {
 		super();
@@ -16,9 +18,9 @@ public class Project {
 		this.backlog = new ProductBacklog();
 	}
 
-	public Vector<Release> getReleasePlan() {
+	public HashSet<Release> getReleasePlan() {
 		if (this.releasePlan == null) {
-			this.releasePlan = new Vector<Release>();
+			this.releasePlan = new HashSet<Release>();
 		}
 		return releasePlan;
 	}
@@ -35,26 +37,30 @@ public class Project {
 		return backlog;
 	}
 
-	public Vector<ISprint> getSprintsWithinProject(){
-		Vector<ISprint> releaseSprints = new Vector<ISprint>();
-		for(Release current : this.getReleasePlan()){
-				releaseSprints.addAll(current.getSprints());
-		}
-
-		Vector<ISprint> pbiSprints = new Vector<ISprint>();
-		for(ProductBacklogItem current : this.getBacklog().getItems()){
-			if(current.getSprint()!=null){
-				releaseSprints.add(current.getSprint());
+	public boolean isSprintDefined(ISprint sprint){
+		Iterator<ISprint> i = this.getSprints().iterator();
+		while(i.hasNext()){
+			if(i.equals(sprint)){
+				return true;
 			}
 		}
-		
-		Vector<ISprint> ret = new Vector<ISprint>();
-		ret.addAll(releaseSprints);
-		ret.addAll(pbiSprints);
-		
-		return ret;
+		return false;
 	}
 
+	/**
+	 * Returns the defined Sprints for this project.
+	 * <br />
+	 * <b>Attention</b><br />
+	 * For adding and removing a sprint use the functionalities
+	 * of the Project, else we cannot guarantee the consistency!
+	 */
+	public HashSet<ISprint> getSprints() {
+		if(this.sprints==null){
+			this.sprints = new HashSet<ISprint>();
+		}
+		return sprints;
+	}
+	
 	@Override
 	public String toString() {
 		return "Project [name=" + name + "]";
@@ -66,10 +72,9 @@ public class Project {
 		int result = 1;
 		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime
-				* result
-				+ ((this.getReleasePlan() == null) ? 0 : this.getReleasePlan()
-						.hashCode());
+		result = prime * result
+				+ ((releasePlan == null) ? 0 : releasePlan.hashCode());
+		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
 		return result;
 	}
 
@@ -96,6 +101,11 @@ public class Project {
 			if (other.getReleasePlan() != null)
 				return false;
 		} else if (!this.getReleasePlan().equals(other.getReleasePlan()))
+			return false;
+		if (this.getSprints() == null) {
+			if (other.getSprints() != null)
+				return false;
+		} else if (!this.getSprints().equals(other.getSprints()))
 			return false;
 		return true;
 	}
