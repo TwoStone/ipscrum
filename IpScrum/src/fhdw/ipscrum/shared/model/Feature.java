@@ -26,7 +26,7 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	private IPerson editor;
 	private String description;
 	
-	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog) throws NoValidValueException{
+	public Feature(String name, String description, ProductBacklog backlog) throws NoValidValueException{
 		super(name, backlog);
 		this.setDescription(description);
 		this.state = new Open(this);
