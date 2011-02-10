@@ -12,7 +12,7 @@ public interface IPerson {
 	public String getLastname();
 	public void setLastname(String lastname);
 	
-	public Vector<Role> getRoles();
-	public void addRole(Role role);
-	public void removeRole(Role role);
+	public Vector<IRole> getRoles();
+	public void addRole(IRole role);
+	public void removeRole(IRole role);
 }
