@@ -16,7 +16,6 @@ public class Person implements IPerson {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.roles = new HashSet<IRole>();
-		// TODO: Factory einfügen (Person.create) + Add default role "Ticketsystem-Benutzer";
 	}
 
 	@Override

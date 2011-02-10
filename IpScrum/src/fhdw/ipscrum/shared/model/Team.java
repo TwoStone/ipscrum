@@ -2,16 +2,17 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.HashSet;
 
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Team implements ITeam {
 	private String description;
-	private final HashSet<Person> members;
+	private final HashSet<IPerson> members;
 
 	public Team(String description) {
 		super();
 		this.description = description;
-		this.members = new HashSet<Person>();
+		this.members = new HashSet<IPerson>();
 	}
 
 	@Override
@@ -25,17 +26,17 @@ public class Team implements ITeam {
 	}
 
 	@Override
-	public HashSet<Person> getMembers() {
+	public HashSet<IPerson> getMembers() {
 		return members;
 	}
 
 	@Override
-	public void addMember(Person member) {
+	public void addMember(IPerson member) {
 		this.getMembers().add(member);
 	}
 
 	@Override
-	public void removeMember(Person member) {
+	public void removeMember(IPerson member) {
 		this.getMembers().remove(member);
 	}
 
@@ -76,9 +77,6 @@ public class Team implements ITeam {
 		String ret = "Team";
 		if (!this.getDescription().isEmpty()) {
 			ret += " '" + description + "'";
-		}
-		if (!this.getMembers().isEmpty()) {
-			ret += " [Mitglieder = " + members + "]";
 		}
 		return ret;
 	}
