@@ -3,31 +3,34 @@ package fhdw.ipscrum.shared.model;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
+/**
+ * Represents the abstract Root Class for a ProductBacklogItem.
+ */
 public abstract class ProductBacklogItem extends Observable{
 
 	private String name;
 	private Integer manDayCosts;
 	private final ProductBacklog backlog;
-	private IRelease release;
 	private IPerson lastEditor;
 	private ISprint sprint;
 	
+	/**
+	 * @param name
+	 * Name of the PBI.
+	 * @param backlog
+	 * Backlog of the PBI.
+	 * @throws NoValidValueException
+	 * If the name for the PBI is not valid.
+	 * Valid names are not null and have not only
+	 * whitespace characters.
+	 */
 	public ProductBacklogItem(String name, ProductBacklog backlog) throws NoValidValueException{
 		super();
 		this.setName(name);
 		this.backlog = backlog;
-	}
-	
-	public void setRelease(IRelease release) {
-		this.release = release;
-	}
-	
-	public IRelease getRelease() {
-		return release;
 	}
 	
 	public ProductBacklog getBacklog() {
@@ -38,9 +41,19 @@ public abstract class ProductBacklogItem extends Observable{
 		return name;
 	}
 
+	/**
+	 * Changes the Name of the PBI.
+	 * @param name
+	 * New Name of the PBI.
+	 * @throws NoValidValueException
+	 * If the name for the PBI is not valid.
+	 * Valid names are not null and have not only
+	 * whitespace characters.
+	 */
 	public final void setName(String name) throws NoValidValueException{
 		if(name!=null && name.trim().length()>0){
 			this.name = name;
+			this.notifyObservers();
 		}else{
 			//TODO Textkonstante bauen
 			throw new NoValidValueException("Es muss eine Bezeichnung angegeben werden!");
@@ -62,6 +75,7 @@ public abstract class ProductBacklogItem extends Observable{
 	public final void setManDayCosts(Integer manDayCosts) throws NoValidValueException{
 		if(manDayCosts != null && manDayCosts > 0){
 			this.manDayCosts = manDayCosts;
+			this.notifyObservers();
 		}else{
 			//TODO Textkonstante bauen
 			throw new NoValidValueException("Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!");
@@ -74,15 +88,22 @@ public abstract class ProductBacklogItem extends Observable{
 	
 	public void setLastEditor(IPerson lastEditor) {
 		this.lastEditor = lastEditor;
+		this.notifyObservers();
 	}
 	
 	public ISprint getSprint() {
 		return sprint;
 	}
 	
+	/**
+	 * TODO Kommentar schreiben
+	 * @param sprint
+	 * @throws NoSprintDefinedException
+	 */
 	public void setSprint(ISprint sprint) throws NoSprintDefinedException {
 		if(this.backlog.getProject().isSprintDefined(sprint)){
 				this.sprint = sprint;
+				this.notifyObservers();
 		}else{
 			//TODO Textkonstante bauen
 			throw new NoSprintDefinedException("Es können nur bereits vorhandene Sprints zugeordnet werden!");
@@ -105,7 +126,6 @@ public abstract class ProductBacklogItem extends Observable{
 		result = prime * result
 				+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((release == null) ? 0 : release.hashCode());
 		result = prime * result + ((sprint == null) ? 0 : sprint.hashCode());
 		return result;
 	}
@@ -139,11 +159,6 @@ public abstract class ProductBacklogItem extends Observable{
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (release == null) {
-			if (other.release != null)
-				return false;
-		} else if (!release.equals(other.release))
-			return false;
 		if (sprint == null) {
 			if (other.sprint != null)
 				return false;
@@ -151,4 +166,6 @@ public abstract class ProductBacklogItem extends Observable{
 			return false;
 		return true;
 	}
+
+	
 }

@@ -9,6 +9,11 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
 
+/**
+ * This class represent the root point for the whole model.
+ * This class is additionally used for storing project independent
+ * data like teams, persons and roles.
+ */
 public class Root extends Observable implements SerializationRoot{
 
 	private HashSet<Project> projects;
@@ -49,48 +54,86 @@ public class Root extends Observable implements SerializationRoot{
 		return roles;
 	}
 	
+	/**
+	 * Removes the given project with all depending data from
+	 * the model.
+	 * @param project
+	 * Project for Deletion!
+	 */
 	public void removeProject(Project project){
-		//TODO Check Consistency
 		this.getProjects().remove(project);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * Add a new Project to the model.
+	 * @param project
+	 */
 	public void addProject(Project project){
-		//TODO Check Consistency
 		this.getProjects().add(project);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * Returns the number of Projects within the
+	 * model!
+	 */
 	public Integer countProjects(){
 		return this.getProjects().size();
 	}
 	
+	/**
+	 * Adds a new person to the model!
+	 */
 	public void addPerson(IPerson person){
-		//TODO Check Consistency
 		this.getPersons().add(person);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * Returns the number of all persons
+	 * within the Model.
+	 */
 	public Integer countPersons(){
 		return this.getPersons().size();
 	}
 	
+	/**
+	 * Adds a new Team to the model.
+	 */
 	public void addTeam(ITeam team){
-		//TODO Check Consistency
 		this.getTeams().add(team);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * Returns the number of all defined
+	 * teams.
+	 */
 	public Integer countTeams(){
 		return this.getTeams().size();
 	}
 
+	/**
+	 * Removes the given role.
+	 * TODO Check Consistency
+	 */
 	public void removeRole(IRole role){
-		//TODO Check Consistency
 		this.getRoles().remove(role);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * Adds a new Role to the model.
+	 */
 	public void addRole(IRole role){
-		//TODO Check Consistency
 		this.getRoles().add(role);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * Returns the number of all Roles.
+	 */
 	public Integer countRoles(){
 		return this.getRoles().size();
 	}

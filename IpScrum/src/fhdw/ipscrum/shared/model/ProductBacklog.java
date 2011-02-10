@@ -4,6 +4,10 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.observer.Observable;
 
+/**
+ * Represents the ProductBacklog of a project.
+ * It manages the ProductBacklogItems.
+ */
 public class ProductBacklog extends Observable{
 	private Vector<ProductBacklogItem> items;
 	private final Project project;
@@ -36,61 +40,101 @@ public class ProductBacklog extends Observable{
 		return items;
 	}
 	
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 */
 	public void moveTop(ProductBacklogItem item){
 		this.getItems().remove(item);
 		this.getItems().insertElementAt(item, 0);
+		this.notifyObservers();
 	}
 
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 */
 	public void moveBottom(ProductBacklogItem item){
 		this.getItems().remove(item);
 		this.getItems().insertElementAt(item, this.countItems());
+		this.notifyObservers();
 	}
 	
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 */
 	public void moveUp(ProductBacklogItem item){
 		Integer position = this.getItemPositionInList(item);
 		if(position>0){
 			this.getItems().remove(item);
 			this.getItems().insertElementAt(item, position-1);
+			this.notifyObservers();
 		}
 	}
 
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 */
 	public void moveDown(ProductBacklogItem item){
 		Integer position = this.getItemPositionInList(item);
 		if(position>-1 && position<(this.countItems()-1)){
 			this.getItems().remove(item);
 			this.getItems().insertElementAt(item, position+1);
+			this.notifyObservers();
 		}
 	}
 	
+	/**
+	 * TODO Kommentar
+	 * @param newItem
+	 * @param itemBefore
+	 */
 	public void addItemAfter(ProductBacklogItem newItem, ProductBacklogItem itemBefore){
 		if(!this.isItemInList(newItem)){
 			Integer position = this.getItemPositionInList(itemBefore);
 			if(position>-1 && position<(this.countItems()-1)){
 				this.getItems().insertElementAt(newItem, position+1);
+				this.notifyObservers();
 			}else{
 				this.addItem(newItem);
+				this.notifyObservers();
 			}
 		}
 	}
 
+	/**
+	 * TODO Kommentar
+	 * @param newItem
+	 * @param itemAfter
+	 */
 	public void addItemBefore(ProductBacklogItem newItem, ProductBacklogItem itemAfter){
 		if(!this.isItemInList(newItem)){
 			Integer position = this.getItemPositionInList(itemAfter);
 			if(position>=0){
 				if(position==0){
 					this.addItemOnTop(newItem);
+					this.notifyObservers();
 				}else{
 					this.getItems().insertElementAt(newItem, position-1);
+					this.notifyObservers();
 				}
 			}else{
 				this.addItem(newItem);
+				this.notifyObservers();
 			}
 		}
 	}
 
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 */
 	public void addItemOnTop(ProductBacklogItem item){
 		if(!this.isItemInList(item)){
 			this.getItems().insertElementAt(item, 0);
+			this.notifyObservers();
 		}
 	}
 	
@@ -101,13 +145,23 @@ public class ProductBacklog extends Observable{
 	public void addItem(ProductBacklogItem item){
 		if(!this.isItemInList(item)){
 			this.getItems().add(item);
+			this.notifyObservers();
 		}
 	}
 	
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 */
 	public void removeItem(ProductBacklogItem item){
 		this.getItems().remove(item);
+		this.notifyObservers();
 	}
 	
+	/**
+	 * TODO Kommentar
+	 * @return
+	 */
 	public Integer countItems(){
 		return this.getItems().size();
 	}
@@ -166,6 +220,11 @@ public class ProductBacklog extends Observable{
 		return -1;
 	}
 	
+	/**
+	 * TODO Kommentar
+	 * @param item
+	 * @return
+	 */
 	private boolean isItemInList(ProductBacklogItem item){
 		for(ProductBacklogItem current : this.items){
 			if(current.equals(item)){

@@ -7,6 +7,9 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
+/**
+ * Represents a Scrum Project.
+ */
 public class Project extends Observable{
 
 	private String name;
@@ -14,6 +17,14 @@ public class Project extends Observable{
 	private HashSet<Release> releasePlan;
 	private HashSet<ISprint> sprints;
 
+	/**
+	 * @param name
+	 * Name of the Project
+	 * @throws NoValidValueException
+	 * If the name for the Project is not valid.
+	 * Valid names are not null and have not only
+	 * whitespace characters.
+	 */
 	public Project(String name) throws NoValidValueException{
 		super();
 		this.setName(name);
@@ -31,9 +42,19 @@ public class Project extends Observable{
 		return name;
 	}
 
+	/**
+	 * Set a new Project name!
+	 * @param name
+	 * Name of the Project
+	 * @throws NoValidValueException
+	 * If the name for the Project is not valid.
+	 * Valid names are not null and have not only
+	 * whitespace characters.
+	 */
 	public void setName(String name) throws NoValidValueException {
 		if(name!=null && name.trim().length()>0){
 			this.name = name;
+			this.notifyObservers();
 		}else{
 			//TODO Textkonstante bauen
 			throw new NoValidValueException("Es muss ein Projektname angegeben werden!");
@@ -44,6 +65,13 @@ public class Project extends Observable{
 		return backlog;
 	}
 
+	/**
+	 * Returns true if the given sprint is currently
+	 * defined within the project else false will be
+	 * returned.
+	 * @param sprint
+	 * Sprint for check!
+	 */
 	public boolean isSprintDefined(ISprint sprint){
 		Iterator<ISprint> i = this.getSprints().iterator();
 		while(i.hasNext()){
@@ -66,6 +94,33 @@ public class Project extends Observable{
 			this.sprints = new HashSet<ISprint>();
 		}
 		return sprints;
+	}
+	
+	/**
+	 * TODO Kommentar
+	 * @param sprint
+	 */
+	public void addSprint(ISprint sprint){
+		this.getSprints().add(sprint);
+		this.notifyObservers();
+	}
+	
+	/**
+	 * TODO Kommentar
+	 * @param sprint
+	 */
+	public void removeSprint(ISprint sprint){
+		//TODO Konsistenzerhaltung
+		this.getSprints().remove(sprint);
+		this.notifyObservers();
+	}
+	
+	/**
+	 * Returns the number of defined Sprints within the
+	 * project!
+	 */
+	public Integer countSprints(){
+		return this.getSprints().size();
 	}
 	
 	@Override

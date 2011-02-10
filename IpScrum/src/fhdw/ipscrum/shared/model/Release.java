@@ -7,6 +7,12 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
+/**
+ * Release represents a version of a project.
+ * A release could have a number of Sprints.
+ * 
+ * A Release belongs to explicit one project. 
+ */
 public class Release extends Observable implements IRelease {
 
 	private HashSet<ISprint> sprints;
@@ -33,23 +39,38 @@ public class Release extends Observable implements IRelease {
 		return sprints;
 	}
 	
+	/**
+	 * Adds a Sprint to the release only if the Sprint
+	 * was defined within the Project.
+	 * @throws NoSprintDefinedException
+	 * If the sprint wasn't defined within the project.
+	 */
 	public void addSprint(ISprint sprint) throws NoSprintDefinedException{
 		if(this.project.isSprintDefined(sprint)){
 			this.getSprints().add(sprint);
+			this.notifyObservers();
 		}else{
 			//TODO Textkonstante bauen
 			throw new NoSprintDefinedException("Nur bereits erstelle Sprints können dem Release zugeordnet werden.");
 		}
 	}
 	
+	/**
+	 * Removes the given Sprint from the Release.
+	 */
 	public void removeSprint(ISprint sprint){
+		//TODO Reverse beachten
 		this.getSprints().remove(sprint);
+		this.notifyObservers();
 	}
 	
 	public Project getProject() {
 		return project;
 	}
 	
+	/**
+	 * Returns the Number of all defined Sprints within the
+	 */
 	public Integer countSprints(){
 		return this.getSprints().size();
 	}
