@@ -26,4 +26,7 @@ public interface ISprint {
 
 	//TODO Reverse Assoziation!
 	public Vector<ProductBacklogItem> getPBIs();
+	
+	//TODO Wir brauchen irgendeine String Repräsentation um den Sprint auf der Oberfläche anzeigen zu können.
+	public String getName();
 }
