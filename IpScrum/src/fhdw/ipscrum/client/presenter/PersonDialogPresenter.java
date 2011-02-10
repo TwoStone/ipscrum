@@ -25,18 +25,12 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	public PersonDialogPresenter(Panel parent, IPerson person) {
 		super(parent);
 		this.person = person;
+		initialize();
 	}
 
 	@Override
 	protected IPersonDialogView createView() {
 		this.concreteView = new PersonDialogView();
-		
-		if (this.person != null) {
-			this.concreteView.getVorname().setText(this.person.getFirstname());
-			this.concreteView.getNachname().setText(this.person.getLastname());
-		} else {
-			this.person = new Person("","");
-		}
 		
 		this.concreteView.defineCancelEventHandler(new EventHandler<EventArgs>() {
 			public void onUpdate(Object sender, EventArgs eventArgs) {
@@ -52,6 +46,18 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 		});
 		
 		return this.concreteView;
+	}
+
+	/**
+	 * 
+	 */
+	private void initialize() {
+		if (this.person != null) {
+			this.concreteView.getVorname().setText(this.person.getFirstname());
+			this.concreteView.getNachname().setText(this.person.getLastname());
+		} else {
+			this.person = new Person("","");
+		}
 	}
 
 }

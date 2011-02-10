@@ -1,17 +1,17 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.Vector;
+import java.util.HashSet;
 
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Team implements ITeam {
 	private String description;
-	private final Vector<Person> members;
+	private final HashSet<Person> members;
 
 	public Team(String description) {
 		super();
 		this.description = description;
-		this.members = new Vector<Person>();
+		this.members = new HashSet<Person>();
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class Team implements ITeam {
 	}
 
 	@Override
-	public Vector<Person> getMembers() {
+	public HashSet<Person> getMembers() {
 		return members;
 	}
 

@@ -1,7 +1,9 @@
 package fhdw.ipscrum.shared.model;
 
 import java.sql.Date;
+import java.util.Vector;
 
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class Sprint implements ISprint {
@@ -96,5 +98,23 @@ public class Sprint implements ISprint {
 			ret += " endet am " + this.getEnd();
 		}
 		return ret;
+	}
+
+	@Override
+	public void setRelease(IRelease release) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IRelease getRelease() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector<ProductBacklogItem> getPBIs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

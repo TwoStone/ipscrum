@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.Vector;
+import java.util.HashSet;
 
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -9,13 +9,13 @@ public class Person implements IPerson {
 
 	private String firstname;
 	private String lastname;
-	private final Vector<IRole> roles;
+	private final HashSet<IRole> roles;
 
 	public Person(String firstname, String lastname) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.roles = new Vector<IRole>();
+		this.roles = new HashSet<IRole>();
 		// TODO: Add default role "Ticketsystem-Benutzer";
 	}
 
@@ -40,7 +40,7 @@ public class Person implements IPerson {
 	}
 
 	@Override
-	public Vector<IRole> getRoles() {
+	public HashSet<IRole> getRoles() {
 		return roles;
 	}
 

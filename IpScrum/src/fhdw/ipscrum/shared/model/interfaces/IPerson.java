@@ -1,8 +1,6 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-import java.util.Vector;
-
-import fhdw.ipscrum.shared.model.Role;
+import java.util.HashSet;
 
 public interface IPerson {
 	
@@ -12,7 +10,7 @@ public interface IPerson {
 	public String getLastname();
 	public void setLastname(String lastname);
 	
-	public Vector<IRole> getRoles();
+	public HashSet<IRole> getRoles();
 	public void addRole(IRole role);
 	public void removeRole(IRole role);
 }

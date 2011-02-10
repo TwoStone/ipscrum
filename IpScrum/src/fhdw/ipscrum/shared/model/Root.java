@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.HashSet;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
@@ -11,18 +12,18 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
 public class Root implements SerializationRoot{
 
 	private Vector<Project> projects;
-	private Vector<IPerson> persons;
-	private Vector<ITeam> teams;
-	private Vector<IRole> roles;
+	private HashSet<IPerson> persons;
+	private HashSet<ITeam> teams;
+	private HashSet<IRole> roles;
 	
 	@Override
 	public void save(String identifier) throws PersistenceException {
 		// No Implementation Needed
 	}
 	
-	public Vector<IPerson> getPersons() {
+	public HashSet<IPerson> getPersons() {
 		if(this.persons==null){
-			this.persons = new Vector<IPerson>();
+			this.persons = new HashSet<IPerson>();
 		}
 		return persons;
 	}
@@ -34,16 +35,16 @@ public class Root implements SerializationRoot{
 		return projects;
 	}
 	
-	public Vector<ITeam> getTeams() {
+	public HashSet<ITeam> getTeams() {
 		if(this.teams==null){
-			this.teams = new Vector<ITeam>();
+			this.teams = new HashSet<ITeam>();
 		}
 		return teams;
 	}
 	
-	public Vector<IRole> getRoles() {
+	public HashSet<IRole> getRoles() {
 		if(this.roles==null){
-			this.roles = new Vector<IRole>();
+			this.roles = new HashSet<IRole>();
 		}
 		return roles;
 	}

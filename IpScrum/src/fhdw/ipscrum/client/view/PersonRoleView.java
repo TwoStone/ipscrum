@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.view;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -85,7 +86,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		
 		cellTablePersons.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			public void onSelectionChange(SelectionChangeEvent event) {
-				PersonRoleView.this.cellListAssignedRoles.setRowData(PersonRoleView.this.getSelectedPerson().getRoles());
+				PersonRoleView.this.cellListAssignedRoles.setRowData(new ArrayList<IRole>(PersonRoleView.this.getSelectedPerson().getRoles()));
 			}
 		});
 		

@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -49,9 +51,13 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 	 * This method is called to update the GUI with new data.
 	 */
 	private void updateGuiTables() {
-		this.personTable.setRowData(SessionManager.getInstance().getModel().getPersons());
-		this.assignedRoleList.setRowData((this.concreteView.getSelectedPerson() != null) ? this.concreteView.getSelectedPerson().getRoles() : new Vector<Role>());
-		this.availRoleList.setRowData(SessionManager.getInstance().getModel().getRoles());
+		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
+	    this.personTable.setRowData(new ArrayList<IPerson>(personSet));
+	    
+		this.assignedRoleList.setRowData((this.concreteView.getSelectedPerson() != null) ? new ArrayList<IRole>(this.concreteView.getSelectedPerson().getRoles()) : new Vector<Role>());
+		
+		HashSet<IRole> roleSet = SessionManager.getInstance().getModel().getRoles();
+		this.availRoleList.setRowData(new ArrayList<IRole>(roleSet));
 	}
 
 
@@ -120,9 +126,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 					Iterator<IRole> i = eventArgs.getRoles().iterator();
 					while (i.hasNext()) {
 						IRole current = i.next();
-						if (!eventArgs.getPerson().getRoles().contains(current)) {
-							eventArgs.getPerson().addRole(current);
-						}
+						eventArgs.getPerson().addRole(current);
 					}
 				}
 				PersonRolePresenter.this.updateGuiTables();
