@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
@@ -36,7 +37,7 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog) {
 		super(name, manDayCosts, backlog);
 		this.setDescription(description);
-		this.state = new Open();
+		this.state = new Open(this);
 		this.relations = new ArrayList<Relation>();
 		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
 		this.hints = new ArrayList<Hint>();
@@ -49,48 +50,27 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	/**
 	 * this method adds a hint to a feature
 	 * @param hint 
+	 * @throws ForbiddenStateException 
 	 *  
 	 */
-	public void addHint(Hint hint) throws DoubleDefinitionException{
-		Iterator<Hint> iterator = this.getHints().iterator();
-		while (iterator.hasNext()){
-			Hint current = iterator.next();
-			if (current.equals(hint)){
-				throw new DoubleDefinitionException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-			}
-		}
-		this.getHints().add(hint);
+	public void addHint(Hint hint) throws DoubleDefinitionException, ForbiddenStateException{
+		this.state.addHint(hint);
 	}
 	/**
 	 * this method adds a relation to a feature
 	 * @param relation
+	 * @throws ForbiddenStateException 
 	 */
-	public void addRelation(Relation relation) throws DoubleDefinitionException{
-		Iterator<Relation> iterator = this.getRelations().iterator();
-		while (iterator.hasNext()){
-			Relation current = iterator.next();
-			if (current.equals(relation)){
-				throw new DoubleDefinitionException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-			}
-		}
-		this.getRelations().add(relation);
+	public void addRelation(Relation relation) throws DoubleDefinitionException, ForbiddenStateException{
+		this.state.addRelation(relation);
 	}
 	/**
 	 * this method adds an acceptance criterion to a feature
 	 * @param acceptanceCriterion
+	 * @throws ForbiddenStateException 
 	 */
-	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException{
-		Iterator<AcceptanceCriterion> iterator = this.getAcceptanceCriteria().iterator();
-		while (iterator.hasNext()){
-			AcceptanceCriterion current = iterator.next();
-			if (current.equals(acceptanceCriterion)){
-				throw new DoubleDefinitionException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-			}
-		}
-		this.getAcceptanceCriteria().add(acceptanceCriterion);
+	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException, ForbiddenStateException{
+		this.state.addAcceptanceCriterion(acceptanceCriterion);
 	}
 	/**
 	 * this method counts the number of registred relations to other features.
@@ -101,9 +81,47 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	}
 	/**
 	 * Sets the state of the feature to "closed".
+	 * @throws ForbiddenStateException 
 	 */
-	public void close(){
-		this.setState(new Closed());
+	public void close() throws ForbiddenStateException{
+		this.state.close();
+	}
+	
+	void doClose(){
+		this.setState(new Closed(this));
+	}
+	void doAddAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException{
+		Iterator<AcceptanceCriterion> iterator = this.getAcceptanceCriteria().iterator();
+		while (iterator.hasNext()){
+			AcceptanceCriterion current = iterator.next();
+			if (current.equals(acceptanceCriterion)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.getAcceptanceCriteria().add(acceptanceCriterion);
+	}
+	void doAddRelation(Relation relation) throws DoubleDefinitionException{
+		Iterator<Relation> iterator = this.getRelations().iterator();
+		while (iterator.hasNext()){
+			Relation current = iterator.next();
+			if (current.equals(relation)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.getRelations().add(relation);
+	}
+	void doAddHint(Hint hint) throws DoubleDefinitionException{
+		Iterator<Hint> iterator = this.getHints().iterator();
+		while (iterator.hasNext()){
+			Hint current = iterator.next();
+			if (current.equals(hint)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.getHints().add(hint);
 	}
 /* End of business logic section */
 
