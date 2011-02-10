@@ -6,6 +6,7 @@ import java.util.List;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
@@ -28,7 +29,7 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	
 	
 /* Start of constructor section */
-	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog) {
+	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog) throws NoValidValueException{
 		super(name, backlog);
 		this.setDescription(description);
 		this.state = new Open(this);
