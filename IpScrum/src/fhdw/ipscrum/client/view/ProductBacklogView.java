@@ -37,7 +37,10 @@ public class ProductBacklogView extends Composite implements
 	private final Event<PBIArgs> pbiSelectedEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> deleteSelectedEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiDownEvent = new Event<PBIArgs>();
-
+	private final Event<PBIArgs> pbiBottomEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> pbiUpEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> pbiTopEvent = new Event<PBIArgs>();
+	
 	// ###### Ende Events ###########
 
 	// TMP Arguments
@@ -53,8 +56,8 @@ public class ProductBacklogView extends Composite implements
 	private CellTable<ProductBacklogItem> tableProductbacklog;
 	private Label lblAktionen;
 	private ScrollPanel scrollPanel;
-	private TextColumn sprint;
-	private TextColumn release;
+	private TextColumn<ProductBacklogItem> sprint;
+	private TextColumn<ProductBacklogItem> release;
 
 	public static IProductBacklogView createView() {
 		return new ProductBacklogView();
@@ -112,9 +115,29 @@ public class ProductBacklogView extends Composite implements
 								pbMenu.setWidget(2, 0, imgDelete);
 				
 						imgDoubleArrowUp = new Image("images/toparrow.png");
+						imgDoubleArrowUp.addClickHandler(new ClickHandler() {
+							
+							@Override
+							public void onClick(ClickEvent event) {
+								if(currentlySelected!=null){
+									pbiTopEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+								}
+								
+							}
+						});
 						pbMenu.setWidget(3, 0, imgDoubleArrowUp);
 				
 						imgArrowUp = new Image("images/uparrow.png");
+						imgArrowUp.addClickHandler(new ClickHandler() {
+							
+							@Override
+							public void onClick(ClickEvent event) {
+								if(currentlySelected!=null){
+									pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+								}
+								
+							}
+						});
 						pbMenu.setWidget(4, 0, imgArrowUp);
 				
 						imgArrowDown = new Image("images/downarrow.png");
@@ -128,6 +151,15 @@ public class ProductBacklogView extends Composite implements
 						});
 		
 				imgDoubleArrowDown = new Image("images/bottomarrow.png");
+				imgDoubleArrowDown.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						if(currentlySelected!=null){
+					pbiBottomEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));		
+						}	
+					}
+				});
 				pbMenu.setWidget(6, 0, imgDoubleArrowDown);
 
 		Label lblProductBacklog = new Label("Product Backlog Eintr\u00E4ge");
@@ -204,7 +236,7 @@ public class ProductBacklogView extends Composite implements
 
 	@Override
 	public void addPBIBottomEventHandler(EventHandler<PBIArgs> arg) {
-		// TODO Auto-generated method stub
+		pbiBottomEvent.add(arg);
 
 	}
 
@@ -220,14 +252,13 @@ public class ProductBacklogView extends Composite implements
 
 	@Override
 	public void addPBITopEventHandler(EventHandler<PBIArgs> arg) {
-		// TODO Auto-generated method stub
+		pbiTopEvent.add(arg);
 
 	}
 
 	@Override
 	public void addPBIUpEventHandler(EventHandler<PBIArgs> arg) {
-		// TODO Auto-generated method stub
-
+		pbiUpEvent.add(arg);
 	}
 	
 	@Override
