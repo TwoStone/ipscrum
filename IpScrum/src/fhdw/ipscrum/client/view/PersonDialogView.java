@@ -16,6 +16,7 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PersonArgs;
+import fhdw.ipscrum.client.events.args.TwoStringArgs;
 import fhdw.ipscrum.client.view.interfaces.IPersonDialogView;
 import fhdw.ipscrum.shared.model.Person;
 
@@ -35,7 +36,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	private HorizontalPanel buttonPanel;
 	private Button ok_button;
 	private Event<EventArgs> cancelEvent = new Event<EventArgs>();
-	private Event<PersonArgs> commitEvent = new Event<PersonArgs>();
+	private Event<TwoStringArgs> commitEvent = new Event<TwoStringArgs>();
 
 	public PersonDialogView() {
 		
@@ -83,8 +84,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		ok_button = new Button("OK");
 		ok_button.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Person person = new Person(PersonDialogView.this.getVorname().getText(), PersonDialogView.this.getNachname().getText());
-				PersonDialogView.this.commitEvent.fire(PersonDialogView.this, new PersonArgs(person));
+				PersonDialogView.this.commitEvent.fire(PersonDialogView.this, new TwoStringArgs(PersonDialogView.this.getVorname().getText(), PersonDialogView.this.getNachname().getText()));
 			}
 		});
 		buttonPanel.add(ok_button);
@@ -106,7 +106,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	}
 	
 	@Override
-	public void defineCommitEventHandler(EventHandler<PersonArgs> args) {
+	public void defineCommitEventHandler(EventHandler<TwoStringArgs> args) {
 		this.commitEvent.add(args);
 	}
 

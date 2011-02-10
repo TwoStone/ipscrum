@@ -4,6 +4,7 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.args.PersonArgs;
+import fhdw.ipscrum.client.events.args.TwoStringArgs;
 
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.PersonDialogView;
@@ -38,9 +39,15 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 			}
 		});
 		
-		this.concreteView.defineCommitEventHandler(new EventHandler<PersonArgs>() {
-			public void onUpdate(Object sender, PersonArgs eventArgs) {
-				SessionManager.getInstance().getModel().addPerson(eventArgs.getPerson());
+		this.concreteView.defineCommitEventHandler(new EventHandler<TwoStringArgs>() {
+			public void onUpdate(Object sender, TwoStringArgs eventArgs) {
+				if (PersonDialogPresenter.this.person == null) {
+					SessionManager.getInstance().getModel().addPerson(new Person(eventArgs.getString1(), eventArgs.getString2()));
+				} else {
+					PersonDialogPresenter.this.person.setFirstname(eventArgs.getString1());
+					PersonDialogPresenter.this.person.setLastname(eventArgs.getString2());
+				}
+				
 				finish();
 			}
 		});
@@ -55,8 +62,6 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 		if (this.person != null) {
 			this.concreteView.getVorname().setText(this.person.getFirstname());
 			this.concreteView.getNachname().setText(this.person.getLastname());
-		} else {
-			this.person = new Person("","");
 		}
 	}
 
