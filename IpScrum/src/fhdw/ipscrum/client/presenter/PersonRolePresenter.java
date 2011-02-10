@@ -49,6 +49,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 	/**
 	 * This method is called to update the GUI with new data.
+	 * TODO auslagern in View wegen Trennung View/Presenter
 	 */
 	private void updateGuiTables() {
 		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
