@@ -120,7 +120,7 @@ public class CreateFeaturePresenter extends Presenter<ICreateFeatureView>
 	}
 
 	private void createRelation(Panel panel) {
-
+		Window.alert("Not yet implemented!");
 	}
 
 	@Override

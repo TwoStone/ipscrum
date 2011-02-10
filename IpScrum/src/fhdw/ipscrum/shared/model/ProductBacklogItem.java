@@ -31,6 +31,7 @@ public abstract class ProductBacklogItem extends Observable{
 		super();
 		this.setName(name);
 		this.backlog = backlog;
+		this.setManDayCosts(0);
 	}
 	
 	public ProductBacklog getBacklog() {
@@ -73,7 +74,7 @@ public abstract class ProductBacklogItem extends Observable{
 	 * If the value is smaller 0!
 	 */
 	public final void setManDayCosts(Integer manDayCosts) throws NoValidValueException{
-		if(manDayCosts != null && manDayCosts > 0){
+		if(manDayCosts != null && manDayCosts >= 0){
 			this.manDayCosts = manDayCosts;
 			this.notifyObservers();
 		}else{

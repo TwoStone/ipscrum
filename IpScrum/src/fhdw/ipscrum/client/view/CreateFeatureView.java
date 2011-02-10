@@ -11,7 +11,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -62,7 +62,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	private final Event<EventArgs> createHint = new Event<EventArgs>();
 	private final Event<EventArgs> createCriterion = new Event<EventArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
-	private final Grid grid;
+	private final FlexTable detailTable;
 	private List<ISprint> sprints;
 
 	public CreateFeatureView() {
@@ -79,19 +79,19 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		verticalPanel.setSpacing(10);
 		horizontalPanel.add(verticalPanel);
 
-		this.grid = new Grid(2, 2);
-		verticalPanel.add(this.grid);
+		this.detailTable = new FlexTable();
+		verticalPanel.add(this.detailTable);
 
 		final Label lblName = new Label("Name:");
-		this.grid.setWidget(0, 0, lblName);
+		this.detailTable.setWidget(0, 0, lblName);
 
 		this.txtBxName = new TextBox();
-		this.grid.setWidget(0, 1, this.txtBxName);
+		this.detailTable.setWidget(0, 1, this.txtBxName);
 
 		final Label lblSprint = new Label("Sprint:");
-		this.grid.setWidget(1, 0, lblSprint);
+		this.detailTable.setWidget(1, 0, lblSprint);
 
-		this.grid.setWidget(1, 1, this.sprintComboBox);
+		this.detailTable.setWidget(1, 1, this.sprintComboBox);
 
 		final Label lblDescription = new Label("Beschreibung");
 		verticalPanel.add(lblDescription);
@@ -353,8 +353,8 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		return this.textArea.getText();
 	}
 
-	protected Grid getGrid() {
-		return this.grid;
+	protected FlexTable getGrid() {
+		return this.detailTable;
 	}
 
 	@Override

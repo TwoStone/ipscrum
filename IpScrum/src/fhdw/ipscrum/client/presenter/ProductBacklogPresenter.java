@@ -15,7 +15,7 @@ import fhdw.ipscrum.shared.model.Project;
 public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 	private final Project project;
-	
+
 	public ProductBacklogPresenter(Panel parent, Project project) {
 		super(parent);
 		this.project = project;
@@ -25,27 +25,31 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	@Override
 	protected IProductBacklogView createView() {
 		final IProductBacklogView view = new ProductBacklogView();
-		
+
 		view.addNewPBIEventHandler(new EventHandler<EventArgs>() {
-			
+
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				
+
 				final DialogBox newBox = new DialogBox();
-				final CreateFeaturePresenter presenter = new CreateFeaturePresenter(newBox, project.getBacklog());
+				final CreateFeaturePresenter presenter = new CreateFeaturePresenter(
+						newBox, ProductBacklogPresenter.this.project
+								.getBacklog());
 				newBox.setGlassEnabled(true);
-				
+
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-						project.getBacklog().addItem(presenter.getFeature());
-						view.refreshProductBacklog(project.getBacklog().getItems());
+						ProductBacklogPresenter.this.project.getBacklog()
+								.addItem(presenter.getFeature());
+						view.refreshProductBacklog(ProductBacklogPresenter.this.project
+								.getBacklog().getItems());
 						newBox.hide();
 					}
-					
+
 				});
-				
+
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
 					@Override
@@ -53,72 +57,80 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 						newBox.hide();
 					}
 				});
-				
+
 				newBox.center();
 			}
 		});
-		
+
 		view.addPBIDetailsEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, PBIArgs eventArgs) {
 				final DialogBox newBox = new DialogBox();
-				//TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst der Typ SICHERGESTELLT WERDEN
-//				final FeaturePresenter presenter = new FeaturePresenter(newBox, (Feature)eventArgs.getPbi());
-//				newBox.setGlassEnabled(true);
-//				
-//				presenter.getFinished().add(new EventHandler<EventArgs>() {
-//
-//					@Override
-//					public void onUpdate(Object sender, EventArgs eventArgs) {
-//						view.refreshProductBacklog(project.getBacklog().getItems());
-//						newBox.hide();
-//					}
-//					
-//				});
-//				
-//				presenter.getAborted().add(new EventHandler<EventArgs>() {
-//
-//					@Override
-//					public void onUpdate(Object sender, EventArgs eventArgs) {
-//						newBox.hide();
-//					}
-//				});
-				
+				// TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst
+				// der Typ SICHERGESTELLT WERDEN
+				final EditFeaturePresenter presenter = new EditFeaturePresenter(
+						newBox, (Feature) eventArgs.getPbi());
+				newBox.setGlassEnabled(true);
+
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						view.refreshProductBacklog(ProductBacklogPresenter.this.project
+								.getBacklog().getItems());
+						newBox.hide();
+					}
+
+				});
+
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						newBox.hide();
+					}
+				});
+
 				newBox.center();
 			}
 		});
-		
+
 		view.addDeletePBIEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, PBIArgs eventArgs) {
-				if(eventArgs.getPbi()!=null){
-					project.getBacklog().removeItem(eventArgs.getPbi());
-					view.refreshProductBacklog(project.getBacklog().getItems());
+				if (eventArgs.getPbi() != null) {
+					ProductBacklogPresenter.this.project.getBacklog()
+							.removeItem(eventArgs.getPbi());
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project
+							.getBacklog().getItems());
 				}
 			}
-			
+
 		});
-		
+
 		view.addPBIDownEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, PBIArgs eventArgs) {
-				ProductBacklogItem pbi = eventArgs.getPbi();
-				if(pbi!=null){
-					project.getBacklog().moveUp(pbi);
-					view.refreshProductBacklog(project.getBacklog().getItems());
+				final ProductBacklogItem pbi = eventArgs.getPbi();
+				if (pbi != null) {
+					ProductBacklogPresenter.this.project.getBacklog().moveUp(
+							pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project
+							.getBacklog().getItems());
 				}
 			}
 		});
-		
+
 		return view;
 	}
-	
-	private void initialize(){
-		if(project.getBacklog()!=null){
-			this.getView().refreshProductBacklog(project.getBacklog().getItems());
+
+	private void initialize() {
+		if (this.project.getBacklog() != null) {
+			this.getView().refreshProductBacklog(
+					this.project.getBacklog().getItems());
 		}
 	}
 }

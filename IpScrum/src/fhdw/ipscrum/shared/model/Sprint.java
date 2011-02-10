@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.sql.Date;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
@@ -122,5 +123,17 @@ public class Sprint implements ISprint {
 	public String getName() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addPBI(ProductBacklogItem pbi) throws ConsistencyException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removePBI(ProductBacklogItem pbi) throws ConsistencyException {
+		// TODO Auto-generated method stub
+		
 	}
 }

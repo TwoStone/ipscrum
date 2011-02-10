@@ -72,3 +72,7 @@ h1 {
 .allocationButtonPanel {
 	padding-top: 125px;
 }
+.createFeatureTable {
+	border: 1px Silver solid;
+	background-color: whitesmoke;
+}
