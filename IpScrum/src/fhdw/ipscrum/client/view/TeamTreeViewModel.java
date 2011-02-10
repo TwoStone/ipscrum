@@ -1,12 +1,10 @@
 package fhdw.ipscrum.client.view;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.SelectionModel;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
 import fhdw.ipscrum.shared.SessionManager;
@@ -18,6 +16,8 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 	   */
 	  public class TeamTreeViewModel implements TreeViewModel {
 		
+		private SelectionModel selectionModel;
+
 		/**
 	     * Check if the specified value represents a leaf node. Leaf nodes cannot be
 	     * opened.
@@ -31,7 +31,8 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 			return false;
 		}
 
-		public TeamTreeViewModel() {
+		public TeamTreeViewModel(SelectionModel selectionModel) {
+			this.selectionModel = selectionModel;
 		}
 		
 		@Override
@@ -51,7 +52,8 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 						}
 					}
 				};
-				return new DefaultNodeInfo(teamDataProvider, tCell);
+				DefaultNodeInfo<ITeam> tNodeInfo = new DefaultNodeInfo<ITeam>(teamDataProvider, tCell, TeamTreeViewModel.this.selectionModel, null);
+				return tNodeInfo;
 				
 			} else if (value instanceof ITeam) {
 				// Create a data provider that provides Team-Members.
@@ -65,7 +67,8 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 						}
 					}
 				};
-				return new DefaultNodeInfo(personDataProvider, pCell);
+				DefaultNodeInfo<IPerson> pNodeInfo = new DefaultNodeInfo<IPerson>(personDataProvider, pCell, TeamTreeViewModel.this.selectionModel, null);
+				return pNodeInfo;
 				
 			} else if (value instanceof IPerson) {
 				System.out.println("p" + value.toString());

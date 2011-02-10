@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
 import fhdw.ipscrum.client.view.interfaces.ITeamView;
@@ -23,6 +24,7 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 public class TeamView extends Composite implements ITeamView {
 
 	private CellTable<IPerson> cellTablePersons;
+	private SingleSelectionModel selectionModel;
 
 	public TeamView() {
 
@@ -36,7 +38,8 @@ public class TeamView extends Composite implements ITeamView {
 		Label lblTeams = new Label("Teams");
 		verticalPanelTeams.add(lblTeams);
 
-	    TreeViewModel model = new TeamTreeViewModel();
+		selectionModel = new SingleSelectionModel();
+	    TreeViewModel model = new TeamTreeViewModel(selectionModel);
 	    CellTree cellTree = new CellTree(model, null);
 	    cellTree.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 		

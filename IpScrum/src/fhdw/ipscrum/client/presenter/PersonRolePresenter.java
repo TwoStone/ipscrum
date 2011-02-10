@@ -82,6 +82,12 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 						box.hide();
 					}
 				});
+				
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						box.hide();
+					}
+				});
 				box.center();
 			}
 		});
@@ -135,15 +141,34 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 		
 		this.concreteView.defineNewRoleEventHandler(new EventHandler<EventArgs>() {
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				// TODO Auto-generated method stub
+				final DialogBox box = new DialogBox();
+				final RoleDialogPresenter presenter = new RoleDialogPresenter(box);
+				box.setAnimationEnabled(true);
+				box.setAutoHideEnabled(true);
+				box.setGlassEnabled(true);
+				box.setText("Neue Rolle anlegen");
 				
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						PersonRolePresenter.this.updateGuiTables();
+						box.hide();
+					}
+				});
+				
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						box.hide();
+					}
+				});
+				
+				box.center();				
 			}
 		});
 		
 		this.concreteView.defineRemoveRoleEventHandler(new EventHandler<MultipleRoleArgs>() {
 			public void onUpdate(Object sender, MultipleRoleArgs eventArgs) {
-				// TODO Auto-generated method stub
-				
+				SessionManager.getInstance().getModel().getRoles().removeAll(eventArgs.getRoles()); // TODO
+				PersonRolePresenter.this.updateGuiTables();
 			}
 		});
 	}

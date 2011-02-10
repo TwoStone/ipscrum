@@ -8,20 +8,20 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Role;
+import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
-	private Role role;
-	final IRoleDialogView view = new RoleDialogView();
+	private RoleDialogView concreteView;
+	private IRole role;
 	
 	public RoleDialogPresenter(Panel parent) {
-		super(parent);
+		this(parent, null);
 	}
 	
-	public RoleDialogPresenter(Panel parent, Role selectedRole) {
+	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
 		super(parent);
 		this.role = selectedRole;
 		initialize();
@@ -29,9 +29,15 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 	@Override
 	protected IRoleDialogView createView() {
-		view.addOkEventHandler(new EventHandler<OneStringArgs>() {
-
-			@Override
+		this.concreteView = new RoleDialogView();
+		
+		this.concreteView.addCancelEventHandler(new EventHandler<EventArgs>() {
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				abort();
+			}
+		});
+		
+		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
 			public void onUpdate(Object sender, OneStringArgs eventArgs) {
 				if (RoleDialogPresenter.this.role == null) {
 					SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
@@ -42,15 +48,8 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 				finish();
 			}
 		});
-
-		view.addCancelEventHandler(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				abort();
-			}
-		});
-		return view;
+		
+		return concreteView;
 	}
 	
 	/**
@@ -58,7 +57,7 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	 */
 	private void initialize() {
 		if (this.role != null) {
-			this.view.getRole().setText(this.role.getDescription());
+			this.concreteView.getRole().setText(this.role.getDescription());
 		}
 	}
 

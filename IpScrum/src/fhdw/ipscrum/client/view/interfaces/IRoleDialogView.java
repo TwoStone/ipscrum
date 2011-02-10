@@ -5,7 +5,6 @@ import com.google.gwt.user.client.ui.HasText;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.OneStringArgs;
-import fhdw.ipscrum.client.events.args.SingleRoleArgs;
 
 
 public interface IRoleDialogView extends IView{
