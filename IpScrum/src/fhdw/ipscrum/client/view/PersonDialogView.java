@@ -1,17 +1,23 @@
 package fhdw.ipscrum.client.view;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.interfaces.IPersonDialogView;
+import fhdw.ipscrum.shared.model.Person;
 
 
 public class PersonDialogView extends Composite implements IPersonDialogView {
@@ -28,6 +34,8 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 	private VerticalPanel bottomPanel;
 	private HorizontalPanel buttonPanel;
 	private Button ok_button;
+	private Event<EventArgs> cancelEvent = new Event<EventArgs>();
+	private Event<PersonArgs> commitEvent = new Event<PersonArgs>();
 
 	public PersonDialogView() {
 		
@@ -47,6 +55,7 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		vNamePanel.add(lblVorname);
 		
 		vorname = new TextBox();
+		vorname.setFocus(true); // TODO does not work - how to do this?
 		vNamePanel.add(vorname);
 		
 		nNamePanel = new VerticalPanel();
@@ -71,48 +80,43 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		bottomPanel.add(buttonPanel);
 		buttonPanel.setSize("219px", "36px");
 		
-		ok_button = new Button("New button");
-		ok_button.setText("OK");
+		ok_button = new Button("OK");
+		ok_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				Person person = new Person(PersonDialogView.this.getVorname().getText(), PersonDialogView.this.getNachname().getText());
+				PersonDialogView.this.commitEvent.fire(PersonDialogView.this, new PersonArgs(person));
+			}
+		});
 		buttonPanel.add(ok_button);
 		ok_button.setSize("100px", "28px");
 		
-		abb_button = new Button("New button");
-		abb_button.setText("Abberchen");
+		abb_button = new Button("Abbrechen");
+		abb_button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				PersonDialogView.this.cancelEvent.fire(PersonDialogView.this, new EventArgs());
+			}
+		});
 		buttonPanel.add(abb_button);
 		abb_button.setSize("100px", "28px");
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getAbb_button()
-	 */
 	@Override
-	public HasClickHandlers getAbb_button() {
-		return abb_button;
+	public void defineCancelEventHandler(EventHandler<EventArgs> args) {
+		this.cancelEvent.add(args);
+	}
+	
+	@Override
+	public void defineCommitEventHandler(EventHandler<PersonArgs> args) {
+		this.commitEvent.add(args);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getVorname()
-	 */
 	@Override
 	public HasText getVorname() {
 		return vorname;
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getNachname()
-	 */
 	@Override
 	public HasText getNachname() {
 		return nachname;
-	}
-
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IPersonDialogView#getOk_button()
-	 */
-	@Override
-	public HasClickHandlers getOk_button() {
-		return ok_button;
-	}
-	
-	
+	}	
 }

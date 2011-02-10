@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -32,7 +33,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 	@Override
 	protected IPersonRoleView createView() {
-		this.concreteView = PersonRoleView.createView();
+		this.concreteView = new PersonRoleView();
 		this.personTable = this.concreteView.getCellTablePersons();
 		this.assignedRoleList = this.concreteView.getCellListAssignedRoles();
 		this.availRoleList = this.concreteView.getCellListRoles();
@@ -62,15 +63,45 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 		
 		this.concreteView.defineNewPersonEventHandler(new EventHandler<EventArgs>() {
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				// TODO Auto-generated method stub
+				final DialogBox box = new DialogBox();
+				final PersonDialogPresenter presenter = new PersonDialogPresenter(box);
+				box.setAnimationEnabled(true);
+				box.setAutoHideEnabled(true);
+				box.setGlassEnabled(true);
+				box.setText("Neue Person anlegen");
 				
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						PersonRolePresenter.this.updateGuiTables();
+						box.hide();
+					}
+				});
+				box.center();
 			}
 		});
 		
 		this.concreteView.defineModifyPersonEventHandler(new EventHandler<PersonArgs>() {
 			public void onUpdate(Object sender, PersonArgs eventArgs) {
-				// TODO Auto-generated method stub
+				final DialogBox box = new DialogBox();
+				final PersonDialogPresenter presenter = new PersonDialogPresenter(box, eventArgs.getPerson());
+				box.setAnimationEnabled(true);
+				box.setAutoHideEnabled(true);
+				box.setGlassEnabled(true);
+				box.setText(eventArgs.getPerson().getFirstname() + " bearbeiten");
+				box.center();				
 				
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						PersonRolePresenter.this.updateGuiTables();
+						box.hide();
+					}
+				});
+				
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						box.hide();
+					}
+				});
 			}
 		});
 		

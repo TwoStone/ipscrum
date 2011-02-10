@@ -41,10 +41,6 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 	private final Event<AssociatePersonAndRoleArgs> addRoletoPersonEvent = new Event<AssociatePersonAndRoleArgs>();
 	private final Event<EventArgs> newRoleEvent = new Event<EventArgs>();
 	private final Event<MultipleRoleArgs> removeRoleEvent = new Event<MultipleRoleArgs>();
-
-	public static IPersonRoleView createView() {
-		return new PersonRoleView();
-	}
 	
 	public PersonRoleView() {
 		

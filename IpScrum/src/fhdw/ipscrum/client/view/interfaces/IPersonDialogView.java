@@ -1,18 +1,19 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.TextBox;
+
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.PersonArgs;
 
 public interface IPersonDialogView extends IView {
-
-	public abstract HasClickHandlers getAbb_button();
 
 	public abstract HasText getVorname();
 
 	public abstract HasText getNachname();
 
-	public abstract HasClickHandlers getOk_button();
+	public abstract void defineCommitEventHandler(EventHandler<PersonArgs> args);
+
+	public abstract void defineCancelEventHandler(EventHandler<EventArgs> args);
 
 }
