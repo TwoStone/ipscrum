@@ -40,7 +40,8 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				Window.alert("Teamzuordnung not ready yet."); // TODO
+				concreteView.getContentPanel().clear();
+				new TeamPresenter(concreteView.getContentPanel());
 			}
 		});
 		
