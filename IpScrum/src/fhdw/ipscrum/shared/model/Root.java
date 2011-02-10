@@ -63,11 +63,6 @@ public class Root extends Observable implements SerializationRoot{
 		return this.getProjects().size();
 	}
 	
-	public void removePerson(IPerson person){
-		//TODO Check Consistency
-		this.getPersons().remove(person);
-	}
-	
 	public void addPerson(IPerson person){
 		//TODO Check Consistency
 		this.getPersons().add(person);
@@ -75,11 +70,6 @@ public class Root extends Observable implements SerializationRoot{
 	
 	public Integer countPersons(){
 		return this.getPersons().size();
-	}
-	
-	public void removeTeam(ITeam team){
-		//TODO Check Consistency
-		this.getTeams().remove(team);
 	}
 	
 	public void addTeam(ITeam team){
