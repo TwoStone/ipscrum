@@ -1,61 +1,67 @@
 package fhdw.ipscrum.client.view.widgets;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
 
 public class QuestionDialog extends DialogBox {
-	private Button okayButton;
-	private Button abortButton;
-	
+
+	private final Button okayButton;
+	private final Button abortButton;
+
 	public QuestionDialog(String title, String message) {
 		super();
-		setSize("", "");
-		setAnimationEnabled(true);
-		setGlassEnabled(true);
+		this.setSize("", "");
+		this.setAnimationEnabled(true);
+		this.setGlassEnabled(true);
 		this.setTitle(title);
-		
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		setWidget(verticalPanel);
+
+		final VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setSpacing(5);
+		verticalPanel
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		this.setWidget(verticalPanel);
 		verticalPanel.setSize("100%", "100%");
-		
-		Label label = new Label(message);
+
+		final Label label = new Label(message);
 		verticalPanel.add(label);
-		
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+
+		final HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.setSpacing(5);
+		horizontalPanel
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanel.add(horizontalPanel);
-		
-		okayButton = new Button("New button");
-		okayButton.addClickHandler(new ClickHandler() {
+
+		this.okayButton = new Button("Okay");
+		this.okayButton.addClickHandler(new ClickHandler() {
+			@Override
 			public void onClick(ClickEvent event) {
 				QuestionDialog.this.hide();
 			}
 		});
-		okayButton.setText("Okay");
-		horizontalPanel.add(okayButton);
-		
-		abortButton = new Button("New button");
-		abortButton.addClickHandler(new ClickHandler() {
+		horizontalPanel.add(this.okayButton);
+
+		this.abortButton = new Button("Abbrechen");
+		this.abortButton.addClickHandler(new ClickHandler() {
+			@Override
 			public void onClick(ClickEvent event) {
 				QuestionDialog.this.hide();
 			}
 		});
-		abortButton.setText("Abort");
-		horizontalPanel.add(abortButton);
+		horizontalPanel.add(this.abortButton);
 	}
-	
-	public HasClickHandlers getOkayButton() {
-		return okayButton;
-	}
+
 	public HasClickHandlers getAbortButton() {
-		return abortButton;
+		return this.abortButton;
+	}
+
+	public HasClickHandlers getOkayButton() {
+		return this.okayButton;
 	}
 }

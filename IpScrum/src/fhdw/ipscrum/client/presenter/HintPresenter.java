@@ -1,18 +1,21 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Panel;
 
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.view.TextView;
 import fhdw.ipscrum.client.view.interfaces.ITextView;
+import fhdw.ipscrum.client.view.widgets.AbortDialog;
+import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.model.Hint;
 
 public class HintPresenter extends Presenter<ITextView> {
 
 	private final Hint hint;
-	
-	public Hint getHint() {
-		return hint;
+
+	public HintPresenter(Panel parent) {
+		this(parent, new Hint(""));
 	}
 
 	public HintPresenter(Panel parent, Hint hint) {
@@ -21,48 +24,52 @@ public class HintPresenter extends Presenter<ITextView> {
 		this.updateView(this.hint);
 		this.registerViewEvents();
 	}
-	
-	private void updateView(Hint hint) {
-		this.getView().getContent().setText(hint.getContent());
+
+	@Override
+	protected ITextView createView() {
+		final ITextView view = new TextView("Neuer Hinweis:");
+		return view;
 	}
-	
-	private void updateModel(Hint hint) {
-		hint.setContent(this.getView().getContent().getText());
+
+	public Hint getHint() {
+		return this.hint;
 	}
 
 	private void registerViewEvents() {
-		this.getView().getSave().addClickHandler(new ClickHandler() {
-			
+		this.getView().save().add(new EventHandler<EventArgs>() {
+
 			@Override
-			public void onClick(ClickEvent event) {
-				save();
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				HintPresenter.this.save();
 			}
 		});
-		
-		this.getView().getAbort().addClickHandler(new ClickHandler() {
-			
+
+		this.getView().abort().add(new EventHandler<EventArgs>() {
+
 			@Override
-			public void onClick(ClickEvent event) {
-				abort();
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				new AbortDialog(new OnOkayCommand() {
+
+					@Override
+					public void onExecute() {
+						HintPresenter.this.abort();
+					}
+				});
 			}
 		});
 	}
 
 	protected void save() {
-		updateModel(this.hint);
-		finish();
+		this.updateModel(this.hint);
+		this.finish();
 	}
 
-	public HintPresenter(Panel parent) {
-		this(parent, new Hint(""));
+	private void updateModel(Hint hint) {
+		hint.setContent(this.getView().getContent());
 	}
 
-	@Override
-	protected ITextView createView() {
-		// TODO Auto-generated method stub
-		return null;
+	private void updateView(Hint hint) {
+		this.getView().setContent(hint.getContent());
 	}
-
-
 
 }

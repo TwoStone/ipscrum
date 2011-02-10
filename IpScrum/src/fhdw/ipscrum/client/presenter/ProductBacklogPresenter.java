@@ -32,7 +32,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				
 				final DialogBox newBox = new DialogBox();
-				final FeaturePresenter presenter = new FeaturePresenter(newBox, project.getBacklog());
+				final CreateFeaturePresenter presenter = new CreateFeaturePresenter(newBox, project.getBacklog());
 				newBox.setGlassEnabled(true);
 				
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
@@ -64,26 +64,26 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(Object sender, PBIArgs eventArgs) {
 				final DialogBox newBox = new DialogBox();
 				//TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst der Typ SICHERGESTELLT WERDEN
-				final FeaturePresenter presenter = new FeaturePresenter(newBox, (Feature)eventArgs.getPbi());
-				newBox.setGlassEnabled(true);
-				
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						view.refreshProductBacklog(project.getBacklog().getItems());
-						newBox.hide();
-					}
-					
-				});
-				
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						newBox.hide();
-					}
-				});
+//				final FeaturePresenter presenter = new FeaturePresenter(newBox, (Feature)eventArgs.getPbi());
+//				newBox.setGlassEnabled(true);
+//				
+//				presenter.getFinished().add(new EventHandler<EventArgs>() {
+//
+//					@Override
+//					public void onUpdate(Object sender, EventArgs eventArgs) {
+//						view.refreshProductBacklog(project.getBacklog().getItems());
+//						newBox.hide();
+//					}
+//					
+//				});
+//				
+//				presenter.getAborted().add(new EventHandler<EventArgs>() {
+//
+//					@Override
+//					public void onUpdate(Object sender, EventArgs eventArgs) {
+//						newBox.hide();
+//					}
+//				});
 				
 				newBox.center();
 			}
