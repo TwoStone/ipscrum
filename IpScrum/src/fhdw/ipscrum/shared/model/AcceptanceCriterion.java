@@ -1,29 +1,21 @@
 package fhdw.ipscrum.shared.model;
 /**
  * An acceptance criterion is a textual description of a condition,
- * under that a product owner accepts a implemented feature.
+ * under that a product owner accepts a implemented {@link Feature}.
  */
 public class AcceptanceCriterion {
 	private String content;
 	
-/* Start of constructor section */
-	public AcceptanceCriterion(){
-	}
 	public AcceptanceCriterion(String content){
 		this.content = content;
 	}
-/* End of constructor section */
-
-	
-/* Start of getter / setter section */
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
+	public void setContent(String content){
 		this.content = content;
 	}
-/* End of getter / setter section */
-	
+	public String getContent(){
+		return this.content;
+	}
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;

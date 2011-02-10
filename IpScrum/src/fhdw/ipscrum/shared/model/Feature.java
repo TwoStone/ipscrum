@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
@@ -11,24 +12,20 @@ import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
- * A feature is a product backlog item, which represents a user story.
+ * A feature is a {@link ProductBacklogItem}, which represents a user story.
  * A feature may contain relationships to other features. 
  * Furthermore, acceptance criteria and hints can be associated.
  * A feature can be editable in the state "open" and is read-only in the state "closed".
  */
 public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklogItem*/ {
-/* Start of attribute section */
+
 	private IFeatureState state;
 	private List<Relation> relations;
 	private List<Hint> hints;
 	private List<AcceptanceCriterion> acceptanceCriteria;
 	private IPerson editor;
 	private String description;
-/* End of attribute section*/
 	
-	
-	
-/* Start of constructor section */
 	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog) throws NoValidValueException{
 		super(name, backlog);
 		this.setDescription(description);
@@ -37,41 +34,77 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
 		this.hints = new ArrayList<Hint>();
 	}
-/* End of constructor section */
-	
-	
-	
-/* Start of business logic section */
+
 	/**
-	 * this method adds a hint to a feature
-	 * @param hint 
-	 * @throws ForbiddenStateException 
+	 * adds a new {@link Hint} to a feature.
+	 * @throws ForbiddenStateException will be thrown if the state does not allow this action
+	 * @throws DoubleDefinitionException will be thrown if the hint already exists
 	 *  
 	 */
 	public void addHint(Hint hint) throws DoubleDefinitionException, ForbiddenStateException{
 		this.state.addHint(hint);
+		this.setEditor();
 		this.notifyObservers();
 	}
+
+	void doAddHint(Hint hint) throws DoubleDefinitionException{
+		Iterator<Hint> iterator = this.hints.iterator();
+		while (iterator.hasNext()){
+			Hint current = iterator.next();
+			if (current.equals(hint)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.hints.add(hint);
+	}
 	/**
-	 * this method adds a relation to a feature
-	 * @param relation
-	 * @throws ForbiddenStateException 
+	 * adds a new {@link Relation} to a feature.
+	 * @throws ForbiddenStateException will be thrown if the state does not allow this action
+	 * @throws DoubleDefinitionException will be thrown if the relation already exists
 	 */
 	public void addRelation(Relation relation) throws DoubleDefinitionException, ForbiddenStateException{
 		this.state.addRelation(relation);
+		this.setEditor();
 		this.notifyObservers();
+	}	
+
+	void doAddRelation(Relation relation) throws DoubleDefinitionException{
+		Iterator<Relation> iterator = this.relations.iterator();
+		while (iterator.hasNext()){
+			Relation current = iterator.next();
+			if (current.equals(relation)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.relations.add(relation);
 	}
 	/**
-	 * this method adds an acceptance criterion to a feature
-	 * @param acceptanceCriterion
-	 * @throws ForbiddenStateException 
+	 * adds a new {@link AcceptanceCriterion} to a feature.
+	 * @throws ForbiddenStateException will be thrown if the state does not allow this action
+	 * @throws DoubleDefinitionException will be thrown if the acceptanceCriterion already exists
 	 */
 	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException, ForbiddenStateException{
 		this.state.addAcceptanceCriterion(acceptanceCriterion);
+		this.setEditor();
 		this.notifyObservers();
 	}
+	
+	void doAddAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException{
+		Iterator<AcceptanceCriterion> iterator = this.acceptanceCriteria.iterator();
+		while (iterator.hasNext()){
+			AcceptanceCriterion current = iterator.next();
+			if (current.equals(acceptanceCriterion)){
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.acceptanceCriteria.add(acceptanceCriterion);
+	}
+
 	/**
-	 * this method counts the number of registred relations to other features.
+	 * counts the number of registred relations to other features.
 	 * @return number of relations
 	 */
 	/* not needed 
@@ -82,57 +115,23 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 		
 	/**
 	 * Sets the state of the feature to "closed".
-	 * @throws ForbiddenStateException 
+	 * @throws ForbiddenStateException will be thrown if the feature is already closed
 	 */
 	public void close() throws ForbiddenStateException{
 		this.state.close();
+		this.setEditor();
 		this.notifyObservers();
 	}
 	
 	void doClose(){
 		this.setState(new Closed(this));
 	}
-	void doAddAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException{
-		Iterator<AcceptanceCriterion> iterator = this.getAcceptanceCriteria().iterator();
-		while (iterator.hasNext()){
-			AcceptanceCriterion current = iterator.next();
-			if (current.equals(acceptanceCriterion)){
-				throw new DoubleDefinitionException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-			}
-		}
-		this.getAcceptanceCriteria().add(acceptanceCriterion);
-	}
-	void doAddRelation(Relation relation) throws DoubleDefinitionException{
-		Iterator<Relation> iterator = this.getRelations().iterator();
-		while (iterator.hasNext()){
-			Relation current = iterator.next();
-			if (current.equals(relation)){
-				throw new DoubleDefinitionException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-			}
-		}
-		this.getRelations().add(relation);
-	}
-	void doAddHint(Hint hint) throws DoubleDefinitionException{
-		Iterator<Hint> iterator = this.getHints().iterator();
-		while (iterator.hasNext()){
-			Hint current = iterator.next();
-			if (current.equals(hint)){
-				throw new DoubleDefinitionException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-			}
-		}
-		this.getHints().add(hint);
-	}
-/* End of business logic section */
-
-/* Start of getter / setter section */
+	
 	public IFeatureState getState() {
 		return state;
 	}
 
-	public void setState(IFeatureState state) {
+	protected void setState(IFeatureState state) {
 		this.state = state;
 	}
 
@@ -140,35 +139,13 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 		return relations;
 	}
 
-	public void setRelations(List<Relation> relations) {
-		this.relations = relations;
-	}
-
 	public List<Hint> getHints() {
 		return hints;
-	}
-
-	public void setHints(List<Hint> hints) {
-		this.hints = hints;
 	}
 
 	public List<AcceptanceCriterion> getAcceptanceCriteria() {
 		return acceptanceCriteria;
 	}
-
-	public void setAcceptanceCriteria(
-			List<AcceptanceCriterion> acceptanceCriteria) {
-		this.acceptanceCriteria = acceptanceCriteria;
-	}
-
-	public IPerson getEditor() {
-		return editor;
-	}
-
-	public void setEditor(IPerson editor) {
-		this.editor = editor;
-	}
-/* End of getter / setter section */
 	
 	public void setDescription(String description) {
 		this.description = description;
@@ -177,7 +154,11 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	public String getDescription() {
 		return description;
 	}
+	protected void setEditor(){
+		this.editor = SessionManager.getInstance().getLoginUser();
+	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

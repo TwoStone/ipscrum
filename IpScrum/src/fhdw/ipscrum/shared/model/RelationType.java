@@ -1,26 +1,17 @@
 package fhdw.ipscrum.shared.model;
 /**
- * A relation type represents a customer-specified type of a relation between features.
+ * A relation type represents a customer-specified type of a relation
+ * between features (see {@link Feature}.
  */
 public class RelationType {
 	private String description;
-/* Start of constructor section*/
-	public RelationType(){
-	}
+
 	public RelationType(String description){
 		this.description = description;
 	}
-/* End of constructor section*/
-
-	
-/* Start of getter / setter section */
 	public String getDescription() {
 		return description;
 	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-/* End of getter / setter section */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

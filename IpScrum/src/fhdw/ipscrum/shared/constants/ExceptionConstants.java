@@ -1,5 +1,8 @@
 package fhdw.ipscrum.shared.constants;
 
+/**
+ * This class contains all constants for exceptions in the ticket system framework
+ */
 public class ExceptionConstants {
 	//TODO: All Exception Constants here!
 	public static final String DOUBLE_DEFINITION_ERROR = "Doppelte Einträge sind nicht erlaubt! Bitte überprüfen!";

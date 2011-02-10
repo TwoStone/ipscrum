@@ -1,28 +1,19 @@
 package fhdw.ipscrum.shared.model;
 /**
- * A Hint represents a textual described hint for a feature
+ * A Hint represents a textual described hint for a {@link Feature}
  */
 public class Hint {
-	
 	private String content;
 	
-/* Start of constructor section */
-	public Hint(){
-	}
 	public Hint(String content){
 		this.content = content;
 	}
-/* End of constructor section */
-
-	
-/* Start of getter / setter section */
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-/* End of getter / setter section */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

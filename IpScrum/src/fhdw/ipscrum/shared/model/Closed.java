@@ -6,19 +6,23 @@ import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 
 /**
- * An instance of Closed represents a completed Process of a ticket / feature 
- * and must not be changed.
+ * An instance of Closed represents the state of a completed Process of a  {@link Feature} 
+ * and must not be changed. That means, any method call to a feature will 
+ * result in a {@link ForbiddenStateException}, under the condition that the Feature
+ * instance delegates the equal-named method to the state.
  */
 public class Closed implements IFeatureState {
 	private Feature myFeature;
+	
 	public Closed(Feature myFeature){
 		this.myFeature = myFeature;
 	}
+	
 	@Override
 	public void accept(IFeatureVisitor visitor) {
 		visitor.handleClosed(this);
 	}
-
+	
 	@Override
 	public Feature getMyFeature() {
 		return this.myFeature;
