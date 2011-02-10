@@ -19,11 +19,12 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 
 	// ####### Events #######
 	private final Event<EventArgs> saveEvent = new Event<EventArgs>();
+	private final Event<EventArgs> cancelCreateProjectEvent = new Event<EventArgs>();
 	// ####### Ende ######
 
 	private Button btnCreateProject;
 	private TextBox txtBoxBezeichnung;
-
+	
 	public static IView createView() {
 		return new CreateProjectView();
 	}
@@ -32,13 +33,14 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 
 		AbsolutePanel concreteCreateProjectPanel = new AbsolutePanel();
 		initWidget(concreteCreateProjectPanel);
-		concreteCreateProjectPanel.setSize("200px", "200px");
+		concreteCreateProjectPanel.setSize("285px", "129px");
 
 		Label lblCreateProjet = new Label("Neues Projekt erstellen");
+		lblCreateProjet.setStyleName("LabelElement");
 		lblCreateProjet
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		concreteCreateProjectPanel.add(lblCreateProjet);
-		lblCreateProjet.setSize("200px", "16px");
+		concreteCreateProjectPanel.add(lblCreateProjet, 10, 2);
+		lblCreateProjet.setSize("177px", "38px");
 
 		btnCreateProject = new Button("New button");
 		btnCreateProject.addClickHandler(new ClickHandler() {
@@ -47,13 +49,27 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 			}
 		});
 		btnCreateProject.setText("Projekt erstellen");
-		concreteCreateProjectPanel.add(btnCreateProject, 33, 162);
+		btnCreateProject.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				cancelCreateProjectEvent.fire(CreateProjectView.this, new EventArgs());
+				
+			}
+		});
+		concreteCreateProjectPanel.add(btnCreateProject, 10, 93);
 
 		Label lblBezeichnung = new Label("Bezeichnung:");
-		concreteCreateProjectPanel.add(lblBezeichnung, 10, 58);
+		lblBezeichnung.setStyleName("LabelElement");
+		concreteCreateProjectPanel.add(lblBezeichnung, 10, 40);
 
 		txtBoxBezeichnung = new TextBox();
-		concreteCreateProjectPanel.add(txtBoxBezeichnung, 10, 80);
+		concreteCreateProjectPanel.add(txtBoxBezeichnung, 10, 62);
+		
+		Button btnCancel = new Button("New button");
+		btnCancel.setText("Verwerfen");
+		concreteCreateProjectPanel.add(btnCancel, 173, 93);
+		btnCancel.setSize("100px", "28px");
 	}
 
 	@Override
@@ -69,5 +85,11 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 	@Override
 	public void setProjectName(String name) {
 		txtBoxBezeichnung.setText(name);
+	}
+
+	@Override
+	public void addCancelCreateProjectHandler(EventHandler<EventArgs> args) {
+		cancelCreateProjectEvent.add(args);
+		
 	}
 }
