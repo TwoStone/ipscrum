@@ -13,6 +13,7 @@ import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
 import fhdw.ipscrum.client.view.FeatureView;
 import fhdw.ipscrum.client.view.interfaces.IFeatureView;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Closed;
 import fhdw.ipscrum.shared.model.Feature;
@@ -150,8 +151,10 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 				try {
 					FeaturePresenter.this.getFeature().addHint(presenter.getHint());
 					FeaturePresenter.this.getView().getAddHintPanel().clear();
-				} catch (DoubleDefinitionException e) {
-					Window.alert(e.getMessage());
+				} catch (DoubleDefinitionException dde) {
+					Window.alert(dde.getMessage());
+				} catch (ForbiddenStateException fse) {
+					fse.printStackTrace();
 				}
 			}
 		});
@@ -179,8 +182,10 @@ public class FeaturePresenter extends Presenter<IFeatureView>  implements Observ
 				try {
 					FeaturePresenter.this.myFeature.addAcceptanceCriterion(presenter.getCriterion());
 					FeaturePresenter.this.getView().getAddCriterionPanel().clear();
-				} catch (DoubleDefinitionException e) {
-					Window.alert(e.getMessage());
+				} catch (DoubleDefinitionException dde) {
+					Window.alert(dde.getMessage());
+				} catch (ForbiddenStateException fse) {
+					fse.printStackTrace();
 				}
 				
 			}
