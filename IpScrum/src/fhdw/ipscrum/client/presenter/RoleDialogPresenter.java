@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
-	private RoleDialogView concreteView;
+	private IRoleDialogView concreteView;
 	private IRole role;
 	
 	public RoleDialogPresenter(Panel parent) {
@@ -49,7 +49,7 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 			}
 		});
 		
-		return concreteView;
+		return this.concreteView;
 	}
 	
 	/**
