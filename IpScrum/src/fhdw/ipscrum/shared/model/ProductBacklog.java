@@ -5,14 +5,18 @@ import java.util.Vector;
 public class ProductBacklog {
 // TODO: Gruppe 1: Product Backlog extends fhdw.ipscrum.shared.observer.Observable
 	private Vector<ProductBacklogItem> items;
-	private Project project;
+	private final Project project;
 
 	/**
-	 * Es muss direkt nach der Erzeugung der Setter f�r Projekt gesetzt
-	 * werden.
-	 */
-	public ProductBacklog() {
+	 * It's not needed to create an PBL object out of
+	 * the model because each project will create
+	 * its own PBL.
+	 * @param project
+	 * Reverse association to the project!
+	 */ 
+	protected ProductBacklog(Project project) {
 		super();
+		this.project = project;
 	}
 	
 	/**
@@ -109,16 +113,6 @@ public class ProductBacklog {
 
 	public Project getProject() {
 		return project;
-	}
-	
-	/**
-	 * Initialisiert nur einmalig!
-	 * @param project
-	 */
-	public void setProject(Project project) {
-		if(this.project==null){
-			this.project = project;
-		}
 	}
 	
 	@Override

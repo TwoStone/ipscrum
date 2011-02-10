@@ -15,7 +15,7 @@ public class Project {
 	public Project(String name) {
 		super();
 		this.name = name;
-		this.backlog = new ProductBacklog();
+		this.backlog = new ProductBacklog(this);
 	}
 
 	public HashSet<Release> getReleasePlan() {

@@ -21,17 +21,6 @@ public abstract class ProductBacklogItem extends Observable{
 		this.backlog = backlog;
 	}
 	
-	/**
-	 * leerer Konstruktor für Gruppe 2 benötigt
-	 * @author stefan
-	 * 
-	 */
-	public ProductBacklogItem(){
-		// dummy Initialisierung
-//		this.release = new Release();
-		this.backlog = new ProductBacklog();
-	}
-
 	public void setRelease(IRelease release) {
 		this.release = release;
 	}

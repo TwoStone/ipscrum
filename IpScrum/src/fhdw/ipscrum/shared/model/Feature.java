@@ -30,10 +30,6 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	
 	
 /* Start of constructor section */
-	public Feature(){	
-		//TODO: Define the way of initializing a Feature
-	}
-	
 	public Feature(String name, String description, Integer manDayCosts, ProductBacklog backlog) {
 		super(name, backlog);
 		this.setDescription(description);
