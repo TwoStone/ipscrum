@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.Vector;
+
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -9,6 +11,7 @@ import fhdw.ipscrum.client.events.args.ProjectEventArgs;
 import fhdw.ipscrum.client.view.ProjectView;
 import fhdw.ipscrum.client.view.interfaces.IProjectView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.model.Project;
 
 public class ProjectPresenter extends Presenter<IProjectView> {
 
@@ -31,7 +34,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-						view.refreshProjects(SessionManager.getInstance().getModel().getProjects());
+						view.refreshProjects(new Vector<Project>(SessionManager.getInstance().getModel().getProjects()));
 						box.hide();
 					}
 				});
@@ -45,7 +48,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
 				if(eventArgs.getProject()!=null){
 					SessionManager.getInstance().getModel().removeProject(eventArgs.getProject());
-					view.refreshProjects(SessionManager.getInstance().getModel().getProjects());
+					view.refreshProjects(new Vector<Project>(SessionManager.getInstance().getModel().getProjects()));
 				}
 			}
 		});
@@ -60,7 +63,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			
 		});
 		
-		view.refreshProjects(SessionManager.getInstance().getModel().getProjects());
+		view.refreshProjects(new Vector<Project>(SessionManager.getInstance().getModel().getProjects()));
 		
 		return view;
 	}
