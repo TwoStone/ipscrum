@@ -2,8 +2,9 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
-public class ProductBacklog {
-// TODO: Gruppe 1: Product Backlog extends fhdw.ipscrum.shared.observer.Observable
+import fhdw.ipscrum.shared.observer.Observable;
+
+public class ProductBacklog extends Observable{
 	private Vector<ProductBacklogItem> items;
 	private final Project project;
 

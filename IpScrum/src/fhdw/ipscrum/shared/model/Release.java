@@ -5,8 +5,9 @@ import java.util.HashSet;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.observer.Observable;
 
-public class Release implements IRelease {
+public class Release extends Observable implements IRelease {
 
 	private HashSet<ISprint> sprints;
 	private final Project project;

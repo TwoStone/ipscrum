@@ -7,9 +7,10 @@ import fhdw.ipscrum.shared.exceptions.PersistenceException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
 
-public class Root implements SerializationRoot{
+public class Root extends Observable implements SerializationRoot{
 
 	private Vector<Project> projects;
 	private HashSet<IPerson> persons;

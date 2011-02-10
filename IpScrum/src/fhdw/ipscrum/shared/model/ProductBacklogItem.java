@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -37,16 +38,34 @@ public abstract class ProductBacklogItem extends Observable{
 		return name;
 	}
 
-	public final void setName(String name) {
-		this.name = name;
+	public final void setName(String name) throws NoValidValueException{
+		if(name!=null && name.trim().length()>0){
+			this.name = name;
+		}else{
+			//TODO Textkonstante bauen
+			throw new NoValidValueException("Es muss eine Bezeichnung angegeben werden!");
+		}
 	}
 
 	public final Integer getManDayCosts() {
 		return manDayCosts;
 	}
 
-	public final void setManDayCosts(Integer manDayCosts) {
-		this.manDayCosts = manDayCosts;
+	/**
+	 * 
+	 * @param manDayCosts
+	 * Values smaller 0 are not allow.
+	 * 0 means not defined.
+	 * @throws NoValidValueException
+	 * If the value is smaller 0!
+	 */
+	public final void setManDayCosts(Integer manDayCosts) throws NoValidValueException{
+		if(manDayCosts != null && manDayCosts > 0){
+			this.manDayCosts = manDayCosts;
+		}else{
+			//TODO Textkonstante bauen
+			throw new NoValidValueException("Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!");
+		}
 	}
 	
 	public IPerson getLastEditor() {

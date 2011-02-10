@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.observer.Observable;
 
-public class Project {
+public class Project extends Observable{
 
 	private String name;
 	private final ProductBacklog backlog;
