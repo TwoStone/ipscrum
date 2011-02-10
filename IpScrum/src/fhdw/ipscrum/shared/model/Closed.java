@@ -50,5 +50,29 @@ public class Closed implements IFeatureState {
 		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 		
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((myFeature == null) ? 0 : myFeature.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Closed other = (Closed) obj;
+		if (myFeature == null) {
+			if (other.myFeature != null)
+				return false;
+		} else if (!myFeature.equals(other.myFeature))
+			return false;
+		return true;
+	}
 
 }

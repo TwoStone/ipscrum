@@ -184,6 +184,8 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 				* result
 				+ ((acceptanceCriteria == null) ? 0 : acceptanceCriteria
 						.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((editor == null) ? 0 : editor.hashCode());
 		result = prime * result + ((hints == null) ? 0 : hints.hashCode());
 		result = prime * result
@@ -205,6 +207,11 @@ public boolean equals(Object obj) {
 		if (other.acceptanceCriteria != null)
 			return false;
 	} else if (!acceptanceCriteria.equals(other.acceptanceCriteria))
+		return false;
+	if (description == null) {
+		if (other.description != null)
+			return false;
+	} else if (!description.equals(other.description))
 		return false;
 	if (editor == null) {
 		if (other.editor != null)

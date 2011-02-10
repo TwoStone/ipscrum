@@ -3,12 +3,12 @@ package fhdw.ipscrum.shared.model;
 import java.util.Vector;
 
 public class ProductBacklog {
-
+// TODO: Gruppe 1: Product Backlog extends fhdw.ipscrum.shared.observer.Observable
 	private Vector<ProductBacklogItem> items;
 	private Project project;
 
 	/**
-	 * Es muss direkt nach der Erzeugung der Setter für Projekt gesetzt
+	 * Es muss direkt nach der Erzeugung der Setter fï¿½r Projekt gesetzt
 	 * werden.
 	 */
 	public ProductBacklog() {
