@@ -35,7 +35,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 			@Override
 			public void onUpdate(Object sender, OneStringArgs eventArgs) {
 				if (TeamDialogPresenter.this.team == null) {
-					SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
+					SessionManager.getInstance().getModel().addTeam(new Team(eventArgs.getString()));
 				} else {
 					TeamDialogPresenter.this.team.setDescription(eventArgs.getString());					
 				}
