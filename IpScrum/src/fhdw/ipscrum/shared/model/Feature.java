@@ -50,6 +50,7 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	 */
 	public void addHint(Hint hint) throws DoubleDefinitionException, ForbiddenStateException{
 		this.state.addHint(hint);
+		this.notifyObservers();
 	}
 	/**
 	 * this method adds a relation to a feature
@@ -58,6 +59,7 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	 */
 	public void addRelation(Relation relation) throws DoubleDefinitionException, ForbiddenStateException{
 		this.state.addRelation(relation);
+		this.notifyObservers();
 	}
 	/**
 	 * this method adds an acceptance criterion to a feature
@@ -66,20 +68,25 @@ public class Feature extends /*implements*/ ProductBacklogItem /*IProductBacklog
 	 */
 	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion) throws DoubleDefinitionException, ForbiddenStateException{
 		this.state.addAcceptanceCriterion(acceptanceCriterion);
+		this.notifyObservers();
 	}
 	/**
 	 * this method counts the number of registred relations to other features.
 	 * @return number of relations
 	 */
-	public int countRelations(){
-		return this.getRelations().size();
-	}
+	/* not needed 
+	 * public int countRelations(){
+	 * return this.getRelations().size();
+	 * }
+	 */
+		
 	/**
 	 * Sets the state of the feature to "closed".
 	 * @throws ForbiddenStateException 
 	 */
 	public void close() throws ForbiddenStateException{
 		this.state.close();
+		this.notifyObservers();
 	}
 	
 	void doClose(){
