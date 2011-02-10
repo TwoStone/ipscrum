@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.interfaces;
 import java.sql.Date;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Team;
 
@@ -17,7 +18,7 @@ public interface ISprint {
 	public Team getTeam();
 	public void setTeam(Team team);
 	
-	//TODO PWOLF Modelländerung gemäß Brack, falls unklar mich bitte ansprechen
+	//TODO Modelländerung gemäß Brack, falls unklar mich bitte ansprechen
 	//Achtung! Bitte konsistenzbedingung einarbeiten, dass keine neuen
 	//Releases definiert werden dürfen, sondern nur Releases hinzugefügt werden,
 	//die bereits einem Project anhängen!
@@ -29,4 +30,9 @@ public interface ISprint {
 	
 	//TODO Wir brauchen irgendeine String Repräsentation um den Sprint auf der Oberfläche anzeigen zu können.
 	public String getName();
+	
+	//TODO Bitte das Hinzufügen und entferner über eigene Add/Remove Methoden
+	//bereitstellen. Man kann dann besser die Konsistenzbedingungen prüfen.
+	//TODO bitte hier die Prüfung einbauen, dass kein Ping-Pong-Effekt auftritt!
+	public void addPBI(ProductBacklogItem pbi) throws ConsistencyException;
 }
