@@ -8,5 +8,6 @@ public interface ICreateProjectView extends IView{
 	public abstract void addSaveProjectHandler(EventHandler<EventArgs> args);
 	public abstract String getProjectName();
 	public abstract void setProjectName(String name);
-
+	public abstract void addCancelCreateProjectHandler(EventHandler<EventArgs> args);
+	
 }
