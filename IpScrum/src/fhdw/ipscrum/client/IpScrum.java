@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Role;
