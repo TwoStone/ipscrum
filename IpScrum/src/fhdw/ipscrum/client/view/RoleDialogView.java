@@ -16,11 +16,13 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.OneStringArgs;
+import fhdw.ipscrum.client.events.args.SingleRoleArgs;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 
 public class RoleDialogView extends Composite implements IRoleDialogView {
 	
-	private final Event<EventArgs> okEvent = new Event<EventArgs>();
+	private final Event<OneStringArgs> okEvent = new Event<OneStringArgs>();
 	private final Event<EventArgs> cancelEvent = new Event<EventArgs>();
 	
 	private TextBox role;
@@ -67,7 +69,7 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 		ok_button.setSize("100px", "28px");
 		ok_button.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				okEvent.fire(RoleDialogView.this, new EventArgs());
+				okEvent.fire(RoleDialogView.this, new OneStringArgs(RoleDialogView.this.getRole().getText()));
 			}
 		});
 		
@@ -92,7 +94,7 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 
 
 	@Override
-	public void addOkEventHandler(EventHandler<EventArgs> args) {
+	public void addOkEventHandler(EventHandler<OneStringArgs> args) {
 		okEvent.add(args);
 	}
 

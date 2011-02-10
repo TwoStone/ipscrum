@@ -4,9 +4,11 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Role;
 
 
@@ -22,21 +24,21 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	public RoleDialogPresenter(Panel parent, Role selectedRole) {
 		super(parent);
 		this.role = selectedRole;
+		initialize();
 	}
 
 	@Override
 	protected IRoleDialogView createView() {
-		final Role roleHandler = this.role;
-		view.addOkEventHandler(new EventHandler<EventArgs>() {
+		view.addOkEventHandler(new EventHandler<OneStringArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				if(role != null){
-					roleHandler.setDescription(view.getRole().getText());
+			public void onUpdate(Object sender, OneStringArgs eventArgs) {
+				if (RoleDialogPresenter.this.role == null) {
+					SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
 				} else {
-					Role role = new Role(view.getRole().getText());
-					SessionManager.getInstance().getModel().addRole(role);					
-				} 
+					RoleDialogPresenter.this.role.setDescription(eventArgs.getString());					
+				}
+				
 				finish();
 			}
 		});
@@ -45,11 +47,19 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				finish();
+				abort();
 			}
 		});
 		return view;
 	}
 	
+	/**
+	 * 
+	 */
+	private void initialize() {
+		if (this.role != null) {
+			this.view.getRole().setText(this.role.getDescription());
+		}
+	}
 
 }
