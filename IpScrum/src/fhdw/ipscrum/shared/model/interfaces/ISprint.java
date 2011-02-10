@@ -35,4 +35,8 @@ public interface ISprint {
 	//bereitstellen. Man kann dann besser die Konsistenzbedingungen prüfen.
 	//TODO bitte hier die Prüfung einbauen, dass kein Ping-Pong-Effekt auftritt!
 	public void addPBI(ProductBacklogItem pbi) throws ConsistencyException;
+
+	//Wird benötigt, damit der PBI bei setSprint(null), sich auch aus dessen
+	//Liste entfernen kann!
+	public void removePBI(ProductBacklogItem pbi) throws ConsistencyException;
 }
