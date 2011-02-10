@@ -16,9 +16,9 @@ public abstract class ProductBacklogItem extends Observable{
 	private IPerson lastEditor;
 	private ISprint sprint;
 	
-	public ProductBacklogItem(String name, ProductBacklog backlog) {
+	public ProductBacklogItem(String name, ProductBacklog backlog) throws NoValidValueException{
 		super();
-		this.name = name;
+		this.setName(name);
 		this.backlog = backlog;
 	}
 	

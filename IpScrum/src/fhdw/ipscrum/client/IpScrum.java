@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Role;
@@ -69,9 +70,13 @@ public class IpScrum implements EntryPoint {
 		SessionManager.getInstance().getModel().addPerson(pNils);
 		
 		// Initial Projects
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 1"));
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));
-		SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3"));
+		try {
+			SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 1"));
+			SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));
+			SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3"));
+		} catch (NoValidValueException e) {
+			//Da später entfernt wird, wird diese Meldung zunächst nicht beachtet!
+		}
 	}
  }
 	

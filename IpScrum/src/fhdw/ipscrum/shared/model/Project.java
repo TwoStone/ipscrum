@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
@@ -13,9 +14,9 @@ public class Project extends Observable{
 	private HashSet<Release> releasePlan;
 	private HashSet<ISprint> sprints;
 
-	public Project(String name) {
+	public Project(String name) throws NoValidValueException{
 		super();
-		this.name = name;
+		this.setName(name);
 		this.backlog = new ProductBacklog(this);
 	}
 
@@ -30,8 +31,13 @@ public class Project extends Observable{
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String name) throws NoValidValueException {
+		if(name!=null && name.trim().length()>0){
+			this.name = name;
+		}else{
+			//TODO Textkonstante bauen
+			throw new NoValidValueException("Es muss ein Projektname angegeben werden!");
+		}
 	}
 
 	public ProductBacklog getBacklog() {
