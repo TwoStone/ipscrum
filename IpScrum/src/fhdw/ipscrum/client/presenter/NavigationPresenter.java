@@ -49,7 +49,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				Window.alert("Specherung folgt!");
+				Window.alert("Speicherung folgt!");
 			}
 		});
 		
