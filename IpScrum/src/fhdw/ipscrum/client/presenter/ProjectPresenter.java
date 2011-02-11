@@ -59,9 +59,12 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
 				view.getMasterProductBackloglPanel().clear();
 				view.getMasterReleasePanel().clear();
+				view.getMasterSprintPanel().clear();
 				
-				new ProductBacklogPresenter(view.getMasterProductBackloglPanel(), eventArgs.getProject());
 			new ReleasePresenter(view.getMasterReleasePanel(), eventArgs.getProject());
+			new SprintPresenter(view.getMasterSprintPanel(), eventArgs.getProject());
+			new ProductBacklogPresenter(view.getMasterProductBackloglPanel(), eventArgs.getProject());
+			
 			}
 			
 		});
