@@ -1,7 +1,9 @@
 package fhdw.ipscrum.shared.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -20,6 +22,7 @@ public class Release extends Observable implements IRelease {
 	
 	public Release(Project project) {
 		super();
+		project.addRelease(this);
 		this.project = project;
 	}
 	
@@ -47,12 +50,28 @@ public class Release extends Observable implements IRelease {
 	 */
 	public void addSprint(ISprint sprint) throws NoSprintDefinedException{
 		if(this.project.isSprintDefined(sprint)){
-			this.getSprints().add(sprint);
-			this.notifyObservers();
+			if(sprint!=null && !this.isSprintInList(sprint)){
+				sprint.setRelease(this);
+				this.getSprints().add(sprint);
+				this.notifyObservers();
+			}else{
+				//TODO Textkonstante bauen
+//				throw new ConsistencyException("");
+			}
 		}else{
 			//TODO Textkonstante bauen
 			throw new NoSprintDefinedException("Nur bereits erstelle Sprints können dem Release zugeordnet werden.");
 		}
+	}
+	
+	private boolean isSprintInList(ISprint sprint){
+		Iterator<ISprint> i = this.getSprints().iterator();
+		while(i.hasNext()){
+			if(i.next().equals(sprint)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

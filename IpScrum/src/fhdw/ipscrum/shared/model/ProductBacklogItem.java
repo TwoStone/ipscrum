@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -27,9 +28,10 @@ public abstract class ProductBacklogItem extends Observable{
 	 * Valid names are not null and have not only
 	 * whitespace characters.
 	 */
-	public ProductBacklogItem(String name, ProductBacklog backlog) throws NoValidValueException{
+	public ProductBacklogItem(String name, ProductBacklog backlog) throws NoValidValueException, ConsistencyException{
 		super();
 		this.setName(name);
+		backlog.addItem(this);
 		this.backlog = backlog;
 		this.setManDayCosts(0);
 	}
@@ -99,15 +101,24 @@ public abstract class ProductBacklogItem extends Observable{
 	/**
 	 * TODO Kommentar schreiben
 	 * @param sprint
-	 * @throws NoSprintDefinedException
+	 * Null Value Means, that the PBI will be removed from the Sprint!
+	 * @throws NoSprintDefinedException, ConsistencyException
 	 */
-	public void setSprint(ISprint sprint) throws NoSprintDefinedException {
-		if(this.backlog.getProject().isSprintDefined(sprint)){
+	public void setSprint(ISprint sprint) throws NoSprintDefinedException, ConsistencyException {
+		if(sprint!=null){
+			if(this.backlog.getProject().isSprintDefined(sprint)){
+				sprint.addPBI(this);
 				this.sprint = sprint;
 				this.notifyObservers();
+			}else{
+				//TODO Textkonstante bauen
+				throw new NoSprintDefinedException("Es können nur bereits vorhandene Sprints zugeordnet werden!");
+			}
 		}else{
-			//TODO Textkonstante bauen
-			throw new NoSprintDefinedException("Es können nur bereits vorhandene Sprints zugeordnet werden!");
+			if(this.sprint!=null){
+				this.sprint.removePBI(this);
+				this.sprint=null;
+			}
 		}
 	}
 

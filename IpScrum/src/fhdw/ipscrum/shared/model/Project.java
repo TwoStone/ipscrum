@@ -3,7 +3,9 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
@@ -25,7 +27,7 @@ public class Project extends Observable{
 	 * Valid names are not null and have not only
 	 * whitespace characters.
 	 */
-	public Project(String name) throws NoValidValueException{
+	public Project(String name) throws NoValidValueException, ConsistencyException{
 		super();
 		this.setName(name);
 		this.backlog = new ProductBacklog(this);
@@ -75,7 +77,7 @@ public class Project extends Observable{
 	public boolean isSprintDefined(ISprint sprint){
 		Iterator<ISprint> i = this.getSprints().iterator();
 		while(i.hasNext()){
-			if(i.equals(sprint)){
+			if(i.next().equals(sprint)){
 				return true;
 			}
 		}
@@ -113,6 +115,14 @@ public class Project extends Observable{
 		//TODO Konsistenzerhaltung
 		this.getSprints().remove(sprint);
 		this.notifyObservers();
+	}
+	
+	public void addRelease(IRelease release){
+		//TODO AddRemove Releas Konsistenzbedingung
+	}
+	
+	public void removeRelease(IRelease release){
+		//TODO AddRemove Releas Konsistenzbedingung
 	}
 	
 	/**
