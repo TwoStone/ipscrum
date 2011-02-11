@@ -1,9 +1,9 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -19,7 +19,25 @@ public class Release extends Observable implements IRelease {
 
 	private HashSet<ISprint> sprints;
 	private final Project project;
+	private String version;
+	private Date releaseDate;
 	
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
 	public Release(Project project) {
 		super();
 		project.addRelease(this);
