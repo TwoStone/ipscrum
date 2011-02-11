@@ -22,6 +22,12 @@ public class Release extends Observable implements IRelease {
 	private String version;
 	private Date releaseDate;
 	
+	public Release(String version, Date releaseDate, Project project){
+		this.version = version;
+		this.releaseDate = releaseDate;
+	this.project = project;
+	}
+	
 	public String getVersion() {
 		return version;
 	}
