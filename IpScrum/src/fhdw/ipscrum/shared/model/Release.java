@@ -120,9 +120,12 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		result = prime * result
+				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
 		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
 
@@ -130,7 +133,7 @@ public class Release extends Observable implements IRelease {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -140,10 +143,20 @@ public class Release extends Observable implements IRelease {
 				return false;
 		} else if (!project.equals(other.project))
 			return false;
+		if (releaseDate == null) {
+			if (other.releaseDate != null)
+				return false;
+		} else if (!releaseDate.equals(other.releaseDate))
+			return false;
 		if (this.getSprints() == null) {
 			if (other.getSprints() != null)
 				return false;
 		} else if (!this.getSprints().equals(other.getSprints()))
+			return false;
+		if (version == null) {
+			if (other.version != null)
+				return false;
+		} else if (!version.equals(other.version))
 			return false;
 		return true;
 	}
