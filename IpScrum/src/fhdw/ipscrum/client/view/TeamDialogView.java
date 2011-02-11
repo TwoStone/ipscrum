@@ -2,23 +2,19 @@ package fhdw.ipscrum.client.view;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.OneStringArgs;
-import fhdw.ipscrum.client.events.args.SingleRoleArgs;
-import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.ITeamDialogView;
 
 public class TeamDialogView extends Composite implements ITeamDialogView {
@@ -64,8 +60,7 @@ public class TeamDialogView extends Composite implements ITeamDialogView {
 		bottomPanel.add(buttonPanel);
 		buttonPanel.setSize("219px", "36px");
 		
-		ok_button = new Button("New button");
-		ok_button.setText("OK");
+		ok_button = new Button("OK");
 		buttonPanel.add(ok_button);
 		ok_button.setSize("100px", "28px");
 		ok_button.addClickHandler(new ClickHandler() {
@@ -74,8 +69,7 @@ public class TeamDialogView extends Composite implements ITeamDialogView {
 			}
 		});
 		
-		abb_button = new Button("New button");
-		abb_button.setText("Abberchen");
+		abb_button = new Button("Abbrechen");
 		buttonPanel.add(abb_button);
 		abb_button.setSize("100px", "28px");
 		abb_button.addClickHandler(new ClickHandler() {
