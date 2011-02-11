@@ -244,7 +244,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 				+ ((this.state == null) ? 0 : this.state.hashCode());
 		return result;
 	}
-
+//TODO: remove-Ops über State delegieren
 	public void removeAcceptanceCriterion(AcceptanceCriterion criterion) {
 		this.acceptanceCriteria.remove(criterion);
 
