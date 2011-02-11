@@ -179,11 +179,10 @@ public class TeamView extends Composite implements ITeamView {
 	@Override
 	public ITeam getSelectedTeamOfTree() {
 		Object selItem = this.tree.getSelectedItem().getUserObject();
-		Object parentItem = this.tree.getSelectedItem().getParentItem().getUserObject();
 		if (selItem instanceof ITeam) {
 			return (ITeam) selItem;
-		} else if (selItem instanceof IPerson && parentItem instanceof ITeam) {
-			return (ITeam) parentItem;
+		} else if (selItem instanceof IPerson && this.tree.getSelectedItem().getParentItem().getUserObject() instanceof ITeam) {
+			return (ITeam) this.tree.getSelectedItem().getParentItem().getUserObject();
 		}
 		return null;
 	}
