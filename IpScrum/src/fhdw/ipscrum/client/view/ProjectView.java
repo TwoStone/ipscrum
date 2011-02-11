@@ -35,7 +35,7 @@ public class ProjectView extends Composite implements IProjectView{
 	private final Event<ProjectEventArgs> deleteProjectEvent = new Event<ProjectEventArgs>();
 	private final Event<ProjectEventArgs> projectSelectionEvent = new Event<ProjectEventArgs>();
 //##### Ende ##################
-//##### Tempräre Daten ########
+//##### Temporäre Daten ########
 	private Project currentlySelected;
 //#############################
 	

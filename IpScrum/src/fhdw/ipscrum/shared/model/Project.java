@@ -16,7 +16,7 @@ public class Project extends Observable{
 
 	private String name;
 	private final ProductBacklog backlog;
-	private HashSet<Release> releasePlan;
+	private HashSet<IRelease> releasePlan;
 	private HashSet<ISprint> sprints;
 
 	/**
@@ -33,9 +33,9 @@ public class Project extends Observable{
 		this.backlog = new ProductBacklog(this);
 	}
 
-	public HashSet<Release> getReleasePlan() {
+	public HashSet<IRelease> getReleasePlan() {
 		if (this.releasePlan == null) {
-			this.releasePlan = new HashSet<Release>();
+			this.releasePlan = new HashSet<IRelease>();
 		}
 		return releasePlan;
 	}
@@ -119,10 +119,23 @@ public class Project extends Observable{
 	
 	public void addRelease(IRelease release){
 		//TODO AddRemove Releas Konsistenzbedingung
+		
+		
+	//////////// NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
+	this.getReleasePlan().add(release);
+	//////////// NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
+	
+	
 	}
 	
 	public void removeRelease(IRelease release){
 		//TODO AddRemove Releas Konsistenzbedingung
+	
+		////////////NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
+		this.getReleasePlan().remove(release);
+		//////////// NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
+		
+	
 	}
 	
 	/**

@@ -1,16 +1,21 @@
 package fhdw.ipscrum.client.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
-import java.util.Vector;
 
+import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
@@ -18,12 +23,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
 import fhdw.ipscrum.shared.model.Release;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.cellview.client.Column;
-import java.util.Date;
-import com.google.gwt.cell.client.DateCell;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Label;
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 
 
@@ -40,7 +40,7 @@ public class ReleaseView extends Composite implements IReleaseView{
 	private Image imgNewFile;
 	private Image imgDetails;
 	private Image imgDelete;
-	private CellTable<Release> tableRelease;
+	private CellTable<IRelease> tableRelease;
 	private ScrollPanel scrollPanel;
 	private Column date;
 	private Label lblReleaseuebersicht;
@@ -99,11 +99,11 @@ public class ReleaseView extends Composite implements IReleaseView{
 		concreteReleasePanel.add(scrollPanel, 10, 72);
 		scrollPanel.setSize("450px", "200px");
 		
-		tableRelease = new CellTable<Release>();
+		tableRelease = new CellTable<IRelease>();
 		
-		TextColumn<Release> version = new TextColumn<Release>() {
+		TextColumn<IRelease> version = new TextColumn<IRelease>() {
 			@Override
-			public String getValue(Release release) {
+			public String getValue(IRelease release) {
 				return release.getVersion();
 			}
 		};
@@ -133,7 +133,7 @@ public class ReleaseView extends Composite implements IReleaseView{
 	}
 
 
-		private CellTable<Release> getTableRelease() {
+		private CellTable<IRelease> getTableRelease() {
 			return this.tableRelease;
 		}
 
@@ -143,8 +143,8 @@ public class ReleaseView extends Composite implements IReleaseView{
 		}
 
 		@Override
-		public void refreshReleases(HashSet<Release> release) {
-		this.getTableRelease().setRowData(new ArrayList<Release>(release));
+		public void refreshReleases(HashSet<IRelease> release) {
+		this.getTableRelease().setRowData(new ArrayList<IRelease>(release));
 			
 		}
 
