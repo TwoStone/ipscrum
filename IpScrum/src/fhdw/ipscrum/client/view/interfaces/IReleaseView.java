@@ -1,25 +1,22 @@
 package fhdw.ipscrum.client.view.interfaces;
 
+import java.util.HashSet;
 import java.util.Vector;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.client.ui.Image;
-
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.shared.model.Release;
 
 public interface IReleaseView extends IView{
 
-	public abstract HasClickHandlers getImgNewFile();
+	public abstract void addReleaseDetailsEventHandler(EventHandler<ReleaseArgs> arg);
+	public abstract void addNewReleaseEventHandler(EventHandler<EventArgs> arg);
+	public abstract void addDeleteReleaseEventHandler(EventHandler<ReleaseArgs> arg);
+	
+	
+	public abstract void refreshReleases(HashSet<Release> release);
 
-	public abstract HasClickHandlers getImgDetails();
-
-	public abstract HasClickHandlers getImgDelete();
-
-	public abstract CellTable<Release> getReleaseTable();
-
-	public abstract CellTable<Release> getSelectedRelease();
-
-	public abstract void refreshReleases(Vector<Release> Release);
-
+	
+	
 }
