@@ -20,7 +20,7 @@ public class QuestionDialog extends DialogBox {
 		this.setSize("", "");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
-		this.setTitle(title);
+		this.setHTML("<b>" + title + "</b>");
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(5);

@@ -24,12 +24,12 @@ public final class GwtUtils {
 		dialog.setAnimationEnabled(true);
 		dialog.setModal(true);
 		dialog.setGlassEnabled(true);
-		dialog.setText(title);
+		dialog.setHTML("<b>" + title + "</b>");
 		return dialog;
 	}
 
 	public static void displayError(String error) {
-		final DialogBox dialog = createDialog("Fehler:");
+		final DialogBox dialog = createDialog("Fehler");
 		final VerticalPanel panel = new VerticalPanel();
 		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -48,5 +48,7 @@ public final class GwtUtils {
 			}
 		});
 		panel.add(okayButton);
+
+		dialog.center();
 	}
 }

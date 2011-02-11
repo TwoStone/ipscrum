@@ -149,7 +149,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		this.relationTable.addColumn(deleteCol);
 
-		this.btnAddRelation = new Button("New button");
+		this.btnAddRelation = new Button("Beziehung hinzuf\u00FCgen");
 		this.btnAddRelation.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -157,7 +157,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 						CreateFeatureView.this, new EventArgs());
 			}
 		});
-		this.btnAddRelation.setText("Beziehung hinzuf\u00FCgen");
 		verticalPanel.add(this.btnAddRelation);
 
 		final VerticalPanel verticalPanel_1 = new VerticalPanel();
@@ -208,7 +207,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.addHintPanel = new SimplePanel();
 		verticalPanel_1.add(this.addHintPanel);
 
-		this.btnAddHint = new Button("New button");
+		this.btnAddHint = new Button("Hinweis hinzuf\u00FCgen");
 		this.btnAddHint.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -217,7 +216,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 			}
 		});
 		verticalPanel_1.add(this.btnAddHint);
-		this.btnAddHint.setText("Hinweis hinzuf\u00FCgen");
 
 		this.lblAkzptanzkriterien = new Label("Akzptanzkriterien:");
 		verticalPanel_1.add(this.lblAkzptanzkriterien);

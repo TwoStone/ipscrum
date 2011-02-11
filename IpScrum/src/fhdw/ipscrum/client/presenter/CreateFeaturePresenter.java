@@ -3,7 +3,6 @@ package fhdw.ipscrum.client.presenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -120,7 +119,7 @@ public class CreateFeaturePresenter extends Presenter<ICreateFeatureView>
 	}
 
 	private void createRelation(Panel panel) {
-		Window.alert("Not yet implemented!");
+		GwtUtils.displayError("Not yet implemented");
 	}
 
 	@Override
@@ -235,13 +234,13 @@ public class CreateFeaturePresenter extends Presenter<ICreateFeatureView>
 			this.feature = this.createFeature();
 			this.finish();
 		} catch (final NoValidValueException e) {
-			Window.alert(e.getMessage());
+			GwtUtils.displayError(e.getMessage());
 		} catch (final DoubleDefinitionException e) {
-			Window.alert(e.getMessage());
+			GwtUtils.displayError(e.getMessage());
 		} catch (final ForbiddenStateException e) {
-			Window.alert(e.getMessage());
+			GwtUtils.displayError(e.getMessage());
 		} catch (final NoSprintDefinedException e) {
-			Window.alert(e.getMessage());
+			GwtUtils.displayError(e.getMessage());
 		}
 	}
 

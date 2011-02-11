@@ -2,7 +2,6 @@ package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -22,10 +21,13 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
+import fhdw.ipscrum.shared.model.Closed;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
+import fhdw.ipscrum.shared.model.Open;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
 
@@ -36,10 +38,13 @@ public class EditFeaturePresenter extends Presenter<IEditFeatureView> implements
 	public EditFeaturePresenter(Panel parent, Feature feature) {
 		super(parent);
 		if (feature == null) {
-			throw new IllegalArgumentException("Keine Feature angegeben!");
+			throw new IllegalArgumentException("Kein Feature angegeben!");
 		}
 		this.feature = feature;
 		this.feature.addObserver(this);
+
+		this.updateView();
+		this.registerViewEvents();
 	}
 
 	private void createCriterion(final Panel panel) {
@@ -53,9 +58,9 @@ public class EditFeaturePresenter extends Presenter<IEditFeatureView> implements
 							.addAcceptanceCriterion(presenter.getCriterion());
 					panel.clear();
 				} catch (final DoubleDefinitionException e) {
-					Window.alert(e.getMessage());
+					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
-					Window.alert(e.getMessage());
+					GwtUtils.displayError(e.getMessage());
 				}
 
 			}
@@ -78,9 +83,9 @@ public class EditFeaturePresenter extends Presenter<IEditFeatureView> implements
 					EditFeaturePresenter.this.feature.addHint(presenter
 							.getHint());
 				} catch (final DoubleDefinitionException e) {
-					Window.alert(e.getMessage());
+					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
-					Window.alert(e.getMessage());
+					GwtUtils.displayError(e.getMessage());
 				}
 				panel.clear();
 			}
@@ -93,8 +98,8 @@ public class EditFeaturePresenter extends Presenter<IEditFeatureView> implements
 		});
 	}
 
-	protected void createRelation(DialogBox createDialog) {
-		Window.alert("Not yet implemented!");
+	private void createRelation(DialogBox createDialog) {
+		GwtUtils.displayError("Not yet implemented!");
 	}
 
 	@Override
@@ -186,6 +191,13 @@ public class EditFeaturePresenter extends Presenter<IEditFeatureView> implements
 								.getRelation());
 					}
 				});
+		this.getView().toggleFeatureState().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				EditFeaturePresenter.this.toggleFeatureState();
+			}
+		});
 	}
 
 	private void removeCriterion(AcceptanceCriterion criterion) {
@@ -208,6 +220,24 @@ public class EditFeaturePresenter extends Presenter<IEditFeatureView> implements
 		} catch (final NoSprintDefinedException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
+	}
+
+	private void toggleFeatureState() {
+		this.feature.getState().accept(new IFeatureVisitor() {
+
+			@Override
+			public void handleClosed(Closed closed) {
+			}
+
+			@Override
+			public void handleOpen(Open open) {
+				try {
+					EditFeaturePresenter.this.feature.close();
+				} catch (final ForbiddenStateException e) {
+					GwtUtils.displayError(e.getMessage());
+				}
+			}
+		});
 	}
 
 	@Override
