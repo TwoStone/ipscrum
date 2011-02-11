@@ -38,9 +38,9 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 		Label lblCreateProjet = new Label("Neues Projekt erstellen");
 		lblCreateProjet.setStyleName("LabelElement");
 		lblCreateProjet
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		concreteCreateProjectPanel.add(lblCreateProjet, 10, 2);
-		lblCreateProjet.setSize("177px", "38px");
+		lblCreateProjet.setSize("219px", "38px");
 
 		btnCreateProject = new Button("New button");
 		btnCreateProject.addClickHandler(new ClickHandler() {
@@ -49,14 +49,7 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 			}
 		});
 		btnCreateProject.setText("Projekt erstellen");
-		btnCreateProject.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				cancelCreateProjectEvent.fire(CreateProjectView.this, new EventArgs());
-				
-			}
-		});
+	
 		concreteCreateProjectPanel.add(btnCreateProject, 10, 93);
 
 		Label lblBezeichnung = new Label("Bezeichnung:");
@@ -67,9 +60,19 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 		concreteCreateProjectPanel.add(txtBoxBezeichnung, 10, 62);
 		
 		Button btnCancel = new Button("New button");
-		btnCancel.setText("Verwerfen");
+		btnCancel.setText("Abbrechen");
+		
+		btnCancel.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				cancelCreateProjectEvent.fire(CreateProjectView.this, new EventArgs());
+				
+			}
+		});
+		
 		concreteCreateProjectPanel.add(btnCancel, 173, 93);
-		btnCancel.setSize("100px", "28px");
+		btnCancel.setSize("100px", "28px");	
 	}
 
 	@Override

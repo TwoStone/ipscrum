@@ -54,14 +54,6 @@ public class CreateReleaseView extends Composite implements ICreateReleaseView{
 			}
 		});
 		btnCreateRelease.setText("Release erstellen");
-		btnCreateRelease.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				cancelCreateReleaseEvent.fire(CreateReleaseView.this, new EventArgs());
-				
-			}
-		});
 		concreteCreateProjectPanel.add(btnCreateRelease, 10, 144);
 		btnCreateRelease.setSize("148px", "28px");
 
@@ -73,6 +65,15 @@ public class CreateReleaseView extends Composite implements ICreateReleaseView{
 		concreteCreateProjectPanel.add(txtBoxVersion, 10, 62);
 		
 		btnCancel = new Button("New button");
+		btnCancel.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				cancelCreateReleaseEvent.fire(CreateReleaseView.this, new EventArgs());
+				
+			}
+		});
+		
 		btnCancel.setText("Abbrechen");
 		concreteCreateProjectPanel.add(btnCancel, 175, 144);
 		btnCancel.setSize("100px", "28px");
