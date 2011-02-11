@@ -8,6 +8,8 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateProjectView;
 import fhdw.ipscrum.client.view.interfaces.ICreateProjectView;
+import fhdw.ipscrum.client.view.widgets.AbortDialog;
+import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
@@ -39,6 +41,23 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 				}
 			}
 		});
+	
+		view.addCancelCreateProjectHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+			
+				new AbortDialog(new OnOkayCommand() {
+					
+					@Override
+					public void onExecute() {
+						CreateProjectPresenter.this.abort();
+					}
+				});
+				
+			}
+		});
+		
 		return view;
 	}
 }
