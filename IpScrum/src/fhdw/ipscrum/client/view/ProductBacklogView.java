@@ -2,8 +2,6 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Vector;
 
-import org.apache.tools.ant.Project;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -16,6 +14,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -26,7 +25,6 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class ProductBacklogView extends Composite implements
 		IProductBacklogView {
@@ -190,7 +188,11 @@ public class ProductBacklogView extends Composite implements
 						TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
 							@Override
 							public String getValue(ProductBacklogItem pbi) {
-								return pbi.getManDayCosts().toString();
+								if(pbi.getManDayCosts()!=null){
+									return pbi.getManDayCosts().toString();
+								}else{
+									return "-";
+								}
 							}
 						};
 						aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -200,7 +202,11 @@ public class ProductBacklogView extends Composite implements
 				sprint = new TextColumn<ProductBacklogItem>() {
 					@Override
 					public String getValue(ProductBacklogItem pbi) {
-						return pbi.getSprint().toString();
+						if(pbi.getSprint()!=null){
+							return pbi.getSprint().toString();
+						}else{
+							return "-";
+						}
 					}
 				};
 				tableProductbacklog.addColumn(sprint, "Sprint");
@@ -208,7 +214,11 @@ public class ProductBacklogView extends Composite implements
 				release = new TextColumn<ProductBacklogItem>() {
 					@Override
 					public String getValue(ProductBacklogItem pbi) {
-						return pbi.getSprint().getRelease().toString();
+						if(pbi.getSprint()!=null && pbi.getSprint().getRelease()!=null){
+							return pbi.getSprint().getRelease().toString();
+						}else{
+							return "-";
+						}
 					}
 				};
 				tableProductbacklog.addColumn(release, "Release");
