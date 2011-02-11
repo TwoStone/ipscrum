@@ -18,6 +18,14 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 		
 		private SelectionModel selectionModel;
 
+		public SelectionModel getSelectionModel() {
+			return selectionModel;
+		}
+
+		public void setSelectionModel(SelectionModel selectionModel) {
+			this.selectionModel = selectionModel;
+		}
+
 		/**
 	     * Check if the specified value represents a leaf node. Leaf nodes cannot be
 	     * opened.
@@ -31,8 +39,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 			return false;
 		}
 
-		public TeamTreeViewModel(SelectionModel selectionModel) {
-			this.selectionModel = selectionModel;
+		public TeamTreeViewModel() {
 		}
 		
 		@Override
@@ -76,5 +83,4 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 			
 			return null;
 		}
-
 	  }
