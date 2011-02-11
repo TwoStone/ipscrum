@@ -424,6 +424,16 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
+	public void setNewCriterionEnabled(final Boolean enabled) {
+		this.btnAddCriterion.setVisible(enabled);
+	}
+
+	@Override
+	public void setNewHintEnabled(final Boolean enabled) {
+		this.btnAddHint.setVisible(enabled);
+	}
+
+	@Override
 	public void setRelations(final List<Relation> relations) {
 		if (relations.size() > 0) {
 			this.relationTable.setVisible(true);

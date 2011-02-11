@@ -10,14 +10,25 @@ import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 
+/**
+ */
 public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 
 	final private AcceptanceCriterion criterion;
 
+	/**
+	 * Constructor for AcceptanceCriterionPresenter.
+	 * @param parent Panel
+	 */
 	public AcceptanceCriterionPresenter(Panel parent) {
 		this(parent, new AcceptanceCriterion(""));
 	}
 
+	/**
+	 * Constructor for AcceptanceCriterionPresenter.
+	 * @param parent Panel
+	 * @param criterion AcceptanceCriterion
+	 */
 	public AcceptanceCriterionPresenter(Panel parent,
 			AcceptanceCriterion criterion) {
 		super(parent);
@@ -26,11 +37,19 @@ public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 		this.registerViewEvents();
 	}
 
+	/**
+	 * Method createView.
+	 * @return ITextView
+	 */
 	@Override
 	protected ITextView createView() {
 		return new TextView("Neues \n Akzeptanzkriterium:");
 	}
 
+	/**
+	 * Method getCriterion.
+	 * @return AcceptanceCriterion
+	 */
 	public AcceptanceCriterion getCriterion() {
 		return this.criterion;
 	}
@@ -64,10 +83,18 @@ public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 		this.finish();
 	}
 
+	/**
+	 * Method updateModel.
+	 * @param criterion AcceptanceCriterion
+	 */
 	private void updateModel(AcceptanceCriterion criterion) {
 		criterion.setContent(this.getView().getContent());
 	}
 
+	/**
+	 * Method updateView.
+	 * @param criterion AcceptanceCriterion
+	 */
 	private void updateView(AcceptanceCriterion criterion) {
 		this.getView().setContent(criterion.getContent());
 	}

@@ -19,13 +19,13 @@ import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 public class EditFeatureView extends CreateFeatureView implements
 		IEditFeatureView {
 
-	private final IntegerBox integerBox = new IntegerBox();
+	private final IntegerBox complexityBox = new IntegerBox();
 	private final Label currentStateLbl = new Label("");
 	private final Button toggleStateBtn = new Button();
 	private final Event<EventArgs> toggleStateEvent = new Event<EventArgs>();
 
 	public EditFeatureView() {
-
+		super();
 		this.getBtnAbort().setVisible(false);
 
 		final Label aufwandLbl = new Label("Aufwand:");
@@ -33,9 +33,12 @@ public class EditFeatureView extends CreateFeatureView implements
 
 		final HorizontalPanel complPanel = new HorizontalPanel();
 		complPanel.setSpacing(5);
-		this.getGrid().setWidget(2, 1, complPanel);
+		// this.getGrid().setWidget(2, 1, complPanel);
+		this.getGrid().setWidget(2, 1, this.complexityBox);
 
-		complPanel.add(this.integerBox);
+		this.complexityBox.setVisibleLength(3);
+		// complPanel.add(this.complexityBox);
+
 		complPanel.add(new Label("MT"));
 
 		final Label stateLbl = new Label("Status:");
@@ -60,12 +63,16 @@ public class EditFeatureView extends CreateFeatureView implements
 
 	@Override
 	public Integer getComplexity() {
-		return this.integerBox.getValue();
+		// TODO Fehler: Hier wird aus irgendwelchen Gründen der Wert zurück
+		// geliefert,
+		// der ursprünglich mit setValue gesetzt wurde und nicht der aktuelle
+		// Wert!
+		return this.complexityBox.getValue();
 	}
 
 	@Override
 	public void setComplexity(final Integer complexity) {
-		this.integerBox.setValue(complexity);
+		this.complexityBox.setValue(complexity);
 	}
 
 	@Override

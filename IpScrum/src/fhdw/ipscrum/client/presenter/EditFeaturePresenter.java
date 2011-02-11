@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.view.EditFeatureView;
 import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Closed;
@@ -16,15 +17,33 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Open;
 import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 
+/**
+ * Presenter to edit a feature.
+ */
 public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 
-	public EditFeaturePresenter(final Panel parent, final Feature feature) {
+	/**
+	 * Constructor for EditFeaturePresenter.
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param feature
+	 *            Feature
+	 * @throws NoFeatureSelectedException
+	 */
+	public EditFeaturePresenter(final Panel parent, final Feature feature)
+			throws NoFeatureSelectedException {
 		super(parent, feature);
 
 		this.updateView();
 		this.registerViewEvents();
 	}
 
+	/**
+	 * Method createView.
+	 * 
+	 * @return IEditFeatureView
+	 */
 	@Override
 	protected IEditFeatureView createView() {
 		return new EditFeatureView();
@@ -42,6 +61,16 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 		});
 	}
 
+	@Override
+	protected void setupView() {
+		super.setupView();
+		this.getView().setComplexity(this.getFeature().getManDayCosts());
+	}
+
+	/**
+	 * Closes the feature if its open. If feature is closed, nothing will be
+	 * done.
+	 */
 	private void toggleFeatureState() {
 		this.getFeature().getState().accept(new IFeatureVisitor() {
 
@@ -70,7 +99,6 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 	@Override
 	protected void updateView() {
 		super.updateView();
-		this.getView().setComplexity(this.getFeature().getManDayCosts());
 		this.getView().setState(this.getFeature().getState());
 	}
 }

@@ -50,7 +50,12 @@ public interface ICreateFeatureView extends IView {
 
 	void setName(String name);
 
+	void setNewCriterionEnabled(Boolean enabled);
+
+	void setNewHintEnabled(Boolean enabled);
+
 	void setRelations(List<Relation> relations);
 
 	void setSprints(List<ISprint> sprints, ISprint selected);
+
 }

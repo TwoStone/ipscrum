@@ -2,7 +2,6 @@ package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
 
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -17,6 +16,7 @@ import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
@@ -27,25 +27,47 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
 
+/**
+ */
 public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		Presenter<T> implements Observer {
+	protected static final String NEWFTRNAME = "###empty###";
+
 	private final Feature feature;
 
-	public FeaturePresenter(final Panel parent, final Feature feature) {
+	/**
+	 * Constructor for FeaturePresenter.
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param feature
+	 *            Feature
+	 * @throws NoFeatureSelectedException
+	 */
+	public FeaturePresenter(final Panel parent, final Feature feature)
+			throws NoFeatureSelectedException {
 		super(parent);
 		if (feature == null) {
 			this.abort();
-			throw new IllegalArgumentException("Kein Feature angegeben!");
+			throw new NoFeatureSelectedException(
+					"Kein Feature ausgewählt zur Bearbeitung!");
 		}
 		this.feature = feature;
 		this.feature.addObserver(this);
-		this.updateView();
+		this.setupView();
 		this.registerViewEvents();
 	}
 
+	/**
+	 * Creates a new presenter to create a new {@link AcceptanceCriterion}
+	 * 
+	 * @param panel
+	 *            Panel where the widget should be added.
+	 */
 	private void createCriterion(final Panel panel) {
 		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(
 				panel);
+		this.getView().setNewCriterionEnabled(false);
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -53,6 +75,8 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 					FeaturePresenter.this.feature
 							.addAcceptanceCriterion(presenter.getCriterion());
 					panel.clear();
+					FeaturePresenter.this.getView()
+							.setNewCriterionEnabled(true);
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
@@ -66,12 +90,20 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				panel.clear();
+				FeaturePresenter.this.getView().setNewCriterionEnabled(true);
 			}
 		});
 	}
 
+	/**
+	 * Creates a new presenter to create a new {@link Hint}
+	 * 
+	 * @param panel
+	 *            Panel where the widget should be added.
+	 */
 	private void createHint(final Panel panel) {
 		final HintPresenter presenter = new HintPresenter(panel);
+		this.getView().setNewHintEnabled(false);
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -83,24 +115,40 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 					GwtUtils.displayError(e.getMessage());
 				}
 				panel.clear();
+				FeaturePresenter.this.getView().setNewHintEnabled(true);
 			}
 		});
 		presenter.getAborted().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				panel.clear();
+				FeaturePresenter.this.getView().setNewHintEnabled(true);
 			}
 		});
 	}
 
-	private void createRelation(final DialogBox createDialog) {
+	/**
+	 * Creates a presenter to create a new {@link Relation}
+	 * 
+	 * @param createDialog
+	 *            DialogBox
+	 */
+	private void createRelation(final Panel panel) {
 		GwtUtils.displayError("Not yet implemented!");
 	}
 
+	/**
+	 * Returns the currently loaded feature.
+	 * 
+	 * @return Feature
+	 */
 	public Feature getFeature() {
 		return this.feature;
 	}
 
+	/**
+	 * Registers the presenter to all events of the view.
+	 */
 	protected void registerViewEvents() {
 
 		this.getView().getSave().add(new EventHandler<EventArgs>() {
@@ -181,18 +229,39 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 				});
 	}
 
+	/**
+	 * Removes the {@link AcceptanceCriterion} from the {@link Feature}.
+	 * 
+	 * @param criterion
+	 *            AcceptanceCriterion
+	 */
 	private void removeCriterion(final AcceptanceCriterion criterion) {
 		this.feature.removeAcceptanceCriterion(criterion);
 	}
 
+	/**
+	 * Removes the {@link Hint} from the {@link Feature}.
+	 * 
+	 * @param hint
+	 *            Hint
+	 */
 	private void removeHint(final Hint hint) {
 		this.feature.removeHint(hint);
 	}
 
+	/**
+	 * Removes the {@link Relation} from the {@link Feature}.
+	 * 
+	 * @param relation
+	 *            Relation
+	 */
 	private void removeRelation(final Relation relation) {
 		this.feature.removeRelation(relation);
 	}
 
+	/**
+	 * Saves the made changes to the model.
+	 */
 	private void save() {
 		try {
 			this.updateFeature();
@@ -206,12 +275,38 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		}
 	}
 
+	/**
+	 * Sets the values of the loaded feature in the view.
+	 */
+	protected void setupView() {
+		this.getView().setName(
+				this.feature.getName().replaceAll(NEWFTRNAME, ""));
+		this.getView().setDescription(this.feature.getDescription());
+		this.updateView();
+	}
+
+	/**
+	 * Method update.
+	 * 
+	 * @param observable
+	 *            Observable
+	 * @param argument
+	 *            Object
+	 * @see fhdw.ipscrum.shared.observer.Observer#update(Observable, Object)
+	 */
 	@Override
 	public void update(final Observable observable, final Object argument) {
 		this.updateView();
 
 	}
 
+	/**
+	 * Updates the loaded feature with the values set in the view.
+	 * 
+	 * @throws NoValidValueException
+	 * @throws NoSprintDefinedException
+	 * @throws ConsistencyException
+	 */
 	protected void updateFeature() throws NoValidValueException,
 			NoSprintDefinedException, ConsistencyException {
 		this.feature.setName(this.getView().getName());
@@ -219,6 +314,10 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		this.feature.setSprint(this.getView().getSelectedSprint());
 	}
 
+	/**
+	 * Updates the view with the values of the feature. Does not set name and
+	 * description. Call setupView to set them.
+	 */
 	protected void updateView() {
 		this.getView().setHints(this.feature.getHints());
 		this.getView().setRelations(this.feature.getRelations());

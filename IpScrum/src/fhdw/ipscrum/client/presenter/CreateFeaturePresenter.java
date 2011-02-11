@@ -6,22 +6,25 @@ import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateFeatureView;
 import fhdw.ipscrum.client.view.interfaces.ICreateFeatureView;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.observer.Observer;
 
 /**
+ * @author Niklas
+ * @version $Revision: 1.0 $
  */
 public class CreateFeaturePresenter extends
 		FeaturePresenter<ICreateFeatureView> implements Observer {
-	private static final String NEWFTRNAME = "###empty###";
 
 	/**
 	 * Method createNewFeature.
 	 * 
 	 * @param backlog
 	 *            ProductBacklog
+	 * 
 	 * 
 	 * @return Feature
 	 */
@@ -42,14 +45,16 @@ public class CreateFeaturePresenter extends
 	 * 
 	 * @param parent
 	 * @param backlog
+	 * @throws NoFeatureSelectedException
 	 */
 	public CreateFeaturePresenter(final Panel parent,
-			final ProductBacklog backlog) {
+			final ProductBacklog backlog) throws NoFeatureSelectedException {
 		super(parent, createNewFeature(backlog));
 	}
 
 	/**
 	 * Method createView.
+	 * 
 	 * 
 	 * @return ICreateFeatureView
 	 */
