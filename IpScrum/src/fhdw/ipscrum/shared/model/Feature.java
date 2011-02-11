@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
@@ -26,8 +27,9 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	private IPerson editor;
 	private String description;
 
-	public Feature(String name, String description, ProductBacklog backlog)
-			throws NoValidValueException {
+	public Feature(final String name, final String description,
+			final ProductBacklog backlog) throws NoValidValueException,
+			ConsistencyException {
 		super(name, backlog);
 		this.setDescription(description);
 		this.state = new Open(this);
@@ -44,7 +46,8 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	 * @throws DoubleDefinitionException
 	 *             will be thrown if the acceptanceCriterion already exists
 	 */
-	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion)
+	public void addAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		this.state.addAcceptanceCriterion(acceptanceCriterion);
 		this.setEditor();
@@ -60,7 +63,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	 *             will be thrown if the hint already exists
 	 * 
 	 */
-	public void addHint(Hint hint) throws DoubleDefinitionException,
+	public void addHint(final Hint hint) throws DoubleDefinitionException,
 			ForbiddenStateException {
 		this.state.addHint(hint);
 		this.setEditor();
@@ -75,7 +78,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	 * @throws DoubleDefinitionException
 	 *             will be thrown if the relation already exists
 	 */
-	public void addRelation(Relation relation)
+	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		this.state.addRelation(relation);
 		this.setEditor();
@@ -94,7 +97,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.notifyObservers();
 	}
 
-	void doAddAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion)
+	void doAddAcceptanceCriterion(final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException {
 		final Iterator<AcceptanceCriterion> iterator = this.acceptanceCriteria
 				.iterator();
@@ -108,7 +111,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.acceptanceCriteria.add(acceptanceCriterion);
 	}
 
-	void doAddHint(Hint hint) throws DoubleDefinitionException {
+	void doAddHint(final Hint hint) throws DoubleDefinitionException {
 		final Iterator<Hint> iterator = this.hints.iterator();
 		while (iterator.hasNext()) {
 			final Hint current = iterator.next();
@@ -130,7 +133,8 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	 * this.getRelations().size(); }
 	 */
 
-	void doAddRelation(Relation relation) throws DoubleDefinitionException {
+	void doAddRelation(final Relation relation)
+			throws DoubleDefinitionException {
 		final Iterator<Relation> iterator = this.relations.iterator();
 		while (iterator.hasNext()) {
 			final Relation current = iterator.next();
@@ -147,7 +151,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -244,21 +248,22 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 				+ ((this.state == null) ? 0 : this.state.hashCode());
 		return result;
 	}
-//TODO: remove-Ops über State delegieren
-	public void removeAcceptanceCriterion(AcceptanceCriterion criterion) {
+
+	// TODO: remove-Ops über State delegieren
+	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion) {
 		this.acceptanceCriteria.remove(criterion);
 
 	}
 
-	public void removeHint(Hint hint) {
+	public void removeHint(final Hint hint) {
 		this.hints.remove(hint);
 	}
 
-	public void removeRelation(Relation relation) {
+	public void removeRelation(final Relation relation) {
 		this.relations.remove(relation);
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -266,7 +271,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.editor = SessionManager.getInstance().getLoginUser();
 	}
 
-	protected void setState(IFeatureState state) {
+	protected void setState(final IFeatureState state) {
 		this.state = state;
 	}
 
