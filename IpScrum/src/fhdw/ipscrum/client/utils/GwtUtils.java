@@ -19,7 +19,7 @@ public final class GwtUtils {
 	 *            The text in the caption field.
 	 * @return
 	 */
-	public static DialogBox createDialog(String title) {
+	public static DialogBox createDialog(final String title) {
 		final DialogBox dialog = new DialogBox();
 		dialog.setAnimationEnabled(true);
 		dialog.setModal(true);
@@ -28,7 +28,7 @@ public final class GwtUtils {
 		return dialog;
 	}
 
-	public static void displayError(String error) {
+	public static void displayError(final String error) {
 		final DialogBox dialog = createDialog("Fehler");
 		final VerticalPanel panel = new VerticalPanel();
 		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -43,7 +43,7 @@ public final class GwtUtils {
 		okayButton.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				dialog.hide();
 			}
 		});

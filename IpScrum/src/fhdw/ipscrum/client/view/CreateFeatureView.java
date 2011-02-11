@@ -115,7 +115,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		final TextColumn<Relation> typeCol = new TextColumn<Relation>() {
 			@Override
-			public String getValue(Relation object) {
+			public String getValue(final Relation object) {
 				return object.getType().getDescription();
 			}
 		};
@@ -123,7 +123,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		final TextColumn<Relation> targetCol = new TextColumn<Relation>() {
 			@Override
-			public String getValue(Relation object) {
+			public String getValue(final Relation object) {
 				return object.getTarget().getName();
 			}
 		};
@@ -132,7 +132,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		final Column<Relation, String> deleteCol = new Column<Relation, String>(
 				new ButtonCell()) {
 			@Override
-			public String getValue(Relation object) {
+			public String getValue(final Relation object) {
 				return "x";
 			}
 		};
@@ -140,7 +140,8 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		deleteCol.setFieldUpdater(new FieldUpdater<Relation, String>() {
 
 			@Override
-			public void update(int index, Relation object, String value) {
+			public void update(final int index, final Relation object,
+					final String value) {
 				CreateFeatureView.this.removeRelationEvent.fire(
 						CreateFeatureView.this, new RemoveRelationEventArgs(
 								object));
@@ -152,7 +153,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.btnAddRelation = new Button("Beziehung hinzuf\u00FCgen");
 		this.btnAddRelation.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				CreateFeatureView.this.createRelation.fire(
 						CreateFeatureView.this, new EventArgs());
 			}
@@ -178,7 +179,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		final TextColumn<Hint> hintTextCol = new TextColumn<Hint>() {
 			@Override
-			public String getValue(Hint object) {
+			public String getValue(final Hint object) {
 				return object.getContent();
 			}
 		};
@@ -187,7 +188,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		final Column<Hint, String> removeHintCol = new Column<Hint, String>(
 				new ButtonCell()) {
 			@Override
-			public String getValue(Hint object) {
+			public String getValue(final Hint object) {
 				return "X";
 			}
 		};
@@ -196,7 +197,8 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		removeHintCol.setFieldUpdater(new FieldUpdater<Hint, String>() {
 
 			@Override
-			public void update(int index, Hint object, String value) {
+			public void update(final int index, final Hint object,
+					final String value) {
 				CreateFeatureView.this.removeHintEvent
 						.fire(CreateFeatureView.this, new RemoveHintEventArgs(
 								object));
@@ -210,7 +212,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.btnAddHint = new Button("Hinweis hinzuf\u00FCgen");
 		this.btnAddHint.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				CreateFeatureView.this.createHint.fire(CreateFeatureView.this,
 						new EventArgs());
 			}
@@ -232,7 +234,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		final TextColumn<AcceptanceCriterion> criterionTextCol = new TextColumn<AcceptanceCriterion>() {
 			@Override
-			public String getValue(AcceptanceCriterion object) {
+			public String getValue(final AcceptanceCriterion object) {
 				return object.getContent();
 			}
 		};
@@ -241,7 +243,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		final Column<AcceptanceCriterion, String> removeCriterionCol = new Column<AcceptanceCriterion, String>(
 				new ButtonCell()) {
 			@Override
-			public String getValue(AcceptanceCriterion object) {
+			public String getValue(final AcceptanceCriterion object) {
 				return "x";
 			}
 		};
@@ -251,8 +253,8 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 				.setFieldUpdater(new FieldUpdater<AcceptanceCriterion, String>() {
 
 					@Override
-					public void update(int index, AcceptanceCriterion object,
-							String value) {
+					public void update(final int index,
+							final AcceptanceCriterion object, final String value) {
 						CreateFeatureView.this.removeCriterionEvent.fire(
 								CreateFeatureView.this,
 								new RemoveCriterionEventArgs(object));
@@ -267,7 +269,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.btnAddCriterion = new Button("New button");
 		this.btnAddCriterion.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				CreateFeatureView.this.createCriterion.fire(
 						CreateFeatureView.this, new EventArgs());
 			}
@@ -283,7 +285,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.btnSave = new Button("Speichern");
 		this.btnSave.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				CreateFeatureView.this.save.fire(CreateFeatureView.this,
 						new EventArgs());
 			}
@@ -291,7 +293,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		buttonPanel.add(this.btnSave);
 		this.btnAbort.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				CreateFeatureView.this.abort.fire(CreateFeatureView.this,
 						new EventArgs());
 			}
@@ -383,16 +385,16 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	@Override
 	public ISprint getSelectedSprint() {
 		final Integer index = this.sprintComboBox.getSelectedIndex();
-		if (index.equals(-1)) {
+		if (index.equals(0) || index.equals(-1)) {
 			return null;
 		} else {
-			return this.sprints.get(index);
+			return this.sprints.get(index + 1);
 		}
 
 	}
 
 	@Override
-	public void setCriteria(List<AcceptanceCriterion> criterions) {
+	public void setCriteria(final List<AcceptanceCriterion> criterions) {
 		if (criterions.size() > 0) {
 			this.criteriaTable.setVisible(true);
 			this.criteriaTable.setRowData(criterions);
@@ -402,12 +404,12 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.textArea.setText(description);
 	}
 
 	@Override
-	public void setHints(List<Hint> hints) {
+	public void setHints(final List<Hint> hints) {
 		if (hints.size() > 0) {
 			this.hintTable.setVisible(true);
 			this.hintTable.setRowData(hints);
@@ -417,12 +419,12 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.txtBxName.setText(name);
 	}
 
 	@Override
-	public void setRelations(List<Relation> relations) {
+	public void setRelations(final List<Relation> relations) {
 		if (relations.size() > 0) {
 			this.relationTable.setVisible(true);
 			this.relationTable.setRowData(relations);
@@ -432,16 +434,23 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
-	public void setSprints(List<ISprint> sprints) {
+	public void setSprints(final List<ISprint> sprints, final ISprint selected) {
 		this.sprints = sprints;
+		this.sprintComboBox.clear();
+		this.sprintComboBox.addItem(""); // Adding an empty item!
 		for (final ISprint iSprint : sprints) {
-			// TODO ISprint.getName() verwenden, wenn implementiert!
 			String text = iSprint.getName();
 			if (text == null) {
 				text = iSprint.toString();
 			}
 
 			this.sprintComboBox.addItem(text);
+		}
+		if (selected != null) {
+			final int index = sprints.indexOf(selected);
+			this.sprintComboBox.setSelectedIndex(index + 1);
+		} else {
+			this.sprintComboBox.setSelectedIndex(0);
 		}
 	}
 }

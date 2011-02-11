@@ -10,174 +10,197 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
-public abstract class ProductBacklogItem extends Observable{
+public abstract class ProductBacklogItem extends Observable {
 
 	private String name;
 	private Integer manDayCosts;
 	private final ProductBacklog backlog;
 	private IPerson lastEditor;
 	private ISprint sprint;
-	
+
 	/**
 	 * @param name
-	 * Name of the PBI.
+	 *            Name of the PBI.
 	 * @param backlog
-	 * Backlog of the PBI.
+	 *            Backlog of the PBI.
 	 * @throws NoValidValueException
-	 * If the name for the PBI is not valid.
-	 * Valid names are not null and have not only
-	 * whitespace characters.
+	 *             If the name for the PBI is not valid. Valid names are not
+	 *             null and have not only whitespace characters.
 	 */
-	public ProductBacklogItem(String name, ProductBacklog backlog) throws NoValidValueException, ConsistencyException{
+	public ProductBacklogItem(final String name, final ProductBacklog backlog)
+			throws NoValidValueException, ConsistencyException {
 		super();
 		this.setName(name);
-		backlog.addItem(this);
 		this.backlog = backlog;
+		backlog.addItem(this);
 		this.setManDayCosts(0);
-	}
-	
-	public ProductBacklog getBacklog() {
-		return backlog;
-	}
-	
-	public final String getName() {
-		return name;
-	}
-
-	/**
-	 * Changes the Name of the PBI.
-	 * @param name
-	 * New Name of the PBI.
-	 * @throws NoValidValueException
-	 * If the name for the PBI is not valid.
-	 * Valid names are not null and have not only
-	 * whitespace characters.
-	 */
-	public final void setName(String name) throws NoValidValueException{
-		if(name!=null && name.trim().length()>0){
-			this.name = name;
-			this.notifyObservers();
-		}else{
-			//TODO Textkonstante bauen
-			throw new NoValidValueException("Es muss eine Bezeichnung angegeben werden!");
-		}
-	}
-
-	public final Integer getManDayCosts() {
-		return manDayCosts;
-	}
-
-	/**
-	 * 
-	 * @param manDayCosts
-	 * Values smaller 0 are not allow.
-	 * 0 means not defined.
-	 * @throws NoValidValueException
-	 * If the value is smaller 0!
-	 */
-	public final void setManDayCosts(Integer manDayCosts) throws NoValidValueException{
-		if(manDayCosts != null && manDayCosts >= 0){
-			this.manDayCosts = manDayCosts;
-			this.notifyObservers();
-		}else{
-			//TODO Textkonstante bauen
-			throw new NoValidValueException("Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!");
-		}
-	}
-	
-	public IPerson getLastEditor() {
-		return lastEditor;
-	}
-	
-	public void setLastEditor(IPerson lastEditor) {
-		this.lastEditor = lastEditor;
-		this.notifyObservers();
-	}
-	
-	public ISprint getSprint() {
-		return sprint;
-	}
-	
-	/**
-	 * TODO Kommentar schreiben
-	 * @param sprint
-	 * Null Value Means, that the PBI will be removed from the Sprint!
-	 * @throws NoSprintDefinedException, ConsistencyException
-	 */
-	public void setSprint(ISprint sprint) throws NoSprintDefinedException, ConsistencyException {
-		if(sprint!=null){
-			if(this.backlog.getProject().isSprintDefined(sprint)){
-				sprint.addPBI(this);
-				this.sprint = sprint;
-				this.notifyObservers();
-			}else{
-				//TODO Textkonstante bauen
-				throw new NoSprintDefinedException("Es können nur bereits vorhandene Sprints zugeordnet werden!");
-			}
-		}else{
-			if(this.sprint!=null){
-				this.sprint.removePBI(this);
-				this.sprint=null;
-			}
-		}
 	}
 
 	@Override
-	public String toString() {
-		return "ProductBacklogItem [aufwand=" + manDayCosts + ", name=" + name
-				+ "]";
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final ProductBacklogItem other = (ProductBacklogItem) obj;
+		if (this.backlog == null) {
+			if (other.backlog != null) {
+				return false;
+			}
+		} else if (!this.backlog.equals(other.backlog)) {
+			return false;
+		}
+		if (this.lastEditor == null) {
+			if (other.lastEditor != null) {
+				return false;
+			}
+		} else if (!this.lastEditor.equals(other.lastEditor)) {
+			return false;
+		}
+		if (this.manDayCosts == null) {
+			if (other.manDayCosts != null) {
+				return false;
+			}
+		} else if (!this.manDayCosts.equals(other.manDayCosts)) {
+			return false;
+		}
+		if (this.name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!this.name.equals(other.name)) {
+			return false;
+		}
+		if (this.sprint == null) {
+			if (other.sprint != null) {
+				return false;
+			}
+		} else if (!this.sprint.equals(other.sprint)) {
+			return false;
+		}
+		return true;
+	}
+
+	public ProductBacklog getBacklog() {
+		return this.backlog;
+	}
+
+	public IPerson getLastEditor() {
+		return this.lastEditor;
+	}
+
+	public final Integer getManDayCosts() {
+		return this.manDayCosts;
+	}
+
+	public final String getName() {
+		return this.name;
+	}
+
+	public ISprint getSprint() {
+		return this.sprint;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
 		result = prime * result
-				+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
+				+ ((this.backlog == null) ? 0 : this.backlog.hashCode());
 		result = prime * result
-				+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((sprint == null) ? 0 : sprint.hashCode());
+				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
+		result = prime
+				* result
+				+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
+		result = prime * result
+				+ ((this.name == null) ? 0 : this.name.hashCode());
+		result = prime * result
+				+ ((this.sprint == null) ? 0 : this.sprint.hashCode());
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductBacklogItem other = (ProductBacklogItem) obj;
-		if (backlog == null) {
-			if (other.backlog != null)
-				return false;
-		} else if (!backlog.equals(other.backlog))
-			return false;
-		if (lastEditor == null) {
-			if (other.lastEditor != null)
-				return false;
-		} else if (!lastEditor.equals(other.lastEditor))
-			return false;
-		if (manDayCosts == null) {
-			if (other.manDayCosts != null)
-				return false;
-		} else if (!manDayCosts.equals(other.manDayCosts))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (sprint == null) {
-			if (other.sprint != null)
-				return false;
-		} else if (!sprint.equals(other.sprint))
-			return false;
-		return true;
+	public void setLastEditor(final IPerson lastEditor) {
+		this.lastEditor = lastEditor;
+		this.notifyObservers();
 	}
 
-	
+	/**
+	 * 
+	 * @param manDayCosts
+	 *            Values smaller 0 are not allow. 0 means not defined.
+	 * @throws NoValidValueException
+	 *             If the value is smaller 0!
+	 */
+	public final void setManDayCosts(final Integer manDayCosts)
+			throws NoValidValueException {
+		if (manDayCosts != null && manDayCosts >= 0) {
+			this.manDayCosts = manDayCosts;
+			this.notifyObservers();
+		} else {
+			// TODO Textkonstante bauen
+			throw new NoValidValueException(
+					"Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!");
+		}
+	}
+
+	/**
+	 * Changes the Name of the PBI.
+	 * 
+	 * @param name
+	 *            New Name of the PBI.
+	 * @throws NoValidValueException
+	 *             If the name for the PBI is not valid. Valid names are not
+	 *             null and have not only whitespace characters.
+	 */
+	public final void setName(final String name) throws NoValidValueException {
+		if (name != null && name.trim().length() > 0) {
+			this.name = name;
+			this.notifyObservers();
+		} else {
+			// TODO Textkonstante bauen
+			throw new NoValidValueException(
+					"Es muss eine Bezeichnung angegeben werden!");
+		}
+	}
+
+	/**
+	 * TODO Kommentar schreiben
+	 * 
+	 * @param sprint
+	 *            Null Value Means, that the PBI will be removed from the
+	 *            Sprint!
+	 * @throws NoSprintDefinedException
+	 *             , ConsistencyException
+	 */
+	public void setSprint(final ISprint sprint)
+			throws NoSprintDefinedException, ConsistencyException {
+		if (sprint != null) {
+			if (this.backlog.getProject().isSprintDefined(sprint)) {
+				sprint.addPBI(this);
+				this.sprint = sprint;
+				this.notifyObservers();
+			} else {
+				// TODO Textkonstante bauen
+				throw new NoSprintDefinedException(
+						"Es können nur bereits vorhandene Sprints zugeordnet werden!");
+			}
+		} else {
+			if (this.sprint != null) {
+				this.sprint.removePBI(this);
+				this.sprint = null;
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "ProductBacklogItem [aufwand=" + this.manDayCosts + ", name="
+				+ this.name + "]";
+	}
+
 }

@@ -48,7 +48,7 @@ public class EditFeatureView extends CreateFeatureView implements
 		this.toggleStateBtn.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				EditFeatureView.this.toggleStateEvent.fire(
 						EditFeatureView.this, new EventArgs());
 			}
@@ -64,16 +64,16 @@ public class EditFeatureView extends CreateFeatureView implements
 	}
 
 	@Override
-	public void setComplexity(Integer complexity) {
+	public void setComplexity(final Integer complexity) {
 		this.integerBox.setValue(complexity);
 	}
 
 	@Override
-	public void setState(IFeatureState state) {
+	public void setState(final IFeatureState state) {
 		state.accept(new IFeatureVisitor() {
 
 			@Override
-			public void handleClosed(Closed closed) {
+			public void handleClosed(final Closed closed) {
 				EditFeatureView.this.currentStateLbl.setText("Geschlossen");
 				EditFeatureView.this.toggleStateBtn.setText("Feature öffnen");
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(false);
@@ -82,10 +82,10 @@ public class EditFeatureView extends CreateFeatureView implements
 			}
 
 			@Override
-			public void handleOpen(Open open) {
+			public void handleOpen(final Open open) {
 				EditFeatureView.this.currentStateLbl.setText("Offen");
 				EditFeatureView.this.toggleStateBtn
-						.setText("Feature schließen");
+						.setText("Feature schlie\u00DFen");
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(true);
 				EditFeatureView.this.getBtnAddHint().setEnabled(true);
 				EditFeatureView.this.getBtnAddRelation().setEnabled(true);

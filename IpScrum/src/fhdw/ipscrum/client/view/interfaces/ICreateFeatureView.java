@@ -52,5 +52,5 @@ public interface ICreateFeatureView extends IView {
 
 	void setRelations(List<Relation> relations);
 
-	void setSprints(List<ISprint> sprints);
+	void setSprints(List<ISprint> sprints, ISprint selected);
 }
