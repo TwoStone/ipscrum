@@ -8,6 +8,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
@@ -41,8 +42,13 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-						ProductBacklogPresenter.this.project.getBacklog()
-								.addItem(presenter.getFeature());
+						try {
+							ProductBacklogPresenter.this.project.getBacklog()
+									.addItem(presenter.getFeature());
+						} catch (ConsistencyException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						view.refreshProductBacklog(ProductBacklogPresenter.this.project
 								.getBacklog().getItems());
 						newBox.hide();
