@@ -58,6 +58,8 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			@Override
 			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
 				view.getMasterProductBackloglPanel().clear();
+				view.getMasterReleasePanel().clear();
+				
 				new ProductBacklogPresenter(view.getMasterProductBackloglPanel(), eventArgs.getProject());
 			new ReleasePresenter(view.getMasterReleasePanel(), eventArgs.getProject());
 			}

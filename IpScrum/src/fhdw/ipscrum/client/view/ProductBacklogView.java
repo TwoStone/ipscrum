@@ -42,7 +42,7 @@ public class ProductBacklogView extends Composite implements
 
 	// TMP Arguments
 	private ProductBacklogItem currentlySelected;
-	
+
 	private Image imgDoubleArrowUp;
 	private Image imgArrowDown;
 	private Image imgDoubleArrowDown;
@@ -72,7 +72,8 @@ public class ProductBacklogView extends Composite implements
 		concreteProductBacklogPanel.add(horizontalPanel);
 
 		Label lblProductBacklog = new Label("Product Backlog Eintr\u00E4ge");
-		lblProductBacklog.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		lblProductBacklog
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		lblProductBacklog.setStyleName("LabelElement");
 		horizontalPanel.add(lblProductBacklog, 10, 10);
 
@@ -80,164 +81,189 @@ public class ProductBacklogView extends Composite implements
 		lblAktionen.setStyleName("LabelElement");
 		horizontalPanel.add(lblAktionen, 422, 10);
 		lblAktionen.setSize("59px", "23px");
-		
+
 		scrollPanel = new ScrollPanel();
 		horizontalPanel.add(scrollPanel, 10, 40);
 		scrollPanel.setSize("400px", "250px");
+
+		tableProductbacklog = new CellTable<ProductBacklogItem>();
+
+		TextColumn<ProductBacklogItem> bezeichnung = new TextColumn<ProductBacklogItem>() {
+			@Override
+			public String getValue(ProductBacklogItem pbi) {
+				return pbi.getName();
+			}
+		};
+		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		tableProductbacklog.addColumn(bezeichnung, "Bezeichnung");
+
+		TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
+			@Override
+			public String getValue(ProductBacklogItem pbi) {
+				if (pbi.getManDayCosts() != null) {
+					return pbi.getManDayCosts().toString();
+				} else {
+					return "-";
+				}
+			}
+		};
+		aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
+
+		sprint = new TextColumn<ProductBacklogItem>() {
+			@Override
+			public String getValue(ProductBacklogItem pbi) {
+				if (pbi.getSprint() != null) {
+					return pbi.getSprint().toString();
+				} else {
+					return "-";
+				}
+			}
+		};
+		tableProductbacklog.addColumn(sprint, "Sprint");
+
+		release = new TextColumn<ProductBacklogItem>() {
+			@Override
+			public String getValue(ProductBacklogItem pbi) {
+				if (pbi.getSprint() != null
+						&& pbi.getSprint().getRelease() != null) {
+					return pbi.getSprint().getRelease().toString();
+				} else {
+					return "-";
+				}
+			}
+		};
+		tableProductbacklog.addColumn(release, "Release");
+		scrollPanel.setWidget(tableProductbacklog);
+		tableProductbacklog.setSize("100%", "100%");
+		tableProductbacklog.setSelectionModel(new SingleSelectionModel());
+
+		Grid pbMenu = new Grid(7, 1);
+		pbMenu.setStyleName("box");
+		pbMenu.setCellSpacing(1);
+		horizontalPanel.add(pbMenu, 432, 39);
+		pbMenu.setSize("50px", "250px");
+
+		imgNewFile = new Image("images/newfile.png");
+		imgNewFile.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				newPBIEvent.fire(ProductBacklogView.this, new EventArgs());
+			}
+		});
+		pbMenu.setWidget(0, 0, imgNewFile);
+
+		imgDetails = new Image("images/details.png");
+		imgDetails.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(
+						ProductBacklogView.this.currentlySelected));
+			}
+		});
+		pbMenu.setWidget(1, 0, imgDetails);
+
+		imgDelete = new Image("images/delete.png");
+		imgDelete.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				if (currentlySelected != null) {
+					deleteSelectedEvent.fire(ProductBacklogView.this,
+							new PBIArgs(currentlySelected));
+				}
+			}
+		});
+		pbMenu.setWidget(2, 0, imgDelete);
+
+		imgDoubleArrowUp = new Image("images/toparrow.png");
+		imgDoubleArrowUp.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (currentlySelected != null) {
+					pbiTopEvent.fire(ProductBacklogView.this, new PBIArgs(
+							currentlySelected));
+				}
+
+			}
+		});
+		pbMenu.setWidget(3, 0, imgDoubleArrowUp);
+
+		imgArrowUp = new Image("images/uparrow.png");
+		imgArrowUp.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (currentlySelected != null) {
+					pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(
+							currentlySelected));
+				}
+
+			}
+		});
+		pbMenu.setWidget(4, 0, imgArrowUp);
+
+		imgArrowDown = new Image("images/downarrow.png");
+		pbMenu.setWidget(5, 0, imgArrowDown);
+		imgArrowDown.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(
+						currentlySelected));
+			}
+		});
+
+		imgDoubleArrowDown = new Image("images/bottomarrow.png");
+		imgDoubleArrowDown.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (currentlySelected != null) {
+					pbiBottomEvent.fire(ProductBacklogView.this, new PBIArgs(
+							currentlySelected));
+				}
+			}
+		});
+		pbMenu.setWidget(6, 0, imgDoubleArrowDown);
+		pbMenu.getCellFormatter().setHorizontalAlignment(0, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(0, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		pbMenu.getCellFormatter().setHorizontalAlignment(1, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(1, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		pbMenu.getCellFormatter().setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(2, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		pbMenu.getCellFormatter().setHorizontalAlignment(3, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(3, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		pbMenu.getCellFormatter().setHorizontalAlignment(4, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(4, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		pbMenu.getCellFormatter().setHorizontalAlignment(5, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(5, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		pbMenu.getCellFormatter().setHorizontalAlignment(6, 0,
+				HasHorizontalAlignment.ALIGN_CENTER);
+		pbMenu.getCellFormatter().setVerticalAlignment(6, 0,
+				HasVerticalAlignment.ALIGN_MIDDLE);
 		
-				tableProductbacklog = new CellTable<ProductBacklogItem>();
-				
-						TextColumn<ProductBacklogItem> bezeichnung = new TextColumn<ProductBacklogItem>() {
-							@Override
-							public String getValue(ProductBacklogItem pbi) {
-								return pbi.getName();
-							}
-						};
-						bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-						bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-						tableProductbacklog.addColumn(bezeichnung, "Bezeichnung");
-				
-						TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
-							@Override
-							public String getValue(ProductBacklogItem pbi) {
-								if(pbi.getManDayCosts()!=null){
-									return pbi.getManDayCosts().toString();
-								}else{
-									return "-";
-								}
-							}
-						};
-						aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-						aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-						tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
-				
-				sprint = new TextColumn<ProductBacklogItem>() {
-					@Override
-					public String getValue(ProductBacklogItem pbi) {
-						if(pbi.getSprint()!=null){
-							return pbi.getSprint().toString();
-						}else{
-							return "-";
-						}
+		
+		tableProductbacklog.getSelectionModel().addSelectionChangeHandler(
+				new SelectionChangeEvent.Handler() {
+
+					public void onSelectionChange(SelectionChangeEvent event) {
+						SingleSelectionModel<ProductBacklogItem> model = (SingleSelectionModel<ProductBacklogItem>) tableProductbacklog
+								.getSelectionModel();
+						currentlySelected = model.getSelectedObject();
 					}
-				};
-				tableProductbacklog.addColumn(sprint, "Sprint");
-				
-				release = new TextColumn<ProductBacklogItem>() {
-					@Override
-					public String getValue(ProductBacklogItem pbi) {
-						if(pbi.getSprint()!=null && pbi.getSprint().getRelease()!=null){
-							return pbi.getSprint().getRelease().toString();
-						}else{
-							return "-";
-						}
-					}
-				};
-				tableProductbacklog.addColumn(release, "Release");
-				scrollPanel.setWidget(tableProductbacklog);
-				tableProductbacklog.setSize("100%", "100%");
-								tableProductbacklog.setSelectionModel(new SingleSelectionModel());
-								
-										Grid pbMenu = new Grid(7, 1);
-										pbMenu.setStyleName("box");
-										pbMenu.setCellSpacing(1);
-										horizontalPanel.add(pbMenu, 432, 39);
-										pbMenu.setSize("50px", "250px");
-										
-												imgNewFile = new Image("images/newfile.png");
-												imgNewFile.addClickHandler(new ClickHandler() {
-													public void onClick(ClickEvent event) {
-														newPBIEvent.fire(ProductBacklogView.this, new EventArgs());
-													}
-												});
-												pbMenu.setWidget(0, 0, imgNewFile);
-												
-														imgDetails = new Image("images/details.png");
-														imgDetails.addClickHandler(new ClickHandler() {
-															public void onClick(ClickEvent event) {
-																detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(ProductBacklogView.this.currentlySelected));
-															}
-														});
-														pbMenu.setWidget(1, 0, imgDetails);
-														
-																imgDelete = new Image("images/delete.png");
-																imgDelete.addClickHandler(new ClickHandler() {
-																	public void onClick(ClickEvent event) {
-																		if(currentlySelected!=null){
-																			deleteSelectedEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-																		}
-																	}
-																});
-																pbMenu.setWidget(2, 0, imgDelete);
-																
-																		imgDoubleArrowUp = new Image("images/toparrow.png");
-																		imgDoubleArrowUp.addClickHandler(new ClickHandler() {
-																			
-																			@Override
-																			public void onClick(ClickEvent event) {
-																				if(currentlySelected!=null){
-																					pbiTopEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-																				}
-																				
-																			}
-																		});
-																		pbMenu.setWidget(3, 0, imgDoubleArrowUp);
-																		
-																				imgArrowUp = new Image("images/uparrow.png");
-																				imgArrowUp.addClickHandler(new ClickHandler() {
-																					
-																					@Override
-																					public void onClick(ClickEvent event) {
-																						if(currentlySelected!=null){
-																							pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-																						}
-																						
-																					}
-																				});
-																				pbMenu.setWidget(4, 0, imgArrowUp);
-																				
-																						imgArrowDown = new Image("images/downarrow.png");
-																						pbMenu.setWidget(5, 0, imgArrowDown);
-																						imgArrowDown.addClickHandler(new ClickHandler() {
-																							
-																							@Override
-																							public void onClick(ClickEvent event) {
-																								pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-																							}
-																						});
-																						
-																								imgDoubleArrowDown = new Image("images/bottomarrow.png");
-																								imgDoubleArrowDown.addClickHandler(new ClickHandler() {
-																									
-																									@Override
-																									public void onClick(ClickEvent event) {
-																										if(currentlySelected!=null){
-																									pbiBottomEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));		
-																										}	
-																									}
-																								});
-																								pbMenu.setWidget(6, 0, imgDoubleArrowDown);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(2, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(3, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(4, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(5, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(5, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-																								pbMenu.getCellFormatter().setHorizontalAlignment(6, 0, HasHorizontalAlignment.ALIGN_CENTER);
-																								pbMenu.getCellFormatter().setVerticalAlignment(6, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-								tableProductbacklog.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-									
-									public void onSelectionChange(SelectionChangeEvent event) {
-										SingleSelectionModel<ProductBacklogItem> model = (SingleSelectionModel<ProductBacklogItem>)tableProductbacklog.getSelectionModel();
-										currentlySelected = model.getSelectedObject();
-									}
-								});
+				});
 	}
 
 	@Override
@@ -276,7 +302,7 @@ public class ProductBacklogView extends Composite implements
 	public void addPBIUpEventHandler(EventHandler<PBIArgs> arg) {
 		pbiUpEvent.add(arg);
 	}
-	
+
 	@Override
 	public void addPBISelectedEventHandler(EventHandler<PBIArgs> arg) {
 		pbiSelectedEvent.add(arg);
@@ -291,5 +317,5 @@ public class ProductBacklogView extends Composite implements
 	private CellTable<ProductBacklogItem> getTableProductBacklog() {
 		return this.tableProductbacklog;
 	}
-	
+
 }

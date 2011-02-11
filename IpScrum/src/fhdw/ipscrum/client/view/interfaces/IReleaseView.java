@@ -12,6 +12,7 @@ public interface IReleaseView extends IView{
 	public abstract void addReleaseDetailsEventHandler(EventHandler<ReleaseArgs> arg);
 	public abstract void addNewReleaseEventHandler(EventHandler<EventArgs> arg);
 	public abstract void addDeleteReleaseEventHandler(EventHandler<fhdw.ipscrum.client.events.args.ReleaseArgs> args);
+	public abstract void addReleaseSelectedEventHandler(EventHandler<fhdw.ipscrum.client.events.args.ReleaseArgs> args);
 	
 	
 	public abstract void refreshReleases(HashSet<IRelease> release);
