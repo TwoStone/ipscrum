@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.Vector;
 
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -17,6 +18,10 @@ public interface IProjectView extends IView{
 	
 	public abstract Panel getMasterProductBackloglPanel();
 	public abstract Panel getMasterReleasePanel();
+	public abstract Panel getMasterSprintPanel();
+	public abstract Panel getMasterSprintProductBackloglPanel();
+	
+	
 	
 	public abstract void refreshProjects(Vector<Project> projects);
 }

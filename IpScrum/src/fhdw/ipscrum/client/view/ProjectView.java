@@ -44,6 +44,8 @@ public class ProjectView extends Composite implements IProjectView{
 	private FlowPanel masterSprintProductBackloglPanel;
 	private FlowPanel masterReleasePanel;
 	private CellTable<Project> tableProject;
+	private FlowPanel masterSprintPanel;
+	private FlowPanel masterProductBacklogPanel;
 	
 	public static IProjectView createView(){
 		return new ProjectView();
@@ -59,12 +61,12 @@ public class ProjectView extends Composite implements IProjectView{
 		absolutePanel.add(masterSprintProductBackloglPanel, 500, 0);
 		masterSprintProductBackloglPanel.setSize("495px", "594px");
 		
-		FlowPanel masterSprintPanel = new FlowPanel();
+		masterSprintPanel = new FlowPanel();
 		masterSprintPanel.setStyleName("box");
 		masterSprintPanel.setSize("495px", "300px");
 		masterSprintProductBackloglPanel.add(masterSprintPanel);
 		
-		FlowPanel masterProductBacklogPanel = new FlowPanel();
+		masterProductBacklogPanel = new FlowPanel();
 		masterProductBacklogPanel.setStyleName("box");
 		masterSprintProductBackloglPanel.add(masterProductBacklogPanel);
 		masterProductBacklogPanel.setSize("495px", "300px");
@@ -139,18 +141,7 @@ public class ProjectView extends Composite implements IProjectView{
 		masterProductReleasePanel.add(masterReleasePanel);
 		masterReleasePanel.setSize("495px", "300px");
 	}
-	public HasClickHandlers getImgNewProject() {
-		return imgNewProject;
-	}
-	public HasClickHandlers getImgDeleteProject() {
-		return imgDeleteProject;
-	}
-	public Panel getMasterProductBackloglPanel() {
-		return masterSprintProductBackloglPanel;
-	}
-	public Panel getMasterReleasePanel() {
-		return masterReleasePanel;
-	}
+
 	
 	private CellTable<Project> getProjectTable(){
 		return tableProject;
@@ -174,5 +165,25 @@ public class ProjectView extends Composite implements IProjectView{
 	@Override
 	public void refreshProjects(Vector<Project> projects) {
 		this.getProjectTable().setRowData(projects);
+	}
+	
+	@Override
+	public Panel getMasterSprintPanel() {
+		return masterSprintPanel;
+	}
+
+	@Override
+	public Panel getMasterSprintProductBackloglPanel() {
+		return this.masterSprintProductBackloglPanel;
+	}
+
+	@Override
+	public Panel getMasterProductBackloglPanel() {
+		return masterProductBacklogPanel;
+	}
+
+	@Override
+	public Panel getMasterReleasePanel() {
+		return masterReleasePanel;
 	}
 }
