@@ -79,3 +79,6 @@ h1 {
 .errorText {
 	
 }
+.TreeItem-leaf {
+	font-style: oblique;
+}

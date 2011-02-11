@@ -14,13 +14,13 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
-	private ITeam team;
 	final ITeamDialogView view = new TeamDialogView();
-	
+	private final ITeam team;
+
 	public TeamDialogPresenter(Panel parent) {
 		this(parent, null);
 	}
-	
+
 	public TeamDialogPresenter(Panel parent, ITeam selectedTeam) {
 		super(parent);
 		this.team = selectedTeam;
@@ -36,9 +36,9 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 				if (TeamDialogPresenter.this.team == null) {
 					SessionManager.getInstance().getModel().addTeam(new Team(eventArgs.getString()));
 				} else {
-					TeamDialogPresenter.this.team.setDescription(eventArgs.getString());					
+					TeamDialogPresenter.this.team.setDescription(eventArgs.getString());
 				}
-				
+
 				finish();
 			}
 		});
@@ -52,9 +52,9 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 		});
 		return view;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private void initialize() {
 		if (this.team != null) {
