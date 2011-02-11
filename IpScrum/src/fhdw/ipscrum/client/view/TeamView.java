@@ -53,7 +53,7 @@ public class TeamView extends Composite implements ITeamView {
 				ScrollPanel scrollPanelTeamTree = new ScrollPanel();
 				scrollPanelTeamTree.setStyleName("tableBorder");
 				verticalPanelTeams.add(scrollPanelTeamTree);
-				scrollPanelTeamTree.setSize("300px", "400px");
+				scrollPanelTeamTree.setSize("256px", "400px");
 
 				tree = new Tree();
 				scrollPanelTeamTree.setWidget(tree);
@@ -94,7 +94,7 @@ public class TeamView extends Composite implements ITeamView {
 		btnRemovePersonFromTeam.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (TeamView.this.getSelectedPersonOfTree() != null && TeamView.this.getSelectedTeamOfTree() != null) {
+				if (TeamView.this.getSelectedPersonOfTree() != null && TeamView.this.getSelectedTeamOfTree() != null) { // TODO does not work
 					removePersonFromTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.getSelectedPersonOfTree(), TeamView.this.getSelectedTeamOfTree()));
 				}
 			}

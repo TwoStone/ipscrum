@@ -63,7 +63,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 		ScrollPanel scrollPanelPersons = new ScrollPanel();
 		scrollPanelPersons.setStyleName("tableBorder");
-		scrollPanelPersons.setSize("300px", "300px");
+		scrollPanelPersons.setSize("300px", "400px");
 		horizontalPanelPersonRoles.add(scrollPanelPersons);
 
 		cellTablePersons = new CellTable<IPerson>();
@@ -168,7 +168,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		cellListRoles = new CellList<IRole>(roleCellAvailRoles);
 		cellListRoles.setStyleName("tableBorder");
 		verticalPanelRoles.add(cellListRoles);
-		cellListRoles.setSize("100%", "300px");
+		cellListRoles.setSize("100%", "377px");
 		MultiSelectionModel<IRole> selModelAvailRoles = new MultiSelectionModel<IRole>();
 		cellListRoles.setSelectionModel(selModelAvailRoles);
 
