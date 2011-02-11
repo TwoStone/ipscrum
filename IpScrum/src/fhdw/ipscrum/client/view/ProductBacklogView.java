@@ -38,7 +38,6 @@ public class ProductBacklogView extends Composite implements
 	private final Event<PBIArgs> pbiBottomEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiUpEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiTopEvent = new Event<PBIArgs>();
-	
 	// ###### Ende Events ###########
 
 	// TMP Arguments
@@ -66,101 +65,14 @@ public class ProductBacklogView extends Composite implements
 
 		FlowPanel concreteProductBacklogPanel = new FlowPanel();
 		initWidget(concreteProductBacklogPanel);
-		concreteProductBacklogPanel.setSize("500px", "600px");
+		concreteProductBacklogPanel.setSize("500px", "300px");
 
 		AbsolutePanel horizontalPanel = new AbsolutePanel();
-		horizontalPanel.setSize("500px", "600px");
+		horizontalPanel.setSize("500px", "300px");
 		concreteProductBacklogPanel.add(horizontalPanel);
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setStyleName("box");
-		verticalPanel
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel.add(verticalPanel, 438, 67);
-		verticalPanel.setSize("50", "165px");
-
-		Grid pbMenu = new Grid(7, 1);
-		verticalPanel.add(pbMenu);
-		pbMenu.setCellSpacing(5);
-		pbMenu.setCellPadding(5);
-		pbMenu.setSize("50", "471px");
-						
-								imgNewFile = new Image("images/newfile.png");
-								imgNewFile.addClickHandler(new ClickHandler() {
-									public void onClick(ClickEvent event) {
-										newPBIEvent.fire(ProductBacklogView.this, new EventArgs());
-									}
-								});
-								pbMenu.setWidget(0, 0, imgNewFile);
-						
-								imgDetails = new Image("images/details.png");
-								imgDetails.addClickHandler(new ClickHandler() {
-									public void onClick(ClickEvent event) {
-										detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(ProductBacklogView.this.currentlySelected));
-									}
-								});
-								pbMenu.setWidget(1, 0, imgDetails);
-						
-								imgDelete = new Image("images/delete.png");
-								imgDelete.addClickHandler(new ClickHandler() {
-									public void onClick(ClickEvent event) {
-										if(currentlySelected!=null){
-											deleteSelectedEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-										}
-									}
-								});
-								pbMenu.setWidget(2, 0, imgDelete);
-				
-						imgDoubleArrowUp = new Image("images/toparrow.png");
-						imgDoubleArrowUp.addClickHandler(new ClickHandler() {
-							
-							@Override
-							public void onClick(ClickEvent event) {
-								if(currentlySelected!=null){
-									pbiTopEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-								}
-								
-							}
-						});
-						pbMenu.setWidget(3, 0, imgDoubleArrowUp);
-				
-						imgArrowUp = new Image("images/uparrow.png");
-						imgArrowUp.addClickHandler(new ClickHandler() {
-							
-							@Override
-							public void onClick(ClickEvent event) {
-								if(currentlySelected!=null){
-									pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-								}
-								
-							}
-						});
-						pbMenu.setWidget(4, 0, imgArrowUp);
-				
-						imgArrowDown = new Image("images/downarrow.png");
-						pbMenu.setWidget(5, 0, imgArrowDown);
-						imgArrowDown.addClickHandler(new ClickHandler() {
-							
-							@Override
-							public void onClick(ClickEvent event) {
-								pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-							}
-						});
-		
-				imgDoubleArrowDown = new Image("images/bottomarrow.png");
-				imgDoubleArrowDown.addClickHandler(new ClickHandler() {
-					
-					@Override
-					public void onClick(ClickEvent event) {
-						if(currentlySelected!=null){
-					pbiBottomEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));		
-						}	
-					}
-				});
-				pbMenu.setWidget(6, 0, imgDoubleArrowDown);
-
 		Label lblProductBacklog = new Label("Product Backlog Eintr\u00E4ge");
+		lblProductBacklog.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		lblProductBacklog.setStyleName("LabelElement");
 		horizontalPanel.add(lblProductBacklog, 10, 10);
 
@@ -171,7 +83,7 @@ public class ProductBacklogView extends Composite implements
 		
 		scrollPanel = new ScrollPanel();
 		horizontalPanel.add(scrollPanel, 10, 40);
-		scrollPanel.setSize("400px", "500px");
+		scrollPanel.setSize("400px", "250px");
 		
 				tableProductbacklog = new CellTable<ProductBacklogItem>();
 				
@@ -225,6 +137,100 @@ public class ProductBacklogView extends Composite implements
 				scrollPanel.setWidget(tableProductbacklog);
 				tableProductbacklog.setSize("100%", "100%");
 								tableProductbacklog.setSelectionModel(new SingleSelectionModel());
+								
+										Grid pbMenu = new Grid(7, 1);
+										pbMenu.setStyleName("box");
+										pbMenu.setCellSpacing(1);
+										horizontalPanel.add(pbMenu, 432, 39);
+										pbMenu.setSize("50px", "250px");
+										
+												imgNewFile = new Image("images/newfile.png");
+												imgNewFile.addClickHandler(new ClickHandler() {
+													public void onClick(ClickEvent event) {
+														newPBIEvent.fire(ProductBacklogView.this, new EventArgs());
+													}
+												});
+												pbMenu.setWidget(0, 0, imgNewFile);
+												
+														imgDetails = new Image("images/details.png");
+														imgDetails.addClickHandler(new ClickHandler() {
+															public void onClick(ClickEvent event) {
+																detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(ProductBacklogView.this.currentlySelected));
+															}
+														});
+														pbMenu.setWidget(1, 0, imgDetails);
+														
+																imgDelete = new Image("images/delete.png");
+																imgDelete.addClickHandler(new ClickHandler() {
+																	public void onClick(ClickEvent event) {
+																		if(currentlySelected!=null){
+																			deleteSelectedEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+																		}
+																	}
+																});
+																pbMenu.setWidget(2, 0, imgDelete);
+																
+																		imgDoubleArrowUp = new Image("images/toparrow.png");
+																		imgDoubleArrowUp.addClickHandler(new ClickHandler() {
+																			
+																			@Override
+																			public void onClick(ClickEvent event) {
+																				if(currentlySelected!=null){
+																					pbiTopEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+																				}
+																				
+																			}
+																		});
+																		pbMenu.setWidget(3, 0, imgDoubleArrowUp);
+																		
+																				imgArrowUp = new Image("images/uparrow.png");
+																				imgArrowUp.addClickHandler(new ClickHandler() {
+																					
+																					@Override
+																					public void onClick(ClickEvent event) {
+																						if(currentlySelected!=null){
+																							pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+																						}
+																						
+																					}
+																				});
+																				pbMenu.setWidget(4, 0, imgArrowUp);
+																				
+																						imgArrowDown = new Image("images/downarrow.png");
+																						pbMenu.setWidget(5, 0, imgArrowDown);
+																						imgArrowDown.addClickHandler(new ClickHandler() {
+																							
+																							@Override
+																							public void onClick(ClickEvent event) {
+																								pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+																							}
+																						});
+																						
+																								imgDoubleArrowDown = new Image("images/bottomarrow.png");
+																								imgDoubleArrowDown.addClickHandler(new ClickHandler() {
+																									
+																									@Override
+																									public void onClick(ClickEvent event) {
+																										if(currentlySelected!=null){
+																									pbiBottomEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));		
+																										}	
+																									}
+																								});
+																								pbMenu.setWidget(6, 0, imgDoubleArrowDown);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(2, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(3, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(4, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(5, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(5, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+																								pbMenu.getCellFormatter().setHorizontalAlignment(6, 0, HasHorizontalAlignment.ALIGN_CENTER);
+																								pbMenu.getCellFormatter().setVerticalAlignment(6, 0, HasVerticalAlignment.ALIGN_MIDDLE);
 								tableProductbacklog.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 									
 									public void onSelectionChange(SelectionChangeEvent event) {

@@ -41,8 +41,8 @@ public class ProjectView extends Composite implements IProjectView{
 	
 	private Image imgNewProject;
 	private Image imgDeleteProject;
-	private VerticalPanel masterProductBackloglPanel;
-	private VerticalPanel masterReleasePanel;
+	private FlowPanel masterSprintProductBackloglPanel;
+	private FlowPanel masterReleasePanel;
 	private CellTable<Project> tableProject;
 	
 	public static IProjectView createView(){
@@ -55,19 +55,28 @@ public class ProjectView extends Composite implements IProjectView{
 		initWidget(absolutePanel);
 		absolutePanel.setSize("1000px", "600px");
 		
-		masterProductBackloglPanel = new VerticalPanel();
-		masterProductBackloglPanel.setStyleName("box");
-		absolutePanel.add(masterProductBackloglPanel, 500, 0);
-		masterProductBackloglPanel.setSize("495px", "594px");
+		masterSprintProductBackloglPanel = new FlowPanel();
+		absolutePanel.add(masterSprintProductBackloglPanel, 500, 0);
+		masterSprintProductBackloglPanel.setSize("495px", "594px");
 		
-		VerticalPanel masterProductReleasePanel = new VerticalPanel();
+		FlowPanel masterSprintPanel = new FlowPanel();
+		masterSprintPanel.setStyleName("box");
+		masterSprintPanel.setSize("495px", "300px");
+		masterSprintProductBackloglPanel.add(masterSprintPanel);
+		
+		FlowPanel masterProductBacklogPanel = new FlowPanel();
+		masterProductBacklogPanel.setStyleName("box");
+		masterSprintProductBackloglPanel.add(masterProductBacklogPanel);
+		masterProductBacklogPanel.setSize("495px", "300px");
+		
+		FlowPanel masterProductReleasePanel = new FlowPanel();
 		absolutePanel.add(masterProductReleasePanel);
 		masterProductReleasePanel.setSize("495px", "600px");
 		
 		AbsolutePanel concreteProjectPanel = new AbsolutePanel();
 		concreteProjectPanel.setStyleName("box");
 		masterProductReleasePanel.add(concreteProjectPanel);
-		concreteProjectPanel.setSize("495px", "275px");
+		concreteProjectPanel.setSize("495px", "300px");
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
 		concreteProjectPanel.add(scrollPanel, 10, 72);
@@ -121,17 +130,13 @@ public class ProjectView extends Composite implements IProjectView{
 		});
 		projectMenuPanel.add(imgDeleteProject);
 		
-		Label lblProjekte = new Label("Projekte\u00FCbersicht");
+		Label lblProjekte = new Label("Projekt\u00FCbersicht");
 		lblProjekte.setStyleName("LabelElement");
 		concreteProjectPanel.add(lblProjekte, 10, 5);
 		
-		masterReleasePanel = new VerticalPanel();
+		masterReleasePanel = new FlowPanel();
 		masterReleasePanel.setStyleName("box");
-		masterReleasePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		masterReleasePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		masterProductReleasePanel.add(masterReleasePanel);
-		masterProductReleasePanel.setCellVerticalAlignment(masterReleasePanel, HasVerticalAlignment.ALIGN_MIDDLE);
-		masterProductReleasePanel.setCellHorizontalAlignment(masterReleasePanel, HasHorizontalAlignment.ALIGN_CENTER);
 		masterReleasePanel.setSize("495px", "300px");
 	}
 	public HasClickHandlers getImgNewProject() {
@@ -141,7 +146,7 @@ public class ProjectView extends Composite implements IProjectView{
 		return imgDeleteProject;
 	}
 	public Panel getMasterProductBackloglPanel() {
-		return masterProductBackloglPanel;
+		return masterSprintProductBackloglPanel;
 	}
 	public Panel getMasterReleasePanel() {
 		return masterReleasePanel;
