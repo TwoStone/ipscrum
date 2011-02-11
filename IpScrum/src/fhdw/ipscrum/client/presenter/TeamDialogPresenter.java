@@ -6,23 +6,22 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.TeamDialogView;
-import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.ITeamDialogView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.Team;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 
 public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
-	private Team team;
+	private ITeam team;
 	final ITeamDialogView view = new TeamDialogView();
 	
 	public TeamDialogPresenter(Panel parent) {
-		super(parent);
+		this(parent, null);
 	}
 	
-	public TeamDialogPresenter(Panel parent, Team selectedTeam) {
+	public TeamDialogPresenter(Panel parent, ITeam selectedTeam) {
 		super(parent);
 		this.team = selectedTeam;
 		initialize();
