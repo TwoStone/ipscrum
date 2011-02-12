@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateFeatureView;
 import fhdw.ipscrum.client.view.interfaces.ICreateFeatureView;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Feature;
@@ -28,12 +28,12 @@ public class CreateFeaturePresenter extends
 	 * 
 	 * @return Feature
 	 */
-	private static Feature createNewFeature(final ProductBacklog backlog) {
+	private static Feature createNewFeature(final ProductBacklog backlog){
 		try {
 			return new Feature(NEWFTRNAME, "", backlog);
 		} catch (final NoValidValueException e) {
 			GwtUtils.displayError(e.getMessage());
-		} catch (final ConsistencyException e) {
+		} catch (final DoubleDefinitionException e){
 			GwtUtils.displayError(e.getMessage());
 		}
 		return null;

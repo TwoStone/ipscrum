@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
@@ -11,7 +12,7 @@ import fhdw.ipscrum.shared.observer.Observable;
  * ProductBacklogItems.
  */
 public class ProductBacklog extends Observable {
-//	private Vector<ProductBacklogItem> items;
+
 	private final Project project;
 	
 	private final ToPBIAssoc assoc;
@@ -39,6 +40,15 @@ public class ProductBacklog extends Observable {
 		this.project = project;
 		this.assoc = new ToPBIAssoc(this);
 	}
+	
+	public void isDoubleDefined(String pbiName) throws DoubleDefinitionException{
+		for(ProductBacklogItem current : this.getItems()){
+			if(current.getName().equals(pbiName)){
+				//TODO Textkonstante bauen!
+				throw new DoubleDefinitionException("Ein PBI mit diesem Namen existiert bereits!");
+			}
+		}
+	}
 
 	/**
 	 * Returns all ProductBacklogItems of the this Backlog. <br />
@@ -52,10 +62,6 @@ public class ProductBacklog extends Observable {
 			ret.add(current.getElement());
 		}
 		return ret;
-//		if (this.items == null) {
-//			this.items = new Vector<ProductBacklogItem>();
-//		}
-//		return items;
 	}
 
 	/**
@@ -108,8 +114,6 @@ public class ProductBacklog extends Observable {
 		}
 	}
 
-
-
 	/**
 	 * Adds the item at the end of the list.
 	 * 
@@ -125,28 +129,12 @@ public class ProductBacklog extends Observable {
 						"da es bereits einem anderen Backlog gehört");
 			}
 		}
-//		if (!this.isItemInList(item)) {
-//			if(item.getBacklog()==this){
-//				this.getItems().add(item);
-//				this.notifyObservers();
-//			}else{
-//				//TODO Textkonstante bauen
-//				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugefügt werden, " +
-//						"da es bereits einem anderen Backlog gehört");
-//			}
-//		}
 	}
 
-	/**
-	 * TODO Kommentar
-	 * 
-	 * @param item
-	 */
-	public void removeItem(ProductBacklogItem item) {
-		this.getAssoc().remove(item.getBacklogAssoc());
-//		this.getItems().remove(item);
-		this.notifyObservers();
-	}
+//	public void removeItem(ProductBacklogItem item) {
+//		this.getAssoc().remove(item.getBacklogAssoc());
+//		this.notifyObservers();
+//	}
 
 	/**
 	 * TODO Kommentar

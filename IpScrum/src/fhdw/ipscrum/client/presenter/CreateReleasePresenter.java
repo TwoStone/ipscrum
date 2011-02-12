@@ -4,10 +4,12 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateReleaseView;
 import fhdw.ipscrum.client.view.interfaces.ICreateReleaseView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 
@@ -29,7 +31,11 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				CreateReleasePresenter.this.project.addRelease(new Release(view.getReleaseVersion(),view.getDateBox().getValue(), project));
+				try {
+					CreateReleasePresenter.this.project.addRelease(new Release(view.getReleaseVersion(),view.getDateBox().getValue(), project));
+				} catch (DoubleDefinitionException e) {
+					GwtUtils.displayError(e.getMessage());
+				}
 				finish();
 			}
 		

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
@@ -29,7 +28,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 
 	public Feature(final String name, final String description,
 			final ProductBacklog backlog) throws NoValidValueException,
-			ConsistencyException {
+			DoubleDefinitionException {
 		super(name, backlog);
 		this.setDescription(description);
 		this.state = new Open(this);

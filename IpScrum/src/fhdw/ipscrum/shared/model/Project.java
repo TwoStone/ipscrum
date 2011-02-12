@@ -1,9 +1,11 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -16,7 +18,7 @@ public class Project extends Observable{
 
 	private String name;
 	private final ProductBacklog backlog;
-	private Vector<ISprint> sprints;
+	private Vector<ISprint> sprints;//Not-bidirectional
 
 	private final ToReleaseAssoc releaseAssoc;
 	
@@ -44,7 +46,7 @@ public class Project extends Observable{
 		this.releaseAssoc = new ToReleaseAssoc(this);
 		this.backlog = new ProductBacklog(this);
 	}
-
+	
 	public Vector<IRelease> getReleasePlan() {
 		Vector<IRelease> ret = new Vector<IRelease>();
 		for(Release.ToProjectAssoc current : this.getReleaseAssoc().getAssociations()){
@@ -75,7 +77,7 @@ public class Project extends Observable{
 			throw new NoValidValueException("Es muss ein Projektname angegeben werden!");
 		}
 	}
-
+	
 	public ProductBacklog getBacklog() {
 		return backlog;
 	}
@@ -96,6 +98,8 @@ public class Project extends Observable{
 		}
 		return false;
 	}
+	
+	
 
 	/**
 	 * Returns the defined Sprints for this project.
@@ -120,18 +124,23 @@ public class Project extends Observable{
 		this.notifyObservers();
 	}
 	
-	/**
-	 * TODO Kommentar
-	 * @param sprint
-	 */
-	public void removeSprint(ISprint sprint){
-		//TODO Konsistenzerhaltung
-		this.getSprints().remove(sprint);
-		this.notifyObservers();
+	public void isReleaseDoubleDefined(String version, Date releaseDate) throws DoubleDefinitionException{
+		for(IRelease current : this.getReleasePlan()){
+			if(current.getVersion().equals(version) && current.getReleaseDate().equals(releaseDate)){
+				//TODO Textkonstante bauen!
+				throw new DoubleDefinitionException("Release existiert bereits und kann nicht hinzugefügt werden!");
+			}
+		}
 	}
+	
+//	public void removeSprint(ISprint sprint){
+//		this.getSprints().remove(sprint);
+//		this.notifyObservers();
+//	}
 	
 	public void addRelease(IRelease release){
 		this.getReleaseAssoc().add(release.getProjectAssoc());
+		this.notifyObservers();
 	}
 	
 //	public void removeRelease(IRelease release){

@@ -2,9 +2,9 @@ package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.Release.ToSprintAssoc;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -16,9 +16,7 @@ public abstract class ProductBacklogItem extends Observable {
 
 	private String name;
 	private Integer manDayCosts;
-//	private final ProductBacklog backlog;
 	private IPerson lastEditor;
-//	private ISprint sprint;
 	
 	private final ToBacklogAssoc backlogAssoc;
 	private final ToSprintAssoc sprintAssoc;
@@ -53,12 +51,12 @@ public abstract class ProductBacklogItem extends Observable {
 	 *             null and have not only whitespace characters.
 	 */
 	public ProductBacklogItem(final String name, final ProductBacklog backlog)
-			throws NoValidValueException, ConsistencyException {
+			throws NoValidValueException, DoubleDefinitionException {
 		super();
 		this.setName(name);
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
-//		this.backlog = backlog;
+		backlog.isDoubleDefined(name);//Can throw an DoubleDefinitionException
 		this.getBacklogAssoc().set(backlog.getAssoc());
 		this.setManDayCosts(0);
 	}

@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -48,12 +49,13 @@ public class Release extends Observable implements IRelease {
 		return projectAssoc;
 	}
 
-	public Release(String version, Date releaseDate, Project project) {
+	public Release(String version, Date releaseDate, Project project) throws DoubleDefinitionException{
 		this.version = version;
 		this.releaseDate = releaseDate;
 		// this.project = project;
 		this.projectAssoc = new ToProjectAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
+		project.isReleaseDoubleDefined(version, releaseDate);//can throw DoubleDefinitionException
 		this.getProjectAssoc().set(project.getReleaseAssoc());
 	}
 
@@ -63,6 +65,7 @@ public class Release extends Observable implements IRelease {
 
 	public void setVersion(String version) {
 		this.version = version;
+		this.notifyObservers();
 	}
 
 	public Date getReleaseDate() {
@@ -71,6 +74,7 @@ public class Release extends Observable implements IRelease {
 
 	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
+		this.notifyObservers();
 	}
 
 	/**

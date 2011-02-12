@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
@@ -123,12 +124,13 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 			@Override
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-				if (eventArgs.getPbi() != null) {
-					ProductBacklogPresenter.this.project.getBacklog()
-							.removeItem(eventArgs.getPbi());
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
-				}
+				GwtUtils.displayError("Löschen eines PBIs ist derzeit noch nicht vorgesehen!");
+//				if (eventArgs.getPbi() != null) {
+//					ProductBacklogPresenter.this.project.getBacklog()
+//							.removeItem(eventArgs.getPbi());
+//					view.refreshProductBacklog(ProductBacklogPresenter.this.project
+//							.getBacklog().getItems());
+//				}
 			}
 
 		});
