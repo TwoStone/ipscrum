@@ -1,9 +1,9 @@
 package fhdw.ipscrum.shared.exceptions;
 
 @SuppressWarnings("serial")
-public class NoSprintDefinedException extends Exception {
+public class NoSprintDefinedException extends UserException {
 
-	public NoSprintDefinedException(String message) {
+	public NoSprintDefinedException(final String message) {
 		super(message);
 	}
 }

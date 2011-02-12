@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.exceptions;
 
-public class NoFeatureSelectedException extends Exception {
+public class NoFeatureSelectedException extends UserException {
 
 	/**
 	 * 
