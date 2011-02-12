@@ -79,12 +79,13 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	}
 
 	private void initialize() {
-		Iterator teamIterator = SessionManager.getInstance().getModel().getTeams().iterator();
-		while(teamIterator.hasNext()){
-			ITeam team = (ITeam) teamIterator.next();
-			concreteView.getTeams().addItem(team.getDescription());
-		}
-		   
+		if (SessionManager.getInstance().getModel().getTeams() != null){
+			Iterator teamIterator = SessionManager.getInstance().getModel().getTeams().iterator();
+			while(teamIterator.hasNext()){
+				ITeam team = (ITeam) teamIterator.next();
+				concreteView.getTeams().addItem(team.getDescription());
+			}
+		}		   
 		
 		if (this.sprint != null) {
 			// TODO Hier Vorbelegungen anf�gen..
