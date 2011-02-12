@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.Team;
 
 public interface ISprint {
@@ -42,6 +43,8 @@ public interface ISprint {
 	//Wird benötigt, damit der PBI bei setSprint(null), sich auch aus dessen
 	//Liste entfernen kann!
 	public void removePBI(ProductBacklogItem pbi) throws ConsistencyException;
+	
+	public abstract Sprint.ToReleaseAssoc getToReleaseAssoc();
 	
 
 }

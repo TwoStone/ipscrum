@@ -15,7 +15,7 @@ public class Sprint implements ISprint {
 	private Team team;
 	private final ToReleaseAssoc toReleaseAssoc;
 
-	class ToReleaseAssoc extends BDAManyToMany<Release.ToSprintAssoc, Sprint> {
+	public class ToReleaseAssoc extends BDAManyToMany<Release.ToSprintAssoc, Sprint> {
 
 		public ToReleaseAssoc(Sprint element) {
 			super(element);
