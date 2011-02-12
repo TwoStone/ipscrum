@@ -236,7 +236,11 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 *            AcceptanceCriterion
 	 */
 	private void removeCriterion(final AcceptanceCriterion criterion) {
-		this.feature.removeAcceptanceCriterion(criterion);
+		try {
+			this.feature.removeAcceptanceCriterion(criterion);
+		} catch (final ForbiddenStateException e) {
+			GwtUtils.displayError(e.getMessage());
+		}
 	}
 
 	/**
@@ -246,7 +250,11 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 *            Hint
 	 */
 	private void removeHint(final Hint hint) {
-		this.feature.removeHint(hint);
+		try {
+			this.feature.removeHint(hint);
+		} catch (final ForbiddenStateException e) {
+			GwtUtils.displayError(e.getMessage());
+		}
 	}
 
 	/**
@@ -256,7 +264,11 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 *            Relation
 	 */
 	private void removeRelation(final Relation relation) {
-		this.feature.removeRelation(relation);
+		try {
+			this.feature.removeRelation(relation);
+		} catch (final ForbiddenStateException e) {
+			GwtUtils.displayError(e.getMessage());
+		}
 	}
 
 	/**

@@ -6,10 +6,12 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
+import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.RelationType;
 
-public interface IRelationView extends IView {
+public interface ICreateRelationView extends IView {
 	IEvent<EventArgs> getAbort();
 
 	IEvent<EventArgs> getCreateNewType();
@@ -18,13 +20,13 @@ public interface IRelationView extends IView {
 
 	IEvent<EventArgs> getSave();
 
-	Feature getSelectedTarget();
+	Feature getSelectedTarget() throws NothingSelectedException;
 
-	RelationType getSelectedType();
+	RelationType getSelectedType() throws NothingSelectedException;
 
 	void setOwningFeature(Feature feature);
 
 	void setRelationTypes(List<RelationType> types);
 
-	void setTargetFeatures(List<Feature> features);
+	void setTargetFeatures(List<ProductBacklogItem> vector);
 }

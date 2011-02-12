@@ -82,7 +82,10 @@ public class EditFeatureView extends CreateFeatureView implements
 			@Override
 			public void handleClosed(final Closed closed) {
 				EditFeatureView.this.currentStateLbl.setText("Geschlossen");
-				EditFeatureView.this.toggleStateBtn.setText("Feature öffnen");
+				EditFeatureView.this.toggleStateBtn.setText("Feature oeffnen");
+				// TODO Wenn Features wieder geöffnet werden können, hier
+				// ändern.
+				EditFeatureView.this.toggleStateBtn.setVisible(false);
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(false);
 				EditFeatureView.this.getBtnAddHint().setEnabled(false);
 				EditFeatureView.this.getBtnAddRelation().setEnabled(false);
@@ -93,6 +96,9 @@ public class EditFeatureView extends CreateFeatureView implements
 				EditFeatureView.this.currentStateLbl.setText("Offen");
 				EditFeatureView.this.toggleStateBtn
 						.setText("Feature schlie\u00DFen");
+				// TODO Wenn Features wieder geöffnet werden können, hier
+				// ändern.
+				EditFeatureView.this.toggleStateBtn.setVisible(true);
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(true);
 				EditFeatureView.this.getBtnAddHint().setEnabled(true);
 				EditFeatureView.this.getBtnAddRelation().setEnabled(true);

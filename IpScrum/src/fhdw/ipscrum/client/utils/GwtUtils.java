@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.utils;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -28,6 +29,11 @@ public final class GwtUtils {
 		return dialog;
 	}
 
+	/**
+	 * Displays an error in an dialog box with close button.
+	 * 
+	 * @param error
+	 */
 	public static void displayError(final String error) {
 		final DialogBox dialog = createDialog("Fehler");
 		final VerticalPanel panel = new VerticalPanel();
@@ -36,10 +42,10 @@ public final class GwtUtils {
 		panel.setSpacing(5);
 		dialog.add(panel);
 
-		final Label errorText = new Label(error);
+		final Label errorText = new Label(escapeString(error));
 		panel.add(errorText);
 
-		final Button okayButton = new Button("Okay");
+		final Button okayButton = new Button("Schlieﬂen");
 		okayButton.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -51,4 +57,12 @@ public final class GwtUtils {
 
 		dialog.center();
 	}
+
+	public static String escapeString(final String input) {
+		// TODO Funktioniert noch nicht richtig
+		final SafeHtmlBuilder htmlBuilder = new SafeHtmlBuilder();
+		htmlBuilder.appendEscaped(input);
+		return htmlBuilder.toSafeHtml().asString();
+	}
+
 }
