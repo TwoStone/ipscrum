@@ -13,9 +13,12 @@ import fhdw.ipscrum.shared.model.Project;
 public class DoubleDefinitionTests {
 
 	@Test
-	public void test(){
+	public void priorityTests(){
 		try {
 			Project p = new Project("Test");
+			
+			assertTrue(p.getBacklog().getItems()!=null);
+			
 			Feature f1 = new Feature("T1", "", p.getBacklog());
 			Feature f2 = new Feature("T2", "", p.getBacklog());
 			Feature f3 = new Feature("T3", "", p.getBacklog());
