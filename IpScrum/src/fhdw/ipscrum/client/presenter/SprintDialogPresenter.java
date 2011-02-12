@@ -7,6 +7,8 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.SprintDialogView;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
+import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
@@ -14,7 +16,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	private ISprintDialogView concreteView;
-	private final ISprint sprint;
+	private ISprint sprint;
 
 	/**
 	 * Constructor for SprintDialogPresenter.
@@ -55,9 +57,15 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
 				if (SprintDialogPresenter.this.sprint == null) {
-					// TODO neuen Sprint (eventArgs.getSprint()) anfügen.
+					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getSprint().getBegin(), eventArgs.getSprint().getEnd(), eventArgs.getSprint().getTeam());
+					if (eventArgs.getSprint().getDescription() != null)
+						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getSprint().getDescription());
 				} else {
-					// TODO bestehenden Sprint (this.sprint) mit Wetten aus temporärem Sprint (eventArgs.getSprint()) überschreiben.
+					// TODO bestehenden Sprint (this.sprint) mit Wetten aus temporï¿½rem Sprint (eventArgs.getSprint()) ï¿½berschreiben.
+					SprintDialogPresenter.this.sprint.setDescription(eventArgs.getSprint().getDescription());
+					SprintDialogPresenter.this.sprint.setBegin(eventArgs.getSprint().getBegin());
+					SprintDialogPresenter.this.sprint.setEnd(eventArgs.getSprint().getEnd());
+					SprintDialogPresenter.this.sprint.setTeam(eventArgs.getSprint().getTeam());
 				}
 
 				finish();
@@ -69,9 +77,17 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	private void initialize() {
 		if (this.sprint != null) {
-			// TODO Hier Vorbelegungen anfügen..
-			this.concreteView.getDescription().setText(this.sprint.getName());
-			// ...
+			// TODO Hier Vorbelegungen anfï¿½gen..
+			this.concreteView.getDescription().setText(this.sprint.getDescription());
+			this.concreteView.getStart().setValue(this.sprint.getBegin());
+			this.concreteView.getEnd().setValue(this.sprint.getEnd());
+			//this.concreteView.getTeams().setSelectedIndex();
 		}
 	}
+
+	public ISprint getSprint() {
+		return sprint;
+	}
+	
+	
 }
