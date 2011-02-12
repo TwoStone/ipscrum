@@ -22,7 +22,7 @@ public class TextView extends Composite implements ITextView {
 	private final Event<EventArgs> save = new Event<EventArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 
-	public TextView(String label) {
+	public TextView(final String label) {
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
@@ -42,7 +42,7 @@ public class TextView extends Composite implements ITextView {
 		verticalPanel.add(horizontalPanel);
 		this.okayButton.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				TextView.this.save.fire(TextView.this, new EventArgs());
 			}
 		});
@@ -51,13 +51,16 @@ public class TextView extends Composite implements ITextView {
 		horizontalPanel.add(this.okayButton);
 		this.cancelButton.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				TextView.this.abort.fire(TextView.this, new EventArgs());
 			}
 		});
 
 		this.cancelButton.setText("Abbrechen");
 		horizontalPanel.add(this.cancelButton);
+
+		// Set focus in text box.
+		this.contentText.setFocus(true);
 	}
 
 	@Override
@@ -76,7 +79,7 @@ public class TextView extends Composite implements ITextView {
 	}
 
 	@Override
-	public void setContent(String content) {
+	public void setContent(final String content) {
 		this.contentText.setText(content);
 	}
 

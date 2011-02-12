@@ -45,7 +45,7 @@ public final class GwtUtils {
 		final Label errorText = new Label(escapeString(error));
 		panel.add(errorText);
 
-		final Button okayButton = new Button("Schlieﬂen");
+		final Button okayButton = new Button("Schlie√üen");
 		okayButton.addClickHandler(new ClickHandler() {
 
 			@Override

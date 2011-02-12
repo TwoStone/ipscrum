@@ -300,6 +300,14 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		});
 
 		buttonPanel.add(this.btnAbort);
+
+		// Set focus in name text box
+	}
+
+	@Override
+	public void setVisible(final boolean visible) {
+		super.setVisible(visible);
+		this.txtBxName.setFocus(true);
 	}
 
 	@Override
