@@ -1,11 +1,9 @@
 package fhdw.ipscrum.client.phase2.group1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Project;
@@ -13,12 +11,9 @@ import fhdw.ipscrum.shared.model.Project;
 public class DoubleDefinitionTests {
 
 	@Test
-	public void priorityTests(){
+	public void test(){
 		try {
 			Project p = new Project("Test");
-			
-			assertTrue(p.getBacklog().getItems()!=null);
-			
 			Feature f1 = new Feature("T1", "", p.getBacklog());
 			Feature f2 = new Feature("T2", "", p.getBacklog());
 			Feature f3 = new Feature("T3", "", p.getBacklog());

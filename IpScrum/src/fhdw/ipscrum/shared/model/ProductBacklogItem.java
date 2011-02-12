@@ -28,7 +28,7 @@ public abstract class ProductBacklogItem extends Observable {
 		}
 	}
 	
-	public class ToSprintAssoc extends BDAManyToMany<BDAManyToMany, ProductBacklogItem>{
+	public class ToSprintAssoc extends BDAManyToMany<ISprint.ToPBIAssoc, ProductBacklogItem>{
 		public ToSprintAssoc(ProductBacklogItem element) {
 			super(element);
 		}
@@ -120,7 +120,6 @@ public abstract class ProductBacklogItem extends Observable {
 			return this.getBacklogAssoc().get().getElement();
 		}
 		return null;
-//		return this.backlog;
 	}
 
 	public IPerson getLastEditor() {
@@ -136,8 +135,11 @@ public abstract class ProductBacklogItem extends Observable {
 	}
 
 	public ISprint getSprint() {
-		//TODO Implement
-		return null;
+		if(this.getSprintAssoc().get()!=null){
+			return this.getSprintAssoc().get().getElement();
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -178,7 +180,7 @@ public abstract class ProductBacklogItem extends Observable {
 		} else {
 			// TODO Textkonstante bauen
 			throw new NoValidValueException(
-					"Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!");
+					"Es muss eine gï¿½ltige Aufwandsschï¿½tzung in Manntagen (>=0) angegeben werden!");
 		}
 	}
 
@@ -223,7 +225,7 @@ public abstract class ProductBacklogItem extends Observable {
 //			} else {
 //				// TODO Textkonstante bauen
 //				throw new NoSprintDefinedException(
-//						"Es können nur bereits vorhandene Sprints zugeordnet werden!");
+//						"Es kï¿½nnen nur bereits vorhandene Sprints zugeordnet werden!");
 //			}
 //		} else {
 //			if (this.sprint != null) {
@@ -231,6 +233,7 @@ public abstract class ProductBacklogItem extends Observable {
 //				this.sprint = null;
 //			}
 //		}
+		this.notifyObservers();
 	}
 
 	@Override

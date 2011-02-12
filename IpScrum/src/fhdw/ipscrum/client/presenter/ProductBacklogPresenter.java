@@ -145,14 +145,58 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
-					ProductBacklogPresenter.this.project.getBacklog().moveUp(
+					ProductBacklogPresenter.this.project.getBacklog().moveDown(
 							pbi);
 					view.refreshProductBacklog(ProductBacklogPresenter.this.project
 							.getBacklog().getItems());
 				}
 			}
 		});
+		
+		view.addPBIUpEventHandler(new EventHandler<PBIArgs>() {
 
+			@Override
+			public void onUpdate(Object sender, PBIArgs eventArgs) {
+				final ProductBacklogItem pbi = eventArgs.getPbi();
+				if (pbi != null) {
+					ProductBacklogPresenter.this.project.getBacklog().moveUp(
+							pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project
+							.getBacklog().getItems());
+				}				
+			}
+		});
+
+		view.addPBITopEventHandler(new EventHandler<PBIArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, PBIArgs eventArgs) {
+				final ProductBacklogItem pbi = eventArgs.getPbi();
+				if (pbi != null) {
+					ProductBacklogPresenter.this.project.getBacklog().moveTop(
+							pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project
+							.getBacklog().getItems());
+				}
+			}
+			
+		});
+		
+		view.addPBIBottomEventHandler(new EventHandler<PBIArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, PBIArgs eventArgs) {
+				final ProductBacklogItem pbi = eventArgs.getPbi();
+				if (pbi != null) {
+					ProductBacklogPresenter.this.project.getBacklog().moveBottom(
+							pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project
+							.getBacklog().getItems());
+				}
+			}
+			
+		});
+		
 		return view;
 	}
 
