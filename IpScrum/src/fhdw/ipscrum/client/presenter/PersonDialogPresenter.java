@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
-	private PersonDialogView concreteView;
+	private IPersonDialogView concreteView;
 	private final IPerson person;
 
 	public PersonDialogPresenter(Panel parent) {
@@ -29,6 +29,7 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
 	@Override
 	protected IPersonDialogView createView() {
+
 		this.concreteView = new PersonDialogView();
 
 		this.concreteView.defineCancelEventHandler(new EventHandler<EventArgs>() {

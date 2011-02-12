@@ -10,8 +10,9 @@ import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
+
 	private ISprintDialogView concreteView;
-	private ISprint sprint;
+	private final ISprint sprint;
 
 	public SprintDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -27,35 +28,33 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	protected ISprintDialogView createView() {
 
 		this.concreteView = new SprintDialogView();
-		
-		concreteView.addCancelHandler(new EventHandler<EventArgs>() {
+
+		this.concreteView.addCancelHandler(new EventHandler<EventArgs>() {
+			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				abort();
 			}
 		});
 
-		concreteView.addOkHandler(new EventHandler<SprintArgs>() {
+		this.concreteView.addOkHandler(new EventHandler<SprintArgs>() {
+			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
 				if (SprintDialogPresenter.this.sprint == null) {
-					// TODO Neuen Sprint erstellen
+					// TODO neuen Sprint (eventArgs.getSprint()) anfügen.
 				} else {
-					// TODO bestehenden Sprint bearbeiten
-					//SprintDialogPresenter.this.sprint.setBegin(eventArgs.getStart());
-					//SprintDialogPresenter.this.sprint.setEnd(eventArgs.getEnd());
-					///SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
-					SprintDialogPresenter.this.sprint.setTeam(eventArgs.getTeam());
+					// TODO bestehenden Sprint (this.sprint) mit Wetten aus temporärem Sprint (eventArgs.getSprint()) überschreiben.
 				}
 
 				finish();
 			}
 		});
 
-		return concreteView;
+		return this.concreteView;
 	}
-	
+
 	private void initialize() {
 		if (this.sprint != null) {
-			// Editieren. Hier Vorbelegungen anfügen..
+			// TODO Hier Vorbelegungen anfügen..
 			this.concreteView.getDescription().setText(this.sprint.getName());
 			// ...
 		}
