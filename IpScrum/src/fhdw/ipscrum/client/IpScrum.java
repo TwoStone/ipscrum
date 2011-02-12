@@ -1,15 +1,24 @@
 package fhdw.ipscrum.client;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Person;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Role;
+import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.Team;
 
 /**
@@ -74,14 +83,71 @@ public class IpScrum implements EntryPoint {
 
 		// Initial Projects
 		try {
+			Project project1 = new Project("Testprojekt 4");
+			Project project2 = new Project("Testprojekt 5");
+				try {
+					Release release1 = new Release("1.1", new Date(), project1);
+					Release release2 = new Release("1.2", new Date(), project1);
+					Release release3 = new Release("1.3", new Date(), project1);
+					Release release4 = new Release("2.0", new Date(), project1);
+					Release release5 = new Release("2.1", new Date(), project1);
+					try {
+						Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", project1.getBacklog());
+						Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", project1.getBacklog());
+						Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", project1.getBacklog());
+						project1.getBacklog().addItem(f1);
+						project1.getBacklog().addItem(f2);
+						project1.getBacklog().addItem(f3);
+					} catch (UserException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					project1.addRelease(release1);
+					project1.addRelease(release2);
+					project1.addRelease(release3);
+					Sprint sprint1 = new Sprint(new Date(), new Date(), t1);
+					Sprint sprint2 = new Sprint(new Date(), new Date(), t2);
+					Sprint sprint3 = new Sprint(new Date(), new Date(), t1);
+					Sprint sprint4 = new Sprint(new Date(), new Date(), t1);
+					Sprint sprint5 = new Sprint(new Date(), new Date(), t2);
+					sprint1.setDescription("Beschreibung Sprint 1");
+					sprint2.setDescription("Beschreibung Sprint 2");
+					sprint3.setDescription("Beschreibung Sprint 3");
+					sprint4.setDescription("Beschreibung Sprint 4");
+					sprint5.setDescription("Beschreibung Sprint 5");
+					project1.addSprint(sprint1);
+					project1.addSprint(sprint2);
+					project1.addSprint(sprint3);
+					project2.addRelease(release4);
+					project2.addRelease(release5);
+					project2.addSprint(sprint4);
+					project2.addSprint(sprint3);
+					
+					try {
+						release2.addSprint(sprint1);
+						release2.addSprint(sprint2);
+						release5.addSprint(sprint1);
+					} catch (UserException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				} catch (DoubleDefinitionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			SessionManager.getInstance().getModel()
 					.addProject(new Project("Testprojekt 1"));
 			SessionManager.getInstance().getModel()
 					.addProject(new Project("Testprojekt 2"));
 			SessionManager.getInstance().getModel()
 					.addProject(new Project("Testprojekt 3"));
+			SessionManager.getInstance().getModel()
+			.addProject(project1);
+			SessionManager.getInstance().getModel()
+			.addProject(project2);
 		} catch (final NoValidValueException e) {
-			// Da spŠäter entfernt wird, wird diese Meldung zunächst nicht
+			// Da spï¿½ï¿½ter entfernt wird, wird diese Meldung zunï¿½chst nicht
 			// beachtet!
 		} catch (final ConsistencyException e) {
 			// TODO Auto-generated catch block
