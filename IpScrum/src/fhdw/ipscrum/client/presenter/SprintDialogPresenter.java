@@ -9,21 +9,36 @@ import fhdw.ipscrum.client.view.SprintDialogView;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
+/**
+ */
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	private ISprintDialogView concreteView;
 	private final ISprint sprint;
 
+	/**
+	 * Constructor for SprintDialogPresenter.
+	 * @param parent Panel
+	 */
 	public SprintDialogPresenter(Panel parent) {
 		this(parent, null);
 	}
 
+	/**
+	 * Constructor for SprintDialogPresenter.
+	 * @param parent Panel
+	 * @param sprint ISprint
+	 */
 	public SprintDialogPresenter(Panel parent, ISprint sprint) {
 		super(parent);
 		this.sprint = sprint;
 		this.initialize();
 	}
 
+	/**
+	 * Method createView.
+	 * @return ISprintDialogView
+	 */
 	@Override
 	protected ISprintDialogView createView() {
 
