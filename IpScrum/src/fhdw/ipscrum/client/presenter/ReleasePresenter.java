@@ -32,6 +32,16 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 				final DialogBox diaBox = new DialogBox();
 				CreateReleasePresenter presenter = new CreateReleasePresenter(
 						diaBox, ReleasePresenter.this.project);
+				
+				presenter.getAborted().add(new EventHandler<EventArgs>(){
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+					diaBox.hide();	
+					}
+					
+				});
+				
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override

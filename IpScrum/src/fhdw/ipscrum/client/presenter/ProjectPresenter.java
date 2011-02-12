@@ -30,6 +30,17 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 				final DialogBox box = new DialogBox();
 				box.setGlassEnabled(true);
 				CreateProjectPresenter presenter = new CreateProjectPresenter(box);
+				
+				presenter.getAborted().add(new EventHandler<EventArgs>(){
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+					box.hide();
+						
+					}
+					
+				});
+				
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
