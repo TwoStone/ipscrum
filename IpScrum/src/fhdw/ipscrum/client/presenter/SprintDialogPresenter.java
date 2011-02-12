@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
-/**
+/** 
  */
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
@@ -24,6 +24,8 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	/**
 	 * Constructor for SprintDialogPresenter.
 	 * @param parent Panel
+	 * 
+	 * Required for making new sprints
 	 */
 	public SprintDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -33,6 +35,8 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * Constructor for SprintDialogPresenter.
 	 * @param parent Panel
 	 * @param sprint ISprint
+	 * 
+	 * Required for changing sprints
 	 */
 	public SprintDialogPresenter(Panel parent, ISprint sprint) {
 		super(parent);
@@ -43,6 +47,9 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	/**
 	 * Method createView.
 	 * @return ISprintDialogView
+	 * 
+	 * Creates the view in which the user could make a new sprint or change a sprint 
+	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 */
 	@Override
 	protected ISprintDialogView createView() {
@@ -77,7 +84,13 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 		return this.concreteView;
 	}
-
+	
+	/**
+	 * Method initialize.
+	 * 
+	 * Initializes the view with the values of the sprint chosen to change
+	 * It also initializes the teams for the view.
+	 */
 	private void initialize() {
 		if (SessionManager.getInstance().getModel().getTeams() != null){
 			Iterator teamIterator = SessionManager.getInstance().getModel().getTeams().iterator();

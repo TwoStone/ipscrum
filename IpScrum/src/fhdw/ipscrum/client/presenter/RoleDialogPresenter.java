@@ -22,6 +22,8 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Constructor for RoleDialogPresenter.
 	 * @param parent Panel
+	 * 
+	 * Required for making new roles.
 	 */
 	public RoleDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -31,6 +33,8 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	 * Constructor for RoleDialogPresenter.
 	 * @param parent Panel
 	 * @param selectedRole IRole
+	 * 
+	 * Required for changing roles. 
 	 */
 	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
 		super(parent);
@@ -41,6 +45,8 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Method createView.
 	 * @return IRoleDialogView
+	 * Creates the view in which the user could make a new role or change a role 
+	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 */
 	@Override
 	protected IRoleDialogView createView() {
@@ -68,7 +74,7 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	}
 	
 	/**
-	 * 
+	 * Initializes the view with the values of the role chosen to change.
 	 */
 	private void initialize() {
 		if (this.role != null) {

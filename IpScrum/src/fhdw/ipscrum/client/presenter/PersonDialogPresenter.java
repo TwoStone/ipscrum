@@ -22,6 +22,8 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	/**
 	 * Constructor for PersonDialogPresenter.
 	 * @param parent Panel
+	 * 
+	 * Required for making new persons.
 	 */
 	public PersonDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -31,6 +33,8 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	 * Constructor for PersonDialogPresenter.
 	 * @param parent Panel
 	 * @param person IPerson
+	 * 
+	 * Required for changing persons.
 	 */
 	public PersonDialogPresenter(Panel parent, IPerson person) {
 		super(parent);
@@ -41,6 +45,9 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	/**
 	 * Method createView.
 	 * @return IPersonDialogView
+	 * 
+	 * Creates the view in which the user could make a new person or change a person 
+	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 */
 	@Override
 	protected IPersonDialogView createView() {
@@ -72,7 +79,7 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	}
 
 	/**
-	 * 
+	 * Initializes the view with the values of the person chosen to change.
 	 */
 	private void initialize() {
 		if (this.person != null) {
