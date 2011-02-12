@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
@@ -14,9 +15,21 @@ public abstract class ProductBacklogItem extends Observable {
 
 	private String name;
 	private Integer manDayCosts;
-	private final ProductBacklog backlog;
+//	private final ProductBacklog backlog;
 	private IPerson lastEditor;
 	private ISprint sprint;
+	
+	private final ToBacklogAssoc assoc;
+	
+	class ToBacklogAssoc extends BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem>{
+		public ToBacklogAssoc(ProductBacklogItem element) {
+			super(element);
+		}
+	}
+	
+	protected ToBacklogAssoc getAssoc() {
+		return assoc;
+	}
 
 	/**
 	 * @param name
@@ -31,8 +44,9 @@ public abstract class ProductBacklogItem extends Observable {
 			throws NoValidValueException, ConsistencyException {
 		super();
 		this.setName(name);
-		this.backlog = backlog;
-		backlog.addItem(this);
+		this.assoc = new ToBacklogAssoc(this);
+//		this.backlog = backlog;
+		this.getAssoc().set(backlog.getAssoc());
 		this.setManDayCosts(0);
 	}
 
@@ -48,11 +62,11 @@ public abstract class ProductBacklogItem extends Observable {
 			return false;
 		}
 		final ProductBacklogItem other = (ProductBacklogItem) obj;
-		if (this.backlog == null) {
-			if (other.backlog != null) {
+		if (this.getBacklog() == null) {
+			if (other.getBacklog() != null) {
 				return false;
 			}
-		} else if (!this.backlog.equals(other.backlog)) {
+		} else if (!this.getBacklog().equals(other.getBacklog())) {
 			return false;
 		}
 		if (this.lastEditor == null) {
@@ -87,7 +101,11 @@ public abstract class ProductBacklogItem extends Observable {
 	}
 
 	public ProductBacklog getBacklog() {
-		return this.backlog;
+		if(this.getAssoc().get()!=null){
+			return this.getAssoc().get().getElement();
+		}
+		return null;
+//		return this.backlog;
 	}
 
 	public IPerson getLastEditor() {
@@ -111,7 +129,7 @@ public abstract class ProductBacklogItem extends Observable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((this.backlog == null) ? 0 : this.backlog.hashCode());
+				+ ((this.getBacklog() == null) ? 0 : this.getBacklog().hashCode());
 		result = prime * result
 				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
 		result = prime
@@ -179,22 +197,22 @@ public abstract class ProductBacklogItem extends Observable {
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException {
-		if (sprint != null) {
-			if (this.backlog.getProject().isSprintDefined(sprint)) {
-				sprint.addPBI(this);
-				this.sprint = sprint;
-				this.notifyObservers();
-			} else {
-				// TODO Textkonstante bauen
-				throw new NoSprintDefinedException(
-						"Es können nur bereits vorhandene Sprints zugeordnet werden!");
-			}
-		} else {
-			if (this.sprint != null) {
-				this.sprint.removePBI(this);
-				this.sprint = null;
-			}
-		}
+//		if (sprint != null) {
+//			if (this.getBacklog().getProject().isSprintDefined(sprint)) {
+//				sprint.addPBI(this);
+//				this.sprint = sprint;
+//				this.notifyObservers();
+//			} else {
+//				// TODO Textkonstante bauen
+//				throw new NoSprintDefinedException(
+//						"Es können nur bereits vorhandene Sprints zugeordnet werden!");
+//			}
+//		} else {
+//			if (this.sprint != null) {
+//				this.sprint.removePBI(this);
+//				this.sprint = null;
+//			}
+//		}
 	}
 
 	@Override

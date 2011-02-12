@@ -1,6 +1,6 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import java.util.HashSet;
+import java.util.Vector;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
@@ -15,7 +15,7 @@ public interface IReleaseView extends IView{
 	public abstract void addReleaseSelectedEventHandler(EventHandler<fhdw.ipscrum.client.events.args.ReleaseArgs> args);
 	
 	
-	public abstract void refreshReleases(HashSet<IRelease> release);
+	public abstract void refreshReleases(Vector<IRelease> release);
 
 	
 	

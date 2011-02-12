@@ -1,8 +1,8 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.HashSet;
 import java.util.Iterator;
-
+import java.util.Vector;
+import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -16,9 +16,20 @@ public class Project extends Observable{
 
 	private String name;
 	private final ProductBacklog backlog;
-	private HashSet<IRelease> releasePlan;
-	private HashSet<ISprint> sprints;
+	private Vector<ISprint> sprints;
 
+	private final ToReleaseAssoc releaseAssoc;
+	
+	class ToReleaseAssoc extends BDAManyToMany<Release.ToProjectAssoc, Project>{
+		public ToReleaseAssoc(Project element) {
+			super(element);
+		}
+	}
+	
+	protected ToReleaseAssoc getReleaseAssoc() {
+		return releaseAssoc;
+	}
+	
 	/**
 	 * @param name
 	 * Name of the Project
@@ -30,14 +41,16 @@ public class Project extends Observable{
 	public Project(String name) throws NoValidValueException, ConsistencyException{
 		super();
 		this.setName(name);
+		this.releaseAssoc = new ToReleaseAssoc(this);
 		this.backlog = new ProductBacklog(this);
 	}
 
-	public HashSet<IRelease> getReleasePlan() {
-		if (this.releasePlan == null) {
-			this.releasePlan = new HashSet<IRelease>();
+	public Vector<IRelease> getReleasePlan() {
+		Vector<IRelease> ret = new Vector<IRelease>();
+		for(Release.ToProjectAssoc current : this.getReleaseAssoc().getAssociations()){
+			ret.add(current.getElement());
 		}
-		return releasePlan;
+		return ret;
 	}
 
 	public String getName() {
@@ -91,9 +104,9 @@ public class Project extends Observable{
 	 * For adding and removing a sprint use the functionalities
 	 * of the Project, else we cannot guarantee the consistency!
 	 */
-	public HashSet<ISprint> getSprints() {
+	public Vector<ISprint> getSprints() {
 		if(this.sprints==null){
-			this.sprints = new HashSet<ISprint>();
+			this.sprints = new Vector<ISprint>();
 		}
 		return sprints;
 	}
@@ -118,25 +131,12 @@ public class Project extends Observable{
 	}
 	
 	public void addRelease(IRelease release){
-		//TODO AddRemove Releas Konsistenzbedingung
-		
-		
-	//////////// NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
-	this.getReleasePlan().add(release);
-	//////////// NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
-	
-	
+		this.getReleaseAssoc().add(release.getProjectAssoc());
 	}
 	
-	public void removeRelease(IRelease release){
-		//TODO AddRemove Releas Konsistenzbedingung
-	
-		////////////NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
-		this.getReleasePlan().remove(release);
-		//////////// NUR FÜR TESTZWECKE IMPLEMENTIERT ///////////////////////
-		
-	
-	}
+//	public void removeRelease(IRelease release){
+//		this.getReleaseAssoc().remove(release.getProjectAssoc());
+//	}
 	
 	/**
 	 * Returns the number of defined Sprints within the
@@ -158,7 +158,7 @@ public class Project extends Observable{
 		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-				+ ((releasePlan == null) ? 0 : releasePlan.hashCode());
+				+ ((this.getReleasePlan() == null) ? 0 : this.getReleasePlan().hashCode());
 		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
 		return result;
 	}

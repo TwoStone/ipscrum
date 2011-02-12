@@ -1,33 +1,62 @@
 package fhdw.ipscrum.shared.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
- * Release represents a version of a project.
- * A release could have a number of Sprints.
+ * Release represents a version of a project. A release could have a number of
+ * Sprints.
  * 
- * A Release belongs to explicit one project. 
+ * A Release belongs to explicit one project.
  */
 public class Release extends Observable implements IRelease {
 
-	private HashSet<ISprint> sprints;
-	private final Project project;
+//	private Vector<ISprint> sprints;
+	// private final Project project;
 	private String version;
 	private Date releaseDate;
+
+	private final ToProjectAssoc projectAssoc;
+	private final ToSprintAssoc sprintAssoc;
 	
-	public Release(String version, Date releaseDate, Project project){
-		this.version = version;
-		this.releaseDate = releaseDate;
-	this.project = project;
+	public class ToSprintAssoc extends BDAManyToMany<BDAManyToMany, Release>{
+		public ToSprintAssoc(Release element) {
+			super(element);
+		}
 	}
 	
+	@Override
+	public ToSprintAssoc getSprintAssoc() {
+		return this.sprintAssoc;
+	}
+
+	public class ToProjectAssoc extends
+			BDAManyToMany<Project.ToReleaseAssoc, IRelease> {
+		public ToProjectAssoc(Release element) {
+			super(element);
+		}
+	}
+
+	public ToProjectAssoc getProjectAssoc() {
+		return projectAssoc;
+	}
+
+	public Release(String version, Date releaseDate, Project project) {
+		this.version = version;
+		this.releaseDate = releaseDate;
+		// this.project = project;
+		this.projectAssoc = new ToProjectAssoc(this);
+		this.sprintAssoc = new ToSprintAssoc(this);
+		this.getProjectAssoc().set(project.getReleaseAssoc());
+	}
+
 	public String getVersion() {
 		return version;
 	}
@@ -44,93 +73,94 @@ public class Release extends Observable implements IRelease {
 		this.releaseDate = releaseDate;
 	}
 
-	public Release(Project project) {
-		super();
-		project.addRelease(this);
-		this.project = project;
-	}
-	
 	/**
-	 * Return all Sprints which are added to
-	 * the release.
-	 * <br />
+	 * Return all Sprints which are added to the release. <br />
 	 * <b>Attention</b><br />
-	 * In fact of providing the consistency you have
-	 * to use, for adding and removing a sprint
-	 * to a release, the methods of the release.
+	 * In fact of providing the consistency you have to use, for adding and
+	 * removing a sprint to a release, the methods of the release.
 	 */
-	public HashSet<ISprint> getSprints() {
-		if(sprints==null){
-			this.sprints = new HashSet<ISprint>();
-		}
-		return sprints;
+	public Vector<ISprint> getSprints() {
+		Vector<ISprint> ret = new Vector<ISprint>();
+		//TODO getSprints!
+		return ret;
 	}
-	
+
 	/**
-	 * Adds a Sprint to the release only if the Sprint
-	 * was defined within the Project.
+	 * Adds a Sprint to the release only if the Sprint was defined within the
+	 * Project.
+	 * 
 	 * @throws NoSprintDefinedException
-	 * If the sprint wasn't defined within the project.
+	 *             If the sprint wasn't defined within the project.
 	 */
-	public void addSprint(ISprint sprint) throws NoSprintDefinedException{
-		if(this.project.isSprintDefined(sprint)){
-			if(sprint!=null && !this.isSprintInList(sprint)){
-				sprint.setRelease(this);
-				this.getSprints().add(sprint);
-				this.notifyObservers();
-			}else{
-				//TODO Textkonstante bauen
-//				throw new ConsistencyException("");
-			}
-		}else{
-			//TODO Textkonstante bauen
-			throw new NoSprintDefinedException("Nur bereits erstelle Sprints können dem Release zugeordnet werden.");
-		}
+	public void addSprint(ISprint sprint) throws NoSprintDefinedException {
+//		if (this.project.isSprintDefined(sprint)) {
+//			if (sprint != null && !this.isSprintInList(sprint)) {
+//				sprint.setRelease(this);
+//				this.getSprints().add(sprint);
+//				this.notifyObservers();
+//			} else {
+//				// TODO Textkonstante bauen
+//				// throw new ConsistencyException("");
+//			}
+//		} else {
+//			// TODO Textkonstante bauen
+//			throw new NoSprintDefinedException(
+//					"Nur bereits erstelle Sprints können dem Release zugeordnet werden.");
+//		}
 	}
-	
-	private boolean isSprintInList(ISprint sprint){
-		Iterator<ISprint> i = this.getSprints().iterator();
-		while(i.hasNext()){
-			if(i.next().equals(sprint)){
-				return true;
-			}
-		}
-		return false;
-	}
-	
+
+//	private boolean isSprintInList(ISprint sprint) {
+//		Iterator<ISprint> i = this.getSprints().iterator();
+//		while (i.hasNext()) {
+//			if (i.next().equals(sprint)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+
 	/**
 	 * Removes the given Sprint from the Release.
 	 */
-	public void removeSprint(ISprint sprint){
-		//TODO Reverse beachten
-		this.getSprints().remove(sprint);
-		this.notifyObservers();
+	public void removeSprint(ISprint sprint) {
+//		// TODO Reverse beachten
+//		this.getSprints().remove(sprint);
+//		this.notifyObservers();
 	}
-	
-	public Project getProject() {
-		return project;
+
+	public Project getProject() throws ConsistencyException{
+		if(this.getProjectAssoc().get()!=null){
+			return this.getProjectAssoc().get().getElement();
+		}else{
+			throw new ConsistencyException("Dem Release wurde keine Projekt zugeordnet!");
+		}
 	}
-	
+
 	/**
 	 * Returns the Number of all defined Sprints within the
 	 */
-	public Integer countSprints(){
+	public Integer countSprints() {
 		return this.getSprints().size();
 	}
 
 	@Override
 	public String toString() {
-		return "Release [sprints=" + sprints + "]";
+		return "Release [releaseDate=" + releaseDate + ", version=" + version
+				+ "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		try {
+			result = prime * result + ((this.getProject() == null) ? 0 : this.getProject().hashCode());
+		} catch (ConsistencyException e) {
+			result = 0;
+		}
 		result = prime * result
 				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
-		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
+		result = prime * result + ((this.getSprints() == null) ? 0 : this.getSprints().hashCode());
 		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
@@ -144,11 +174,15 @@ public class Release extends Observable implements IRelease {
 		if (getClass() != obj.getClass())
 			return false;
 		Release other = (Release) obj;
-		if (project == null) {
-			if (other.project != null)
+		try {
+			if (this.getProject() == null) {
+				if (other.getProject() != null)
+					return false;
+			} else if (!this.getProject().equals(other.getProject()))
 				return false;
-		} else if (!project.equals(other.project))
+		} catch (ConsistencyException e) {
 			return false;
+		}
 		if (releaseDate == null) {
 			if (other.releaseDate != null)
 				return false;

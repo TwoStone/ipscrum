@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.view;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Vector;
 
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -158,8 +159,8 @@ public class ReleaseView extends Composite implements IReleaseView {
 	}
 
 	@Override
-	public void refreshReleases(HashSet<IRelease> release) {
-		this.getTableRelease().setRowData(new ArrayList<IRelease>(release));
+	public void refreshReleases(Vector<IRelease> release) {
+		this.getTableRelease().setRowData(release);
 
 	}
 

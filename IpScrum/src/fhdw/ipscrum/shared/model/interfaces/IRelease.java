@@ -1,20 +1,22 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
 import java.util.Date;
-import java.util.HashSet;
+import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Release;
 
 public interface IRelease {
 
-	public abstract HashSet<ISprint> getSprints();
+	public abstract Vector<ISprint> getSprints();
 
 	public abstract void addSprint(ISprint sprint) throws NoSprintDefinedException;
 
 	public abstract void removeSprint(ISprint sprint);
 
-	public abstract Project getProject();
+	public abstract Project getProject() throws ConsistencyException;
 
 	public abstract Integer countSprints();
 	
@@ -26,5 +28,6 @@ public interface IRelease {
 	
 	public abstract void setReleaseDate(Date releaseDate);
 	
-
+	public abstract Release.ToProjectAssoc getProjectAssoc();
+	public abstract Release.ToSprintAssoc getSprintAssoc();
 }

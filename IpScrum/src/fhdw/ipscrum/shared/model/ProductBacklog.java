@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.observer.Observable;
 
@@ -10,8 +11,20 @@ import fhdw.ipscrum.shared.observer.Observable;
  * ProductBacklogItems.
  */
 public class ProductBacklog extends Observable {
-	private Vector<ProductBacklogItem> items;
+//	private Vector<ProductBacklogItem> items;
 	private final Project project;
+	
+	private final ToPBIAssoc assoc;
+	
+	class ToPBIAssoc extends BDAManyToMany<ProductBacklogItem.ToBacklogAssoc, ProductBacklog>{
+		public ToPBIAssoc(ProductBacklog element) {
+			super(element);
+		}
+	}
+	
+	protected ToPBIAssoc getAssoc() {
+		return assoc;
+	}
 
 	/**
 	 * <b>It's not allowed</b> to create an PBL object out of the model because
@@ -24,6 +37,7 @@ public class ProductBacklog extends Observable {
 	protected ProductBacklog(Project project) {
 		super();
 		this.project = project;
+		this.assoc = new ToPBIAssoc(this);
 	}
 
 	/**
@@ -33,10 +47,15 @@ public class ProductBacklog extends Observable {
 	 * the Backlog. Else we cannot guarantee the consistency!
 	 */
 	public Vector<ProductBacklogItem> getItems() {
-		if (this.items == null) {
-			this.items = new Vector<ProductBacklogItem>();
+		Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
+		for(ProductBacklogItem.ToBacklogAssoc current : this.getAssoc().getAssociations()){
+			ret.add(current.getElement());
 		}
-		return items;
+		return ret;
+//		if (this.items == null) {
+//			this.items = new Vector<ProductBacklogItem>();
+//		}
+//		return items;
 	}
 
 	/**
@@ -97,16 +116,25 @@ public class ProductBacklog extends Observable {
 	 * @param item to be add
 	 */
 	public void addItem(ProductBacklogItem item) throws ConsistencyException{
-		if (!this.isItemInList(item)) {
+		if(item!=null){
 			if(item.getBacklog()==this){
-				this.getItems().add(item);
+				this.getAssoc().add(item.getAssoc());
 				this.notifyObservers();
 			}else{
-				//TODO Textkonstante bauen
 				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugefügt werden, " +
 						"da es bereits einem anderen Backlog gehört");
 			}
 		}
+//		if (!this.isItemInList(item)) {
+//			if(item.getBacklog()==this){
+//				this.getItems().add(item);
+//				this.notifyObservers();
+//			}else{
+//				//TODO Textkonstante bauen
+//				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugefügt werden, " +
+//						"da es bereits einem anderen Backlog gehört");
+//			}
+//		}
 	}
 
 	/**
@@ -115,7 +143,8 @@ public class ProductBacklog extends Observable {
 	 * @param item
 	 */
 	public void removeItem(ProductBacklogItem item) {
-		this.getItems().remove(item);
+		this.getAssoc().remove(item.getAssoc());
+//		this.getItems().remove(item);
 		this.notifyObservers();
 	}
 
@@ -134,7 +163,7 @@ public class ProductBacklog extends Observable {
 
 	@Override
 	public String toString() {
-		return "ProductBacklog [items=" + items + "]";
+		return "ProductBacklog";
 	}
 
 	@Override
@@ -182,18 +211,18 @@ public class ProductBacklog extends Observable {
 		return -1;
 	}
 
-	/**
-	 * TODO Kommentar
-	 * 
-	 * @param item
-	 * @return
-	 */
-	private boolean isItemInList(ProductBacklogItem item) {
-		for (ProductBacklogItem current : this.items) {
-			if (current.equals(item)) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	/**
+//	 * TODO Kommentar
+//	 * 
+//	 * @param item
+//	 * @return
+//	 */
+//	private boolean isItemInList(ProductBacklogItem item) {
+//		for (ProductBacklogItem current : this.getItems()) {
+//			if (current.equals(item)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 }

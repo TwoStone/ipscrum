@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ReleaseArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
 import fhdw.ipscrum.shared.model.Project;
@@ -48,11 +49,12 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
-				if (eventArgs.getRelease() != null) {
-					ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
-					view.refreshReleases(ReleasePresenter.this.project
-							.getReleasePlan());
-				}
+				GwtUtils.displayError("Löschen von Releases ist derzeit noch nicht vorgesehen!");
+//				if (eventArgs.getRelease() != null) {
+//					ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
+//					view.refreshReleases(ReleasePresenter.this.project
+//							.getReleasePlan());
+//				}
 			}
 		});
 
