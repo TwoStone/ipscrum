@@ -5,6 +5,7 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -51,12 +52,16 @@ public abstract class ProductBacklogItem extends Observable {
 	 *             null and have not only whitespace characters.
 	 */
 	public ProductBacklogItem(final String name, final ProductBacklog backlog)
-			throws NoValidValueException, DoubleDefinitionException {
+			throws UserException {
 		super();
-		this.setName(name);
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
 		this.getBacklogAssoc().set(backlog.getAssoc());
+		try {
+			this.setName(name);
+		} catch (Exception e) {
+			backlog.removeItem(this);
+		}
 		this.setManDayCosts(0);
 	}
 

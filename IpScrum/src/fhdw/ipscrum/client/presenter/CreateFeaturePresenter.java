@@ -32,11 +32,9 @@ public class CreateFeaturePresenter extends
 	private static Feature createNewFeature(final ProductBacklog backlog) {
 		try {
 			return new Feature(NEWFTRNAME, "", backlog);
-		} catch (final NoValidValueException e) {
+		} catch (final UserException e) {
 			GwtUtils.displayError(e.getMessage());
-		} catch (final DoubleDefinitionException e) {
-			GwtUtils.displayError(e.getMessage());
-		}
+		} 
 		return null;
 	}
 

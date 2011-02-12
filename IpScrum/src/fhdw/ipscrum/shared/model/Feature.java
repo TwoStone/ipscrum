@@ -8,6 +8,7 @@ import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
@@ -27,8 +28,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	private String description;
 
 	public Feature(final String name, final String description,
-			final ProductBacklog backlog) throws NoValidValueException,
-			DoubleDefinitionException {
+			final ProductBacklog backlog) throws UserException {
 		super(name, backlog);
 		this.setDescription(description);
 		this.state = new Open(this);
