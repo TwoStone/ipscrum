@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
@@ -17,6 +17,9 @@ public interface ISprint {
 	
 	public Team getTeam();
 	public void setTeam(Team team);
+	
+	public void setDescription(String description);
+	public String getDescription();
 	
 	//TODO Modelländerung gemäß Brack, falls unklar mich bitte ansprechen
 	//Achtung! Bitte konsistenzbedingung einarbeiten, dass keine neuen
@@ -39,4 +42,6 @@ public interface ISprint {
 	//Wird benötigt, damit der PBI bei setSprint(null), sich auch aus dessen
 	//Liste entfernen kann!
 	public void removePBI(ProductBacklogItem pbi) throws ConsistencyException;
+	
+
 }

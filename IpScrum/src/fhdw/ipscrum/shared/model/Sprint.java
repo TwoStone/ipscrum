@@ -1,22 +1,37 @@
 package fhdw.ipscrum.shared.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class Sprint implements ISprint {
+	private String description;
 	private Date begin;
 	private Date end;
 	private Team team;
+	private final ToReleaseAssoc toReleaseAssoc;
+
+	class ToReleaseAssoc extends BDAManyToMany<Release.ToSprintAssoc, Sprint> {
+
+		public ToReleaseAssoc(Sprint element) {
+			super(element);
+		}
+	}
 
 	public Sprint(Date begin, Date end, Team team) {
 		super();
 		this.begin = begin;
 		this.end = end;
 		this.team = team;
+		this.toReleaseAssoc = new ToReleaseAssoc(this);
+	}
+
+	public ToReleaseAssoc getToReleaseAssoc() {
+		return toReleaseAssoc;
 	}
 
 	@Override
@@ -104,7 +119,7 @@ public class Sprint implements ISprint {
 	@Override
 	public void setRelease(IRelease release) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -121,19 +136,26 @@ public class Sprint implements ISprint {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.toString();
 	}
 
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ConsistencyException {
 		// TODO Auto-generated method stub
-		
-	}
+
+	} 
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi) throws ConsistencyException {
 		// TODO Auto-generated method stub
-		
+
+	}
+	@Override
+	public void setDescription(String description) {
+		this.description = description; 
+	}
+	@Override
+	public String getDescription() {
+		return description; 
 	}
 }
