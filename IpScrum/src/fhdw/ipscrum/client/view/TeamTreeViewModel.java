@@ -18,10 +18,18 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 		
 		private SelectionModel selectionModel;
 
+		/**
+		 * Method getSelectionModel.
+		 * @return SelectionModel
+		 */
 		public SelectionModel getSelectionModel() {
 			return selectionModel;
 		}
 
+		/**
+		 * Method setSelectionModel.
+		 * @param selectionModel SelectionModel
+		 */
 		public void setSelectionModel(SelectionModel selectionModel) {
 			this.selectionModel = selectionModel;
 		}
@@ -29,7 +37,10 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 		/**
 	     * Check if the specified value represents a leaf node. Leaf nodes cannot be
 	     * opened.
-	     */
+	     * @param value Object
+		 * @return boolean
+		 * @see com.google.gwt.view.client.TreeViewModel#isLeaf(Object)
+		 */
 		@Override
 		public boolean isLeaf(Object value) {
 			// The leaf nodes are the Persons.
@@ -42,6 +53,12 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 		public TeamTreeViewModel() {
 		}
 		
+		/**
+		 * Method getNodeInfo.
+		 * @param value T
+		 * @return NodeInfo<?>
+		 * @see com.google.gwt.view.client.TreeViewModel#getNodeInfo(T)
+		 */
 		@Override
 		public <T> NodeInfo<?> getNodeInfo(T value) {
 

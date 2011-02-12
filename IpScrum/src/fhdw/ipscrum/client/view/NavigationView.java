@@ -17,6 +17,8 @@ import fhdw.ipscrum.client.view.interfaces.INavigationView;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.PushButton;
 
+/**
+ */
 public class NavigationView extends Composite implements INavigationView {
 
 	// ######## Events ############
@@ -34,6 +36,10 @@ public class NavigationView extends Composite implements INavigationView {
 	private final FlowPanel innerMasterPanel;
 	private PushButton pshbtnSpeichern;
 
+	/**
+	 * Method createView.
+	 * @return INavigationView
+	 */
 	public static INavigationView createView() {
 		return new NavigationView();
 	}
@@ -91,26 +97,51 @@ public class NavigationView extends Composite implements INavigationView {
 		masterMainPanel.setSize("1000px", "600px");
 	}
 
+	/**
+	 * Method addPersonEventHandler.
+	 * @param arg EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addPersonEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void addPersonEventHandler(EventHandler<EventArgs> arg) {
 		personenEvent.add(arg);
 	}
 	
+	/**
+	 * Method addProjectEventHandler.
+	 * @param arg EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addProjectEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void addProjectEventHandler(EventHandler<EventArgs> arg) {
 		projectEvent.add(arg);
 	}
 	
+	/**
+	 * Method addTeamEventHandler.
+	 * @param arg EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addTeamEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void addTeamEventHandler(EventHandler<EventArgs> arg) {
 		teamEvent.add(arg);
 	}
 	
+	/**
+	 * Method addSaveEventHandler.
+	 * @param arg EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addSaveEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void addSaveEventHandler(EventHandler<EventArgs> arg) {
 		saveEvent.add(arg);
 	}
 
+	/**
+	 * Method getContentPanel.
+	 * @return FlowPanel
+	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#getContentPanel()
+	 */
 	public FlowPanel getContentPanel() {
 		return this.masterMainPanel;
 	}

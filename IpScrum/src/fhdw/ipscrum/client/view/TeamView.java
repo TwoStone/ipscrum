@@ -28,6 +28,8 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
+/**
+ */
 public class TeamView extends Composite implements ITeamView {
 
 	private CellTable<IPerson> cellTablePersons;

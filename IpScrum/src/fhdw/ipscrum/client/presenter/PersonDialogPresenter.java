@@ -12,21 +12,36 @@ import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 
+/**
+ */
 public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
 	private IPersonDialogView concreteView;
 	private final IPerson person;
 
+	/**
+	 * Constructor for PersonDialogPresenter.
+	 * @param parent Panel
+	 */
 	public PersonDialogPresenter(Panel parent) {
 		this(parent, null);
 	}
 
+	/**
+	 * Constructor for PersonDialogPresenter.
+	 * @param parent Panel
+	 * @param person IPerson
+	 */
 	public PersonDialogPresenter(Panel parent, IPerson person) {
 		super(parent);
 		this.person = person;
 		initialize();
 	}
 
+	/**
+	 * Method createView.
+	 * @return IPersonDialogView
+	 */
 	@Override
 	protected IPersonDialogView createView() {
 

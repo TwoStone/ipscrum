@@ -20,8 +20,8 @@ public class OneStringArgs extends EventArgs {
 	
 	/**
 	 * Method getString.
-	 * @return String
-	 */
+	
+	 * @return String */
 	public String getString() {
 		return this.string;
 	}

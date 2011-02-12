@@ -22,15 +22,15 @@ public class TwoStringArgs extends EventArgs {
 	
 	/**
 	 * Method getString1.
-	 * @return String
-	 */
+	
+	 * @return String */
 	public String getString1() {
 		return this.string1;
 	}
 	/**
 	 * Method getString2.
-	 * @return String
-	 */
+	
+	 * @return String */
 	public String getString2() {
 		return this.string2;
 	}

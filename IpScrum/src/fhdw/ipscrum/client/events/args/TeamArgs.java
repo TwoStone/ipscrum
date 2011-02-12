@@ -20,8 +20,8 @@ public class TeamArgs extends EventArgs {
 	
 	/**
 	 * Method getTeam.
-	 * @return ITeam
-	 */
+	
+	 * @return ITeam */
 	public ITeam getTeam() {
 		return this.team;
 	}

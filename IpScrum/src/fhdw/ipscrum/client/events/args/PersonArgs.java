@@ -20,8 +20,8 @@ public class PersonArgs extends EventArgs {
 	
 	/**
 	 * Method getPerson.
-	 * @return IPerson
-	 */
+	
+	 * @return IPerson */
 	public IPerson getPerson() {
 		return this.person;
 	}

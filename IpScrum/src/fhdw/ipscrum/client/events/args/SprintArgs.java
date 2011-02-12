@@ -20,8 +20,8 @@ public class SprintArgs extends EventArgs {
 
 	/**
 	 * Method getSprint.
-	 * @return ISprint
-	 */
+	
+	 * @return ISprint */
 	public ISprint getSprint() {
 		return this.sprint;
 	}

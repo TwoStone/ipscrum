@@ -34,6 +34,8 @@ import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
+/**
+ */
 public class PersonRoleView extends Composite implements IPersonRoleView {
 	private CellTable<IPerson> cellTablePersons;
 	private CellList<IRole> cellListAssignedRoles;
@@ -193,46 +195,91 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		btnRoleRemove.setWidth("100%");
 	}
 
+	/**
+	 * Method getCellTablePersons.
+	 * @return CellTable<IPerson>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getCellTablePersons()
+	 */
 	@Override
 	public CellTable<IPerson> getCellTablePersons() {
 		return this.cellTablePersons;
 	}
 
+	/**
+	 * Method getCellListAssignedRoles.
+	 * @return CellList<IRole>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getCellListAssignedRoles()
+	 */
 	@Override
 	public CellList<IRole> getCellListAssignedRoles() {
 		return this.cellListAssignedRoles;
 	}
 
+	/**
+	 * Method defineNewPersonEventHandler.
+	 * @param args EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineNewPersonEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void defineNewPersonEventHandler(EventHandler<EventArgs> args) {
 		this.newPersonEvent.add(args);
 	}
 
+	/**
+	 * Method defineModifyPersonEventHandler.
+	 * @param args EventHandler<PersonArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineModifyPersonEventHandler(EventHandler<PersonArgs>)
+	 */
 	@Override
 	public void defineModifyPersonEventHandler(EventHandler<PersonArgs> args) {
 		this.modifyPersonEvent.add(args); // TODO: wieso add handler? eventhandler korrekt?
 	}
 
+	/**
+	 * Method defineRemoveRoleFromPersonEventHandler.
+	 * @param args EventHandler<AssociatePersonAndRoleArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineRemoveRoleFromPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs>)
+	 */
 	@Override
 	public void defineRemoveRoleFromPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs> args) {
 		this.removeRoleFromPersonEvent.add(args);
 	}
 
+	/**
+	 * Method defineAddRoleToPersonEventHandler.
+	 * @param args EventHandler<AssociatePersonAndRoleArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineAddRoleToPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs>)
+	 */
 	@Override
 	public void defineAddRoleToPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs> args) {
 		this.addRoletoPersonEvent.add(args);
 	}
 
+	/**
+	 * Method defineNewRoleEventHandler.
+	 * @param args EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineNewRoleEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void defineNewRoleEventHandler(EventHandler<EventArgs> args) {
 		this.newRoleEvent.add(args);
 	}
 
+	/**
+	 * Method defineRemoveRoleEventHandler.
+	 * @param args EventHandler<MultipleRoleArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineRemoveRoleEventHandler(EventHandler<MultipleRoleArgs>)
+	 */
 	@Override
 	public void defineRemoveRoleEventHandler(EventHandler<MultipleRoleArgs> args) {
 		this.removeRoleEvent.add(args);
 	}
 
+	/**
+	 * Method getCellListRoles.
+	 * @return CellList<IRole>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getCellListRoles()
+	 */
 	@Override
 	public CellList<IRole> getCellListRoles() {
 		return this.cellListRoles;
@@ -243,6 +290,12 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 	 */
 	private class RoleCell extends AbstractCell<IRole> {
 
+		/**
+		 * Method render.
+		 * @param context com.google.gwt.cell.client.Cell.Context
+		 * @param value IRole
+		 * @param sb SafeHtmlBuilder
+		 */
 		@Override
 		public void render(com.google.gwt.cell.client.Cell.Context context, IRole value, SafeHtmlBuilder sb) {
 			if (value != null) {
@@ -253,7 +306,8 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 	/**
 	 * Returns the selected Person of the CellTable.
-	 * @return selected Person
+	
+	 * @return selected Person * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getSelectedPerson()
 	 */
 	@Override
 	public Person getSelectedPerson() {
@@ -264,7 +318,8 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 	/**
 	 * Returns the selected Role of the CellList.
-	 * @return selected Role from AssignedRolesList
+	
+	 * @return selected Role from AssignedRolesList * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getSelectedAssignedRole()
 	 */
 	@Override
 	public Role getSelectedAssignedRole() {
@@ -275,7 +330,8 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 	/**
 	 * Returns a set of selected Roles from the list of available Roles.
-	 * @return selected Roles
+	
+	 * @return selected Roles * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getSelectedAvailRoles()
 	 */
 	@Override
 	public Set<IRole> getSelectedAvailRoles() {

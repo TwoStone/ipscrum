@@ -22,6 +22,8 @@ import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
+/**
+ */
 public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 	private IPersonRoleView concreteView;
@@ -29,10 +31,18 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 	private CellList<IRole> assignedRoleList;
 	private CellList<IRole> availRoleList;
 
+	/**
+	 * Constructor for PersonRolePresenter.
+	 * @param parent Panel
+	 */
 	public PersonRolePresenter(Panel parent) {
 		super(parent);
 	}
 
+	/**
+	 * Method createView.
+	 * @return IPersonRoleView
+	 */
 	@Override
 	protected IPersonRoleView createView() {
 		this.concreteView = new PersonRoleView();

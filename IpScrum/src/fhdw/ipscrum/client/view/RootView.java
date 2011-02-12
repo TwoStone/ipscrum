@@ -15,6 +15,8 @@ import com.google.gwt.user.client.ui.Widget;
 import fhdw.ipscrum.client.view.interfaces.IRootView;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 
+/**
+ */
 public class RootView extends Composite implements IRootView {
 	private Button btnLogin;
 	private PasswordTextBox inputPassword;
@@ -23,6 +25,10 @@ public class RootView extends Composite implements IRootView {
 	private VerticalPanel contentPanel;
 	private final FlowPanel flowPanel;
 
+	/**
+	 * Method createView.
+	 * @return IRootView
+	 */
 	public static IRootView createView() {
 		return new RootView();
 	}
@@ -71,6 +77,10 @@ public class RootView extends Composite implements IRootView {
 		contentPanel.setSize("1000px", "650px");
 	}
 	
+	/**
+	 * Method activateLogin.
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#activateLogin()
+	 */
 	@Override
 	public void activateLogin() {
 		this.getInputUserName().setEnabled(true);
@@ -80,6 +90,10 @@ public class RootView extends Composite implements IRootView {
 		this.getBtnLogin().setEnabled(true);
 	}
 	
+	/**
+	 * Method deactivateLogin.
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#deactivateLogin()
+	 */
 	@Override
 	public void deactivateLogin() {
 		this.getInputUserName().setEnabled(false);
@@ -87,22 +101,47 @@ public class RootView extends Composite implements IRootView {
 		this.getBtnLogin().setEnabled(false);
 	}
 
+	/**
+	 * Method getBtnLogin.
+	 * @return Button
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getBtnLogin()
+	 */
 	public Button getBtnLogin() {
 		return btnLogin;
 	}
 
+	/**
+	 * Method getInputPassword.
+	 * @return TextBox
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getInputPassword()
+	 */
 	public TextBox getInputPassword() {
 		return inputPassword;
 	}
 
+	/**
+	 * Method getInputUserName.
+	 * @return TextBox
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getInputUserName()
+	 */
 	public TextBox getInputUserName() {
 		return inputUserName;
 	}
 
+	/**
+	 * Method getButtonLogout.
+	 * @return Button
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getButtonLogout()
+	 */
 	public Button getButtonLogout() {
 		return button;
 	}
 
+	/**
+	 * Method getContentPanel.
+	 * @return VerticalPanel
+	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getContentPanel()
+	 */
 	public VerticalPanel getContentPanel() {
 		return contentPanel;
 	}

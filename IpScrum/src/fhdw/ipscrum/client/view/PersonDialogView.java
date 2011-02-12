@@ -21,6 +21,8 @@ import fhdw.ipscrum.client.view.interfaces.IPersonDialogView;
 import fhdw.ipscrum.shared.model.Person;
 
 
+/**
+ */
 public class PersonDialogView extends Composite implements IPersonDialogView {
 
 	private Button abb_button;
@@ -100,21 +102,41 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		abb_button.setSize("100px", "28px");
 	}
 
+	/**
+	 * Method defineCancelEventHandler.
+	 * @param args EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#defineCancelEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void defineCancelEventHandler(EventHandler<EventArgs> args) {
 		this.cancelEvent.add(args);
 	}
 	
+	/**
+	 * Method defineCommitEventHandler.
+	 * @param args EventHandler<TwoStringArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#defineCommitEventHandler(EventHandler<TwoStringArgs>)
+	 */
 	@Override
 	public void defineCommitEventHandler(EventHandler<TwoStringArgs> args) {
 		this.commitEvent.add(args);
 	}
 
+	/**
+	 * Method getVorname.
+	 * @return HasText
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#getVorname()
+	 */
 	@Override
 	public HasText getVorname() {
 		return vorname;
 	}
 
+	/**
+	 * Method getNachname.
+	 * @return HasText
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#getNachname()
+	 */
 	@Override
 	public HasText getNachname() {
 		return nachname;

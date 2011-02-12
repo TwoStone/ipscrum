@@ -20,8 +20,8 @@ public class SingleRoleArgs extends EventArgs {
 
 	/**
 	 * Method getRole.
-	 * @return IRole
-	 */
+	
+	 * @return IRole */
 	public IRole getRole() {
 		return this.role;
 	}

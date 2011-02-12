@@ -46,16 +46,16 @@ public class PersonTeamArgs extends EventArgs {
 
 	/**
 	 * Method getPersons.
-	 * @return Set<IPerson>
-	 */
+	
+	 * @return Set<IPerson> */
 	public Set<IPerson> getPersons() {
 		return this.persons;
 	}
 
 	/**
 	 * Method getTeam.
-	 * @return ITeam
-	 */
+	
+	 * @return ITeam */
 	public ITeam getTeam() {
 		return this.team;
 	}
@@ -63,8 +63,8 @@ public class PersonTeamArgs extends EventArgs {
 	/**
 	 * Method createSinglePersonSet.
 	 * @param person IPerson
-	 * @return Set<IPerson>
-	 */
+	
+	 * @return Set<IPerson> */
 	private static Set<IPerson> createSinglePersonSet(IPerson person) {
 		HashSet<IPerson> singlePersonSet = new HashSet<IPerson>();
 		singlePersonSet.add(person);

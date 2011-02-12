@@ -22,8 +22,8 @@ public class MultipleRoleArgs extends EventArgs {
 
 	/**
 	 * Method getRoles.
-	 * @return Set<IRole>
-	 */
+	
+	 * @return Set<IRole> */
 	public Set<IRole> getRoles() {
 		return this.roles;
 	}

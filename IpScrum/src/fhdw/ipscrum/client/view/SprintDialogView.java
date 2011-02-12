@@ -21,6 +21,8 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.model.Sprint;
 
+/**
+ */
 public class SprintDialogView extends Composite implements ISprintDialogView {
 
 	private final DateBox start;
@@ -132,6 +134,11 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		});
 	}
 
+	/**
+	 * Method getDescription.
+	 * @return HasText
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#getDescription()
+	 */
 	@Override
 	public HasText getDescription() {
 		return this.description;
@@ -162,11 +169,21 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	}
 
 
+	/**
+	 * Method addOkHandler.
+	 * @param args EventHandler<SprintArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addOkHandler(EventHandler<SprintArgs>)
+	 */
 	@Override
 	public void addOkHandler(EventHandler<SprintArgs> args) {
 		this.okEvent.add(args);
 	}
 
+	/**
+	 * Method addCancelHandler.
+	 * @param args EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addCancelHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void addCancelHandler(EventHandler<EventArgs> args) {
 		this.cancelEvent.add(args);

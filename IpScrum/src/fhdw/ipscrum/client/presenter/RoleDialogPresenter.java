@@ -12,21 +12,36 @@ import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 
+/**
+ */
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 	private IRoleDialogView concreteView;
 	private IRole role;
 	
+	/**
+	 * Constructor for RoleDialogPresenter.
+	 * @param parent Panel
+	 */
 	public RoleDialogPresenter(Panel parent) {
 		this(parent, null);
 	}
 	
+	/**
+	 * Constructor for RoleDialogPresenter.
+	 * @param parent Panel
+	 * @param selectedRole IRole
+	 */
 	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
 		super(parent);
 		this.role = selectedRole;
 		initialize();
 	}
 
+	/**
+	 * Method createView.
+	 * @return IRoleDialogView
+	 */
 	@Override
 	protected IRoleDialogView createView() {
 		this.concreteView = new RoleDialogView();

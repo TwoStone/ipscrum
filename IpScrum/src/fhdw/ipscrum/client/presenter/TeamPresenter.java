@@ -14,15 +14,25 @@ import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
+/**
+ */
 public class TeamPresenter extends Presenter<ITeamView> {
 
 	private ITeamView concreteView;
 
+	/**
+	 * Constructor for TeamPresenter.
+	 * @param parent Panel
+	 */
 	public TeamPresenter(Panel parent) {
 		super(parent);
 	}
 
 
+	/**
+	 * Method createView.
+	 * @return ITeamView
+	 */
 	@Override
 	protected ITeamView createView() {
 		this.concreteView = new TeamView();

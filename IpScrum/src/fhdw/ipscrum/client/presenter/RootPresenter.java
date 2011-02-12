@@ -7,12 +7,22 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.view.RootView;
 import fhdw.ipscrum.client.view.interfaces.IRootView;
 
+/**
+ */
 public class RootPresenter extends Presenter<IRootView> {
 
+	/**
+	 * Constructor for RootPresenter.
+	 * @param parent Panel
+	 */
 	public RootPresenter(Panel parent) {
 		super(parent);
 	}
 
+	/**
+	 * Method createView.
+	 * @return IRootView
+	 */
 	@Override
 	protected IRootView createView() {
 		final IRootView rootView = RootView.createView();

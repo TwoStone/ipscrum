@@ -17,6 +17,8 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.interfaces.ITeamDialogView;
 
+/**
+ */
 public class TeamDialogView extends Composite implements ITeamDialogView {
 	
 	private final Event<OneStringArgs> okEvent = new Event<OneStringArgs>();

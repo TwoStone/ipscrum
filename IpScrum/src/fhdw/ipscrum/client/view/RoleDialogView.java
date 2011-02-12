@@ -18,6 +18,8 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 
+/**
+ */
 public class RoleDialogView extends Composite implements IRoleDialogView {
 	
 	private final Event<OneStringArgs> okEvent = new Event<OneStringArgs>();
@@ -89,11 +91,21 @@ public class RoleDialogView extends Composite implements IRoleDialogView {
 	}
 
 
+	/**
+	 * Method addOkEventHandler.
+	 * @param args EventHandler<OneStringArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IRoleDialogView#addOkEventHandler(EventHandler<OneStringArgs>)
+	 */
 	@Override
 	public void addOkEventHandler(EventHandler<OneStringArgs> args) {
 		okEvent.add(args);
 	}
 
+	/**
+	 * Method addCancelEventHandler.
+	 * @param args EventHandler<EventArgs>
+	 * @see fhdw.ipscrum.client.view.interfaces.IRoleDialogView#addCancelEventHandler(EventHandler<EventArgs>)
+	 */
 	@Override
 	public void addCancelEventHandler(EventHandler<EventArgs> args) {
 		cancelEvent.add(args);

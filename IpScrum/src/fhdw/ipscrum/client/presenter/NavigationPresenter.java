@@ -8,12 +8,22 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.NavigationView;
 import fhdw.ipscrum.client.view.interfaces.INavigationView;
 
+/**
+ */
 public class NavigationPresenter extends Presenter<INavigationView> {
 
+	/**
+	 * Constructor for NavigationPresenter.
+	 * @param parent Panel
+	 */
 	public NavigationPresenter(Panel parent) {
 		super(parent);
 	}
 	
+	/**
+	 * Method createView.
+	 * @return INavigationView
+	 */
 	@Override
 	protected INavigationView createView() {
 		final INavigationView concreteView = NavigationView.createView();

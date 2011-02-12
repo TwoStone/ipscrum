@@ -12,21 +12,36 @@ import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 
+/**
+ */
 public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
 	private ITeamDialogView concreteView;
 	private final ITeam team;
 
+	/**
+	 * Constructor for TeamDialogPresenter.
+	 * @param parent Panel
+	 */
 	public TeamDialogPresenter(Panel parent) {
 		this(parent, null);
 	}
 
+	/**
+	 * Constructor for TeamDialogPresenter.
+	 * @param parent Panel
+	 * @param selectedTeam ITeam
+	 */
 	public TeamDialogPresenter(Panel parent, ITeam selectedTeam) {
 		super(parent);
 		this.team = selectedTeam;
 		initialize();
 	}
 
+	/**
+	 * Method createView.
+	 * @return ITeamDialogView
+	 */
 	@Override
 	protected ITeamDialogView createView() {
 		this.concreteView = new TeamDialogView();

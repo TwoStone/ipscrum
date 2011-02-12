@@ -26,24 +26,24 @@ public class AssociatePersonAndRoleArgs extends EventArgs {
 
 	/**
 	 * Method getPerson.
-	 * @return IPerson
-	 */
+	
+	 * @return IPerson */
 	public IPerson getPerson() {
 		return this.person;
 	}
 	
 	/**
 	 * Method getRoles.
-	 * @return Set<IRole>
-	 */
+	
+	 * @return Set<IRole> */
 	public Set<IRole> getRoles() {
 		return this.roles;
 	}
 	
 	/**
 	 * Method getSingleRole.
-	 * @return IRole
-	 */
+	
+	 * @return IRole */
 	public IRole getSingleRole() {
 		return this.roles.iterator().next();
 	}
