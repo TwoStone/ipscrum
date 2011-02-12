@@ -1,5 +1,11 @@
 package fhdw.ipscrum.shared.exceptions;
 
+/**
+ * Base class for application generated excpetions.
+ * 
+ * @author n.w.
+ * 
+ */
 public abstract class UserException extends Exception {
 
 	public UserException(final String message) {
