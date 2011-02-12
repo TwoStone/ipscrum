@@ -41,8 +41,9 @@ public abstract class Presenter<T extends IView> {
 	 * aborted event.
 	 */
 	protected void abort() {
-		this.onAbort();
-		this.aborted.fire(this, new EventArgs());
+		if (this.onAbort()) {
+			this.aborted.fire(this, new EventArgs());
+		}
 	}
 
 	protected abstract T createView();
@@ -52,8 +53,9 @@ public abstract class Presenter<T extends IView> {
 	 * finished event.
 	 */
 	protected void finish() {
-		this.onFinish();
-		this.finished.fire(this, new EventArgs());
+		if (this.onFinish()) {
+			this.finished.fire(this, new EventArgs());
+		}
 	}
 
 	/**
@@ -80,16 +82,22 @@ public abstract class Presenter<T extends IView> {
 
 	/**
 	 * Template method. Can be overridden to do own stuff before aborted event
-	 * is fired.
+	 * is fired. Return false, to cancel finish process.
+	 * 
+	 * @return
 	 */
-	protected void onAbort() {
+	protected boolean onAbort() {
+		return true;
 	}
 
 	/**
 	 * Template method. Can be overridden to do own stuff before finished event
-	 * is fired.
+	 * is fired. Return false, to cancel finish process.
+	 * 
+	 * @return
 	 */
-	protected void onFinish() {
+	protected boolean onFinish() {
+		return true;
 	}
 
 }

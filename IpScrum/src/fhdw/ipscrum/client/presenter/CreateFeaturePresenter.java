@@ -8,6 +8,7 @@ import fhdw.ipscrum.client.view.interfaces.ICreateFeatureView;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.observer.Observer;
@@ -64,11 +65,14 @@ public class CreateFeaturePresenter extends
 	}
 
 	@Override
-	protected void onAbort() {
+	protected boolean onAbort() {
 		final ProductBacklog backlog = this.getFeature().getBacklog();
-		// TODO removeItem wieder aufrufen!!!
-		// backlog.removeItem(this.getFeature());
-		super.onAbort();
+		try {
+			backlog.removeItem(this.getFeature());
+			return super.onAbort();
+		} catch (final UserException e) {
+			return false;
+		}
 	}
 
 }

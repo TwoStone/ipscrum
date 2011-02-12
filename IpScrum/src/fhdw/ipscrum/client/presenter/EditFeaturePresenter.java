@@ -8,6 +8,7 @@ import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.EditFeatureView;
 import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
@@ -91,7 +92,8 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 
 	@Override
 	protected void updateFeature() throws NoValidValueException,
-			NoSprintDefinedException, ConsistencyException {
+			NoSprintDefinedException, ConsistencyException,
+			DoubleDefinitionException {
 		super.updateFeature();
 		this.getFeature().setManDayCosts(this.getView().getComplexity());
 	}

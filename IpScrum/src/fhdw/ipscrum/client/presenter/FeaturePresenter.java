@@ -19,6 +19,7 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
@@ -278,11 +279,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		try {
 			this.updateFeature();
 			this.finish();
-		} catch (final NoValidValueException e) {
-			GwtUtils.displayError(e.getMessage());
-		} catch (final NoSprintDefinedException e) {
-			GwtUtils.displayError(e.getMessage());
-		} catch (final ConsistencyException e) {
+		} catch (final UserException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
 	}
@@ -318,9 +315,11 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 * @throws NoValidValueException
 	 * @throws NoSprintDefinedException
 	 * @throws ConsistencyException
+	 * @throws DoubleDefinitionException
 	 */
 	protected void updateFeature() throws NoValidValueException,
-			NoSprintDefinedException, ConsistencyException {
+			NoSprintDefinedException, ConsistencyException,
+			DoubleDefinitionException {
 		this.feature.setName(this.getView().getName());
 		this.feature.setDescription(this.getView().getDescription());
 		this.feature.setSprint(this.getView().getSelectedSprint());
