@@ -85,6 +85,45 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	}
 
 	/**
+	 * removes an {@link AcceptanceCriterion} from this feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 */
+	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion)
+			throws ForbiddenStateException {
+		this.state.removeAcceptanceCriterion(criterion);
+		this.setEditor();
+		this.notifyObservers();
+
+	}
+
+	/**
+	 * removes a {@link Hint} from this feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 */
+	public void removeHint(final Hint hint) throws ForbiddenStateException {
+		this.state.removeHint(hint);
+		this.setEditor();
+		this.notifyObservers();
+	}
+
+	/**
+	 * removes a {@link Relation} from this feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 */
+	public void removeRelation(final Relation relation)
+			throws ForbiddenStateException {
+		this.state.removeRelation(relation);
+		this.setEditor();
+		this.notifyObservers();
+	}
+
+	/**
 	 * Sets the state of the feature to "closed".
 	 * 
 	 * @throws ForbiddenStateException
@@ -96,7 +135,8 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.notifyObservers();
 	}
 
-	void doAddAcceptanceCriterion(final AcceptanceCriterion acceptanceCriterion)
+	protected void doAddAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException {
 		final Iterator<AcceptanceCriterion> iterator = this.acceptanceCriteria
 				.iterator();
@@ -110,7 +150,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.acceptanceCriteria.add(acceptanceCriterion);
 	}
 
-	void doAddHint(final Hint hint) throws DoubleDefinitionException {
+	protected void doAddHint(final Hint hint) throws DoubleDefinitionException {
 		final Iterator<Hint> iterator = this.hints.iterator();
 		while (iterator.hasNext()) {
 			final Hint current = iterator.next();
@@ -122,17 +162,20 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.hints.add(hint);
 	}
 
-	/**
-	 * counts the number of registred relations to other features.
-	 * 
-	 * @return number of relations
-	 */
-	/*
-	 * not needed public int countRelations(){ return
-	 * this.getRelations().size(); }
-	 */
+	protected void doRemoveAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion) {
+		this.acceptanceCriteria.remove(acceptanceCriterion);
+	}
 
-	void doAddRelation(final Relation relation)
+	protected void doRemoveRelation(final Relation relation) {
+		this.relations.remove(relation);
+	}
+
+	protected void doRemoveHint(final Hint hint) {
+		this.hints.remove(hint);
+	}
+
+	protected void doAddRelation(final Relation relation)
 			throws DoubleDefinitionException {
 		final Iterator<Relation> iterator = this.relations.iterator();
 		while (iterator.hasNext()) {
@@ -145,8 +188,42 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		this.relations.add(relation);
 	}
 
-	void doClose() {
+	protected void doClose() {
 		this.setState(new Closed(this));
+	}
+	
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+	
+
+	public List<AcceptanceCriterion> getAcceptanceCriteria() {
+		return this.acceptanceCriteria;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public List<Hint> getHints() {
+		return this.hints;
+	}
+
+	public List<Relation> getRelations() {
+		return this.relations;
+	}
+
+	public IFeatureState getState() {
+		return this.state;
+	}
+
+
+	protected void setEditor() {
+		this.editor = SessionManager.getInstance().getLoginUser();
+	}
+
+	protected void setState(final IFeatureState state) {
+		this.state = state;
 	}
 
 	@Override
@@ -206,26 +283,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		return true;
 	}
 
-	public List<AcceptanceCriterion> getAcceptanceCriteria() {
-		return this.acceptanceCriteria;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public List<Hint> getHints() {
-		return this.hints;
-	}
-
-	public List<Relation> getRelations() {
-		return this.relations;
-	}
-
-	public IFeatureState getState() {
-		return this.state;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -246,32 +303,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		result = prime * result
 				+ ((this.state == null) ? 0 : this.state.hashCode());
 		return result;
-	}
-
-	// TODO: remove-Ops über State delegieren
-	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion) {
-		this.acceptanceCriteria.remove(criterion);
-
-	}
-
-	public void removeHint(final Hint hint) {
-		this.hints.remove(hint);
-	}
-
-	public void removeRelation(final Relation relation) {
-		this.relations.remove(relation);
-	}
-
-	public void setDescription(final String description) {
-		this.description = description;
-	}
-
-	protected void setEditor() {
-		this.editor = SessionManager.getInstance().getLoginUser();
-	}
-
-	protected void setState(final IFeatureState state) {
-		this.state = state;
 	}
 
 }

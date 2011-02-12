@@ -29,16 +29,31 @@ public interface IFeatureState {
 	/**
 	 *  See the documentation of addAcceptanceCriterion() in class {@link Feature}
 	 */
-	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion)
+	public void addAcceptanceCriterion(final AcceptanceCriterion acceptanceCriterion)
 					throws DoubleDefinitionException, ForbiddenStateException;
 	/**
 	 *  See the documentation of addRelation() in class {@link Feature}
 	 */
-	public void addRelation(Relation relation)
+	public void addRelation(final Relation relation)
 					throws DoubleDefinitionException, ForbiddenStateException;
 	/**
 	 *  See the documentation of addHint() in class {@link Feature}
 	 */
-	public void addHint(Hint hint)
+	public void addHint(final Hint hint)
 					throws DoubleDefinitionException, ForbiddenStateException;
+	/**
+	 * See the documentation of removeAcceptanceCriterion() in class {@link Feature}
+	 */
+	public void removeAcceptanceCriterion(final AcceptanceCriterion acceptanceCriterion)
+					throws ForbiddenStateException;
+	/**
+	 * See the documentation of removeRelation() in class {@link Feature}
+	 */
+	public void removeRelation(final Relation relation)
+					throws ForbiddenStateException;
+	/**
+	 * See the documentation of removeHint() in class {@link Feature}
+	 */
+	public void removeHint(Hint hint) 
+					throws ForbiddenStateException;
 }

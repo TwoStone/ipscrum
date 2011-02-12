@@ -32,24 +32,41 @@ public class Open implements IFeatureState {
 	}
 
 	@Override
-	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion)
+	public void addAcceptanceCriterion(final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		this.myFeature.doAddAcceptanceCriterion(acceptanceCriterion);
 		
 	}
 
 	@Override
-	public void addRelation(Relation relation)
+	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		this.myFeature.doAddRelation(relation);
 		
 	}
 
 	@Override
-	public void addHint(Hint hint) throws DoubleDefinitionException,
+	public void addHint(final Hint hint) throws DoubleDefinitionException,
 			ForbiddenStateException {
 		this.myFeature.doAddHint(hint);
 		
+	}
+	
+	@Override
+	public void removeAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion)
+			throws ForbiddenStateException {
+		this.getMyFeature().doRemoveAcceptanceCriterion(acceptanceCriterion);
+		
+	}
+	@Override
+	public void removeRelation(final Relation relation)
+			throws ForbiddenStateException {
+		this.getMyFeature().doRemoveRelation(relation);
+	}
+	@Override
+	public void removeHint(final Hint hint) throws ForbiddenStateException {
+		this.getMyFeature().doRemoveHint(hint);
 	}
 
 	@Override
@@ -76,5 +93,4 @@ public class Open implements IFeatureState {
 			return false;
 		return true;
 	}
-
 }

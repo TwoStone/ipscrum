@@ -35,25 +35,44 @@ public class Closed implements IFeatureState {
 	}
 
 	@Override
-	public void addAcceptanceCriterion(AcceptanceCriterion acceptanceCriterion)
+	public void addAcceptanceCriterion(final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 		
 	}
 
 	@Override
-	public void addRelation(Relation relation)
+	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 		
 	}
 
 	@Override
-	public void addHint(Hint hint) throws DoubleDefinitionException,
+	public void addHint(final Hint hint) throws DoubleDefinitionException,
 			ForbiddenStateException {
 		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 		
 	}
+	
+	@Override
+	public void removeAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion)
+			throws ForbiddenStateException {
+		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+
+	@Override
+	public void removeRelation(final Relation relation)
+			throws ForbiddenStateException {
+		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+
+	@Override
+	public void removeHint(final Hint hint) throws ForbiddenStateException {
+		throw new ForbiddenStateException(fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,5 +97,4 @@ public class Closed implements IFeatureState {
 			return false;
 		return true;
 	}
-
 }

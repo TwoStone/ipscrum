@@ -10,6 +10,11 @@ public class Relation {
 	private RelationType type;
 	private Feature target;
 	
+	public Relation(RelationType type, Feature target){
+		this.type = type;
+		this.target = target;
+	}
+	
 	public RelationType getType() {
 		return type;
 	}
