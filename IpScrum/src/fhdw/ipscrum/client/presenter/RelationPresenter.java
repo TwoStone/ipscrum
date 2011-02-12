@@ -3,25 +3,29 @@ package fhdw.ipscrum.client.presenter;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.view.interfaces.IRelationView;
-import fhdw.ipscrum.shared.model.ProductBacklog;
+import fhdw.ipscrum.shared.model.Feature;
 
 /**
  */
 public class RelationPresenter extends Presenter<IRelationView> {
-	private final ProductBacklog backlog;
+	private final Feature source;
 
 	/**
 	 * Constructor for RelationPresenter.
-	 * @param parent Panel
-	 * @param backlog ProductBacklog
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param backlog
+	 *            ProductBacklog
 	 */
-	public RelationPresenter(final Panel parent, final ProductBacklog backlog) {
+	public RelationPresenter(final Panel parent, final Feature source) {
 		super(parent);
-		this.backlog = backlog;
+		this.source = source;
 	}
 
 	/**
 	 * Method createView.
+	 * 
 	 * @return IRelationView
 	 */
 	@Override
