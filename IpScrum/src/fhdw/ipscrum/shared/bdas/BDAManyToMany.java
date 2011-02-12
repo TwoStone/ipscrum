@@ -161,4 +161,30 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E> {
 		}
 		return copy;
 	}
+	
+	public void moveToBottom(T bda){
+		this.getConnectTo().remove(bda);
+		this.getConnectTo().insertElementAt(bda, this.getConnectTo().size());
+	}
+
+	public void moveToTop(T bda){
+		this.getConnectTo().remove(bda);
+		this.getConnectTo().insertElementAt(bda, 0);
+	}
+	
+	public void moveUp(T bda){
+		Integer position = this.getConnectTo().indexOf(bda);
+		if (position > 0) {
+			this.getConnectTo().remove(bda);
+			this.getConnectTo().insertElementAt(bda, position - 1);
+		}
+	}
+	
+	public void moveDown(T bda){
+		Integer position = this.getConnectTo().indexOf(bda);
+		if (position > -1 && position < (this.getConnectTo().size() - 1)) {
+			this.getConnectTo().remove(bda);
+			this.getConnectTo().insertElementAt(bda, position + 1);
+		}
+	}
 }
