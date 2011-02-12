@@ -50,6 +50,7 @@ public class RootPresenter extends Presenter<IRootView> {
 		this.concreteView.defineLoginEvent(new EventHandler<PersonArgs>() {
 			@Override
 			public void onUpdate(Object sender, PersonArgs eventArgs) {
+				SessionManager.getInstance().setLoginUser(eventArgs.getPerson());
 				new NavigationPresenter(RootPresenter.this.concreteView.getContentPanel());
 				RootPresenter.this.concreteView.deactivateLogin();
 			}
