@@ -56,7 +56,6 @@ public abstract class ProductBacklogItem extends Observable {
 		this.setName(name);
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
-		backlog.isDoubleDefined(name);//Can throw an DoubleDefinitionException
 		this.getBacklogAssoc().set(backlog.getAssoc());
 		this.setManDayCosts(0);
 	}
@@ -187,8 +186,9 @@ public abstract class ProductBacklogItem extends Observable {
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public final void setName(final String name) throws NoValidValueException {
+	public final void setName(final String name) throws NoValidValueException, DoubleDefinitionException {
 		if (name != null && name.trim().length() > 0) {
+			this.getBacklog().isDoubleDefined(name);//Can throw an DoubleDefinitionException
 			this.name = name;
 			this.notifyObservers();
 		} else {

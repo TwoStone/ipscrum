@@ -11,6 +11,7 @@ import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
@@ -124,13 +125,16 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 			@Override
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-				GwtUtils.displayError("Löschen eines PBIs ist derzeit noch nicht vorgesehen!");
-//				if (eventArgs.getPbi() != null) {
-//					ProductBacklogPresenter.this.project.getBacklog()
-//							.removeItem(eventArgs.getPbi());
-//					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-//							.getBacklog().getItems());
-//				}
+				if (eventArgs.getPbi() != null) {
+					try {
+						ProductBacklogPresenter.this.project.getBacklog()
+								.removeItem(eventArgs.getPbi());
+						view.refreshProductBacklog(ProductBacklogPresenter.this.project
+								.getBacklog().getItems());
+					} catch (UserException e) {
+						GwtUtils.displayError(e.getMessage());
+					}
+				}
 			}
 
 		});

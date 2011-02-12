@@ -5,6 +5,7 @@ import java.util.Vector;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
@@ -43,7 +44,7 @@ public class ProductBacklog extends Observable {
 	
 	public void isDoubleDefined(String pbiName) throws DoubleDefinitionException{
 		for(ProductBacklogItem current : this.getItems()){
-			if(current.getName().equals(pbiName)){
+			if(current.getName()==pbiName){
 				//TODO Textkonstante bauen!
 				throw new DoubleDefinitionException("Ein PBI mit diesem Namen existiert bereits!");
 			}
@@ -131,10 +132,11 @@ public class ProductBacklog extends Observable {
 		}
 	}
 
-//	public void removeItem(ProductBacklogItem item) {
-//		this.getAssoc().remove(item.getBacklogAssoc());
-//		this.notifyObservers();
-//	}
+	public void removeItem(ProductBacklogItem item) throws UserException {
+		item.setSprint(null);//Providing Consistency
+		this.getAssoc().remove(item.getBacklogAssoc());
+		this.notifyObservers();
+	}
 
 	/**
 	 * TODO Kommentar
