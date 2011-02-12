@@ -43,7 +43,6 @@ public interface ISprint {
 	}
 
 	class ToPBIAssoc extends BDAManyToMany<ProductBacklogItem.ToSprintAssoc, Sprint> {
-
 		public ToPBIAssoc(Sprint element) {
 			super(element);
 		}

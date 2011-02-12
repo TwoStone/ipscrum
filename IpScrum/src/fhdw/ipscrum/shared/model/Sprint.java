@@ -76,7 +76,10 @@ public class Sprint implements ISprint {
 
 	@Override
 	public IRelease getRelease() {
-		return this.getToReleaseAssoc().get().getElement();
+		if (this.getToReleaseAssoc().get() != null) {
+			return this.getToReleaseAssoc().get().getElement();
+		}
+		return null;
 	}
 
 	@Override
@@ -85,7 +88,7 @@ public class Sprint implements ISprint {
 		for (ProductBacklogItem.ToSprintAssoc pbiAcc : toPBIAssoc.getAssociations()) {
 			ret.add(pbiAcc.getElement());
 		}
-		return null;
+		return ret;
 	}
 
 	@Override
