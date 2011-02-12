@@ -71,8 +71,7 @@ public class ProductBacklog extends Observable {
 	 * @param item
 	 */
 	public void moveTop(ProductBacklogItem item) {
-		this.getItems().remove(item);
-		this.getItems().insertElementAt(item, 0);
+		this.getAssoc().moveToTop(item.getBacklogAssoc());
 		this.notifyObservers();
 	}
 
@@ -82,8 +81,7 @@ public class ProductBacklog extends Observable {
 	 * @param item
 	 */
 	public void moveBottom(ProductBacklogItem item) {
-		this.getItems().remove(item);
-		this.getItems().insertElementAt(item, this.countItems());
+		this.getAssoc().moveToBottom(item.getBacklogAssoc());
 		this.notifyObservers();
 	}
 
@@ -93,12 +91,7 @@ public class ProductBacklog extends Observable {
 	 * @param item
 	 */
 	public void moveUp(ProductBacklogItem item) {
-		Integer position = this.getItemPositionInList(item);
-		if (position > 0) {
-			this.getItems().remove(item);
-			this.getItems().insertElementAt(item, position - 1);
-			this.notifyObservers();
-		}
+		this.getAssoc().moveUp(item.getBacklogAssoc());
 	}
 
 	/**
@@ -107,12 +100,7 @@ public class ProductBacklog extends Observable {
 	 * @param item
 	 */
 	public void moveDown(ProductBacklogItem item) {
-		Integer position = this.getItemPositionInList(item);
-		if (position > -1 && position < (this.countItems() - 1)) {
-			this.getItems().remove(item);
-			this.getItems().insertElementAt(item, position + 1);
-			this.notifyObservers();
-		}
+		this.getAssoc().moveDown(item.getBacklogAssoc());
 	}
 
 	/**
@@ -190,15 +178,7 @@ public class ProductBacklog extends Observable {
 	 *         the element is not in the list;
 	 */
 	public Integer getItemPositionInList(ProductBacklogItem item) {
-		int count = 0;
-		for (ProductBacklogItem current : this.getItems()) {
-			if (current.equals(item)) {
-				return count;
-			}
-			count++;
-		}
-
-		return -1;
+		return this.getItems().indexOf(item);
 	}
 
 //	/**
