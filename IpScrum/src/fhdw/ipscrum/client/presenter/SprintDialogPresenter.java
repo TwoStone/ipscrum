@@ -21,7 +21,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	public SprintDialogPresenter(Panel parent, ISprint sprint) {
 		super(parent);
 		this.sprint = sprint;
-		initialize();
+		this.initialize();
 	}
 
 	@Override

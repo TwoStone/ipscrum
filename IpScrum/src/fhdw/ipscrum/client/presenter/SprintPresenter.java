@@ -11,9 +11,19 @@ import fhdw.ipscrum.shared.model.Project;
 
 public class SprintPresenter extends Presenter<ISprintView>{
 
+	private Project project;
+	
 	public SprintPresenter(Panel parent, Project project) {
 		super(parent);
-}
+		this.project = project;
+		this.initialize();
+	}
+	
+	private void initialize() {
+		if (this.project.getReleasePlan() != null) {
+			this.getView().refreshSprints(this.project.getSprints());
+		}
+	}
 
 	@Override
 	protected ISprintView createView() {
@@ -30,11 +40,12 @@ public class SprintPresenter extends Presenter<ISprintView>{
 
 				@Override
 				public void onUpdate(Object sender, EventArgs eventArgs) {
-					// TODO Auto-generated method stub
+
+					SprintPresenter.this.initialize();
 					
 				}
 			});
-				
+			diaBox.center();
 			}
 		});
 		

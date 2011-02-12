@@ -1,26 +1,30 @@
 package fhdw.ipscrum.client.view;
 
-import com.google.gwt.cell.client.TextCell;
+import java.util.Date;
+import java.util.Vector;
+
+import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.view.client.AbstractDataProvider;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.NoSelectionModel;
-import com.google.gwt.view.client.SelectionModel.AbstractSelectionModel;
-import com.google.gwt.view.client.TreeViewModel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class SprintView extends Composite implements ISprintView{
 	
@@ -31,9 +35,12 @@ public class SprintView extends Composite implements ISprintView{
 	private final Event<SprintArgs> selectSprintEvent = new Event<SprintArgs>();
 	// ###### Ende Events ###########
 	
+	private Sprint currentlySelected;
+	
 	private Image imgNewSprint;
 	private Image imgDetailSprint;
 	private Image imgDeleteSprint;
+	private CellTable<ISprint> tableSprint;
 	
 	public static IView createView(){
 		return new SprintView();
@@ -90,21 +97,45 @@ public class SprintView extends Composite implements ISprintView{
 		absolutePanel.add(scrollPanel, 10, 72);
 		scrollPanel.setSize("450px", "200px");
 		
-		CellTree cellTree = new CellTree(
-			new TreeViewModel() {
-				final AbstractDataProvider<String> dataProvider = new ListDataProvider<String>();
-				final AbstractSelectionModel<String> selectionModel = new NoSelectionModel<String>();
-				@Override
-				public <T> NodeInfo<?> getNodeInfo(T value) {
-					return new DefaultNodeInfo<String>(dataProvider, new TextCell(), selectionModel, null);
-				}
-				@Override
-				public boolean isLeaf(Object value) {
-					return true;
-				}
-			}, null);
-		scrollPanel.setWidget(cellTree);
-		cellTree.setSize("100%", "100%");
+		tableSprint = new CellTable<ISprint>();
+		
+		tableSprint.setSelectionModel(new SingleSelectionModel<ISprint>());
+
+		tableSprint.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				@SuppressWarnings("unchecked")
+				SingleSelectionModel<ISprint> model = (SingleSelectionModel<ISprint>) tableSprint.getSelectionModel();
+				currentlySelected = (Sprint) model.getSelectedObject();
+			}
+		});
+		
+		TextColumn<ISprint> beschreibungColumn = new TextColumn<ISprint>() {
+			@Override
+			public String getValue(ISprint sprint) {
+				return sprint.getDescription();
+			}
+		};
+		tableSprint.addColumn(beschreibungColumn, "Beschreibung");
+		
+		Column<ISprint, ?> startColumn = new Column<ISprint, Date>(new DateCell()) {
+			@Override
+			public Date getValue(ISprint sprint) {
+				return sprint.getBegin();
+			}
+		};
+		tableSprint.addColumn(startColumn, "Start");
+		
+		Column<ISprint, ?> endeColumn = new Column<ISprint, Date>(new DateCell()) {
+			@Override
+			public Date getValue(ISprint sprint) {
+				return sprint.getEnd();
+			}
+		};
+		tableSprint.addColumn(endeColumn, "Ende");
+		scrollPanel.setWidget(tableSprint);
+		tableSprint.setSize("100%", "100%");
 		
 	
 	}
@@ -125,6 +156,15 @@ public class SprintView extends Composite implements ISprintView{
 	public void addNewReleaseEventHandler(EventHandler<EventArgs> arg) {
 	newSprintEvent.add(arg);
 		
+	}
+
+	@Override
+	public void refreshSprints(Vector<ISprint> sprints) {
+		this.getTableSprint().setRowData(sprints);
+	}
+	
+	private CellTable<ISprint> getTableSprint() {
+		return tableSprint;
 	}
 }
 

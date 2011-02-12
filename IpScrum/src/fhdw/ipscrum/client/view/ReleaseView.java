@@ -1,8 +1,6 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.DateCell;
@@ -161,7 +159,6 @@ public class ReleaseView extends Composite implements IReleaseView {
 	@Override
 	public void refreshReleases(Vector<IRelease> release) {
 		this.getTableRelease().setRowData(release);
-
 	}
 
 	@Override

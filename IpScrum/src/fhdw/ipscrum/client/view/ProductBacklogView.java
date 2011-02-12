@@ -71,7 +71,7 @@ public class ProductBacklogView extends Composite implements
 		horizontalPanel.setSize("500px", "300px");
 		concreteProductBacklogPanel.add(horizontalPanel);
 
-		Label lblProductBacklog = new Label("Product Backlog Eintr\u00E4ge");
+		Label lblProductBacklog = new Label("Product Backlog");
 		lblProductBacklog
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		lblProductBacklog.setStyleName("LabelElement");
