@@ -23,7 +23,7 @@ public class Project extends Observable{
 
 	private final ToReleaseAssoc releaseAssoc;
 	
-	class ToReleaseAssoc extends BDAManyToMany<Release.ToProjectAssoc, Project>{
+	public class ToReleaseAssoc extends BDAManyToMany<Release.ToProjectAssoc, Project>{
 		public ToReleaseAssoc(Project element) {
 			super(element);
 		}
@@ -128,7 +128,7 @@ public class Project extends Observable{
 		for(IRelease current : this.getReleasePlan()){
 			if(current.getVersion().equals(version) && current.getReleaseDate().equals(releaseDate)){
 				//TODO Textkonstante bauen!
-				throw new DoubleDefinitionException("Release existiert bereits und kann nicht hinzugefügt werden!");
+				throw new DoubleDefinitionException("Release existiert bereits und kann nicht hinzugefï¿½gt werden!");
 			}
 		}
 	}

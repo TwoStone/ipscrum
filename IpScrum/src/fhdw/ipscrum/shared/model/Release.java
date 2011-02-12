@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Vector;
 
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
@@ -26,23 +25,13 @@ public class Release extends Observable implements IRelease {
 	private final ToProjectAssoc projectAssoc;
 	private final ToSprintAssoc sprintAssoc;
 	
-	public class ToSprintAssoc extends BDAManyToMany<Sprint.ToReleaseAssoc, Release>{
-		public ToSprintAssoc(Release element) {
-			super(element);
-		}
-	}
+
 	
 	@Override
 	public ToSprintAssoc getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 
-	public class ToProjectAssoc extends
-			BDAManyToMany<Project.ToReleaseAssoc, IRelease> {
-		public ToProjectAssoc(Release element) {
-			super(element);
-		}
-	}
 
 	public ToProjectAssoc getProjectAssoc() {
 		return projectAssoc;
