@@ -61,7 +61,6 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 					if (eventArgs.getSprint().getDescription() != null)
 						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getSprint().getDescription());
 				} else {
-					// TODO bestehenden Sprint (this.sprint) mit Wetten aus tempor�rem Sprint (eventArgs.getSprint()) �berschreiben.
 					SprintDialogPresenter.this.sprint.setDescription(eventArgs.getSprint().getDescription());
 					SprintDialogPresenter.this.sprint.setBegin(eventArgs.getSprint().getBegin());
 					SprintDialogPresenter.this.sprint.setEnd(eventArgs.getSprint().getEnd());
