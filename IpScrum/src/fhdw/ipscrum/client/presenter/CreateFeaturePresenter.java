@@ -30,6 +30,9 @@ public class CreateFeaturePresenter extends
 	 */
 	private static Feature createNewFeature(final ProductBacklog backlog){
 		try {
+			//TODO Das geht so nicht, da bei der Erzeugung geprüft wird, ob ein
+			//Feature mit diesem Namen bereits exisitiert! Wenn hier eine
+			//selsamer Name angegeben wird, funktioniert die prüfung nicht!
 			return new Feature(NEWFTRNAME, "", backlog);
 		} catch (final NoValidValueException e) {
 			GwtUtils.displayError(e.getMessage());
