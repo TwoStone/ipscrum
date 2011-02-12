@@ -25,4 +25,9 @@ public final class Admin extends Person implements IPerson {
 		}
 		return instance;
 	}
+
+	@Override
+	public String toString() {
+		return this.getLastname();
+	}
 }
