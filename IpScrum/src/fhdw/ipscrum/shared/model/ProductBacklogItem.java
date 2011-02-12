@@ -4,6 +4,7 @@ import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.Release.ToSprintAssoc;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -17,9 +18,10 @@ public abstract class ProductBacklogItem extends Observable {
 	private Integer manDayCosts;
 //	private final ProductBacklog backlog;
 	private IPerson lastEditor;
-	private ISprint sprint;
+//	private ISprint sprint;
 	
-	private final ToBacklogAssoc assoc;
+	private final ToBacklogAssoc backlogAssoc;
+	private final ToSprintAssoc sprintAssoc;
 	
 	class ToBacklogAssoc extends BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem>{
 		public ToBacklogAssoc(ProductBacklogItem element) {
@@ -27,8 +29,18 @@ public abstract class ProductBacklogItem extends Observable {
 		}
 	}
 	
-	protected ToBacklogAssoc getAssoc() {
-		return assoc;
+	public class ToSprintAssoc extends BDAManyToMany<BDAManyToMany, ProductBacklogItem>{
+		public ToSprintAssoc(ProductBacklogItem element) {
+			super(element);
+		}
+	}
+	
+	protected ToBacklogAssoc getBacklogAssoc() {
+		return backlogAssoc;
+	}
+
+	protected ToSprintAssoc getSprintAssoc() {
+		return sprintAssoc;
 	}
 
 	/**
@@ -44,9 +56,10 @@ public abstract class ProductBacklogItem extends Observable {
 			throws NoValidValueException, ConsistencyException {
 		super();
 		this.setName(name);
-		this.assoc = new ToBacklogAssoc(this);
+		this.backlogAssoc = new ToBacklogAssoc(this);
+		this.sprintAssoc = new ToSprintAssoc(this);
 //		this.backlog = backlog;
-		this.getAssoc().set(backlog.getAssoc());
+		this.getBacklogAssoc().set(backlog.getAssoc());
 		this.setManDayCosts(0);
 	}
 
@@ -90,19 +103,19 @@ public abstract class ProductBacklogItem extends Observable {
 		} else if (!this.name.equals(other.name)) {
 			return false;
 		}
-		if (this.sprint == null) {
-			if (other.sprint != null) {
+		if (this.getSprint() == null) {
+			if (other.getSprint() != null) {
 				return false;
 			}
-		} else if (!this.sprint.equals(other.sprint)) {
+		} else if (!this.getSprint().equals(other.getSprint())) {
 			return false;
 		}
 		return true;
 	}
 
 	public ProductBacklog getBacklog() {
-		if(this.getAssoc().get()!=null){
-			return this.getAssoc().get().getElement();
+		if(this.getBacklogAssoc().get()!=null){
+			return this.getBacklogAssoc().get().getElement();
 		}
 		return null;
 //		return this.backlog;
@@ -121,7 +134,8 @@ public abstract class ProductBacklogItem extends Observable {
 	}
 
 	public ISprint getSprint() {
-		return this.sprint;
+		//TODO Implement
+		return null;
 	}
 
 	@Override
@@ -138,7 +152,7 @@ public abstract class ProductBacklogItem extends Observable {
 		result = prime * result
 				+ ((this.name == null) ? 0 : this.name.hashCode());
 		result = prime * result
-				+ ((this.sprint == null) ? 0 : this.sprint.hashCode());
+				+ ((this.getSprint() == null) ? 0 : this.getSprint().hashCode());
 		return result;
 	}
 
@@ -197,6 +211,7 @@ public abstract class ProductBacklogItem extends Observable {
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException {
+		//TODO setSprint
 //		if (sprint != null) {
 //			if (this.getBacklog().getProject().isSprintDefined(sprint)) {
 //				sprint.addPBI(this);

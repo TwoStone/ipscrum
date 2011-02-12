@@ -118,7 +118,7 @@ public class ProductBacklog extends Observable {
 	public void addItem(ProductBacklogItem item) throws ConsistencyException{
 		if(item!=null){
 			if(item.getBacklog()==this){
-				this.getAssoc().add(item.getAssoc());
+				this.getAssoc().add(item.getBacklogAssoc());
 				this.notifyObservers();
 			}else{
 				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugefügt werden, " +
@@ -143,7 +143,7 @@ public class ProductBacklog extends Observable {
 	 * @param item
 	 */
 	public void removeItem(ProductBacklogItem item) {
-		this.getAssoc().remove(item.getAssoc());
+		this.getAssoc().remove(item.getBacklogAssoc());
 //		this.getItems().remove(item);
 		this.notifyObservers();
 	}
