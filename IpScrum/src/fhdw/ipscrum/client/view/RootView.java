@@ -1,148 +1,129 @@
 package fhdw.ipscrum.client.view;
 
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.FocusListener;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.interfaces.IRootView;
-import com.google.gwt.user.client.ui.PasswordTextBox;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
+ * RootView. Used for the main layout of the application.
  */
 public class RootView extends Composite implements IRootView {
-	private Button btnLogin;
-	private PasswordTextBox inputPassword;
-	private TextBox inputUserName;
-	private Button button;
-	private VerticalPanel contentPanel;
-	private final FlowPanel flowPanel;
+	private final ListBox comboBoxUsers;
+	private final Button btnLogin;
+	private final Button btnLogout;
+	private final Event<PersonArgs> loginEvent = new Event<PersonArgs>();
+	private final Event<EventArgs> logoutEvent = new Event<EventArgs>();
+	private final VerticalPanel contentPanel;
+	private final HashMap<Integer,IPerson> userMap = new HashMap<Integer,IPerson>();
 
-	/**
-	 * Method createView.
-	 * @return IRootView
-	 */
-	public static IRootView createView() {
-		return new RootView();
-	}
+	public RootView() {
 
-	private RootView() {
+		FlowPanel mainPanel = new FlowPanel();
+		initWidget(mainPanel);
+		mainPanel.setSize("1000px", "700px");
 
-		flowPanel = new FlowPanel();
-		initWidget(flowPanel);
-		flowPanel.setSize("1000px", "700px");
+		AbsolutePanel loginPanel = new AbsolutePanel();
+		mainPanel.add(loginPanel);
+		loginPanel.setSize("1000px", "50px");
 
-		AbsolutePanel loginpanel = new AbsolutePanel();
-		flowPanel.add(loginpanel);
-		loginpanel.setSize("1000px", "50px");
-
-		inputUserName = new TextBox();
-		inputUserName.setText("Benutzername");
-		loginpanel.add(inputUserName, 590, 10);
-		inputUserName.setSize("112px", "20px");
-		inputUserName.addFocusHandler(new FocusHandler() {
-			public void onFocus(FocusEvent event) {
-				if (inputUserName.getText().equals("Benutzername")) {
-					inputUserName.setText("");
-				}
-			}
-		});
-
-		inputPassword = new PasswordTextBox();
-		inputPassword.setText("Passwort");
-		loginpanel.add(inputPassword, 716, 10);
-		inputPassword.setSize("112px", "20px");
-
-		btnLogin = new Button("Login");
-		loginpanel.add(btnLogin, 852, 10);
-		btnLogin.setSize("66px", "28px");
-
-		button = new Button("Logout");
-		loginpanel.add(button, 924, 10);
-		button.setSize("66px", "28px");
-		
 		Image image = new Image("images/logoSmall.png");
-		loginpanel.add(image, 0, 0);
+		loginPanel.add(image, 0, 0);
 		image.setSize("157px", "50px");
 
-		contentPanel = new VerticalPanel();
-		flowPanel.add(contentPanel);
-		contentPanel.setSize("1000px", "650px");
+		this.comboBoxUsers = new ListBox();
+		loginPanel.add(this.comboBoxUsers, 590, 10);
+		this.comboBoxUsers.setSize("242px", "28px");
+
+		this.btnLogin = new Button("Login");
+		this.btnLogin.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				RootView.this.loginEvent.fire(RootView.this, new PersonArgs(RootView.this.getSelectedUser()));
+			}
+		});
+		loginPanel.add(this.btnLogin, 852, 10);
+		this.btnLogin.setSize("66px", "28px");
+
+		this.btnLogout = new Button("Logout");
+		this.btnLogout.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				RootView.this.logoutEvent.fire(RootView.this, new EventArgs());
+			}
+		});
+		loginPanel.add(this.btnLogout, 924, 10);
+		this.btnLogout.setSize("66px", "28px");
+
+		this.contentPanel = new VerticalPanel();
+		mainPanel.add(this.contentPanel);
+		this.contentPanel.setSize("1000px", "650px");
 	}
-	
-	/**
-	 * Method activateLogin.
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#activateLogin()
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.IRootView#fillComboBoxUsers(java.util.Set)
+	 */
+	@Override
+	public void fillComboBoxUsers(ArrayList<IPerson> tempUserList) {
+		for (int i = 0; i < tempUserList.size(); i++) {
+			this.comboBoxUsers.addItem(tempUserList.get(i).toString());
+			this.userMap.put(i, tempUserList.get(i));
+		}
+	}
+
+	private IPerson getSelectedUser() {
+		return this.userMap.get(this.comboBoxUsers.getSelectedIndex());
+	}
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.IRootView#activateLogin()
 	 */
 	@Override
 	public void activateLogin() {
-		this.getInputUserName().setEnabled(true);
-		this.getInputUserName().setText("Benutzername");
-		this.getInputPassword().setEnabled(true);
-		this.getInputPassword().setText("Passwort");
-		this.getBtnLogin().setEnabled(true);
+		this.comboBoxUsers.setEnabled(true);
+		this.btnLogin.setEnabled(true);
 	}
-	
-	/**
-	 * Method deactivateLogin.
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#deactivateLogin()
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.IRootView#deactivateLogin()
 	 */
 	@Override
 	public void deactivateLogin() {
-		this.getInputUserName().setEnabled(false);
-		this.getInputPassword().setEnabled(false);
-		this.getBtnLogin().setEnabled(false);
+		this.comboBoxUsers.setEnabled(false);
+		this.btnLogin.setEnabled(false);
 	}
 
-	/**
-	 * Method getBtnLogin.
-	 * @return Button
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getBtnLogin()
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.IRootView#getContentPanel()
 	 */
-	public Button getBtnLogin() {
-		return btnLogin;
-	}
-
-	/**
-	 * Method getInputPassword.
-	 * @return TextBox
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getInputPassword()
-	 */
-	public TextBox getInputPassword() {
-		return inputPassword;
-	}
-
-	/**
-	 * Method getInputUserName.
-	 * @return TextBox
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getInputUserName()
-	 */
-	public TextBox getInputUserName() {
-		return inputUserName;
-	}
-
-	/**
-	 * Method getButtonLogout.
-	 * @return Button
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getButtonLogout()
-	 */
-	public Button getButtonLogout() {
-		return button;
-	}
-
-	/**
-	 * Method getContentPanel.
-	 * @return VerticalPanel
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getContentPanel()
-	 */
+	@Override
 	public VerticalPanel getContentPanel() {
-		return contentPanel;
+		return this.contentPanel;
 	}
+
+	@Override
+	public void defineLoginEvent(EventHandler<PersonArgs> args) {
+		this.loginEvent.add(args);
+	}
+
+	@Override
+	public void defineLogoutEvent(EventHandler<EventArgs> args) {
+		this.logoutEvent.add(args);
+	}
+
 }

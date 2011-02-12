@@ -1,45 +1,29 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Panel;
+import java.util.ArrayList;
+
+import com.google.gwt.user.client.ui.VerticalPanel;
+
+import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.PersonArgs;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
+
 
 /**
  */
 public interface IRootView extends IView{
 
-	/**
-	 * Method getBtnLogin.
-	 * @return HasClickHandlers
-	 */
-	public abstract HasClickHandlers getBtnLogin();
+	public abstract void fillComboBoxUsers(ArrayList<IPerson> tempUserList);
 
-	/**
-	 * Method getInputPassword.
-	 * @return HasText
-	 */
-	public abstract HasText getInputPassword();
-
-	/**
-	 * Method getInputUserName.
-	 * @return HasText
-	 */
-	public abstract HasText getInputUserName();
-
-	/**
-	 * Method getButtonLogout.
-	 * @return HasClickHandlers
-	 */
-	public abstract HasClickHandlers getButtonLogout();
-	
-	/**
-	 * Method getContentPanel.
-	 * @return Panel
-	 */
-	public abstract Panel getContentPanel();
-	
-	public abstract void deactivateLogin();
-	
 	public abstract void activateLogin();
-	
+
+	public abstract void deactivateLogin();
+
+	public abstract VerticalPanel getContentPanel();
+
+	public void defineLoginEvent(EventHandler<PersonArgs> args);
+
+	public void defineLogoutEvent(EventHandler<EventArgs> args);
+
 }
