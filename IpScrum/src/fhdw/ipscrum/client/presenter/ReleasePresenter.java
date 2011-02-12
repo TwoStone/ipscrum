@@ -59,7 +59,7 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
-				GwtUtils.displayError("Löschen von Releases ist derzeit noch nicht vorgesehen!");
+				GwtUtils.displayError("Lï¿½schen von Releases ist derzeit noch nicht vorgesehen!");
 //				if (eventArgs.getRelease() != null) {
 //					ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
 //					view.refreshReleases(ReleasePresenter.this.project
@@ -73,10 +73,26 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 			// TODO: WAS SOLL BEI DETAILANSICHT EINES RELEASES GESCHEHEN??????
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
+				final DialogBox diaBox = new DialogBox();
+			ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(diaBox, eventArgs.getRelease());
+			
+			presenter.getAborted().add(new EventHandler<EventArgs>(){
 
+				@Override
+				public void onUpdate(Object sender, EventArgs eventArgs) {
+				
+					diaBox.clear();
+					diaBox.hide();
+				}
+				
+			});
+			
+			diaBox.center();
 			}
+		
+		
 		});
-
+		
 		return view;
 	}
 

@@ -21,6 +21,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.shared.model.Sprint;
@@ -76,7 +77,7 @@ public class SprintView extends Composite implements ISprintView{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				detailsSelectedSprintEvent.fire(SprintView.this, new SprintArgs());
+				detailsSelectedSprintEvent.fire(SprintView.this, new SprintArgs(currentlySelected));
 			}
 		});
 		
@@ -87,7 +88,7 @@ public class SprintView extends Composite implements ISprintView{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				deleteSelectedSprintEvent.fire(SprintView.this, new SprintArgs());
+				deleteSelectedSprintEvent.fire(SprintView.this, new SprintArgs(currentlySelected));
 			}
 		});
 		
@@ -143,19 +144,16 @@ public class SprintView extends Composite implements ISprintView{
 	@Override
 	public void addSprintDetailsEventHandler(EventHandler<SprintArgs> arg) {
 		detailsSelectedSprintEvent.add(arg);
-
 	}
 
 	@Override
 	public void addDeleteReleaseEventHandler(EventHandler<SprintArgs> arg) {
 		deleteSelectedSprintEvent.add(arg);
-
 	}
 
 	@Override
 	public void addNewReleaseEventHandler(EventHandler<EventArgs> arg) {
 	newSprintEvent.add(arg);
-		
 	}
 
 	@Override
