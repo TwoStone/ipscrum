@@ -28,15 +28,12 @@ public class CreateFeaturePresenter extends
 	 * 
 	 * @return Feature
 	 */
-	private static Feature createNewFeature(final ProductBacklog backlog){
+	private static Feature createNewFeature(final ProductBacklog backlog) {
 		try {
-			//TODO Das geht so nicht, da bei der Erzeugung geprüft wird, ob ein
-			//Feature mit diesem Namen bereits exisitiert! Wenn hier eine
-			//selsamer Name angegeben wird, funktioniert die prüfung nicht!
 			return new Feature(NEWFTRNAME, "", backlog);
 		} catch (final NoValidValueException e) {
 			GwtUtils.displayError(e.getMessage());
-		} catch (final DoubleDefinitionException e){
+		} catch (final DoubleDefinitionException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
 		return null;
@@ -64,6 +61,14 @@ public class CreateFeaturePresenter extends
 	@Override
 	protected ICreateFeatureView createView() {
 		return new CreateFeatureView();
+	}
+
+	@Override
+	protected void onAbort() {
+		final ProductBacklog backlog = this.getFeature().getBacklog();
+		// TODO removeItem wieder aufrufen!!!
+		// backlog.removeItem(this.getFeature());
+		super.onAbort();
 	}
 
 }
