@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.Iterator;
+
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -10,6 +12,7 @@ import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
  */
@@ -55,6 +58,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 		this.concreteView.addOkHandler(new EventHandler<SprintArgs>() {
 			@Override
+						
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
 				if (SprintDialogPresenter.this.sprint == null) {
 					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getSprint().getBegin(), eventArgs.getSprint().getEnd(), eventArgs.getSprint().getTeam());
@@ -75,6 +79,13 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	}
 
 	private void initialize() {
+		Iterator teamIterator = SessionManager.getInstance().getModel().getTeams().iterator();
+		while(teamIterator.hasNext()){
+			ITeam team = (ITeam) teamIterator.next();
+			concreteView.getTeams().addItem(team.getDescription());
+		}
+		   
+		
 		if (this.sprint != null) {
 			// TODO Hier Vorbelegungen anf�gen..
 			this.concreteView.getDescription().setText(this.sprint.getDescription());
