@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
-	final ITeamDialogView view = new TeamDialogView();
+	private ITeamDialogView concreteView;
 	private final ITeam team;
 
 	public TeamDialogPresenter(Panel parent) {
@@ -29,8 +29,16 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
 	@Override
 	protected ITeamDialogView createView() {
-		view.addOkEventHandler(new EventHandler<OneStringArgs>() {
+		this.concreteView = new TeamDialogView();
 
+		this.concreteView.addCancelEventHandler(new EventHandler<EventArgs>() {
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				abort();
+			}
+		});
+
+		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
 			@Override
 			public void onUpdate(Object sender, OneStringArgs eventArgs) {
 				if (TeamDialogPresenter.this.team == null) {
@@ -42,15 +50,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 				finish();
 			}
 		});
-
-		view.addCancelEventHandler(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				abort();
-			}
-		});
-		return view;
+		return this.concreteView;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	 */
 	private void initialize() {
 		if (this.team != null) {
-			this.view.getTeamDescription().setText(this.team.getDescription());
+			this.concreteView.getTeamDescription().setText(this.team.getDescription());
 		}
 	}
 

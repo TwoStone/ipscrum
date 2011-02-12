@@ -50,41 +50,41 @@ public class TeamView extends Composite implements ITeamView {
 		Label lblTeams = new Label("Teams");
 		verticalPanelTeams.add(lblTeams);
 
-				ScrollPanel scrollPanelTeamTree = new ScrollPanel();
-				scrollPanelTeamTree.setStyleName("tableBorder");
-				verticalPanelTeams.add(scrollPanelTeamTree);
-				scrollPanelTeamTree.setSize("256px", "400px");
+		ScrollPanel scrollPanelTeamTree = new ScrollPanel();
+		scrollPanelTeamTree.setStyleName("tableBorder");
+		verticalPanelTeams.add(scrollPanelTeamTree);
+		scrollPanelTeamTree.setSize("256px", "400px");
 
-				tree = new Tree();
-				scrollPanelTeamTree.setWidget(tree);
-				tree.setAnimationEnabled(true);
-				tree.setSize("100%", "100%");
+		tree = new Tree();
+		scrollPanelTeamTree.setWidget(tree);
+		tree.setAnimationEnabled(true);
+		tree.setSize("100%", "100%");
 
 		HorizontalPanel horizontalPanelTeamButtons = new HorizontalPanel();
 		verticalPanelTeams.add(horizontalPanelTeamButtons);
 		horizontalPanelTeamButtons.setWidth("100%");
 
-				Button btnNeuesTeamAnlegen = new Button("Neues Team anlegen");
-				btnNeuesTeamAnlegen.addClickHandler(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						newTeamEvent.fire(TeamView.this, new EventArgs());
-					}
-				});
-				horizontalPanelTeamButtons.add(btnNeuesTeamAnlegen);
-				btnNeuesTeamAnlegen.setWidth("100%");
+		Button btnNeuesTeamAnlegen = new Button("Neues Team anlegen");
+		btnNeuesTeamAnlegen.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				newTeamEvent.fire(TeamView.this, new EventArgs());
+			}
+		});
+		horizontalPanelTeamButtons.add(btnNeuesTeamAnlegen);
+		btnNeuesTeamAnlegen.setWidth("100%");
 
-				Button btnTeamBearbeiten = new Button("Team Bearbeiten");
-				btnTeamBearbeiten.addClickHandler(new ClickHandler() {
-					@Override
-					public void onClick(ClickEvent event) {
-						if (TeamView.this.getSelectedTeamOfTree() != null) {
-							modifyTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.getSelectedTeamOfTree()));
-						}
-					}
-				});
-				horizontalPanelTeamButtons.add(btnTeamBearbeiten);
-				btnTeamBearbeiten.setWidth("100%");
+		Button btnTeamBearbeiten = new Button("Team Bearbeiten");
+		btnTeamBearbeiten.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				if (TeamView.this.getSelectedTeamOfTree() != null) {
+					modifyTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.getSelectedTeamOfTree()));
+				}
+			}
+		});
+		horizontalPanelTeamButtons.add(btnTeamBearbeiten);
+		btnTeamBearbeiten.setWidth("100%");
 
 		VerticalPanel verticalPanelAllocationButtons = new VerticalPanel();
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
@@ -166,9 +166,11 @@ public class TeamView extends Composite implements ITeamView {
 	 */
 	@Override
 	public IPerson getSelectedPersonOfTree() {
-		Object selItem = this.tree.getSelectedItem().getUserObject();
-		if (selItem instanceof IPerson) {
-			return (IPerson) selItem;
+		if (this.tree.getSelectedItem() != null) {
+			Object selItem = this.tree.getSelectedItem().getUserObject();
+			if (selItem instanceof IPerson) {
+				return (IPerson) selItem;
+			}
 		}
 		return null;
 	}
@@ -178,11 +180,13 @@ public class TeamView extends Composite implements ITeamView {
 	 */
 	@Override
 	public ITeam getSelectedTeamOfTree() {
-		Object selItem = this.tree.getSelectedItem().getUserObject();
-		if (selItem instanceof ITeam) {
-			return (ITeam) selItem;
-		} else if (selItem instanceof IPerson && this.tree.getSelectedItem().getParentItem().getUserObject() instanceof ITeam) {
-			return (ITeam) this.tree.getSelectedItem().getParentItem().getUserObject();
+		if (this.tree.getSelectedItem() != null) {
+			Object selItem = this.tree.getSelectedItem().getUserObject();
+			if (selItem instanceof ITeam) {
+				return (ITeam) selItem;
+			} else if (selItem instanceof IPerson && this.tree.getSelectedItem().getParentItem().getUserObject() instanceof ITeam) {
+				return (ITeam) this.tree.getSelectedItem().getParentItem().getUserObject();
+			}
 		}
 		return null;
 	}

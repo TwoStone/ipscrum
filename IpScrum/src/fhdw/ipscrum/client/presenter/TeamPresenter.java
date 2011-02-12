@@ -79,7 +79,7 @@ public class TeamPresenter extends Presenter<ITeamView> {
 				box.setAnimationEnabled(true);
 				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText(eventArgs.getTeam().getDescription() + " bearbeiten");
+				box.setText("Team " + eventArgs.getTeam().getDescription() + " bearbeiten");
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
