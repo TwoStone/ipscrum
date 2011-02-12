@@ -3,35 +3,45 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Vector;
 
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Sprint implements ISprint {
 	private String description;
 	private Date begin;
 	private Date end;
-	private Team team;
+	private ITeam team;
 	private final ToReleaseAssoc toReleaseAssoc;
+	private final ToPBIAssoc toPBIAssoc;
 
-	public class ToReleaseAssoc extends BDAManyToMany<Release.ToSprintAssoc, Sprint> {
-
-		public ToReleaseAssoc(Sprint element) {
-			super(element);
-		}
-	}
-
-	public Sprint(Date begin, Date end, Team team) {
+	public Sprint(Date begin, Date end, ITeam team) {
 		super();
 		this.begin = begin;
 		this.end = end;
 		this.team = team;
 		this.toReleaseAssoc = new ToReleaseAssoc(this);
+		this.toPBIAssoc = new ToPBIAssoc(this);
 	}
 
+	@Override
 	public ToReleaseAssoc getToReleaseAssoc() {
 		return toReleaseAssoc;
+	}
+
+	@Override
+	public ToPBIAssoc getToPBIAssoc() {
+		return toPBIAssoc;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
 	}
 
 	@Override
@@ -55,13 +65,50 @@ public class Sprint implements ISprint {
 	}
 
 	@Override
-	public Team getTeam() {
+	public ITeam getTeam() {
 		return team;
 	}
 
 	@Override
-	public void setTeam(Team team) {
+	public void setTeam(ITeam team) {
 		this.team = team;
+	}
+
+	@Override
+	public IRelease getRelease() {
+		return this.getToReleaseAssoc().get().getElement();
+	}
+
+	@Override
+	public Vector<ProductBacklogItem> getPBIs() {
+		Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
+		for (ProductBacklogItem.ToSprintAssoc pbiAcc : toPBIAssoc.getAssociations()) {
+			ret.add(pbiAcc.getElement());
+		}
+		return null;
+	}
+
+	@Override
+	public String getName() {
+		return this.toString();
+	}
+
+	@Override
+	public String toString() {
+		String ret = "Sprint";
+		if (this.getDescription() != null) {
+			ret += " mit " + this.getTeam();
+		}
+		if (this.getTeam() != null) {
+			ret += " mit " + this.getTeam();
+		}
+		if (this.getBegin() != null) {
+			ret += " beginnt am " + this.getBegin();
+		}
+		if (this.getEnd() != null) {
+			ret += " endet am " + this.getEnd();
+		}
+		return ret;
 	}
 
 	@Override
@@ -69,8 +116,11 @@ public class Sprint implements ISprint {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((begin == null) ? 0 : begin.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((end == null) ? 0 : end.hashCode());
 		result = prime * result + ((team == null) ? 0 : team.hashCode());
+		result = prime * result + ((getPBIs() == null) ? 0 : getPBIs().hashCode());
+		result = prime * result + ((getRelease() == null) ? 0 : getRelease().hashCode());
 		return result;
 	}
 
@@ -88,6 +138,11 @@ public class Sprint implements ISprint {
 				return false;
 		} else if (!begin.equals(other.begin))
 			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (end == null) {
 			if (other.end != null)
 				return false;
@@ -98,64 +153,16 @@ public class Sprint implements ISprint {
 				return false;
 		} else if (!team.equals(other.team))
 			return false;
+		if (getRelease() == null) {
+			if (other.getRelease() != null)
+				return false;
+		} else if (!getRelease().equals(other.getRelease()))
+			return false;
+		if (getPBIs() == null) {
+			if (other.getPBIs() != null)
+				return false;
+		} else if (!getPBIs().equals(other.getPBIs()))
+			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		String ret = "Sprint";
-		if (this.getTeam() != null) {
-			ret += " mit " + this.getTeam();
-		}
-		if (this.getBegin() != null) {
-			ret += " beginnt am " + this.getBegin();
-		}
-		if (this.getEnd() != null) {
-			ret += " endet am " + this.getEnd();
-		}
-		return ret;
-	}
-
-	@Override
-	public void setRelease(IRelease release) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public IRelease getRelease() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector<ProductBacklogItem> getPBIs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getName() {
-		return this.toString();
-	}
-
-	@Override
-	public void addPBI(ProductBacklogItem pbi) throws ConsistencyException {
-		// TODO Auto-generated method stub
-
-	} 
-
-	@Override
-	public void removePBI(ProductBacklogItem pbi) throws ConsistencyException {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void setDescription(String description) {
-		this.description = description; 
-	}
-	@Override
-	public String getDescription() {
-		return description; 
 	}
 }
