@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 
@@ -12,7 +12,7 @@ public interface IRelease {
 
 	public abstract Vector<ISprint> getSprints();
 
-	public abstract void addSprint(ISprint sprint) throws NoSprintDefinedException;
+	public abstract void addSprint(ISprint sprint) throws UserException;
 
 	public abstract void removeSprint(ISprint sprint);
 

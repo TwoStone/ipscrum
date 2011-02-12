@@ -7,6 +7,7 @@ import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -19,15 +20,13 @@ import fhdw.ipscrum.shared.observer.Observable;
  */
 public class Release extends Observable implements IRelease {
 
-//	private Vector<ISprint> sprints;
-	// private final Project project;
 	private String version;
 	private Date releaseDate;
 
 	private final ToProjectAssoc projectAssoc;
 	private final ToSprintAssoc sprintAssoc;
 	
-	public class ToSprintAssoc extends BDAManyToMany<BDAManyToMany, Release>{
+	public class ToSprintAssoc extends BDAManyToMany<Sprint.ToReleaseAssoc, Release>{
 		public ToSprintAssoc(Release element) {
 			super(element);
 		}
@@ -96,40 +95,16 @@ public class Release extends Observable implements IRelease {
 	 * @throws NoSprintDefinedException
 	 *             If the sprint wasn't defined within the project.
 	 */
-	public void addSprint(ISprint sprint) throws NoSprintDefinedException {
-//		if (this.project.isSprintDefined(sprint)) {
-//			if (sprint != null && !this.isSprintInList(sprint)) {
-//				sprint.setRelease(this);
-//				this.getSprints().add(sprint);
-//				this.notifyObservers();
-//			} else {
-//				// TODO Textkonstante bauen
-//				// throw new ConsistencyException("");
-//			}
-//		} else {
-//			// TODO Textkonstante bauen
-//			throw new NoSprintDefinedException(
-//					"Nur bereits erstelle Sprints können dem Release zugeordnet werden.");
-//		}
+	public void addSprint(ISprint sprint) throws UserException {
+		this.getProject().isSprintDefined(sprint);
+		this.getSprintAssoc().add(sprint.getToReleaseAssoc());
 	}
-
-//	private boolean isSprintInList(ISprint sprint) {
-//		Iterator<ISprint> i = this.getSprints().iterator();
-//		while (i.hasNext()) {
-//			if (i.next().equals(sprint)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 
 	/**
 	 * Removes the given Sprint from the Release.
 	 */
 	public void removeSprint(ISprint sprint) {
-//		// TODO Reverse beachten
-//		this.getSprints().remove(sprint);
-//		this.notifyObservers();
+		this.getSprintAssoc().remove(sprint.getToReleaseAssoc());
 	}
 
 	public Project getProject() throws ConsistencyException{

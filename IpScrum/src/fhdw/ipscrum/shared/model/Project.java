@@ -6,6 +6,7 @@ import java.util.Vector;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -83,20 +84,19 @@ public class Project extends Observable{
 	}
 
 	/**
-	 * Returns true if the given sprint is currently
-	 * defined within the project else false will be
-	 * returned.
+	 * Check if the sprint is defined within the project!
+	 * Throws an SprintNotDefinedException if not!
 	 * @param sprint
 	 * Sprint for check!
 	 */
-	public boolean isSprintDefined(ISprint sprint){
+	public void isSprintDefined(ISprint sprint) throws NoSprintDefinedException{
 		Iterator<ISprint> i = this.getSprints().iterator();
 		while(i.hasNext()){
 			if(i.next().equals(sprint)){
-				return true;
+				return;
 			}
 		}
-		return false;
+		throw new NoSprintDefinedException("Der angegebene Sprint ist nicht im Projekt definiert!");
 	}
 	
 	
