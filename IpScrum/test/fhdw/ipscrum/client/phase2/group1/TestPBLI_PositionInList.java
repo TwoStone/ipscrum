@@ -60,7 +60,6 @@ public class TestPBLI_PositionInList {
 		assertEquals(item, pbltest.getItems().get(positionOfItemNo2 - 1));
 	}
 
-	
 	/**
 	 * Move Up auf erstes Element der Liste
 	 * @throws Exception
@@ -92,6 +91,63 @@ public class TestPBLI_PositionInList {
 		assertEquals(holder, pbltest.getItems().get(lastPositionInList));
 	}
 	
+	//************************************************************************
+	//************************************************************************
+	
+	@Test
+	public void testMoveTop1() throws Exception {
+		int lastPositionInList = pbltest.getItems().size() - 1;
+		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(lastPositionInList);
+		pbltest.moveTop(item);
+		assertEquals(item, pbltest.getItems().get(0));
+	}
+	
+	@Test
+	public void testMoveTop2() throws Exception {
+		ProductBacklog lvBacklog = pbltest;
+		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
+		pbltest.moveTop(item);
+		assertEquals(lvBacklog, pbltest);
+	}
+	
+	@Test
+	public void testMoveTop3() throws Exception {
+		int lastPositionInList = pbltest.getItems().size() - 1;
+		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(lastPositionInList);
+		ProductBacklogItem item2 = (ProductBacklogItem) pbltest.getItems().get(0);
+		pbltest.moveTop(item);
+		assertEquals(item2, pbltest.getItems().get(1));
+	}
+	
+	@Test
+	public void testMoveBottom1() throws Exception {
+		int lastPositionInList = pbltest.getItems().size() - 1;
+		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
+		pbltest.moveBottom(item);
+		assertEquals(item, pbltest.getItems().get(lastPositionInList));
+	}
+	
+	@Test
+	public void testMoveBottom2() throws Exception {
+		int lastPositionInList = pbltest.getItems().size() - 1;
+		ProductBacklog lvBacklog = pbltest;
+		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(lastPositionInList);
+		pbltest.moveBottom(item);
+		assertEquals(lvBacklog, pbltest);
+	}
+	
+	@Test
+	public void testMoveBottom3() throws Exception {
+		int lastPositionInList = pbltest.getItems().size() - 1;
+		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
+		ProductBacklogItem item2 = (ProductBacklogItem) pbltest.getItems().get(lastPositionInList);
+		pbltest.moveBottom(item);
+		assertEquals(item2, pbltest.getItems().get(lastPositionInList-1));
+	}
+	
+	//************************************************************************
+	//************************************************************************
+	
 	@Test
 	public void testAddPBI() throws Exception {
 		int entriesInList = pbltest.getItems().size();
@@ -107,6 +163,9 @@ public class TestPBLI_PositionInList {
 		
 		assertEquals(entriesInList - 1 , pbltest.getItems().size());
 	}
+	
+	//************************************************************************
+	//************************************************************************
 	
 	@Test
 	public void testCount1() throws Exception {
@@ -125,6 +184,9 @@ public class TestPBLI_PositionInList {
 	
 		assertEquals(4 , lvProject.getBacklog().getItems().size());
 	}
+	
+	//************************************************************************
+	//************************************************************************
 	
 	@Test
 	public void testAddRelease() throws Exception {
@@ -145,6 +207,10 @@ public class TestPBLI_PositionInList {
 			assertEquals(holder, test.getReleasePlan().size());
 		}
 	}
+	
+	
+	//************************************************************************
+	//************************************************************************
 	
 	@Test
 	public void testProjectEquals() throws Exception {
