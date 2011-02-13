@@ -1,11 +1,14 @@
 package fhdw.ipscrum.client.view;
 
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -93,7 +96,7 @@ public class SprintView extends Composite implements ISprintView{
 
 		ScrollPanel scrollPanel = new ScrollPanel();
 		absolutePanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("550px", "200px");
+		scrollPanel.setSize("575px", "200px");
 
 		this.tableSprint = new CellTable<ISprint>();
 
@@ -108,14 +111,40 @@ public class SprintView extends Composite implements ISprintView{
 				SprintView.this.currentlySelected = (Sprint) model.getSelectedObject();
 			}
 		});
-
-		TextColumn<ISprint> beschreibungColumn = new TextColumn<ISprint>() {
-			@Override
-			public String getValue(ISprint sprint) {
-				return sprint.toString();
-			}
-		};
-		this.tableSprint.addColumn(beschreibungColumn, "Beschreibung");
+				
+						TextColumn<ISprint> beschreibungColumn = new TextColumn<ISprint>() {
+							@Override
+							public String getValue(ISprint sprint) {
+								return sprint.getDescription();
+							}
+						};
+						this.tableSprint.addColumn(beschreibungColumn, "Beschreibung");
+				
+				TextColumn teamColumn = new TextColumn<ISprint>() {
+					@Override
+					public String getValue(ISprint sprint) {
+						return sprint.getTeam().getDescription();
+					}
+				};
+				tableSprint.addColumn(teamColumn, "Team");
+				
+				TextColumn startColumn = new TextColumn<ISprint>() {
+					@Override
+					public String getValue(ISprint sprint) {
+						DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");			
+						return fmt.format(sprint.getBegin());
+					}
+				};
+				tableSprint.addColumn(startColumn, "Start");
+				
+				TextColumn endColumn = new TextColumn<ISprint>() {
+					@Override
+					public String getValue(ISprint sprint) {
+						DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");			
+						return fmt.format(sprint.getEnd());
+					}
+				};
+				tableSprint.addColumn(endColumn, "Ende");
 		scrollPanel.setWidget(this.tableSprint);
 		this.tableSprint.setSize("100%", "100%");
 
