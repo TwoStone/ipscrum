@@ -51,7 +51,7 @@ public class SprintView extends Composite implements ISprintView{
 		
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		initWidget(absolutePanel);
-		absolutePanel.setSize("500px", "300px");
+		absolutePanel.setSize("600px", "300px");
 		
 		Label lblSprintUebersicht = new Label("Sprint\u00FCbersicht");
 		lblSprintUebersicht.setStyleName("LabelElement");
@@ -96,7 +96,7 @@ public class SprintView extends Composite implements ISprintView{
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
 		absolutePanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("450px", "200px");
+		scrollPanel.setSize("550px", "200px");
 		
 		tableSprint = new CellTable<ISprint>();
 		

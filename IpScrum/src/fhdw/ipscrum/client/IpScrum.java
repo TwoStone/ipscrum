@@ -1,7 +1,6 @@
 package fhdw.ipscrum.client;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -14,7 +13,6 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Person;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Role;

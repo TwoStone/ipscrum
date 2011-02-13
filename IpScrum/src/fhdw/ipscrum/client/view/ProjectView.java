@@ -35,7 +35,7 @@ public class ProjectView extends Composite implements IProjectView{
 	private final Event<ProjectEventArgs> deleteProjectEvent = new Event<ProjectEventArgs>();
 	private final Event<ProjectEventArgs> projectSelectionEvent = new Event<ProjectEventArgs>();
 //##### Ende ##################
-//##### Temporäre Daten ########
+//##### Temporï¿½re Daten ########
 	private Project currentlySelected;
 //#############################
 	
@@ -46,6 +46,7 @@ public class ProjectView extends Composite implements IProjectView{
 	private CellTable<Project> tableProject;
 	private FlowPanel masterSprintPanel;
 	private FlowPanel masterProductBacklogPanel;
+	private FlowPanel masterProjectPanel;
 	
 	public static IProjectView createView(){
 		return new ProjectView();
@@ -58,31 +59,35 @@ public class ProjectView extends Composite implements IProjectView{
 		absolutePanel.setSize("1000px", "600px");
 		
 		masterSprintProductBackloglPanel = new FlowPanel();
-		absolutePanel.add(masterSprintProductBackloglPanel, 500, 0);
-		masterSprintProductBackloglPanel.setSize("495px", "594px");
+		absolutePanel.add(masterSprintProductBackloglPanel, 400, 0);
+		masterSprintProductBackloglPanel.setSize("600px", "594px");
 		
 		masterSprintPanel = new FlowPanel();
 		masterSprintPanel.setStyleName("box");
-		masterSprintPanel.setSize("495px", "300px");
+		masterSprintPanel.setSize("595px", "300px");
 		masterSprintProductBackloglPanel.add(masterSprintPanel);
 		
 		masterProductBacklogPanel = new FlowPanel();
 		masterProductBacklogPanel.setStyleName("box");
 		masterSprintProductBackloglPanel.add(masterProductBacklogPanel);
-		masterProductBacklogPanel.setSize("495px", "300px");
+		masterProductBacklogPanel.setSize("595px", "300px");
 		
 		FlowPanel masterProductReleasePanel = new FlowPanel();
 		absolutePanel.add(masterProductReleasePanel);
-		masterProductReleasePanel.setSize("495px", "600px");
+		masterProductReleasePanel.setSize("400px", "600px");
+		
+		masterProjectPanel = new FlowPanel();
+		masterProjectPanel.setStyleName("box");
+		masterProductReleasePanel.add(masterProjectPanel);
+		masterProjectPanel.setSize("395px", "300px");
 		
 		AbsolutePanel concreteProjectPanel = new AbsolutePanel();
-		concreteProjectPanel.setStyleName("box");
-		masterProductReleasePanel.add(concreteProjectPanel);
-		concreteProjectPanel.setSize("495px", "300px");
+		masterProjectPanel.add(concreteProjectPanel);
+		concreteProjectPanel.setSize("395px", "300px");
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
 		concreteProjectPanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("450px", "200px");
+		scrollPanel.setSize("350px", "200px");
 		
 		tableProject = new CellTable<Project>();
 		
@@ -112,7 +117,7 @@ public class ProjectView extends Composite implements IProjectView{
 		
 		FlowPanel projectMenuPanel = new FlowPanel();
 		concreteProjectPanel.add(projectMenuPanel, 10, 34);
-		projectMenuPanel.setSize("450px", "25px");
+		projectMenuPanel.setSize("350px", "25px");
 		
 		imgNewProject = new Image("images/newfile.png");
 		imgNewProject.addClickHandler(new ClickHandler() {
@@ -139,7 +144,7 @@ public class ProjectView extends Composite implements IProjectView{
 		masterReleasePanel = new FlowPanel();
 		masterReleasePanel.setStyleName("box");
 		masterProductReleasePanel.add(masterReleasePanel);
-		masterReleasePanel.setSize("495px", "300px");
+		masterReleasePanel.setSize("395px", "300px");
 	}
 
 	

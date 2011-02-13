@@ -53,7 +53,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 
 		AbsolutePanel concreteReleasePanel = new AbsolutePanel();
 		initWidget(concreteReleasePanel);
-		concreteReleasePanel.setSize("500px", "300px");
+		concreteReleasePanel.setSize("400px", "300px");
 
 		lblReleaseuebersicht = new Label("Release\u00FCbersicht");
 		lblReleaseuebersicht.setStyleName("LabelElement");
@@ -100,7 +100,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 
 		scrollPanel = new ScrollPanel();
 		concreteReleasePanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("450px", "200px");
+		scrollPanel.setSize("350px", "200px");
 
 		tableRelease = new CellTable<IRelease>();
 

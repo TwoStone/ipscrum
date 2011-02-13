@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -60,15 +59,15 @@ public class ProductBacklogView extends Composite implements
 		return new ProductBacklogView();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ProductBacklogView() {
 
 		FlowPanel concreteProductBacklogPanel = new FlowPanel();
 		initWidget(concreteProductBacklogPanel);
-		concreteProductBacklogPanel.setSize("500px", "300px");
+		concreteProductBacklogPanel.setSize("600px", "300px");
 
 		AbsolutePanel horizontalPanel = new AbsolutePanel();
-		horizontalPanel.setSize("500px", "300px");
+		horizontalPanel.setSize("600px", "300px");
 		concreteProductBacklogPanel.add(horizontalPanel);
 
 		Label lblProductBacklog = new Label("Product Backlog");
@@ -79,12 +78,12 @@ public class ProductBacklogView extends Composite implements
 
 		lblAktionen = new Label("Aktionen");
 		lblAktionen.setStyleName("LabelElement");
-		horizontalPanel.add(lblAktionen, 422, 10);
+		horizontalPanel.add(lblAktionen, 522, 10);
 		lblAktionen.setSize("59px", "23px");
 
 		scrollPanel = new ScrollPanel();
 		horizontalPanel.add(scrollPanel, 10, 40);
-		scrollPanel.setSize("400px", "250px");
+		scrollPanel.setSize("500px", "250px");
 
 		tableProductbacklog = new CellTable<ProductBacklogItem>();
 
@@ -116,7 +115,7 @@ public class ProductBacklogView extends Composite implements
 			@Override
 			public String getValue(ProductBacklogItem pbi) {
 				if (pbi.getSprint() != null) {
-					return pbi.getSprint().toString();
+					return pbi.getSprint().getDescription();
 				} else {
 					return "-";
 				}
@@ -129,7 +128,7 @@ public class ProductBacklogView extends Composite implements
 			public String getValue(ProductBacklogItem pbi) {
 				if (pbi.getSprint() != null
 						&& pbi.getSprint().getRelease() != null) {
-					return pbi.getSprint().getRelease().toString();
+					return pbi.getSprint().getRelease().getVersion();
 				} else {
 					return "-";
 				}
@@ -143,7 +142,7 @@ public class ProductBacklogView extends Composite implements
 		Grid pbMenu = new Grid(7, 1);
 		pbMenu.setStyleName("box");
 		pbMenu.setCellSpacing(1);
-		horizontalPanel.add(pbMenu, 432, 39);
+		horizontalPanel.add(pbMenu, 540, 40);
 		pbMenu.setSize("50px", "250px");
 
 		imgNewFile = new Image("images/newfile.png");
