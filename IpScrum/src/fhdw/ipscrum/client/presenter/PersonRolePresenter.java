@@ -18,6 +18,7 @@ import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.PersonRoleView;
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -33,7 +34,9 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 	/**
 	 * Constructor for PersonRolePresenter.
-	 * @param parent Panel
+	 * 
+	 * @param parent
+	 *            Panel
 	 */
 	public PersonRolePresenter(Panel parent) {
 		super(parent);
@@ -41,6 +44,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 	/**
 	 * Method createView.
+	 * 
 	 * @return IPersonRoleView
 	 */
 	@Override
@@ -58,23 +62,23 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 	}
 
 	/**
-	 * This method is called to update the GUI with new data.
-	 * TODO auslagern in View wegen Trennung View/Presenter
+	 * This method is called to update the GUI with new data. TODO auslagern in
+	 * View wegen Trennung View/Presenter
 	 */
 	private void updateGuiTables() {
 		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
-	    this.personTable.setRowData(new ArrayList<IPerson>(personSet));
+		this.personTable.setRowData(new ArrayList<IPerson>(personSet));
 
-		this.assignedRoleList.setRowData((this.concreteView.getSelectedPerson() != null) ? new ArrayList<IRole>(this.concreteView.getSelectedPerson().getRoles()) : new Vector<Role>());
+		this.assignedRoleList.setRowData((this.concreteView.getSelectedPerson() != null) ? new ArrayList<IRole>(this.concreteView.getSelectedPerson()
+				.getRoles()) : new Vector<Role>());
 
 		HashSet<IRole> roleSet = SessionManager.getInstance().getModel().getRoles();
 		this.availRoleList.setRowData(new ArrayList<IRole>(roleSet));
 	}
 
-
-
 	/**
-	 * This method is called to set up the algorithms for each button of the GUI.
+	 * This method is called to set up the algorithms for each button of the
+	 * GUI.
 	 */
 	private void setupEventHandlers() {
 
@@ -136,9 +140,15 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 		this.concreteView.defineRemoveRoleFromPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
 			@Override
-			public void onUpdate(Object sender, AssociatePersonAndRoleArgs eventArgs) { // TODO prüfung in view verschieben.
+			public void onUpdate(Object sender, AssociatePersonAndRoleArgs eventArgs) {
+				// TODO prï¿½fung in view verschieben.
 				if (eventArgs != null && eventArgs.getPerson() != null && eventArgs.getRoles().size() > 0) {
-					eventArgs.getPerson().removeRole(eventArgs.getSingleRole());
+					try {
+						eventArgs.getPerson().removeRole(eventArgs.getSingleRole());
+					} catch (ConsistencyException e) {
+						// TODO Wilken: Exception verarbeiten
+						e.printStackTrace();
+					}
 					PersonRolePresenter.this.updateGuiTables();
 				}
 			}
@@ -151,7 +161,12 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 					Iterator<IRole> i = eventArgs.getRoles().iterator();
 					while (i.hasNext()) {
 						IRole current = i.next();
-						eventArgs.getPerson().addRole(current);
+						try {
+							eventArgs.getPerson().addRole(current);
+						} catch (ConsistencyException e) {
+							// TODO Wilken: Exception verarbeiten
+							e.printStackTrace();
+						}
 					}
 				}
 				PersonRolePresenter.this.updateGuiTables();

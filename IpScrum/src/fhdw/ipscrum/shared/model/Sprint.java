@@ -15,11 +15,13 @@ public class Sprint implements ISprint {
 	private final ToReleaseAssoc toReleaseAssoc;
 	private final ToPBIAssoc toPBIAssoc;
 
-	public Sprint(Date begin, Date end, ITeam team) {
+	public Sprint(String description, Date begin, Date end, ITeam team) {
+		// TODO Christin: Patrick wg. Abhängigkeit Projekt fragen
 		super();
-		this.begin = begin;
-		this.end = end;
-		this.team = team;
+		setDescription(description);
+		setBegin(begin);
+		setEnd(end);
+		setTeam(team);
 		this.toReleaseAssoc = new ToReleaseAssoc(this);
 		this.toPBIAssoc = new ToPBIAssoc(this);
 	}
@@ -85,8 +87,8 @@ public class Sprint implements ISprint {
 	@Override
 	public Vector<ProductBacklogItem> getPBIs() {
 		Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
-		for (ProductBacklogItem.ToSprintAssoc pbiAcc : toPBIAssoc.getAssociations()) {
-			ret.add(pbiAcc.getElement());
+		for (ProductBacklogItem.ToSprintAssoc pbiAssocs : toPBIAssoc.getAssociations()) {
+			ret.add(pbiAssocs.getElement());
 		}
 		return ret;
 	}

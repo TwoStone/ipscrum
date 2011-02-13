@@ -1,18 +1,18 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.HashSet;
+import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Team implements ITeam {
 	private String description;
-	private final HashSet<IPerson> members;
+	private final Vector<IPerson> members;
 
 	public Team(String description) {
 		super();
 		this.description = description;
-		this.members = new HashSet<IPerson>();
+		this.members = new Vector<IPerson>();
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class Team implements ITeam {
 	}
 
 	@Override
-	public HashSet<IPerson> getMembers() {
+	public Vector<IPerson> getMembers() {
 		return members;
 	}
 
@@ -41,11 +41,19 @@ public class Team implements ITeam {
 	}
 
 	@Override
+	public String toString() {
+		String ret = "Team";
+		if (!this.getDescription().isEmpty()) {
+			ret += " '" + description + "'";
+		}
+		return ret;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((members == null) ? 0 : members.hashCode());
 		return result;
 	}
@@ -70,14 +78,5 @@ public class Team implements ITeam {
 		} else if (!members.equals(other.members))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		String ret = "Team";
-		if (!this.getDescription().isEmpty()) {
-			ret += " '" + description + "'";
-		}
-		return ret;
 	}
 }

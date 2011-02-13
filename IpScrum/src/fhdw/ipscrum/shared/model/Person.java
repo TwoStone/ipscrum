@@ -1,7 +1,8 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.HashSet;
+import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
@@ -9,13 +10,18 @@ public class Person implements IPerson {
 
 	private String firstname;
 	private String lastname;
-	private final HashSet<IRole> roles;
+	private final ToRoleAssoc toRoleAssoc;
 
 	public Person(String firstname, String lastname) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.roles = new HashSet<IRole>();
+		toRoleAssoc = new ToRoleAssoc(this);
+	}
+
+	@Override
+	public ToRoleAssoc getToRoleAssoc() {
+		return toRoleAssoc;
 	}
 
 	@Override
@@ -39,34 +45,60 @@ public class Person implements IPerson {
 	}
 
 	@Override
-	public HashSet<IRole> getRoles() {
-		return roles;
+	public Vector<IRole> getRoles() {
+		Vector<IRole> ret = new Vector<IRole>();
+		for (IRole.ToPersonAssoc roleAssocs : toRoleAssoc.getAssociations()) {
+			ret.add(roleAssocs.getElement());
+		}
+		return ret;
 	}
 
 	@Override
-	public void addRole(IRole role) {
-		this.getRoles().add(role);
+	public void addRole(IRole role) throws ConsistencyException {
+		if (getRoles().contains(role)) {
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
+		} else {
+			this.getToRoleAssoc().add(role.getToPersonAssoc());
+		}
 	}
 
 	@Override
-	public void removeRole(IRole role) {
-		this.getRoles().remove(role);
+	public void removeRole(IRole role) throws ConsistencyException {
+		if (!getRoles().contains(role)) {
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+		} else {
+			this.getToRoleAssoc().remove(role.getToPersonAssoc());
+		}
+	}
+
+	@Override
+	public String toString() {
+		return this.getFirstname() + " " + this.getLastname();
 	}
 
 	@Override
 	public int hashCode() {
+		int result = this.indirectHashCode();
 		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result
-				+ ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
+		result = prime * result + ((toRoleAssoc == null) ? 0 : toRoleAssoc.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
+		if (!indirectEquals(obj))
+			return false;
+		Person other = (Person) obj;
+		if (toRoleAssoc == null) {
+			if (other.toRoleAssoc != null)
+				return false;
+		} else if (!toRoleAssoc.equals(other.toRoleAssoc))
+			return false;
+		return true;
+	}
+
+	@Override
+	public boolean indirectEquals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -84,16 +116,16 @@ public class Person implements IPerson {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (roles == null) {
-			if (other.roles != null)
-				return false;
-		} else if (!roles.equals(other.roles))
-			return false;
 		return true;
+
 	}
 
 	@Override
-	public String toString() {
-		return this.getFirstname() + " " + this.getLastname();
+	public int indirectHashCode() {
+		int result = 1;
+		final int prime = 31;
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		return result;
 	}
 }
