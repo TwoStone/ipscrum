@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.constants;
 
 
+
+
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -36,5 +38,16 @@ public final class TextConstants {
 	public static final String NAV_PERSONROLEMANAGEMENT = "Personen-Stammdaten";
 	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
 	public static final String NAV_SAVEMODELDATA = "Speichern";
+
+	public static final String TEAMVIEW_TEAMTABLEHEADER = "Teams";
+	public static final String TEAMVIEW_BUTTONLABEL_CREATENEWTEAM = "Neues Team anlegen";
+	public static final String TEAMVIEW_BUTTONLABEL_MODIFYTEAM = "Team Bearbeiten";
+	public static final String TEAMVIEW_PERSONTABLEHEADER = "Verf\u00FCgbare Personen";
+	public static final String TEAMVIEW_FIRSTNAMEHEADER = "Vorname";
+	public static final String TEAMVIEW_LASTNAMEHEADER = "Nachname";
+	public static final String TEAMVIEW_ROLESHEADER = "Rolle(n)";
+	public static final String TEAMVIEW_BUTTONLABEL_REMOVEPERSONFROMTEAM = "->";
+	public static final String TEAMVIEW_BUTTONLABEL_ASSIGNPERSONTOTEAM = "<-";
+	public static final String TEAMVIEW_DIALOGTITLE_NEWTEAM = "Neues Team anlegen";
 
 }

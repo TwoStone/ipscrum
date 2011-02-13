@@ -11,10 +11,13 @@ import fhdw.ipscrum.client.events.args.PersonTeamArgs;
 import fhdw.ipscrum.client.view.TeamView;
 import fhdw.ipscrum.client.view.interfaces.ITeamView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
+ * presenter class of the team interface.
+ * this interface is used to inspect, create and modify teams as well as adding and removing persons to teams.
  */
 public class TeamPresenter extends Presenter<ITeamView> {
 
@@ -42,6 +45,9 @@ public class TeamPresenter extends Presenter<ITeamView> {
 	}
 
 
+	/**
+	 * this is called to update or fill the entries in the gui-tables/tree-display.
+	 */
 	private void updateGuiData() {
 		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
 		this.concreteView.updatePersonTableData(personSet);
@@ -51,6 +57,9 @@ public class TeamPresenter extends Presenter<ITeamView> {
 
 	}
 
+	/**
+	 * this is called to set up the behaviour of all interaction widgets of this view.
+	 */
 	private void setupEventHandlers() {
 
 		this.concreteView.defineNewTeamEvent(new EventHandler<EventArgs>() {
@@ -61,7 +70,7 @@ public class TeamPresenter extends Presenter<ITeamView> {
 				box.setAnimationEnabled(true);
 				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText("Neues Team anlegen");
+				box.setText(TextConstants.TEAMVIEW_DIALOGTITLE_NEWTEAM);
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
@@ -128,9 +137,5 @@ public class TeamPresenter extends Presenter<ITeamView> {
 				}
 			}
 		});
-
-
 	}
-
-
 }
