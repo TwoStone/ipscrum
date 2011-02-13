@@ -156,7 +156,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 						try {
 							eventArgs.getPerson().addRole(current);
 						} catch (ConsistencyException e) {
-							Window.alert(e.getMessage());
+							// This error is not severe. The user will notice that the role he wants to add is already in posession of the selected user.
 						}
 					}
 				}
