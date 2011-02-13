@@ -22,9 +22,11 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintDetailArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
+ * This view is used as a dialog box for creating or modifying sprints.
  */
 public class SprintDialogView extends Composite implements ISprintDialogView {
 
@@ -58,7 +60,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		datePanel.add(startDatePanel);
 		startDatePanel.setSize("180px", "");
 
-		Label lblStarttermin = new Label("Starttermin");
+		Label lblStarttermin = new Label(TextConstants.SPRINTDIALOG_STARTDATE);
 		startDatePanel.add(lblStarttermin);
 
 		this.start = new DateBox();
@@ -68,7 +70,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		datePanel.add(endDatePanel);
 		endDatePanel.setWidth("140px");
 
-		Label lblEndtermin = new Label("Endtermin");
+		Label lblEndtermin = new Label(TextConstants.SPRINTDIALOG_ENDDATE);
 		endDatePanel.add(lblEndtermin);
 
 		this.end = new DateBox();
@@ -86,7 +88,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		teamZuordnenPanel.add(teamPanel);
 		teamPanel.setSize("180px", "60px");
 
-		Label lblZugeordnetesTeam = new Label("Zugeordnetes Team:");
+		Label lblZugeordnetesTeam = new Label(TextConstants.SPRINTDIALOG_CHOSENTEAM);
 		teamPanel.add(lblZugeordnetesTeam);
 
 		this.teams = new ListBox();
@@ -98,7 +100,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		teamZuordnenPanel.add(beschreibungPanel);
 		beschreibungPanel.setSize("140px", "60px");
 
-		Label lblBeschreibung = new Label("Beschreibung:");
+		Label lblBeschreibung = new Label(TextConstants.SPRINTDIALOG_DESCRIPTION);
 		beschreibungPanel.add(lblBeschreibung);
 
 		this.description = new TextArea();
@@ -140,16 +142,25 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#getSelectedTeam()
+	 */
 	@Override
 	public ITeam getSelectedTeam() {
 		return this.indexToTeamMap.get(this.teams.getSelectedIndex());
 	}
 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#setSelectedTeam(fhdw.ipscrum.shared.model.interfaces.ITeam)
+	 */
 	@Override
 	public void setSelectedTeam(ITeam team) {
 		this.teams.setSelectedIndex(this.teamToIndexMap.get(team));
 	}
 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#fillComboBoxTeams(java.util.ArrayList)
+	 */
 	@Override
 	public void fillComboBoxTeams(ArrayList<ITeam> teamList) {
 		this.teams.clear();
@@ -160,40 +171,43 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		}
 	}
 
-	/**
-	 * Method addOkHandler.
-	 * @param args EventHandler<SprintArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addOkHandler(EventHandler<SprintArgs>)
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addOkHandler(fhdw.ipscrum.client.events.EventHandler)
 	 */
 	@Override
 	public void addOkHandler(EventHandler<SprintDetailArgs> args) {
 		this.okEvent.add(args);
 	}
 
-	/**
-	 * Method addCancelHandler.
-	 * @param args EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addCancelHandler(EventHandler<EventArgs>)
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addCancelHandler(fhdw.ipscrum.client.events.EventHandler)
 	 */
 	@Override
 	public void addCancelHandler(EventHandler<EventArgs> args) {
 		this.cancelEvent.add(args);
 	}
 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#setStart(java.util.Date)
+	 */
 	@Override
 	public void setStart(Date startDate) {
 		this.start.setValue(startDate);
 	}
 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#setEnd(java.util.Date)
+	 */
 	@Override
 	public void setEnd(Date endDate) {
 		this.end.setValue(endDate);
 	}
 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#setDescription(java.lang.String)
+	 */
 	@Override
 	public void setDescription(String description) {
 		this.description.setText(description);
 	}
-
-
 }

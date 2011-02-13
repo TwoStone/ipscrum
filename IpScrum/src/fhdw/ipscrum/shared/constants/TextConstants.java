@@ -54,4 +54,11 @@ public final class TextConstants {
 	public static final String DIALOGBOX_OK = "OK";
 	public static final String DIALOGBOX_CANCEL = "ABBRECHEN";
 
+	public static final String SPRINTDIALOG_STARTDATE = "Starttermin";
+	public static final String SPRINTDIALOG_ENDDATE = "Endtermin";
+	public static final String SPRINTDIALOG_CHOSENTEAM = "Zugeordnetes Teams:";
+	public static final String SPRINTDIALOG_DESCRIPTION = "Beschreibung:";
+
+
+
 }

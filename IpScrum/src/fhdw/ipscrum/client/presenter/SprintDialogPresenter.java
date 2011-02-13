@@ -29,7 +29,6 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * Required for making new sprints
 	 * 
 	 * @param parent Panel
-	 * 
 	 */
 	public SprintDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -42,7 +41,6 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * 
 	 * @param parent Panel
 	 * @param sprint ISprint
-	 * 
 	 */
 	public SprintDialogPresenter(Panel parent, ISprint sprint) {
 		super(parent);
@@ -57,7 +55,6 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 * 
 	 * @return ISprintDialogView
-	 * 
 	 */
 	@Override
 	protected ISprintDialogView createView() {
