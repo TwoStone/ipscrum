@@ -13,7 +13,8 @@ public interface ICreateProjectView extends IView{
 	
 	/**
 	 * Method addSaveProjectHandler
-	 * Use this to register a handler for a new project event
+	 * Use this to register a handler for an event 
+	 * which creates a new project
 	 * @param args from Type {@link EventHandler<EventArgs>}
 	 */
 	public abstract void addSaveProjectHandler(EventHandler<EventArgs> args);
@@ -28,6 +29,7 @@ public interface ICreateProjectView extends IView{
 	
 	/**
 	 * Method setProjectName
+	 * Sets the name of the project
 	 * @param name String
 	 */
 	public abstract void setProjectName(String name);
@@ -35,7 +37,9 @@ public interface ICreateProjectView extends IView{
 	
 	/**
 	 * Method addCancelCreateProjectHandler
-	 * @param args EventHandler<EventArgs>
+	 * Use this to register a handler for an event 
+	 * which cancels the creation of a new project
+	 * @param args from Type {@link EventHandler<EventArgs>}
 	 */
 	public abstract void addCancelCreateProjectHandler(EventHandler<EventArgs> args);
 	
