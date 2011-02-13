@@ -174,8 +174,6 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-		+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
-		result = prime * result
 		+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -184,14 +182,11 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = this.indirectHashCode();
 		result = prime * result
 				+ ((backlogAssoc == null) ? 0 : backlogAssoc.hashCode());
 		result = prime * result
 				+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
-		result = prime * result
-				+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
 				+ ((sprintAssoc == null) ? 0 : sprintAssoc.hashCode());
 		return result;

@@ -132,14 +132,11 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = this.indirectHashCode();
 		result = prime * result
 				+ ((projectAssoc == null) ? 0 : projectAssoc.hashCode());
 		result = prime * result
-				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
-		result = prime * result
 				+ ((sprintAssoc == null) ? 0 : sprintAssoc.hashCode());
-		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
 
@@ -167,34 +164,22 @@ public class Release extends Observable implements IRelease {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if(!this.indirectEquals(obj)){
+			return false;
+		}else{
+			Release other = (Release) obj;
+			if (projectAssoc == null) {
+				if (other.projectAssoc != null)
+					return false;
+			} else if (!projectAssoc.equals(other.projectAssoc))
+				return false;
+			if (sprintAssoc == null) {
+				if (other.sprintAssoc != null)
+					return false;
+			} else if (!sprintAssoc.equals(other.sprintAssoc))
+				return false;
 			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Release other = (Release) obj;
-		if (projectAssoc == null) {
-			if (other.projectAssoc != null)
-				return false;
-		} else if (!projectAssoc.equals(other.projectAssoc))
-			return false;
-		if (releaseDate == null) {
-			if (other.releaseDate != null)
-				return false;
-		} else if (!releaseDate.equals(other.releaseDate))
-			return false;
-		if (sprintAssoc == null) {
-			if (other.sprintAssoc != null)
-				return false;
-		} else if (!sprintAssoc.equals(other.sprintAssoc))
-			return false;
-		if (version == null) {
-			if (other.version != null)
-				return false;
-		} else if (!version.equals(other.version))
-			return false;
-		return true;
+		}
 	}
 
 	

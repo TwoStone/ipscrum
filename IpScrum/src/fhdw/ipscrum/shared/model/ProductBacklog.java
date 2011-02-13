@@ -15,9 +15,8 @@ import fhdw.ipscrum.shared.observer.Observable;
  */
 public class ProductBacklog extends Observable implements BDACompare{
 
-	private final Project project;
-	
 	private final ToPBIAssoc assoc;
+	private final ToProjectAssoc projectAssoc;
 	
 	class ToPBIAssoc extends BDAManyToMany<ProductBacklogItem.ToBacklogAssoc, ProductBacklog>{
 		public ToPBIAssoc(ProductBacklog element) {
@@ -25,8 +24,18 @@ public class ProductBacklog extends Observable implements BDACompare{
 		}
 	}
 	
+	class ToProjectAssoc extends BDAManyToMany<Project.ToBacklogAssoc, ProductBacklog> {
+		public ToProjectAssoc(ProductBacklog element) {
+			super(element);
+		}
+	}
+	
 	protected ToPBIAssoc getAssoc() {
 		return assoc;
+	}
+	
+	protected ToProjectAssoc getProjectAssoc() {
+		return projectAssoc;
 	}
 
 	/**
@@ -39,7 +48,7 @@ public class ProductBacklog extends Observable implements BDACompare{
 	 */
 	protected ProductBacklog(Project project) {
 		super();
-		this.project = project;
+		this.projectAssoc = new ToProjectAssoc(this);
 		this.assoc = new ToPBIAssoc(this);
 	}
 	
@@ -137,7 +146,11 @@ public class ProductBacklog extends Observable implements BDACompare{
 	}
 
 	public Project getProject() {
-		return project;
+		if(this.getProjectAssoc().get()!=null){
+			return this.getProjectAssoc().get().getElement();
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -149,7 +162,7 @@ public class ProductBacklog extends Observable implements BDACompare{
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		result = prime * result;
 		return result;
 	}
 	
@@ -158,47 +171,33 @@ public class ProductBacklog extends Observable implements BDACompare{
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((assoc == null) ? 0 : assoc.hashCode());
-		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		result = prime * result + ((projectAssoc == null) ? 0 : projectAssoc.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean indirectEquals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductBacklog other = (ProductBacklog) obj;
-		if (project == null) {
-			if (other.project != null)
-				return false;
-		} else if (!project.equals(other.project))
-			return false;
-		return true;
+		return super.equals(obj);
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if(!this.indirectEquals(obj)){
+			return false;
+		}else{
+			ProductBacklog other = (ProductBacklog) obj;
+			if (assoc == null) {
+				if (other.assoc != null)
+					return false;
+			} else if (!assoc.equals(other.assoc))
+				return false;
+			if (projectAssoc == null) {
+				if (other.projectAssoc != null)
+					return false;
+			} else if (!projectAssoc.equals(other.projectAssoc))
+				return false;
 			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductBacklog other = (ProductBacklog) obj;
-		if (assoc == null) {
-			if (other.assoc != null)
-				return false;
-		} else if (!assoc.equals(other.assoc))
-			return false;
-		if (project == null) {
-			if (other.project != null)
-				return false;
-		} else if (!project.equals(other.project))
-			return false;
-		return true;
+		}
 	}
 
 	/**
