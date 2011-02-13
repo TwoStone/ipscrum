@@ -59,12 +59,11 @@ public class RootPresenter extends Presenter<IRootView> {
 		this.concreteView.defineLogoutEvent(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				RootPresenter.this.concreteView.activateLogin();
 				RootPresenter.this.concreteView.getContentPanel().clear();
+				RootPresenter.this.initUserList();
+				RootPresenter.this.concreteView.activateLogin();
 			}
 		});
 	}
-
-
 
 }

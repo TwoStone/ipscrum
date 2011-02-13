@@ -80,6 +80,7 @@ public class RootView extends Composite implements IRootView {
 	 */
 	@Override
 	public void fillComboBoxUsers(ArrayList<IPerson> tempUserList) {
+		this.comboBoxUsers.clear();
 		for (int i = 0; i < tempUserList.size(); i++) {
 			this.comboBoxUsers.addItem(tempUserList.get(i).toString());
 			this.userMap.put(i, tempUserList.get(i));
