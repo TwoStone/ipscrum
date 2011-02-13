@@ -3,8 +3,9 @@ package fhdw.ipscrum.client.view.interfaces;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 
+
 /**
- * @author Manu
+ * @author Phase II / Gruppe I
  *
  */
 public interface ICreateProjectView extends IView{
