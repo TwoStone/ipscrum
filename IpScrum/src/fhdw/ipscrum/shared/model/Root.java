@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
 import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -16,8 +17,7 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
  * additionally used for storing project independent data like teams, persons
  * and roles.
  */
-public class Root extends Observable implements SerializationRoot,
-		HasRelationTypeManager {
+public class Root extends Observable implements SerializationRoot, HasRelationTypeManager {
 
 	private Vector<Project> projects;
 	private HashSet<IPerson> persons;
@@ -126,10 +126,17 @@ public class Root extends Observable implements SerializationRoot,
 
 	/**
 	 * Removes the given role. TODO Check Consistency
+	 * 
+	 * @throws ConsistencyException
 	 */
-	public void removeRole(final IRole role) {
-		this.getRoles().remove(role);
-		this.notifyObservers();
+	public void removeRole(final IRole role) throws ConsistencyException {
+		Vector<IPerson> p = role.getPersons();
+		if (p == null || p.isEmpty()) {
+			this.getRoles().remove(role);
+			this.notifyObservers();
+		} else {
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+		}
 	}
 
 	/**
@@ -156,18 +163,10 @@ public class Root extends Observable implements SerializationRoot,
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((this.getPersons() == null) ? 0 : this.getPersons()
-						.hashCode());
-		result = prime
-				* result
-				+ ((this.getProjects() == null) ? 0 : this.getProjects()
-						.hashCode());
-		result = prime * result
-				+ ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
-		result = prime * result
-				+ ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
+		result = prime * result + ((this.getPersons() == null) ? 0 : this.getPersons().hashCode());
+		result = prime * result + ((this.getProjects() == null) ? 0 : this.getProjects().hashCode());
+		result = prime * result + ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
+		result = prime * result + ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
 		return result;
 	}
 
