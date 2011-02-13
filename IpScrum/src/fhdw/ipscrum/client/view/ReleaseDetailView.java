@@ -49,11 +49,11 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 		
 		AbsolutePanel flowPanel = new AbsolutePanel();
 		initWidget(flowPanel);
-		flowPanel.setSize("500px", "500px");
+		flowPanel.setSize("600px", "500px");
 		
 		scrollPanel = new ScrollPanel();
-		flowPanel.add(scrollPanel, 50, 45);
-		scrollPanel.setSize("400px", "400px");
+		flowPanel.add(scrollPanel, 10, 45);
+		scrollPanel.setSize("580px", "400px");
 		
 		tableReleaseDetail = new CellTable<ISprint>();
 		
@@ -78,6 +78,14 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 		};
 		tableReleaseDetail.addColumn(descriptionColumn, "Beschreibung");
 		
+		TextColumn teamColumn = new TextColumn<ISprint>() {
+			@Override
+			public String getValue(ISprint sprint) {
+				return sprint.getTeam().getDescription();
+			}
+		};
+		tableReleaseDetail.addColumn(teamColumn, "Team");
+		
 		Column<ISprint, ?> startColumn = new Column<ISprint, Date>(new DateCell()) {
 			@Override
 			public Date getValue(ISprint sprint) {
@@ -93,14 +101,6 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 			}
 		};
 		tableReleaseDetail.addColumn(endeColumn, "Ende");
-		
-		TextColumn teamColumn = new TextColumn<ISprint>() {
-			@Override
-			public String getValue(ISprint sprint) {
-				return sprint.getTeam().getDescription();
-			}
-		};
-		tableReleaseDetail.addColumn(teamColumn, "Team");
 		scrollPanel.setWidget(tableReleaseDetail);
 		tableReleaseDetail.setSize("100%", "100%");
 		
