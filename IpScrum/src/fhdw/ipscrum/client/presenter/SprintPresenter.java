@@ -60,10 +60,9 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
+						project.addSprint(presenter.getSprint());
 						SprintPresenter.this.initialize();
 						box.hide();
-						Window.alert("TODO im SprintPresenter beachten!");
-						//TODO presenter.getSprint() anhängen!
 					}
 				});
 
