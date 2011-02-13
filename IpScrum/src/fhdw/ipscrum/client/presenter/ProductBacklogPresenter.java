@@ -16,10 +16,20 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 
+/**
+ * Presenter for {@link ProductBacklog}
+ * 
+ */
 public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 	private final Project project;
 
+	/**
+	 * Creates a new instance of {@link ProductBacklogPresenter}
+	 * 
+	 * @param parent
+	 * @param project
+	 */
 	public ProductBacklogPresenter(final Panel parent, final Project project) {
 		super(parent);
 		this.project = project;
@@ -28,8 +38,11 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 	@Override
 	protected IProductBacklogView createView() {
+		
+		// Creates a new instance of a ProductBacklogView
 		final IProductBacklogView view = new ProductBacklogView();
 
+		// Event for a creating a new ProductBacklogItem
 		view.addNewPBIEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -151,7 +164,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				}
 			}
 		});
-		
+
 		view.addPBIUpEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -162,7 +175,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 							pbi);
 					view.refreshProductBacklog(ProductBacklogPresenter.this.project
 							.getBacklog().getItems());
-				}				
+				}
 			}
 		});
 
@@ -178,27 +191,30 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 							.getBacklog().getItems());
 				}
 			}
-			
+
 		});
-		
+
 		view.addPBIBottomEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
-					ProductBacklogPresenter.this.project.getBacklog().moveBottom(
-							pbi);
+					ProductBacklogPresenter.this.project.getBacklog()
+							.moveBottom(pbi);
 					view.refreshProductBacklog(ProductBacklogPresenter.this.project
 							.getBacklog().getItems());
 				}
 			}
-			
+
 		});
-		
+
 		return view;
 	}
 
+	/**
+	 * Fills the cellTable of {@link ProductBacklogView} with the items of the Backlog
+	 */
 	private void initialize() {
 		if (this.project.getBacklog() != null) {
 			this.getView().refreshProductBacklog(

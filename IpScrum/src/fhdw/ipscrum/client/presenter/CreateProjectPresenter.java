@@ -15,8 +15,18 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Project;
 
+/**
+ * Presenter for creating new @link projects
+ * 
+ * @author Manu
+ * 
+ */
 public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 
+	/**
+	 * Creates a new instance of {@link CreateProjectPresenter}
+	 * @param parent
+	 */
 	public CreateProjectPresenter(Panel parent) {
 		super(parent);
 	}
@@ -24,14 +34,15 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 	@Override
 	protected ICreateProjectView createView() {
 		final ICreateProjectView view = new CreateProjectView();
-		
+
 		view.addSaveProjectHandler(new EventHandler<EventArgs>() {
-			
+
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				try {
 					try {
-						SessionManager.getInstance().getModel().addProject(new Project(view.getProjectName()));
+						SessionManager.getInstance().getModel()
+								.addProject(new Project(view.getProjectName()));
 					} catch (ConsistencyException e) {
 						GwtUtils.displayError(e.getMessage());
 					}
@@ -41,23 +52,23 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 				}
 			}
 		});
-	
+
 		view.addCancelCreateProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-			
+
 				new AbortDialog(new OnOkayCommand() {
-					
+
 					@Override
 					public void onExecute() {
 						CreateProjectPresenter.this.abort();
 					}
 				});
-				
+
 			}
 		});
-		
+
 		return view;
 	}
 }

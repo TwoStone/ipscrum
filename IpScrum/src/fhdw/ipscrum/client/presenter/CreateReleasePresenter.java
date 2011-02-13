@@ -13,49 +13,62 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 
+/**
+ * Presenter for creating new Releases
+ * 
+ * @author Manu
+ *
+ */
 public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 
 	Project project;
-	
+
+	/**
+	 * Creates a new Instance of {@link CreateReleasePresenter}
+	 * 
+	 * @param parent
+	 * @param project
+	 */
 	public CreateReleasePresenter(Panel parent, Project project) {
 		super(parent);
-	this.project = project;
+		this.project = project;
 	}
 
 	@Override
 	protected ICreateReleaseView createView() {
 		final ICreateReleaseView view = new CreateReleaseView();
-		
-		
-		view.addSaveVersionHandler(new EventHandler<EventArgs>(){
+
+		view.addSaveVersionHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				try {
-					CreateReleasePresenter.this.project.addRelease(new Release(view.getReleaseVersion(),view.getDateBox().getValue(), project));
+					CreateReleasePresenter.this.project.addRelease(new Release(
+							view.getReleaseVersion(), view.getDateBox()
+									.getValue(), project));
 				} catch (DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				}
 				finish();
 			}
-		
+
 		});
-	
+
 		view.addCancelCreateReleaseHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				new AbortDialog(new OnOkayCommand() {
-					
+
 					@Override
 					public void onExecute() {
-						CreateReleasePresenter.this.abort();						
+						CreateReleasePresenter.this.abort();
 					}
 				});
-				
+
 			}
 		});
-		
+
 		return view;
 	}
 }
