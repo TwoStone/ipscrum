@@ -147,9 +147,8 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 		flowPanel.add(btnSprintDelete, 194, 462);
 		btnSprintDelete.setSize("150px", "28px");
 	}
-	private ScrollPanel getScrollPanel() {
-		return scrollPanel;
-	}
+
+	
 	@Override
 	public void addAddSprintEventHandler(EventHandler<EventArgs> arg) {
 	addSprintEvent.add(arg);	
