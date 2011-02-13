@@ -70,7 +70,7 @@ public class TeamPresenter extends Presenter<ITeamView> {
 				box.setAnimationEnabled(true);
 				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText(TextConstants.TEAMVIEW_DIALOGTITLE_NEWTEAM);
+				box.setText(TextConstants.TEAMDIALOG_TITLE_CREATE);
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override

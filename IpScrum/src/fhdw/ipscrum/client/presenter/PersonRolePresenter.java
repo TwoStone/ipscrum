@@ -1,12 +1,9 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 
-import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
@@ -19,25 +16,23 @@ import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.PersonRoleView;
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.model.Role;
+import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 /**
+ * Presenter for PersonRoleView. PRView is intended to be a central management console for persons and roles.
+ * It provides controls for creating, modifying and deleting persons and roles as well associate roles to persons or remove associations.
  */
 public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 
 	private IPersonRoleView concreteView;
-	private CellTable<IPerson> personTable;
-	private CellList<IRole> assignedRoleList;
-	private CellList<IRole> availRoleList;
 
 	/**
 	 * Constructor for PersonRolePresenter.
-	 * 
-	 * @param parent
-	 *            Panel
+	 * @param parent Panel
 	 */
 	public PersonRolePresenter(Panel parent) {
 		super(parent);
@@ -51,35 +46,33 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 	@Override
 	protected IPersonRoleView createView() {
 		this.concreteView = new PersonRoleView();
-		this.personTable = this.concreteView.getCellTablePersons();
-		this.assignedRoleList = this.concreteView.getCellListAssignedRoles();
-		this.availRoleList = this.concreteView.getCellListRoles();
 
 		this.updateGuiTables();
-
 		this.setupEventHandlers();
 
 		return this.concreteView;
 	}
 
 	/**
-	 * This method is called to update the GUI with new data. TODO auslagern in
-	 * View wegen Trennung View/Presenter
+	 * This method is called to update or fill the GUI with the model-data.
 	 */
 	private void updateGuiTables() {
 		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
-		this.personTable.setRowData(new ArrayList<IPerson>(personSet));
+		this.concreteView.updatePersonTable(personSet);
 
-		this.assignedRoleList.setRowData((this.concreteView.getSelectedPerson() != null) ? new ArrayList<IRole>(this.concreteView.getSelectedPerson()
-				.getRoles()) : new Vector<Role>());
+		Person selPerson = this.concreteView.getSelectedPerson();
+		if (selPerson != null) {
+			this.concreteView.updateAssignedRoles(selPerson.getRoles());
+		} else {
+			this.concreteView.updateAssignedRoles(new Vector<IRole>());
+		}
 
 		HashSet<IRole> roleSet = SessionManager.getInstance().getModel().getRoles();
-		this.availRoleList.setRowData(new ArrayList<IRole>(roleSet));
+		this.concreteView.updateAvailRoleList(roleSet);
 	}
 
 	/**
-	 * This method is called to set up the algorithms for each button of the
-	 * GUI.
+	 * This method is called to set up the algorithms for each button of the GUI.
 	 */
 	private void setupEventHandlers() {
 
@@ -91,7 +84,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 				box.setAnimationEnabled(true);
 				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText("Neue Person anlegen");
+				box.setText(TextConstants.PERSONDIALOG_TITLE_CREATE);
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
@@ -179,7 +172,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 				box.setAnimationEnabled(true);
 				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText("Neue Rolle anlegen");
+				box.setText(TextConstants.ROLEDIALOG_TITLE_CREATE);
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override

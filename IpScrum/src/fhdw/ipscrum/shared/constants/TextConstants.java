@@ -39,6 +39,7 @@ public final class TextConstants {
 	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
 	public static final String NAV_SAVEMODELDATA = "Speichern";
 
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */ // TODO sinnlos?
 	public static final String TEAMVIEW_TEAMTABLEHEADER = "Teams";
 	public static final String TEAMVIEW_BUTTONLABEL_CREATENEWTEAM = "Neues Team anlegen";
 	public static final String TEAMVIEW_BUTTONLABEL_MODIFYTEAM = "Team Bearbeiten";
@@ -48,20 +49,32 @@ public final class TextConstants {
 	public static final String TEAMVIEW_ROLESHEADER = "Rolle(n)";
 	public static final String TEAMVIEW_BUTTONLABEL_REMOVEPERSONFROMTEAM = "->";
 	public static final String TEAMVIEW_BUTTONLABEL_ASSIGNPERSONTOTEAM = "<-";
-	public static final String TEAMVIEW_DIALOGTITLE_NEWTEAM = "Neues Team anlegen";
-	public static final String TEAMVIEW_DIALOG_TEAMNAME = "Teambezeichnung";
 
 	public static final String DIALOGBOX_OK = "OK";
 	public static final String DIALOGBOX_CANCEL = "ABBRECHEN";
-
+	public static final String TEAMDIALOG_TITLE_CREATE = "Neues Team anlegen";
+	public static final String TEAMDIALOG_TEAMNAME = "Teambezeichnung";
 	public static final String SPRINTDIALOG_STARTDATE = "Starttermin";
 	public static final String SPRINTDIALOG_ENDDATE = "Endtermin";
 	public static final String SPRINTDIALOG_CHOSENTEAM = "Zugeordnetes Teams:";
 	public static final String SPRINTDIALOG_DESCRIPTION = "Beschreibung:";
+	public static final String ROLEDIALOG_TITLE_CREATE = "Neue Rolle anlegen";
 	public static final String ROLEDIALOG_DESCRIPTION = "Rollenbezeichnung";
+	public static final String PERSONDIALOG_TITLE_CREATE = "Neue Person anlegen";
 	public static final String PERSONDIALOG_FIRSTNAME = "Vorname";
 	public static final String PERSONDIALOG_LASTNAME = "Nachname";
 
+	public static final String PERSROLEMNGMT_PERSONTABLE_HEADER = "Personen";
+	public static final String PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME = "Vorname";
+	public static final String PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME = "Nachname";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON = "Neue Person anlegen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON = "Editieren";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_REMOVEROLEFROMPERSON = "->";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON = "<-";
+	public static final String PERSROLEMNGMT_ROLELIST_HEADER = "Rollen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Neue Rolle anlegen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Entfernen";
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
 
 
 }

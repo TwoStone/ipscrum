@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.view;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,12 +30,15 @@ import fhdw.ipscrum.client.events.args.AssociatePersonAndRoleArgs;
 import fhdw.ipscrum.client.events.args.MultipleRoleArgs;
 import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 /**
+ * This view is intended to be a central management console for persons and roles.
+ * It provides controls for creating, modifying and deleting persons and roles as well associate roles to persons or remove associations.
  */
 public class PersonRoleView extends Composite implements IPersonRoleView {
 	private CellTable<IPerson> cellTablePersons;
@@ -56,7 +60,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		horizontalPanel.add(verticalPanel);
 
-		Label lblPersonen = new Label("Personen");
+		Label lblPersonen = new Label(TextConstants.PERSROLEMNGMT_PERSONTABLE_HEADER);
 		verticalPanel.add(lblPersonen);
 
 		HorizontalPanel horizontalPanelPersonRoles = new HorizontalPanel();
@@ -68,11 +72,11 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		scrollPanelPersons.setSize("300px", "400px");
 		horizontalPanelPersonRoles.add(scrollPanelPersons);
 
-		cellTablePersons = new CellTable<IPerson>();
-		scrollPanelPersons.setWidget(cellTablePersons);
-		cellTablePersons.setSize("100%", "100%");
+		this.cellTablePersons = new CellTable<IPerson>();
+		scrollPanelPersons.setWidget(this.cellTablePersons);
+		this.cellTablePersons.setSize("100%", "100%");
 		final SingleSelectionModel<IPerson> selModelPersons = new SingleSelectionModel<IPerson>();
-		cellTablePersons.setSelectionModel(selModelPersons);
+		this.cellTablePersons.setSelectionModel(selModelPersons);
 
 		TextColumn<IPerson> colFirstname = new TextColumn<IPerson>() {
 			@Override
@@ -80,7 +84,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 				return object.getFirstname();
 			}
 		};
-		cellTablePersons.addColumn(colFirstname, "Vorname");
+		this.cellTablePersons.addColumn(colFirstname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME);
 
 		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
 			@Override
@@ -88,9 +92,9 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 				return object.getLastname();
 			}
 		};
-		cellTablePersons.addColumn(colLastname, "Nachname");
+		this.cellTablePersons.addColumn(colLastname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME);
 
-		cellTablePersons.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.cellTablePersons.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				PersonRoleView.this.cellListAssignedRoles.setRowData(new ArrayList<IRole>(PersonRoleView.this.getSelectedPerson().getRoles()));
@@ -99,33 +103,33 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 
 		RoleCell roleCellAssignedRoles = new RoleCell();
-		cellListAssignedRoles = new CellList<IRole>(roleCellAssignedRoles);
-		cellListAssignedRoles.setStyleName("tableBorder");
-		horizontalPanelPersonRoles.add(cellListAssignedRoles);
-		cellListAssignedRoles.setSize("200px", "100%");
+		this.cellListAssignedRoles = new CellList<IRole>(roleCellAssignedRoles);
+		this.cellListAssignedRoles.setStyleName("tableBorder");
+		horizontalPanelPersonRoles.add(this.cellListAssignedRoles);
+		this.cellListAssignedRoles.setSize("200px", "100%");
 		SingleSelectionModel<IRole> selModelAssignedRoles = new SingleSelectionModel<IRole>();
-		cellListAssignedRoles.setSelectionModel(selModelAssignedRoles);
+		this.cellListAssignedRoles.setSelectionModel(selModelAssignedRoles);
 
 		HorizontalPanel horizontalPanelPersonButtons = new HorizontalPanel();
 		verticalPanel.add(horizontalPanelPersonButtons);
 		horizontalPanelPersonButtons.setWidth("100%");
 		verticalPanel.setCellHorizontalAlignment(horizontalPanelPersonButtons, HasHorizontalAlignment.ALIGN_CENTER);
 
-		Button btnPersonNew = new Button("Neue Person anlegen");
+		Button btnPersonNew = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON);
 		btnPersonNew.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				newPersonEvent.fire(PersonRoleView.this, new EventArgs());
+				PersonRoleView.this.newPersonEvent.fire(PersonRoleView.this, new EventArgs());
 			}
 		});
 		horizontalPanelPersonButtons.add(btnPersonNew);
 		btnPersonNew.setWidth("100%");
 
-		Button btnPersonModify = new Button("Editieren");
+		Button btnPersonModify = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON);
 		btnPersonModify.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				modifyPersonEvent.fire(PersonRoleView.this, new PersonArgs(PersonRoleView.this.getSelectedPerson()));
+				PersonRoleView.this.modifyPersonEvent.fire(PersonRoleView.this, new PersonArgs(PersonRoleView.this.getSelectedPerson()));
 			}
 		});
 		horizontalPanelPersonButtons.add(btnPersonModify);
@@ -143,7 +147,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 				Person affectedPerson = PersonRoleView.this.getSelectedPerson();
 				HashSet<IRole> roleSet = new HashSet<IRole>();
 				roleSet.add(PersonRoleView.this.getSelectedAssignedRole());
-				removeRoleFromPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
+				PersonRoleView.this.removeRoleFromPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
 			}
 		});
 		verticalPanelAllocationButtons.add(buttonRemoveRoleFromPerson);
@@ -154,7 +158,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 			public void onClick(ClickEvent event) {
 				Person affectedPerson = PersonRoleView.this.getSelectedPerson();
 				Set<IRole> roleSet = PersonRoleView.this.getSelectedAvailRoles();
-				addRoletoPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
+				PersonRoleView.this.addRoletoPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
 			}
 		});
 		verticalPanelAllocationButtons.add(buttonAddRoleToPerson);
@@ -167,18 +171,18 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		verticalPanelRoles.add(lblRollen);
 
 		RoleCell roleCellAvailRoles = new RoleCell();
-		cellListRoles = new CellList<IRole>(roleCellAvailRoles);
-		cellListRoles.setStyleName("tableBorder");
-		verticalPanelRoles.add(cellListRoles);
-		cellListRoles.setSize("100%", "377px");
+		this.cellListRoles = new CellList<IRole>(roleCellAvailRoles);
+		this.cellListRoles.setStyleName("tableBorder");
+		verticalPanelRoles.add(this.cellListRoles);
+		this.cellListRoles.setSize("100%", "377px");
 		MultiSelectionModel<IRole> selModelAvailRoles = new MultiSelectionModel<IRole>();
-		cellListRoles.setSelectionModel(selModelAvailRoles);
+		this.cellListRoles.setSelectionModel(selModelAvailRoles);
 
 		Button btnRoleNew = new Button("Neue Rolle anlegen");
 		btnRoleNew.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				newRoleEvent.fire(PersonRoleView.this, new EventArgs());
+				PersonRoleView.this.newRoleEvent.fire(PersonRoleView.this, new EventArgs());
 			}
 		});
 		verticalPanelRoles.add(btnRoleNew);
@@ -188,155 +192,97 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		btnRoleRemove.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				removeRoleEvent.fire(PersonRoleView.this, new MultipleRoleArgs(PersonRoleView.this.getSelectedAvailRoles()));
+				PersonRoleView.this.removeRoleEvent.fire(PersonRoleView.this, new MultipleRoleArgs(PersonRoleView.this.getSelectedAvailRoles()));
 			}
 		});
 		verticalPanelRoles.add(btnRoleRemove);
 		btnRoleRemove.setWidth("100%");
 	}
 
-	/**
-	 * Method getCellTablePersons.
-	 * @return CellTable<IPerson>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getCellTablePersons()
-	 */
+
 	@Override
-	public CellTable<IPerson> getCellTablePersons() {
-		return this.cellTablePersons;
+	public void updatePersonTable(HashSet<IPerson> personSet) {
+		this.cellTablePersons.setRowData(new ArrayList<IPerson>(personSet));
 	}
 
-	/**
-	 * Method getCellListAssignedRoles.
-	 * @return CellList<IRole>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getCellListAssignedRoles()
-	 */
+
 	@Override
-	public CellList<IRole> getCellListAssignedRoles() {
-		return this.cellListAssignedRoles;
+	public void updateAssignedRoles(Vector<IRole> roleList) {
+		this.cellListAssignedRoles.setRowData(roleList);
 	}
 
-	/**
-	 * Method defineNewPersonEventHandler.
-	 * @param args EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineNewPersonEventHandler(EventHandler<EventArgs>)
-	 */
+
+	@Override
+	public void updateAvailRoleList(HashSet<IRole> roleSet) {
+		this.cellListRoles.setRowData(new ArrayList<IRole>(roleSet));
+	}
+
+
 	@Override
 	public void defineNewPersonEventHandler(EventHandler<EventArgs> args) {
 		this.newPersonEvent.add(args);
 	}
 
-	/**
-	 * Method defineModifyPersonEventHandler.
-	 * @param args EventHandler<PersonArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineModifyPersonEventHandler(EventHandler<PersonArgs>)
-	 */
 	@Override
 	public void defineModifyPersonEventHandler(EventHandler<PersonArgs> args) {
-		this.modifyPersonEvent.add(args); // TODO: wieso add handler? eventhandler korrekt?
+		this.modifyPersonEvent.add(args);
 	}
 
-	/**
-	 * Method defineRemoveRoleFromPersonEventHandler.
-	 * @param args EventHandler<AssociatePersonAndRoleArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineRemoveRoleFromPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs>)
-	 */
+
 	@Override
 	public void defineRemoveRoleFromPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs> args) {
 		this.removeRoleFromPersonEvent.add(args);
 	}
 
-	/**
-	 * Method defineAddRoleToPersonEventHandler.
-	 * @param args EventHandler<AssociatePersonAndRoleArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineAddRoleToPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs>)
-	 */
+
 	@Override
 	public void defineAddRoleToPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs> args) {
 		this.addRoletoPersonEvent.add(args);
 	}
 
-	/**
-	 * Method defineNewRoleEventHandler.
-	 * @param args EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineNewRoleEventHandler(EventHandler<EventArgs>)
-	 */
+
 	@Override
 	public void defineNewRoleEventHandler(EventHandler<EventArgs> args) {
 		this.newRoleEvent.add(args);
 	}
 
-	/**
-	 * Method defineRemoveRoleEventHandler.
-	 * @param args EventHandler<MultipleRoleArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#defineRemoveRoleEventHandler(EventHandler<MultipleRoleArgs>)
-	 */
 	@Override
 	public void defineRemoveRoleEventHandler(EventHandler<MultipleRoleArgs> args) {
 		this.removeRoleEvent.add(args);
 	}
 
-	/**
-	 * Method getCellListRoles.
-	 * @return CellList<IRole>
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getCellListRoles()
-	 */
 	@Override
-	public CellList<IRole> getCellListRoles() {
-		return this.cellListRoles;
+	public Person getSelectedPerson() {
+		SingleSelectionModel<IPerson> selPersModel = (SingleSelectionModel<IPerson>) this.cellTablePersons.getSelectionModel();
+		Person selectedPerson = (Person) selPersModel.getSelectedObject();
+		return selectedPerson;
+	}
+
+
+	@Override
+	public Role getSelectedAssignedRole() {
+		SingleSelectionModel<IRole> selAssignedRoleModel = (SingleSelectionModel<IRole>) this.cellListAssignedRoles.getSelectionModel();
+		Role selectedRole = (Role) selAssignedRoleModel.getSelectedObject();
+		return selectedRole;
+	}
+
+
+	@Override
+	public Set<IRole> getSelectedAvailRoles() {
+		MultiSelectionModel<IRole> selAvailRoleModel = (MultiSelectionModel<IRole>) this.cellListRoles.getSelectionModel();
+		Set<IRole> selectedRoles = selAvailRoleModel.getSelectedSet();
+		return selectedRoles;
 	}
 
 	/**
 	 * This class is used to create cell-based widgets like <code>CellList</code> with <code>IRole</code>-Objects.
 	 */
 	private class RoleCell extends AbstractCell<IRole> {
-
-		/**
-		 * Method render.
-		 * @param context com.google.gwt.cell.client.Cell.Context
-		 * @param value IRole
-		 * @param sb SafeHtmlBuilder
-		 */
 		@Override
 		public void render(com.google.gwt.cell.client.Cell.Context context, IRole value, SafeHtmlBuilder sb) {
 			if (value != null) {
 				sb.appendEscaped(value.getDescription());
 			}
 		}
-	}
-
-	/**
-	 * Returns the selected Person of the CellTable.
-	
-	 * @return selected Person * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getSelectedPerson()
-	 */
-	@Override
-	public Person getSelectedPerson() {
-		SingleSelectionModel<IPerson> selPersModel = (SingleSelectionModel<IPerson>) cellTablePersons.getSelectionModel();
-		Person selectedPerson = (Person) selPersModel.getSelectedObject();
-		return selectedPerson;
-	}
-
-	/**
-	 * Returns the selected Role of the CellList.
-	
-	 * @return selected Role from AssignedRolesList * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getSelectedAssignedRole()
-	 */
-	@Override
-	public Role getSelectedAssignedRole() {
-		SingleSelectionModel<IRole> selAssignedRoleModel = (SingleSelectionModel<IRole>) cellListAssignedRoles.getSelectionModel();
-		Role selectedRole = (Role) selAssignedRoleModel.getSelectedObject();
-		return selectedRole;
-	}
-
-	/**
-	 * Returns a set of selected Roles from the list of available Roles.
-	
-	 * @return selected Roles * @see fhdw.ipscrum.client.view.interfaces.IPersonRoleView#getSelectedAvailRoles()
-	 */
-	@Override
-	public Set<IRole> getSelectedAvailRoles() {
-		MultiSelectionModel<IRole> selAvailRoleModel = (MultiSelectionModel<IRole>) cellListRoles.getSelectionModel();
-		Set<IRole> selectedRoles = selAvailRoleModel.getSelectedSet();
-		return selectedRoles;
 	}
 }

@@ -44,7 +44,7 @@ public class TeamDialogView extends Composite implements ITeamDialogView {
 		topPanel.add(teamDescriptionPanel);
 		teamDescriptionPanel.setWidth("320px");
 
-		Label lblTeambezeichnung = new Label(TextConstants.TEAMVIEW_DIALOG_TEAMNAME);
+		Label lblTeambezeichnung = new Label(TextConstants.TEAMDIALOG_TEAMNAME);
 		teamDescriptionPanel.add(lblTeambezeichnung);
 		lblTeambezeichnung.setSize("115px", "19px");
 
