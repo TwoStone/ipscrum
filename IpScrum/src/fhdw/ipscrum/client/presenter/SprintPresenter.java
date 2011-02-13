@@ -10,13 +10,26 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Sprint;
 
+/**
+ * Presenter for {@link Sprint}
+ * 
+ * @author Manu
+ *
+ */
 public class SprintPresenter extends Presenter<ISprintView>{
 
 	private ISprintView concreteView;
 	private final Project project;
 
 
+	/**
+	 * Creates a new instance of {@link SprintPresenter}
+	 * 
+	 * @param parent
+	 * @param project
+	 */
 	public SprintPresenter(Panel parent, Project project) {
 		super(parent);
 		this.project = project;

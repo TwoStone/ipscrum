@@ -7,14 +7,28 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
+import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.ReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Release;
 
+/**
+ * Presenter for {@link Release}
+ * 
+ * @author Manu
+ * 
+ */
 public class ReleasePresenter extends Presenter<IReleaseView> {
 
 	private final Project project;
 
+	/**
+	 * Creates a new instance of {@link ReleasePresenter}
+	 * 
+	 * @param parent
+	 * @param project
+	 */
 	public ReleasePresenter(Panel parent, Project project) {
 		super(parent);
 		this.project = project;
@@ -32,16 +46,15 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 				final DialogBox diaBox = new DialogBox();
 				CreateReleasePresenter presenter = new CreateReleasePresenter(
 						diaBox, ReleasePresenter.this.project);
-				
-				presenter.getAborted().add(new EventHandler<EventArgs>(){
+
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-					diaBox.hide();	
+						diaBox.hide();
 					}
-					
 				});
-				
+
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
@@ -60,42 +73,42 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
 				GwtUtils.displayError("L�schen von Releases ist derzeit noch nicht vorgesehen!");
-//				if (eventArgs.getRelease() != null) {
-//					ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
-//					view.refreshReleases(ReleasePresenter.this.project
-//							.getReleasePlan());
-//				}
+				// if (eventArgs.getRelease() != null) {
+				// ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
+				// view.refreshReleases(ReleasePresenter.this.project
+				// .getReleasePlan());
+				// }
 			}
 		});
 
 		view.addReleaseDetailsEventHandler(new EventHandler<ReleaseArgs>() {
 
-			// TODO: WAS SOLL BEI DETAILANSICHT EINES RELEASES GESCHEHEN??????
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
 				final DialogBox diaBox = new DialogBox();
-			ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(diaBox, eventArgs.getRelease());
-			
-			presenter.getAborted().add(new EventHandler<EventArgs>(){
+				ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(
+						diaBox, eventArgs.getRelease());
 
-				@Override
-				public void onUpdate(Object sender, EventArgs eventArgs) {
-				
-					diaBox.clear();
-					diaBox.hide();
-				}
-				
-			});
-			
-			diaBox.center();
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+
+						diaBox.clear();
+						diaBox.hide();
+					}
+				});
+				diaBox.center();
 			}
-		
-		
 		});
-		
+
 		return view;
 	}
 
+	/**
+	 * Fills the cellTable of {@link ReleaseView} with the existing releases for
+	 * the project
+	 */
 	private void initialize() {
 		if (this.project.getReleasePlan() != null) {
 			this.getView().refreshReleases(this.project.getReleasePlan());
