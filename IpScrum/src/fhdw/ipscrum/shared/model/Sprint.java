@@ -121,26 +121,18 @@ public class Sprint implements ISprint {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((begin == null) ? 0 : begin.hashCode());
-		result = prime * result
-		+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((end == null) ? 0 : end.hashCode());
-		result = prime * result + ((team == null) ? 0 : team.hashCode());
 		return result;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((begin == null) ? 0 : begin.hashCode());
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((end == null) ? 0 : end.hashCode());
+		int result = indirectHashCode();
 		result = prime * result + ((team == null) ? 0 : team.hashCode());
-		result = prime * result
-				+ ((toPBIAssoc == null) ? 0 : toPBIAssoc.hashCode());
-		result = prime * result
-				+ ((toReleaseAssoc == null) ? 0 : toReleaseAssoc.hashCode());
+		result = prime * result + ((toPBIAssoc == null) ? 0 : toPBIAssoc.hashCode());
+		result = prime * result + ((toReleaseAssoc == null) ? 0 : toReleaseAssoc.hashCode());
 		return result;
 	}
 
@@ -168,38 +160,14 @@ public class Sprint implements ISprint {
 				return false;
 		} else if (!end.equals(other.end))
 			return false;
-		if (team == null) {
-			if (other.team != null)
-				return false;
-		} else if (!team.equals(other.team))
-			return false;
 		return true;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!indirectEquals(obj))
 			return false;
 		Sprint other = (Sprint) obj;
-		if (begin == null) {
-			if (other.begin != null)
-				return false;
-		} else if (!begin.equals(other.begin))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (end == null) {
-			if (other.end != null)
-				return false;
-		} else if (!end.equals(other.end))
-			return false;
 		if (team == null) {
 			if (other.team != null)
 				return false;
