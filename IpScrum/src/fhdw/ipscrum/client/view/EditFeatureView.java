@@ -15,6 +15,7 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Closed;
 import fhdw.ipscrum.shared.model.Open;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 
 public class EditFeatureView extends CreateFeatureView implements
@@ -23,6 +24,7 @@ public class EditFeatureView extends CreateFeatureView implements
 	private final IntegerBox complexityBox = new IntegerBox();
 	private final Label currentStateLbl = new Label("");
 	private final Button toggleStateBtn = new Button();
+	private final Label editorLabel = new Label("");
 	private final Event<EventArgs> toggleStateEvent = new Event<EventArgs>();
 
 	public EditFeatureView() {
@@ -59,6 +61,11 @@ public class EditFeatureView extends CreateFeatureView implements
 
 		statePanel.add(this.currentStateLbl);
 		statePanel.add(this.toggleStateBtn);
+
+		final Label lblLastEditor = new Label("Zu letzt \r\nbearbeitet von:");
+		this.getGrid().setWidget(4, 0, lblLastEditor);
+
+		this.getGrid().setWidget(4, 1, this.editorLabel);
 	}
 
 	@Override
@@ -108,6 +115,11 @@ public class EditFeatureView extends CreateFeatureView implements
 	@Override
 	public IEvent<EventArgs> toggleFeatureState() {
 		return this.toggleStateEvent;
+	}
+
+	@Override
+	public void setLastEditor(final IPerson editor) {
+		this.editorLabel.setText(editor.toString());
 	}
 
 }

@@ -81,9 +81,11 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		horizontalPanel.add(verticalPanel);
+		verticalPanel.setWidth("");
 
 		this.detailTable = new FlexTable();
 		verticalPanel.add(this.detailTable);
+		this.detailTable.setWidth("300px");
 
 		final Label lblName = new Label(TextConstants.NAME);
 		this.detailTable.setWidget(0, 0, lblName);
@@ -102,7 +104,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.textArea = new TextArea();
 		this.textArea.setCharacterWidth(25);
 		verticalPanel.add(this.textArea);
-		this.textArea.setWidth("223px");
+		this.textArea.setWidth("290px");
 
 		final Label lblRelations = new Label(TextConstants.RELATION_HEADER);
 		verticalPanel.add(lblRelations);
@@ -396,7 +398,8 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	public ISprint getSelectedSprint() throws NothingSelectedException {
 		final Integer index = this.sprintComboBox.getSelectedIndex();
 		if (index.equals(0) || index.equals(-1)) {
-			throw new NothingSelectedException(ExceptionConstants.NO_SPRINT_SELECTED);
+			throw new NothingSelectedException(
+					ExceptionConstants.NO_SPRINT_SELECTED);
 		} else {
 			return this.sprints.get(index - 1);
 		}

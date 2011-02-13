@@ -7,7 +7,6 @@ import java.util.List;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
-import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -30,8 +29,8 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	public Feature(final String name, final String description,
 			final ProductBacklog backlog) throws UserException {
 		super(name, backlog);
-		this.setDescription(description);
 		this.state = new Open(this);
+		this.setDescription(description);
 		this.relations = new ArrayList<Relation>();
 		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
 		this.hints = new ArrayList<Hint>();
@@ -49,7 +48,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		this.state.addAcceptanceCriterion(acceptanceCriterion);
-		this.setEditor();
 		this.notifyObservers();
 	}
 
@@ -65,7 +63,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
 			ForbiddenStateException {
 		this.state.addHint(hint);
-		this.setEditor();
 		this.notifyObservers();
 	}
 
@@ -80,7 +77,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException {
 		this.state.addRelation(relation);
-		this.setEditor();
 		this.notifyObservers();
 	}
 
@@ -93,7 +89,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion)
 			throws ForbiddenStateException {
 		this.state.removeAcceptanceCriterion(criterion);
-		this.setEditor();
 		this.notifyObservers();
 
 	}
@@ -106,7 +101,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	 */
 	public void removeHint(final Hint hint) throws ForbiddenStateException {
 		this.state.removeHint(hint);
-		this.setEditor();
 		this.notifyObservers();
 	}
 
@@ -119,7 +113,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	public void removeRelation(final Relation relation)
 			throws ForbiddenStateException {
 		this.state.removeRelation(relation);
-		this.setEditor();
 		this.notifyObservers();
 	}
 
@@ -131,7 +124,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	 */
 	public void close() throws ForbiddenStateException {
 		this.state.close();
-		this.setEditor();
 		this.notifyObservers();
 	}
 
@@ -148,6 +140,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			}
 		}
 		this.acceptanceCriteria.add(acceptanceCriterion);
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doAddHint(final Hint hint) throws DoubleDefinitionException {
@@ -160,19 +153,23 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			}
 		}
 		this.hints.add(hint);
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doRemoveAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion) {
 		this.acceptanceCriteria.remove(acceptanceCriterion);
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doRemoveRelation(final Relation relation) {
 		this.relations.remove(relation);
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doRemoveHint(final Hint hint) {
 		this.hints.remove(hint);
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doAddRelation(final Relation relation)
@@ -186,16 +183,23 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			}
 		}
 		this.relations.add(relation);
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doClose() {
 		this.setState(new Closed(this));
 	}
-	
-	public void setDescription(final String description) {
-		this.description = description;
+
+	/**
+	 * Sets the description of the feature object.
+	 * 
+	 * @param description
+	 * @throws ForbiddenStateException
+	 */
+	public void setDescription(final String description)
+			throws ForbiddenStateException {
+		this.getState().setDescription(description);
 	}
-	
 
 	public List<AcceptanceCriterion> getAcceptanceCriteria() {
 		return this.acceptanceCriteria;
@@ -217,13 +221,9 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		return this.state;
 	}
 
-
-	protected void setEditor() {
-		this.editor = SessionManager.getInstance().getLoginUser();
-	}
-
 	protected void setState(final IFeatureState state) {
 		this.state = state;
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	@Override
@@ -303,6 +303,11 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		result = prime * result
 				+ ((this.state == null) ? 0 : this.state.hashCode());
 		return result;
+	}
+
+	protected void doSetDescription(final String description) {
+		this.description = description;
+		this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 }

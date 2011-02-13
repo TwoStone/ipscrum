@@ -321,10 +321,11 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 * @throws NoSprintDefinedException
 	 * @throws ConsistencyException
 	 * @throws DoubleDefinitionException
+	 * @throws ForbiddenStateException
 	 */
 	protected void updateFeature() throws NoValidValueException,
 			NoSprintDefinedException, ConsistencyException,
-			DoubleDefinitionException {
+			DoubleDefinitionException, ForbiddenStateException {
 		this.feature.setName(this.getView().getName());
 		this.feature.setDescription(this.getView().getDescription());
 

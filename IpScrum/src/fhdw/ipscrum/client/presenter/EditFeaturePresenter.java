@@ -35,9 +35,6 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 	public EditFeaturePresenter(final Panel parent, final Feature feature)
 			throws NoFeatureSelectedException {
 		super(parent, feature);
-
-		this.updateView();
-		this.registerViewEvents();
 	}
 
 	/**
@@ -93,7 +90,7 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 	@Override
 	protected void updateFeature() throws NoValidValueException,
 			NoSprintDefinedException, ConsistencyException,
-			DoubleDefinitionException {
+			DoubleDefinitionException, ForbiddenStateException {
 		super.updateFeature();
 		this.getFeature().setManDayCosts(this.getView().getComplexity());
 	}
@@ -101,6 +98,7 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 	@Override
 	protected void updateView() {
 		super.updateView();
+		this.getView().setLastEditor(this.getFeature().getLastEditor());
 		this.getView().setState(this.getFeature().getState());
 	}
 }
