@@ -1,18 +1,23 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.utils.GwtUtils;
+import fhdw.ipscrum.client.view.CreateRelationView;
 import fhdw.ipscrum.client.view.interfaces.ICreateRelationView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
 
@@ -21,6 +26,7 @@ import fhdw.ipscrum.shared.observer.Observer;
 public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		implements Observer {
 	private final Feature source;
+	private Relation relation;
 
 	/**
 	 * Constructor for RelationPresenter.
@@ -43,7 +49,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				CreateRelationPresenter.this.save();
+				CreateRelationPresenter.this.finish();
 			}
 		});
 
@@ -77,8 +83,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	 */
 	@Override
 	protected ICreateRelationView createView() {
-		// TODO Create View
-		return null;
+		return new CreateRelationView();
 	}
 
 	private void setupView() {
@@ -88,7 +93,23 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 								.getInstance().getModel()
 								.getRelationTypeManager().getRelationTypes()));
 		this.getView().setOwningFeature(this.source);
-		this.getView().setTargetFeatures(this.source.getBacklog().getItems());
+		this.getView().setTargetFeatures(
+				this.getFeatures(this.source.getBacklog().getItems()));
+	}
+
+	private List<Feature> getFeatures(
+			final List<ProductBacklogItem> backlogItems) {
+		final List<Feature> result = new Vector<Feature>();
+		for (final ProductBacklogItem productBacklogItem : backlogItems) {
+			productBacklogItem.accept(new IProductBacklogItemVisitor() {
+
+				@Override
+				public void handleFeature(final Feature feature) {
+					result.add(feature);
+				}
+			});
+		}
+		return result;
 	}
 
 	@Override
@@ -96,13 +117,18 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 
 	}
 
-	private void save() {
+	@Override
+	protected boolean onFinish() {
 		try {
-			this.source.addRelation(new Relation(this.getView()
-					.getSelectedType(), this.getView().getSelectedTarget()));
-			this.finish();
-		} catch (final UserException e) {
-			GwtUtils.displayError(e.getMessage());
+			this.relation = new Relation(this.getView().getSelectedType(), this
+					.getView().getSelectedTarget());
+		} catch (final NothingSelectedException e) {
+			return false;
 		}
+		return super.onFinish();
+	}
+
+	public Relation getRelation() {
+		return this.relation;
 	}
 }

@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
 
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -136,8 +137,39 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 * @param createDialog
 	 *            DialogBox
 	 */
-	private void createRelation(final Panel panel) {
-		GwtUtils.displayError("Not yet implemented!");
+	private void createRelation() {
+		final DialogBox box = GwtUtils.createDialog("Beziehung anlegen");
+		box.center();
+		final CreateRelationPresenter presenter = new CreateRelationPresenter(
+				box, this.getFeature());
+
+		presenter.getFinished().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				try {
+					FeaturePresenter.this.getFeature().addRelation(
+							presenter.getRelation());
+					box.hide();
+				} catch (final UserException e) {
+					GwtUtils.displayError(e.getMessage());
+				}
+			}
+		});
+
+		presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				new AbortDialog(new OnOkayCommand() {
+
+					@Override
+					public void onExecute() {
+						box.hide();
+					}
+				});
+			}
+		});
 	}
 
 	/**
@@ -158,7 +190,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.save();
+				FeaturePresenter.this.finish();
 			}
 		});
 
@@ -197,8 +229,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		this.getView().getCreateRelation().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.createRelation(GwtUtils
-						.createDialog("Relationen anlegen"));
+				FeaturePresenter.this.createRelation();
 			}
 		});
 
@@ -274,16 +305,19 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		}
 	}
 
-	/**
-	 * Saves the made changes to the model.
-	 */
-	private void save() {
+	@Override
+	protected boolean onFinish() {
 		try {
-			this.updateFeature();
-			this.finish();
+			FeaturePresenter.this.updateFeature();
+		} catch (final DoubleDefinitionException e) {
+			this.abort();
+			return false;
 		} catch (final UserException e) {
 			GwtUtils.displayError(e.getMessage());
+			return false;
 		}
+		return super.onFinish();
+
 	}
 
 	/**

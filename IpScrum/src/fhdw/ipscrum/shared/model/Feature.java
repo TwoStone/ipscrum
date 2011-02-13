@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
  * A feature is a {@link ProductBacklogItem}, which represents a user story. A
@@ -308,6 +309,11 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	protected void doSetDescription(final String description) {
 		this.description = description;
 		this.setLastEditor(SessionManager.getInstance().getLoginUser());
+	}
+
+	@Override
+	public void accept(final IProductBacklogItemVisitor visitor) {
+		visitor.handleFeature(this);
 	}
 
 }

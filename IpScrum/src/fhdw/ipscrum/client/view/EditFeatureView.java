@@ -94,6 +94,7 @@ public class EditFeatureView extends CreateFeatureView implements
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(false);
 				EditFeatureView.this.getBtnAddHint().setEnabled(false);
 				EditFeatureView.this.getBtnAddRelation().setEnabled(false);
+
 			}
 
 			@Override
@@ -119,7 +120,11 @@ public class EditFeatureView extends CreateFeatureView implements
 
 	@Override
 	public void setLastEditor(final IPerson editor) {
-		this.editorLabel.setText(editor.toString());
+		// TODO Da der Editor momentan nicht über die Business logik gesetzt
+		// wird, kann er null sein.
+		if (editor != null) {
+			this.editorLabel.setText(editor.toString());
+		}
 	}
 
 }

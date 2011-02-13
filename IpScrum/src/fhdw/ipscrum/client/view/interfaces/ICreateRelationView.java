@@ -8,7 +8,6 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.Feature;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.RelationType;
 
 public interface ICreateRelationView extends IView {
@@ -28,5 +27,5 @@ public interface ICreateRelationView extends IView {
 
 	void setRelationTypes(List<RelationType> types);
 
-	void setTargetFeatures(List<ProductBacklogItem> vector);
+	void setTargetFeatures(List<Feature> vector);
 }

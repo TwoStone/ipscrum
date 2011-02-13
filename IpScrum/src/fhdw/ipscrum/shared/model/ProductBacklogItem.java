@@ -9,12 +9,14 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
-public abstract class ProductBacklogItem extends Observable implements BDACompare{
+public abstract class ProductBacklogItem extends Observable implements
+		BDACompare {
 
 	private String name;
 	private Integer manDayCosts;
@@ -59,17 +61,16 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 		super();
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
-		this.checkName(backlog, name); //Initiale Prüfung
+		this.checkName(backlog, name); // Initiale Prüfung
 		this.setManDayCosts(0);
 		this.getBacklogAssoc().finalSet(backlog.getAssoc());
 	}
-	
-//	public void connectPBIToBacklog(ProductBacklog backlog){
-//		if(this.getBacklog()==null){
-//			this.getBacklogAssoc().finalSet(backlog.getAssoc());
-//		}
-//	}
 
+	// public void connectPBIToBacklog(ProductBacklog backlog){
+	// if(this.getBacklog()==null){
+	// this.getBacklogAssoc().finalSet(backlog.getAssoc());
+	// }
+	// }
 
 	public ProductBacklog getBacklog() {
 		if (this.getBacklogAssoc().get() != null) {
@@ -91,9 +92,9 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	}
 
 	public ISprint getSprint() {
-		if(this.getSprintAssoc().get()!=null){
+		if (this.getSprintAssoc().get() != null) {
 			return this.getSprintAssoc().get().getElement();
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -131,16 +132,19 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public final void setName(final String name) throws NoValidValueException, DoubleDefinitionException, ConsistencyException {
-		if(this.getBacklog()!=null){
+	public final void setName(final String name) throws NoValidValueException,
+			DoubleDefinitionException, ConsistencyException {
+		if (this.getBacklog() != null) {
 			this.checkName(this.getBacklog(), name);
-		}else{
-			//TODO Textkonstante bauen!
-			throw new ConsistencyException("Das PBI muss zunächst mit dem Backlog verbunden werden");
+		} else {
+			// TODO Textkonstante bauen!
+			throw new ConsistencyException(
+					"Das PBI muss zunächst mit dem Backlog verbunden werden");
 		}
 	}
-	
-	private void checkName(ProductBacklog backlog, String name) throws NoValidValueException, DoubleDefinitionException{
+
+	private void checkName(final ProductBacklog backlog, final String name)
+			throws NoValidValueException, DoubleDefinitionException {
 		if (name != null && name.trim().length() > 0) {
 			backlog.isDoubleDefined(name);// DoubleDefinitionException
 			this.name = name;
@@ -162,10 +166,10 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException {
-		if(sprint!=null){
+		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set(sprint.getToPBIAssoc());
-		}else{
+		} else {
 			this.getSprintAssoc().set(null);
 		}
 		this.notifyObservers();
@@ -181,86 +185,115 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime
+				* result
+				+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
 		result = prime * result
-		+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = this.indirectHashCode();
-		result = prime * result
-				+ ((backlogAssoc == null) ? 0 : backlogAssoc.hashCode());
-		result = prime * result
-				+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
-		result = prime * result
-				+ ((sprintAssoc == null) ? 0 : sprintAssoc.hashCode());
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductBacklogItem other = (ProductBacklogItem) obj;
-		if (lastEditor == null) {
-			if (other.lastEditor != null)
-				return false;
-		} else if (!lastEditor.equals(other.lastEditor))
-			return false;
-		if (manDayCosts == null) {
-			if (other.manDayCosts != null)
-				return false;
-		} else if (!manDayCosts.equals(other.manDayCosts))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public int hashCode() {
+		final int prime = 31;
+		int result = this.indirectHashCode();
+		result = prime
+				* result
+				+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
+						.hashCode());
+		result = prime * result
+				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
+		result = prime
+				* result
+				+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
+		return result;
 	}
-	
+
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		ProductBacklogItem other = (ProductBacklogItem) obj;
-		if (backlogAssoc == null) {
-			if (other.backlogAssoc != null)
+		}
+		final ProductBacklogItem other = (ProductBacklogItem) obj;
+		if (this.lastEditor == null) {
+			if (other.lastEditor != null) {
 				return false;
-		} else if (!backlogAssoc.equals(other.backlogAssoc))
+			}
+		} else if (!this.lastEditor.equals(other.lastEditor)) {
 			return false;
-		if (lastEditor == null) {
-			if (other.lastEditor != null)
+		}
+		if (this.manDayCosts == null) {
+			if (other.manDayCosts != null) {
 				return false;
-		} else if (!lastEditor.equals(other.lastEditor))
+			}
+		} else if (!this.manDayCosts.equals(other.manDayCosts)) {
 			return false;
-		if (manDayCosts == null) {
-			if (other.manDayCosts != null)
+		}
+		if (this.name == null) {
+			if (other.name != null) {
 				return false;
-		} else if (!manDayCosts.equals(other.manDayCosts))
+			}
+		} else if (!this.name.equals(other.name)) {
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (sprintAssoc == null) {
-			if (other.sprintAssoc != null)
-				return false;
-		} else if (!sprintAssoc.equals(other.sprintAssoc))
-			return false;
+		}
 		return true;
 	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final ProductBacklogItem other = (ProductBacklogItem) obj;
+		if (this.backlogAssoc == null) {
+			if (other.backlogAssoc != null) {
+				return false;
+			}
+		} else if (!this.backlogAssoc.equals(other.backlogAssoc)) {
+			return false;
+		}
+		if (this.lastEditor == null) {
+			if (other.lastEditor != null) {
+				return false;
+			}
+		} else if (!this.lastEditor.equals(other.lastEditor)) {
+			return false;
+		}
+		if (this.manDayCosts == null) {
+			if (other.manDayCosts != null) {
+				return false;
+			}
+		} else if (!this.manDayCosts.equals(other.manDayCosts)) {
+			return false;
+		}
+		if (this.name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!this.name.equals(other.name)) {
+			return false;
+		}
+		if (this.sprintAssoc == null) {
+			if (other.sprintAssoc != null) {
+				return false;
+			}
+		} else if (!this.sprintAssoc.equals(other.sprintAssoc)) {
+			return false;
+		}
+		return true;
+	}
+
+	public abstract void accept(IProductBacklogItemVisitor visitor);
 }
