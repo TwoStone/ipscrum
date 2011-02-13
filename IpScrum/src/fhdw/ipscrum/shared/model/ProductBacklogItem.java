@@ -154,8 +154,8 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException {
-		this.getBacklog().getProject().isSprintDefined(sprint);
 		if(sprint!=null){
+			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set(sprint.getToPBIAssoc());
 		}else{
 			this.getSprintAssoc().set(null);
