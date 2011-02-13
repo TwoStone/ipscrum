@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -141,13 +142,11 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 		this.concreteView.defineRemoveRoleFromPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
 			@Override
 			public void onUpdate(Object sender, AssociatePersonAndRoleArgs eventArgs) {
-				// TODO pr�fung in view verschieben.
 				if (eventArgs != null && eventArgs.getPerson() != null && eventArgs.getRoles().size() > 0) {
 					try {
 						eventArgs.getPerson().removeRole(eventArgs.getSingleRole());
 					} catch (ConsistencyException e) {
-						// TODO Wilken: Exception verarbeiten
-						e.printStackTrace();
+						Window.alert(e.getMessage());
 					}
 					PersonRolePresenter.this.updateGuiTables();
 				}
@@ -164,8 +163,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 						try {
 							eventArgs.getPerson().addRole(current);
 						} catch (ConsistencyException e) {
-							// TODO Wilken: Exception verarbeiten
-							e.printStackTrace();
+							Window.alert(e.getMessage());
 						}
 					}
 				}
@@ -205,7 +203,9 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 		this.concreteView.defineRemoveRoleEventHandler(new EventHandler<MultipleRoleArgs>() {
 			@Override
 			public void onUpdate(Object sender, MultipleRoleArgs eventArgs) {
-				SessionManager.getInstance().getModel().getRoles().removeAll(eventArgs.getRoles()); // TODO
+				for (IRole role : eventArgs.getRoles()) {
+					SessionManager.getInstance().getModel().removeRole(role);
+				}
 				PersonRolePresenter.this.updateGuiTables();
 			}
 		});
