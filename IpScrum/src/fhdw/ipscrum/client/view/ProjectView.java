@@ -4,19 +4,15 @@ import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -60,17 +56,17 @@ public class ProjectView extends Composite implements IProjectView{
 		
 		masterSprintProductBackloglPanel = new FlowPanel();
 		absolutePanel.add(masterSprintProductBackloglPanel, 400, 0);
-		masterSprintProductBackloglPanel.setSize("600px", "594px");
+		masterSprintProductBackloglPanel.setSize("600px", "600px");
 		
 		masterSprintPanel = new FlowPanel();
 		masterSprintPanel.setStyleName("box");
-		masterSprintPanel.setSize("595px", "300px");
+		masterSprintPanel.setSize("600px", "300px");
 		masterSprintProductBackloglPanel.add(masterSprintPanel);
 		
 		masterProductBacklogPanel = new FlowPanel();
 		masterProductBacklogPanel.setStyleName("box");
 		masterSprintProductBackloglPanel.add(masterProductBacklogPanel);
-		masterProductBacklogPanel.setSize("595px", "300px");
+		masterProductBacklogPanel.setSize("600px", "300px");
 		
 		FlowPanel masterProductReleasePanel = new FlowPanel();
 		absolutePanel.add(masterProductReleasePanel);
@@ -79,7 +75,7 @@ public class ProjectView extends Composite implements IProjectView{
 		masterProjectPanel = new FlowPanel();
 		masterProjectPanel.setStyleName("box");
 		masterProductReleasePanel.add(masterProjectPanel);
-		masterProjectPanel.setSize("395px", "300px");
+		masterProjectPanel.setSize("400px", "300px");
 		
 		AbsolutePanel concreteProjectPanel = new AbsolutePanel();
 		masterProjectPanel.add(concreteProjectPanel);
@@ -144,7 +140,7 @@ public class ProjectView extends Composite implements IProjectView{
 		masterReleasePanel = new FlowPanel();
 		masterReleasePanel.setStyleName("box");
 		masterProductReleasePanel.add(masterReleasePanel);
-		masterReleasePanel.setSize("395px", "300px");
+		masterReleasePanel.setSize("400px", "300px");
 	}
 
 	

@@ -2,7 +2,6 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.Vector;
 
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
