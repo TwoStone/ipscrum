@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -48,6 +49,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 					public void onUpdate(Object sender, EventArgs eventArgs) {
 						SprintPresenter.this.initialize();
 						box.hide();
+						Window.alert("TODO im SprintPresenter beachten!");
 						//TODO presenter.getSprint() anhängen!
 					}
 				});
@@ -95,6 +97,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
+				Window.alert("TODO im SprintPresenter beachten!");
 				// TODO eventArgs.getSprint entfernen - evtl vorher fragen?
 			}
 		});
