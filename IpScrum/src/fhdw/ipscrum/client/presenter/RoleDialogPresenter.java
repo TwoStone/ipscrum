@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -13,6 +14,8 @@ import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 /**
+ * Represents the presenter of the view with which the user could make new roles or change roles. 
+ * 
  */
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
@@ -21,11 +24,11 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 	/**
 	 * Constructor for RoleDialogPresenter.
+	 *           
+	 *Required for making new roles.
 	 * 
-	 * @param parent
-	 *            Panel
+	 * @param parent Panel
 	 * 
-	 *            Required for making new roles.
 	 */
 	public RoleDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -34,12 +37,11 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Constructor for RoleDialogPresenter.
 	 * 
-	 * @param parent
-	 *            Panel
-	 * @param selectedRole
-	 *            IRole
+	 * Required for changing roles.
 	 * 
-	 *            Required for changing roles.
+	 * @param parent Panel
+	 * @param selectedRole IRole 
+	 *            
 	 */
 	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
 		super(parent);
@@ -50,9 +52,12 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Method createView.
 	 * 
-	 * @return IRoleDialogView Creates the view in which the user could make a
-	 *         new role or change a role and defines what happens when the user
-	 *         pushes the cancel- or OK-button.
+	 * Creates the view in which the user could make a
+	 * new role or change a role and defines what happens when the user
+	 * pushes the cancel- or OK-button.
+	 * 
+	 * @return IRoleDialogView 
+	 * 
 	 */
 	@Override
 	protected IRoleDialogView createView() {
@@ -70,14 +75,14 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 					try {
 						SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
 					} catch (NoValidValueException e) {
-						// TODO Sarah: Exception verarbeiten
+						Window.alert("Die Rolle konnte nicht erzeugt werden!");
 						e.printStackTrace();
 					}
 				} else {
 					try {
 						RoleDialogPresenter.this.role.setDescription(eventArgs.getString());
 					} catch (NoValidValueException e) {
-						// TODO Sarah: Exception verarbeiten
+						Window.alert("Die Rolle konnte nicht geändert werden!");
 						e.printStackTrace();
 					}
 				}

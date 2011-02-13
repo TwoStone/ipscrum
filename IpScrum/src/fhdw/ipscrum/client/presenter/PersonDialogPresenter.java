@@ -13,6 +13,8 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 
 /**
+ * Represents the presenter of the view with which the user could make new persons or change persons.
+ * 
  */
 public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
@@ -21,9 +23,11 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
 	/**
 	 * Constructor for PersonDialogPresenter.
-	 * @param parent Panel
 	 * 
 	 * Required for making new persons.
+	 * 
+	 * @param parent Panel
+	 * 
 	 */
 	public PersonDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -31,10 +35,12 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
 	/**
 	 * Constructor for PersonDialogPresenter.
+	 * 
+	 * Required for changing persons.
+	 * 
 	 * @param parent Panel
 	 * @param person IPerson
 	 * 
-	 * Required for changing persons.
 	 */
 	public PersonDialogPresenter(Panel parent, IPerson person) {
 		super(parent);
@@ -44,10 +50,12 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 
 	/**
 	 * Method createView.
-	 * @return IPersonDialogView
 	 * 
 	 * Creates the view in which the user could make a new person or change a person 
 	 * and defines what happens when the user pushes the cancel- or OK-button.
+	 * 
+	 * @return IPersonDialogView
+	 * 
 	 */
 	@Override
 	protected IPersonDialogView createView() {

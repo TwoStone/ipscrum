@@ -16,6 +16,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
+ * Represents the presenter of the view with which the user could make new sprints or change sprints.
  */
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
@@ -24,9 +25,11 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	/**
 	 * Constructor for SprintDialogPresenter.
-	 * @param parent Panel
 	 * 
 	 * Required for making new sprints
+	 * 
+	 * @param parent Panel
+	 * 
 	 */
 	public SprintDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -34,10 +37,12 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	/**
 	 * Constructor for SprintDialogPresenter.
+	 * 
+	 * Required for changing sprints
+	 * 
 	 * @param parent Panel
 	 * @param sprint ISprint
 	 * 
-	 * Required for changing sprints
 	 */
 	public SprintDialogPresenter(Panel parent, ISprint sprint) {
 		super(parent);
@@ -47,10 +52,12 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	/**
 	 * Method createView.
-	 * @return ISprintDialogView
 	 * 
 	 * Creates the view in which the user could make a new sprint or change a sprint
 	 * and defines what happens when the user pushes the cancel- or OK-button.
+	 * 
+	 * @return ISprintDialogView
+	 * 
 	 */
 	@Override
 	protected ISprintDialogView createView() {
@@ -70,8 +77,6 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
 				if (SprintDialogPresenter.this.sprint == null) {
 					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getDescription(), eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
-					if (eventArgs.getDescription() != null)
-						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
 				} else {
 					SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
 					SprintDialogPresenter.this.sprint.setBegin(eventArgs.getBeginDate());
