@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.constants;
 
+
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -31,5 +32,9 @@ public final class TextConstants {
 	public static final String ERROR = "Fehler";
 	public static final String CLOSE = "Schließen";
 	/* [END SECTION] */
+
+	public static final String NAV_PERSONROLEMANAGEMENT = "Personen-Stammdaten";
+	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
+	public static final String NAV_SAVEMODELDATA = "Speichern";
 
 }

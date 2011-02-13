@@ -9,15 +9,16 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.MenuItemSeparator;
+import com.google.gwt.user.client.ui.PushButton;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.INavigationView;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.PushButton;
+import fhdw.ipscrum.shared.constants.TextConstants;
 
 /**
+ * This class is used to compose the main navigation bar of the application.
  */
 public class NavigationView extends Composite implements INavigationView {
 
@@ -29,12 +30,12 @@ public class NavigationView extends Composite implements INavigationView {
 
 	// ######## Ende Events #######
 
-	private MenuItem mntmProjekte;
-	private MenuItem mntmPersonenstammdaten;
-	private MenuItem mntmTeamzuordnung;
-	private FlowPanel masterMainPanel;
+	private final MenuItem mntmProjekte;
+	private final MenuItem mntmPersonenstammdaten;
+	private final MenuItem mntmTeamzuordnung;
+	private final FlowPanel masterMainPanel;
 	private final FlowPanel innerMasterPanel;
-	private PushButton pshbtnSpeichern;
+	private final PushButton pshbtnSpeichern;
 
 	/**
 	 * Method createView.
@@ -45,103 +46,82 @@ public class NavigationView extends Composite implements INavigationView {
 	}
 
 	private NavigationView() {
-		innerMasterPanel = new FlowPanel();
-		initWidget(innerMasterPanel);
-		innerMasterPanel.setSize("1000px", "650px");
+		this.innerMasterPanel = new FlowPanel();
+		initWidget(this.innerMasterPanel);
+		this.innerMasterPanel.setSize("1000px", "650px");
 
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		innerMasterPanel.add(horizontalPanel);
+		this.innerMasterPanel.add(horizontalPanel);
 		horizontalPanel.setWidth("100%");
 
 		MenuBar menuBar = new MenuBar(false);
 		horizontalPanel.add(menuBar);
 
-		mntmProjekte = new MenuItem("Projekte", false, new Command() {
+		this.mntmProjekte = new MenuItem("Projekte", false, new Command() {
+			@Override
 			public void execute() {
-				projectEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.projectEvent.fire(NavigationView.this, new EventArgs());
 			}
 		});
-		menuBar.addItem(mntmProjekte);
+		menuBar.addItem(this.mntmProjekte);
 
 		MenuItemSeparator separator = new MenuItemSeparator();
 		menuBar.addSeparator(separator);
 
-		mntmPersonenstammdaten = new MenuItem("Personen-Stammdaten", false,
+		this.mntmPersonenstammdaten = new MenuItem(TextConstants.NAV_PERSONROLEMANAGEMENT, false,
 				new Command() {
+			@Override
 			public void execute() {
-				personenEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.personenEvent.fire(NavigationView.this, new EventArgs());
 			}
 		});
-		menuBar.addItem(mntmPersonenstammdaten);
+		menuBar.addItem(this.mntmPersonenstammdaten);
 
-		mntmTeamzuordnung = new MenuItem("Teamzuordnung", false, new Command() {
+		this.mntmTeamzuordnung = new MenuItem(TextConstants.NAV_TEAMMANAGEMENT, false, new Command() {
+			@Override
 			public void execute() {
-				teamEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.teamEvent.fire(NavigationView.this, new EventArgs());
 			}
 		});
-		menuBar.addItem(mntmTeamzuordnung);
-		
-		pshbtnSpeichern = new PushButton("Speichern");
-		pshbtnSpeichern.setHeight("16px");
-		horizontalPanel.add(pshbtnSpeichern);
-		pshbtnSpeichern.addClickHandler(new ClickHandler() {
-			
+		menuBar.addItem(this.mntmTeamzuordnung);
+
+		this.pshbtnSpeichern = new PushButton(TextConstants.NAV_SAVEMODELDATA);
+		this.pshbtnSpeichern.setHeight("16px");
+		horizontalPanel.add(this.pshbtnSpeichern);
+		this.pshbtnSpeichern.addClickHandler(new ClickHandler() {
+
 			@Override
 			public void onClick(ClickEvent event) {
-				saveEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.saveEvent.fire(NavigationView.this, new EventArgs());
 			}
 		});
 
-		masterMainPanel = new FlowPanel();
-		innerMasterPanel.add(masterMainPanel);
-		masterMainPanel.setSize("1000px", "600px");
+		this.masterMainPanel = new FlowPanel();
+		this.innerMasterPanel.add(this.masterMainPanel);
+		this.masterMainPanel.setSize("1000px", "600px");
 	}
 
-	/**
-	 * Method addPersonEventHandler.
-	 * @param arg EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addPersonEventHandler(EventHandler<EventArgs>)
-	 */
 	@Override
 	public void addPersonEventHandler(EventHandler<EventArgs> arg) {
-		personenEvent.add(arg);
-	}
-	
-	/**
-	 * Method addProjectEventHandler.
-	 * @param arg EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addProjectEventHandler(EventHandler<EventArgs>)
-	 */
-	@Override
-	public void addProjectEventHandler(EventHandler<EventArgs> arg) {
-		projectEvent.add(arg);
-	}
-	
-	/**
-	 * Method addTeamEventHandler.
-	 * @param arg EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addTeamEventHandler(EventHandler<EventArgs>)
-	 */
-	@Override
-	public void addTeamEventHandler(EventHandler<EventArgs> arg) {
-		teamEvent.add(arg);
-	}
-	
-	/**
-	 * Method addSaveEventHandler.
-	 * @param arg EventHandler<EventArgs>
-	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#addSaveEventHandler(EventHandler<EventArgs>)
-	 */
-	@Override
-	public void addSaveEventHandler(EventHandler<EventArgs> arg) {
-		saveEvent.add(arg);
+		this.personenEvent.add(arg);
 	}
 
-	/**
-	 * Method getContentPanel.
-	 * @return FlowPanel
-	 * @see fhdw.ipscrum.client.view.interfaces.INavigationView#getContentPanel()
-	 */
+	@Override
+	public void addProjectEventHandler(EventHandler<EventArgs> arg) {
+		this.projectEvent.add(arg);
+	}
+
+	@Override
+	public void addTeamEventHandler(EventHandler<EventArgs> arg) {
+		this.teamEvent.add(arg);
+	}
+
+	@Override
+	public void addSaveEventHandler(EventHandler<EventArgs> arg) {
+		this.saveEvent.add(arg);
+	}
+
+	@Override
 	public FlowPanel getContentPanel() {
 		return this.masterMainPanel;
 	}
