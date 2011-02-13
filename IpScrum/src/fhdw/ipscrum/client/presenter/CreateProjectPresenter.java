@@ -16,7 +16,7 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Project;
 
 /**
- * Presenter for creating new @link projects
+ * Presenter for creating new {@link Project}
  * 
  * @author Manu
  * 
@@ -33,8 +33,11 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 
 	@Override
 	protected ICreateProjectView createView() {
+
+		// New instance of CreateProjectView
 		final ICreateProjectView view = new CreateProjectView();
 
+		// Add a handler for the event which creates a new project
 		view.addSaveProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -53,6 +56,7 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 			}
 		});
 
+	// Add a handler for the event which cancels creating of a new project
 		view.addCancelCreateProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override

@@ -42,7 +42,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 		// Creates a new instance of a ProductBacklogView
 		final IProductBacklogView view = new ProductBacklogView();
 
-		// Event for a creating a new ProductBacklogItem
+		// Add a handler for a event which creates a new ProductBacklogItem
 		view.addNewPBIEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -90,7 +90,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				}
 			}
 		});
-
+		
+		// Add a handler for a event which opens the details of a ProductBacklogItem
 		view.addPBIDetailsEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -133,6 +134,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			}
 		});
 
+		// Add a handler for a event which deletes a ProductBacklogItem
 		view.addDeletePBIEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -151,6 +153,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 		});
 
+		// Add a handler for a event which moves a ProductBacklog down by one step
 		view.addPBIDownEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -164,7 +167,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				}
 			}
 		});
-
+		
+		// Add a handler for a event which moves a ProductBacklog up by one step
 		view.addPBIUpEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -179,6 +183,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			}
 		});
 
+		// Add a handler for a event which moves a ProductBacklog to the top
 		view.addPBITopEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -194,6 +199,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 		});
 
+		// Add a handler for a event which moves a ProductBacklog to the bottom
 		view.addPBIBottomEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override

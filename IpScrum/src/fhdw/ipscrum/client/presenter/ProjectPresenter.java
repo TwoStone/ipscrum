@@ -13,16 +13,29 @@ import fhdw.ipscrum.client.view.interfaces.IProjectView;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.Project;
 
+/**
+ * Presenter for {@link Project}
+ * 
+ */
 public class ProjectPresenter extends Presenter<IProjectView> {
 
+	
+
+	/** 
+	 * Creates a new instance of {@link ProductBacklogPresenter}
+	 * @param parent
+	 */
 	public ProjectPresenter(Panel parent) {
 		super(parent);
 	}
 
 	@Override
 	protected IProjectView createView() {
+
+		// Creates a new instance of a ProjectView
 		final IProjectView view = new ProjectView();
 		
+		// Add a handler for a event which opens a dialog for creating new projects 
 		view.addNewProjectEventHandler(new EventHandler<EventArgs>() {
 			
 			@Override
@@ -53,6 +66,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			}
 		});
 		
+		// Add a handler for a event which delete the selected project
 		view.addDeleteProjectEventHandler(new EventHandler<ProjectEventArgs>() {
 
 			@Override
@@ -64,6 +78,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			}
 		});
 		
+		// Add a handler for a event which opens the  sprintoverview, releaseoverview and productbacklog for a project 
 		view.addProjectSelectionHandler(new EventHandler<ProjectEventArgs>() {
 
 			@Override
@@ -79,7 +94,8 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			}
 			
 		});
-		
+
+		// Refills the table in 'view' with all existing projects 
 		view.refreshProjects(new Vector<Project>(SessionManager.getInstance().getModel().getProjects()));
 		
 		return view;

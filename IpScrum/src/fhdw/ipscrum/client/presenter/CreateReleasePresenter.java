@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 
 /**
- * Presenter for creating new Releases
+ * Presenter for creating new {@link Releases}
  * 
  * @author Manu
  *
@@ -36,8 +36,11 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 
 	@Override
 	protected ICreateReleaseView createView() {
+		// New instance of CreateReleaseView
 		final ICreateReleaseView view = new CreateReleaseView();
 
+		
+		//Add a handler for the event which saves a new Release
 		view.addSaveVersionHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -54,6 +57,8 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 
 		});
 
+
+		//Add a handler for the event which cancels creating of a new release 
 		view.addCancelCreateReleaseHandler(new EventHandler<EventArgs>() {
 
 			@Override
