@@ -59,14 +59,16 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 		super();
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
-		this.getBacklogAssoc().finalSet(backlog.getAssoc());
-		try {
-			this.setName(name);
-		} catch (final Exception e) {
-			backlog.removeItem(this);
-		}
+		this.checkName(backlog, name); //Initiale Prüfung
 		this.setManDayCosts(0);
+		this.getBacklogAssoc().finalSet(backlog.getAssoc());
 	}
+	
+//	public void connectPBIToBacklog(ProductBacklog backlog){
+//		if(this.getBacklog()==null){
+//			this.getBacklogAssoc().finalSet(backlog.getAssoc());
+//		}
+//	}
 
 
 	public ProductBacklog getBacklog() {
@@ -129,13 +131,19 @@ public abstract class ProductBacklogItem extends Observable implements BDACompar
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public final void setName(final String name) throws NoValidValueException,
-			DoubleDefinitionException {
+	public final void setName(final String name) throws NoValidValueException, DoubleDefinitionException, ConsistencyException {
+		if(this.getBacklog()!=null){
+			this.checkName(this.getBacklog(), name);
+		}else{
+			//TODO Textkonstante bauen!
+			throw new ConsistencyException("Das PBI muss zunächst mit dem Backlog verbunden werden");
+		}
+	}
+	
+	private void checkName(ProductBacklog backlog, String name) throws NoValidValueException, DoubleDefinitionException{
 		if (name != null && name.trim().length() > 0) {
-			this.getBacklog().isDoubleDefined(name);// Can throw an
-													// DoubleDefinitionException
+			backlog.isDoubleDefined(name);// DoubleDefinitionException
 			this.name = name;
-			this.notifyObservers();
 		} else {
 			// TODO Textkonstante bauen
 			throw new NoValidValueException(

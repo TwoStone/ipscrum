@@ -120,7 +120,11 @@ public class ProductBacklog extends Observable implements BDACompare{
 	 */
 	public void addItem(ProductBacklogItem item) throws ConsistencyException{
 		if(item!=null){
-			if(item.getBacklog()==this){
+			if(item.getBacklog()==null){
+				this.getAssoc().add(item.getBacklogAssoc());
+				notifyObservers();
+			}
+			else if (item.getBacklog()==this){
 				this.getAssoc().add(item.getBacklogAssoc());
 				this.notifyObservers();
 			}else{
