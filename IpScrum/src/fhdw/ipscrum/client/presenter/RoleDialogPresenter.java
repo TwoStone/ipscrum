@@ -9,13 +9,13 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 /**
- * Represents the presenter of the view with which the user could make new roles or change roles. 
- * 
+ * Represents the presenter of the view with which the user could make new roles or change roles.
  */
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
@@ -24,11 +24,10 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 	/**
 	 * Constructor for RoleDialogPresenter.
-	 *           
+	 * 
 	 *Required for making new roles.
 	 * 
 	 * @param parent Panel
-	 * 
 	 */
 	public RoleDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -40,8 +39,7 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	 * Required for changing roles.
 	 * 
 	 * @param parent Panel
-	 * @param selectedRole IRole 
-	 *            
+	 * @param selectedRole IRole
 	 */
 	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
 		super(parent);
@@ -56,33 +54,34 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	 * new role or change a role and defines what happens when the user
 	 * pushes the cancel- or OK-button.
 	 * 
-	 * @return IRoleDialogView 
-	 * 
+	 * @return IRoleDialogView
 	 */
 	@Override
 	protected IRoleDialogView createView() {
 		this.concreteView = new RoleDialogView();
 
 		this.concreteView.addCancelEventHandler(new EventHandler<EventArgs>() {
+			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				abort();
 			}
 		});
 
 		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
+			@Override
 			public void onUpdate(Object sender, OneStringArgs eventArgs) {
 				if (RoleDialogPresenter.this.role == null) {
 					try {
 						SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
 					} catch (NoValidValueException e) {
-						Window.alert("Die Rolle konnte nicht erzeugt werden!");
+						Window.alert(ExceptionConstants.NVVE_ROLECREATION);
 						e.printStackTrace();
 					}
 				} else {
 					try {
 						RoleDialogPresenter.this.role.setDescription(eventArgs.getString());
 					} catch (NoValidValueException e) {
-						Window.alert("Die Rolle konnte nicht geändert werden!");
+						Window.alert(ExceptionConstants.NVVE_ROLEMODIFICATION);
 						e.printStackTrace();
 					}
 				}
@@ -99,7 +98,7 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	 */
 	private void initialize() {
 		if (this.role != null) {
-			this.concreteView.getRole().setText(this.role.getDescription());
+			this.concreteView.setRole(this.role.getDescription());
 		}
 	}
 

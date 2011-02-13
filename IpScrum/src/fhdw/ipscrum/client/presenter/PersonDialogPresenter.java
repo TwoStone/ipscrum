@@ -51,7 +51,7 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	/**
 	 * Method createView.
 	 * 
-	 * Creates the view in which the user could make a new person or change a person 
+	 * Creates the view in which the user could make a new person or change a person
 	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 * 
 	 * @return IPersonDialogView
@@ -91,8 +91,8 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	 */
 	private void initialize() {
 		if (this.person != null) {
-			this.concreteView.getVorname().setText(this.person.getFirstname());
-			this.concreteView.getNachname().setText(this.person.getLastname());
+			this.concreteView.setVorname(this.person.getFirstname());
+			this.concreteView.setNachname(this.person.getLastname());
 		}
 	}
 

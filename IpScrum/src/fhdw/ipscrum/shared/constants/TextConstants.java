@@ -58,6 +58,9 @@ public final class TextConstants {
 	public static final String SPRINTDIALOG_ENDDATE = "Endtermin";
 	public static final String SPRINTDIALOG_CHOSENTEAM = "Zugeordnetes Teams:";
 	public static final String SPRINTDIALOG_DESCRIPTION = "Beschreibung:";
+	public static final String ROLEDIALOG_DESCRIPTION = "Rollenbezeichnung";
+	public static final String PERSONDIALOG_FIRSTNAME = "Vorname";
+	public static final String PERSONDIALOG_LASTNAME = "Nachname";
 
 
 

@@ -1,36 +1,35 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.user.client.ui.HasText;
-
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.TwoStringArgs;
 
 /**
+ * This view is used as a dialog to create or modify persons.
  */
 public interface IPersonDialogView extends IView {
 
 	/**
-	 * Method getVorname.
-	 * @return HasText
+	 * Preset the firstname-field.
+	 * @param vorname firstname as String
 	 */
-	public abstract HasText getVorname();
+	public abstract void setVorname(String vorname);
 
 	/**
-	 * Method getNachname.
-	 * @return HasText
+	 * Preset the lastname-field.
+	 * @param nachname lastname as String
 	 */
-	public abstract HasText getNachname();
+	public abstract void setNachname(String nachname);
 
 	/**
-	 * Method defineCommitEventHandler.
-	 * @param args EventHandler<TwoStringArgs>
+	 * Use this to define what happens when the user pushes "ok".
+	 * @param args EventHandler<TwoStringArgs> two Strings: firstname, lastname
 	 */
 	public abstract void defineCommitEventHandler(EventHandler<TwoStringArgs> args);
 
 	/**
-	 * Method defineCancelEventHandler.
-	 * @param args EventHandler<EventArgs>
+	 * Use this to define what happens when the user pushes "cancel".
+	 * @param args EventHandler<EventArgs> empty arguments
 	 */
 	public abstract void defineCancelEventHandler(EventHandler<EventArgs> args);
 
