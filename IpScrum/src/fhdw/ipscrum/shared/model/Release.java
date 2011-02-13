@@ -44,7 +44,7 @@ public class Release extends Observable implements IRelease {
 		this.projectAssoc = new ToProjectAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
 		project.isReleaseDoubleDefined(version, releaseDate);//can throw DoubleDefinitionException
-		this.getProjectAssoc().set(project.getReleaseAssoc());
+		this.getProjectAssoc().finalSet(project.getReleaseAssoc());
 	}
 
 	public String getVersion() {
@@ -73,7 +73,9 @@ public class Release extends Observable implements IRelease {
 	 */
 	public Vector<ISprint> getSprints() {
 		Vector<ISprint> ret = new Vector<ISprint>();
-		//TODO getSprints!
+		for(ISprint.ToReleaseAssoc current : this.getSprintAssoc().getAssociations()){
+			ret.add(current.getElement());
+		}
 		return ret;
 	}
 
@@ -118,21 +120,51 @@ public class Release extends Observable implements IRelease {
 	}
 
 	@Override
+	public int indirectHashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+		+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
+		return result;
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		try {
-			result = prime * result + ((this.getProject() == null) ? 0 : this.getProject().hashCode());
-		} catch (ConsistencyException e) {
-			result = 0;
-		}
+		result = prime * result
+				+ ((projectAssoc == null) ? 0 : projectAssoc.hashCode());
 		result = prime * result
 				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
-		result = prime * result + ((this.getSprints() == null) ? 0 : this.getSprints().hashCode());
+		result = prime * result
+				+ ((sprintAssoc == null) ? 0 : sprintAssoc.hashCode());
 		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
 
+	@Override
+	public boolean indirectEquals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Release other = (Release) obj;
+		if (releaseDate == null) {
+			if (other.releaseDate != null)
+				return false;
+		} else if (!releaseDate.equals(other.releaseDate))
+			return false;
+		if (version == null) {
+			if (other.version != null)
+				return false;
+		} else if (!version.equals(other.version))
+			return false;
+		return true;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -142,24 +174,20 @@ public class Release extends Observable implements IRelease {
 		if (getClass() != obj.getClass())
 			return false;
 		Release other = (Release) obj;
-		try {
-			if (this.getProject() == null) {
-				if (other.getProject() != null)
-					return false;
-			} else if (!this.getProject().equals(other.getProject()))
+		if (projectAssoc == null) {
+			if (other.projectAssoc != null)
 				return false;
-		} catch (ConsistencyException e) {
+		} else if (!projectAssoc.equals(other.projectAssoc))
 			return false;
-		}
 		if (releaseDate == null) {
 			if (other.releaseDate != null)
 				return false;
 		} else if (!releaseDate.equals(other.releaseDate))
 			return false;
-		if (this.getSprints() == null) {
-			if (other.getSprints() != null)
+		if (sprintAssoc == null) {
+			if (other.sprintAssoc != null)
 				return false;
-		} else if (!this.getSprints().equals(other.getSprints()))
+		} else if (!sprintAssoc.equals(other.sprintAssoc))
 			return false;
 		if (version == null) {
 			if (other.version != null)
@@ -168,4 +196,58 @@ public class Release extends Observable implements IRelease {
 			return false;
 		return true;
 	}
+
+	
+	
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = super.hashCode();
+//		try {
+//			result = prime * result + ((this.getProject() == null) ? 0 : this.getProject().hashCode());
+//		} catch (ConsistencyException e) {
+//			result = 0;
+//		}
+//		result = prime * result
+//				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
+//		result = prime * result + ((this.getSprints() == null) ? 0 : this.getSprints().hashCode());
+//		result = prime * result + ((version == null) ? 0 : version.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (!super.equals(obj))
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Release other = (Release) obj;
+//		try {
+//			if (this.getProject() == null) {
+//				if (other.getProject() != null)
+//					return false;
+//			} else if (!this.getProject().equals(other.getProject()))
+//				return false;
+//		} catch (ConsistencyException e) {
+//			return false;
+//		}
+//		if (releaseDate == null) {
+//			if (other.releaseDate != null)
+//				return false;
+//		} else if (!releaseDate.equals(other.releaseDate))
+//			return false;
+//		if (this.getSprints() == null) {
+//			if (other.getSprints() != null)
+//				return false;
+//		} else if (!this.getSprints().equals(other.getSprints()))
+//			return false;
+//		if (version == null) {
+//			if (other.version != null)
+//				return false;
+//		} else if (!version.equals(other.version))
+//			return false;
+//		return true;
+//	}
 }

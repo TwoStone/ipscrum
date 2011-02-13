@@ -7,12 +7,12 @@ import java.util.Vector;
  * <p>This class represents a bidirectional association between 2
  * classes.</p>
  * <p>This association can be 1:1, 1:n oder m:n.<br/>
- * Therefor you have helper methods like set/get and add/remove who
+ * Therefore you have helper methods like set/get and add/remove who
  * can be used by the specific Model classes.<br/><br />
  * <b>This class provides fully synchronization between the connected
  * classes.</b></p>
  */
-public abstract class BDAManyToMany<T extends BDAManyToMany, E> {
+public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompare> {
 
 	/**
 	 * Base Element of the association.
@@ -47,6 +47,24 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E> {
 	}
 
 	/**
+	 * TODO Kommentar
+	 * For single Values (to 1) 
+	 * @param bda
+	 */
+	private void changeConnect(T bda) {
+		if (!this.getConnectTo().contains(bda)) {
+			if(this.getConnectTo().size()>0){
+				this.getConnectTo().get(0).release(this);
+			}
+			this.getConnectTo().removeAllElements();
+			this.getConnectTo().add(bda);
+			if (bda.isNotConnected(this)) {
+				bda.changeConnect(this);
+			}
+		}
+	}
+
+	/**
 	 * This method releases a connection between two associations
 	 * objects. Therefore synchronization will be ensured.
 	 * @param bda
@@ -58,7 +76,7 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E> {
 			bda.release(this);
 		}
 	}
-
+	
 	/**
 	 * Return the base element of this association object.
 	 */
@@ -108,7 +126,23 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E> {
 			if (this.getConnectTo().size() > 0) {
 				this.getConnectTo().get(0).release(this);
 			}
+			this.changeConnect(arg);
+		}
+	}
+
+	/**
+	 * TODO Kommentar
+	 * FinalSet für zu 1 Assoziation! Setzen erfolgt i.d.R im
+	 * Konstruktor
+	 * TODO Exception dazu machen und vielleicht noch einen
+	 * Status, ob diese Assoziation final ist oder nicht!
+	 * @param arg
+	 */
+	public void finalSet(T arg) {
+		if (arg != null) {
 			this.connect(arg);
+		} else {
+			//TODO Exception schmeißen;
 		}
 	}
 	
@@ -186,5 +220,44 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E> {
 			this.getConnectTo().remove(bda);
 			this.getConnectTo().insertElementAt(bda, position + 1);
 		}
+	}
+
+	
+	private int indirectHashcode() {
+		int result = 0;
+		for(T current : this.getConnectTo()){
+			result = result + current.getElement().indirectHashCode();
+		}
+		return result;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((connectTo == null) ? 0 : indirectHashcode());
+		return result;
+	}
+	
+	private boolean indirectEquals(BDAManyToMany object){
+		return this.getElement().indirectEquals(object.getElement());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BDAManyToMany other = (BDAManyToMany) obj;
+		if (connectTo == null) {
+			if (other.connectTo != null)
+				return false;
+		} else if (!indirectEquals(other))
+			return false;
+		return true;
 	}
 }

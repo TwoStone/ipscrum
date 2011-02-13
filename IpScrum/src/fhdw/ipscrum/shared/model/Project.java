@@ -3,6 +3,8 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
+
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -15,7 +17,7 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Represents a Scrum Project.
  */
-public class Project extends Observable{
+public class Project extends Observable implements BDACompare{
 
 	private String name;
 	private final ProductBacklog backlog;
@@ -161,22 +163,33 @@ public class Project extends Observable{
 	}
 
 	@Override
+	public int indirectHashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
+		return result;
+	}
+	
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((backlog == null) ? 0 : backlog.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-				+ ((this.getReleasePlan() == null) ? 0 : this.getReleasePlan().hashCode());
+				+ ((releaseAssoc == null) ? 0 : releaseAssoc.hashCode());
 		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean indirectEquals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -191,15 +204,42 @@ public class Project extends Observable{
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (this.getReleasePlan() == null) {
-			if (other.getReleasePlan() != null)
+		if (sprints == null) {
+			if (other.sprints != null)
 				return false;
-		} else if (!this.getReleasePlan().equals(other.getReleasePlan()))
+		} else if (!sprints.equals(other.sprints))
 			return false;
-		if (this.getSprints() == null) {
-			if (other.getSprints() != null)
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Project other = (Project) obj;
+		if (backlog == null) {
+			if (other.backlog != null)
 				return false;
-		} else if (!this.getSprints().equals(other.getSprints()))
+		} else if (!backlog.equals(other.backlog))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (releaseAssoc == null) {
+			if (other.releaseAssoc != null)
+				return false;
+		} else if (!releaseAssoc.equals(other.releaseAssoc))
+			return false;
+		if (sprints == null) {
+			if (other.sprints != null)
+				return false;
+		} else if (!sprints.equals(other.sprints))
 			return false;
 		return true;
 	}

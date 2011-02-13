@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -12,7 +13,7 @@ import fhdw.ipscrum.shared.observer.Observable;
  * Represents the ProductBacklog of a project. It manages the
  * ProductBacklogItems.
  */
-public class ProductBacklog extends Observable {
+public class ProductBacklog extends Observable implements BDACompare{
 
 	private final Project project;
 	
@@ -114,8 +115,8 @@ public class ProductBacklog extends Observable {
 				this.getAssoc().add(item.getBacklogAssoc());
 				this.notifyObservers();
 			}else{
-				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugefügt werden, " +
-						"da es bereits einem anderen Backlog gehört");
+				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugefï¿½gt werden, " +
+						"da es bereits einem anderen Backlog gehï¿½rt");
 			}
 		}
 	}
@@ -145,27 +146,57 @@ public class ProductBacklog extends Observable {
 	}
 
 	@Override
+	public int indirectHashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((project == null) ? 0 : project.hashCode());
+		return result;
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((this.getItems() == null) ? 0 : this.getItems().hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((assoc == null) ? 0 : assoc.hashCode());
+		result = prime * result + ((project == null) ? 0 : project.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean indirectEquals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		ProductBacklog other = (ProductBacklog) obj;
-		if (this.getItems() == null) {
-			if (other.getItems() != null)
+		if (project == null) {
+			if (other.project != null)
 				return false;
-		} else if (!this.getItems().equals(other.getItems()))
+		} else if (!project.equals(other.project))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductBacklog other = (ProductBacklog) obj;
+		if (assoc == null) {
+			if (other.assoc != null)
+				return false;
+		} else if (!assoc.equals(other.assoc))
+			return false;
+		if (project == null) {
+			if (other.project != null)
+				return false;
+		} else if (!project.equals(other.project))
 			return false;
 		return true;
 	}

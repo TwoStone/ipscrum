@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -13,7 +14,7 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
-public abstract class ProductBacklogItem extends Observable {
+public abstract class ProductBacklogItem extends Observable implements BDACompare{
 
 	private String name;
 	private Integer manDayCosts;
@@ -58,7 +59,7 @@ public abstract class ProductBacklogItem extends Observable {
 		super();
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
-		this.getBacklogAssoc().set(backlog.getAssoc());
+		this.getBacklogAssoc().finalSet(backlog.getAssoc());
 		try {
 			this.setName(name);
 		} catch (final Exception e) {
@@ -67,55 +68,6 @@ public abstract class ProductBacklogItem extends Observable {
 		this.setManDayCosts(0);
 	}
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		final ProductBacklogItem other = (ProductBacklogItem) obj;
-		if (this.getBacklog() == null) {
-			if (other.getBacklog() != null) {
-				return false;
-			}
-		} else if (!this.getBacklog().equals(other.getBacklog())) {
-			return false;
-		}
-		if (this.lastEditor == null) {
-			if (other.lastEditor != null) {
-				return false;
-			}
-		} else if (!this.lastEditor.equals(other.lastEditor)) {
-			return false;
-		}
-		if (this.manDayCosts == null) {
-			if (other.manDayCosts != null) {
-				return false;
-			}
-		} else if (!this.manDayCosts.equals(other.manDayCosts)) {
-			return false;
-		}
-		if (this.name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!this.name.equals(other.name)) {
-			return false;
-		}
-		if (this.getSprint() == null) {
-			if (other.getSprint() != null) {
-				return false;
-			}
-		} else if (!this.getSprint().equals(other.getSprint())) {
-			return false;
-		}
-		return true;
-	}
 
 	public ProductBacklog getBacklog() {
 		if (this.getBacklogAssoc().get() != null) {
@@ -137,32 +89,11 @@ public abstract class ProductBacklogItem extends Observable {
 	}
 
 	public ISprint getSprint() {
-		if (this.getSprintAssoc().get() != null) {
+		if(this.getSprintAssoc().get()!=null){
 			return this.getSprintAssoc().get().getElement();
-		} else {
+		}else{
 			return null;
 		}
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime
-				* result
-				+ ((this.getBacklog() == null) ? 0 : this.getBacklog()
-						.hashCode());
-		result = prime * result
-				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
-		result = prime
-				* result
-				+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
-		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
-		result = prime
-				* result
-				+ ((this.getSprint() == null) ? 0 : this.getSprint().hashCode());
-		return result;
 	}
 
 	public void setLastEditor(final IPerson lastEditor) {
@@ -185,7 +116,7 @@ public abstract class ProductBacklogItem extends Observable {
 		} else {
 			// TODO Textkonstante bauen
 			throw new NoValidValueException(
-					"Es muss eine g�ltige Aufwandssch�tzung in Manntagen (>=0) angegeben werden!");
+					"Es muss eine gï¿½ltige Aufwandsschï¿½tzung in Manntagen (>=0) angegeben werden!");
 		}
 	}
 
@@ -223,23 +154,12 @@ public abstract class ProductBacklogItem extends Observable {
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException {
-		// TODO setSprint
-		// if (sprint != null) {
-		// if (this.getBacklog().getProject().isSprintDefined(sprint)) {
-		// sprint.addPBI(this);
-		// this.sprint = sprint;
-		// this.notifyObservers();
-		// } else {
-		// // TODO Textkonstante bauen
-		// throw new NoSprintDefinedException(
-		// "Es können nur bereits vorhandene Sprints zugeordnet werden!");
-		// }
-		// } else {
-		// if (this.sprint != null) {
-		// this.sprint.removePBI(this);
-		// this.sprint = null;
-		// }
-		// }
+		this.getBacklog().getProject().isSprintDefined(sprint);
+		if(sprint!=null){
+			this.getSprintAssoc().set(sprint.getToPBIAssoc());
+		}else{
+			this.getSprintAssoc().set(null);
+		}
 		this.notifyObservers();
 	}
 
@@ -249,4 +169,95 @@ public abstract class ProductBacklogItem extends Observable {
 				+ this.name + "]";
 	}
 
+	@Override
+	public int indirectHashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+		+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
+		result = prime * result
+		+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((backlogAssoc == null) ? 0 : backlogAssoc.hashCode());
+		result = prime * result
+				+ ((lastEditor == null) ? 0 : lastEditor.hashCode());
+		result = prime * result
+				+ ((manDayCosts == null) ? 0 : manDayCosts.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((sprintAssoc == null) ? 0 : sprintAssoc.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean indirectEquals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductBacklogItem other = (ProductBacklogItem) obj;
+		if (lastEditor == null) {
+			if (other.lastEditor != null)
+				return false;
+		} else if (!lastEditor.equals(other.lastEditor))
+			return false;
+		if (manDayCosts == null) {
+			if (other.manDayCosts != null)
+				return false;
+		} else if (!manDayCosts.equals(other.manDayCosts))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductBacklogItem other = (ProductBacklogItem) obj;
+		if (backlogAssoc == null) {
+			if (other.backlogAssoc != null)
+				return false;
+		} else if (!backlogAssoc.equals(other.backlogAssoc))
+			return false;
+		if (lastEditor == null) {
+			if (other.lastEditor != null)
+				return false;
+		} else if (!lastEditor.equals(other.lastEditor))
+			return false;
+		if (manDayCosts == null) {
+			if (other.manDayCosts != null)
+				return false;
+		} else if (!manDayCosts.equals(other.manDayCosts))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (sprintAssoc == null) {
+			if (other.sprintAssoc != null)
+				return false;
+		} else if (!sprintAssoc.equals(other.sprintAssoc))
+			return false;
+		return true;
+	}
 }

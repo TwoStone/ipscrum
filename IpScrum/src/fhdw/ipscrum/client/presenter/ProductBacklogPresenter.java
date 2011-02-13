@@ -53,8 +53,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 										.getBacklog().addItem(
 												presenter.getFeature());
 							} catch (final ConsistencyException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								GwtUtils.displayError(e.getMessage());
 							}
 							view.refreshProductBacklog(ProductBacklogPresenter.this.project
 									.getBacklog().getItems());

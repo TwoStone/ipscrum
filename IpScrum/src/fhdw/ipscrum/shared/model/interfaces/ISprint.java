@@ -3,12 +3,13 @@ package fhdw.ipscrum.shared.model.interfaces;
 import java.util.Date;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Sprint;
 
-public interface ISprint {
+public interface ISprint extends BDACompare{
 
 	public Date getBegin();
 
