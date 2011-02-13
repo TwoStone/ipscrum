@@ -1,11 +1,14 @@
 package fhdw.ipscrum.client.view;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -17,9 +20,9 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.events.args.SprintDetailArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
-import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
  */
@@ -31,9 +34,11 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	private final Button ok_button;
 	private final Button abb_button;
 
-	private final Event<SprintArgs> okEvent = new Event<SprintArgs>();
+	private final Event<SprintDetailArgs> okEvent = new Event<SprintDetailArgs>();
 	private final Event<EventArgs> cancelEvent = new Event<EventArgs>();
 	private final TextArea description;
+	private final HashMap<Integer,ITeam> indexToTeamMap = new HashMap<Integer,ITeam>();
+	private final HashMap<ITeam,Integer> teamToIndexMap = new HashMap<ITeam,Integer>();
 
 	public SprintDialogView() {
 
@@ -118,8 +123,8 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		this.ok_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				Sprint tempSprint = new Sprint(null, null, null); // TODO temporären Sprint mit Daten aus View aufbauen
-				SprintDialogView.this.okEvent.fire(SprintDialogView.this, new SprintArgs(tempSprint));
+				SprintDetailArgs sprintDetails = new SprintDetailArgs(SprintDialogView.this.start.getValue(), SprintDialogView.this.end.getValue(), SprintDialogView.this.getSelectedTeam(), SprintDialogView.this.description.getText());
+				SprintDialogView.this.okEvent.fire(SprintDialogView.this, sprintDetails);
 			}
 		});
 
@@ -134,40 +139,26 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		});
 	}
 
-	/**
-	 * Method getDescription.
-	 * @return HasText
-	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#getDescription()
-	 */
+
 	@Override
-	public HasText getDescription() {
-		return this.description;
+	public ITeam getSelectedTeam() {
+		return this.indexToTeamMap.get(this.teams.getSelectedIndex());
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ISprintDialogView#getStart()
-	 */
 	@Override
-	public DateBox getStart() {
-		return this.start;
+	public void setSelectedTeam(ITeam team) {
+		this.teams.setSelectedIndex(this.teamToIndexMap.get(team));
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ISprintDialogView#getEnd()
-	 */
 	@Override
-	public DateBox getEnd() {
-		return this.end;
+	public void fillComboBoxTeams(ArrayList<ITeam> teamList) {
+		this.teams.clear();
+		for (int i = 0; i < teamList.size(); i++) {
+			this.teams.addItem(teamList.get(i).toString());
+			this.teamToIndexMap.put(teamList.get(i), i);
+			this.indexToTeamMap.put(i, teamList.get(i));
+		}
 	}
-
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ISprintDialogView#getTeams()
-	 */
-	@Override
-	public ListBox getTeams() {
-		return this.teams;
-	}
-
 
 	/**
 	 * Method addOkHandler.
@@ -175,7 +166,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#addOkHandler(EventHandler<SprintArgs>)
 	 */
 	@Override
-	public void addOkHandler(EventHandler<SprintArgs> args) {
+	public void addOkHandler(EventHandler<SprintDetailArgs> args) {
 		this.okEvent.add(args);
 	}
 
@@ -188,5 +179,21 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	public void addCancelHandler(EventHandler<EventArgs> args) {
 		this.cancelEvent.add(args);
 	}
+
+	@Override
+	public void setStart(Date startDate) {
+		this.start.setValue(startDate);
+	}
+
+	@Override
+	public void setEnd(Date endDate) {
+		this.end.setValue(endDate);
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description.setText(description);
+	}
+
 
 }

@@ -1,51 +1,41 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.datepicker.client.DateBox;
+import java.util.ArrayList;
+import java.util.Date;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.events.args.SprintDetailArgs;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
  */
 public interface ISprintDialogView extends IView{
 
-	/**
-	 * Method getStart.
-	 * @return DateBox
-	 */
-	public abstract DateBox getStart();
-
-	/**
-	 * Method getEnd.
-	 * @return DateBox
-	 */
-	public abstract DateBox getEnd();
-
-	/**
-	 * Method getTeams.
-	 * @return ListBox
-	 */
-	public abstract ListBox getTeams();
-	
-	/**
-	 * Method getDescription.
-	 * @return HasText
-	 */
-	public abstract HasText getDescription();
+	public abstract void setStart(Date startDate);
+	public abstract void setEnd(Date endDate);
+	public abstract void setDescription(String description);
 
 	/**
 	 * Method addOkHandler.
 	 * @param args EventHandler<SprintArgs>
 	 */
-	public abstract void addOkHandler(EventHandler<SprintArgs> args);
+	public abstract void addOkHandler(EventHandler<SprintDetailArgs> args);
 
 	/**
 	 * Method addCancelHandler.
 	 * @param args EventHandler<EventArgs>
 	 */
 	public abstract void addCancelHandler(EventHandler<EventArgs> args);
+
+	/**
+	 * @param teamList
+	 */
+	public void fillComboBoxTeams(ArrayList<ITeam> teamList);
+
+
+	public ITeam getSelectedTeam();
+
+	public void setSelectedTeam(ITeam team);
 
 }

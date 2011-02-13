@@ -1,12 +1,13 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.events.args.SprintDetailArgs;
 import fhdw.ipscrum.client.view.SprintDialogView;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.SessionManager;
@@ -14,7 +15,7 @@ import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
-/** 
+/**
  */
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
@@ -48,7 +49,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * Method createView.
 	 * @return ISprintDialogView
 	 * 
-	 * Creates the view in which the user could make a new sprint or change a sprint 
+	 * Creates the view in which the user could make a new sprint or change a sprint
 	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 */
 	@Override
@@ -63,19 +64,19 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 			}
 		});
 
-		this.concreteView.addOkHandler(new EventHandler<SprintArgs>() {
+		this.concreteView.addOkHandler(new EventHandler<SprintDetailArgs>() {
 			@Override
-						
-			public void onUpdate(Object sender, SprintArgs eventArgs) {
+
+			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
 				if (SprintDialogPresenter.this.sprint == null) {
-					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getSprint().getBegin(), eventArgs.getSprint().getEnd(), eventArgs.getSprint().getTeam());
-					if (eventArgs.getSprint().getDescription() != null)
-						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getSprint().getDescription());
+					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
+					if (eventArgs.getDescription() != null)
+						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
 				} else {
-					SprintDialogPresenter.this.sprint.setDescription(eventArgs.getSprint().getDescription());
-					SprintDialogPresenter.this.sprint.setBegin(eventArgs.getSprint().getBegin());
-					SprintDialogPresenter.this.sprint.setEnd(eventArgs.getSprint().getEnd());
-					SprintDialogPresenter.this.sprint.setTeam(eventArgs.getSprint().getTeam());
+					SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
+					SprintDialogPresenter.this.sprint.setBegin(eventArgs.getBeginDate());
+					SprintDialogPresenter.this.sprint.setEnd(eventArgs.getEndDate());
+					SprintDialogPresenter.this.sprint.setTeam(eventArgs.getTeam());
 				}
 
 				finish();
@@ -84,7 +85,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 		return this.concreteView;
 	}
-	
+
 	/**
 	 * Method initialize.
 	 * 
@@ -92,26 +93,21 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * It also initializes the teams for the view.
 	 */
 	private void initialize() {
-		if (SessionManager.getInstance().getModel().getTeams() != null){
-			Iterator teamIterator = SessionManager.getInstance().getModel().getTeams().iterator();
-			while(teamIterator.hasNext()){
-				ITeam team = (ITeam) teamIterator.next();
-				concreteView.getTeams().addItem(team.getDescription());
-			}
-		}		   
-		
+		HashSet<ITeam> teamSet = SessionManager.getInstance().getModel().getTeams(); // TODO unsafe - was wenn kein model da ist?
+		if (teamSet != null){
+			this.concreteView.fillComboBoxTeams(new ArrayList<ITeam>(teamSet));
+		}
+
 		if (this.sprint != null) {
-			// TODO Hier Vorbelegungen anf�gen..
-			this.concreteView.getDescription().setText(this.sprint.getDescription());
-			this.concreteView.getStart().setValue(this.sprint.getBegin());
-			this.concreteView.getEnd().setValue(this.sprint.getEnd());
-			//this.concreteView.getTeams().setSelectedIndex();
+			// Hier Vorbelegungen anfügen..
+			this.concreteView.setDescription(this.sprint.getDescription());
+			this.concreteView.setStart(this.sprint.getBegin());
+			this.concreteView.setEnd(this.sprint.getEnd());
+			this.concreteView.setSelectedTeam(this.sprint.getTeam());
 		}
 	}
 
 	public ISprint getSprint() {
-		return sprint;
+		return this.sprint;
 	}
-	
-	
 }

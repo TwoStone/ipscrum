@@ -5,20 +5,23 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.shared.model.Project;
 
 public class SprintPresenter extends Presenter<ISprintView>{
 
-	private Project project;
-	
+	private ISprintView concreteView;
+	private final Project project;
+
+
 	public SprintPresenter(Panel parent, Project project) {
 		super(parent);
 		this.project = project;
 		this.initialize();
 	}
-	
+
 	private void initialize() {
 		if (this.project.getReleasePlan() != null) {
 			this.getView().refreshSprints(this.project.getSprints());
@@ -27,31 +30,78 @@ public class SprintPresenter extends Presenter<ISprintView>{
 
 	@Override
 	protected ISprintView createView() {
-		final ISprintView view = new SprintView();
-	
-		view.addNewReleaseEventHandler(new EventHandler<EventArgs>() {
-			
+		this.concreteView = new SprintView();
+
+		this.concreteView.addNewReleaseEventHandler(new EventHandler<EventArgs>() {
+
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				final DialogBox diaBox = new DialogBox();
-				SprintDialogPresenter presenter = new SprintDialogPresenter(diaBox);
-				
-			presenter.getFinished().add(new EventHandler<EventArgs>() {
+				final DialogBox box = new DialogBox();
+				final SprintDialogPresenter presenter = new SprintDialogPresenter(box);
+				box.setAnimationEnabled(true);
+				box.setAutoHideEnabled(true);
+				box.setGlassEnabled(true);
+				box.setText("Neuen Sprint anlegen");
 
-				@Override
-				public void onUpdate(Object sender, EventArgs eventArgs) {
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						SprintPresenter.this.initialize();
+						box.hide();
+						//TODO presenter.getSprint() anhängen!
+					}
+				});
 
-					SprintPresenter.this.initialize();
-					
-				}
-			});
-			diaBox.center();
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						box.hide();
+					}
+				});
+				box.center();
 			}
 		});
-		
-		return view;
-		
+
+		this.concreteView.addSprintDetailsEventHandler(new EventHandler<SprintArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, SprintArgs eventArgs) {
+				final DialogBox box = new DialogBox();
+				final SprintDialogPresenter presenter = new SprintDialogPresenter(box, eventArgs.getSprint());
+				box.setAnimationEnabled(true);
+				box.setAutoHideEnabled(true);
+				box.setGlassEnabled(true);
+				box.setText("Sprint " + eventArgs.getSprint().getDescription() + " bearbeiten");
+
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						SprintPresenter.this.initialize();
+						box.hide();
+					}
+				});
+
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						box.hide();
+					}
+				});
+				box.center();
+			}
+		});
+
+		this.concreteView.addDeleteReleaseEventHandler(new EventHandler<SprintArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, SprintArgs eventArgs) {
+				// TODO eventArgs.getSprint entfernen - evtl vorher fragen?
+			}
+		});
+
+		return this.concreteView;
+
 	}
-	
-	
+
+
 }
