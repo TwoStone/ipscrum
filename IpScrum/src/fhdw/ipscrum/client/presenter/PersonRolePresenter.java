@@ -204,7 +204,11 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 			@Override
 			public void onUpdate(Object sender, MultipleRoleArgs eventArgs) {
 				for (IRole role : eventArgs.getRoles()) {
-					SessionManager.getInstance().getModel().removeRole(role);
+					try {
+						SessionManager.getInstance().getModel().removeRole(role);
+					} catch (ConsistencyException e) {
+						Window.alert(e.getMessage());
+					}
 				}
 				PersonRolePresenter.this.updateGuiTables();
 			}
