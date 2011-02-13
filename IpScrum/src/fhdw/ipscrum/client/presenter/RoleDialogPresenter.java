@@ -9,7 +9,6 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -74,15 +73,13 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 					try {
 						SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
 					} catch (NoValidValueException e) {
-						Window.alert(ExceptionConstants.NVVE_ROLECREATION);
-						e.printStackTrace();
+						Window.alert(e.getMessage());
 					}
 				} else {
 					try {
 						RoleDialogPresenter.this.role.setDescription(eventArgs.getString());
 					} catch (NoValidValueException e) {
-						Window.alert(ExceptionConstants.NVVE_ROLEMODIFICATION);
-						e.printStackTrace();
+						Window.alert(e.getMessage());
 					}
 				}
 

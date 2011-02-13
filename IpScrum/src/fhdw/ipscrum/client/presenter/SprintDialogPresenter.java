@@ -95,7 +95,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * It also initializes the teams for the view.
 	 */
 	private void initialize() {
-		HashSet<ITeam> teamSet = SessionManager.getInstance().getModel().getTeams(); // TODO unsafe - was wenn kein model da ist?
+		HashSet<ITeam> teamSet = SessionManager.getInstance().getModel().getTeams();
 		if (teamSet != null){
 			this.concreteView.fillComboBoxTeams(new ArrayList<ITeam>(teamSet));
 		}

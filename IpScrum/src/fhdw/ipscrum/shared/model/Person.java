@@ -14,19 +14,19 @@ public class Person implements IPerson {
 
 	public Person(String firstname, String lastname) {
 		super();
-		this.firstname = firstname;
+		this.firstname = firstname; // TODO Christin: Hier bitte analog zu Role ebenfalls Überprüfungen auf Vollständigkeit
 		this.lastname = lastname;
-		toRoleAssoc = new ToRoleAssoc(this);
+		this.toRoleAssoc = new ToRoleAssoc(this);
 	}
 
 	@Override
 	public ToRoleAssoc getToRoleAssoc() {
-		return toRoleAssoc;
+		return this.toRoleAssoc;
 	}
 
 	@Override
 	public String getFirstname() {
-		return firstname;
+		return this.firstname;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class Person implements IPerson {
 
 	@Override
 	public String getLastname() {
-		return lastname;
+		return this.lastname;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class Person implements IPerson {
 	@Override
 	public Vector<IRole> getRoles() {
 		Vector<IRole> ret = new Vector<IRole>();
-		for (IRole.ToPersonAssoc roleAssocs : toRoleAssoc.getAssociations()) {
+		for (IRole.ToPersonAssoc roleAssocs : this.toRoleAssoc.getAssociations()) {
 			ret.add(roleAssocs.getElement());
 		}
 		return ret;
@@ -80,7 +80,7 @@ public class Person implements IPerson {
 	public int hashCode() {
 		int result = this.indirectHashCode();
 		final int prime = 31;
-		result = prime * result + ((toRoleAssoc == null) ? 0 : toRoleAssoc.hashCode());
+		result = prime * result + ((this.toRoleAssoc == null) ? 0 : this.toRoleAssoc.hashCode());
 		return result;
 	}
 
@@ -89,10 +89,10 @@ public class Person implements IPerson {
 		if (!indirectEquals(obj))
 			return false;
 		Person other = (Person) obj;
-		if (toRoleAssoc == null) {
+		if (this.toRoleAssoc == null) {
 			if (other.toRoleAssoc != null)
 				return false;
-		} else if (!toRoleAssoc.equals(other.toRoleAssoc))
+		} else if (!this.toRoleAssoc.equals(other.toRoleAssoc))
 			return false;
 		return true;
 	}
@@ -106,15 +106,15 @@ public class Person implements IPerson {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (firstname == null) {
+		if (this.firstname == null) {
 			if (other.firstname != null)
 				return false;
-		} else if (!firstname.equals(other.firstname))
+		} else if (!this.firstname.equals(other.firstname))
 			return false;
-		if (lastname == null) {
+		if (this.lastname == null) {
 			if (other.lastname != null)
 				return false;
-		} else if (!lastname.equals(other.lastname))
+		} else if (!this.lastname.equals(other.lastname))
 			return false;
 		return true;
 
@@ -124,8 +124,8 @@ public class Person implements IPerson {
 	public int indirectHashCode() {
 		int result = 1;
 		final int prime = 31;
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((this.firstname == null) ? 0 : this.firstname.hashCode());
+		result = prime * result + ((this.lastname == null) ? 0 : this.lastname.hashCode());
 		return result;
 	}
 }

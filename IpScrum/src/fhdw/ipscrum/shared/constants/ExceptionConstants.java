@@ -13,7 +13,4 @@ public class ExceptionConstants {
 	public static final String ROLE_ALREADY_ASSIGNED_ERROR = "Diese Rolle wurde der Person bereits zugeordnet.";
 	public static final String ROLE_STILL_IN_USE_ERROR = "Diese Rolle ist noch einer oder mehreren Personen zugeordnet und kann nicht gelöscht werden.";
 	public static final String NO_SPRINT_SELECTED = "Kein Sprint ausgewählt.";
-
-	public static final String NVVE_ROLECREATION = "Die Rolle konnte nicht erzeugt werden!";
-	public static final String NVVE_ROLEMODIFICATION = "Die Rolle konnte nicht geändert werden!";
 }

@@ -18,7 +18,7 @@ public class Sprint implements ISprint {
 	public Sprint(String description, Date begin, Date end, ITeam team) {
 		// TODO Christin: Patrick wg. Abhängigkeit Projekt fragen
 		super();
-		setDescription(description);
+		setDescription(description); // TODO Christin: Hier bitte analog zu Role ebenfalls Überprüfungen auf Vollständigkeit
 		setBegin(begin);
 		setEnd(end);
 		setTeam(team);
@@ -28,12 +28,12 @@ public class Sprint implements ISprint {
 
 	@Override
 	public ToReleaseAssoc getToReleaseAssoc() {
-		return toReleaseAssoc;
+		return this.toReleaseAssoc;
 	}
 
 	@Override
 	public ToPBIAssoc getToPBIAssoc() {
-		return toPBIAssoc;
+		return this.toPBIAssoc;
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class Sprint implements ISprint {
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
 	public Date getBegin() {
-		return begin;
+		return this.begin;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public Date getEnd() {
-		return end;
+		return this.end;
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public ITeam getTeam() {
-		return team;
+		return this.team;
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class Sprint implements ISprint {
 	@Override
 	public Vector<ProductBacklogItem> getPBIs() {
 		Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
-		for (ProductBacklogItem.ToSprintAssoc pbiAssocs : toPBIAssoc.getAssociations()) {
+		for (ProductBacklogItem.ToSprintAssoc pbiAssocs : this.toPBIAssoc.getAssociations()) {
 			ret.add(pbiAssocs.getElement());
 		}
 		return ret;
@@ -120,9 +120,9 @@ public class Sprint implements ISprint {
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((begin == null) ? 0 : begin.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((end == null) ? 0 : end.hashCode());
+		result = prime * result + ((this.begin == null) ? 0 : this.begin.hashCode());
+		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+		result = prime * result + ((this.end == null) ? 0 : this.end.hashCode());
 		return result;
 	}
 
@@ -130,9 +130,9 @@ public class Sprint implements ISprint {
 	public int hashCode() {
 		final int prime = 31;
 		int result = indirectHashCode();
-		result = prime * result + ((team == null) ? 0 : team.hashCode());
-		result = prime * result + ((toPBIAssoc == null) ? 0 : toPBIAssoc.hashCode());
-		result = prime * result + ((toReleaseAssoc == null) ? 0 : toReleaseAssoc.hashCode());
+		result = prime * result + ((this.team == null) ? 0 : this.team.hashCode());
+		result = prime * result + ((this.toPBIAssoc == null) ? 0 : this.toPBIAssoc.hashCode());
+		result = prime * result + ((this.toReleaseAssoc == null) ? 0 : this.toReleaseAssoc.hashCode());
 		return result;
 	}
 
@@ -145,20 +145,20 @@ public class Sprint implements ISprint {
 		if (getClass() != obj.getClass())
 			return false;
 		Sprint other = (Sprint) obj;
-		if (begin == null) {
+		if (this.begin == null) {
 			if (other.begin != null)
 				return false;
-		} else if (!begin.equals(other.begin))
+		} else if (!this.begin.equals(other.begin))
 			return false;
-		if (description == null) {
+		if (this.description == null) {
 			if (other.description != null)
 				return false;
-		} else if (!description.equals(other.description))
+		} else if (!this.description.equals(other.description))
 			return false;
-		if (end == null) {
+		if (this.end == null) {
 			if (other.end != null)
 				return false;
-		} else if (!end.equals(other.end))
+		} else if (!this.end.equals(other.end))
 			return false;
 		return true;
 	}
@@ -168,20 +168,20 @@ public class Sprint implements ISprint {
 		if (!indirectEquals(obj))
 			return false;
 		Sprint other = (Sprint) obj;
-		if (team == null) {
+		if (this.team == null) {
 			if (other.team != null)
 				return false;
-		} else if (!team.equals(other.team))
+		} else if (!this.team.equals(other.team))
 			return false;
-		if (toPBIAssoc == null) {
+		if (this.toPBIAssoc == null) {
 			if (other.toPBIAssoc != null)
 				return false;
-		} else if (!toPBIAssoc.equals(other.toPBIAssoc))
+		} else if (!this.toPBIAssoc.equals(other.toPBIAssoc))
 			return false;
-		if (toReleaseAssoc == null) {
+		if (this.toReleaseAssoc == null) {
 			if (other.toReleaseAssoc != null)
 				return false;
-		} else if (!toReleaseAssoc.equals(other.toReleaseAssoc))
+		} else if (!this.toReleaseAssoc.equals(other.toReleaseAssoc))
 			return false;
 		return true;
 	}

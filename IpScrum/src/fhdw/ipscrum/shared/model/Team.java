@@ -7,7 +7,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Team implements ITeam {
 	private String description;
-	private final Vector<IPerson> members;
+	private final Vector<IPerson> members; // TODO Christin: Warum nun doch Vector? Wenn das so bleiben soll, muss die addMember()-Methode angepasst werden!
 
 	public Team(String description) {
 		super();
@@ -17,7 +17,7 @@ public class Team implements ITeam {
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class Team implements ITeam {
 
 	@Override
 	public Vector<IPerson> getMembers() {
-		return members;
+		return this.members;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class Team implements ITeam {
 	public String toString() {
 		String ret = "Team";
 		if (!this.getDescription().isEmpty()) {
-			ret += " '" + description + "'";
+			ret += " '" + this.description + "'";
 		}
 		return ret;
 	}
@@ -53,8 +53,8 @@ public class Team implements ITeam {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((members == null) ? 0 : members.hashCode());
+		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+		result = prime * result + ((this.members == null) ? 0 : this.members.hashCode());
 		return result;
 	}
 
@@ -67,15 +67,15 @@ public class Team implements ITeam {
 		if (getClass() != obj.getClass())
 			return false;
 		Team other = (Team) obj;
-		if (description == null) {
+		if (this.description == null) {
 			if (other.description != null)
 				return false;
-		} else if (!description.equals(other.description))
+		} else if (!this.description.equals(other.description))
 			return false;
-		if (members == null) {
+		if (this.members == null) {
 			if (other.members != null)
 				return false;
-		} else if (!members.equals(other.members))
+		} else if (!this.members.equals(other.members))
 			return false;
 		return true;
 	}
