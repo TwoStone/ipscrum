@@ -14,6 +14,7 @@ import fhdw.ipscrum.shared.model.Admin;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
+ * Presenter (Controller) of the Root-GUI.
  */
 public class RootPresenter extends Presenter<IRootView> {
 
@@ -40,12 +41,18 @@ public class RootPresenter extends Presenter<IRootView> {
 		return this.concreteView;
 	}
 
+	/**
+	 * Initializes the login-form by getting a list of all available users and adding the admin-user to it.
+	 */
 	private void initUserList() {
 		ArrayList<IPerson> tempUserList = new ArrayList<IPerson>(SessionManager.getInstance().getModel().getPersons());
 		tempUserList.add(Admin.getInstance());
 		this.concreteView.fillComboBoxUsers(tempUserList);
 	}
 
+	/**
+	 * This is called to setup the various event handlers (button-behaviour) of the GUI.
+	 */
 	private void setupEventHandlers() {
 		this.concreteView.defineLoginEvent(new EventHandler<PersonArgs>() {
 			@Override
@@ -65,5 +72,4 @@ public class RootPresenter extends Presenter<IRootView> {
 			}
 		});
 	}
-
 }
