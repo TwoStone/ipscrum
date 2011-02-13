@@ -69,7 +69,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
 				if (SprintDialogPresenter.this.sprint == null) {
-					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
+					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getDescription(), eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
 					if (eventArgs.getDescription() != null)
 						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
 				} else {
