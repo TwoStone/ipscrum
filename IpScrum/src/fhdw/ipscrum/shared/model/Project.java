@@ -187,60 +187,60 @@ public class Project extends Observable implements BDACompare{
 
 	@Override
 	public boolean indirectEquals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Project other = (Project) obj;
-		if (backlog == null) {
-			if (other.backlog != null)
-				return false;
-		} else if (!backlog.equals(other.backlog))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (sprints == null) {
-			if (other.sprints != null)
-				return false;
-		} else if (!sprints.equals(other.sprints))
-			return false;
+//		if (this == obj)
+//			return true;
+//		if (!super.equals(obj))
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Project other = (Project) obj;
+//		if (backlog == null) {
+//			if (other.backlog != null)
+//				return false;
+//		} else if (!backlog.equals(other.backlog))
+//			return false;
+//		if (name == null) {
+//			if (other.name != null)
+//				return false;
+//		} else if (!name.equals(other.name))
+//			return false;
+//		if (sprints == null) {
+//			if (other.sprints != null)
+//				return false;
+//		} else if (!sprints.equals(other.sprints))
+//			return false;
 		return true;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Project other = (Project) obj;
-		if (backlog == null) {
-			if (other.backlog != null)
-				return false;
-		} else if (!backlog.equals(other.backlog))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (releaseAssoc == null) {
-			if (other.releaseAssoc != null)
-				return false;
-		} else if (!releaseAssoc.equals(other.releaseAssoc))
-			return false;
-		if (sprints == null) {
-			if (other.sprints != null)
-				return false;
-		} else if (!sprints.equals(other.sprints))
-			return false;
+//		if (this == obj)
+//			return true;
+//		if (!super.equals(obj))
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Project other = (Project) obj;
+//		if (backlog == null) {
+//			if (other.backlog != null)
+//				return false;
+//		} else if (!backlog.equals(other.backlog))
+//			return false;
+//		if (name == null) {
+//			if (other.name != null)
+//				return false;
+//		} else if (!name.equals(other.name))
+//			return false;
+//		if (releaseAssoc == null) {
+//			if (other.releaseAssoc != null)
+//				return false;
+//		} else if (!releaseAssoc.equals(other.releaseAssoc))
+//			return false;
+//		if (sprints == null) {
+//			if (other.sprints != null)
+//				return false;
+//		} else if (!sprints.equals(other.sprints))
+//			return false;
 		return true;
 	}
 }
