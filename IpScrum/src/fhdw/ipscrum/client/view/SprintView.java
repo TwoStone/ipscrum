@@ -115,26 +115,10 @@ public class SprintView extends Composite implements ISprintView{
 		TextColumn<ISprint> beschreibungColumn = new TextColumn<ISprint>() {
 			@Override
 			public String getValue(ISprint sprint) {
-				return sprint.getDescription();
+				return sprint.toString();
 			}
 		};
 		tableSprint.addColumn(beschreibungColumn, "Beschreibung");
-		
-		Column<ISprint, ?> startColumn = new Column<ISprint, Date>(new DateCell()) {
-			@Override
-			public Date getValue(ISprint sprint) {
-				return sprint.getBegin();
-			}
-		};
-		tableSprint.addColumn(startColumn, "Start");
-		
-		Column<ISprint, ?> endeColumn = new Column<ISprint, Date>(new DateCell()) {
-			@Override
-			public Date getValue(ISprint sprint) {
-				return sprint.getEnd();
-			}
-		};
-		tableSprint.addColumn(endeColumn, "Ende");
 		scrollPanel.setWidget(tableSprint);
 		tableSprint.setSize("100%", "100%");
 		

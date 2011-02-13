@@ -51,9 +51,9 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 		btnCreateProject.setText("Projekt erstellen");
 	
 		concreteCreateProjectPanel.add(btnCreateProject, 10, 93);
+		btnCreateProject.setSize("148px", "28px");
 
 		Label lblBezeichnung = new Label("Bezeichnung:");
-		lblBezeichnung.setStyleName("LabelElement");
 		concreteCreateProjectPanel.add(lblBezeichnung, 10, 40);
 
 		txtBoxBezeichnung = new TextBox();

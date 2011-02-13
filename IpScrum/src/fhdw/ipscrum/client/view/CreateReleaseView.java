@@ -58,7 +58,6 @@ public class CreateReleaseView extends Composite implements ICreateReleaseView{
 		btnCreateRelease.setSize("148px", "28px");
 
 		Label lblBezeichnung = new Label("Versionsbezeichnung:");
-		lblBezeichnung.setStyleName("LabelElement");
 		concreteCreateProjectPanel.add(lblBezeichnung, 10, 40);
 
 		txtBoxVersion = new TextBox();
@@ -79,7 +78,6 @@ public class CreateReleaseView extends Composite implements ICreateReleaseView{
 		btnCancel.setSize("100px", "28px");
 		
 		Label lblDatum = new Label("Datum:");
-		lblDatum.setStyleName("LabelElement");
 		concreteCreateProjectPanel.add(lblDatum, 10, 92);
 		
 		dateBox = new DateBox();
