@@ -83,7 +83,7 @@ public class ProjectView extends Composite implements IProjectView{
 		
 		ScrollPanel scrollPanel = new ScrollPanel();
 		concreteProjectPanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("350px", "200px");
+		scrollPanel.setSize("375px", "215px");
 		
 		tableProject = new CellTable<Project>();
 		

@@ -100,7 +100,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 
 		scrollPanel = new ScrollPanel();
 		concreteReleasePanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("350px", "200px");
+		scrollPanel.setSize("375px", "215px");
 
 		tableRelease = new CellTable<IRelease>();
 
