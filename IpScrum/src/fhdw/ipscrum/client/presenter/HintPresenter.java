@@ -8,17 +8,37 @@ import fhdw.ipscrum.client.view.TextView;
 import fhdw.ipscrum.client.view.interfaces.ITextView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Hint;
 
+/**
+ * Class for presenting {@link Hint} objects.
+ * 
+ * @author n.w.
+ * 
+ */
 public class HintPresenter extends Presenter<ITextView> {
 
 	private final Hint hint;
 
-	public HintPresenter(Panel parent) {
+	/**
+	 * Creates a new instance of {@link HintPresenter}. Use this constructor to
+	 * create a new {@link Hint} object.
+	 * 
+	 * @param parent
+	 */
+	public HintPresenter(final Panel parent) {
 		this(parent, new Hint(""));
 	}
 
-	public HintPresenter(Panel parent, Hint hint) {
+	/**
+	 * Creates a new instance of {@link HintPresenter}. Use this constructor to
+	 * display an existing {@link Hint} object.
+	 * 
+	 * @param parent
+	 * @param hint
+	 */
+	public HintPresenter(final Panel parent, final Hint hint) {
 		super(parent);
 		this.hint = hint;
 		this.updateView(this.hint);
@@ -27,10 +47,15 @@ public class HintPresenter extends Presenter<ITextView> {
 
 	@Override
 	protected ITextView createView() {
-		final ITextView view = new TextView("Neuer Hinweis:");
+		final ITextView view = new TextView(TextConstants.NEW_HINT_LABEL);
 		return view;
 	}
 
+	/**
+	 * Returns the current displayed {@link Hint} object.
+	 * 
+	 * @return
+	 */
 	public Hint getHint() {
 		return this.hint;
 	}
@@ -39,7 +64,7 @@ public class HintPresenter extends Presenter<ITextView> {
 		this.getView().save().add(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				HintPresenter.this.save();
 			}
 		});
@@ -47,7 +72,7 @@ public class HintPresenter extends Presenter<ITextView> {
 		this.getView().abort().add(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				new AbortDialog(new OnOkayCommand() {
 
 					@Override
@@ -64,11 +89,11 @@ public class HintPresenter extends Presenter<ITextView> {
 		this.finish();
 	}
 
-	private void updateModel(Hint hint) {
+	private void updateModel(final Hint hint) {
 		hint.setContent(this.getView().getContent());
 	}
 
-	private void updateView(Hint hint) {
+	private void updateView(final Hint hint) {
 		this.getView().setContent(hint.getContent());
 	}
 

@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveHintEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
+import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Relation;
@@ -40,7 +41,7 @@ public interface ICreateFeatureView extends IView {
 
 	IEvent<EventArgs> getSave();
 
-	ISprint getSelectedSprint();
+	ISprint getSelectedSprint() throws NothingSelectedException;
 
 	void setCriteria(List<AcceptanceCriterion> criterions);
 

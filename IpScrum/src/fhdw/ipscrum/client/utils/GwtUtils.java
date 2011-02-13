@@ -10,6 +10,8 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fhdw.ipscrum.shared.constants.TextConstants;
+
 public final class GwtUtils {
 
 	/**
@@ -35,7 +37,7 @@ public final class GwtUtils {
 	 * @param error
 	 */
 	public static void displayError(final String error) {
-		final DialogBox dialog = createDialog("Fehler");
+		final DialogBox dialog = createDialog(TextConstants.ERROR);
 		final VerticalPanel panel = new VerticalPanel();
 		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -45,7 +47,7 @@ public final class GwtUtils {
 		final Label errorText = new Label(escapeString(error));
 		panel.add(errorText);
 
-		final Button okayButton = new Button("Schließen");
+		final Button okayButton = new Button(TextConstants.CLOSE);
 		okayButton.addClickHandler(new ClickHandler() {
 
 			@Override

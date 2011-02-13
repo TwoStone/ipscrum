@@ -19,6 +19,7 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Feature;
@@ -29,6 +30,7 @@ import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
 
 /**
+ * Base class for presenting {@link Feature}s.
  */
 public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		Presenter<T> implements Observer {
@@ -51,7 +53,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		if (feature == null) {
 			this.abort();
 			throw new NoFeatureSelectedException(
-					"Kein Feature ausgew�hlt zur Bearbeitung!");
+					"Kein Feature ausgew�hlt zur Bearbeitung!");
 		}
 		this.feature = feature;
 		this.feature.addObserver(this);
@@ -291,6 +293,9 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		this.getView().setName(
 				this.feature.getName().replaceAll(NEWFTRNAME, ""));
 		this.getView().setDescription(this.feature.getDescription());
+		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.feature
+				.getBacklog().getProject().getSprints());
+		this.getView().setSprints(sprints, this.getFeature().getSprint());
 		this.updateView();
 	}
 
@@ -322,7 +327,15 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 			DoubleDefinitionException {
 		this.feature.setName(this.getView().getName());
 		this.feature.setDescription(this.getView().getDescription());
-		this.feature.setSprint(this.getView().getSelectedSprint());
+
+		try {
+			this.feature.setSprint(this.getView().getSelectedSprint());
+		} catch (final NothingSelectedException e) {
+			// Kein Sprint ausgewählt, also setzen wir den Sprint auf null.
+			// TODO NoObject Pattern wäre besser, gibt es für Sprint aber zZ
+			// nicht.
+			this.feature.setSprint(null);
+		}
 	}
 
 	/**
@@ -333,8 +346,6 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		this.getView().setHints(this.feature.getHints());
 		this.getView().setRelations(this.feature.getRelations());
 		this.getView().setCriteria(this.feature.getAcceptanceCriteria());
-		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.feature
-				.getBacklog().getProject().getSprints());
-		this.getView().setSprints(sprints, this.getFeature().getSprint());
+
 	}
 }

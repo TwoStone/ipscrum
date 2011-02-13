@@ -30,6 +30,9 @@ import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveHintEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
 import fhdw.ipscrum.client.view.interfaces.ICreateFeatureView;
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
+import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Relation;
@@ -44,7 +47,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	private final Button btnAddHint;
 	private final Button btnAddCriterion;
 	private final Button btnSave;
-	private final Button btnAbort = new Button("Abbrechen");
+	private final Button btnAbort = new Button(TextConstants.ABORT);
 	private final CellTable<Relation> relationTable;
 	private final CellTable<Hint> hintTable;
 	private final Label lblAkzptanzkriterien;
@@ -82,18 +85,18 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.detailTable = new FlexTable();
 		verticalPanel.add(this.detailTable);
 
-		final Label lblName = new Label("Name:");
+		final Label lblName = new Label(TextConstants.NAME);
 		this.detailTable.setWidget(0, 0, lblName);
 
 		this.txtBxName = new TextBox();
 		this.detailTable.setWidget(0, 1, this.txtBxName);
 
-		final Label lblSprint = new Label("Sprint:");
+		final Label lblSprint = new Label(TextConstants.SPRINT);
 		this.detailTable.setWidget(1, 0, lblSprint);
 
 		this.detailTable.setWidget(1, 1, this.sprintComboBox);
 
-		final Label lblDescription = new Label("Beschreibung");
+		final Label lblDescription = new Label(TextConstants.DESCRIPTION);
 		verticalPanel.add(lblDescription);
 
 		this.textArea = new TextArea();
@@ -101,7 +104,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		verticalPanel.add(this.textArea);
 		this.textArea.setWidth("223px");
 
-		final Label lblRelations = new Label("Beziehungen:");
+		final Label lblRelations = new Label(TextConstants.RELATION_HEADER);
 		verticalPanel.add(lblRelations);
 
 		this.relationPanel = new ScrollPanel();
@@ -133,7 +136,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 				new ButtonCell()) {
 			@Override
 			public String getValue(final Relation object) {
-				return "x";
+				return TextConstants.DELETE_BUTTON_TEXT;
 			}
 		};
 		deleteCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -150,7 +153,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		this.relationTable.addColumn(deleteCol);
 
-		this.btnAddRelation = new Button("Beziehung hinzuf\u00FCgen");
+		this.btnAddRelation = new Button(TextConstants.ADD_RELATION);
 		this.btnAddRelation.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -164,7 +167,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		verticalPanel_1.setSpacing(10);
 		horizontalPanel.add(verticalPanel_1);
 
-		final Label lblHinweise = new Label("Hinweise:");
+		final Label lblHinweise = new Label(TextConstants.HINT);
 		verticalPanel_1.add(lblHinweise);
 		lblHinweise.setWidth("300px");
 
@@ -209,7 +212,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.addHintPanel = new SimplePanel();
 		verticalPanel_1.add(this.addHintPanel);
 
-		this.btnAddHint = new Button("Hinweis hinzuf\u00FCgen");
+		this.btnAddHint = new Button(TextConstants.ADD_HINT);
 		this.btnAddHint.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -219,7 +222,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		});
 		verticalPanel_1.add(this.btnAddHint);
 
-		this.lblAkzptanzkriterien = new Label("Akzptanzkriterien:");
+		this.lblAkzptanzkriterien = new Label(TextConstants.CRITERIA_HEADER);
 		verticalPanel_1.add(this.lblAkzptanzkriterien);
 		this.lblAkzptanzkriterien.setWidth("300px");
 
@@ -244,7 +247,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 				new ButtonCell()) {
 			@Override
 			public String getValue(final AcceptanceCriterion object) {
-				return "x";
+				return TextConstants.DELETE_BUTTON_TEXT;
 			}
 		};
 		removeCriterionCol
@@ -266,7 +269,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.addCriterionPanel = new SimplePanel();
 		verticalPanel_1.add(this.addCriterionPanel);
 
-		this.btnAddCriterion = new Button("New button");
+		this.btnAddCriterion = new Button(TextConstants.ADD_CRITERION);
 		this.btnAddCriterion.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -275,14 +278,13 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 			}
 		});
 		verticalPanel_1.add(this.btnAddCriterion);
-		this.btnAddCriterion.setText("Kriterium hinzuf\u00FCgen");
 
 		final HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setSpacing(5);
 		buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanel_2.add(buttonPanel);
 
-		this.btnSave = new Button("Speichern");
+		this.btnSave = new Button(TextConstants.SAVE);
 		this.btnSave.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -391,12 +393,12 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
-	public ISprint getSelectedSprint() {
+	public ISprint getSelectedSprint() throws NothingSelectedException {
 		final Integer index = this.sprintComboBox.getSelectedIndex();
 		if (index.equals(0) || index.equals(-1)) {
-			return null;
+			throw new NothingSelectedException(ExceptionConstants.NO_SPRINT_SELECTED);
 		} else {
-			return this.sprints.get(index + 1);
+			return this.sprints.get(index - 1);
 		}
 
 	}
@@ -457,11 +459,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.sprintComboBox.clear();
 		this.sprintComboBox.addItem(""); // Adding an empty item!
 		for (final ISprint iSprint : sprints) {
-			String text = iSprint.getName();
-			if (text == null) {
-				text = iSprint.toString();
-			}
-
+			final String text = iSprint.getDescription();
 			this.sprintComboBox.addItem(text);
 		}
 		if (selected != null) {

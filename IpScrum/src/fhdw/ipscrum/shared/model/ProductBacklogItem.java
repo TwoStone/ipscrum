@@ -18,28 +18,30 @@ public abstract class ProductBacklogItem extends Observable {
 	private String name;
 	private Integer manDayCosts;
 	private IPerson lastEditor;
-	
+
 	private final ToBacklogAssoc backlogAssoc;
 	private final ToSprintAssoc sprintAssoc;
-	
-	class ToBacklogAssoc extends BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem>{
-		public ToBacklogAssoc(ProductBacklogItem element) {
+
+	class ToBacklogAssoc extends
+			BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem> {
+		public ToBacklogAssoc(final ProductBacklogItem element) {
 			super(element);
 		}
 	}
-	
-	public class ToSprintAssoc extends BDAManyToMany<ISprint.ToPBIAssoc, ProductBacklogItem>{
-		public ToSprintAssoc(ProductBacklogItem element) {
+
+	public class ToSprintAssoc extends
+			BDAManyToMany<ISprint.ToPBIAssoc, ProductBacklogItem> {
+		public ToSprintAssoc(final ProductBacklogItem element) {
 			super(element);
 		}
 	}
-	
+
 	protected ToBacklogAssoc getBacklogAssoc() {
-		return backlogAssoc;
+		return this.backlogAssoc;
 	}
 
 	protected ToSprintAssoc getSprintAssoc() {
-		return sprintAssoc;
+		return this.sprintAssoc;
 	}
 
 	/**
@@ -59,7 +61,7 @@ public abstract class ProductBacklogItem extends Observable {
 		this.getBacklogAssoc().set(backlog.getAssoc());
 		try {
 			this.setName(name);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			backlog.removeItem(this);
 		}
 		this.setManDayCosts(0);
@@ -116,7 +118,7 @@ public abstract class ProductBacklogItem extends Observable {
 	}
 
 	public ProductBacklog getBacklog() {
-		if(this.getBacklogAssoc().get()!=null){
+		if (this.getBacklogAssoc().get() != null) {
 			return this.getBacklogAssoc().get().getElement();
 		}
 		return null;
@@ -135,9 +137,9 @@ public abstract class ProductBacklogItem extends Observable {
 	}
 
 	public ISprint getSprint() {
-		if(this.getSprintAssoc().get()!=null){
+		if (this.getSprintAssoc().get() != null) {
 			return this.getSprintAssoc().get().getElement();
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -146,8 +148,10 @@ public abstract class ProductBacklogItem extends Observable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result
-				+ ((this.getBacklog() == null) ? 0 : this.getBacklog().hashCode());
+		result = prime
+				* result
+				+ ((this.getBacklog() == null) ? 0 : this.getBacklog()
+						.hashCode());
 		result = prime * result
 				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
 		result = prime
@@ -155,7 +159,8 @@ public abstract class ProductBacklogItem extends Observable {
 				+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
 		result = prime * result
 				+ ((this.name == null) ? 0 : this.name.hashCode());
-		result = prime * result
+		result = prime
+				* result
 				+ ((this.getSprint() == null) ? 0 : this.getSprint().hashCode());
 		return result;
 	}
@@ -193,9 +198,11 @@ public abstract class ProductBacklogItem extends Observable {
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public final void setName(final String name) throws NoValidValueException, DoubleDefinitionException {
+	public final void setName(final String name) throws NoValidValueException,
+			DoubleDefinitionException {
 		if (name != null && name.trim().length() > 0) {
-			this.getBacklog().isDoubleDefined(name);//Can throw an DoubleDefinitionException
+			this.getBacklog().isDoubleDefined(name);// Can throw an
+													// DoubleDefinitionException
 			this.name = name;
 			this.notifyObservers();
 		} else {
@@ -216,23 +223,23 @@ public abstract class ProductBacklogItem extends Observable {
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException {
-		//TODO setSprint
-//		if (sprint != null) {
-//			if (this.getBacklog().getProject().isSprintDefined(sprint)) {
-//				sprint.addPBI(this);
-//				this.sprint = sprint;
-//				this.notifyObservers();
-//			} else {
-//				// TODO Textkonstante bauen
-//				throw new NoSprintDefinedException(
-//						"Es k�nnen nur bereits vorhandene Sprints zugeordnet werden!");
-//			}
-//		} else {
-//			if (this.sprint != null) {
-//				this.sprint.removePBI(this);
-//				this.sprint = null;
-//			}
-//		}
+		// TODO setSprint
+		// if (sprint != null) {
+		// if (this.getBacklog().getProject().isSprintDefined(sprint)) {
+		// sprint.addPBI(this);
+		// this.sprint = sprint;
+		// this.notifyObservers();
+		// } else {
+		// // TODO Textkonstante bauen
+		// throw new NoSprintDefinedException(
+		// "Es können nur bereits vorhandene Sprints zugeordnet werden!");
+		// }
+		// } else {
+		// if (this.sprint != null) {
+		// this.sprint.removePBI(this);
+		// this.sprint = null;
+		// }
+		// }
 		this.notifyObservers();
 	}
 

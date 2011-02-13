@@ -13,12 +13,13 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.ITextView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 
 public class TextView extends Composite implements ITextView {
-	private final Label nameLabel = new Label("New label");
+	private final Label nameLabel = new Label();
 	private final TextBox contentText = new TextBox();
-	private final Button okayButton = new Button("New button");
-	private final Button cancelButton = new Button("New button");
+	private final Button okayButton = new Button();
+	private final Button cancelButton = new Button();
 	private final Event<EventArgs> save = new Event<EventArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 
@@ -47,7 +48,7 @@ public class TextView extends Composite implements ITextView {
 			}
 		});
 
-		this.okayButton.setText("Okay");
+		this.okayButton.setText(TextConstants.OKAY);
 		horizontalPanel.add(this.okayButton);
 		this.cancelButton.addClickHandler(new ClickHandler() {
 			@Override
@@ -56,7 +57,7 @@ public class TextView extends Composite implements ITextView {
 			}
 		});
 
-		this.cancelButton.setText("Abbrechen");
+		this.cancelButton.setText(TextConstants.ABORT);
 		horizontalPanel.add(this.cancelButton);
 
 		// Set focus in text box.

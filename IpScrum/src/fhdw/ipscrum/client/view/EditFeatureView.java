@@ -11,6 +11,7 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Closed;
 import fhdw.ipscrum.shared.model.Open;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
@@ -28,20 +29,19 @@ public class EditFeatureView extends CreateFeatureView implements
 		super();
 		this.getBtnAbort().setVisible(false);
 
-		final Label aufwandLbl = new Label("Aufwand:");
+		final Label aufwandLbl = new Label(TextConstants.COMPLEXITY);
 		this.getGrid().setWidget(2, 0, aufwandLbl);
 
 		final HorizontalPanel complPanel = new HorizontalPanel();
 		complPanel.setSpacing(5);
-		// this.getGrid().setWidget(2, 1, complPanel);
-		this.getGrid().setWidget(2, 1, this.complexityBox);
+		this.getGrid().setWidget(2, 1, complPanel);
 
 		this.complexityBox.setVisibleLength(3);
-		// complPanel.add(this.complexityBox);
+		complPanel.add(this.complexityBox);
 
-		complPanel.add(new Label("MT"));
+		complPanel.add(new Label(TextConstants.COMPLEXITY_UNIT));
 
-		final Label stateLbl = new Label("Status:");
+		final Label stateLbl = new Label(TextConstants.STATUS);
 		this.getGrid().setWidget(3, 0, stateLbl);
 
 		final HorizontalPanel statePanel = new HorizontalPanel();
@@ -63,10 +63,6 @@ public class EditFeatureView extends CreateFeatureView implements
 
 	@Override
 	public Integer getComplexity() {
-		// TODO Fehler: Hier wird aus irgendwelchen Gründen der Wert zurück
-		// geliefert,
-		// der ursprünglich mit setValue gesetzt wurde und nicht der aktuelle
-		// Wert!
 		return this.complexityBox.getValue();
 	}
 
@@ -81,10 +77,12 @@ public class EditFeatureView extends CreateFeatureView implements
 
 			@Override
 			public void handleClosed(final Closed closed) {
-				EditFeatureView.this.currentStateLbl.setText("Geschlossen");
-				EditFeatureView.this.toggleStateBtn.setText("Feature oeffnen");
-				// TODO Wenn Features wieder geöffnet werden können, hier
-				// ändern.
+				EditFeatureView.this.currentStateLbl
+						.setText(TextConstants.CLOSED);
+				EditFeatureView.this.toggleStateBtn
+						.setText(TextConstants.OPEN_FEATURE);
+				// TODO Wenn Features wieder geÃ¶ffnet werden kÃ¶nnen, hier
+				// Ã¤ndern.
 				EditFeatureView.this.toggleStateBtn.setVisible(false);
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(false);
 				EditFeatureView.this.getBtnAddHint().setEnabled(false);
@@ -93,11 +91,12 @@ public class EditFeatureView extends CreateFeatureView implements
 
 			@Override
 			public void handleOpen(final Open open) {
-				EditFeatureView.this.currentStateLbl.setText("Offen");
+				EditFeatureView.this.currentStateLbl
+						.setText(TextConstants.OPEN);
 				EditFeatureView.this.toggleStateBtn
-						.setText("Feature schlie\u00DFen");
-				// TODO Wenn Features wieder geöffnet werden können, hier
-				// ändern.
+						.setText(TextConstants.CLOSE_FEATURE);
+				// TODO Wenn Features wieder geÃ¶ffnet werden kÃ¶nnen, hier
+				// Ã¤ndern.
 				EditFeatureView.this.toggleStateBtn.setVisible(true);
 				EditFeatureView.this.getBtnAddCriterion().setEnabled(true);
 				EditFeatureView.this.getBtnAddHint().setEnabled(true);

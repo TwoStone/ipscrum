@@ -10,12 +10,14 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fhdw.ipscrum.shared.constants.TextConstants;
+
 public class QuestionDialog extends DialogBox {
 
 	private final Button okayButton;
 	private final Button abortButton;
 
-	public QuestionDialog(String title, String message) {
+	public QuestionDialog(final String title, final String message) {
 		super();
 		this.setSize("", "");
 		this.setAnimationEnabled(true);
@@ -38,19 +40,19 @@ public class QuestionDialog extends DialogBox {
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanel.add(horizontalPanel);
 
-		this.okayButton = new Button("Okay");
+		this.okayButton = new Button(TextConstants.OKAY);
 		this.okayButton.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				QuestionDialog.this.hide();
 			}
 		});
 		horizontalPanel.add(this.okayButton);
 
-		this.abortButton = new Button("Abbrechen");
+		this.abortButton = new Button(TextConstants.ABORT);
 		this.abortButton.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				QuestionDialog.this.hide();
 			}
 		});
