@@ -13,7 +13,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 
 /**
- * Represents the presenter of the view with which the user could make new teams or change teams.
+ * Represents the presenter of the view which is used to modify or create new teams.
  */
 public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
@@ -23,9 +23,9 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	/**
 	 * Constructor for TeamDialogPresenter.
 	 * 
-	 * Required for making new teams.
+	 * Used for making new teams.
 	 * 
-	 * @param parent Panel 
+	 * @param parent Panel
 	 * 
 	 */
 	public TeamDialogPresenter(Panel parent) {
@@ -35,7 +35,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	/**
 	 * Constructor for TeamDialogPresenter.
 	 * 
-	 * Required for changing teams.
+	 * Used for changing teams.
 	 * 
 	 * @param parent Panel
 	 * @param selectedTeam ITeam
@@ -50,7 +50,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	/**
 	 * Method createView.
 	 * 
-	 * Creates the view in which the user could make a new team or change a team 
+	 * Creates the view in which the user could make a new team or change a team
 	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 * 
 	 * @return ITeamDialogView
@@ -88,7 +88,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	 */
 	private void initialize() {
 		if (this.team != null) {
-			this.concreteView.getTeamDescription().setText(this.team.getDescription());
+			this.concreteView.setTeamDescription(this.team.getDescription());
 		}
 	}
 

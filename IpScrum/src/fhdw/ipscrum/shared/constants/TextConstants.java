@@ -49,5 +49,9 @@ public final class TextConstants {
 	public static final String TEAMVIEW_BUTTONLABEL_REMOVEPERSONFROMTEAM = "->";
 	public static final String TEAMVIEW_BUTTONLABEL_ASSIGNPERSONTOTEAM = "<-";
 	public static final String TEAMVIEW_DIALOGTITLE_NEWTEAM = "Neues Team anlegen";
+	public static final String TEAMVIEW_DIALOG_TEAMNAME = "Teambezeichnung";
+
+	public static final String DIALOGBOX_OK = "OK";
+	public static final String DIALOGBOX_CANCEL = "ABBRECHEN";
 
 }
