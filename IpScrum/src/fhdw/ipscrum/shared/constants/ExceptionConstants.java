@@ -11,5 +11,6 @@ public class ExceptionConstants {
 	public static final String EMPTY_ROLE_DESCRIPTION_ERROR = "Es muss ein Rollenname angegeben werden.";
 	public static final String ROLE_NOT_FOUND_ERROR = "Diese Rolle ist dieser Person nicht zugewiesen.";
 	public static final String ROLE_ALREADY_ASSIGNED_ERROR = "Diese Rolle wurde der Person bereits zugeordnet.";
+	public static final String ROLE_STILL_IN_USE_ERROR = "Diese Rolle ist noch einer oder mehreren Personen zugeordnet und kann nicht gelöscht werden.";
 	public static final String NO_SPRINT_SELECTED = "Kein Sprint ausgewählt.";
 }
