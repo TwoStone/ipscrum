@@ -14,7 +14,12 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  */
 public interface ISprintView extends IView {
 
-	//wird hier nicht benötigt! (siehe IReleaseView) Wird doch benötigt!!!!!
+	/**
+	 * Method addNewSprintEventHandler
+	 * Use this to register a handler for an event 
+	 * which creates a new {@link Sprint} 
+	 * @param args from Type {@link EventHandler<EventArgs>}
+	 */
 	public abstract void addNewSprintEventHandler(EventHandler<EventArgs> arg);
 
 	/**
@@ -25,7 +30,12 @@ public interface ISprintView extends IView {
 	 */
 	void addSprintDetailsEventHandler(EventHandler<SprintArgs> arg);
 
-	//wird hier nicht benötigt! (siehe IReleaseView) Wird auch benötigt!!!!!
+	/**
+	 * Method addDeleteSprintEventHandler
+	 * Use this to register a handler for an event 
+	 * which deletes sprints 
+	 * @param args from Type {@link EventHandler<SprintArgs>}
+	 */
 	void addDeleteSprintEventHandler(
 			EventHandler<SprintArgs> arg);
 
