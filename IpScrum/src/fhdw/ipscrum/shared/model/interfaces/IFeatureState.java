@@ -10,7 +10,9 @@ import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 
 /**
  * This interface defines a set of states, which may be associated with a
- * feature. Operations of a feature that are state-relevant, are authorized by
+ * feature. Furthermore it provides state relevant operations delegated by
+ * a feature.
+ *  Operations of a feature that are state-relevant, are authorized by
  * the state. Authorization means here, that an operation may be executed or
  * not. Non-authorized calls will return a {@link ForbiddenStateException}
  */
