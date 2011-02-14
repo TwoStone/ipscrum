@@ -2,7 +2,7 @@ package fhdw.ipscrum.shared.bdas;
 
 import java.util.Vector;
 
-@SuppressWarnings("unchecked")
+
 /**
  * <p>This class represents a bidirectional association between 2
  * classes.</p>
@@ -11,17 +11,34 @@ import java.util.Vector;
  * can be used by the specific Model classes.<br/><br />
  * <b>This class provides fully synchronization between the connected
  * classes.</b></p>
+ * <p>
+ * <b><u>Equals/Hashcode Customization</u></b>
+ * Because of the bi-direction of the association you have to 
+ * ensure that no cycle will appear. Therefore you have to
+ * implement {@link BDACompare} in your model class which 
+ * is owner of the association.<br /><br />
+ * The methods indirectEqual/indirectHashcode will called by this
+ * Framework on processing an equals/hashcode request to ensure
+ * no cycle.<br />
+ * Therefore you have to implement both operations like the
+ * common equals/hashcode but without any attributes which link to
+ * other objects. Only base attributes like String, Integer etc. are
+ * allowed.<br /><br />
+ * <b>Example: 1:1 Scenario between ClassA and ClassB</b><br />
+ * TODO Example will Follow
+ *</p>
  */
+@SuppressWarnings("unchecked")
 public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompare> {
 
 	/**
 	 * Base Element of the association.
 	 */
 	private final E element;
-	
+
 	/**
-	 * List of all connected associations to other classes of
-	 * Type T.
+	 * List of all connected associations to other classes with an association
+	 * of type T.
 	 */
 	private Vector<T> connectTo;
 
@@ -34,8 +51,10 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 	/**
 	 * This method connects two associations to each other.<br/>
 	 * Therefore synchronization will be ensured.
+	 * 
 	 * @param bda
-	 * Association Object which will be connected to this association.
+	 *            Association Object which will be connected to this
+	 *            association.
 	 */
 	private void connect(T bda) {
 		if (!this.getConnectTo().contains(bda)) {
@@ -47,13 +66,13 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 	}
 
 	/**
-	 * TODO Kommentar
-	 * For single Values (to 1) 
+	 * TODO Kommentar For single Values (to 1)
+	 * 
 	 * @param bda
 	 */
 	private void changeConnect(T bda) {
 		if (!this.getConnectTo().contains(bda)) {
-			if(this.getConnectTo().size()>0){
+			if (this.getConnectTo().size() > 0) {
 				this.getConnectTo().get(0).release(this);
 			}
 			this.getConnectTo().removeAllElements();
@@ -65,10 +84,11 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 	}
 
 	/**
-	 * This method releases a connection between two associations
-	 * objects. Therefore synchronization will be ensured.
+	 * This method releases a connection between two associations objects.
+	 * Therefore synchronization will be ensured.
+	 * 
 	 * @param bda
-	 * Association Object which will be disconnected.
+	 *            Association Object which will be disconnected.
 	 */
 	private void release(T bda) {
 		if (this.getConnectTo().contains(bda)) {
@@ -76,7 +96,7 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 			bda.release(this);
 		}
 	}
-	
+
 	/**
 	 * Return the base element of this association object.
 	 */
@@ -85,11 +105,10 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 	}
 
 	/**
-	 * Helper method to validate if a association is already
-	 * set or not.
-	 * @return
-	 * Returns true if the given association in not connected
-	 * else it will return false.
+	 * Helper method to validate if a association is already set or not.
+	 * 
+	 * @return Returns true if the given association in not connected else it
+	 *         will return false.
 	 */
 	private boolean isNotConnected(BDAManyToMany<T, E> bda) {
 		if (this.getConnectTo().size() == 0) {
@@ -102,19 +121,19 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 	}
 
 	/**
-	 * Returns all association objects which are connected with
-	 * this association.
+	 * Returns all association objects which are connected with this
+	 * association.
 	 */
 	private Vector<T> getConnectTo() {
-		if(this.connectTo==null){
+		if (this.connectTo == null) {
 			this.connectTo = new Vector<T>();
 		}
 		return this.connectTo;
 	}
 
 	/**
-	 * Use this method within a 1:1 or 1:n for the 1 side of
-	 * the association if you want to set one/null association.<br/>
+	 * Use this method within a 1:1 or 1:n for the 1 side of the association if
+	 * you want to set one/null association.<br/>
 	 */
 	public void set(T arg) {
 		if (arg == null) {
@@ -131,90 +150,102 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 	}
 
 	/**
-	 * TODO Kommentar
-	 * FinalSet für zu 1 Assoziation! Setzen erfolgt i.d.R im
-	 * Konstruktor
-	 * TODO Exception dazu machen und vielleicht noch einen
-	 * Status, ob diese Assoziation final ist oder nicht!
+	 * TODO Kommentar FinalSet für zu 1 Assoziation! Setzen erfolgt i.d.R im
+	 * Konstruktor TODO Exception dazu machen und vielleicht noch einen Status,
+	 * ob diese Assoziation final ist oder nicht!
+	 * 
 	 * @param arg
 	 */
 	public void finalSet(T arg) {
 		if (arg != null) {
 			this.connect(arg);
 		} else {
-			//TODO Exception schmeißen;
+			// TODO Exception schmeißen;
 		}
 	}
-	
+
 	/**
-	 * This method returns the 1/null association in a 1:n or 1:1
-	 * scenario.
-	 * @return
-	 * It returns null if nothing was set set else it returns the
-	 * association object.
+	 * This method returns the 1/null association in a 1:n or 1:1 scenario.
+	 * 
+	 * @return It returns null if nothing was set set else it returns the
+	 *         association object.
 	 */
-	public T get(){
-		if(this.getConnectTo().size()>0){
+	public T get() {
+		if (this.getConnectTo().size() > 0) {
 			return this.getConnectTo().get(0);
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
+
 	/**
-	 * Add method in a 1:n (n-Side) or m:n scenario for
-	 * adding associations.
+	 * Add method in a 1:n (n-Side) or m:n scenario for adding associations.
 	 */
-	public void add(T arg){
-		if(arg!=null){
+	public void add(T arg) {
+		if (arg != null) {
 			this.connect(arg);
 		}
 	}
-	
+
 	/**
-	 * Remove method in a 1:n (n-Side) or m:n scenario for
-	 * removing associations.
+	 * Remove method in a 1:n (n-Side) or m:n scenario for removing
+	 * associations.
 	 */
-	public void remove(T arg){
-		if(arg!=null){
+	public void remove(T arg) {
+		if (arg != null) {
 			this.release(arg);
 		}
 	}
-	
+
 	/**
-	 * Returns a copy of all listed association objects.
-	 * Use this within a 1:n or m:n scenario for getting
-	 * all elements.
+	 * Returns a copy of all listed association objects. Use this within a 1:n
+	 * or m:n scenario for getting all elements.
 	 */
-	public Vector<T> getAssociations(){
-		// Returns a copy of the list else it's possible
-		// to change the list!
+	public Vector<T> getAssociations() {
 		Vector<T> copy = new Vector<T>();
 		for (T current : this.getConnectTo()) {
 			copy.add(current);
 		}
 		return copy;
 	}
-	
-	public void moveToBottom(T bda){
+
+	/**
+	 * Changes the position of the given association within the list.
+	 * Association will move to bottom, that means the new position = size-1
+	 */
+	public void moveToBottom(T bda) {
 		this.getConnectTo().remove(bda);
 		this.getConnectTo().insertElementAt(bda, this.getConnectTo().size());
 	}
 
-	public void moveToTop(T bda){
+	/**
+	 * Changes the position of the given association within the list.
+	 * Association will move to top, that means the new position = 0
+	 */
+	public void moveToTop(T bda) {
 		this.getConnectTo().remove(bda);
 		this.getConnectTo().insertElementAt(bda, 0);
 	}
-	
-	public void moveUp(T bda){
+
+	/**
+	 * Changes the position of the given association within the list.
+	 * Association will move up, that means the new position = 
+	 * current position + 1!
+	 */
+	public void moveUp(T bda) {
 		Integer position = this.getConnectTo().indexOf(bda);
 		if (position > 0) {
 			this.getConnectTo().remove(bda);
 			this.getConnectTo().insertElementAt(bda, position - 1);
 		}
 	}
-	
-	public void moveDown(T bda){
+
+	/**
+	 * Changes the position of the given association within the list.
+	 * Association will move down, that means the new position = 
+	 * current position - 1!
+	 */
+	public void moveDown(T bda) {
 		Integer position = this.getConnectTo().indexOf(bda);
 		if (position > -1 && position < (this.getConnectTo().size() - 1)) {
 			this.getConnectTo().remove(bda);
@@ -222,16 +253,21 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 		}
 	}
 
-	
+	/**
+	 * Helper for hashCode() to ensure that no cycles will appear.
+	 */
 	private int indirectHashcode() {
 		int result = 0;
-		for(T current : this.getConnectTo()){
+		for (T current : this.getConnectTo()) {
 			result = result + current.getElement().indirectHashCode();
 		}
 		return result;
 	}
 
 	@Override
+	/**
+	 * TODO Anpassen, laüft so noch nicht korekt!
+	 */
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -239,9 +275,12 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 				+ ((connectTo == null) ? 0 : indirectHashcode());
 		return result;
 	}
-	
-	private boolean indirectEquals(BDAManyToMany object){
-		return this.getElement().indirectEquals(object.getElement());
+
+	/**
+	 * Helper for equals to ensure that no cycles will appear.
+	 */
+	private boolean indirectEquals(BDAManyToMany current, BDAManyToMany object) {
+		return current.getElement().indirectEquals(object.getElement());
 	}
 
 	@Override
@@ -253,11 +292,46 @@ public abstract class BDAManyToMany<T extends BDAManyToMany, E extends BDACompar
 		if (getClass() != obj.getClass())
 			return false;
 		BDAManyToMany other = (BDAManyToMany) obj;
+		// Haben beide das gleiche Basiselement?
+		if (!this.indirectEquals(this, other)) {
+			return false;
+		}
 		if (connectTo == null) {
 			if (other.connectTo != null)
 				return false;
-		} else if (!indirectEquals(other))
+			// } else if (!indirectEquals(other))
+			// Sind alle Verbindungen equals?
+		} else if (!equalsForAll(other))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Returns the association at the specific  
+	 * position.
+	 * @param i
+	 * Position of the association in the list.
+	 */
+	private T getAssociation(int i) {
+		return this.getConnectTo().get(i);
+	}
+
+	/**
+	 * Compares the list of connected associations.<br />
+	 * Returns true if both lists are equal an in same order. 
+	 */
+	private boolean equalsForAll(BDAManyToMany other) {
+		// Meine eigenen
+		if (this.getConnectTo().size() == other.getConnectTo().size()) {
+			for (int i = 0; i <= this.getConnectTo().size() - 1; i++) {
+				if (!indirectEquals(this.getAssociation(i), other
+						.getAssociation(i))) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
