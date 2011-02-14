@@ -83,7 +83,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				final SprintDialogPresenter presenter = new SprintDialogPresenter(box, eventArgs.getSprint());
 				box.setAnimationEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText("Sprint " + eventArgs.getSprint().getDescription() + " bearbeiten");
+				box.setText("Sprint " + eventArgs.getSprint().getName() + " bearbeiten");
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override

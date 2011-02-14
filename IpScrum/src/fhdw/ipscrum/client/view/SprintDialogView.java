@@ -177,7 +177,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	public void fillComboBoxTeams(ArrayList<ITeam> teamList) {
 		this.teams.clear();
 		for (int i = 0; i < teamList.size(); i++) {
-			this.teams.addItem(teamList.get(i).toString());
+			this.teams.addItem(teamList.get(i).getDescription());
 			this.teamToIndexMap.put(teamList.get(i), i);
 			this.indexToTeamMap.put(i, teamList.get(i));
 		}
