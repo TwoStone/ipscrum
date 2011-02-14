@@ -13,6 +13,7 @@ import fhdw.ipscrum.client.view.SprintDialogView;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
@@ -23,7 +24,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	private ISprintDialogView concreteView;
-	private final ISprint sprint;
+	private ISprint sprint;
 
 	/**
 	 * Constructor for SprintDialogPresenter.
@@ -79,11 +80,9 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
 				try {
 					if (SprintDialogPresenter.this.sprint == null) {
-						// TODO Sarah SprintDialogPresenter.this.sprint = new
-						// Sprint(eventArgs.getDescription(),
-						// eventArgs.getBeginDate(), eventArgs.getEndDate(),
-						// eventArgs.getTeam());
+						SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getName(), eventArgs.getDescription(), eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
 					} else {
+						SprintDialogPresenter.this.sprint.setName(eventArgs.getName());
 						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
 						SprintDialogPresenter.this.sprint.setBegin(eventArgs.getBeginDate());
 						SprintDialogPresenter.this.sprint.setEnd(eventArgs.getEndDate());
@@ -113,6 +112,7 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 		if (this.sprint != null) {
 			// Hier Vorbelegungen anfügen..
+			this.concreteView.setName(this.sprint.getName());
 			this.concreteView.setDescription(this.sprint.getDescription());
 			this.concreteView.setStart(this.sprint.getBegin());
 			this.concreteView.setEnd(this.sprint.getEnd());
