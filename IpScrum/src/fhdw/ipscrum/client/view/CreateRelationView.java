@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -36,6 +37,7 @@ public class CreateRelationView extends Composite implements
 	private List<Feature> targets;
 	private final ListBox typeComboBox;
 	private List<RelationType> types;
+	private final DecoratorPanel newTypePanel;
 
 	public CreateRelationView() {
 
@@ -46,7 +48,7 @@ public class CreateRelationView extends Composite implements
 		this.initWidget(verticalPanel);
 		verticalPanel.setWidth("250px");
 
-		final Grid grid = new Grid(2, 2);
+		final Grid grid = new Grid(3, 2);
 		grid.setCellSpacing(5);
 		grid.setCellPadding(5);
 		verticalPanel.add(grid);
@@ -64,6 +66,16 @@ public class CreateRelationView extends Composite implements
 		this.typeComboBox = new ListBox();
 		grid.setWidget(1, 1, this.typeComboBox);
 		this.typeComboBox.setWidth("100%");
+
+		final Button newTypeButton = new Button("Neuer Typ");
+		newTypeButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				CreateRelationView.this.createNewTypeEvent.fire(
+						CreateRelationView.this, new EventArgs());
+			}
+		});
+		grid.setWidget(2, 1, newTypeButton);
 
 		final Label lblEintragAuswhlen = new Label("Eintrag auswählen:");
 		verticalPanel.add(lblEintragAuswhlen);
@@ -97,6 +109,9 @@ public class CreateRelationView extends Composite implements
 			}
 		});
 		flowButtonPanel.add(abortButton);
+
+		this.newTypePanel = new DecoratorPanel();
+		verticalPanel.add(this.newTypePanel);
 	}
 
 	@Override
@@ -111,8 +126,7 @@ public class CreateRelationView extends Composite implements
 
 	@Override
 	public Panel getCreateNewTypePanel() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.newTypePanel;
 	}
 
 	@Override
@@ -138,12 +152,13 @@ public class CreateRelationView extends Composite implements
 
 	@Override
 	public void setOwningFeature(final Feature feature) {
-		this.currentFeatureLabel.setText(feature.toString());
+		this.currentFeatureLabel.setText(feature.getName());
 	}
 
 	@Override
 	public void setRelationTypes(final List<RelationType> types) {
 		this.types = types;
+		this.typeComboBox.clear();
 		for (final RelationType relationType : types) {
 			this.typeComboBox.addItem(relationType.getDescription());
 		}
@@ -152,6 +167,7 @@ public class CreateRelationView extends Composite implements
 	@Override
 	public void setTargetFeatures(final List<Feature> vector) {
 		this.targets = vector;
+		this.featureList.clear();
 		for (final Feature current : vector) {
 			this.featureList.addItem(current.getName());
 		}

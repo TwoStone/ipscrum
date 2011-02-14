@@ -62,6 +62,12 @@ public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 		return this.criterion;
 	}
 
+	@Override
+	protected boolean onFinish() {
+		this.updateModel(this.criterion);
+		return super.onFinish();
+	}
+
 	/**
 	 * Registers the presenter to events fired by the view.
 	 */
@@ -87,12 +93,6 @@ public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 				});
 			}
 		});
-	}
-
-	@Override
-	protected boolean onFinish() {
-		this.updateModel(this.criterion);
-		return super.onFinish();
 	}
 
 	/**

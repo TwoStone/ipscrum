@@ -1,8 +1,5 @@
 package fhdw.ipscrum.shared.constants;
 
-
-
-
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -33,13 +30,15 @@ public final class TextConstants {
 	public static final String ABORT_QUESTION_LONG = "Wollen sie den Vorgang wirklich abbrechen?";
 	public static final String ERROR = "Fehler";
 	public static final String CLOSE = "Schließen";
+	public static final String TYPENAME = "Neuer Typ:";
 	/* [END SECTION] */
 
 	public static final String NAV_PERSONROLEMANAGEMENT = "Personen-Stammdaten";
 	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
 	public static final String NAV_SAVEMODELDATA = "Speichern";
 
-	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */ // TODO sinnlos?
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */// TODO
+																		// sinnlos?
 	public static final String TEAMVIEW_TEAMTABLEHEADER = "Teams";
 	public static final String TEAMVIEW_BUTTONLABEL_CREATENEWTEAM = "Neues Team anlegen";
 	public static final String TEAMVIEW_BUTTONLABEL_MODIFYTEAM = "Team Bearbeiten";
@@ -75,7 +74,7 @@ public final class TextConstants {
 	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Neue Rolle anlegen";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Entfernen";
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
-	
+
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR PRODUCTBACKLOG GROUP */
 	public static final String NEW_PROJECT = "Neues Projekt erstellen";
 	public static final String LABELELEMENT = "LabelElement";
@@ -97,6 +96,5 @@ public final class TextConstants {
 	public static final String PROJECT_OVERVIEW = "Projekt\u00FCbersicht";
 	
 	/* [END SECTION] */
-
 
 }

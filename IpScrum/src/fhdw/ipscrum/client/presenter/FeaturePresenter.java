@@ -181,6 +181,21 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		return this.feature;
 	}
 
+	@Override
+	protected boolean onFinish() {
+		try {
+			FeaturePresenter.this.updateFeature();
+		} catch (final DoubleDefinitionException e) {
+			GwtUtils.displayError(e.getMessage());
+			return false;
+		} catch (final UserException e) {
+			GwtUtils.displayError(e.getMessage());
+			return false;
+		}
+		return super.onFinish();
+
+	}
+
 	/**
 	 * Registers the presenter to all events of the view.
 	 */
@@ -303,21 +318,6 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		} catch (final ForbiddenStateException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
-	}
-
-	@Override
-	protected boolean onFinish() {
-		try {
-			FeaturePresenter.this.updateFeature();
-		} catch (final DoubleDefinitionException e) {
-			this.abort();
-			return false;
-		} catch (final UserException e) {
-			GwtUtils.displayError(e.getMessage());
-			return false;
-		}
-		return super.onFinish();
-
 	}
 
 	/**

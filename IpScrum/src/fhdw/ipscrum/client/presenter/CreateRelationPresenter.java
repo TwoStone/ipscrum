@@ -8,9 +8,10 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateRelationView;
 import fhdw.ipscrum.client.view.interfaces.ICreateRelationView;
+import fhdw.ipscrum.client.view.widgets.AbortDialog;
+import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.Feature;
@@ -44,6 +45,80 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		this.registerViewEvents();
 	}
 
+	protected void createNewType(final Panel createNewTypePanel) {
+		createNewTypePanel.clear();
+		createNewTypePanel.setVisible(true);
+		final CreateRelationTypePresenter presenter = new CreateRelationTypePresenter(
+				createNewTypePanel);
+
+		presenter.getFinished().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				createNewTypePanel.setVisible(false);
+				CreateRelationPresenter.this.getView().setRelationTypes(
+						new ArrayList<RelationType>(SessionManager
+								.getInstance().getModel()
+								.getRelationTypeManager().getRelationTypes()));
+			}
+		});
+
+		presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				new AbortDialog(new OnOkayCommand() {
+
+					@Override
+					public void onExecute() {
+						createNewTypePanel.setVisible(false);
+					}
+				});
+
+			}
+		});
+	}
+
+	/**
+	 * Method createView.
+	 * 
+	 * @return IRelationView
+	 */
+	@Override
+	protected ICreateRelationView createView() {
+		return new CreateRelationView();
+	}
+
+	private List<Feature> getFeatures(
+			final List<ProductBacklogItem> backlogItems) {
+		final List<Feature> result = new Vector<Feature>();
+		for (final ProductBacklogItem productBacklogItem : backlogItems) {
+			productBacklogItem.accept(new IProductBacklogItemVisitor() {
+
+				@Override
+				public void handleFeature(final Feature feature) {
+					result.add(feature);
+				}
+			});
+		}
+		return result;
+	}
+
+	public Relation getRelation() {
+		return this.relation;
+	}
+
+	@Override
+	protected boolean onFinish() {
+		try {
+			this.relation = new Relation(this.getView().getSelectedType(), this
+					.getView().getSelectedTarget());
+		} catch (final NothingSelectedException e) {
+			return false;
+		}
+		return super.onFinish();
+	}
+
 	private void registerViewEvents() {
 		this.getView().getSave().add(new EventHandler<EventArgs>() {
 
@@ -72,20 +147,6 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		});
 	}
 
-	protected void createNewType(final Panel createNewTypePanel) {
-		GwtUtils.displayError("Not yet implemented!");
-	}
-
-	/**
-	 * Method createView.
-	 * 
-	 * @return IRelationView
-	 */
-	@Override
-	protected ICreateRelationView createView() {
-		return new CreateRelationView();
-	}
-
 	private void setupView() {
 		this.getView()
 				.setRelationTypes(
@@ -97,38 +158,8 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 				this.getFeatures(this.source.getBacklog().getItems()));
 	}
 
-	private List<Feature> getFeatures(
-			final List<ProductBacklogItem> backlogItems) {
-		final List<Feature> result = new Vector<Feature>();
-		for (final ProductBacklogItem productBacklogItem : backlogItems) {
-			productBacklogItem.accept(new IProductBacklogItemVisitor() {
-
-				@Override
-				public void handleFeature(final Feature feature) {
-					result.add(feature);
-				}
-			});
-		}
-		return result;
-	}
-
 	@Override
 	public void update(final Observable observable, final Object argument) {
 
-	}
-
-	@Override
-	protected boolean onFinish() {
-		try {
-			this.relation = new Relation(this.getView().getSelectedType(), this
-					.getView().getSelectedTarget());
-		} catch (final NothingSelectedException e) {
-			return false;
-		}
-		return super.onFinish();
-	}
-
-	public Relation getRelation() {
-		return this.relation;
 	}
 }
