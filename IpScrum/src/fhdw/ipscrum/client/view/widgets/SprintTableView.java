@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.view;
+package fhdw.ipscrum.client.view.widgets;
 
 import java.util.Vector;
 
