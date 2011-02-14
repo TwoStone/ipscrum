@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.presenter;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -86,12 +87,10 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 						SprintDialogPresenter.this.sprint.setEnd(eventArgs.getEndDate());
 						SprintDialogPresenter.this.sprint.setTeam(eventArgs.getTeam());
 					}
+					finish();
 				} catch (NoValidValueException e) {
-					// TODO Sarah: Exceptions verarbeiten. try-catch kann so
-					// nicht bleiben. Exception wird mehrfach geworfen und
-					// sollte einzeln bearbeitet e.printStackTrace();
+					Window.alert(e.getMessage());
 				}
-				finish();
 			}
 		});
 
