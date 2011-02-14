@@ -17,6 +17,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 
 public class CreateReleaseView extends Composite implements ICreateReleaseView{
 
@@ -40,30 +41,30 @@ public class CreateReleaseView extends Composite implements ICreateReleaseView{
 		initWidget(concreteCreateProjectPanel);
 		concreteCreateProjectPanel.setSize("285px", "182px");
 
-		Label lblCreateRelease = new Label("Neues Release erstellen");
-		lblCreateRelease.setStyleName("LabelElement");
+		Label lblCreateRelease = new Label(TextConstants.NEW_RELEASE);
+		lblCreateRelease.setStyleName(TextConstants.LABELELEMENT);
 		lblCreateRelease
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		concreteCreateProjectPanel.add(lblCreateRelease, 10, 2);
 		lblCreateRelease.setSize("193px", "38px");
 
-		btnCreateRelease = new Button("New button");
+		btnCreateRelease = new Button(TextConstants.NEW_BUTTON);
 		btnCreateRelease.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				saveEvent.fire(CreateReleaseView.this, new EventArgs());
 			}
 		});
-		btnCreateRelease.setText("Release erstellen");
+		btnCreateRelease.setText(TextConstants.CREATE_RELEASE);
 		concreteCreateProjectPanel.add(btnCreateRelease, 10, 144);
 		btnCreateRelease.setSize("148px", "28px");
 
-		Label lblBezeichnung = new Label("Versionsbezeichnung:");
+		Label lblBezeichnung = new Label(TextConstants.VERSION_TEXT);
 		concreteCreateProjectPanel.add(lblBezeichnung, 10, 40);
 
 		txtBoxVersion = new TextBox();
 		concreteCreateProjectPanel.add(txtBoxVersion, 10, 62);
 		
-		btnCancel = new Button("New button");
+		btnCancel = new Button(TextConstants.NEW_BUTTON);
 		btnCancel.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -73,11 +74,11 @@ public class CreateReleaseView extends Composite implements ICreateReleaseView{
 			}
 		});
 		
-		btnCancel.setText("Abbrechen");
+		btnCancel.setText(TextConstants.ABORT);
 		concreteCreateProjectPanel.add(btnCancel, 175, 144);
 		btnCancel.setSize("100px", "28px");
 		
-		Label lblDatum = new Label("Datum:");
+		Label lblDatum = new Label(TextConstants.DATE);
 		concreteCreateProjectPanel.add(lblDatum, 10, 92);
 		
 		dateBox = new DateBox();
