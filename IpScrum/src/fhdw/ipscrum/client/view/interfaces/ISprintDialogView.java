@@ -62,4 +62,10 @@ public interface ISprintDialogView extends IView{
 	 */
 	public void setEnd(Date endDate);
 
+	/**
+	 * This is to preset the name-field.
+	 * @param name String name
+	 */
+	public void setName(String name);
+
 }

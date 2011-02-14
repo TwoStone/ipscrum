@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
@@ -41,6 +42,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	private final TextArea description;
 	private final HashMap<Integer,ITeam> indexToTeamMap = new HashMap<Integer,ITeam>();
 	private final HashMap<ITeam,Integer> teamToIndexMap = new HashMap<ITeam,Integer>();
+	private final TextBox name;
 
 	public SprintDialogView() {
 
@@ -51,6 +53,16 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		VerticalPanel topPanel = new VerticalPanel();
 		verticalPanel.add(topPanel);
 		topPanel.setSize("320px", "50px");
+
+		VerticalPanel namePanel = new VerticalPanel();
+		topPanel.add(namePanel);
+
+		Label lblName = new Label("Name");
+		namePanel.add(lblName);
+
+		this.name = new TextBox();
+		this.name.setMaxLength(20);
+		namePanel.add(this.name);
 
 		HorizontalPanel datePanel = new HorizontalPanel();
 		topPanel.add(datePanel);
@@ -125,7 +137,7 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 		this.ok_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				SprintDetailArgs sprintDetails = new SprintDetailArgs(SprintDialogView.this.start.getValue(), SprintDialogView.this.end.getValue(), SprintDialogView.this.getSelectedTeam(), SprintDialogView.this.description.getText());
+				SprintDetailArgs sprintDetails = new SprintDetailArgs(SprintDialogView.this.name.getText(), SprintDialogView.this.start.getValue(), SprintDialogView.this.end.getValue(), SprintDialogView.this.getSelectedTeam(), SprintDialogView.this.description.getText());
 				SprintDialogView.this.okEvent.fire(SprintDialogView.this, sprintDetails);
 			}
 		});
@@ -209,5 +221,14 @@ public class SprintDialogView extends Composite implements ISprintDialogView {
 	@Override
 	public void setDescription(String description) {
 		this.description.setText(description);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.client.view.interfaces.ISprintDialogView#setName(java.lang.String)
+	 */
+	@Override
+	public void setName(String name) {
+		this.name.setText(name);
 	}
 }
