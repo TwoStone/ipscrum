@@ -98,12 +98,8 @@ public class Release extends Observable implements IRelease {
 		this.getSprintAssoc().remove(sprint.getToReleaseAssoc());
 	}
 
-	public Project getProject() throws ConsistencyException{
-		if(this.getProjectAssoc().get()!=null){
+	public Project getProject() {
 			return this.getProjectAssoc().get().getElement();
-		}else{
-			throw new ConsistencyException("Dem Release wurde keine Projekt zugeordnet!");
-		}
 	}
 
 	/**
