@@ -38,13 +38,9 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				new AbortDialog(new OnOkayCommand() {
-					
-					@Override
-					public void onExecute() {
-						ReleaseDetailPresenter.this.abort();
-					}
-				});
+
+				ReleaseDetailPresenter.this.abort();
+				
 			}
 		});
 		
