@@ -25,6 +25,10 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Project;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public class ProjectView extends Composite implements IProjectView{
 	
 //####### Events ###############
