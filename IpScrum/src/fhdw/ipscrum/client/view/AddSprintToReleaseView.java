@@ -16,6 +16,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.IAddSprintToReleaseView;
 import fhdw.ipscrum.client.view.widgets.SprintTableView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class AddSprintToReleaseView extends Composite implements IAddSprintToReleaseView {
@@ -35,14 +36,14 @@ public class AddSprintToReleaseView extends Composite implements IAddSprintToRel
 		initWidget(absolutePanel);
 		absolutePanel.setSize("600px", "345px");
 		
-		Label lblAddSprint = new Label("Sprint hinzufügen zu Release: ");
-		lblAddSprint.setStyleName("LabelElement");
+		Label lblAddSprint = new Label(TextConstants.SPRINT_TO_RELEASE);
+		lblAddSprint.setStyleName(TextConstants.LABELELEMENT);
 		lblAddSprint.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		absolutePanel.add(lblAddSprint, 10, 10);
 		lblAddSprint.setSize("300px", "28px");
 		
-		btnSave = new Button("New button");
-		btnSave.setText("Speichern");
+		btnSave = new Button(TextConstants.NEW_BUTTON);
+		btnSave.setText(TextConstants.SAVE);
 		absolutePanel.add(btnSave, 10, 307);
 		btnSave.setSize("100px", "28px");
 		btnSave.addClickHandler(new ClickHandler() {
@@ -53,14 +54,14 @@ public class AddSprintToReleaseView extends Composite implements IAddSprintToRel
 			}
 		});
 		
-		lblRelease = new Label("");
-		lblRelease.setStyleName("LabelElement");
+		lblRelease = new Label(TextConstants.EMPTY_TEXT);
+		lblRelease.setStyleName(TextConstants.LABELELEMENT);
 		lblRelease.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		absolutePanel.add(lblRelease, 253, 10);
 		lblRelease.setSize("250px", "25px");
 		
-		btnAbort = new Button("New button");
-		btnAbort.setText("Abbrechen");
+		btnAbort = new Button(TextConstants.NEW_BUTTON);
+		btnAbort.setText(TextConstants.ABORT);
 		absolutePanel.add(btnAbort, 465, 307);
 		btnAbort.setSize("100px", "28px");
 		
