@@ -129,8 +129,7 @@ public class TeamPresenter extends Presenter<ITeamView> {
 					try {
 						eventArgs.getTeam().removeMember(person);
 					} catch (ConsistencyException e) {
-						// TODO Wilken: Exception behandeln
-						e.printStackTrace();
+						abort();
 					}
 					TeamPresenter.this.updateGuiData();
 				}
@@ -144,8 +143,7 @@ public class TeamPresenter extends Presenter<ITeamView> {
 					try {
 						eventArgs.getTeam().addMember(person);
 					} catch (ConsistencyException e) {
-						// TODO Wilken: Exception behandeln
-						e.printStackTrace();
+						abort();
 					}
 					TeamPresenter.this.updateGuiData();
 				}

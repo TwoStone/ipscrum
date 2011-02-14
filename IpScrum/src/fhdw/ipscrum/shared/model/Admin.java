@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
+import com.google.gwt.user.client.Window;
+
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
@@ -28,8 +30,7 @@ public final class Admin extends Person implements IPerson {
 			try {
 				instance = new Admin();
 			} catch (NoValidValueException e) {
-				// TODO Wilken: Exception verarbeiten
-				e.printStackTrace();
+				Window.alert(e.getMessage());
 			}
 		}
 		return instance;

@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -84,13 +85,10 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView> {
 						PersonDialogPresenter.this.person.setFirstname(eventArgs.getString1());
 						PersonDialogPresenter.this.person.setLastname(eventArgs.getString2());
 					}
+					finish();
 				} catch (NoValidValueException e) {
-					// TODO Sarah: Exceptions verarbeiten. try-catch kann so
-					// nicht bleiben. Exception wird mehrfach geworfen und
-					// sollte einzeln bearbeitet
-					e.printStackTrace();
+					Window.alert(e.getMessage());
 				}
-				finish();
 			}
 		});
 

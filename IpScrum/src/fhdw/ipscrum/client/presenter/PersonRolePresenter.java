@@ -139,7 +139,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 					try {
 						eventArgs.getPerson().removeRole(eventArgs.getSingleRole());
 					} catch (ConsistencyException e) {
-						// This error is not severe. It is simply not possible to remove a role from a user which he does not possess. -> No Alert necessary.
+						abort();
 					}
 					PersonRolePresenter.this.updateGuiTables();
 				}
@@ -156,7 +156,7 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 						try {
 							eventArgs.getPerson().addRole(current);
 						} catch (ConsistencyException e) {
-							// This error is not severe. The user will notice that the role he wants to add is already in possession of the selected user. -> No Alert necessary.
+							abort();
 						}
 					}
 				}

@@ -69,21 +69,16 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
 			@Override
 			public void onUpdate(Object sender, OneStringArgs eventArgs) {
-				if (RoleDialogPresenter.this.role == null) {
-					try {
+				try {
+					if (RoleDialogPresenter.this.role == null) {
 						SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
-					} catch (NoValidValueException e) {
-						Window.alert(e.getMessage());
-					}
-				} else {
-					try {
+					} else {
 						RoleDialogPresenter.this.role.setDescription(eventArgs.getString());
-					} catch (NoValidValueException e) {
-						Window.alert(e.getMessage());
 					}
+					finish();
+				} catch (NoValidValueException e) {
+					Window.alert(e.getMessage());
 				}
-
-				finish();
 			}
 		});
 
