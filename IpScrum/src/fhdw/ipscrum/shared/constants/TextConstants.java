@@ -93,6 +93,8 @@ public final class TextConstants {
 	public static final String MAN_DAYS = "Aufwand (in PT)";
 	public static final String SPRINT_TEXT = "Sprint";
 	public static final String RELEASE = "Release";
+	public static final String PROJECT_NAME = "Projektbezeichnung";
+	public static final String PROJECT_OVERVIEW = "Projekt\u00FCbersicht";
 	
 	/* [END SECTION] */
 
