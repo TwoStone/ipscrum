@@ -15,6 +15,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.IReleaseDetailView;
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class ReleaseDetailView extends Composite implements IReleaseDetailView{

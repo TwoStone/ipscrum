@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
@@ -16,8 +17,8 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class SprintView extends Composite implements ISprintView{
 
