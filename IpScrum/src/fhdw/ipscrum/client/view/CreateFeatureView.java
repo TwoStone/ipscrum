@@ -309,12 +309,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
-	public void setVisible(final boolean visible) {
-		super.setVisible(visible);
-		this.txtBxName.setFocus(true);
-	}
-
-	@Override
 	public Panel addCriterionPanel() {
 		return this.addCriterionPanel;
 	}
@@ -462,7 +456,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		this.sprintComboBox.clear();
 		this.sprintComboBox.addItem(""); // Adding an empty item!
 		for (final ISprint iSprint : sprints) {
-			final String text = iSprint.getDescription();
+			final String text = iSprint.getName();
 			this.sprintComboBox.addItem(text);
 		}
 		if (selected != null) {
@@ -471,5 +465,11 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		} else {
 			this.sprintComboBox.setSelectedIndex(0);
 		}
+	}
+
+	@Override
+	public void setVisible(final boolean visible) {
+		super.setVisible(visible);
+		this.txtBxName.setFocus(true);
 	}
 }
