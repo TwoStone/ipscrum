@@ -19,6 +19,10 @@ import fhdw.ipscrum.client.view.interfaces.ICreateReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public class CreateReleaseView extends Composite implements ICreateReleaseView{
 
 	// ####### Events #######
