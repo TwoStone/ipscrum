@@ -93,7 +93,7 @@ public class Release extends Observable implements IRelease {
 		}else if (!sprint.getRelease().equals(this)){
 			//TODO Textkonstante
 			throw new ConsistencyException("Der Sprint ist bereits einem anderen Release ("+
-					sprint.getRelease().toString()+") zugeordnet.");
+					sprint.getRelease().getVersion()+") zugeordnet.");
 		}
 	}
 
