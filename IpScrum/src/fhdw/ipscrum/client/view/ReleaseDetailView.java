@@ -19,6 +19,10 @@ import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 	
 	
