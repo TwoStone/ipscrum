@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -43,13 +44,45 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 					}
 				});
 			}
-			
 		});
 		
-		
+		view.addAddSprintEventHandler(new EventHandler<EventArgs>(){
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+			
+				
+				final DialogBox diaBox = new DialogBox();
+			
+				final AddSprintToReleasePresenter presenter = new AddSprintToReleasePresenter(diaBox, ReleaseDetailPresenter.this.release);
+			
+					presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+								@Override
+								public void onUpdate(Object sender,
+										EventArgs eventArgs) {
+									diaBox.clear();
+									diaBox.hide();
+								}
+							});
+					
+					presenter.getFinished().add(new  EventHandler<EventArgs>() {
+						
+						@Override
+						public void onUpdate(Object sender, EventArgs eventArgs) {
+						
+							diaBox.clear();
+							diaBox.hide();
+							ReleaseDetailPresenter.this.initialize();
+						}
+					});						
+		diaBox.center();
+			}	
+		});
 		
 		return view;
 	}
 
 
 }
+	

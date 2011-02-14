@@ -96,7 +96,7 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 	
 	@Override
 	public void addAddSprintEventHandler(EventHandler<EventArgs> arg) {
-	addSprintEvent.add(arg);	
+	this.addSprintEvent.add(arg);	
 	
 	}
 	@Override
@@ -106,12 +106,12 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 	
 	@Override
 	public void addDeleteSprintEventHandler(EventHandler<SprintArgs> arg) {
-		deleteSprintEvent.add(arg);
+		this.deleteSprintEvent.add(arg);
 	}
 
 	@Override
 	public void addCancelReleaseDetailViewHandler(EventHandler<EventArgs> arg) {
-		cancelReleaseDetailViewEvent.add(arg);
+		this.cancelReleaseDetailViewEvent.add(arg);
 	}
 
 	}
