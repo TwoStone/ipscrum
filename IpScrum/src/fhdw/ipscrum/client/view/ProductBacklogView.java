@@ -121,7 +121,7 @@ public class ProductBacklogView extends Composite implements
 			@Override
 			public String getValue(ProductBacklogItem pbi) {
 				if (pbi.getSprint() != null) {
-					return pbi.getSprint().getDescription();
+					return pbi.getSprint().getName();
 				} else {
 					return TextConstants.LINE;
 				}
