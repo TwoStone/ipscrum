@@ -18,8 +18,9 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
 /**
+ * This class is used to create the {@link ProjectView}.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class CreateProjectView extends Composite implements ICreateProjectView {
 

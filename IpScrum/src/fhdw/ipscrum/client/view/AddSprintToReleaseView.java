@@ -20,8 +20,9 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
+ * This class is used to add a {@link Sprint} to a {@link Release}.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class AddSprintToReleaseView extends Composite implements IAddSprintToReleaseView {
 	private Button btnSave;
@@ -33,6 +34,7 @@ public class AddSprintToReleaseView extends Composite implements IAddSprintToRel
 	private final Event<SprintArgs> saveSprintsEvent = new Event<SprintArgs>();
 	private final Event<EventArgs> cancelAddSprintViewEvent = new Event<EventArgs>();
 	// ###### Ende Events ###########
+	
 	
 	public AddSprintToReleaseView() {
 		
@@ -88,48 +90,36 @@ public class AddSprintToReleaseView extends Composite implements IAddSprintToRel
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IAddSprintToReleaseView#getBtnSave()
-	 */
 	@Override
 	public Button getBtnSave() {
 		return btnSave;
 	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IAddSprintToReleaseView#getBtnAbort()
-	 */
+
+	
 	@Override
 	public Button getBtnAbort() {
 		return btnAbort;
 	}
 	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IAddSprintToReleaseView#getLblRelease()
-	 */
+
 	@Override
 	public Label getLblRelease() {
 		return lblRelease;
 	}
 	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IAddSprintToReleaseView#addSaveSprintsEventHandler(fhdw.ipscrum.client.events.EventHandler)
-	 */
+
 	@Override
 	public void addSaveSprintsEventHandler(EventHandler<SprintArgs> arg) {
 		saveSprintsEvent.add(arg);
 	}
 	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IAddSprintToReleaseView#addCancelAddSprintViewEventHandler(fhdw.ipscrum.client.events.EventHandler)
-	 */
+
 	@Override
 	public void addCancelAddSprintViewEventHandler(EventHandler<EventArgs> arg) {
 		cancelAddSprintViewEvent.add(arg);
 	}
 	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.IAddSprintToReleaseView#refreshSprints(java.util.Vector)
-	 */
+
 	@Override
 	public void refreshSprints(Vector<ISprint> sprints) {
 	this.spTable.getTableSprint().setRowData(sprints);

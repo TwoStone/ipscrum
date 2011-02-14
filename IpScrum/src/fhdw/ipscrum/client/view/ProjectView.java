@@ -26,8 +26,9 @@ import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Project;
 
 /**
+ *  This view is used to create or modify projects.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class ProjectView extends Composite implements IProjectView{
 	

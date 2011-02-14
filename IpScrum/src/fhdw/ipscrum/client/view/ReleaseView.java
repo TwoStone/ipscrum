@@ -25,8 +25,9 @@ import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 /**
+ * This view is used to create or modify releases.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class ReleaseView extends Composite implements IReleaseView {
 

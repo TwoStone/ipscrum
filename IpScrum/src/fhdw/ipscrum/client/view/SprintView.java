@@ -23,8 +23,9 @@ import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
+ *  This view is used to create or modify sprints.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class SprintView extends Composite implements ISprintView{
 

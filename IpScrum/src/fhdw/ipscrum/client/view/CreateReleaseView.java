@@ -20,8 +20,9 @@ import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 
 /**
+ * This class is used to create a {@link ReleaseView}.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class CreateReleaseView extends Composite implements ICreateReleaseView{
 
