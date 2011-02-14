@@ -75,6 +75,26 @@ public final class TextConstants {
 	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Neue Rolle anlegen";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Entfernen";
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
+	
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR PRODUCTBACKLOG GROUP */
+	public static final String NEW_PROJECT = "Neues Projekt erstellen";
+	public static final String LABELELEMENT = "LabelElement";
+	public static final String NEW_BUTTON = "New button";
+	public static final String CREATE_PROJECT = "Projekt erstellen";
+	public static final String PROJECT_TEXT = "Bezeichnung:";
+	public static final String NEW_RELEASE = "Neues Release erstellen";
+	public static final String CREATE_RELEASE = "Release erstellen";
+	public static final String VERSION_TEXT = "Versionsbezeichnung:";
+	public static final String DATE = "Datum:";
+	public static final String PRODUCTBACKLOG = "Product Backlog";
+	public static final String ACTION = "Aktionen";
+	public static final String PRODUCTBACKLOG_TEXT = "Bezeichnung";
+	public static final String LINE = "-";
+	public static final String MAN_DAYS = "Aufwand (in PT)";
+	public static final String SPRINT_TEXT = "Sprint";
+	public static final String RELEASE = "Release";
+	
+	/* [END SECTION] */
 
 
 }
