@@ -1,22 +1,14 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.view.client.SelectionChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
@@ -24,8 +16,8 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.client.view.interfaces.IView;
-import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class SprintView extends Composite implements ISprintView{
 
@@ -36,12 +28,12 @@ public class SprintView extends Composite implements ISprintView{
 	private final Event<SprintArgs> selectSprintEvent = new Event<SprintArgs>();
 	// ###### Ende Events ###########
 
-	private Sprint currentlySelected;
-
 	private Image imgNewSprint;
 	private Image imgDetailSprint;
 	private Image imgDeleteSprint;
-	private CellTable<ISprint> tableSprint;
+	
+	private SprintTableView spTable;
+	private ScrollPanel scrollPanel;
 
 	public static IView createView(){
 		return new SprintView();
@@ -77,7 +69,7 @@ public class SprintView extends Composite implements ISprintView{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				SprintView.this.detailsSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.currentlySelected));
+				SprintView.this.detailsSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
 			}
 		});
 
@@ -88,66 +80,22 @@ public class SprintView extends Composite implements ISprintView{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				SprintView.this.deleteSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.currentlySelected));
+				SprintView.this.deleteSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
 			}
 		});
 
 		flowPanel.add(this.imgDeleteSprint);
 
-		ScrollPanel scrollPanel = new ScrollPanel();
-		absolutePanel.add(scrollPanel, 10, 72);
-		scrollPanel.setSize("575px", "215px");
-
-		this.tableSprint = new CellTable<ISprint>();
-
-		this.tableSprint.setSelectionModel(new SingleSelectionModel<ISprint>());
-
-		this.tableSprint.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-
-			@Override
-			public void onSelectionChange(SelectionChangeEvent event) {
-				@SuppressWarnings("unchecked")
-				SingleSelectionModel<ISprint> model = (SingleSelectionModel<ISprint>) SprintView.this.tableSprint.getSelectionModel();
-				SprintView.this.currentlySelected = (Sprint) model.getSelectedObject();
-			}
-		});
-				
-						TextColumn<ISprint> beschreibungColumn = new TextColumn<ISprint>() {
-							@Override
-							public String getValue(ISprint sprint) {
-								return sprint.getDescription();
-							}
-						};
-						this.tableSprint.addColumn(beschreibungColumn, "Beschreibung");
-				
-				TextColumn teamColumn = new TextColumn<ISprint>() {
-					@Override
-					public String getValue(ISprint sprint) {
-						return sprint.getTeam().getDescription();
-					}
-				};
-				tableSprint.addColumn(teamColumn, "Team");
-				
-				TextColumn startColumn = new TextColumn<ISprint>() {
-					@Override
-					public String getValue(ISprint sprint) {
-						DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");			
-						return fmt.format(sprint.getBegin());
-					}
-				};
-				tableSprint.addColumn(startColumn, "Start");
-				
-				TextColumn endColumn = new TextColumn<ISprint>() {
-					@Override
-					public String getValue(ISprint sprint) {
-						DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");			
-						return fmt.format(sprint.getEnd());
-					}
-				};
-				tableSprint.addColumn(endColumn, "Ende");
-		scrollPanel.setWidget(this.tableSprint);
-		this.tableSprint.setSize("100%", "100%");
-
+		AbsolutePanel masterSprintTablePanel = new AbsolutePanel();
+		absolutePanel.add(masterSprintTablePanel, 10, 72);
+		masterSprintTablePanel.setSize("575px", "215px");
+		
+		scrollPanel = new ScrollPanel();
+		masterSprintTablePanel.add(scrollPanel);
+		
+		this.spTable = new SprintTableView();
+		scrollPanel.setWidget(spTable);
+		spTable.setSize("100%", "100%");
 
 	}
 
@@ -168,11 +116,8 @@ public class SprintView extends Composite implements ISprintView{
 
 	@Override
 	public void refreshSprints(Vector<ISprint> sprints) {
-		this.getTableSprint().setRowData(sprints);
+		this.spTable.getTableSprint().setRowData(sprints);
 	}
 
-	private CellTable<ISprint> getTableSprint() {
-		return this.tableSprint;
-	}
 }
 
