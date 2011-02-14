@@ -16,6 +16,7 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.IReleaseDetailView;
 import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.client.view.widgets.SprintTableView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class ReleaseDetailView extends Composite implements IReleaseDetailView{
@@ -49,7 +50,7 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 		
 		scrollPanel.add(this.spTable);
 		
-		Button btnAbort = new Button("New button");
+		Button btnAbort = new Button(TextConstants.NEW_BUTTON);
 		
 		btnAbort.addClickHandler(new ClickHandler(){
 
@@ -60,11 +61,11 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 			
 		});
 		
-		btnAbort.setText("Fertig");
+		btnAbort.setText(TextConstants.FINISHED);
 		flowPanel.add(btnAbort, 490, 462);
 		btnAbort.setSize("100px", "28px");
 		
-		Button btnAddSprint = new Button("New button");
+		Button btnAddSprint = new Button(TextConstants.NEW_BUTTON);
 		
 		btnAddSprint.addClickHandler(new ClickHandler() {
 			
@@ -74,11 +75,11 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 			}
 		});
 		
-		btnAddSprint.setText("Sprint hinzufügen");
+		btnAddSprint.setText(TextConstants.ADD_SPRINT);
 		flowPanel.add(btnAddSprint, 10, 462);
 		btnAddSprint.setSize("150px", "28px");
 		
-		Button btnSprintDelete = new Button("New button");
+		Button btnSprintDelete = new Button(TextConstants.NEW_BUTTON);
 	
 		btnSprintDelete.addClickHandler(new ClickHandler() {
 			
@@ -88,7 +89,7 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 			}
 		});
 		
-		btnSprintDelete.setText("Sprint entfernen");
+		btnSprintDelete.setText(TextConstants.DELETE_SPRINT);
 		flowPanel.add(btnSprintDelete, 166, 462);
 		btnSprintDelete.setSize("150px", "28px");
 	}
