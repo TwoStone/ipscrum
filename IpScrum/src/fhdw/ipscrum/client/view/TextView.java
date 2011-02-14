@@ -65,7 +65,7 @@ public class TextView extends Composite implements ITextView {
 	}
 
 	@Override
-	public IEvent<EventArgs> abort() {
+	public IEvent<EventArgs> getAborted() {
 		return this.abort;
 	}
 
@@ -75,7 +75,7 @@ public class TextView extends Composite implements ITextView {
 	}
 
 	@Override
-	public IEvent<EventArgs> save() {
+	public IEvent<EventArgs> getSave() {
 		return this.save;
 	}
 

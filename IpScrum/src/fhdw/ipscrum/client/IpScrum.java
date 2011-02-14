@@ -14,6 +14,7 @@ import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.Sprint;
@@ -84,30 +85,43 @@ public class IpScrum implements EntryPoint {
 
 			// Initial Projects
 			try {
-				Project project1 = new Project("Testprojekt 4");
-				Project project2 = new Project("Testprojekt 5");
+				final Project project1 = new Project("Testprojekt 4");
+				final Project project2 = new Project("Testprojekt 5");
 				try {
-					Release release1 = new Release("1.1", new Date(), project1);
-					Release release2 = new Release("1.2", new Date(), project1);
-					Release release3 = new Release("1.3", new Date(), project1);
-					Release release4 = new Release("2.0", new Date(), project1);
-					Release release5 = new Release("2.1", new Date(), project1);
+					final Release release1 = new Release("1.1", new Date(),
+							project1);
+					final Release release2 = new Release("1.2", new Date(),
+							project1);
+					final Release release3 = new Release("1.3", new Date(),
+							project1);
+					final Release release4 = new Release("2.0", new Date(),
+							project1);
+					final Release release5 = new Release("2.1", new Date(),
+							project1);
 					try {
-						Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", project1.getBacklog());
-						Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", project1.getBacklog());
-						Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", project1.getBacklog());
+						final Feature f1 = new Feature("Feature 1",
+								"Beschreibung Feature 1", project1.getBacklog());
+						final Feature f2 = new Feature("Feature 2",
+								"Beschreibung Feature 2", project1.getBacklog());
+						final Feature f3 = new Feature("Feature 3",
+								"Beschreibung Feature 3", project1.getBacklog());
 						project1.getBacklog().addItem(f1);
 						project1.getBacklog().addItem(f2);
 						project1.getBacklog().addItem(f3);
-					} catch (UserException e1) {
+					} catch (final UserException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					Sprint sprint1 = new Sprint("Sprint1", "Beschreibung Sprint 1", new Date(), new Date(), t1);
-					Sprint sprint2 = new Sprint("Sprint2", "Beschreibung Sprint 2", new Date(), new Date(), t2);
-					Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", new Date(), new Date(), t1);
-					Sprint sprint4 = new Sprint("Sprint4", "Beschreibung Sprint 4", new Date(), new Date(), t1);
-					Sprint sprint5 = new Sprint("Sprint5", "Beschreibung Sprint 5", new Date(), new Date(), t2);
+					final Sprint sprint1 = new Sprint("Sprint1",
+							"Beschreibung Sprint 1", new Date(), new Date(), t1);
+					final Sprint sprint2 = new Sprint("Sprint2",
+							"Beschreibung Sprint 2", new Date(), new Date(), t2);
+					final Sprint sprint3 = new Sprint("Sprint3",
+							"Beschreibung Sprint 3", new Date(), new Date(), t1);
+					final Sprint sprint4 = new Sprint("Sprint4",
+							"Beschreibung Sprint 4", new Date(), new Date(), t1);
+					final Sprint sprint5 = new Sprint("Sprint5",
+							"Beschreibung Sprint 5", new Date(), new Date(), t2);
 					project1.addSprint(sprint1);
 					project1.addSprint(sprint2);
 					project1.addSprint(sprint3);
@@ -118,31 +132,41 @@ public class IpScrum implements EntryPoint {
 						release2.addSprint(sprint1);
 						release2.addSprint(sprint2);
 						release5.addSprint(sprint1);
-					} catch (UserException e) {
+					} catch (final UserException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 1"));
-				SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));
-				SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3"));
+				SessionManager.getInstance().getModel()
+						.addProject(new Project("Testprojekt 1"));
+				SessionManager.getInstance().getModel()
+						.addProject(new Project("Testprojekt 2"));
+				SessionManager.getInstance().getModel()
+						.addProject(new Project("Testprojekt 3"));
 				SessionManager.getInstance().getModel().addProject(project1);
 				SessionManager.getInstance().getModel().addProject(project2);
+
+				RelationType.create("Abhängig von");
+				RelationType.create("Siehe auch");
+
 			} catch (final NoValidValueException e) {
 				// Da sp��ter entfernt wird, wird diese Meldung zun�chst nicht
 				// beachtet!
 			} catch (final ConsistencyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (final DoubleDefinitionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (NoValidValueException e2) {
+		} catch (final NoValidValueException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
-		} catch (ConsistencyException e) {
+		} catch (final ConsistencyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -11,21 +11,73 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.RelationType;
 
 public interface ICreateRelationView extends IView {
+
+	/**
+	 * Returns the event fired, when the workflow shell be aborted.
+	 * 
+	 * @return
+	 */
 	IEvent<EventArgs> getAbort();
 
+	/**
+	 * Returns the event fired, when the a new type shell be created.
+	 * 
+	 * @return
+	 */
 	IEvent<EventArgs> getCreateNewType();
 
+	/**
+	 * Returns the panel where the dialog for creating a new type should be
+	 * shown.
+	 * 
+	 * @return
+	 */
 	Panel getCreateNewTypePanel();
 
+	/**
+	 * Returns the event fired when the current object should be saved.
+	 * 
+	 * @return
+	 */
 	IEvent<EventArgs> getSave();
 
+	/**
+	 * Returns the selected feature, that should be target of the relation.
+	 * 
+	 * @return
+	 * @throws NothingSelectedException
+	 *             Is thrown if nothing is selected.
+	 */
 	Feature getSelectedTarget() throws NothingSelectedException;
 
+	/**
+	 * Returns the currently selected type.
+	 * 
+	 * @return
+	 * @throws NothingSelectedException
+	 *             Is thrown if nothing is selected.
+	 */
 	RelationType getSelectedType() throws NothingSelectedException;
 
+	/**
+	 * Displays the feature from where the relation should start.
+	 * 
+	 * @param feature
+	 */
 	void setOwningFeature(Feature feature);
 
+	/**
+	 * Displays a list of {@link RelationType} objects.
+	 * 
+	 * @param types
+	 */
 	void setRelationTypes(List<RelationType> types);
 
-	void setTargetFeatures(List<Feature> vector);
+	/**
+	 * Displays a list of {@link Feature} objects, that can be targets of the
+	 * relation.
+	 * 
+	 * @param features
+	 */
+	void setTargetFeatures(List<Feature> features);
 }

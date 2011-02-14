@@ -61,7 +61,7 @@ public class HintPresenter extends Presenter<ITextView> {
 	}
 
 	private void registerViewEvents() {
-		this.getView().save().add(new EventHandler<EventArgs>() {
+		this.getView().getSave().add(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -69,7 +69,7 @@ public class HintPresenter extends Presenter<ITextView> {
 			}
 		});
 
-		this.getView().abort().add(new EventHandler<EventArgs>() {
+		this.getView().getAborted().add(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {

@@ -400,6 +400,18 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 	}
 
+	protected ListBox getSprintComboBox() {
+		return this.sprintComboBox;
+	}
+
+	protected TextArea getTextArea() {
+		return this.textArea;
+	}
+
+	protected TextBox getTxtBxName() {
+		return this.txtBxName;
+	}
+
 	@Override
 	public void setCriteria(final List<AcceptanceCriterion> criterions) {
 		if (criterions.size() > 0) {
@@ -431,16 +443,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	}
 
 	@Override
-	public void setNewCriterionEnabled(final Boolean enabled) {
-		this.btnAddCriterion.setVisible(enabled);
-	}
-
-	@Override
-	public void setNewHintEnabled(final Boolean enabled) {
-		this.btnAddHint.setVisible(enabled);
-	}
-
-	@Override
 	public void setRelations(final List<Relation> relations) {
 		if (relations.size() > 0) {
 			this.relationTable.setVisible(true);
@@ -453,6 +455,11 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	@Override
 	public void setSprints(final List<ISprint> sprints, final ISprint selected) {
 		this.sprints = sprints;
+
+		if (!this.sprints.contains(selected) && selected != null) {
+			this.sprints.add(selected);
+		}
+
 		this.sprintComboBox.clear();
 		this.sprintComboBox.addItem(""); // Adding an empty item!
 		for (final ISprint iSprint : sprints) {

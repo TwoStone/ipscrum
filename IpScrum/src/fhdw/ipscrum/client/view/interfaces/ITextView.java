@@ -5,12 +5,32 @@ import fhdw.ipscrum.client.events.IEvent;
 
 public interface ITextView extends IView {
 
-	IEvent<EventArgs> abort();
+	/**
+	 * Returns the event fired when the workflow shell be aborted.
+	 * 
+	 * @return
+	 */
+	IEvent<EventArgs> getAborted();
 
+	/**
+	 * Return the currently entered content.
+	 * 
+	 * @return
+	 */
 	String getContent();
 
-	IEvent<EventArgs> save();
+	/**
+	 * Returns the event fired when the object shell be saved.
+	 * 
+	 * @return
+	 */
+	IEvent<EventArgs> getSave();
 
+	/**
+	 * Displays the content.
+	 * 
+	 * @param content
+	 */
 	void setContent(String content);
 
 }

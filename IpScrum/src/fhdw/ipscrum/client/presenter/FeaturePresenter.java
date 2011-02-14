@@ -71,7 +71,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	private void createCriterion(final Panel panel) {
 		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(
 				panel);
-		this.getView().setNewCriterionEnabled(false);
+		panel.clear();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -79,8 +79,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 					FeaturePresenter.this.feature
 							.addAcceptanceCriterion(presenter.getCriterion());
 					panel.clear();
-					FeaturePresenter.this.getView()
-							.setNewCriterionEnabled(true);
+
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
@@ -94,7 +93,6 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				panel.clear();
-				FeaturePresenter.this.getView().setNewCriterionEnabled(true);
 			}
 		});
 	}
@@ -107,7 +105,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 */
 	private void createHint(final Panel panel) {
 		final HintPresenter presenter = new HintPresenter(panel);
-		this.getView().setNewHintEnabled(false);
+		panel.clear();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -119,14 +117,12 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 					GwtUtils.displayError(e.getMessage());
 				}
 				panel.clear();
-				FeaturePresenter.this.getView().setNewHintEnabled(true);
 			}
 		});
 		presenter.getAborted().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				panel.clear();
-				FeaturePresenter.this.getView().setNewHintEnabled(true);
 			}
 		});
 	}
@@ -185,9 +181,10 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	protected boolean onFinish() {
 		try {
 			FeaturePresenter.this.updateFeature();
-		} catch (final DoubleDefinitionException e) {
-			GwtUtils.displayError(e.getMessage());
-			return false;
+		} catch (final ForbiddenStateException e) {
+			// Wenn das Feature nicht bearbeitbar ist, speichern wir an dieser
+			// Stelle auch nichts.
+			return true;
 		} catch (final UserException e) {
 			GwtUtils.displayError(e.getMessage());
 			return false;

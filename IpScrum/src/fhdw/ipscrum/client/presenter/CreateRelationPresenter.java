@@ -46,11 +46,10 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	}
 
 	protected void createNewType(final Panel createNewTypePanel) {
-		createNewTypePanel.clear();
 		createNewTypePanel.setVisible(true);
 		final CreateRelationTypePresenter presenter = new CreateRelationTypePresenter(
 				createNewTypePanel);
-
+		createNewTypePanel.setVisible(true);
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 			@Override
@@ -109,6 +108,12 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	}
 
 	@Override
+	protected boolean onAbort() {
+		this.getView().asWidget().removeFromParent();
+		return super.onAbort();
+	}
+
+	@Override
 	protected boolean onFinish() {
 		try {
 			this.relation = new Relation(this.getView().getSelectedType(), this
@@ -116,6 +121,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		} catch (final NothingSelectedException e) {
 			return false;
 		}
+		this.getView().asWidget().removeFromParent();
 		return super.onFinish();
 	}
 

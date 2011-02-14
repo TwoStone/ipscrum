@@ -78,6 +78,30 @@ public class EditFeatureView extends CreateFeatureView implements
 		this.complexityBox.setValue(complexity);
 	}
 
+	/**
+	 * Sets the enabled attribute of the editable view elements to <i>b</i>.
+	 * 
+	 * @param b
+	 */
+	private void setEditFieldsEnabled(final boolean b) {
+		this.getBtnAddCriterion().setEnabled(b);
+		this.getBtnAddHint().setEnabled(b);
+		this.getBtnAddRelation().setEnabled(b);
+		this.getTxtBxName().setEnabled(b);
+		this.getTextArea().setEnabled(b);
+		this.getSprintComboBox().setEnabled(b);
+		this.complexityBox.setEnabled(b);
+	}
+
+	@Override
+	public void setLastEditor(final IPerson editor) {
+		// TODO Da der Editor momentan nicht über die Business logik gesetzt
+		// wird, kann er null sein.
+		if (editor != null) {
+			this.editorLabel.setText(editor.toString());
+		}
+	}
+
 	@Override
 	public void setState(final IFeatureState state) {
 		state.accept(new IFeatureVisitor() {
@@ -91,9 +115,7 @@ public class EditFeatureView extends CreateFeatureView implements
 				// TODO Wenn Features wieder geöffnet werden können, hier
 				// ändern.
 				EditFeatureView.this.toggleStateBtn.setVisible(false);
-				EditFeatureView.this.getBtnAddCriterion().setEnabled(false);
-				EditFeatureView.this.getBtnAddHint().setEnabled(false);
-				EditFeatureView.this.getBtnAddRelation().setEnabled(false);
+				EditFeatureView.this.setEditFieldsEnabled(false);
 
 			}
 
@@ -106,9 +128,7 @@ public class EditFeatureView extends CreateFeatureView implements
 				// TODO Wenn Features wieder geöffnet werden können, hier
 				// ändern.
 				EditFeatureView.this.toggleStateBtn.setVisible(true);
-				EditFeatureView.this.getBtnAddCriterion().setEnabled(true);
-				EditFeatureView.this.getBtnAddHint().setEnabled(true);
-				EditFeatureView.this.getBtnAddRelation().setEnabled(true);
+				EditFeatureView.this.setEditFieldsEnabled(true);
 			}
 		});
 	}
@@ -116,15 +136,6 @@ public class EditFeatureView extends CreateFeatureView implements
 	@Override
 	public IEvent<EventArgs> toggleFeatureState() {
 		return this.toggleStateEvent;
-	}
-
-	@Override
-	public void setLastEditor(final IPerson editor) {
-		// TODO Da der Editor momentan nicht über die Business logik gesetzt
-		// wird, kann er null sein.
-		if (editor != null) {
-			this.editorLabel.setText(editor.toString());
-		}
 	}
 
 }
