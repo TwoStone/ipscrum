@@ -131,7 +131,7 @@ public class IpScrum implements EntryPoint {
 					try {
 						release2.addSprint(sprint1);
 						release2.addSprint(sprint2);
-						release5.addSprint(sprint1);
+						release5.addSprint(sprint3);
 					} catch (final UserException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
