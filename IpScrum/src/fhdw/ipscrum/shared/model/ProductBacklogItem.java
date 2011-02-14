@@ -65,7 +65,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	private void checkName(final ProductBacklog backlog, final String name)
 			throws NoValidValueException, DoubleDefinitionException {
 		if (name != null && name.trim().length() > 0) {
-			if (!backlog.equals(null)) {
+			if (backlog!=null) {
 				for (final ProductBacklogItem item : backlog.getItems()) {
 					if (!item.equals(this) && item.getName().equals(name)) {
 						throw new DoubleDefinitionException(
