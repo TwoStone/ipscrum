@@ -31,7 +31,7 @@ public class Role implements IRole {
 		if (description != null && !description.isEmpty()) {
 			this.description = description;
 		} else {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_ROLE_DESCRIPTION_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
 		}
 	}
 

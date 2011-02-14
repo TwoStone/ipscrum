@@ -11,12 +11,14 @@ import fhdw.ipscrum.client.events.args.SprintDetailArgs;
 import fhdw.ipscrum.client.view.SprintDialogView;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
- * Represents the presenter of the view with which the user could make new sprints or change sprints.
+ * Represents the presenter of the view with which the user could make new
+ * sprints or change sprints.
  */
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
@@ -28,7 +30,8 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * 
 	 * Required for making new sprints
 	 * 
-	 * @param parent Panel
+	 * @param parent
+	 *            Panel
 	 */
 	public SprintDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -39,8 +42,10 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * 
 	 * Required for changing sprints
 	 * 
-	 * @param parent Panel
-	 * @param sprint ISprint
+	 * @param parent
+	 *            Panel
+	 * @param sprint
+	 *            ISprint
 	 */
 	public SprintDialogPresenter(Panel parent, ISprint sprint) {
 		super(parent);
@@ -51,8 +56,9 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	/**
 	 * Method createView.
 	 * 
-	 * Creates the view in which the user could make a new sprint or change a sprint
-	 * and defines what happens when the user pushes the cancel- or OK-button.
+	 * Creates the view in which the user could make a new sprint or change a
+	 * sprint and defines what happens when the user pushes the cancel- or
+	 * OK-button.
 	 * 
 	 * @return ISprintDialogView
 	 */
@@ -70,17 +76,21 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 		this.concreteView.addOkHandler(new EventHandler<SprintDetailArgs>() {
 			@Override
-
 			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
-				if (SprintDialogPresenter.this.sprint == null) {
-					SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getDescription(), eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
-				} else {
-					SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
-					SprintDialogPresenter.this.sprint.setBegin(eventArgs.getBeginDate());
-					SprintDialogPresenter.this.sprint.setEnd(eventArgs.getEndDate());
-					SprintDialogPresenter.this.sprint.setTeam(eventArgs.getTeam());
+				try {
+					if (SprintDialogPresenter.this.sprint == null) {
+						SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getDescription(), eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
+					} else {
+						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
+						SprintDialogPresenter.this.sprint.setBegin(eventArgs.getBeginDate());
+						SprintDialogPresenter.this.sprint.setEnd(eventArgs.getEndDate());
+						SprintDialogPresenter.this.sprint.setTeam(eventArgs.getTeam());
+					}
+				} catch (NoValidValueException e) {
+					// TODO Sarah: Exceptions verarbeiten. try-catch kann so
+					// nicht bleiben. Exception wird mehrfach geworfen und
+					// sollte einzeln bearbeitet e.printStackTrace();
 				}
-
 				finish();
 			}
 		});
@@ -91,12 +101,12 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	/**
 	 * Method initialize.
 	 * 
-	 * Initializes the view with the values of the sprint chosen to change
-	 * It also initializes the teams for the view.
+	 * Initializes the view with the values of the sprint chosen to change It
+	 * also initializes the teams for the view.
 	 */
 	private void initialize() {
 		HashSet<ITeam> teamSet = SessionManager.getInstance().getModel().getTeams();
-		if (teamSet != null){
+		if (teamSet != null) {
 			this.concreteView.fillComboBoxTeams(new ArrayList<ITeam>(teamSet));
 		}
 

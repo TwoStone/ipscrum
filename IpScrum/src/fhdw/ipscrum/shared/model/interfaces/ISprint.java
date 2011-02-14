@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Sprint;
@@ -13,17 +14,17 @@ public interface ISprint extends BDACompare{
 
 	public Date getBegin();
 
-	public void setBegin(Date begin);
+	public void setBegin(Date begin) throws NoValidValueException;
 
 	public Date getEnd();
 
-	public void setEnd(Date end);
+	public void setEnd(Date end) throws NoValidValueException;
 
 	public ITeam getTeam();
 
-	public void setTeam(ITeam team);
+	public void setTeam(ITeam team) throws NoValidValueException;
 
-	public void setDescription(String description);
+	public void setDescription(String description) throws NoValidValueException;
 
 	public String getDescription();
 

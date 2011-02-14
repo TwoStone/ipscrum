@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
@@ -12,10 +13,11 @@ public class Person implements IPerson {
 	private String lastname;
 	private final ToRoleAssoc toRoleAssoc;
 
-	public Person(String firstname, String lastname) {
+	public Person(String firstname, String lastname)
+			throws NoValidValueException {
 		super();
-		this.firstname = firstname; // TODO Christin: Hier bitte analog zu Role ebenfalls Überprüfungen auf Vollständigkeit
-		this.lastname = lastname;
+		setFirstname(firstname);
+		setLastname(lastname);
 		this.toRoleAssoc = new ToRoleAssoc(this);
 	}
 
@@ -30,8 +32,13 @@ public class Person implements IPerson {
 	}
 
 	@Override
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstname(String firstname) throws NoValidValueException {
+		if (firstname == null || firstname.length() == 0) {
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+		} else {
+			this.firstname = firstname;
+		}
 	}
 
 	@Override
@@ -40,14 +47,21 @@ public class Person implements IPerson {
 	}
 
 	@Override
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastname(String lastname) throws NoValidValueException {
+		if (lastname == null || lastname.length() == 0) {
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+		} else {
+
+			this.lastname = lastname;
+		}
 	}
 
 	@Override
 	public Vector<IRole> getRoles() {
 		Vector<IRole> ret = new Vector<IRole>();
-		for (IRole.ToPersonAssoc roleAssocs : this.toRoleAssoc.getAssociations()) {
+		for (IRole.ToPersonAssoc roleAssocs : this.toRoleAssoc
+				.getAssociations()) {
 			ret.add(roleAssocs.getElement());
 		}
 		return ret;
@@ -56,7 +70,8 @@ public class Person implements IPerson {
 	@Override
 	public void addRole(IRole role) throws ConsistencyException {
 		if (getRoles().contains(role)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
 		} else {
 			this.getToRoleAssoc().add(role.getToPersonAssoc());
 		}
@@ -65,7 +80,8 @@ public class Person implements IPerson {
 	@Override
 	public void removeRole(IRole role) throws ConsistencyException {
 		if (!getRoles().contains(role)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		} else {
 			this.getToRoleAssoc().remove(role.getToPersonAssoc());
 		}
@@ -80,7 +96,9 @@ public class Person implements IPerson {
 	public int hashCode() {
 		int result = this.indirectHashCode();
 		final int prime = 31;
-		result = prime * result + ((this.toRoleAssoc == null) ? 0 : this.toRoleAssoc.hashCode());
+		result = prime
+				* result
+				+ ((this.toRoleAssoc == null) ? 0 : this.toRoleAssoc.hashCode());
 		return result;
 	}
 
@@ -124,8 +142,10 @@ public class Person implements IPerson {
 	public int indirectHashCode() {
 		int result = 1;
 		final int prime = 31;
-		result = prime * result + ((this.firstname == null) ? 0 : this.firstname.hashCode());
-		result = prime * result + ((this.lastname == null) ? 0 : this.lastname.hashCode());
+		result = prime * result
+				+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
+		result = prime * result
+				+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
 		return result;
 	}
 }

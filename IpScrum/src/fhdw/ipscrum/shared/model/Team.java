@@ -2,16 +2,17 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Team implements ITeam {
 	private String description;
-	private final Vector<IPerson> members; // TODO Christin: Warum nun doch Vector? Wenn das so bleiben soll, muss die addMember()-Methode angepasst werden!
+	private final Vector<IPerson> members;
 
 	public Team(String description) {
 		super();
-		this.description = description;
+		setDescription(description);
 		this.members = new Vector<IPerson>();
 	}
 
@@ -31,13 +32,23 @@ public class Team implements ITeam {
 	}
 
 	@Override
-	public void addMember(IPerson member) {
-		this.getMembers().add(member);
+	public void addMember(IPerson member) throws ConsistencyException {
+		if (members.contains(member)) {
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_ALREADY_ASSIGNED_ERROR);
+		} else {
+			this.getMembers().add(member);
+		}
 	}
 
 	@Override
-	public void removeMember(IPerson member) {
-		this.getMembers().remove(member);
+	public void removeMember(IPerson member) throws ConsistencyException {
+		if (!members.contains(member)) {
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_NOT_FOUND_ERROR);
+		} else {
+			this.getMembers().remove(member);
+		}
 	}
 
 	@Override
@@ -53,8 +64,11 @@ public class Team implements ITeam {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-		result = prime * result + ((this.members == null) ? 0 : this.members.hashCode());
+		result = prime
+				* result
+				+ ((this.description == null) ? 0 : this.description.hashCode());
+		result = prime * result
+				+ ((this.members == null) ? 0 : this.members.hashCode());
 		return result;
 	}
 

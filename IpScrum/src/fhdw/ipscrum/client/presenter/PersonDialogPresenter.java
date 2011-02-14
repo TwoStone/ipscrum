@@ -8,15 +8,16 @@ import fhdw.ipscrum.client.events.args.TwoStringArgs;
 import fhdw.ipscrum.client.view.PersonDialogView;
 import fhdw.ipscrum.client.view.interfaces.IPersonDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
-
 /**
- * Represents the presenter of the view with which the user could make new persons or change persons.
+ * Represents the presenter of the view with which the user could make new
+ * persons or change persons.
  * 
  */
-public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
+public class PersonDialogPresenter extends Presenter<IPersonDialogView> {
 
 	private IPersonDialogView concreteView;
 	private final IPerson person;
@@ -26,7 +27,8 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	 * 
 	 * Required for making new persons.
 	 * 
-	 * @param parent Panel
+	 * @param parent
+	 *            Panel
 	 * 
 	 */
 	public PersonDialogPresenter(Panel parent) {
@@ -38,8 +40,10 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	 * 
 	 * Required for changing persons.
 	 * 
-	 * @param parent Panel
-	 * @param person IPerson
+	 * @param parent
+	 *            Panel
+	 * @param person
+	 *            IPerson
 	 * 
 	 */
 	public PersonDialogPresenter(Panel parent, IPerson person) {
@@ -51,8 +55,9 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 	/**
 	 * Method createView.
 	 * 
-	 * Creates the view in which the user could make a new person or change a person
-	 * and defines what happens when the user pushes the cancel- or OK-button.
+	 * Creates the view in which the user could make a new person or change a
+	 * person and defines what happens when the user pushes the cancel- or
+	 * OK-button.
 	 * 
 	 * @return IPersonDialogView
 	 * 
@@ -72,13 +77,19 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView>  {
 		this.concreteView.defineCommitEventHandler(new EventHandler<TwoStringArgs>() {
 			@Override
 			public void onUpdate(Object sender, TwoStringArgs eventArgs) {
-				if (PersonDialogPresenter.this.person == null) {
-					SessionManager.getInstance().getModel().addPerson(new Person(eventArgs.getString1(), eventArgs.getString2()));
-				} else {
-					PersonDialogPresenter.this.person.setFirstname(eventArgs.getString1());
-					PersonDialogPresenter.this.person.setLastname(eventArgs.getString2());
+				try {
+					if (PersonDialogPresenter.this.person == null) {
+						SessionManager.getInstance().getModel().addPerson(new Person(eventArgs.getString1(), eventArgs.getString2()));
+					} else {
+						PersonDialogPresenter.this.person.setFirstname(eventArgs.getString1());
+						PersonDialogPresenter.this.person.setLastname(eventArgs.getString2());
+					}
+				} catch (NoValidValueException e) {
+					// TODO Sarah: Exceptions verarbeiten. try-catch kann so
+					// nicht bleiben. Exception wird mehrfach geworfen und
+					// sollte einzeln bearbeitet
+					e.printStackTrace();
 				}
-
 				finish();
 			}
 		});

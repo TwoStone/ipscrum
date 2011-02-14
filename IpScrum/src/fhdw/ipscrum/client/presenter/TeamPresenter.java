@@ -12,12 +12,13 @@ import fhdw.ipscrum.client.view.TeamView;
 import fhdw.ipscrum.client.view.interfaces.ITeamView;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
- * presenter class of the team interface.
- * this interface is used to inspect, create and modify teams as well as adding and removing persons to teams.
+ * presenter class of the team interface. this interface is used to inspect,
+ * create and modify teams as well as adding and removing persons to teams.
  */
 public class TeamPresenter extends Presenter<ITeamView> {
 
@@ -25,15 +26,17 @@ public class TeamPresenter extends Presenter<ITeamView> {
 
 	/**
 	 * Constructor for TeamPresenter.
-	 * @param parent Panel
+	 * 
+	 * @param parent
+	 *            Panel
 	 */
 	public TeamPresenter(Panel parent) {
 		super(parent);
 	}
 
-
 	/**
 	 * Method createView.
+	 * 
 	 * @return ITeamView
 	 */
 	@Override
@@ -44,9 +47,9 @@ public class TeamPresenter extends Presenter<ITeamView> {
 		return this.concreteView;
 	}
 
-
 	/**
-	 * this is called to update or fill the entries in the gui-tables/tree-display.
+	 * this is called to update or fill the entries in the
+	 * gui-tables/tree-display.
 	 */
 	private void updateGuiData() {
 		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
@@ -58,7 +61,8 @@ public class TeamPresenter extends Presenter<ITeamView> {
 	}
 
 	/**
-	 * this is called to set up the behaviour of all interaction widgets of this view.
+	 * this is called to set up the behaviour of all interaction widgets of this
+	 * view.
 	 */
 	private void setupEventHandlers() {
 
@@ -122,7 +126,12 @@ public class TeamPresenter extends Presenter<ITeamView> {
 			@Override
 			public void onUpdate(Object sender, PersonTeamArgs eventArgs) {
 				for (IPerson person : eventArgs.getPersons()) {
-					eventArgs.getTeam().removeMember(person);
+					try {
+						eventArgs.getTeam().removeMember(person);
+					} catch (ConsistencyException e) {
+						// TODO Wilken: Exception behandeln
+						e.printStackTrace();
+					}
 					TeamPresenter.this.updateGuiData();
 				}
 			}
@@ -132,7 +141,12 @@ public class TeamPresenter extends Presenter<ITeamView> {
 			@Override
 			public void onUpdate(Object sender, PersonTeamArgs eventArgs) {
 				for (IPerson person : eventArgs.getPersons()) {
-					eventArgs.getTeam().addMember(person);
+					try {
+						eventArgs.getTeam().addMember(person);
+					} catch (ConsistencyException e) {
+						// TODO Wilken: Exception behandeln
+						e.printStackTrace();
+					}
 					TeamPresenter.this.updateGuiData();
 				}
 			}

@@ -5,16 +5,17 @@ import java.util.Vector;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
 public interface IPerson extends BDACompare {
 
 	public String getFirstname();
 
-	public void setFirstname(String firstname);
+	public void setFirstname(String firstname) throws NoValidValueException;
 
 	public String getLastname();
 
-	public void setLastname(String lastname);
+	public void setLastname(String lastname) throws NoValidValueException;
 
 	public Vector<IRole> getRoles();
 
