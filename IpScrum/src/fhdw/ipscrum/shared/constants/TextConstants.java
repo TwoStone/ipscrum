@@ -98,6 +98,7 @@ public final class TextConstants {
 	public static final String FINISHED = "Fertig";
 	public static final String ADD_SPRINT = "Sprint hinzufügen";
 	public static final String DELETE_SPRINT = "Sprint entfernen";
+	public static final String SPRINT_OVERWIEW = "Sprint\u00FCbersicht";
 	/* [END SECTION] */
 
 }
