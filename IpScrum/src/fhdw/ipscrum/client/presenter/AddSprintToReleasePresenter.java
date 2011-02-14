@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.AddSprintToReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IAddSprintToReleaseView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
@@ -58,7 +59,7 @@ public class AddSprintToReleasePresenter extends
 				try {
 					AddSprintToReleasePresenter.this.release.addSprint(eventArgs.getSprint());
 				} catch (UserException e) {
-					e.getMessage();
+					GwtUtils.displayError(e.getMessage());
 				}
 			AddSprintToReleasePresenter.this.finish();
 			}
