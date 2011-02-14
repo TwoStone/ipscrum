@@ -23,6 +23,8 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
+import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 public class ProductBacklogView extends Composite implements
@@ -70,14 +72,14 @@ public class ProductBacklogView extends Composite implements
 		horizontalPanel.setSize("600px", "300px");
 		concreteProductBacklogPanel.add(horizontalPanel);
 
-		Label lblProductBacklog = new Label("Product Backlog");
+		Label lblProductBacklog = new Label(TextConstants.PRODUCTBACKLOG);
 		lblProductBacklog
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		lblProductBacklog.setStyleName("LabelElement");
+		lblProductBacklog.setStyleName(TextConstants.LABELELEMENT);
 		horizontalPanel.add(lblProductBacklog, 10, 10);
 
-		lblAktionen = new Label("Aktionen");
-		lblAktionen.setStyleName("LabelElement");
+		lblAktionen = new Label(TextConstants.ACTION);
+		lblAktionen.setStyleName(TextConstants.LABELELEMENT);
 		horizontalPanel.add(lblAktionen, 522, 10);
 		lblAktionen.setSize("59px", "23px");
 
@@ -95,7 +97,7 @@ public class ProductBacklogView extends Composite implements
 		};
 		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProductbacklog.addColumn(bezeichnung, "Bezeichnung");
+		tableProductbacklog.addColumn(bezeichnung, TextConstants.PRODUCTBACKLOG_TEXT);
 
 		TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
 			@Override
@@ -103,13 +105,13 @@ public class ProductBacklogView extends Composite implements
 				if (pbi.getManDayCosts() != null) {
 					return pbi.getManDayCosts().toString();
 				} else {
-					return "-";
+					return TextConstants.LINE;
 				}
 			}
 		};
 		aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProductbacklog.addColumn(aufwand, "Aufwand (in PT)");
+		tableProductbacklog.addColumn(aufwand, TextConstants.MAN_DAYS);
 
 		sprint = new TextColumn<ProductBacklogItem>() {
 			@Override
@@ -117,11 +119,11 @@ public class ProductBacklogView extends Composite implements
 				if (pbi.getSprint() != null) {
 					return pbi.getSprint().getDescription();
 				} else {
-					return "-";
+					return TextConstants.LINE;
 				}
 			}
 		};
-		tableProductbacklog.addColumn(sprint, "Sprint");
+		tableProductbacklog.addColumn(sprint, TextConstants.SPRINT_TEXT);
 
 		release = new TextColumn<ProductBacklogItem>() {
 			@Override
@@ -130,11 +132,11 @@ public class ProductBacklogView extends Composite implements
 						&& pbi.getSprint().getRelease() != null) {
 					return pbi.getSprint().getRelease().getVersion();
 				} else {
-					return "-";
+					return TextConstants.LINE;
 				}
 			}
 		};
-		tableProductbacklog.addColumn(release, "Release");
+		tableProductbacklog.addColumn(release, TextConstants.RELEASE);
 		scrollPanel.setWidget(tableProductbacklog);
 		tableProductbacklog.setSize("100%", "100%");
 		tableProductbacklog.setSelectionModel(new SingleSelectionModel());
@@ -145,7 +147,7 @@ public class ProductBacklogView extends Composite implements
 		horizontalPanel.add(pbMenu, 540, 40);
 		pbMenu.setSize("50px", "250px");
 
-		imgNewFile = new Image("images/newfile.png");
+		imgNewFile = new Image(TextConstants_FilePaths.NEW_FILE_PATH);
 		imgNewFile.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				newPBIEvent.fire(ProductBacklogView.this, new EventArgs());
@@ -153,7 +155,7 @@ public class ProductBacklogView extends Composite implements
 		});
 		pbMenu.setWidget(0, 0, imgNewFile);
 
-		imgDetails = new Image("images/details.png");
+		imgDetails = new Image(TextConstants_FilePaths.DETAILS_PATH);
 		imgDetails.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(
@@ -162,7 +164,7 @@ public class ProductBacklogView extends Composite implements
 		});
 		pbMenu.setWidget(1, 0, imgDetails);
 
-		imgDelete = new Image("images/delete.png");
+		imgDelete = new Image(TextConstants_FilePaths.DELETE_PATH);
 		imgDelete.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				if (currentlySelected != null) {
@@ -173,7 +175,7 @@ public class ProductBacklogView extends Composite implements
 		});
 		pbMenu.setWidget(2, 0, imgDelete);
 
-		imgDoubleArrowUp = new Image("images/toparrow.png");
+		imgDoubleArrowUp = new Image(TextConstants_FilePaths.TOP_ARROW_PATH);
 		imgDoubleArrowUp.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -187,7 +189,7 @@ public class ProductBacklogView extends Composite implements
 		});
 		pbMenu.setWidget(3, 0, imgDoubleArrowUp);
 
-		imgArrowUp = new Image("images/uparrow.png");
+		imgArrowUp = new Image(TextConstants_FilePaths.UP_ARROW_PATH);
 		imgArrowUp.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -201,7 +203,7 @@ public class ProductBacklogView extends Composite implements
 		});
 		pbMenu.setWidget(4, 0, imgArrowUp);
 
-		imgArrowDown = new Image("images/downarrow.png");
+		imgArrowDown = new Image(TextConstants_FilePaths.DOWN_ARROW_PATH);
 		pbMenu.setWidget(5, 0, imgArrowDown);
 		imgArrowDown.addClickHandler(new ClickHandler() {
 
@@ -212,7 +214,7 @@ public class ProductBacklogView extends Composite implements
 			}
 		});
 
-		imgDoubleArrowDown = new Image("images/bottomarrow.png");
+		imgDoubleArrowDown = new Image(TextConstants_FilePaths.BOTTOM_ARROW_PATH);
 		imgDoubleArrowDown.addClickHandler(new ClickHandler() {
 
 			@Override
