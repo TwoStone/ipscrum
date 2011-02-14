@@ -17,6 +17,10 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public class CreateProjectView extends Composite implements ICreateProjectView {
 
 	// ####### Events #######
