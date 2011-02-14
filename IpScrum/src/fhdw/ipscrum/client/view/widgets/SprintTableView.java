@@ -44,10 +44,10 @@ private CellTable<ISprint> tableSprint;
 		TextColumn descriptionColumn = new TextColumn<Sprint>() {
 			@Override
 			public String getValue(Sprint sprint) {
-				return sprint.getDescription();
+				return sprint.getName();
 			}
 		};
-		tableSprint.addColumn(descriptionColumn, "Beschreibung");
+		tableSprint.addColumn(descriptionColumn, "Kurzbeschreibung");
 		
 		TextColumn teamColumn = new TextColumn<Sprint>() {
 			@Override
