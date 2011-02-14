@@ -14,8 +14,8 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  */
 public interface ISprintView extends IView {
 
-	//wird hier nicht benötigt! (siehe IReleaseView)
-	public abstract void addNewReleaseEventHandler(EventHandler<EventArgs> arg);
+	//wird hier nicht benötigt! (siehe IReleaseView) Wird doch benötigt!!!!!
+	public abstract void addNewSprintEventHandler(EventHandler<EventArgs> arg);
 
 	/**
 	 * Method addSprintDetailsEventHandler
@@ -25,8 +25,8 @@ public interface ISprintView extends IView {
 	 */
 	void addSprintDetailsEventHandler(EventHandler<SprintArgs> arg);
 
-	//wird hier nicht benötigt! (siehe IReleaseView)
-	void addDeleteReleaseEventHandler(
+	//wird hier nicht benötigt! (siehe IReleaseView) Wird auch benötigt!!!!!
+	void addDeleteSprintEventHandler(
 			EventHandler<SprintArgs> arg);
 
 	/**

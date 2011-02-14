@@ -46,7 +46,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 	protected ISprintView createView() {
 		this.concreteView = new SprintView();
 
-		this.concreteView.addNewReleaseEventHandler(new EventHandler<EventArgs>() {
+		this.concreteView.addNewSprintEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
@@ -105,7 +105,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 			}
 		});
 
-		this.concreteView.addDeleteReleaseEventHandler(new EventHandler<SprintArgs>() {
+		this.concreteView.addDeleteSprintEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {

@@ -109,12 +109,12 @@ public class SprintView extends Composite implements ISprintView{
 	}
 
 	@Override
-	public void addDeleteReleaseEventHandler(EventHandler<SprintArgs> arg) {
+	public void addDeleteSprintEventHandler(EventHandler<SprintArgs> arg) {
 		this.deleteSelectedSprintEvent.add(arg);
 	}
 
 	@Override
-	public void addNewReleaseEventHandler(EventHandler<EventArgs> arg) {
+	public void addNewSprintEventHandler(EventHandler<EventArgs> arg) {
 		this.newSprintEvent.add(arg);
 	}
 

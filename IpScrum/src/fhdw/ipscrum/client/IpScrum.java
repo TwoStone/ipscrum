@@ -103,9 +103,6 @@ public class IpScrum implements EntryPoint {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					project1.addRelease(release1);
-					project1.addRelease(release2);
-					project1.addRelease(release3);
 					Sprint sprint1 = new Sprint("Sprint1", "Beschreibung Sprint 1", new Date(), new Date(), t1);
 					Sprint sprint2 = new Sprint("Sprint2", "Beschreibung Sprint 2", new Date(), new Date(), t2);
 					Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", new Date(), new Date(), t1);
@@ -114,10 +111,8 @@ public class IpScrum implements EntryPoint {
 					project1.addSprint(sprint1);
 					project1.addSprint(sprint2);
 					project1.addSprint(sprint3);
-					project2.addRelease(release4);
-					project2.addRelease(release5);
 					project2.addSprint(sprint4);
-					project2.addSprint(sprint3);
+					project2.addSprint(sprint5);
 
 					try {
 						release2.addSprint(sprint1);
