@@ -12,6 +12,8 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateProjectView;
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.shared.constants.TextConstants;
+
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 
@@ -35,32 +37,32 @@ public class CreateProjectView extends Composite implements ICreateProjectView {
 		initWidget(concreteCreateProjectPanel);
 		concreteCreateProjectPanel.setSize("285px", "129px");
 
-		Label lblCreateProjet = new Label("Neues Projekt erstellen");
-		lblCreateProjet.setStyleName("LabelElement");
+		Label lblCreateProjet = new Label(TextConstants.NEW_PROJECT);
+		lblCreateProjet.setStyleName(TextConstants.LABELELEMENT);
 		lblCreateProjet
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		concreteCreateProjectPanel.add(lblCreateProjet, 10, 2);
 		lblCreateProjet.setSize("219px", "38px");
 
-		btnCreateProject = new Button("New button");
+		btnCreateProject = new Button(TextConstants.NEW_BUTTON);
 		btnCreateProject.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				saveEvent.fire(CreateProjectView.this, new EventArgs());
 			}
 		});
-		btnCreateProject.setText("Projekt erstellen");
+		btnCreateProject.setText(TextConstants.CREATE_PROJECT);
 	
 		concreteCreateProjectPanel.add(btnCreateProject, 10, 93);
 		btnCreateProject.setSize("148px", "28px");
 
-		Label lblBezeichnung = new Label("Bezeichnung:");
+		Label lblBezeichnung = new Label(TextConstants.PROJECT_TEXT);
 		concreteCreateProjectPanel.add(lblBezeichnung, 10, 40);
 
 		txtBoxBezeichnung = new TextBox();
 		concreteCreateProjectPanel.add(txtBoxBezeichnung, 10, 62);
 		
-		Button btnCancel = new Button("New button");
-		btnCancel.setText("Abbrechen");
+		Button btnCancel = new Button(TextConstants.NEW_BUTTON);
+		btnCancel.setText(TextConstants.ABORT);
 		
 		btnCancel.addClickHandler(new ClickHandler() {
 			
