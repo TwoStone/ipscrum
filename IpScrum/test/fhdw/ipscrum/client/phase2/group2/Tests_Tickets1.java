@@ -3,10 +3,13 @@ package fhdw.ipscrum.client.phase2.group2;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fhdw.ipscrum.shared.SessionManager;
@@ -15,16 +18,21 @@ import fhdw.ipscrum.shared.model.Closed;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Open;
+import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.Team;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 import static org.junit.Assert.*;
 
 public class Tests_Tickets1 {
 	
 	private String featureName1;
+	private String featureName2;
 	private String featureDescription1;
 	private Project project;
 	private ProductBacklog productBacklog;
@@ -43,12 +51,13 @@ public class Tests_Tickets1 {
 	@Before
 	public void setUp() throws Exception {
 		this.featureName1 = "TestFeature1";
+		this.featureName2 = "TestFeature2";
 		this.featureDescription1 = "TestFeature1";
 		this.project = new Project("TestProject");
 		this.productBacklog = project.getBacklog();
 		
 		 this.feature1 = new Feature(this.featureName1, this.featureDescription1, this.productBacklog);
-		 this.feature2 = new Feature(this.featureName1, this.featureDescription1, this.productBacklog);
+		 this.feature2 = new Feature(this.featureName2, this.featureDescription1, this.productBacklog);
 	}
 
 	@After
@@ -288,6 +297,89 @@ public class Tests_Tickets1 {
 		
 		this.feature1.removeRelation(relation);
 	}
+	
+	@Test
+	public void setNameToOpenFeature() throws Exception {
+		assertEquals(this.featureName1, this.feature1.getName());
+		this.feature1.setName("TestNewName");
+		assertEquals("TestNewName", this.feature1.getName());
+	}
+	
+	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	@Ignore
+	public void setNameToClosedFeature() throws Exception {
+		assertEquals(this.featureName1, this.feature1.getName());
+		this.feature1.close();
+		this.feature1.setName("TestNewName");
+	}
+	
+	@Test
+	public void setLastEditorToOpenFeature() throws Exception {
+		Person person = new Person("TestFirstname", "TestNachname");
+		this.feature1.setLastEditor(person);
+		assertEquals(person, this.feature1.getLastEditor());
+	}
+	
+	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	@Ignore
+	public void setLastEditorToClosedFeature() throws Exception {
+		Person person = new Person("TestFirstname", "TestNachname");
+		this.feature1.close();
+		this.feature1.setLastEditor(person);
+	}
+	
+	@Test
+	public void setManDayCostsToOpenFeature() throws Exception {
+		Integer manDayCosts = 5;
+		this.feature1.setManDayCosts(manDayCosts);
+		assertEquals(manDayCosts, this.feature1.getManDayCosts());
+	}
+	
+	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	@Ignore
+	public void setManDayCostsToClosedFeature() throws Exception {
+		Integer manDayCosts = 5;
+		this.feature1.close();
+		this.feature1.setManDayCosts(manDayCosts);
+	}
+	
+	@Test
+	public void setSprintToOpenFeature() throws Exception {
+		ISprint sprint = new Sprint("TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
+		project.addSprint(sprint);
+		this.feature1.setSprint(sprint);
+		assertEquals(sprint, this.feature1.getSprint());
+	}
+	
+	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	@Ignore
+	public void setSprintToClosedFeature() throws Exception {
+		ISprint sprint = new Sprint("TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
+		project.addSprint(sprint);
+		this.feature1.close();
+		this.feature1.setSprint(sprint);
+	}
+	
+//	@Test
+//	public void setDescriptionToOpenFeature() throws Exception {
+//		String description = "TestNewDescription";
+//		assertEquals(this.featureDescription1, this.feature1.getDescription());
+//		this.feature1.setDescription(description);
+//		assertEquals(description, this.feature1.getDescription());
+//	}
+//	
+//	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+//	public void setDescriptionToClosedFeature() throws Exception {
+//		String description = "TestNewDescription";
+//		assertEquals(this.featureDescription1, this.feature1.getDescription());
+//		this.feature1.close();
+//		this.feature1.setDescription(description);
+//		assertEquals(description, this.feature1.getDescription());
+//	}
+	
+	
+	
+	
 	
 	
 	
