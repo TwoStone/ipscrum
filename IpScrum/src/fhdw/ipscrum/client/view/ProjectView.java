@@ -21,6 +21,8 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ProjectEventArgs;
 import fhdw.ipscrum.client.view.interfaces.IProjectView;
+import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Project;
 
 public class ProjectView extends Composite implements IProjectView{
@@ -93,7 +95,7 @@ public class ProjectView extends Composite implements IProjectView{
 				return project.getName();
 			}
 		};
-		tableProject.addColumn(textColumn, "Projektbezeichnung");
+		tableProject.addColumn(textColumn, TextConstants.PROJECT_NAME);
 		scrollPanel.setWidget(tableProject);
 		tableProject.setSelectionModel(new SingleSelectionModel<Project>());
 		tableProject.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -115,7 +117,7 @@ public class ProjectView extends Composite implements IProjectView{
 		concreteProjectPanel.add(projectMenuPanel, 10, 34);
 		projectMenuPanel.setSize("350px", "25px");
 		
-		imgNewProject = new Image("images/newfile.png");
+		imgNewProject = new Image(TextConstants_FilePaths.NEW_FILE_PATH);
 		imgNewProject.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				newProjectEvent.fire(ProjectView.this, new EventArgs());
@@ -123,7 +125,7 @@ public class ProjectView extends Composite implements IProjectView{
 		});
 		projectMenuPanel.add(imgNewProject);
 		
-		imgDeleteProject = new Image("images/delete.png");
+		imgDeleteProject = new Image(TextConstants_FilePaths.DELETE_PATH);
 		imgDeleteProject.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				if(currentlySelected!=null){
@@ -133,8 +135,8 @@ public class ProjectView extends Composite implements IProjectView{
 		});
 		projectMenuPanel.add(imgDeleteProject);
 		
-		Label lblProjekte = new Label("Projekt\u00FCbersicht");
-		lblProjekte.setStyleName("LabelElement");
+		Label lblProjekte = new Label(TextConstants.PROJECT_OVERVIEW);
+		lblProjekte.setStyleName(TextConstants.LABELELEMENT);
 		concreteProjectPanel.add(lblProjekte, 10, 5);
 		
 		masterReleasePanel = new FlowPanel();
