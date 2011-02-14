@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -82,11 +83,11 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 					} else {
 						TeamDialogPresenter.this.team.setDescription(eventArgs.getString());
 					}
+					finish();
 				} catch (NoValidValueException e) {
-					// TODO Sarah
-					e.printStackTrace();
+					Window.alert(e.getMessage());
 				}
-				finish();
+				
 			}
 		});
 		return this.concreteView;
