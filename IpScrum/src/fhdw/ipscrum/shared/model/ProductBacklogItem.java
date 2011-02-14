@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
@@ -69,15 +70,14 @@ public abstract class ProductBacklogItem extends Observable implements
 				for (final ProductBacklogItem item : backlog.getItems()) {
 					if (!item.equals(this) && item.getName().equals(name)) {
 						throw new DoubleDefinitionException(
-								"Ein PBI mit diesem Namen existiert bereits!");
+								TextConstants.DOUBLE_DEFINITION_PBI);
 					}
 				}
 			}
 			this.name = name;
 		} else {
-			// TODO Textkonstante bauen
 			throw new NoValidValueException(
-					"Es muss eine Bezeichnung angegeben werden!");
+					TextConstants.MISSING_TEXT_ERROR);
 		}
 	}
 
