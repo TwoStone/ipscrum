@@ -71,11 +71,13 @@ public class Tests_Tickets1 {
 	
 	@Test
 	public void addHint() throws Exception {
-		Hint hint = new Hint("TestHint");
+		String content = "TestHint";
+		Hint hint = new Hint(content);
 		assertFalse(this.feature1.getHints().listIterator().hasNext());
 		this.feature1.addHint(hint);
 		assertTrue(this.feature1.getHints().listIterator().hasNext());
 		assertEquals(hint, this.feature1.getHints().listIterator().next());
+		assertEquals(content, this.feature1.getHints().listIterator().next().getContent());
 	}
 	
 	@Test
