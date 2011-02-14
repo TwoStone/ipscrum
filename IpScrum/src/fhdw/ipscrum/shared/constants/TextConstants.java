@@ -37,8 +37,7 @@ public final class TextConstants {
 	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
 	public static final String NAV_SAVEMODELDATA = "Speichern";
 
-	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */// TODO
-																		// sinnlos?
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
 	public static final String TEAMVIEW_TEAMTABLEHEADER = "Teams";
 	public static final String TEAMVIEW_BUTTONLABEL_CREATENEWTEAM = "Neues Team anlegen";
 	public static final String TEAMVIEW_BUTTONLABEL_MODIFYTEAM = "Team Bearbeiten";
@@ -50,7 +49,7 @@ public final class TextConstants {
 	public static final String TEAMVIEW_BUTTONLABEL_ASSIGNPERSONTOTEAM = "<-";
 
 	public static final String DIALOGBOX_OK = "OK";
-	public static final String DIALOGBOX_CANCEL = "ABBRECHEN";
+	public static final String DIALOGBOX_CANCEL = "Abbrechen";
 	public static final String TEAMDIALOG_TITLE_CREATE = "Neues Team anlegen";
 	public static final String TEAMDIALOG_TEAMNAME = "Teambezeichnung";
 	public static final String SPRINTDIALOG_STARTDATE = "Starttermin";
@@ -100,10 +99,10 @@ public final class TextConstants {
 	public static final String DELETE_SPRINT = "Sprint entfernen";
 	public static final String SPRINT_OVERWIEW = "Sprint\u00FCbersicht";
 	public static final String DOUBLE_DEFINITION_PBI = "Ein PBI mit diesem Namen existiert bereits!";
-	public static final String PBI_ERROR = "Das PBI kann dem Backlog nicht hinzugef�gt werden, da es bereits einem anderen Backlog gehört";
+	public static final String PBI_ERROR = "Das PBI kann dem Backlog nicht hinzugefügt werden, da es bereits einem anderen Backlog gehört";
 	public static final String PRODUCT_BACKLOG = "ProductBacklog";
 	public static final String MISSING_TEXT_ERROR = "Es muss eine Bezeichnung angegeben werden!";
-	
+
 	/* [END SECTION] */
 
 }

@@ -82,7 +82,6 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 				final DialogBox box = new DialogBox();
 				final PersonDialogPresenter presenter = new PersonDialogPresenter(box);
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText(TextConstants.PERSONDIALOG_TITLE_CREATE);
 
@@ -110,7 +109,6 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 				final DialogBox box = new DialogBox();
 				final PersonDialogPresenter presenter = new PersonDialogPresenter(box, eventArgs.getPerson());
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText(eventArgs.getPerson().getFirstname() + " bearbeiten");
 				box.center();
@@ -170,7 +168,6 @@ public class PersonRolePresenter extends Presenter<IPersonRoleView> {
 				final DialogBox box = new DialogBox();
 				final RoleDialogPresenter presenter = new RoleDialogPresenter(box);
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText(TextConstants.ROLEDIALOG_TITLE_CREATE);
 

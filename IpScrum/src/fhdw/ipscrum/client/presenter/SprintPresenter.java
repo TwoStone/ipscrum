@@ -53,14 +53,13 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				final DialogBox box = new DialogBox();
 				final SprintDialogPresenter presenter = new SprintDialogPresenter(box);
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText("Neuen Sprint anlegen");
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-						project.addSprint(presenter.getSprint());
+						SprintPresenter.this.project.addSprint(presenter.getSprint());
 						SprintPresenter.this.initialize();
 						box.hide();
 					}
@@ -83,7 +82,6 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				final DialogBox box = new DialogBox();
 				final SprintDialogPresenter presenter = new SprintDialogPresenter(box, eventArgs.getSprint());
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText("Sprint " + eventArgs.getSprint().getDescription() + " bearbeiten");
 

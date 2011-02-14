@@ -72,7 +72,6 @@ public class TeamPresenter extends Presenter<ITeamView> {
 				final DialogBox box = new DialogBox();
 				final TeamDialogPresenter presenter = new TeamDialogPresenter(box);
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText(TextConstants.TEAMDIALOG_TITLE_CREATE);
 
@@ -100,7 +99,6 @@ public class TeamPresenter extends Presenter<ITeamView> {
 				final DialogBox box = new DialogBox();
 				final TeamDialogPresenter presenter = new TeamDialogPresenter(box, eventArgs.getTeam());
 				box.setAnimationEnabled(true);
-				box.setAutoHideEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText("Team " + eventArgs.getTeam().getDescription() + " bearbeiten");
 
