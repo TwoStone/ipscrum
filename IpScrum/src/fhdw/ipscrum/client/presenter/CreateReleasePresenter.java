@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 
 /**
- * Presenter for creating new {@link Releases}
+ * Presenter for creating a new {@link Release}
  * 
  * @author Manu
  *
