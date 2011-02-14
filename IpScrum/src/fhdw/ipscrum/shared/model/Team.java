@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
@@ -10,7 +11,7 @@ public class Team implements ITeam {
 	private String description;
 	private final Vector<IPerson> members;
 
-	public Team(String description) {
+	public Team(String description) throws NoValidValueException {
 		super();
 		setDescription(description);
 		this.members = new Vector<IPerson>();
@@ -22,8 +23,12 @@ public class Team implements ITeam {
 	}
 
 	@Override
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescription(String description) throws NoValidValueException {
+		if (description == null || description.length() == 0) {
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
+		} else {
+			this.description = description;
+		}
 	}
 
 	@Override
@@ -34,8 +39,7 @@ public class Team implements ITeam {
 	@Override
 	public void addMember(IPerson member) throws ConsistencyException {
 		if (members.contains(member)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_ALREADY_ASSIGNED_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_ALREADY_ASSIGNED_ERROR);
 		} else {
 			this.getMembers().add(member);
 		}
@@ -44,8 +48,7 @@ public class Team implements ITeam {
 	@Override
 	public void removeMember(IPerson member) throws ConsistencyException {
 		if (!members.contains(member)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_NOT_FOUND_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_NOT_FOUND_ERROR);
 		} else {
 			this.getMembers().remove(member);
 		}
@@ -64,11 +67,8 @@ public class Team implements ITeam {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((this.description == null) ? 0 : this.description.hashCode());
-		result = prime * result
-				+ ((this.members == null) ? 0 : this.members.hashCode());
+		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+		result = prime * result + ((this.members == null) ? 0 : this.members.hashCode());
 		return result;
 	}
 

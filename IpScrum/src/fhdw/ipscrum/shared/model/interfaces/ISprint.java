@@ -10,7 +10,14 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Sprint;
 
-public interface ISprint extends BDACompare{
+public interface ISprint extends BDACompare {
+	public String getDescription();
+
+	public void setDescription(String description) throws NoValidValueException;
+
+	public String getName();
+
+	public void setName(String description) throws NoValidValueException;
 
 	public Date getBegin();
 
@@ -24,15 +31,9 @@ public interface ISprint extends BDACompare{
 
 	public void setTeam(ITeam team) throws NoValidValueException;
 
-	public void setDescription(String description) throws NoValidValueException;
-
-	public String getDescription();
-
 	public IRelease getRelease();
 
 	public Vector<ProductBacklogItem> getPBIs();
-
-	public String getName();
 
 	public ToReleaseAssoc getToReleaseAssoc();
 

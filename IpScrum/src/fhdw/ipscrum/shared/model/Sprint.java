@@ -9,6 +9,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Sprint implements ISprint {
+	private String name;
 	private String description;
 	private Date begin;
 	private Date end;
@@ -16,9 +17,10 @@ public class Sprint implements ISprint {
 	private final ToReleaseAssoc toReleaseAssoc;
 	private final ToPBIAssoc toPBIAssoc;
 
-	public Sprint(String description, Date begin, Date end, ITeam team) throws NoValidValueException {
+	public Sprint(String name, String description, Date begin, Date end, ITeam team) throws NoValidValueException {
 		// TODO Christin: Patrick wg. Abhängigkeit Projekt fragen
 		super();
+		setName(name);
 		setDescription(description);
 		setBegin(begin);
 		setEnd(end);
@@ -38,8 +40,17 @@ public class Sprint implements ISprint {
 	}
 
 	@Override
+	public void setName(String name) throws NoValidValueException {
+		if (name == null || name.length() == 0 || name.length() > 20) {
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.SPRINT_NAME_ERROR);
+		} else {
+			this.description = name;
+		}
+	}
+
+	@Override
 	public void setDescription(String description) throws NoValidValueException {
-		if(description == null || description.length() == 0){
+		if (description == null || description.length() == 0) {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
 		} else {
 			this.description = description;
@@ -57,8 +68,8 @@ public class Sprint implements ISprint {
 	}
 
 	@Override
-	public void setBegin(Date begin)  throws NoValidValueException{
-		if(begin == null || begin.before(new Date())){
+	public void setBegin(Date begin) throws NoValidValueException {
+		if (begin == null || begin.before(new Date())) {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
 		} else {
 			this.begin = begin;
@@ -72,7 +83,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public void setEnd(Date end) throws NoValidValueException {
-		if(end == null || end.before(new Date())){
+		if (end == null || end.before(new Date())) {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
 		} else {
 			this.end = end;
@@ -86,7 +97,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public void setTeam(ITeam team) throws NoValidValueException {
-		if(team == null){
+		if (team == null) {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
 		} else {
 			this.team = team;
@@ -112,7 +123,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public String getName() {
-		return this.toString();
+		return this.name;
 	}
 
 	@Override

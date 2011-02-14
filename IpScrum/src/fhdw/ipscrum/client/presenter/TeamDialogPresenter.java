@@ -8,12 +8,13 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.TeamDialogView;
 import fhdw.ipscrum.client.view.interfaces.ITeamDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
-
 /**
- * Represents the presenter of the view which is used to modify or create new teams.
+ * Represents the presenter of the view which is used to modify or create new
+ * teams.
  */
 public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
@@ -25,7 +26,8 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	 * 
 	 * Used for making new teams.
 	 * 
-	 * @param parent Panel
+	 * @param parent
+	 *            Panel
 	 * 
 	 */
 	public TeamDialogPresenter(Panel parent) {
@@ -37,8 +39,10 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	 * 
 	 * Used for changing teams.
 	 * 
-	 * @param parent Panel
-	 * @param selectedTeam ITeam
+	 * @param parent
+	 *            Panel
+	 * @param selectedTeam
+	 *            ITeam
 	 * 
 	 */
 	public TeamDialogPresenter(Panel parent, ITeam selectedTeam) {
@@ -71,12 +75,17 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
 			@Override
 			public void onUpdate(Object sender, OneStringArgs eventArgs) {
-				if (TeamDialogPresenter.this.team == null) {
-					SessionManager.getInstance().getModel().addTeam(new Team(eventArgs.getString()));
-				} else {
-					TeamDialogPresenter.this.team.setDescription(eventArgs.getString());
-				}
+				try {
+					if (TeamDialogPresenter.this.team == null) {
+						SessionManager.getInstance().getModel().addTeam(new Team(eventArgs.getString()));
 
+					} else {
+						TeamDialogPresenter.this.team.setDescription(eventArgs.getString());
+					}
+				} catch (NoValidValueException e) {
+					// TODO Sarah
+					e.printStackTrace();
+				}
 				finish();
 			}
 		});

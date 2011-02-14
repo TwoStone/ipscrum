@@ -106,11 +106,11 @@ public class IpScrum implements EntryPoint {
 					project1.addRelease(release1);
 					project1.addRelease(release2);
 					project1.addRelease(release3);
-					Sprint sprint1 = new Sprint("Beschreibung Sprint 1", new Date(), new Date(), t1);
-					Sprint sprint2 = new Sprint("Beschreibung Sprint 2", new Date(), new Date(), t2);
-					Sprint sprint3 = new Sprint("Beschreibung Sprint 3", new Date(), new Date(), t1);
-					Sprint sprint4 = new Sprint("Beschreibung Sprint 4", new Date(), new Date(), t1);
-					Sprint sprint5 = new Sprint("Beschreibung Sprint 5", new Date(), new Date(), t2);
+					Sprint sprint1 = new Sprint("Sprint1", "Beschreibung Sprint 1", new Date(), new Date(), t1);
+					Sprint sprint2 = new Sprint("Sprint2", "Beschreibung Sprint 2", new Date(), new Date(), t2);
+					Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", new Date(), new Date(), t1);
+					Sprint sprint4 = new Sprint("Sprint4", "Beschreibung Sprint 4", new Date(), new Date(), t1);
+					Sprint sprint5 = new Sprint("Sprint5", "Beschreibung Sprint 5", new Date(), new Date(), t2);
 					project1.addSprint(sprint1);
 					project1.addSprint(sprint2);
 					project1.addSprint(sprint3);

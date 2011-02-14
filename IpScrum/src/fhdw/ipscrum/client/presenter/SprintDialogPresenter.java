@@ -13,7 +13,6 @@ import fhdw.ipscrum.client.view.SprintDialogView;
 import fhdw.ipscrum.client.view.interfaces.ISprintDialogView;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
@@ -24,7 +23,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 	private ISprintDialogView concreteView;
-	private ISprint sprint;
+	private final ISprint sprint;
 
 	/**
 	 * Constructor for SprintDialogPresenter.
@@ -80,7 +79,10 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
 				try {
 					if (SprintDialogPresenter.this.sprint == null) {
-						SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getDescription(), eventArgs.getBeginDate(), eventArgs.getEndDate(), eventArgs.getTeam());
+						// TODO Sarah SprintDialogPresenter.this.sprint = new
+						// Sprint(eventArgs.getDescription(),
+						// eventArgs.getBeginDate(), eventArgs.getEndDate(),
+						// eventArgs.getTeam());
 					} else {
 						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
 						SprintDialogPresenter.this.sprint.setBegin(eventArgs.getBeginDate());
