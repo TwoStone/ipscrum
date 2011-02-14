@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
@@ -55,8 +56,7 @@ public class ProductBacklog extends Observable implements BDACompare{
 	public void isDoubleDefined(String pbiName) throws DoubleDefinitionException{
 		for(ProductBacklogItem current : this.getItems()){
 			if(current.getName()==pbiName){
-				//TODO Textkonstante bauen!
-				throw new DoubleDefinitionException("Ein PBI mit diesem Namen existiert bereits!");
+				throw new DoubleDefinitionException(TextConstants.DOUBLE_DEFINITION_PBI);
 			}
 		}
 	}
@@ -128,8 +128,7 @@ public class ProductBacklog extends Observable implements BDACompare{
 				this.getAssoc().add(item.getBacklogAssoc());
 				this.notifyObservers();
 			}else{
-				throw new ConsistencyException("Das PBI kann dem Backlog nicht hinzugef�gt werden, " +
-						"da es bereits einem anderen Backlog geh�rt");
+				throw new ConsistencyException(TextConstants.PBI_ERROR);
 			}
 		}
 	}
@@ -159,7 +158,7 @@ public class ProductBacklog extends Observable implements BDACompare{
 
 	@Override
 	public String toString() {
-		return "ProductBacklog";
+		return TextConstants.PRODUCT_BACKLOG;
 	}
 
 	@Override
