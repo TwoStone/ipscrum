@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Vector;
 
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.UserException;

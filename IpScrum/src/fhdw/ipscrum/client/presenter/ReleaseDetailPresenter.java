@@ -9,8 +9,6 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ReleaseDetailView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseDetailView;
-import fhdw.ipscrum.client.view.widgets.AbortDialog;
-import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.model.Release;
 
 public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {

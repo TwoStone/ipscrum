@@ -7,7 +7,6 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.ReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
 import fhdw.ipscrum.shared.model.Project;

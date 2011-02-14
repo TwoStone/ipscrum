@@ -1,23 +1,21 @@
 package fhdw.ipscrum.client.phase2.group1;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 
-import org.junit.Test;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
-import fhdw.ipscrum.shared.model.Root;
-import fhdw.ipscrum.shared.model.Sprint;
-import fhdw.ipscrum.shared.model.Team;
 
 public class TestPBLI_PositionInList {
 

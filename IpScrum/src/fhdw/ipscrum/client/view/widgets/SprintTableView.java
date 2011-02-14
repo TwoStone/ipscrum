@@ -41,34 +41,34 @@ private CellTable<ISprint> tableSprint;
 		
 		});
 		
-		TextColumn descriptionColumn = new TextColumn<Sprint>() {
+		TextColumn<ISprint> descriptionColumn = new TextColumn<ISprint>() {
 			@Override
-			public String getValue(Sprint sprint) {
+			public String getValue(ISprint sprint) {
 				return sprint.getName();
 			}
 		};
 		tableSprint.addColumn(descriptionColumn, "Kurzbeschreibung");
 		
-		TextColumn teamColumn = new TextColumn<Sprint>() {
+		TextColumn<ISprint> teamColumn = new TextColumn<ISprint>() {
 			@Override
-			public String getValue(Sprint sprint) {
+			public String getValue(ISprint sprint) {
 				return sprint.getTeam().getDescription();
 			}
 		};
 		tableSprint.addColumn(teamColumn, "Team");
 		
-		TextColumn beginColumn = new TextColumn<Sprint>() {
+		TextColumn<ISprint> beginColumn = new TextColumn<ISprint>() {
 			@Override
-			public String getValue(Sprint sprint) {
+			public String getValue(ISprint sprint) {
 				DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");	
 				return fmt.format(sprint.getBegin());
 			}
 		};
 		tableSprint.addColumn(beginColumn, "Beginn");
 		
-		TextColumn endColumn = new TextColumn<Sprint>() {
+		TextColumn<ISprint> endColumn = new TextColumn<ISprint>() {
 			@Override
-			public String getValue(Sprint sprint) {
+			public String getValue(ISprint sprint) {
 				DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");	
 				return fmt.format(sprint.getEnd());
 			}

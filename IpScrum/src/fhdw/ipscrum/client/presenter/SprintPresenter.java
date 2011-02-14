@@ -1,6 +1,5 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 

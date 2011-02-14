@@ -1,14 +1,11 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Date;
 import java.util.Vector;
 
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
@@ -43,7 +40,6 @@ public class ReleaseView extends Composite implements IReleaseView {
 	private Image imgDelete;
 	private CellTable<IRelease> tableRelease;
 	private ScrollPanel scrollPanel;
-	private Column date;
 	private Label lblReleaseuebersicht;
 
 	public static IReleaseView createView() {

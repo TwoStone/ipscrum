@@ -89,7 +89,7 @@ public class ProjectView extends Composite implements IProjectView{
 		
 		tableProject = new CellTable<Project>();
 		
-		TextColumn textColumn = new TextColumn<Project>() {
+		TextColumn<Project> textColumn = new TextColumn<Project>() {
 			@Override
 			public String getValue(Project project) {
 				return project.getName();

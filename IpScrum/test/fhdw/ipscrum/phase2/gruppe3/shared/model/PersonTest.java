@@ -1,13 +1,17 @@
 package fhdw.ipscrum.phase2.gruppe3.shared.model;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Vector;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Role;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
-import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  * The class <code>PersonTest</code> contains tests for the class <code>{@link Person}</code>.
