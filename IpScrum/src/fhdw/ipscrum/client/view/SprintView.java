@@ -20,6 +20,10 @@ import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public class SprintView extends Composite implements ISprintView{
 
 	// ########## Events #############

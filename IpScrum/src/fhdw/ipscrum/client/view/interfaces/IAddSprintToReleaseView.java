@@ -10,6 +10,10 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public interface IAddSprintToReleaseView extends IView{
 
 	public abstract Button getBtnSave();

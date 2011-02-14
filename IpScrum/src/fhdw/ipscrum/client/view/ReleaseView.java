@@ -24,6 +24,10 @@ import fhdw.ipscrum.client.view.interfaces.IReleaseView;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ */
 public class ReleaseView extends Composite implements IReleaseView {
 
 	// ########## Events #############
