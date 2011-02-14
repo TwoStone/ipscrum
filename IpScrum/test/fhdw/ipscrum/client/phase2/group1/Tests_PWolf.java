@@ -98,9 +98,9 @@ public class Tests_PWolf {
 			p.getBacklog().addItem(f2);
 			p.getBacklog().addItem(f3);
 
-			ISprint sprint1 = new Sprint("", new Date(), new Date(), new Team("Test"));
-			ISprint sprint2 = new Sprint("", new Date(), new Date(), new Team("Test2"));
-			ISprint sprint3 = new Sprint("", new Date(), new Date(), new Team("Test3"));
+			ISprint sprint1 = new Sprint("123","sd", new Date(), new Date(), new Team("Test"));
+			ISprint sprint2 = new Sprint("1234","scb", new Date(), new Date(), new Team("Test2"));
+			ISprint sprint3 = new Sprint("12345","33", new Date(), new Date(), new Team("Test3"));
 
 			p.addSprint(sprint1);
 			p.addSprint(sprint2);
