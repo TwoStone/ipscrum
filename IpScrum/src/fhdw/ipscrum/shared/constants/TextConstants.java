@@ -95,7 +95,9 @@ public final class TextConstants {
 	public static final String PROJECT_NAME = "Projektbezeichnung";
 	public static final String PROJECT_OVERVIEW = "Projekt\u00FCbersicht";
 	public static final String SPRINT_TO_RELEASE = "Sprint hinzufügen zu Release: ";
-	
+	public static final String FINISHED = "Fertig";
+	public static final String ADD_SPRINT = "Sprint hinzufügen";
+	public static final String DELETE_SPRINT = "Sprint entfernen";
 	/* [END SECTION] */
 
 }
