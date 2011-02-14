@@ -26,7 +26,6 @@ public class SprintView extends Composite implements ISprintView{
 	private final Event<EventArgs> newSprintEvent = new Event<EventArgs>();
 	private final Event<SprintArgs> deleteSelectedSprintEvent = new Event<SprintArgs>();
 	private final Event<SprintArgs> detailsSelectedSprintEvent = new Event<SprintArgs>();
-	private final Event<SprintArgs> selectSprintEvent = new Event<SprintArgs>();
 	// ###### Ende Events ###########
 
 	private Image imgNewSprint;
