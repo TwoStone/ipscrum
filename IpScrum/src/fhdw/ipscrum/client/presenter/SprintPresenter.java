@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.shared.model.Project;
@@ -109,8 +110,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
-				Window.alert("TODO im SprintPresenter beachten!");
-				// TODO eventArgs.getSprint entfernen - evtl vorher fragen?
+				GwtUtils.displayError("Entfernen von Sprints ist derzeit noch nicht vorgesehen!");
 			}
 		});
 

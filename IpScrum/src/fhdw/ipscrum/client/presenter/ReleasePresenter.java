@@ -72,7 +72,7 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
-				GwtUtils.displayError("L�schen von Releases ist derzeit noch nicht vorgesehen!");
+				GwtUtils.displayError("Löschen von Releases ist derzeit noch nicht vorgesehen!");
 				// if (eventArgs.getRelease() != null) {
 				// ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
 				// view.refreshReleases(ReleasePresenter.this.project

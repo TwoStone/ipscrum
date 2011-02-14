@@ -5,6 +5,8 @@ import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ReleaseDetailView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseDetailView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
@@ -78,6 +80,14 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 					});						
 		diaBox.center();
 			}	
+		});
+		
+		view.addDeleteSprintEventHandler(new EventHandler<SprintArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, SprintArgs eventArgs) {
+				GwtUtils.displayError("Entfernen von Sprints ist derzeit noch nicht vorgesehen!");
+			}
 		});
 		
 		return view;
