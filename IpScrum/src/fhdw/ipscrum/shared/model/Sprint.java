@@ -44,7 +44,7 @@ public class Sprint implements ISprint {
 		if (name == null || name.length() == 0 || name.length() > 20) {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.SPRINT_NAME_ERROR);
 		} else {
-			this.description = name;
+			this.name = name;
 		}
 	}
 
