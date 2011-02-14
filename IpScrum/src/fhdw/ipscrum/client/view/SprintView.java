@@ -18,6 +18,8 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
 import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.client.view.widgets.SprintTableView;
+import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
@@ -49,15 +51,15 @@ public class SprintView extends Composite implements ISprintView{
 		initWidget(absolutePanel);
 		absolutePanel.setSize("600px", "300px");
 
-		Label lblSprintUebersicht = new Label("Sprint\u00FCbersicht");
-		lblSprintUebersicht.setStyleName("LabelElement");
+		Label lblSprintUebersicht = new Label(TextConstants.SPRINT_OVERWIEW);
+		lblSprintUebersicht.setStyleName(TextConstants.LABELELEMENT);
 		absolutePanel.add(lblSprintUebersicht, 10, 5);
 
 		FlowPanel flowPanel = new FlowPanel();
 		absolutePanel.add(flowPanel, 10, 34);
 		flowPanel.setSize("250px", "25px");
 
-		this.imgNewSprint = new Image("images/newfile.png");
+		this.imgNewSprint = new Image(TextConstants_FilePaths.NEW_FILE_PATH);
 		this.imgNewSprint.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -68,7 +70,7 @@ public class SprintView extends Composite implements ISprintView{
 
 		flowPanel.add(this.imgNewSprint);
 
-		this.imgDetailSprint = new Image("images/details.png");
+		this.imgDetailSprint = new Image(TextConstants_FilePaths.DETAILS_PATH);
 		this.imgDetailSprint.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -79,7 +81,7 @@ public class SprintView extends Composite implements ISprintView{
 
 		flowPanel.add(this.imgDetailSprint);
 
-		this.imgDeleteSprint = new Image("images/delete.png");
+		this.imgDeleteSprint = new Image(TextConstants_FilePaths.DELETE_PATH);
 		this.imgDeleteSprint.addClickHandler(new ClickHandler() {
 
 			@Override
