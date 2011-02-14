@@ -60,8 +60,8 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 			
 		});
 		
-		btnAbort.setText("Abbruch");
-		flowPanel.add(btnAbort, 350, 462);
+		btnAbort.setText("Fertig");
+		flowPanel.add(btnAbort, 490, 462);
 		btnAbort.setSize("100px", "28px");
 		
 		Button btnAddSprint = new Button("New button");
@@ -75,7 +75,7 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 		});
 		
 		btnAddSprint.setText("Sprint hinzufügen");
-		flowPanel.add(btnAddSprint, 38, 462);
+		flowPanel.add(btnAddSprint, 10, 462);
 		btnAddSprint.setSize("150px", "28px");
 		
 		Button btnSprintDelete = new Button("New button");
@@ -89,7 +89,7 @@ public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 		});
 		
 		btnSprintDelete.setText("Sprint entfernen");
-		flowPanel.add(btnSprintDelete, 194, 462);
+		flowPanel.add(btnSprintDelete, 166, 462);
 		btnSprintDelete.setSize("150px", "28px");
 	}
 

@@ -6,6 +6,7 @@ import java.util.Vector;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
@@ -124,10 +125,12 @@ public class ReleaseView extends Composite implements IReleaseView {
 		};
 		tableRelease.addColumn(version, "Version");
 
-		date = new Column<Release, Date>(new DateCell()) {
+		TextColumn<IRelease> date = new TextColumn<IRelease>() {
 			@Override
-			public Date getValue(Release release) {
-				return release.getReleaseDate();
+			public String getValue(IRelease release) {
+				
+				DateTimeFormat fmt = DateTimeFormat.getFormat("EEEE, dd.MM.yyyy");	
+				return fmt.format(release.getReleaseDate());
 			}
 		};
 		tableRelease.addColumn(date, "Releasedatum");
