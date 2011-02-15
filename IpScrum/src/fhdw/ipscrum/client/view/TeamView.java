@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -11,6 +13,7 @@ import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -38,6 +41,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
  * this view is used to inspect, create and modify teams as well as adding and removing persons to teams.
  */
 public class TeamView extends Composite implements ITeamView {
+	private final ListHandler<IPerson> sortHandler = new ListHandler<IPerson>(Collections.<IPerson>emptyList());
 
 	private CellTable<IPerson> cellTablePersons;
 	private Tree tree;
@@ -139,6 +143,7 @@ public class TeamView extends Composite implements ITeamView {
 		scrollPanel.setSize("450px", "425px");
 
 		this.cellTablePersons = new CellTable<IPerson>();
+		cellTablePersons.addColumnSortHandler(sortHandler);
 		scrollPanel.setWidget(this.cellTablePersons);
 		this.cellTablePersons.setSize("100%", "100%");
 		this.selModelPersonTable = new MultiSelectionModel<IPerson>();
@@ -150,7 +155,14 @@ public class TeamView extends Composite implements ITeamView {
 				return object.getFirstname();
 			}
 		};
+		colFirstname.setSortable(true);
 		this.cellTablePersons.addColumn(colFirstname, TextConstants.TEAMVIEW_FIRSTNAMEHEADER);
+		sortHandler.setComparator(colFirstname, new Comparator<IPerson>() {
+			@Override
+			public int compare(IPerson o1, IPerson o2) {
+				return o1.getFirstname().compareTo(o2.getFirstname());
+			}
+		});
 
 		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
 			@Override
@@ -158,7 +170,14 @@ public class TeamView extends Composite implements ITeamView {
 				return object.getLastname();
 			}
 		};
+		colLastname.setSortable(true);
 		this.cellTablePersons.addColumn(colLastname, TextConstants.TEAMVIEW_LASTNAMEHEADER);
+		sortHandler.setComparator(colLastname, new Comparator<IPerson>() {
+			@Override
+			public int compare(IPerson o1, IPerson o2) {
+				return o1.getLastname().compareTo(o2.getLastname());
+			}
+		});
 
 		TextColumn<IPerson> colRoles = new TextColumn<IPerson>() {
 			@Override
@@ -176,6 +195,9 @@ public class TeamView extends Composite implements ITeamView {
 		this.cellTablePersons.addColumn(colRoles,TextConstants.TEAMVIEW_ROLESHEADER);
 	}
 
+	/**
+	 * This method is called when the team-selection changes. It updates the person-table to just show availabe persons.
+	 */
 	private void updateGuiToSelectionChange() {
 		Vector<IPerson> personsToHide = this.getSelectedTeamOfTree().getMembers();
 		HashSet<IPerson> personsToShow = (HashSet<IPerson>) SessionManager.getInstance().getModel().getPersons().clone();
