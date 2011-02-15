@@ -51,23 +51,12 @@ public class Role implements IRole {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = indirectHashCode();
-		result = prime * result + ((toPersonAssoc == null) ? 0 : toPersonAssoc.hashCode());
-		return result;
+		return indirectHashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!indirectEquals(obj))
-			return false;
-		Role other = (Role) obj;
-		if (toPersonAssoc == null) {
-			if (other.toPersonAssoc != null)
-				return false;
-		} else if (!toPersonAssoc.equals(other.toPersonAssoc))
-			return false;
-		return true;
+		return indirectEquals(obj);
 	}
 
 	@Override

@@ -18,12 +18,10 @@ public class Sprint implements ISprint {
 	private final ToPBIAssoc toPBIAssoc;
 
 	public Sprint(String name, String description, Date begin, Date end, ITeam team) throws NoValidValueException {
-		// TODO Christin: Patrick wg. Abhängigkeit Projekt fragen
 		super();
 		setName(name);
 		setDescription(description);
-		setBegin(begin);
-		setEnd(end);
+		setTimeFrame(begin, end);
 		setTeam(team);
 		this.toReleaseAssoc = new ToReleaseAssoc(this);
 		this.toPBIAssoc = new ToPBIAssoc(this);
@@ -64,9 +62,11 @@ public class Sprint implements ISprint {
 	}
 
 	@Override
-	public void setBegin(Date begin) throws NoValidValueException {
-		if (begin == null || begin.before(new Date())) {
+	public void setTimeFrame(Date begin, Date end) throws NoValidValueException {
+		if (begin == null || end == null) {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
+		} else if (end.before(begin)) {
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		} else {
 			this.begin = begin;
 		}
@@ -75,15 +75,6 @@ public class Sprint implements ISprint {
 	@Override
 	public Date getEnd() {
 		return this.end;
-	}
-
-	@Override
-	public void setEnd(Date end) throws NoValidValueException {
-		if (end == null || end.before(new Date())) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
-		} else {
-			this.end = end;
-		}
 	}
 
 	@Override
@@ -124,40 +115,20 @@ public class Sprint implements ISprint {
 
 	@Override
 	public String toString() {
-		String ret = "Sprint";
-		if (this.getDescription() != null) {
-			ret += " mit " + this.getTeam();
-		}
-		if (this.getTeam() != null) {
-			ret += " mit " + this.getTeam();
-		}
-		if (this.getBegin() != null) {
-			ret += " beginnt am " + this.getBegin();
-		}
-		if (this.getEnd() != null) {
-			ret += " endet am " + this.getEnd();
-		}
-		return ret;
+		return this.getName();
 	}
 
 	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.begin == null) ? 0 : this.begin.hashCode());
-		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-		result = prime * result + ((this.end == null) ? 0 : this.end.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = indirectHashCode();
-		result = prime * result + ((this.team == null) ? 0 : this.team.hashCode());
-		result = prime * result + ((this.toPBIAssoc == null) ? 0 : this.toPBIAssoc.hashCode());
-		result = prime * result + ((this.toReleaseAssoc == null) ? 0 : this.toReleaseAssoc.hashCode());
-		return result;
+		return indirectHashCode();
 	}
 
 	@Override
@@ -169,44 +140,16 @@ public class Sprint implements ISprint {
 		if (getClass() != obj.getClass())
 			return false;
 		Sprint other = (Sprint) obj;
-		if (this.begin == null) {
-			if (other.begin != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!this.begin.equals(other.begin))
-			return false;
-		if (this.description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!this.description.equals(other.description))
-			return false;
-		if (this.end == null) {
-			if (other.end != null)
-				return false;
-		} else if (!this.end.equals(other.end))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!indirectEquals(obj))
-			return false;
-		Sprint other = (Sprint) obj;
-		if (this.team == null) {
-			if (other.team != null)
-				return false;
-		} else if (!this.team.equals(other.team))
-			return false;
-		if (this.toPBIAssoc == null) {
-			if (other.toPBIAssoc != null)
-				return false;
-		} else if (!this.toPBIAssoc.equals(other.toPBIAssoc))
-			return false;
-		if (this.toReleaseAssoc == null) {
-			if (other.toReleaseAssoc != null)
-				return false;
-		} else if (!this.toReleaseAssoc.equals(other.toReleaseAssoc))
-			return false;
-		return true;
+		return indirectEquals(obj);
 	}
 }

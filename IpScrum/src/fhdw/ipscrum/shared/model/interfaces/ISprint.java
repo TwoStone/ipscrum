@@ -21,11 +21,9 @@ public interface ISprint extends BDACompare {
 
 	public Date getBegin();
 
-	public void setBegin(Date begin) throws NoValidValueException;
-
 	public Date getEnd();
 
-	public void setEnd(Date end) throws NoValidValueException;
+	public void setTimeFrame(Date begin, Date end) throws NoValidValueException;
 
 	public ITeam getTeam();
 

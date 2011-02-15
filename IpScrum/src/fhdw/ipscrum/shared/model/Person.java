@@ -13,8 +13,7 @@ public class Person implements IPerson {
 	private String lastname;
 	private final ToRoleAssoc toRoleAssoc;
 
-	public Person(String firstname, String lastname)
-			throws NoValidValueException {
+	public Person(String firstname, String lastname) throws NoValidValueException {
 		super();
 		setFirstname(firstname);
 		setLastname(lastname);
@@ -34,8 +33,7 @@ public class Person implements IPerson {
 	@Override
 	public void setFirstname(String firstname) throws NoValidValueException {
 		if (firstname == null || firstname.length() == 0) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
 		} else {
 			this.firstname = firstname;
 		}
@@ -49,8 +47,7 @@ public class Person implements IPerson {
 	@Override
 	public void setLastname(String lastname) throws NoValidValueException {
 		if (lastname == null || lastname.length() == 0) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
 		} else {
 
 			this.lastname = lastname;
@@ -60,8 +57,7 @@ public class Person implements IPerson {
 	@Override
 	public Vector<IRole> getRoles() {
 		Vector<IRole> ret = new Vector<IRole>();
-		for (IRole.ToPersonAssoc roleAssocs : this.toRoleAssoc
-				.getAssociations()) {
+		for (IRole.ToPersonAssoc roleAssocs : this.toRoleAssoc.getAssociations()) {
 			ret.add(roleAssocs.getElement());
 		}
 		return ret;
@@ -70,8 +66,7 @@ public class Person implements IPerson {
 	@Override
 	public void addRole(IRole role) throws ConsistencyException {
 		if (getRoles().contains(role)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
 		} else {
 			this.getToRoleAssoc().add(role.getToPersonAssoc());
 		}
@@ -80,8 +75,7 @@ public class Person implements IPerson {
 	@Override
 	public void removeRole(IRole role) throws ConsistencyException {
 		if (!getRoles().contains(role)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		} else {
 			this.getToRoleAssoc().remove(role.getToPersonAssoc());
 		}
@@ -94,25 +88,12 @@ public class Person implements IPerson {
 
 	@Override
 	public int hashCode() {
-		int result = this.indirectHashCode();
-		final int prime = 31;
-		result = prime
-				* result
-				+ ((this.toRoleAssoc == null) ? 0 : this.toRoleAssoc.hashCode());
-		return result;
+		return indirectHashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!indirectEquals(obj))
-			return false;
-		Person other = (Person) obj;
-		if (this.toRoleAssoc == null) {
-			if (other.toRoleAssoc != null)
-				return false;
-		} else if (!this.toRoleAssoc.equals(other.toRoleAssoc))
-			return false;
-		return true;
+		return indirectEquals(obj);
 	}
 
 	@Override
@@ -142,10 +123,8 @@ public class Person implements IPerson {
 	public int indirectHashCode() {
 		int result = 1;
 		final int prime = 31;
-		result = prime * result
-				+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
-		result = prime * result
-				+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
+		result = prime * result + ((this.firstname == null) ? 0 : this.firstname.hashCode());
+		result = prime * result + ((this.lastname == null) ? 0 : this.lastname.hashCode());
 		return result;
 	}
 }
