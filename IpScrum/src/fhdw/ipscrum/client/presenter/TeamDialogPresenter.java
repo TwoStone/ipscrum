@@ -88,8 +88,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 				} catch (NoValidValueException e) {
 					Window.alert(e.getMessage());
 				} catch (DoubleDefinitionException e) {
-					// TODO Sarah Meldung abfangen
-					e.printStackTrace();
+					Window.alert(e.getMessage());
 				}
 
 			}
