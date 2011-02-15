@@ -13,7 +13,7 @@ import fhdw.ipscrum.shared.model.Sprint;
 public interface ISprint extends BDACompare {
 	public String getDescription();
 
-	public void setDescription(String description) throws NoValidValueException;
+	public void setDescription(String description);
 
 	public String getName();
 

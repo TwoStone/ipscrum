@@ -49,12 +49,8 @@ public class Sprint implements ISprint {
 	}
 
 	@Override
-	public void setDescription(String description) throws NoValidValueException {
-		if (description == null || description.length() == 0) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
-		} else {
-			this.description = description;
-		}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
