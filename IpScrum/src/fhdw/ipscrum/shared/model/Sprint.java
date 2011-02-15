@@ -73,6 +73,7 @@ public class Sprint implements ISprint {
 			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		} else {
 			this.begin = begin;
+			this.end = end;
 		}
 	}
 
