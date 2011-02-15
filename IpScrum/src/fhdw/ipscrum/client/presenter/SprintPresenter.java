@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Sprint;
 
@@ -59,9 +60,13 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-						SprintPresenter.this.project.addSprint(presenter.getSprint());
-						SprintPresenter.this.initialize();
-						box.hide();
+						try {
+							SprintPresenter.this.project.addSprint(presenter.getSprint());
+							SprintPresenter.this.initialize();
+							box.hide();
+						} catch (DoubleDefinitionException e) {
+							GwtUtils.displayError(e.getMessage());
+						}
 					}
 				});
 
