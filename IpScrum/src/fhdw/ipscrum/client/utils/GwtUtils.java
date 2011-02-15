@@ -61,7 +61,6 @@ public final class GwtUtils {
 	}
 
 	public static String escapeString(final String input) {
-		// TODO Funktioniert noch nicht richtig
 		final SafeHtmlBuilder htmlBuilder = new SafeHtmlBuilder();
 		htmlBuilder.appendEscaped(input);
 		return htmlBuilder.toSafeHtml().asString();
