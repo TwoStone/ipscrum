@@ -136,7 +136,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		final DialogBox box = GwtUtils.createDialog("Beziehung anlegen");
 		box.center();
 		final CreateRelationPresenter presenter = new CreateRelationPresenter(
-				box, this.getFeature());
+				box, this.getView().getName(), this.feature.getBacklog());
 
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 

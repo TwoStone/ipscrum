@@ -54,7 +54,7 @@ public interface ICreateRelationView extends IView {
 	 * 
 	 * @param feature
 	 */
-	void setOwningFeature(Feature feature);
+	void setOwningFeatureName(String name);
 
 	/**
 	 * Displays a list of {@link RelationType} objects.

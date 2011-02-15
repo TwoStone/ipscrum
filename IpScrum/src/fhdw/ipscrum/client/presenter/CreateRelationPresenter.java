@@ -17,6 +17,7 @@ import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
@@ -28,8 +29,9 @@ import fhdw.ipscrum.shared.observer.Observer;
  */
 public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		implements Observer {
-	private final Feature source;
 	private Relation relation;
+	private final String sourceName;
+	private final ProductBacklog backlog;
 
 	/**
 	 * Constructor for RelationPresenter.
@@ -39,10 +41,12 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	 * @param backlog
 	 *            ProductBacklog
 	 */
-	public CreateRelationPresenter(final Panel parent, final Feature source) {
+	public CreateRelationPresenter(final Panel parent, final String sourceName,
+			final ProductBacklog backlog) {
 		super(parent);
 
-		this.source = source;
+		this.sourceName = sourceName;
+		this.backlog = backlog;
 		this.setupView();
 		this.registerViewEvents();
 	}
@@ -160,9 +164,9 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 						new ArrayList<RelationType>(SessionManager
 								.getInstance().getModel()
 								.getRelationTypeManager().getRelationTypes()));
-		this.getView().setOwningFeature(this.source);
+		this.getView().setOwningFeatureName(this.sourceName);
 		this.getView().setTargetFeatures(
-				this.getFeatures(this.source.getBacklog().getItems()));
+				this.getFeatures(this.backlog.getItems()));
 	}
 
 	@Override

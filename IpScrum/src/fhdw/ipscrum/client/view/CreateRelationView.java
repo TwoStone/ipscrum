@@ -140,8 +140,8 @@ public class CreateRelationView extends Composite implements
 	}
 
 	@Override
-	public void setOwningFeature(final Feature feature) {
-		this.currentFeatureLabel.setText(feature.getName());
+	public void setOwningFeatureName(final String name) {
+		this.currentFeatureLabel.setText(name);
 	}
 
 	@Override
