@@ -16,9 +16,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -55,8 +53,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 	private final Event<RemoveRelationEventArgs> removeRelationEvent = new Event<RemoveRelationEventArgs>();
 	private final Event<RemoveCriterionEventArgs> removeCriterionEvent = new Event<RemoveCriterionEventArgs>();
 	private final Event<RemoveHintEventArgs> removeHintEvent = new Event<RemoveHintEventArgs>();
-	private final SimplePanel addHintPanel;
-	private final SimplePanel addCriterionPanel;
 	private final ScrollPanel hintPanel;
 	private final ScrollPanel criteriaPanel;
 	private final ScrollPanel relationPanel;
@@ -211,9 +207,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		});
 		this.hintTable.addColumn(removeHintCol);
 
-		this.addHintPanel = new SimplePanel();
-		verticalPanel_1.add(this.addHintPanel);
-
 		this.btnAddHint = new Button(TextConstants.ADD_HINT);
 		this.btnAddHint.addClickHandler(new ClickHandler() {
 			@Override
@@ -268,9 +261,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 
 		this.criteriaTable.addColumn(removeCriterionCol);
 
-		this.addCriterionPanel = new SimplePanel();
-		verticalPanel_1.add(this.addCriterionPanel);
-
 		this.btnAddCriterion = new Button(TextConstants.ADD_CRITERION);
 		this.btnAddCriterion.addClickHandler(new ClickHandler() {
 			@Override
@@ -286,7 +276,7 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanel_2.add(buttonPanel);
 
-		this.btnSave = new Button(TextConstants.SAVE);
+		this.btnSave = new Button(TextConstants.OKAY);
 		this.btnSave.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -306,16 +296,6 @@ public class CreateFeatureView extends Composite implements ICreateFeatureView {
 		buttonPanel.add(this.btnAbort);
 
 		// Set focus in name text box
-	}
-
-	@Override
-	public Panel addCriterionPanel() {
-		return this.addCriterionPanel;
-	}
-
-	@Override
-	public Panel addHintPanel() {
-		return this.addHintPanel;
 	}
 
 	@Override

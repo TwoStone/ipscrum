@@ -102,6 +102,8 @@ public final class TextConstants {
 	public static final String PBI_ERROR = "Das PBI kann dem Backlog nicht hinzugefügt werden, da es bereits einem anderen Backlog gehört";
 	public static final String PRODUCT_BACKLOG = "ProductBacklog";
 	public static final String MISSING_TEXT_ERROR = "Es muss eine Bezeichnung angegeben werden!";
+	public static final String CREATE_FEATURE = "Feature erstellen";
+	public static final String FEATURE_DETAILS = "Feature Details";
 
 	/* [END SECTION] */
 

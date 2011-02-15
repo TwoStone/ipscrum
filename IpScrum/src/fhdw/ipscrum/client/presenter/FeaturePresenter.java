@@ -14,6 +14,7 @@ import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.ICreateFeatureView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
+import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
@@ -54,7 +55,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		if (feature == null) {
 			this.abort();
 			throw new NoFeatureSelectedException(
-					"Kein Feature ausgew�hlt zur Bearbeitung!");
+					"Kein Feature ausgewählt zur Bearbeitung!");
 		}
 		this.feature = feature;
 		this.feature.addObserver(this);
@@ -64,22 +65,20 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 
 	/**
 	 * Creates a new presenter to create a new {@link AcceptanceCriterion}
-	 * 
-	 * @param panel
-	 *            Panel where the widget should be added.
 	 */
-	private void createCriterion(final Panel panel) {
+	private void createCriterion() {
+		final DialogBox box = GwtUtils.createDialog("Hinweis erstellen");
+
 		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(
-				panel);
-		panel.clear();
+				box);
+		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
 					FeaturePresenter.this.feature
 							.addAcceptanceCriterion(presenter.getCriterion());
-					panel.clear();
-
+					box.hide();
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
@@ -92,37 +91,37 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				panel.clear();
+				box.hide();
 			}
 		});
 	}
 
 	/**
 	 * Creates a new presenter to create a new {@link Hint}
-	 * 
-	 * @param panel
-	 *            Panel where the widget should be added.
 	 */
-	private void createHint(final Panel panel) {
-		final HintPresenter presenter = new HintPresenter(panel);
-		panel.clear();
+	private void createHint() {
+		final DialogBox box = GwtUtils.createDialog("Hinweis erstellen");
+
+		final HintPresenter presenter = new HintPresenter(box);
+
+		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
 					FeaturePresenter.this.feature.addHint(presenter.getHint());
+					box.hide();
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
 					GwtUtils.displayError(e.getMessage());
 				}
-				panel.clear();
 			}
 		});
 		presenter.getAborted().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				panel.clear();
+				box.hide();
 			}
 		});
 	}
@@ -224,8 +223,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.createCriterion(FeaturePresenter.this
-						.getView().addCriterionPanel());
+				FeaturePresenter.this.createCriterion();
 			}
 		});
 
@@ -233,8 +231,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.createHint(FeaturePresenter.this
-						.getView().addHintPanel());
+				FeaturePresenter.this.createHint();
 			}
 		});
 
@@ -359,7 +356,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 			DoubleDefinitionException, ForbiddenStateException {
 		this.feature.setName(this.getView().getName());
 		this.feature.setDescription(this.getView().getDescription());
-
+		this.feature.setLastEditor(SessionManager.getInstance().getLoginUser());
 		try {
 			this.feature.setSprint(this.getView().getSelectedSprint());
 		} catch (final NothingSelectedException e) {

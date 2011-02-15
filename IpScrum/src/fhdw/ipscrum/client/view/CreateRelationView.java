@@ -6,13 +6,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.events.Event;
@@ -37,7 +35,6 @@ public class CreateRelationView extends Composite implements
 	private List<Feature> targets;
 	private final ListBox typeComboBox;
 	private List<RelationType> types;
-	private final DecoratorPanel newTypePanel;
 
 	public CreateRelationView() {
 
@@ -109,9 +106,6 @@ public class CreateRelationView extends Composite implements
 			}
 		});
 		flowButtonPanel.add(abortButton);
-
-		this.newTypePanel = new DecoratorPanel();
-		verticalPanel.add(this.newTypePanel);
 	}
 
 	@Override
@@ -122,11 +116,6 @@ public class CreateRelationView extends Composite implements
 	@Override
 	public IEvent<EventArgs> getCreateNewType() {
 		return this.createNewTypeEvent;
-	}
-
-	@Override
-	public Panel getCreateNewTypePanel() {
-		return this.newTypePanel;
 	}
 
 	@Override

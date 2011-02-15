@@ -80,6 +80,7 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 			public void handleOpen(final Open open) {
 				try {
 					EditFeaturePresenter.this.getFeature().close();
+					EditFeaturePresenter.this.finish();
 				} catch (final ForbiddenStateException e) {
 					GwtUtils.displayError(e.getMessage());
 				}

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateRelationView;
 import fhdw.ipscrum.client.view.interfaces.ICreateRelationView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
@@ -45,20 +47,21 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		this.registerViewEvents();
 	}
 
-	protected void createNewType(final Panel createNewTypePanel) {
-		createNewTypePanel.setVisible(true);
+	protected void createNewType() {
+		final DialogBox box = GwtUtils.createDialog("Neuer Beziehungstyp");
+
 		final CreateRelationTypePresenter presenter = new CreateRelationTypePresenter(
-				createNewTypePanel);
-		createNewTypePanel.setVisible(true);
+				box);
+		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				createNewTypePanel.setVisible(false);
 				CreateRelationPresenter.this.getView().setRelationTypes(
 						new ArrayList<RelationType>(SessionManager
 								.getInstance().getModel()
 								.getRelationTypeManager().getRelationTypes()));
+				box.hide();
 			}
 		});
 
@@ -70,7 +73,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 
 					@Override
 					public void onExecute() {
-						createNewTypePanel.setVisible(false);
+						box.hide();
 					}
 				});
 
@@ -146,9 +149,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				CreateRelationPresenter.this
-						.createNewType(CreateRelationPresenter.this.getView()
-								.getCreateNewTypePanel());
+				CreateRelationPresenter.this.createNewType();
 			}
 		});
 	}

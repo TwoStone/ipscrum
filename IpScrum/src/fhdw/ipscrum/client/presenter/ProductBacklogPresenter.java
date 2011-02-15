@@ -9,10 +9,12 @@ import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 
@@ -38,7 +40,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 	@Override
 	protected IProductBacklogView createView() {
-		
+
 		// Creates a new instance of a ProductBacklogView
 		final IProductBacklogView view = new ProductBacklogView();
 
@@ -48,13 +50,12 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
-				final DialogBox newBox = new DialogBox();
+				final DialogBox newBox = GwtUtils
+						.createDialog(TextConstants.CREATE_FEATURE);
 				final CreateFeaturePresenter presenter;
 				try {
 					presenter = new CreateFeaturePresenter(newBox,
 							ProductBacklogPresenter.this.project.getBacklog());
-
-					newBox.setGlassEnabled(true);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
@@ -90,21 +91,21 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				}
 			}
 		});
-		
-		// Add a handler for a event which opens the details of a ProductBacklogItem
+
+		// Add a handler for a event which opens the details of a
+		// ProductBacklogItem
 		view.addPBIDetailsEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-				final DialogBox newBox = new DialogBox();
+				final DialogBox newBox = GwtUtils
+						.createDialog(TextConstants.FEATURE_DETAILS);
 				// TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst
 				// der Typ SICHERGESTELLT WERDEN
 				EditFeaturePresenter presenter;
 				try {
 					presenter = new EditFeaturePresenter(newBox,
 							(Feature) eventArgs.getPbi());
-
-					newBox.setGlassEnabled(true);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
@@ -145,7 +146,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 								.removeItem(eventArgs.getPbi());
 						view.refreshProductBacklog(ProductBacklogPresenter.this.project
 								.getBacklog().getItems());
-					} catch (UserException e) {
+					} catch (final UserException e) {
 						GwtUtils.displayError(e.getMessage());
 					}
 				}
@@ -153,7 +154,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 		});
 
-		// Add a handler for a event which moves a ProductBacklog down by one step
+		// Add a handler for a event which moves a ProductBacklog down by one
+		// step
 		view.addPBIDownEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
@@ -167,12 +169,12 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				}
 			}
 		});
-		
+
 		// Add a handler for a event which moves a ProductBacklog up by one step
 		view.addPBIUpEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog().moveUp(
@@ -187,7 +189,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 		view.addPBITopEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog().moveTop(
@@ -203,7 +205,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 		view.addPBIBottomEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog()
@@ -219,7 +221,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	}
 
 	/**
-	 * Fills the cellTable of {@link ProductBacklogView} with the items of the Backlog
+	 * Fills the cellTable of {@link ProductBacklogView} with the items of the
+	 * Backlog
 	 */
 	private void initialize() {
 		if (this.project.getBacklog() != null) {

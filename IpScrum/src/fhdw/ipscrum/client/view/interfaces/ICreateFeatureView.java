@@ -2,8 +2,6 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.List;
 
-import com.google.gwt.user.client.ui.Panel;
-
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
@@ -16,20 +14,6 @@ import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public interface ICreateFeatureView extends IView {
-
-	/**
-	 * Returns the panel where to show the dialog for creating a new criterion.
-	 * 
-	 * @return
-	 */
-	Panel addCriterionPanel();
-
-	/**
-	 * Returns the panel where to show the dialog for creating a new hint.
-	 * 
-	 * @return
-	 */
-	Panel addHintPanel();
 
 	/**
 	 * Returns the event that is fired, when the workflow should be aborted.

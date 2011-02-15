@@ -2,8 +2,6 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.List;
 
-import com.google.gwt.user.client.ui.Panel;
-
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
@@ -25,14 +23,6 @@ public interface ICreateRelationView extends IView {
 	 * @return
 	 */
 	IEvent<EventArgs> getCreateNewType();
-
-	/**
-	 * Returns the panel where the dialog for creating a new type should be
-	 * shown.
-	 * 
-	 * @return
-	 */
-	Panel getCreateNewTypePanel();
 
 	/**
 	 * Returns the event fired when the current object should be saved.
