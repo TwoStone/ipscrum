@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.args.TwoStringArgs;
 import fhdw.ipscrum.client.view.PersonDialogView;
 import fhdw.ipscrum.client.view.interfaces.IPersonDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -88,6 +89,9 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView> {
 					finish();
 				} catch (NoValidValueException e) {
 					Window.alert(e.getMessage());
+				} catch (ConsistencyException e) {
+					// TODO Sarah Meldung abfangen
+					e.printStackTrace();
 				}
 			}
 		});

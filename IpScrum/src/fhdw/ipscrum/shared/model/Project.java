@@ -25,14 +25,13 @@ public class Project extends Observable implements BDACompare {
 	private final ToReleaseAssoc releaseAssoc;
 	private final ToBacklogAssoc backlogAssoc;
 
-	public class ToReleaseAssoc extends
-			BDAManyToMany<Release.ToProjectAssoc, Project> {
+	public class ToReleaseAssoc extends BDAManyToMany<Release.ToProjectAssoc, Project> {
 		public ToReleaseAssoc(Project element) {
 			super(element);
 		}
 	}
-	
-	public class ToBacklogAssoc extends BDAManyToMany<ProductBacklog.ToProjectAssoc, Project>{
+
+	public class ToBacklogAssoc extends BDAManyToMany<ProductBacklog.ToProjectAssoc, Project> {
 		public ToBacklogAssoc(Project element) {
 			super(element);
 		}
@@ -41,7 +40,7 @@ public class Project extends Observable implements BDACompare {
 	protected ToBacklogAssoc getBacklogAssoc() {
 		return backlogAssoc;
 	}
-	
+
 	protected ToReleaseAssoc getReleaseAssoc() {
 		return releaseAssoc;
 	}
@@ -53,8 +52,7 @@ public class Project extends Observable implements BDACompare {
 	 *             If the name for the Project is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public Project(String name) throws NoValidValueException,
-			ConsistencyException {
+	public Project(String name) throws NoValidValueException, ConsistencyException {
 		super();
 		this.setName(name);
 		this.releaseAssoc = new ToReleaseAssoc(this);
@@ -64,8 +62,7 @@ public class Project extends Observable implements BDACompare {
 
 	public Vector<IRelease> getReleasePlan() {
 		Vector<IRelease> ret = new Vector<IRelease>();
-		for (Release.ToProjectAssoc current : this.getReleaseAssoc()
-				.getAssociations()) {
+		for (Release.ToProjectAssoc current : this.getReleaseAssoc().getAssociations()) {
 			ret.add(current.getElement());
 		}
 		return ret;
@@ -90,15 +87,14 @@ public class Project extends Observable implements BDACompare {
 			this.notifyObservers();
 		} else {
 			// TODO Textkonstante bauen
-			throw new NoValidValueException(
-					"Es muss ein Projektname angegeben werden!");
+			throw new NoValidValueException("Es muss ein Projektname angegeben werden!");
 		}
 	}
 
 	public ProductBacklog getBacklog() {
-		if(this.getBacklogAssoc().get()!=null){
+		if (this.getBacklogAssoc().get() != null) {
 			return this.getBacklogAssoc().get().getElement();
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -117,8 +113,7 @@ public class Project extends Observable implements BDACompare {
 				return;
 			}
 		}
-		throw new NoSprintDefinedException(
-				"Der angegebene Sprint ist nicht im Projekt definiert!");
+		throw new NoSprintDefinedException("Der angegebene Sprint ist nicht im Projekt definiert!");
 	}
 
 	/**
@@ -140,18 +135,21 @@ public class Project extends Observable implements BDACompare {
 	 * @param sprint
 	 */
 	public void addSprint(ISprint sprint) {
+		// TODO Patrick: Doppelte Erstellung vermeiden.
+		// if (this.getSprints().contains(sprint)) {
+		// throw new
+		// ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		// } else {
 		this.getSprints().add(sprint);
 		this.notifyObservers();
+		// }
 	}
 
-	public void isReleaseDoubleDefined(String version, Date releaseDate)
-			throws DoubleDefinitionException {
+	public void isReleaseDoubleDefined(String version, Date releaseDate) throws DoubleDefinitionException {
 		for (IRelease current : this.getReleasePlan()) {
-			if (current.getVersion().equals(version)
-					&& current.getReleaseDate().equals(releaseDate)) {
+			if (current.getVersion().equals(version) && current.getReleaseDate().equals(releaseDate)) {
 				// TODO Textkonstante bauen!
-				throw new DoubleDefinitionException(
-						"Release existiert bereits und kann nicht hinzugef�gt werden!");
+				throw new DoubleDefinitionException("Release existiert bereits und kann nicht hinzugef�gt werden!");
 			}
 		}
 	}
@@ -195,10 +193,8 @@ public class Project extends Observable implements BDACompare {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((releaseAssoc == null) ? 0 : releaseAssoc.hashCode());
-		result = prime * result
-		+ ((backlogAssoc == null) ? 0 : backlogAssoc.hashCode());
+		result = prime * result + ((releaseAssoc == null) ? 0 : releaseAssoc.hashCode());
+		result = prime * result + ((backlogAssoc == null) ? 0 : backlogAssoc.hashCode());
 		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
 		return result;
 	}

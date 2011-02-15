@@ -9,12 +9,14 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 /**
- * Represents the presenter of the view with which the user could make new roles or change roles.
+ * Represents the presenter of the view with which the user could make new roles
+ * or change roles.
  */
 public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
@@ -24,9 +26,10 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Constructor for RoleDialogPresenter.
 	 * 
-	 *Required for making new roles.
+	 * Required for making new roles.
 	 * 
-	 * @param parent Panel
+	 * @param parent
+	 *            Panel
 	 */
 	public RoleDialogPresenter(Panel parent) {
 		this(parent, null);
@@ -37,8 +40,10 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	 * 
 	 * Required for changing roles.
 	 * 
-	 * @param parent Panel
-	 * @param selectedRole IRole
+	 * @param parent
+	 *            Panel
+	 * @param selectedRole
+	 *            IRole
 	 */
 	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
 		super(parent);
@@ -49,9 +54,8 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Method createView.
 	 * 
-	 * Creates the view in which the user could make a
-	 * new role or change a role and defines what happens when the user
-	 * pushes the cancel- or OK-button.
+	 * Creates the view in which the user could make a new role or change a role
+	 * and defines what happens when the user pushes the cancel- or OK-button.
 	 * 
 	 * @return IRoleDialogView
 	 */
@@ -78,6 +82,9 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 					finish();
 				} catch (NoValidValueException e) {
 					Window.alert(e.getMessage());
+				} catch (ConsistencyException e) {
+					// TODO Sarah Meldung abfangen
+					e.printStackTrace();
 				}
 			}
 		});

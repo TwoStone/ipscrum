@@ -96,10 +96,16 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 
 	/**
 	 * Adds a new person to the model!
+	 * 
+	 * @throws ConsistencyException
 	 */
-	public void addPerson(final IPerson person) {
-		this.getPersons().add(person);
-		this.notifyObservers();
+	public void addPerson(final IPerson person) throws ConsistencyException {
+		if (this.getPersons().contains(person)) {
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		} else {
+			this.getPersons().add(person);
+			this.notifyObservers();
+		}
 	}
 
 	/**
@@ -111,10 +117,16 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 
 	/**
 	 * Adds a new Team to the model.
+	 * 
+	 * @throws ConsistencyException
 	 */
-	public void addTeam(final ITeam team) {
-		this.getTeams().add(team);
-		this.notifyObservers();
+	public void addTeam(final ITeam team) throws ConsistencyException {
+		if (this.getTeams().contains(team)) {
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		} else {
+			this.getTeams().add(team);
+			this.notifyObservers();
+		}
 	}
 
 	/**
@@ -141,10 +153,16 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 
 	/**
 	 * Adds a new Role to the model.
+	 * 
+	 * @throws ConsistencyException
 	 */
-	public void addRole(final IRole role) {
-		this.getRoles().add(role);
-		this.notifyObservers();
+	public void addRole(final IRole role) throws ConsistencyException {
+		if (this.getRoles().contains(role)) {
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		} else {
+			this.getRoles().add(role);
+			this.notifyObservers();
+		}
 	}
 
 	/**
