@@ -39,8 +39,8 @@ public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
 	public static final String TEAMVIEW_TEAMTABLEHEADER = "Teams";
-	public static final String TEAMVIEW_BUTTONLABEL_CREATENEWTEAM = "Neues Team anlegen";
-	public static final String TEAMVIEW_BUTTONLABEL_MODIFYTEAM = "Team Bearbeiten";
+	public static final String TEAMVIEW_BUTTONLABEL_CREATENEWTEAM = "Team anlegen";
+	public static final String TEAMVIEW_BUTTONLABEL_MODIFYTEAM = "Team bearbeiten";
 	public static final String TEAMVIEW_PERSONTABLEHEADER = "Verf\u00FCgbare Personen";
 	public static final String TEAMVIEW_FIRSTNAMEHEADER = "Vorname";
 	public static final String TEAMVIEW_LASTNAMEHEADER = "Nachname";
@@ -74,7 +74,7 @@ public final class TextConstants {
 	public static final String PERSROLEMNGMT_ASSIGNEDROLELIST_HEADER = "Zugeordnete Rollen";
 	public static final String PERSROLEMNGMT_ROLELIST_HEADER = "Rollenverzeichnis";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Rolle anlegen";
-	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Rolle Entfernen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Rolle entfernen";
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR PRODUCTBACKLOG GROUP */
