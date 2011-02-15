@@ -18,7 +18,8 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
  * additionally used for storing project independent data like teams, persons
  * and roles.
  */
-public class Root extends Observable implements SerializationRoot, HasRelationTypeManager {
+public class Root extends Observable implements SerializationRoot,
+		HasRelationTypeManager {
 
 	private Vector<Project> projects;
 	private HashSet<IPerson> persons;
@@ -83,7 +84,14 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * 
 	 * @param project
 	 */
-	public void addProject(final Project project) {
+	public void addProject(final Project project)
+			throws DoubleDefinitionException {
+		for (final Project current : this.getProjects()) {
+			if (current.getName().equals(project.getName())) {
+				throw new DoubleDefinitionException(
+						"Projekt mit diesem Namen bereits vorhanden!");
+			}
+		}
 		this.getProjects().add(project);
 		this.notifyObservers();
 	}
@@ -100,9 +108,11 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * 
 	 * @throws DoubleDefinitionException
 	 */
-	public void addPerson(final IPerson person) throws DoubleDefinitionException {
+	public void addPerson(final IPerson person)
+			throws DoubleDefinitionException {
 		if (this.getPersons().contains(person)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getPersons().add(person);
 			this.notifyObservers();
@@ -123,7 +133,8 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 */
 	public void addTeam(final ITeam team) throws DoubleDefinitionException {
 		if (this.getTeams().contains(team)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getTeams().add(team);
 			this.notifyObservers();
@@ -144,15 +155,17 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 */
 	public void removeRole(final IRole role) throws ConsistencyException {
 		if (this.getRoles().contains(role)) {
-			Vector<IPerson> p = role.getPersons();
+			final Vector<IPerson> p = role.getPersons();
 			if (p == null || p.isEmpty()) {
 				this.getRoles().remove(role);
 				this.notifyObservers();
 			} else {
-				throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+				throw new ConsistencyException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
 			}
 		} else {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		}
 
 	}
@@ -164,7 +177,8 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 */
 	public void addRole(final IRole role) throws DoubleDefinitionException {
 		if (this.getRoles().contains(role)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getRoles().add(role);
 			this.notifyObservers();
@@ -187,10 +201,18 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.getPersons() == null) ? 0 : this.getPersons().hashCode());
-		result = prime * result + ((this.getProjects() == null) ? 0 : this.getProjects().hashCode());
-		result = prime * result + ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
-		result = prime * result + ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
+		result = prime
+				* result
+				+ ((this.getPersons() == null) ? 0 : this.getPersons()
+						.hashCode());
+		result = prime
+				* result
+				+ ((this.getProjects() == null) ? 0 : this.getProjects()
+						.hashCode());
+		result = prime * result
+				+ ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
+		result = prime * result
+				+ ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
 		return result;
 	}
 

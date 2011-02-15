@@ -17,10 +17,10 @@ import fhdw.ipscrum.shared.model.Release;
 public class AddSprintToReleasePresenter extends
 		Presenter<IAddSprintToReleaseView> {
 
-	private Project project;
-	private Release release;
-	
-	public AddSprintToReleasePresenter(Panel parent, Release release) {
+	private final Project project;
+	private final Release release;
+
+	public AddSprintToReleasePresenter(final Panel parent, final Release release) {
 		super(parent);
 		this.release = release;
 		this.project = this.release.getProject();
@@ -28,7 +28,7 @@ public class AddSprintToReleasePresenter extends
 	}
 
 	private void initialize() {
-		if (this.project.getSprints() != null){
+		if (this.project.getSprints() != null) {
 			this.getView().refreshSprints(this.project.getSprints());
 		}
 	}
@@ -37,13 +37,13 @@ public class AddSprintToReleasePresenter extends
 	protected IAddSprintToReleaseView createView() {
 
 		final AddSprintToReleaseView view = new AddSprintToReleaseView();
-		
+
 		view.addCancelAddSprintViewEventHandler(new EventHandler<EventArgs>() {
-			
+
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				new AbortDialog(new OnOkayCommand() {
-					
+
 					@Override
 					public void onExecute() {
 						AddSprintToReleasePresenter.this.abort();
@@ -51,20 +51,21 @@ public class AddSprintToReleasePresenter extends
 				});
 			}
 		});
-		
+
 		view.addSaveSprintsEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, SprintArgs eventArgs) {
+			public void onUpdate(final Object sender, final SprintArgs eventArgs) {
 				try {
-					AddSprintToReleasePresenter.this.release.addSprint(eventArgs.getSprint());
-				} catch (UserException e) {
+					AddSprintToReleasePresenter.this.release
+							.addSprint(eventArgs.getSprint());
+				} catch (final UserException e) {
 					GwtUtils.displayError(e.getMessage());
 				}
-			AddSprintToReleasePresenter.this.finish();
+				AddSprintToReleasePresenter.this.finish();
 			}
 		});
-		
+
 		return view;
 	}
 }

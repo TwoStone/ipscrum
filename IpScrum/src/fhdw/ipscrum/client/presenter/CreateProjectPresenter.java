@@ -12,6 +12,7 @@ import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Project;
 
@@ -25,9 +26,10 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 
 	/**
 	 * Creates a new instance of {@link CreateProjectPresenter}
+	 * 
 	 * @param parent
 	 */
-	public CreateProjectPresenter(Panel parent) {
+	public CreateProjectPresenter(final Panel parent) {
 		super(parent);
 	}
 
@@ -41,26 +43,28 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 		view.addSaveProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
 					try {
-						SessionManager.getInstance().getModel()
-								.addProject(new Project(view.getProjectName()));
-					} catch (ConsistencyException e) {
+						SessionManager.getInstance().getModel().addProject(
+								new Project(view.getProjectName()));
+					} catch (final ConsistencyException e) {
+						GwtUtils.displayError(e.getMessage());
+					} catch (final DoubleDefinitionException e) {
 						GwtUtils.displayError(e.getMessage());
 					}
-					finish();
-				} catch (NoValidValueException e) {
+					CreateProjectPresenter.this.finish();
+				} catch (final NoValidValueException e) {
 					Window.alert(e.getMessage());
 				}
 			}
 		});
 
-	// Add a handler for the event which cancels creating of a new project
+		// Add a handler for the event which cancels creating of a new project
 		view.addCancelCreateProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
 				new AbortDialog(new OnOkayCommand() {
 

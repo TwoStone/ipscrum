@@ -409,23 +409,16 @@ public class Test_THoch {
 		}
 	}
 
-	// @Test
-	// Nicht gut
-	// public void testDoubleDefinedForReleaseInProject() throws Exception{
-	// Root lvRoot = new Root();
-	// Project lvProject = new Project("name");
-	// lvRoot.addProject(lvProject);
-	// Release lvRelease = new Release("0.0.1", cvCurrentDate, lvProject);
-	// lvProject.addRelease(lvRelease);
-	//		
-	// try {
-	// lvProject.addRelease(lvRelease);
-	// fail("Doppelte Definition von Releases");
-	// // Doppelte Definition von Releases
-	// } catch (Exception e) {
-	// assertTrue(true);
-	// }
-	// }
+	@Test(expected = DoubleDefinitionException.class)
+	public void testDoubleDefinedForReleaseInProject() throws Exception {
+		final Root lvRoot = new Root();
+		final Project lvProject = new Project("name");
+		lvRoot.addProject(lvProject);
+		new Release("0.0.1", cvCurrentDate, lvProject);
+		new Release("0.0.1", cvCurrentDate, lvProject);
+		fail();
+	}
+
 	@Test
 	public void testDoubleDefinedForSprintInProject() throws Exception {
 		final Root lvRoot = new Root();
