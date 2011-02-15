@@ -1,8 +1,6 @@
 package fhdw.ipscrum.client.view;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
@@ -13,7 +11,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -47,7 +44,6 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
  * It provides controls for creating, modifying and deleting persons and roles as well associate roles to persons or remove associations.
  */
 public class PersonRoleView extends Composite implements IPersonRoleView {
-	private final ListHandler<IPerson> sortHandler = new ListHandler<IPerson>(Collections.<IPerson>emptyList());
 	private CellTable<IPerson> cellTablePersons;
 	private CellList<IRole> cellListAssignedRoles;
 	private CellList<IRole> cellListRoles;
@@ -85,7 +81,6 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		scrollPanelPersons.setSize("300px", "400px");
 
 		this.cellTablePersons = new CellTable<IPerson>();
-		cellTablePersons.addColumnSortHandler(sortHandler);
 		scrollPanelPersons.setWidget(this.cellTablePersons);
 		this.cellTablePersons.setSize("100%", "100%");
 		this.cellTablePersons.setSelectionModel(new SingleSelectionModel<IPerson>());
@@ -104,14 +99,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 				return object.getFirstname();
 			}
 		};
-		colFirstname.setSortable(true);
 		this.cellTablePersons.addColumn(colFirstname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME);
-		sortHandler.setComparator(colFirstname, new Comparator<IPerson>() {
-			@Override
-			public int compare(IPerson o1, IPerson o2) {
-				return o1.getFirstname().compareTo(o2.getFirstname());
-			}
-		});
 
 		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
 			@Override
@@ -119,14 +107,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 				return object.getLastname();
 			}
 		};
-		colLastname.setSortable(true);
 		this.cellTablePersons.addColumn(colLastname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME);
-		sortHandler.setComparator(colLastname, new Comparator<IPerson>() {
-			@Override
-			public int compare(IPerson o1, IPerson o2) {
-				return o1.getLastname().compareTo(o2.getLastname());
-			}
-		});
 
 		VerticalPanel verticalPanelPersonButtons = new VerticalPanel();
 		verticalPanelPersons.add(verticalPanelPersonButtons);
