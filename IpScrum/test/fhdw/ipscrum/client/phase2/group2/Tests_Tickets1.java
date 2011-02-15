@@ -67,7 +67,10 @@ public class Tests_Tickets1 {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+	/*
+	 * erstellen eines Features
+	 * in diesem Fall wird das Feature in der setUp()-Methode erstellt und hier nur noch überprüft, ob Namen, Beschreibung und Product-Backlog richtig gesetzt wurden.
+	 */
 	@Test
 	public void createFeature() throws Exception {
 		assertEquals(this.featureName1, this.feature1.getName());
@@ -118,7 +121,6 @@ public class Tests_Tickets1 {
 		assertFalse(this.feature1.getHints().listIterator().hasNext());
 		this.feature1.addHint(hint1);
 		this.feature1.addHint(hint2);
-		assertTrue(this.feature1.getHints().listIterator().hasNext());
 	}
 	
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
@@ -127,7 +129,6 @@ public class Tests_Tickets1 {
 		assertFalse(this.feature1.getHints().listIterator().hasNext());
 		this.feature1.addHint(hint);
 		this.feature1.addHint(hint);
-		assertTrue(this.feature1.getHints().listIterator().hasNext());
 	}
 	
 	@Test
@@ -157,7 +158,6 @@ public class Tests_Tickets1 {
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator().hasNext());
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion1);
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion2);
-		assertTrue(this.feature1.getAcceptanceCriteria().listIterator().hasNext());
 	}
 	
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
@@ -166,7 +166,6 @@ public class Tests_Tickets1 {
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator().hasNext());
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
-		assertTrue(this.feature1.getAcceptanceCriteria().listIterator().hasNext());
 	}
 	
 	@Test
