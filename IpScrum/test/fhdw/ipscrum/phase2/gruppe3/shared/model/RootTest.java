@@ -2,6 +2,8 @@ package fhdw.ipscrum.phase2.gruppe3.shared.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Vector;
@@ -23,193 +25,167 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 /**
  * The class <code>RootTest</code> contains tests for the class
  * <code>{@link Root}</code>.
- * 
- * @generatedBy CodePro at 15.02.11 11:21
  */
 public class RootTest {
+
 	/**
 	 * Run the void addPerson(IPerson) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testAddPerson_1() throws Exception {
 		Root fixture = new Root();
-		IPerson person = new Person("", "");
+		IPerson person = new Person("firstname", "lastname");
 
+		assertEquals(0, fixture.getPersons().size());
 		fixture.addPerson(person);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// vollständiger Name angegeben werden.
-		// at fhdw.ipscrum.shared.model.Person.setFirstname(Person.java:36)
-		// at fhdw.ipscrum.shared.model.Person.<init>(Person.java:18)
+		assertEquals(1, fixture.getPersons().size());
 	}
 
 	/**
 	 * Run the void addPerson(IPerson) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void testAddPerson_2() throws Exception {
 		Root fixture = new Root();
-		IPerson person = new Person("", "");
+		IPerson person = new Person("firstname", "lastname");
 
+		assertEquals(0, fixture.getPersons().size());
 		fixture.addPerson(person);
+		fixture.addPerson(person);
+		assertEquals(1, fixture.getPersons().size());
+	}
 
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// vollständiger Name angegeben werden.
-		// at fhdw.ipscrum.shared.model.Person.setFirstname(Person.java:36)
-		// at fhdw.ipscrum.shared.model.Person.<init>(Person.java:18)
+	/**
+	 * Run the void addPerson(IPerson) method test.
+	 */
+	@Test
+	public void testAddPerson_3() throws Exception {
+		Root fixture = new Root();
+		IPerson person1 = new Person("firstname1", "lastname1");
+		IPerson person2 = new Person("firstname2", "lastname2");
+
+		assertEquals(0, fixture.getPersons().size());
+		fixture.addPerson(person1);
+		fixture.addPerson(person2);
+		assertEquals(2, fixture.getPersons().size());
 	}
 
 	/**
 	 * Run the void addProject(Project) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testAddProject_1() throws Exception {
 		Root fixture = new Root();
-		Project project = new Project("");
+		Project project = new Project("project");
 
 		fixture.addProject(project);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Projektname angegeben werden!
-		// at fhdw.ipscrum.shared.model.Project.setName(Project.java:90)
-		// at fhdw.ipscrum.shared.model.Project.<init>(Project.java:57)
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the void addRole(IRole) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testAddRole_1() throws Exception {
 		Root fixture = new Root();
-		IRole role = new Role("");
+		IRole role = new Role("role");
 
 		fixture.addRole(role);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Role.setDescription(Role.java:34)
-		// at fhdw.ipscrum.shared.model.Role.<init>(Role.java:15)
+		assertEquals(1, fixture.getRoles().size());
 	}
 
 	/**
 	 * Run the void addRole(IRole) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void testAddRole_2() throws Exception {
 		Root fixture = new Root();
-		IRole role = new Role("");
+		IRole role = new Role("role");
 
 		fixture.addRole(role);
+		fixture.addRole(role);
+		assertEquals(1, fixture.getRoles().size());
+	}
 
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Role.setDescription(Role.java:34)
-		// at fhdw.ipscrum.shared.model.Role.<init>(Role.java:15)
+	/**
+	 * Run the void addRole(IRole) method test.
+	 */
+	@Test
+	public void testAddRole_3() throws Exception {
+		Root fixture = new Root();
+		IRole role1 = new Role("role1");
+		IRole role2 = new Role("role2");
+		fixture.addRole(role1);
+		fixture.addRole(role2);
+		assertEquals(2, fixture.getRoles().size());
 	}
 
 	/**
 	 * Run the void addTeam(ITeam) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testAddTeam_1() throws Exception {
 		Root fixture = new Root();
-		ITeam team = new Team("");
+		ITeam team = new Team("team");
 
 		fixture.addTeam(team);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
-		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertEquals(1, fixture.getTeams().size());
 	}
 
 	/**
 	 * Run the void addTeam(ITeam) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void testAddTeam_2() throws Exception {
 		Root fixture = new Root();
-		ITeam team = new Team("");
+		ITeam team = new Team("team");
 
 		fixture.addTeam(team);
+		fixture.addTeam(team);
+		assertEquals(1, fixture.getTeams().size());
+	}
 
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
-		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+	/**
+	 * Run the void addTeam(ITeam) method test.
+	 */
+	@Test
+	public void testAddTeam_3() throws Exception {
+		Root fixture = new Root();
+		ITeam team1 = new Team("team1");
+		ITeam team2 = new Team("team2");
+
+		fixture.addTeam(team1);
+		fixture.addTeam(team2);
+		assertEquals(2, fixture.getTeams().size());
 	}
 
 	/**
 	 * Run the Integer countPersons() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testCountPersons_1() throws Exception {
 		Root fixture = new Root();
+		Integer result = fixture.countPersons();
+		assertEquals(0, result.intValue());
+	}
+
+	/**
+	 * Run the Integer countPersons() method test.
+	 */
+	@Test
+	public void testCountPersons_2() throws Exception {
+		Root fixture = new Root();
+		IPerson person1 = new Person("firstname1", "lastname1");
+		IPerson person2 = new Person("firstname2", "lastname2");
+		fixture.addPerson(person1);
+		fixture.addPerson(person2);
 
 		Integer result = fixture.countPersons();
-
-		assertNotNull(result);
-		assertEquals("0", result.toString());
-		assertEquals((byte) 0, result.byteValue());
-		assertEquals(0.0, result.doubleValue(), 1.0);
-		assertEquals(0.0f, result.floatValue(), 1.0f);
-		assertEquals(0, result.intValue());
-		assertEquals(0L, result.longValue());
-		assertEquals((short) 0, result.shortValue());
+		assertEquals(2, result.intValue());
 	}
 
 	/**
 	 * Run the Integer countProjects() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testCountProjects_1() throws Exception {
@@ -225,60 +201,63 @@ public class RootTest {
 		assertEquals(0, result.intValue());
 		assertEquals(0L, result.longValue());
 		assertEquals((short) 0, result.shortValue());
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the Integer countRoles() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testCountRoles_1() throws Exception {
 		Root fixture = new Root();
 
 		Integer result = fixture.countRoles();
-
-		assertNotNull(result);
-		assertEquals("0", result.toString());
-		assertEquals((byte) 0, result.byteValue());
-		assertEquals(0.0, result.doubleValue(), 1.0);
-		assertEquals(0.0f, result.floatValue(), 1.0f);
 		assertEquals(0, result.intValue());
-		assertEquals(0L, result.longValue());
-		assertEquals((short) 0, result.shortValue());
+	}
+
+	/**
+	 * Run the Integer countRoles() method test.
+	 */
+	@Test
+	public void testCountRoles_2() throws Exception {
+		Root fixture = new Root();
+		IRole role1 = new Role("role1");
+		IRole role2 = new Role("role2");
+		fixture.addRole(role1);
+		fixture.addRole(role2);
+
+		Integer result = fixture.countRoles();
+		assertEquals(2, result.intValue());
 	}
 
 	/**
 	 * Run the Integer countTeams() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testCountTeams_1() throws Exception {
 		Root fixture = new Root();
-
 		Integer result = fixture.countTeams();
 
-		assertNotNull(result);
-		assertEquals("0", result.toString());
-		assertEquals((byte) 0, result.byteValue());
-		assertEquals(0.0, result.doubleValue(), 1.0);
-		assertEquals(0.0f, result.floatValue(), 1.0f);
 		assertEquals(0, result.intValue());
-		assertEquals(0L, result.longValue());
-		assertEquals((short) 0, result.shortValue());
+	}
+
+	/**
+	 * Run the Integer countTeams() method test.
+	 */
+	@Test
+	public void testCountTeams_2() throws Exception {
+		Root fixture = new Root();
+		ITeam team1 = new Team("team1");
+		ITeam team2 = new Team("team2");
+		fixture.addTeam(team1);
+		fixture.addTeam(team2);
+
+		Integer result = fixture.countTeams();
+		assertEquals(2, result.intValue());
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_1() throws Exception {
@@ -286,16 +265,12 @@ public class RootTest {
 		Object obj = new Root();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_2() throws Exception {
@@ -303,16 +278,12 @@ public class RootTest {
 		Object obj = null;
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(false, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_3() throws Exception {
@@ -320,16 +291,12 @@ public class RootTest {
 		Object obj = new Object();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(false, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_4() throws Exception {
@@ -337,16 +304,12 @@ public class RootTest {
 		Object obj = new Root();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_5() throws Exception {
@@ -354,16 +317,12 @@ public class RootTest {
 		Object obj = new Root();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_6() throws Exception {
@@ -371,16 +330,12 @@ public class RootTest {
 		Object obj = new Root();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_7() throws Exception {
@@ -388,33 +343,25 @@ public class RootTest {
 		Object obj = new Root();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_8() throws Exception {
 		Root fixture = new Root();
 		Object obj = new Root();
+		fail(); // TODO
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testEquals_9() throws Exception {
@@ -422,50 +369,38 @@ public class RootTest {
 		Object obj = new Root();
 
 		boolean result = fixture.equals(obj);
-
 		assertEquals(true, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the HashSet<IPerson> getPersons() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetPersons_1() throws Exception {
 		Root fixture = new Root();
 
 		HashSet<IPerson> result = fixture.getPersons();
-
-		assertNotNull(result);
 		assertEquals(0, result.size());
 	}
 
 	/**
 	 * Run the HashSet<IPerson> getPersons() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetPersons_2() throws Exception {
 		Root fixture = new Root();
+		IPerson person1 = new Person("firstname1", "lastname1");
+		IPerson person2 = new Person("firstname2", "lastname2");
+		fixture.addPerson(person1);
+		fixture.addPerson(person2);
 
 		HashSet<IPerson> result = fixture.getPersons();
-
-		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(2, result.size());
 	}
 
 	/**
 	 * Run the Vector<Project> getProjects() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetProjects_1() throws Exception {
@@ -475,14 +410,11 @@ public class RootTest {
 
 		assertNotNull(result);
 		assertEquals(0, result.size());
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the Vector<Project> getProjects() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetProjects_2() throws Exception {
@@ -492,14 +424,11 @@ public class RootTest {
 
 		assertNotNull(result);
 		assertEquals(0, result.size());
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the RelationTypeManager getRelationTypeManager() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetRelationTypeManager_1() throws Exception {
@@ -508,14 +437,11 @@ public class RootTest {
 		RelationTypeManager result = fixture.getRelationTypeManager();
 
 		assertNotNull(result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the RelationTypeManager getRelationTypeManager() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetRelationTypeManager_2() throws Exception {
@@ -524,82 +450,63 @@ public class RootTest {
 		RelationTypeManager result = fixture.getRelationTypeManager();
 
 		assertNotNull(result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the HashSet<IRole> getRoles() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetRoles_1() throws Exception {
 		Root fixture = new Root();
 
 		HashSet<IRole> result = fixture.getRoles();
-
-		assertNotNull(result);
 		assertEquals(0, result.size());
 	}
 
 	/**
 	 * Run the HashSet<IRole> getRoles() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetRoles_2() throws Exception {
 		Root fixture = new Root();
+		IRole role1 = new Role("role1");
+		IRole role2 = new Role("role2");
+		fixture.addRole(role1);
+		fixture.addRole(role2);
 
 		HashSet<IRole> result = fixture.getRoles();
-
-		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(2, result.size());
 	}
 
 	/**
 	 * Run the HashSet<ITeam> getTeams() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetTeams_1() throws Exception {
 		Root fixture = new Root();
 
 		HashSet<ITeam> result = fixture.getTeams();
-
-		assertNotNull(result);
 		assertEquals(0, result.size());
 	}
 
 	/**
 	 * Run the HashSet<ITeam> getTeams() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testGetTeams_2() throws Exception {
 		Root fixture = new Root();
+		ITeam team1 = new Team("team1");
+		ITeam team2 = new Team("team2");
+		fixture.addTeam(team1);
+		fixture.addTeam(team2);
 
 		HashSet<ITeam> result = fixture.getTeams();
-
-		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(2, result.size());
 	}
 
 	/**
 	 * Run the int hashCode() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testHashCode_1() throws Exception {
@@ -608,14 +515,11 @@ public class RootTest {
 		int result = fixture.hashCode();
 
 		assertEquals(924482, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the int hashCode() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testHashCode_2() throws Exception {
@@ -624,102 +528,84 @@ public class RootTest {
 		int result = fixture.hashCode();
 
 		assertEquals(924482, result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the void removeProject(Project) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testRemoveProject_1() throws Exception {
 		Root fixture = new Root();
-		Project project = new Project("");
+		// Project project = new Project("");
 
-		fixture.removeProject(project);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Projektname angegeben werden!
-		// at fhdw.ipscrum.shared.model.Project.setName(Project.java:90)
-		// at fhdw.ipscrum.shared.model.Project.<init>(Project.java:57)
+		// fixture.removeProject(project);
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the void removeRole(IRole) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testRemoveRole_1() throws Exception {
 		Root fixture = new Root();
-		IRole role = new Role("");
+		IRole role = new Role("role");
+		fixture.addRole(role);
 
 		fixture.removeRole(role);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Role.setDescription(Role.java:34)
-		// at fhdw.ipscrum.shared.model.Role.<init>(Role.java:15)
+		assertEquals(0, fixture.getRoles().size());
 	}
 
 	/**
 	 * Run the void removeRole(IRole) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
+	@Test(expected = fhdw.ipscrum.shared.exceptions.ConsistencyException.class)
 	public void testRemoveRole_2() throws Exception {
 		Root fixture = new Root();
-		IRole role = new Role("");
+		IRole role1 = new Role("role1");
+		IRole role2 = new Role("role2");
+		fixture.addRole(role1);
 
-		fixture.removeRole(role);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Role.setDescription(Role.java:34)
-		// at fhdw.ipscrum.shared.model.Role.<init>(Role.java:15)
+		assertEquals(1, fixture.getRoles().size());
+		fixture.removeRole(role2);
+		assertEquals(1, fixture.getRoles().size());
 	}
 
 	/**
 	 * Run the void removeRole(IRole) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testRemoveRole_3() throws Exception {
 		Root fixture = new Root();
-		IRole role = new Role("");
+		IRole role1 = new Role("role1");
+		IRole role2 = new Role("role2");
+		fixture.addRole(role1);
+		fixture.addRole(role2);
 
+		assertEquals(2, fixture.getRoles().size());
+		fixture.removeRole(role1);
+		assertEquals(1, fixture.getRoles().size());
+		assertTrue(fixture.getRoles().contains(role2));
+	}
+
+	/**
+	 * Run the void removeRole(IRole) method test.
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.ConsistencyException.class)
+	public void testRemoveRole_4() throws Exception {
+		Root fixture = new Root();
+		IRole role = new Role("role");
+		fixture.addRole(role);
+		IPerson person = new Person("firstname", "lastname");
+		person.addRole(role);
+
+		assertEquals(1, fixture.getRoles().size());
 		fixture.removeRole(role);
-
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
-		// Beschreibung angegeben werden.
-		// at fhdw.ipscrum.shared.model.Role.setDescription(Role.java:34)
-		// at fhdw.ipscrum.shared.model.Role.<init>(Role.java:15)
+		assertEquals(1, fixture.getRoles().size());
 	}
 
 	/**
 	 * Run the void save(String) method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testSave_1() throws Exception {
@@ -727,15 +613,11 @@ public class RootTest {
 		String identifier = "";
 
 		fixture.save(identifier);
-
+		fail(); // TODO
 	}
 
 	/**
 	 * Run the String toString() method test.
-	 * 
-	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
 	public void testToString_1() throws Exception {
@@ -744,15 +626,11 @@ public class RootTest {
 		String result = fixture.toString();
 
 		assertEquals("Root", result);
+		fail(); // TODO
 	}
 
 	/**
 	 * Perform pre-test initialization.
-	 * 
-	 * @throws Exception
-	 *             if the initialization fails for some reason
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -760,11 +638,6 @@ public class RootTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 * 
-	 * @throws Exception
-	 *             if the clean-up fails for some reason
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@After
 	public void tearDown() throws Exception {
@@ -772,11 +645,6 @@ public class RootTest {
 
 	/**
 	 * Launch the test.
-	 * 
-	 * @param args
-	 *            the command line arguments
-	 * 
-	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(RootTest.class);

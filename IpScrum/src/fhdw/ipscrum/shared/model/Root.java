@@ -143,13 +143,18 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * @throws ConsistencyException
 	 */
 	public void removeRole(final IRole role) throws ConsistencyException {
-		Vector<IPerson> p = role.getPersons();
-		if (p == null || p.isEmpty()) {
-			this.getRoles().remove(role);
-			this.notifyObservers();
+		if (this.getRoles().contains(role)) {
+			Vector<IPerson> p = role.getPersons();
+			if (p == null || p.isEmpty()) {
+				this.getRoles().remove(role);
+				this.notifyObservers();
+			} else {
+				throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+			}
 		} else {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		}
+
 	}
 
 	/**
