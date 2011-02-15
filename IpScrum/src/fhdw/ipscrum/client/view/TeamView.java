@@ -15,6 +15,7 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -31,6 +32,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PersonTeamArgs;
 import fhdw.ipscrum.client.view.interfaces.ITeamView;
 import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -126,6 +128,8 @@ public class TeamView extends Composite implements ITeamView {
 			public void onClick(ClickEvent event) {
 				if (TeamView.this.selModelPersonTable.getSelectedSet().size()>0 && TeamView.this.getSelectedTeamOfTree() != null) {
 					TeamView.this.addPersonToTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.selModelPersonTable.getSelectedSet(), TeamView.this.getSelectedTeamOfTree()));
+				} else {
+					Window.alert(ExceptionConstants.GUI_TEAMVIEW_ASSIGNERROR);
 				}
 			}
 		});

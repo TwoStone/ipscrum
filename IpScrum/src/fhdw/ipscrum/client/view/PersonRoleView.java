@@ -15,6 +15,7 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.Composite;
@@ -34,6 +35,7 @@ import fhdw.ipscrum.client.events.args.AssociatePersonAndRoleArgs;
 import fhdw.ipscrum.client.events.args.MultipleRoleArgs;
 import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Role;
@@ -90,7 +92,9 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		this.cellTablePersons.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				PersonRoleView.this.cellListAssignedRoles.setRowData(new ArrayList<IRole>(PersonRoleView.this.getSelectedPerson().getRoles()));
+				if (PersonRoleView.this.getSelectedPerson() != null) {
+					PersonRoleView.this.cellListAssignedRoles.setRowData(new ArrayList<IRole>(PersonRoleView.this.getSelectedPerson().getRoles()));
+				}
 			}
 		});
 
@@ -176,7 +180,11 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 			public void onClick(ClickEvent event) {
 				Person affectedPerson = PersonRoleView.this.getSelectedPerson();
 				Set<IRole> roleSet = PersonRoleView.this.getSelectedAvailRoles();
-				PersonRoleView.this.addRoletoPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
+				if (roleSet.size() == 0 || affectedPerson == null) {
+					Window.alert(ExceptionConstants.GUI_PERSROLEMNGMT_ASSIGNERROR);
+				} else {
+					PersonRoleView.this.addRoletoPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
+				}
 			}
 		});
 

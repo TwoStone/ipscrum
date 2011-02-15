@@ -1,7 +1,9 @@
 package fhdw.ipscrum.shared.constants;
 
 public class TextConstants_FilePaths {
-	
+
+	public static final String LOGO_PATH = "images/logoSmall.png";
+
 	public static final String NEW_FILE_PATH = "images/newfile.png";
 	public static final String DETAILS_PATH = "images/details.png";
 	public static final String DELETE_PATH = "images/delete.png";

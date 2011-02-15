@@ -20,6 +20,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PersonArgs;
 import fhdw.ipscrum.client.view.interfaces.IRootView;
+import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
@@ -45,7 +46,7 @@ public class RootView extends Composite implements IRootView {
 		mainPanel.add(headPanel);
 		headPanel.setSize("1000px", "50px");
 
-		Image image = new Image("images/logoSmall.png");
+		Image image = new Image(TextConstants_FilePaths.LOGO_PATH);
 		headPanel.add(image);
 		image.setSize("157px", "50px");
 
