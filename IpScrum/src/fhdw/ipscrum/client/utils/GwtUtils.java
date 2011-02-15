@@ -24,7 +24,7 @@ public final class GwtUtils {
 	 */
 	public static DialogBox createDialog(final String title) {
 		final DialogBox dialog = new DialogBox();
-		dialog.setAnimationEnabled(true);
+		// dialog.setAnimationEnabled(true);
 		dialog.setModal(true);
 		dialog.setGlassEnabled(true);
 		dialog.setHTML("<b>" + title + "</b>");
