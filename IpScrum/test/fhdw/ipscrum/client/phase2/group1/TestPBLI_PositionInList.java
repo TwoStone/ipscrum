@@ -175,7 +175,7 @@ public class TestPBLI_PositionInList {
 	
 	@Test
 	/**
-	 * 
+	 * Addition of a new element (here: feature)
 	 */
 	public void testAddPBI() throws Exception {
 		int entriesInList = pbltest.getItems().size();
