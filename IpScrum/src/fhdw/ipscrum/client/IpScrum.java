@@ -66,10 +66,16 @@ public class IpScrum implements EntryPoint {
 			pNils.addRole(roleTester);
 			pNils.addRole(roleTSUser);
 
-			SessionManager.getInstance().getModel().addPerson(pSarah);
-			SessionManager.getInstance().getModel().addPerson(pWilken);
-			SessionManager.getInstance().getModel().addPerson(pChristin);
-			SessionManager.getInstance().getModel().addPerson(pNils);
+			try {
+				SessionManager.getInstance().getModel().addPerson(pSarah);
+
+				SessionManager.getInstance().getModel().addPerson(pWilken);
+				SessionManager.getInstance().getModel().addPerson(pChristin);
+				SessionManager.getInstance().getModel().addPerson(pNils);
+			} catch (DoubleDefinitionException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 
 			// Initial Teams
 			final Team t1 = new Team("Frontend");
@@ -80,31 +86,28 @@ public class IpScrum implements EntryPoint {
 			t2.addMember(pChristin);
 			t2.addMember(pNils);
 
-			SessionManager.getInstance().getModel().addTeam(t1);
-			SessionManager.getInstance().getModel().addTeam(t2);
+			try {
+				SessionManager.getInstance().getModel().addTeam(t1);
 
+				SessionManager.getInstance().getModel().addTeam(t2);
+			} catch (DoubleDefinitionException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			// Initial Projects
 			try {
 				final Project project1 = new Project("Testprojekt 4");
 				final Project project2 = new Project("Testprojekt 5");
 				try {
-					final Release release1 = new Release("1.1", new Date(),
-							project1);
-					final Release release2 = new Release("1.2", new Date(),
-							project1);
-					final Release release3 = new Release("1.3", new Date(),
-							project1);
-					final Release release4 = new Release("2.0", new Date(),
-							project1);
-					final Release release5 = new Release("2.1", new Date(),
-							project1);
+					final Release release1 = new Release("1.1", new Date(), project1);
+					final Release release2 = new Release("1.2", new Date(), project1);
+					final Release release3 = new Release("1.3", new Date(), project1);
+					final Release release4 = new Release("2.0", new Date(), project1);
+					final Release release5 = new Release("2.1", new Date(), project1);
 					try {
-						final Feature f1 = new Feature("Feature 1",
-								"Beschreibung Feature 1", project1.getBacklog());
-						final Feature f2 = new Feature("Feature 2",
-								"Beschreibung Feature 2", project1.getBacklog());
-						final Feature f3 = new Feature("Feature 3",
-								"Beschreibung Feature 3", project1.getBacklog());
+						final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", project1.getBacklog());
+						final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", project1.getBacklog());
+						final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", project1.getBacklog());
 						project1.getBacklog().addItem(f1);
 						project1.getBacklog().addItem(f2);
 						project1.getBacklog().addItem(f3);
@@ -112,16 +115,11 @@ public class IpScrum implements EntryPoint {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					final Sprint sprint1 = new Sprint("Sprint1",
-							"Beschreibung Sprint 1", new Date(), new Date(), t1);
-					final Sprint sprint2 = new Sprint("Sprint2",
-							"Beschreibung Sprint 2", new Date(), new Date(), t2);
-					final Sprint sprint3 = new Sprint("Sprint3",
-							"Beschreibung Sprint 3", new Date(), new Date(), t1);
-					final Sprint sprint4 = new Sprint("Sprint4",
-							"Beschreibung Sprint 4", new Date(), new Date(), t1);
-					final Sprint sprint5 = new Sprint("Sprint5",
-							"Beschreibung Sprint 5", new Date(), new Date(), t2);
+					final Sprint sprint1 = new Sprint("Sprint1", "Beschreibung Sprint 1", new Date(), new Date(), t1);
+					final Sprint sprint2 = new Sprint("Sprint2", "Beschreibung Sprint 2", new Date(), new Date(), t2);
+					final Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", new Date(), new Date(), t1);
+					final Sprint sprint4 = new Sprint("Sprint4", "Beschreibung Sprint 4", new Date(), new Date(), t1);
+					final Sprint sprint5 = new Sprint("Sprint5", "Beschreibung Sprint 5", new Date(), new Date(), t2);
 					project1.addSprint(sprint1);
 					project1.addSprint(sprint2);
 					project1.addSprint(sprint3);
@@ -141,12 +139,9 @@ public class IpScrum implements EntryPoint {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				SessionManager.getInstance().getModel()
-						.addProject(new Project("Testprojekt 1"));
-				SessionManager.getInstance().getModel()
-						.addProject(new Project("Testprojekt 2"));
-				SessionManager.getInstance().getModel()
-						.addProject(new Project("Testprojekt 3"));
+				SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 1"));
+				SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));
+				SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 3"));
 				SessionManager.getInstance().getModel().addProject(project1);
 				SessionManager.getInstance().getModel().addProject(project2);
 
@@ -167,6 +162,9 @@ public class IpScrum implements EntryPoint {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		} catch (final ConsistencyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DoubleDefinitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -9,7 +9,7 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.TeamDialogView;
 import fhdw.ipscrum.client.view.interfaces.ITeamDialogView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
@@ -87,7 +87,7 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 					finish();
 				} catch (NoValidValueException e) {
 					Window.alert(e.getMessage());
-				} catch (ConsistencyException e) {
+				} catch (DoubleDefinitionException e) {
 					// TODO Sarah Meldung abfangen
 					e.printStackTrace();
 				}

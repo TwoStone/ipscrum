@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
 import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -97,11 +98,11 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	/**
 	 * Adds a new person to the model!
 	 * 
-	 * @throws ConsistencyException
+	 * @throws DoubleDefinitionException
 	 */
-	public void addPerson(final IPerson person) throws ConsistencyException {
+	public void addPerson(final IPerson person) throws DoubleDefinitionException {
 		if (this.getPersons().contains(person)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getPersons().add(person);
 			this.notifyObservers();
@@ -118,11 +119,11 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	/**
 	 * Adds a new Team to the model.
 	 * 
-	 * @throws ConsistencyException
+	 * @throws DoubleDefinitionException
 	 */
-	public void addTeam(final ITeam team) throws ConsistencyException {
+	public void addTeam(final ITeam team) throws DoubleDefinitionException {
 		if (this.getTeams().contains(team)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getTeams().add(team);
 			this.notifyObservers();
@@ -156,9 +157,9 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * 
 	 * @throws ConsistencyException
 	 */
-	public void addRole(final IRole role) throws ConsistencyException {
+	public void addRole(final IRole role) throws DoubleDefinitionException {
 		if (this.getRoles().contains(role)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getRoles().add(role);
 			this.notifyObservers();

@@ -9,7 +9,7 @@ import fhdw.ipscrum.client.events.args.OneStringArgs;
 import fhdw.ipscrum.client.view.RoleDialogView;
 import fhdw.ipscrum.client.view.interfaces.IRoleDialogView;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -82,7 +82,7 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 					finish();
 				} catch (NoValidValueException e) {
 					Window.alert(e.getMessage());
-				} catch (ConsistencyException e) {
+				} catch (DoubleDefinitionException e) {
 					// TODO Sarah Meldung abfangen
 					e.printStackTrace();
 				}
