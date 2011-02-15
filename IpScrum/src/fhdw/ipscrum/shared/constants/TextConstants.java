@@ -73,7 +73,7 @@ public final class TextConstants {
 	public static final String PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON = "Zuordnung hinzufügen";
 	public static final String PERSROLEMNGMT_ASSIGNEDROLELIST_HEADER = "Zugeordnete Rollen";
 	public static final String PERSROLEMNGMT_ROLELIST_HEADER = "Rollenverzeichnis";
-	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Neue Rolle anlegen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Rolle anlegen";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Rolle Entfernen";
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
 
