@@ -28,7 +28,7 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	private final List<Relation> relations;
 	private final List<Hint> hints;
 	private final List<AcceptanceCriterion> acceptanceCriteria;
-	private IPerson editor;
+	//private IPerson editor;
 	private String description;
 
 	public Feature(final String name, final String description,
@@ -304,13 +304,13 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		} else if (!this.description.equals(other.description)) {
 			return false;
 		}
-		if (this.editor == null) {
+		/*if (this.editor == null) {
 			if (other.editor != null) {
 				return false;
 			}
 		} else if (!this.editor.equals(other.editor)) {
 			return false;
-		}
+		}*/
 		if (this.hints == null) {
 			if (other.hints != null) {
 				return false;
@@ -346,8 +346,8 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		result = prime
 				* result
 				+ ((this.description == null) ? 0 : this.description.hashCode());
-		result = prime * result
-				+ ((this.editor == null) ? 0 : this.editor.hashCode());
+		/*result = prime * result
+				+ ((this.editor == null) ? 0 : this.editor.hashCode());*/
 		result = prime * result
 				+ ((this.hints == null) ? 0 : this.hints.hashCode());
 		result = prime * result
