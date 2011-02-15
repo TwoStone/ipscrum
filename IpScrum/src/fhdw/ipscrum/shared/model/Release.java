@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Vector;
 
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
@@ -96,11 +95,8 @@ public class Release extends Observable implements IRelease {
 		if (sprint.getRelease() == null) {
 			this.getSprintAssoc().add(sprint.getToReleaseAssoc());
 		} else if (!sprint.getRelease().equals(this)) {
-			// TODO Textkonstante
-			throw new ConsistencyException(
-					"Der Sprint ist bereits einem anderen Release ("
-							+ sprint.getRelease().getVersion()
-							+ ") zugeordnet.");
+			sprint.getRelease().removeSprint(sprint);
+			this.getSprintAssoc().add(sprint.getToReleaseAssoc());
 		}
 	}
 

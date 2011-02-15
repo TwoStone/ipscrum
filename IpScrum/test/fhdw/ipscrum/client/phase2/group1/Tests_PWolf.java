@@ -226,8 +226,36 @@ public class Tests_PWolf {
 			assertEquals(f1.getSprint(), sprint2);
 
 		} catch (final UserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+	public void changeReleaseForSprint() {
+		try {
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final ISprint sprint1 = new Sprint("123", "sd", new Date(),
+					new Date(), new Team("Test"));
+			final ISprint sprint2 = new Sprint("1234", "scb", new Date(),
+					new Date(), new Team("Test2"));
+
+			final IRelease release = new Release("R1", new Date(), p);
+			final IRelease release2 = new Release("R3", new Date(), p);
+
+			release.addSprint(sprint1);
+
+			assertTrue(release.getSprints().contains(sprint1));
+			assertEquals(release, sprint1.getRelease());
+
+			release2.addSprint(sprint1);
+
+			assertTrue(release2.getSprints().contains(sprint1));
+			assertEquals(release2, sprint1.getRelease());
+			assertFalse(release.getSprints().contains(sprint1));
+
+		} catch (final UserException e) {
+			fail(e.getMessage());
 		}
 	}
 }

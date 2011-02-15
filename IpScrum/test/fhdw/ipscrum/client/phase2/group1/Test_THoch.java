@@ -14,7 +14,6 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -386,17 +385,8 @@ public class Test_THoch {
 				cvCurrentDate2, lvTeam);
 		lvProject.addSprint(lvSprint);
 
-		// 4.) Einem Release kann nur ein Sprint zugeordnet werden, wenn dieser
-		// nicht bereits einem anderen Release zugeordnet ist.
 		lvRelease.addSprint(lvSprint);
-		try {
-			lvRelease2.addSprint(lvSprint);
-			fail("fehlende Exception");
-		} catch (final UserException e) {
-			assertTrue(true);
-		}
-		// Wird ein Sprint aus einem Release entfernt, so muss auch die
-		// Verbindung vom Sprint zum Release entfernt werden.
+
 		lvRelease.removeSprint(lvSprint);
 		assertEquals(null, lvSprint.getRelease());
 		assertTrue(!lvRelease.getSprints().contains(lvSprint));
