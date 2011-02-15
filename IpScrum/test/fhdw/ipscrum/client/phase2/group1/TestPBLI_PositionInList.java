@@ -51,6 +51,9 @@ public class TestPBLI_PositionInList {
 	}
 
 	@Test
+	/**
+	 * successful MoveUp() on an element in PBL
+	 */
 	public void testMoveUp1() throws Exception {
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(1);
 		int positionOfItemNo2 = pbltest.getItemPositionInList(item);
@@ -58,11 +61,12 @@ public class TestPBLI_PositionInList {
 		assertEquals(item, pbltest.getItems().get(positionOfItemNo2 - 1));
 	}
 
+
+	@Test
 	/**
-	 * Move Up auf erstes Element der Liste
+	 * MoveUp() on the first element of PBL, throws an exception
 	 * @throws Exception
 	 */
-	@Test
 	public void testMoveUp2() throws Exception {
 		ProductBacklogItem holder = pbltest.getItems().get(0);
 		pbltest.moveUp(holder);
@@ -70,6 +74,9 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * successful MoveDown() on an element in PBL
+	 */
 	public void testMoveDown1() throws Exception {
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
 		int positionOfItemNo1 = pbltest.getItemPositionInList(item);
@@ -77,11 +84,12 @@ public class TestPBLI_PositionInList {
 		assertEquals(item, pbltest.getItems().get(positionOfItemNo1 + 1));
 	}
 
+
+	@Test
 	/**
-	 * Move Down auf letztes Element der Liste
+	 * MoveDown() on last element in PBL, throws an exception
 	 * @throws Exception
 	 */
-	@Test
 	public void testMoveDown2() throws Exception {
 		int lastPositionInList = pbltest.getItems().size() - 1;
 		ProductBacklogItem holder = pbltest.getItems().get(lastPositionInList);
@@ -93,6 +101,9 @@ public class TestPBLI_PositionInList {
 	//************************************************************************
 	
 	@Test
+	/**
+	 * successful MoveTop() on an element in PBL
+	 */
 	public void testMoveTop1() throws Exception {
 		int lastPositionInList = pbltest.getItems().size() - 1;
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(lastPositionInList);
@@ -101,6 +112,10 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * special case
+	 * MoveTop() on first element in PBL
+	 */
 	public void testMoveTop2() throws Exception {
 		ProductBacklog lvBacklog = pbltest;
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
@@ -109,6 +124,9 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * MoveTop() on last element of PBL
+	 */
 	public void testMoveTop3() throws Exception {
 		int lastPositionInList = pbltest.getItems().size() - 1;
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(lastPositionInList);
@@ -118,6 +136,9 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * successful MoveBottom() on first element in PBL
+	 */
 	public void testMoveBottom1() throws Exception {
 		int lastPositionInList = pbltest.getItems().size() - 1;
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
@@ -126,6 +147,9 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * MoveBottom() on last element in PBL
+	 */
 	public void testMoveBottom2() throws Exception {
 		int lastPositionInList = pbltest.getItems().size() - 1;
 		ProductBacklog lvBacklog = pbltest;
@@ -135,6 +159,9 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * MoveBottom() on last element in PBL
+	 */
 	public void testMoveBottom3() throws Exception {
 		int lastPositionInList = pbltest.getItems().size() - 1;
 		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(0);
@@ -147,6 +174,9 @@ public class TestPBLI_PositionInList {
 	//************************************************************************
 	
 	@Test
+	/**
+	 * 
+	 */
 	public void testAddPBI() throws Exception {
 		int entriesInList = pbltest.getItems().size();
 		new Feature("E", "Test E", pbltest);
@@ -155,6 +185,9 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * Removal of a selected element in PBL
+	 */
 	public void testDeletePBI() throws Exception {
 		int entriesInList = pbltest.getItems().size();
 		pbltest.removeItem(pbltest.getItems().lastElement());
@@ -166,12 +199,19 @@ public class TestPBLI_PositionInList {
 	//************************************************************************
 	
 	@Test
+	/**
+	 * No item in PBL, when new Project is created
+	 */
 	public void testCount1() throws Exception {
 		Project lvProject = new Project("wayne");
 		assertEquals(0, lvProject.getBacklog().getItems().size());
 	}
 	
 	@Test
+	/**
+	 * Addition of several new elements to a PBL, after a new Project
+	 * has been created
+	 */
 	public void testCount2() throws Exception {
 		Project lvProject = new Project("wayne");
 		assertEquals(0, lvProject.getBacklog().getItems().size());
@@ -187,6 +227,9 @@ public class TestPBLI_PositionInList {
 	//************************************************************************
 	
 	@Test
+	/**
+	 * a new Release is created
+	 */
 	public void testAddRelease() throws Exception {
 		int holder = test.getReleasePlan().size();
 		new Release("0.0.1", cvCurrentDate, test);
@@ -195,6 +238,10 @@ public class TestPBLI_PositionInList {
 	}
 	
 	@Test
+	/**
+	 * a new Release is created, but the name already exists. Exception is
+	 * thrown
+	 */
 	public void testAddRelease2(){
 		int holder = test.getReleasePlan().size();
 		try {
@@ -211,12 +258,18 @@ public class TestPBLI_PositionInList {
 	//************************************************************************
 	
 	@Test
+	/**
+	 * a new Project is created
+	 */
 	public void testProjectEquals() throws Exception {
 		Project lvProject = test;
 		assertEquals(lvProject, test);
 	}
 	
 	@Test
+	/**
+	 * a new PBL is created on creation of a Project
+	 */
 	public void testPBLEquals() throws Exception {
 		ProductBacklog lvBacklog = pbltest;
 		assertEquals(lvBacklog, pbltest);
