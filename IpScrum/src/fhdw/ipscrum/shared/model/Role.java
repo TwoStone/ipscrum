@@ -8,7 +8,11 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 public class Role implements IRole {
 	private String description;
-	private final ToPersonAssoc toPersonAssoc;
+	private ToPersonAssoc toPersonAssoc;
+
+	@SuppressWarnings("unused")
+	private Role() {
+	}
 
 	public Role(String description) throws NoValidValueException {
 		super();

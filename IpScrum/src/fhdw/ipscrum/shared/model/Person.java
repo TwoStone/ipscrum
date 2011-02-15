@@ -11,7 +11,11 @@ public class Person implements IPerson {
 
 	private String firstname;
 	private String lastname;
-	private final ToRoleAssoc toRoleAssoc;
+	private ToRoleAssoc toRoleAssoc;
+
+	@SuppressWarnings("unused")
+	private Person() {
+	}
 
 	public Person(String firstname, String lastname) throws NoValidValueException {
 		super();

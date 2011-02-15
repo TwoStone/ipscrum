@@ -9,7 +9,11 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 public class Team implements ITeam {
 	private String description;
-	private final Vector<IPerson> members;
+	private Vector<IPerson> members;
+
+	@SuppressWarnings("unused")
+	private Team() {
+	}
 
 	public Team(String description) throws NoValidValueException {
 		super();

@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -7,7 +8,7 @@ import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
-public interface IPerson extends BDACompare {
+public interface IPerson extends BDACompare, Serializable {
 
 	public String getFirstname();
 

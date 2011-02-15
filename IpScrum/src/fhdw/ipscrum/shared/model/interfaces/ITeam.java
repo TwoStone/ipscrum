@@ -1,11 +1,12 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
-public interface ITeam {
+public interface ITeam extends Serializable {
 	public String getDescription();
 
 	public void setDescription(String description) throws NoValidValueException;

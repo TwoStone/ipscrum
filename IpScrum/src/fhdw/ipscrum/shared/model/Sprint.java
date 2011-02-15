@@ -14,8 +14,12 @@ public class Sprint implements ISprint {
 	private Date begin;
 	private Date end;
 	private ITeam team;
-	private final ToReleaseAssoc toReleaseAssoc;
-	private final ToPBIAssoc toPBIAssoc;
+	private ToReleaseAssoc toReleaseAssoc;
+	private ToPBIAssoc toPBIAssoc;
+
+	@SuppressWarnings("unused")
+	private Sprint() {
+	}
 
 	public Sprint(String name, String description, Date begin, Date end, ITeam team) throws NoValidValueException {
 		super();

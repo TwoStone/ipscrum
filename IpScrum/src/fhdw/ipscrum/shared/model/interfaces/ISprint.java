@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Vector;
 
@@ -10,7 +11,7 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Sprint;
 
-public interface ISprint extends BDACompare {
+public interface ISprint extends BDACompare, Serializable {
 	public String getDescription();
 
 	public void setDescription(String description);

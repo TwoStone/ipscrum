@@ -1,12 +1,13 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
-public interface IRole extends BDACompare {
+public interface IRole extends BDACompare, Serializable {
 	public String getDescription();
 
 	public void setDescription(String description) throws NoValidValueException;
