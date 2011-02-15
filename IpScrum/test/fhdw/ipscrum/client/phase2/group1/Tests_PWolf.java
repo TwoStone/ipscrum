@@ -23,10 +23,10 @@ public class Tests_PWolf {
 	@Test
 	public void pblPriority() {
 		try {
-			Project p = new Project("Test");
-			Feature f1 = new Feature("T1", "", p.getBacklog());
-			Feature f2 = new Feature("T2", "", p.getBacklog());
-			Feature f3 = new Feature("T3", "", p.getBacklog());
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final Feature f3 = new Feature("T3", "", p.getBacklog());
 
 			p.getBacklog().addItem(f1);
 			p.getBacklog().addItem(f2);
@@ -34,54 +34,80 @@ public class Tests_PWolf {
 
 			p.getBacklog().moveBottom(f1);
 
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f3));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f1));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f3));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f1));
 
 			p.getBacklog().moveUp(f1);
 
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveDown(f2);
 
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveTop(f1);// Nothing should changed
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveBottom(f3);// Nothing should changed
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveUp(f1);// Nothing should changed
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveDown(f3);// Nothing should changed
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveUp(f2);
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f1));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f3));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f1));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f3));
 
 			p.getBacklog().moveDown(f1);
-			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(f2));
-			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(f3));
-			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(f1));
+			assertEquals(new Integer(0), p.getBacklog().getItemPositionInList(
+					f2));
+			assertEquals(new Integer(1), p.getBacklog().getItemPositionInList(
+					f3));
+			assertEquals(new Integer(2), p.getBacklog().getItemPositionInList(
+					f1));
 
-		} catch (UserException e) {
-			// TODO Auto-generated catch block
+		} catch (final UserException e) {
 			e.printStackTrace();
 		}
 	}
@@ -89,18 +115,21 @@ public class Tests_PWolf {
 	@Test
 	public void releaseSprintPbiConsistency() {
 		try {
-			Project p = new Project("Test");
-			Feature f1 = new Feature("T1", "", p.getBacklog());
-			Feature f2 = new Feature("T2", "", p.getBacklog());
-			Feature f3 = new Feature("T3", "", p.getBacklog());
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final Feature f3 = new Feature("T3", "", p.getBacklog());
 
 			p.getBacklog().addItem(f1);
 			p.getBacklog().addItem(f2);
 			p.getBacklog().addItem(f3);
 
-			ISprint sprint1 = new Sprint("123","sd", new Date(), new Date(), new Team("Test"));
-			ISprint sprint2 = new Sprint("1234","scb", new Date(), new Date(), new Team("Test2"));
-			ISprint sprint3 = new Sprint("12345","33", new Date(), new Date(), new Team("Test3"));
+			final ISprint sprint1 = new Sprint("123", "sd", new Date(),
+					new Date(), new Team("Test"));
+			final ISprint sprint2 = new Sprint("1234", "scb", new Date(),
+					new Date(), new Team("Test2"));
+			final ISprint sprint3 = new Sprint("12345", "33", new Date(),
+					new Date(), new Team("Test3"));
 
 			p.addSprint(sprint1);
 			p.addSprint(sprint2);
@@ -111,7 +140,7 @@ public class Tests_PWolf {
 			try {
 				f1.setSprint(sprint3);
 				fail();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				assertTrue(f1.getSprint() == null);
 				assertFalse(sprint1.getPBIs().contains(f1));
 			}
@@ -127,15 +156,16 @@ public class Tests_PWolf {
 			assertTrue(sprint2.getPBIs().contains(f1));
 
 			// NOW RELEASE<->PBI
-			IRelease release1 = new Release("R1", new Date(), p);
-			IRelease release2 = new Release("R2", new Date(2011, 10, 11), p);
+			final IRelease release1 = new Release("R1", new Date(), p);
+			final IRelease release2 = new Release("R2", new Date(2011, 10, 11),
+					p);
 			IRelease release3 = null;
 
 			// Doppelt
 			try {
 				release3 = new Release("R2", new Date(2011, 10, 11), p);
 				fail();
-			} catch (Exception e1) {
+			} catch (final Exception e1) {
 				assertTrue(release3 == null);
 				assertFalse(p.getReleasePlan().contains(release3));
 			}
@@ -148,7 +178,7 @@ public class Tests_PWolf {
 			try {
 				release1.addSprint(sprint3);
 				fail();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				assertTrue(sprint3.getRelease() == null);
 				assertFalse(release1.getSprints().contains(sprint3));
 			}
@@ -169,10 +199,35 @@ public class Tests_PWolf {
 			assertFalse(release1.getSprints().contains(sprint1));
 			assertTrue(release1.getSprints().contains(sprint2));
 
-		} catch (UserException e) {
+		} catch (final UserException e) {
 			e.printStackTrace();
 			fail();
 		}
+	}
 
+	@Test
+	public void changeSprintForPBI() {
+		try {
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final ISprint sprint1 = new Sprint("123", "sd", new Date(),
+					new Date(), new Team("Test"));
+			final ISprint sprint2 = new Sprint("1234", "scb", new Date(),
+					new Date(), new Team("Test2"));
+			p.addSprint(sprint1);
+			p.addSprint(sprint2);
+
+			f1.setSprint(sprint1);
+			f1.setSprint(sprint2);
+
+			assertFalse(sprint1.getPBIs().contains(f1));
+			assertTrue(sprint2.getPBIs().contains(f1));
+			assertEquals(f1.getSprint(), sprint2);
+
+		} catch (final UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

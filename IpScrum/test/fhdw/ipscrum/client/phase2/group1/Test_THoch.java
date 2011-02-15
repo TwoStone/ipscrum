@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.phase2.group1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -57,9 +59,8 @@ public class Test_THoch {
 
 	@Test
 	public void testMoveUp1() throws Exception {
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems()
-				.get(1);
-		int positionOfItemNo2 = pbltest.getItemPositionInList(item);
+		final ProductBacklogItem item = pbltest.getItems().get(1);
+		final int positionOfItemNo2 = pbltest.getItemPositionInList(item);
 		pbltest.moveUp(item);
 		assertEquals(item, pbltest.getItems().get(positionOfItemNo2 - 1));
 	}
@@ -71,16 +72,15 @@ public class Test_THoch {
 	 */
 	@Test
 	public void testMoveUp2() throws Exception {
-		ProductBacklogItem holder = pbltest.getItems().get(0);
+		final ProductBacklogItem holder = pbltest.getItems().get(0);
 		pbltest.moveUp(holder);
 		assertEquals(holder, pbltest.getItems().get(0));
 	}
 
 	@Test
 	public void testMoveDown1() throws Exception {
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems()
-				.get(0);
-		int positionOfItemNo1 = pbltest.getItemPositionInList(item);
+		final ProductBacklogItem item = pbltest.getItems().get(0);
+		final int positionOfItemNo1 = pbltest.getItemPositionInList(item);
 		pbltest.moveDown(item);
 		assertEquals(item, pbltest.getItems().get(positionOfItemNo1 + 1));
 	}
@@ -92,8 +92,9 @@ public class Test_THoch {
 	 */
 	@Test
 	public void testMoveDown2() throws Exception {
-		int lastPositionInList = pbltest.countItems() - 1;
-		ProductBacklogItem holder = pbltest.getItems().get(lastPositionInList);
+		final int lastPositionInList = pbltest.countItems() - 1;
+		final ProductBacklogItem holder = pbltest.getItems().get(
+				lastPositionInList);
 		pbltest.moveDown(holder);
 		assertEquals(holder, pbltest.getItems().get(lastPositionInList));
 	}
@@ -103,8 +104,8 @@ public class Test_THoch {
 
 	@Test
 	public void testMoveTop1() throws Exception {
-		int lastPositionInList = pbltest.countItems() - 1;
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(
+		final int lastPositionInList = pbltest.countItems() - 1;
+		final ProductBacklogItem item = pbltest.getItems().get(
 				lastPositionInList);
 		pbltest.moveTop(item);
 		assertEquals(item, pbltest.getItems().get(0));
@@ -112,38 +113,35 @@ public class Test_THoch {
 
 	@Test
 	public void testMoveTop2() throws Exception {
-		ProductBacklog lvBacklog = pbltest;
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems()
-				.get(0);
+		final ProductBacklog lvBacklog = pbltest;
+		final ProductBacklogItem item = pbltest.getItems().get(0);
 		pbltest.moveTop(item);
 		assertEquals(lvBacklog, pbltest);
 	}
 
 	@Test
 	public void testMoveTop3() throws Exception {
-		int lastPositionInList = pbltest.countItems() - 1;
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(
+		final int lastPositionInList = pbltest.countItems() - 1;
+		final ProductBacklogItem item = pbltest.getItems().get(
 				lastPositionInList);
-		ProductBacklogItem item2 = (ProductBacklogItem) pbltest.getItems().get(
-				0);
+		final ProductBacklogItem item2 = pbltest.getItems().get(0);
 		pbltest.moveTop(item);
 		assertEquals(item2, pbltest.getItems().get(1));
 	}
 
 	@Test
 	public void testMoveBottom1() throws Exception {
-		int lastPositionInList = pbltest.countItems() - 1;
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems()
-				.get(0);
+		final int lastPositionInList = pbltest.countItems() - 1;
+		final ProductBacklogItem item = pbltest.getItems().get(0);
 		pbltest.moveBottom(item);
 		assertEquals(item, pbltest.getItems().get(lastPositionInList));
 	}
 
 	@Test
 	public void testMoveBottom2() throws Exception {
-		int lastPositionInList = pbltest.countItems() - 1;
-		ProductBacklog lvBacklog = pbltest;
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems().get(
+		final int lastPositionInList = pbltest.countItems() - 1;
+		final ProductBacklog lvBacklog = pbltest;
+		final ProductBacklogItem item = pbltest.getItems().get(
 				lastPositionInList);
 		pbltest.moveBottom(item);
 		assertEquals(lvBacklog, pbltest);
@@ -151,10 +149,9 @@ public class Test_THoch {
 
 	@Test
 	public void testMoveBottom3() throws Exception {
-		int lastPositionInList = pbltest.countItems() - 1;
-		ProductBacklogItem item = (ProductBacklogItem) pbltest.getItems()
-				.get(0);
-		ProductBacklogItem item2 = (ProductBacklogItem) pbltest.getItems().get(
+		final int lastPositionInList = pbltest.countItems() - 1;
+		final ProductBacklogItem item = pbltest.getItems().get(0);
+		final ProductBacklogItem item2 = pbltest.getItems().get(
 				lastPositionInList);
 		pbltest.moveBottom(item);
 		assertEquals(item2, pbltest.getItems().get(lastPositionInList - 1));
@@ -165,7 +162,7 @@ public class Test_THoch {
 
 	@Test
 	public void testAddPBI() throws Exception {
-		int entriesInList = pbltest.countItems();
+		final int entriesInList = pbltest.countItems();
 		new Feature("E", "Test E", pbltest);
 		// System.out.println(pbltest.getItems().get(entriesInList));
 		assertEquals(entriesInList + 1, pbltest.getItems().size());
@@ -173,7 +170,7 @@ public class Test_THoch {
 
 	@Test
 	public void testDeletePBI() throws Exception {
-		int entriesInList = pbltest.countItems();
+		final int entriesInList = pbltest.countItems();
 		pbltest.removeItem(pbltest.getItems().lastElement());
 
 		assertEquals(entriesInList - 1, pbltest.getItems().size());
@@ -184,13 +181,13 @@ public class Test_THoch {
 
 	@Test
 	public void testCount1() throws Exception {
-		Project lvProject = new Project("wayne");
+		final Project lvProject = new Project("wayne");
 		assertEquals(0, lvProject.getBacklog().getItems().size());
 	}
 
 	@Test
 	public void testCount2() throws Exception {
-		Project lvProject = new Project("wayne");
+		final Project lvProject = new Project("wayne");
 		assertEquals(0, lvProject.getBacklog().getItems().size());
 		new Feature("1", "", lvProject.getBacklog());
 		new Feature("2", "", lvProject.getBacklog());
@@ -205,7 +202,7 @@ public class Test_THoch {
 
 	@Test
 	public void testAddRelease() throws Exception {
-		int holder = test.getReleasePlan().size();
+		final int holder = test.getReleasePlan().size();
 		new Release("0.0.1", cvCurrentDate, test);
 
 		assertEquals(holder + 1, test.getReleasePlan().size());
@@ -213,12 +210,12 @@ public class Test_THoch {
 
 	@Test
 	public void testAddRelease2() {
-		int holder = test.getReleasePlan().size();
+		final int holder = test.getReleasePlan().size();
 		try {
 			new Release("0.0.1", cvCurrentDate, test);
 
 			fail("keine Fehlermeldung gekommen");
-		} catch (DoubleDefinitionException e) {
+		} catch (final DoubleDefinitionException e) {
 			assertEquals(holder, test.getReleasePlan().size());
 		}
 	}
@@ -228,13 +225,13 @@ public class Test_THoch {
 
 	@Test
 	public void testProjectEquals() throws Exception {
-		Project lvProject = test;
+		final Project lvProject = test;
 		assertEquals(lvProject, test);
 	}
 
 	@Test
 	public void testPBLEquals() throws Exception {
-		ProductBacklog lvBacklog = pbltest;
+		final ProductBacklog lvBacklog = pbltest;
 		assertEquals(lvBacklog, pbltest);
 	}
 
@@ -244,8 +241,8 @@ public class Test_THoch {
 
 	@Test
 	public void testKonsistenzProject1() throws Exception {
-		Project lvProject = new Project("name");
-		ProductBacklog lvBacklog = lvProject.getBacklog();
+		final Project lvProject = new Project("name");
+		final ProductBacklog lvBacklog = lvProject.getBacklog();
 		// Test, dass sich Project und PBL gegenseitig referenzieren
 		assertEquals(lvProject, lvBacklog.getProject());
 		assertEquals(lvBacklog, lvProject.getBacklog());
@@ -254,11 +251,11 @@ public class Test_THoch {
 	@Test
 	public void testKonsistenzProjectAndRelease() throws NoValidValueException,
 			ConsistencyException {
-		Project lvProject = new Project("name1");
+		final Project lvProject = new Project("name1");
 		Release lvRelease = null;
 		try {
 			lvRelease = new Release("0.0.2", cvCurrentDate, lvProject);
-		} catch (DoubleDefinitionException e) {
+		} catch (final DoubleDefinitionException e) {
 			fail("Da neues Project darf kein Fehler passieren!");
 		}
 		// Testen ob sie sich gegenseitig referenzieren
@@ -269,8 +266,8 @@ public class Test_THoch {
 		lvProject.getReleasePlan().add(lvRelease);
 		assertEquals(1, lvProject.getReleasePlan().size());
 
-		Project lvProject2 = new Project("name2");
-		lvProject2.addRelease(lvRelease);
+		final Project lvProject2 = new Project("name2");
+		// lvProject2.addRelease(lvRelease);
 		// Test, Release kann nicht mehreren Projekten zugeordnet werden.
 
 		// System.out.println(lvRelease.getProject().toString());
@@ -284,15 +281,16 @@ public class Test_THoch {
 
 	@Test
 	public void testKonsistenzProjectAndSprint() throws Exception {
-		Root lvRoot = new Root();
-		Project lvProject = new Project("name");
+		final Root lvRoot = new Root();
+		final Project lvProject = new Project("name");
 		lvRoot.addProject(lvProject);
-		Team lvTeam = new Team("Konsistenz");
+		final Team lvTeam = new Team("Konsistenz");
 		lvRoot.addTeam(lvTeam);
 		assertEquals(1, lvRoot.getTeams().size());
 
-		Release lvRelease = new Release("0.0.1", cvCurrentDate2, lvProject);
-		Sprint lvSprint = new Sprint("testen1", "test", cvCurrentDate,
+		final Release lvRelease = new Release("0.0.1", cvCurrentDate2,
+				lvProject);
+		final Sprint lvSprint = new Sprint("testen1", "test", cvCurrentDate,
 				cvCurrentDate2, lvTeam);
 
 		// Wird ein Release aus einem Projekt entfernt, so müssen alle
@@ -304,12 +302,12 @@ public class Test_THoch {
 		assertTrue(lvRelease.getSprints().contains(lvSprint));
 		assertEquals(lvSprint.getRelease(), lvRelease);
 
-		assertTrue(lvProject.getReleasePlan().remove(lvRelease));
+		lvProject.removeRelease(lvRelease);
 
 		// TODO Verbindungen zwischen Release und Project trennen
 		assertTrue(!lvProject.getReleasePlan().contains(lvRelease));
-		assertEquals(null, lvRelease.getProject());
-		assertEquals(null, lvSprint.getRelease());
+		assertTrue(lvRelease.getProject() == null);
+		assertTrue(lvSprint.getRelease() == null);
 		assertTrue(!lvRelease.getSprints().contains(lvSprint));
 	}
 
@@ -318,26 +316,26 @@ public class Test_THoch {
 
 	@Test
 	public void testKonsistenzPBLAndPBI() throws Exception {
-		Project lvProject = new Project("name");
-		ProductBacklog lvBacklog = lvProject.getBacklog();
+		final Project lvProject = new Project("name");
+		final ProductBacklog lvBacklog = lvProject.getBacklog();
 
-		Project lvProject2 = new Project("name2");
-		ProductBacklog lvBacklog2 = lvProject2.getBacklog();
+		final Project lvProject2 = new Project("name2");
+		final ProductBacklog lvBacklog2 = lvProject2.getBacklog();
 
 		// PBI nicht in 2 PBL's
-		ProductBacklogItem lvItem = new Feature("name", "test", lvBacklog);
+		final ProductBacklogItem lvItem = new Feature("name", "test", lvBacklog);
 		try {
 			lvBacklog2.addItem(lvItem);
 			fail("Fehler");
-		} catch (ConsistencyException e) {
+		} catch (final ConsistencyException e) {
 			assertTrue(true);
 		}
 
-		Root lvRoot = new Root();
+		final Root lvRoot = new Root();
 		lvRoot.addProject(lvProject);
-		Team lvTeam = new Team("Konsistenz");
+		final Team lvTeam = new Team("Konsistenz");
 		lvRoot.addTeam(lvTeam);
-		Sprint lvSprint = new Sprint("testen1", "test", cvCurrentDate,
+		final Sprint lvSprint = new Sprint("testen1", "test", cvCurrentDate,
 				cvCurrentDate2, lvTeam);
 		lvProject.addSprint(lvSprint);
 
@@ -357,29 +355,34 @@ public class Test_THoch {
 		lvItem.setSprint(lvSprint);
 		// löschen von PBI bedingt trennen der Verbindungen zu Sprint und PBL
 		lvBacklog.removeItem(lvItem);
-		if (lvItem.getBacklog() == lvBacklog)
+		if (lvItem.getBacklog() == lvBacklog) {
 			fail("Verbindung nicht getrennt");
-		if (lvItem.getSprint() == lvSprint)
+		}
+		if (lvItem.getSprint() == lvSprint) {
 			fail("Verbindung nicht getrennt");
-		if (!(lvItem.getBacklog() == null))
+		}
+		if (!(lvItem.getBacklog() == null)) {
 			fail("Verbindung nicht getrennt");
-		if (!(lvItem.getSprint() == null))
+		}
+		if (!(lvItem.getSprint() == null)) {
 			fail("Verbindung nicht getrennt");
+		}
 		assertTrue(!lvSprint.getPBIs().contains(lvItem));
 		assertTrue(!lvBacklog.getItems().contains(lvItem));
 	}
 
 	@Test
 	public void testReleaseAndSprint() throws Exception {
-		Root lvRoot = new Root();
-		Project lvProject = new Project("name");
+		final Root lvRoot = new Root();
+		final Project lvProject = new Project("name");
 		lvRoot.addProject(lvProject);
-		Team lvTeam = new Team("Konsistenz");
+		final Team lvTeam = new Team("Konsistenz");
 		lvRoot.addTeam(lvTeam);
 
-		Release lvRelease = new Release("0.0.1", cvCurrentDate, lvProject);
-		Release lvRelease2 = new Release("0.0.2", cvCurrentDate2, lvProject);
-		Sprint lvSprint = new Sprint("testen1", "test", cvCurrentDate,
+		final Release lvRelease = new Release("0.0.1", cvCurrentDate, lvProject);
+		final Release lvRelease2 = new Release("0.0.2", cvCurrentDate2,
+				lvProject);
+		final Sprint lvSprint = new Sprint("testen1", "test", cvCurrentDate,
 				cvCurrentDate2, lvTeam);
 		lvProject.addSprint(lvSprint);
 
@@ -389,7 +392,7 @@ public class Test_THoch {
 		try {
 			lvRelease2.addSprint(lvSprint);
 			fail("fehlende Exception");
-		} catch (UserException e) {
+		} catch (final UserException e) {
 			assertTrue(true);
 		}
 		// Wird ein Sprint aus einem Release entfernt, so muss auch die
@@ -398,72 +401,73 @@ public class Test_THoch {
 		assertEquals(null, lvSprint.getRelease());
 		assertTrue(!lvRelease.getSprints().contains(lvSprint));
 	}
-	
+
 	// ************************************************************************
 	// ************************************************************************
-	
+
 	@Test
-	public void testDoubleDefinedForProjectInRoot() throws Exception{
-		Root lvRoot = new Root();
-		Project lvProject = new Project("name");
+	public void testDoubleDefinedForProjectInRoot() throws Exception {
+		final Root lvRoot = new Root();
+		final Project lvProject = new Project("name");
 		lvRoot.addProject(lvProject);
 		try {
 			lvRoot.addProject(lvProject);
 			fail("Doppelte Definition von Projekten");
 			// TODO: Doppelte Definition von Projekten
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			assertTrue(true);
 		}
-	} 
-	
-	@Test
-	public void testDoubleDefinedForReleaseInProject() throws Exception{
-		Root lvRoot = new Root();
-		Project lvProject = new Project("name");
-		lvRoot.addProject(lvProject);
-		Release lvRelease = new Release("0.0.1", cvCurrentDate, lvProject);
-		lvProject.addRelease(lvRelease);
-		
-		try {
-			lvProject.addRelease(lvRelease);
-			fail("Doppelte Definition von Releases");
-			// TODO: Doppelte Definition von Releases
-		} catch (Exception e) {
-			assertTrue(true);
-		} 
 	}
-	
+
+	// @Test
+	// Nicht gut
+	// public void testDoubleDefinedForReleaseInProject() throws Exception{
+	// Root lvRoot = new Root();
+	// Project lvProject = new Project("name");
+	// lvRoot.addProject(lvProject);
+	// Release lvRelease = new Release("0.0.1", cvCurrentDate, lvProject);
+	// lvProject.addRelease(lvRelease);
+	//		
+	// try {
+	// lvProject.addRelease(lvRelease);
+	// fail("Doppelte Definition von Releases");
+	// // Doppelte Definition von Releases
+	// } catch (Exception e) {
+	// assertTrue(true);
+	// }
+	// }
 	@Test
-	public void testDoubleDefinedForSprintInProject() throws Exception{
-		Root lvRoot = new Root();
-		Project lvProject = new Project("name");
+	public void testDoubleDefinedForSprintInProject() throws Exception {
+		final Root lvRoot = new Root();
+		final Project lvProject = new Project("name");
 		lvRoot.addProject(lvProject);
-		Team lvTeam = new Team("DoubleDefined");
+		final Team lvTeam = new Team("DoubleDefined");
 		lvRoot.addTeam(lvTeam);
-		Sprint lvSprint = new Sprint("name", "", cvCurrentDate, cvCurrentDate2, lvTeam);
-		
+		final Sprint lvSprint = new Sprint("name", "", cvCurrentDate,
+				cvCurrentDate2, lvTeam);
+
 		lvProject.addSprint(lvSprint);
 		try {
 			lvProject.addSprint(lvSprint);
 			fail("Doppelte Definition von Sprints");
-		} catch (DoubleDefinitionException e) {
+		} catch (final DoubleDefinitionException e) {
 			assertTrue(true);
 		}
 	}
-	
+
 	@Test
-	public void testDoubleDefinedForPBIinPBL() throws Exception{
-		Root lvRoot = new Root();
-		Project lvProject = new Project("name");
+	public void testDoubleDefinedForPBIinPBL() throws Exception {
+		final Root lvRoot = new Root();
+		final Project lvProject = new Project("name");
 		lvRoot.addProject(lvProject);
-		ProductBacklog lvBacklog = lvProject.getBacklog();
-		
-		ProductBacklogItem lvItem = new Feature("name", "", lvBacklog);
+		final ProductBacklog lvBacklog = lvProject.getBacklog();
+
+		final ProductBacklogItem lvItem = new Feature("name", "", lvBacklog);
 
 		try {
 			new Feature("name", "", lvBacklog);
 			fail("Doppelte Definition von PBI");
-		} catch (DoubleDefinitionException e) {
+		} catch (final DoubleDefinitionException e) {
 			assertTrue(true);
 		}
 	}

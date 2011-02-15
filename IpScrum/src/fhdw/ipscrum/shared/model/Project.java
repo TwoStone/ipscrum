@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
@@ -17,34 +18,40 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Represents a Scrum Project.
  */
-public class Project extends Observable implements BDACompare {
+public class Project extends Observable implements BDACompare, Serializable {
+
+	private static final long serialVersionUID = 6337710256829006568L;
 
 	private String name;
 	private Vector<ISprint> sprints;// Not-bidirectional
 
-	private final ToReleaseAssoc releaseAssoc;
-	private final ToBacklogAssoc backlogAssoc;
+	private ToReleaseAssoc releaseAssoc;
+	private ToBacklogAssoc backlogAssoc;
 
 	public class ToReleaseAssoc extends
 			BDAManyToMany<Release.ToProjectAssoc, Project> {
-		public ToReleaseAssoc(Project element) {
+		public ToReleaseAssoc(final Project element) {
 			super(element);
 		}
 	}
 
 	public class ToBacklogAssoc extends
 			BDAManyToMany<ProductBacklog.ToProjectAssoc, Project> {
-		public ToBacklogAssoc(Project element) {
+		public ToBacklogAssoc(final Project element) {
 			super(element);
 		}
 	}
 
 	protected ToBacklogAssoc getBacklogAssoc() {
-		return backlogAssoc;
+		return this.backlogAssoc;
 	}
 
 	protected ToReleaseAssoc getReleaseAssoc() {
-		return releaseAssoc;
+		return this.releaseAssoc;
+	}
+
+	@SuppressWarnings("unused")
+	private Project() {
 	}
 
 	/**
@@ -54,7 +61,7 @@ public class Project extends Observable implements BDACompare {
 	 *             If the name for the Project is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public Project(String name) throws NoValidValueException,
+	public Project(final String name) throws NoValidValueException,
 			ConsistencyException {
 		super();
 		this.setName(name);
@@ -64,8 +71,8 @@ public class Project extends Observable implements BDACompare {
 	}
 
 	public Vector<IRelease> getReleasePlan() {
-		Vector<IRelease> ret = new Vector<IRelease>();
-		for (Release.ToProjectAssoc current : this.getReleaseAssoc()
+		final Vector<IRelease> ret = new Vector<IRelease>();
+		for (final Release.ToProjectAssoc current : this.getReleaseAssoc()
 				.getAssociations()) {
 			ret.add(current.getElement());
 		}
@@ -73,7 +80,13 @@ public class Project extends Observable implements BDACompare {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
+	}
+
+	// TODO Kommentar
+	public void removeRelease(final IRelease release) {
+		release.removeAllSprints();
+		this.getReleaseAssoc().remove(release.getProjectAssoc());
 	}
 
 	/**
@@ -85,7 +98,7 @@ public class Project extends Observable implements BDACompare {
 	 *             If the name for the Project is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public void setName(String name) throws NoValidValueException {
+	public void setName(final String name) throws NoValidValueException {
 		if (name != null && name.trim().length() > 0) {
 			this.name = name;
 			this.notifyObservers();
@@ -111,8 +124,9 @@ public class Project extends Observable implements BDACompare {
 	 * @param sprint
 	 *            Sprint for check!
 	 */
-	public void isSprintDefined(ISprint sprint) throws NoSprintDefinedException {
-		Iterator<ISprint> i = this.getSprints().iterator();
+	public void isSprintDefined(final ISprint sprint)
+			throws NoSprintDefinedException {
+		final Iterator<ISprint> i = this.getSprints().iterator();
 		while (i.hasNext()) {
 			if (i.next().equals(sprint)) {
 				return;
@@ -132,7 +146,7 @@ public class Project extends Observable implements BDACompare {
 		if (this.sprints == null) {
 			this.sprints = new Vector<ISprint>();
 		}
-		return sprints;
+		return this.sprints;
 	}
 
 	/**
@@ -140,7 +154,8 @@ public class Project extends Observable implements BDACompare {
 	 * 
 	 * @param sprint
 	 */
-	public void addSprint(ISprint sprint) throws DoubleDefinitionException {
+	public void addSprint(final ISprint sprint)
+			throws DoubleDefinitionException {
 		if (this.getSprints().contains(sprint)) {
 			throw new DoubleDefinitionException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
@@ -150,9 +165,9 @@ public class Project extends Observable implements BDACompare {
 		}
 	}
 
-	public void isReleaseDoubleDefined(String version, Date releaseDate)
-			throws DoubleDefinitionException {
-		for (IRelease current : this.getReleasePlan()) {
+	public void isReleaseDoubleDefined(final String version,
+			final Date releaseDate) throws DoubleDefinitionException {
+		for (final IRelease current : this.getReleasePlan()) {
 			if (current.getVersion().equals(version)
 					&& current.getReleaseDate().equals(releaseDate)) {
 				// TODO Textkonstante bauen!
@@ -161,20 +176,6 @@ public class Project extends Observable implements BDACompare {
 			}
 		}
 	}
-
-	// public void removeSprint(ISprint sprint){
-	// this.getSprints().remove(sprint);
-	// this.notifyObservers();
-	// }
-
-	public void addRelease(IRelease release) {
-		this.getReleaseAssoc().add(release.getProjectAssoc());
-		this.notifyObservers();
-	}
-
-	// public void removeRelease(IRelease release){
-	// this.getReleaseAssoc().remove(release.getProjectAssoc());
-	// }
 
 	/**
 	 * Returns the number of defined Sprints within the project!
@@ -185,14 +186,15 @@ public class Project extends Observable implements BDACompare {
 
 	@Override
 	public String toString() {
-		return "Project [name=" + name + "]";
+		return "Project [name=" + this.name + "]";
 	}
 
 	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -200,53 +202,70 @@ public class Project extends Observable implements BDACompare {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-				+ ((releaseAssoc == null) ? 0 : releaseAssoc.hashCode());
+				+ ((this.name == null) ? 0 : this.name.hashCode());
+		result = prime
+				* result
+				+ ((this.releaseAssoc == null) ? 0 : this.releaseAssoc
+						.hashCode());
+		result = prime
+				* result
+				+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
+						.hashCode());
 		result = prime * result
-				+ ((backlogAssoc == null) ? 0 : backlogAssoc.hashCode());
-		result = prime * result + ((sprints == null) ? 0 : sprints.hashCode());
+				+ ((this.sprints == null) ? 0 : this.sprints.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Project other = (Project) obj;
-		if (name == null) {
-			if (other.name != null)
+		}
+		final Project other = (Project) obj;
+		if (this.name == null) {
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!this.name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (!this.indirectEquals(obj)) {
 			return false;
 		} else {
-			Project other = (Project) obj;
-			if (backlogAssoc == null) {
-				if (other.backlogAssoc != null)
+			final Project other = (Project) obj;
+			if (this.backlogAssoc == null) {
+				if (other.backlogAssoc != null) {
 					return false;
-			} else if (!backlogAssoc.equals(other.backlogAssoc))
+				}
+			} else if (!this.backlogAssoc.equals(other.backlogAssoc)) {
 				return false;
-			if (releaseAssoc == null) {
-				if (other.releaseAssoc != null)
+			}
+			if (this.releaseAssoc == null) {
+				if (other.releaseAssoc != null) {
 					return false;
-			} else if (!releaseAssoc.equals(other.releaseAssoc))
+				}
+			} else if (!this.releaseAssoc.equals(other.releaseAssoc)) {
 				return false;
-			if (sprints == null) {
-				if (other.sprints != null)
+			}
+			if (this.sprints == null) {
+				if (other.sprints != null) {
 					return false;
-			} else if (!sprints.equals(other.sprints))
+				}
+			} else if (!this.sprints.equals(other.sprints)) {
 				return false;
+			}
 			return true;
 		}
 	}

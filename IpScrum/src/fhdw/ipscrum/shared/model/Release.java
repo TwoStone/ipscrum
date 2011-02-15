@@ -19,48 +19,52 @@ import fhdw.ipscrum.shared.observer.Observable;
  */
 public class Release extends Observable implements IRelease {
 
+	private static final long serialVersionUID = 5237642704820206585L;
 	private String version;
 	private Date releaseDate;
 
-	private final ToProjectAssoc projectAssoc;
-	private final ToSprintAssoc sprintAssoc;
-	
+	private ToProjectAssoc projectAssoc;
+	private ToSprintAssoc sprintAssoc;
 
-	
 	@Override
 	public ToSprintAssoc getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 
-
 	public ToProjectAssoc getProjectAssoc() {
-		return projectAssoc;
+		return this.projectAssoc;
 	}
 
-	public Release(String version, Date releaseDate, Project project) throws DoubleDefinitionException{
+	@SuppressWarnings("unused")
+	private Release() {
+	}
+
+	public Release(final String version, final Date releaseDate,
+			final Project project) throws DoubleDefinitionException {
 		this.version = version;
 		this.releaseDate = releaseDate;
 		// this.project = project;
 		this.projectAssoc = new ToProjectAssoc(this);
 		this.sprintAssoc = new ToSprintAssoc(this);
-		project.isReleaseDoubleDefined(version, releaseDate);//can throw DoubleDefinitionException
+		project.isReleaseDoubleDefined(version, releaseDate);// can throw
+		// DoubleDefinitionException
 		this.getProjectAssoc().finalSet(project.getReleaseAssoc());
 	}
 
 	public String getVersion() {
-		return version;
+		return this.version;
 	}
 
-	public void setVersion(String version) {
+	public void setVersion(final String version) {
 		this.version = version;
 		this.notifyObservers();
 	}
 
 	public Date getReleaseDate() {
-		return releaseDate;
+		return this.releaseDate;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
+	public void setReleaseDate(final Date releaseDate) {
 		this.releaseDate = releaseDate;
 		this.notifyObservers();
 	}
@@ -72,8 +76,9 @@ public class Release extends Observable implements IRelease {
 	 * removing a sprint to a release, the methods of the release.
 	 */
 	public Vector<ISprint> getSprints() {
-		Vector<ISprint> ret = new Vector<ISprint>();
-		for(ISprint.ToReleaseAssoc current : this.getSprintAssoc().getAssociations()){
+		final Vector<ISprint> ret = new Vector<ISprint>();
+		for (final ISprint.ToReleaseAssoc current : this.getSprintAssoc()
+				.getAssociations()) {
 			ret.add(current.getElement());
 		}
 		return ret;
@@ -86,26 +91,40 @@ public class Release extends Observable implements IRelease {
 	 * @throws NoSprintDefinedException
 	 *             If the sprint wasn't defined within the project.
 	 */
-	public void addSprint(ISprint sprint) throws UserException {
+	public void addSprint(final ISprint sprint) throws UserException {
 		this.getProject().isSprintDefined(sprint);
-		if(sprint.getRelease()==null){
+		if (sprint.getRelease() == null) {
 			this.getSprintAssoc().add(sprint.getToReleaseAssoc());
-		}else if (!sprint.getRelease().equals(this)){
-			//TODO Textkonstante
-			throw new ConsistencyException("Der Sprint ist bereits einem anderen Release ("+
-					sprint.getRelease().getVersion()+") zugeordnet.");
+		} else if (!sprint.getRelease().equals(this)) {
+			// TODO Textkonstante
+			throw new ConsistencyException(
+					"Der Sprint ist bereits einem anderen Release ("
+							+ sprint.getRelease().getVersion()
+							+ ") zugeordnet.");
+		}
+	}
+
+	@Override
+	// TODO Kommentar
+	public void removeAllSprints() {
+		for (final ISprint current : this.getSprints()) {
+			this.getSprintAssoc().remove(current.getToReleaseAssoc());
 		}
 	}
 
 	/**
 	 * Removes the given Sprint from the Release.
 	 */
-	public void removeSprint(ISprint sprint) {
+	public void removeSprint(final ISprint sprint) {
 		this.getSprintAssoc().remove(sprint.getToReleaseAssoc());
 	}
 
 	public Project getProject() {
+		if (this.getProjectAssoc().get() != null) {
 			return this.getProjectAssoc().get().getElement();
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -117,124 +136,86 @@ public class Release extends Observable implements IRelease {
 
 	@Override
 	public String toString() {
-		return "Release [releaseDate=" + releaseDate + ", version=" + version
-				+ "]";
+		return "Release [releaseDate=" + this.releaseDate + ", version="
+				+ this.version + "]";
 	}
 
 	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
+		result = prime
+				* result
+				+ ((this.releaseDate == null) ? 0 : this.releaseDate.hashCode());
 		result = prime * result
-		+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
-		result = prime * result + ((version == null) ? 0 : version.hashCode());
+				+ ((this.version == null) ? 0 : this.version.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = this.indirectHashCode();
-		result = prime * result
-				+ ((projectAssoc == null) ? 0 : projectAssoc.hashCode());
-		result = prime * result
-				+ ((sprintAssoc == null) ? 0 : sprintAssoc.hashCode());
+		result = prime
+				* result
+				+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
+						.hashCode());
+		result = prime
+				* result
+				+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Release other = (Release) obj;
-		if (releaseDate == null) {
-			if (other.releaseDate != null)
+		}
+		final Release other = (Release) obj;
+		if (this.releaseDate == null) {
+			if (other.releaseDate != null) {
 				return false;
-		} else if (!releaseDate.equals(other.releaseDate))
+			}
+		} else if (!this.releaseDate.equals(other.releaseDate)) {
 			return false;
-		if (version == null) {
-			if (other.version != null)
+		}
+		if (this.version == null) {
+			if (other.version != null) {
 				return false;
-		} else if (!version.equals(other.version))
+			}
+		} else if (!this.version.equals(other.version)) {
 			return false;
+		}
 		return true;
 	}
-	
+
 	@Override
-	public boolean equals(Object obj) {
-		if(!this.indirectEquals(obj)){
+	public boolean equals(final Object obj) {
+		if (!this.indirectEquals(obj)) {
 			return false;
-		}else{
-			Release other = (Release) obj;
-			if (projectAssoc == null) {
-				if (other.projectAssoc != null)
+		} else {
+			final Release other = (Release) obj;
+			if (this.projectAssoc == null) {
+				if (other.projectAssoc != null) {
 					return false;
-			} else if (!projectAssoc.equals(other.projectAssoc))
+				}
+			} else if (!this.projectAssoc.equals(other.projectAssoc)) {
 				return false;
-			if (sprintAssoc == null) {
-				if (other.sprintAssoc != null)
+			}
+			if (this.sprintAssoc == null) {
+				if (other.sprintAssoc != null) {
 					return false;
-			} else if (!sprintAssoc.equals(other.sprintAssoc))
+				}
+			} else if (!this.sprintAssoc.equals(other.sprintAssoc)) {
 				return false;
+			}
 			return true;
 		}
 	}
-
-	
-	
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = super.hashCode();
-//		try {
-//			result = prime * result + ((this.getProject() == null) ? 0 : this.getProject().hashCode());
-//		} catch (ConsistencyException e) {
-//			result = 0;
-//		}
-//		result = prime * result
-//				+ ((releaseDate == null) ? 0 : releaseDate.hashCode());
-//		result = prime * result + ((this.getSprints() == null) ? 0 : this.getSprints().hashCode());
-//		result = prime * result + ((version == null) ? 0 : version.hashCode());
-//		return result;
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (!super.equals(obj))
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Release other = (Release) obj;
-//		try {
-//			if (this.getProject() == null) {
-//				if (other.getProject() != null)
-//					return false;
-//			} else if (!this.getProject().equals(other.getProject()))
-//				return false;
-//		} catch (ConsistencyException e) {
-//			return false;
-//		}
-//		if (releaseDate == null) {
-//			if (other.releaseDate != null)
-//				return false;
-//		} else if (!releaseDate.equals(other.releaseDate))
-//			return false;
-//		if (this.getSprints() == null) {
-//			if (other.getSprints() != null)
-//				return false;
-//		} else if (!this.getSprints().equals(other.getSprints()))
-//			return false;
-//		if (version == null) {
-//			if (other.version != null)
-//				return false;
-//		} else if (!version.equals(other.version))
-//			return false;
-//		return true;
-//	}
 }

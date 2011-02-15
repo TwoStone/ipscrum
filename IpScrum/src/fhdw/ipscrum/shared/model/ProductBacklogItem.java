@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
+import java.io.Serializable;
+
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.constants.TextConstants;
@@ -18,7 +20,9 @@ import fhdw.ipscrum.shared.observer.Observable;
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
 public abstract class ProductBacklogItem extends Observable implements
-		BDACompare {
+		BDACompare, Serializable {
+
+	private static final long serialVersionUID = 1599696800942615676L;
 
 	class ToBacklogAssoc extends
 			BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem> {
@@ -39,9 +43,13 @@ public abstract class ProductBacklogItem extends Observable implements
 	private Integer manDayCosts;
 	private IPerson lastEditor;
 
-	private final ToBacklogAssoc backlogAssoc;
+	private ToBacklogAssoc backlogAssoc;
 
-	private final ToSprintAssoc sprintAssoc;
+	private ToSprintAssoc sprintAssoc;
+
+	@SuppressWarnings("unused")
+	private ProductBacklogItem() {
+	}
 
 	/**
 	 * @param name
@@ -62,9 +70,10 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.setManDayCosts(0);
 		this.getBacklogAssoc().finalSet(backlog.getAssoc());
 	}
+
 	/**
-	 * @author stefan
-	 * optional operation for subclasses to initialize before super call, for example initialize new attributes.
+	 * @author stefan optional operation for subclasses to initialize before
+	 *         super call, for example initialize new attributes.
 	 */
 	protected abstract void initialize();
 
@@ -73,7 +82,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	private void checkName(final ProductBacklog backlog, final String name)
 			throws NoValidValueException, DoubleDefinitionException {
 		if (name != null && name.trim().length() > 0) {
-			if (backlog!=null) {
+			if (backlog != null) {
 				for (final ProductBacklogItem item : backlog.getItems()) {
 					if (!item.equals(this) && item.getName().equals(name)) {
 						throw new DoubleDefinitionException(
@@ -83,16 +92,9 @@ public abstract class ProductBacklogItem extends Observable implements
 			}
 			this.name = name;
 		} else {
-			throw new NoValidValueException(
-					TextConstants.MISSING_TEXT_ERROR);
+			throw new NoValidValueException(TextConstants.MISSING_TEXT_ERROR);
 		}
 	}
-
-	// public void connectPBIToBacklog(ProductBacklog backlog){
-	// if(this.getBacklog()==null){
-	// this.getBacklogAssoc().finalSet(backlog.getAssoc());
-	// }
-	// }
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -243,7 +245,8 @@ public abstract class ProductBacklogItem extends Observable implements
 		return result;
 	}
 
-	public void setLastEditor(final IPerson lastEditor) throws ForbiddenStateException {
+	public void setLastEditor(final IPerson lastEditor)
+			throws ForbiddenStateException {
 		this.lastEditor = lastEditor;
 		this.notifyObservers();
 	}
@@ -254,7 +257,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *            Values smaller 0 are not allow. 0 means not defined.
 	 * @throws NoValidValueException
 	 *             If the value is smaller 0!
-	 * @throws ForbiddenStateException 
+	 * @throws ForbiddenStateException
 	 */
 	public void setManDayCosts(final Integer manDayCosts)
 			throws NoValidValueException, ForbiddenStateException {
@@ -276,10 +279,11 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * @throws NoValidValueException
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
-	 * @throws ForbiddenStateException 
+	 * @throws ForbiddenStateException
 	 */
 	public void setName(final String name) throws NoValidValueException,
-			DoubleDefinitionException, ConsistencyException, ForbiddenStateException {
+			DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
 		if (this.getBacklog() != null) {
 			this.checkName(this.getBacklog(), name);
 		} else {
@@ -297,10 +301,11 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *            Sprint!
 	 * @throws NoSprintDefinedException
 	 *             , ConsistencyException
-	 * @throws ForbiddenStateException 
+	 * @throws ForbiddenStateException
 	 */
 	public void setSprint(final ISprint sprint)
-			throws NoSprintDefinedException, ConsistencyException, ForbiddenStateException {
+			throws NoSprintDefinedException, ConsistencyException,
+			ForbiddenStateException {
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set(sprint.getToPBIAssoc());

@@ -17,7 +17,7 @@ import fhdw.ipscrum.shared.model.Release;
  * Presenter for creating a new {@link Release}
  * 
  * @author Manu
- *
+ * 
  */
 public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 
@@ -29,7 +29,7 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 	 * @param parent
 	 * @param project
 	 */
-	public CreateReleasePresenter(Panel parent, Project project) {
+	public CreateReleasePresenter(final Panel parent, final Project project) {
 		super(parent);
 		this.project = project;
 	}
@@ -39,30 +39,27 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 		// New instance of CreateReleaseView
 		final ICreateReleaseView view = new CreateReleaseView();
 
-		
-		//Add a handler for the event which saves a new Release
+		// Add a handler for the event which saves a new Release
 		view.addSaveVersionHandler(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					CreateReleasePresenter.this.project.addRelease(new Release(
-							view.getReleaseVersion(), view.getDateBox()
-									.getValue(), project));
-				} catch (DoubleDefinitionException e) {
+					new Release(view.getReleaseVersion(), view.getDateBox()
+							.getValue(), CreateReleasePresenter.this.project);
+				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				}
-				finish();
+				CreateReleasePresenter.this.finish();
 			}
 
 		});
 
-
-		//Add a handler for the event which cancels creating of a new release 
+		// Add a handler for the event which cancels creating of a new release
 		view.addCancelCreateReleaseHandler(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				new AbortDialog(new OnOkayCommand() {
 
 					@Override
