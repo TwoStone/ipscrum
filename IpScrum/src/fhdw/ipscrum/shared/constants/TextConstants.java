@@ -62,14 +62,17 @@ public final class TextConstants {
 	public static final String PERSONDIALOG_FIRSTNAME = "Vorname";
 	public static final String PERSONDIALOG_LASTNAME = "Nachname";
 
+	public static final String PERSROLEMNGMT_PERSONAREA_HEADER = "Personenverwaltung";
+	public static final String PERSROLEMNGMT_ROLEAREA_HEADER = "Rollenverwaltung";
 	public static final String PERSROLEMNGMT_PERSONTABLE_HEADER = "Personen";
 	public static final String PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME = "Vorname";
 	public static final String PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME = "Nachname";
-	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON = "Neue Person anlegen";
-	public static final String PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON = "Editieren";
-	public static final String PERSROLEMNGMT_BUTTONLABEL_REMOVEROLEFROMPERSON = "->";
-	public static final String PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON = "<-";
-	public static final String PERSROLEMNGMT_ROLELIST_HEADER = "Rollen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON = "Person anlegen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON = "Person editieren";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_REMOVEROLEFROMPERSON = "Zuordnung entfernen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON = "Zuordnung hinzufügen";
+	public static final String PERSROLEMNGMT_ASSIGNEDROLELIST_HEADER = "Zugeordnete Rollen";
+	public static final String PERSROLEMNGMT_ROLELIST_HEADER = "Rollenverzeichnis";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Neue Rolle anlegen";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Entfernen";
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */

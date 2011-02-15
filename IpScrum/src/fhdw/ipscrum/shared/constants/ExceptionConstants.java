@@ -19,5 +19,5 @@ public class ExceptionConstants {
 	public static final String NO_VALID_DATE_ERROR = "Es wurde ein ungültiges Datum angegeben.";
 	public static final String END_BEFORE_BEGIN_ERROR = "Das Enddatum darf nicht vor dem Beginndatum liegen.";
 	public static final String EMPTY_NAME_ERROR = "Es muss ein vollständiger Name angegeben werden.";
-	public static final String SPRINT_NAME_ERROR = "Der Name des Sprints darf muß eine Länge zwischen 1 und 20 besitzen.";
+	public static final String SPRINT_NAME_ERROR = "Der Name des Sprints muß eine Länge zwischen 1 und 20 besitzen.";
 }

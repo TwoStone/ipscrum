@@ -62,10 +62,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		horizontalPanel.setSpacing(5);
 		initWidget(horizontalPanel);
 
-
-
-
-		CaptionPanel cptnpnlPersons = new CaptionPanel("Personenverwaltung");
+		CaptionPanel cptnpnlPersons = new CaptionPanel(TextConstants.PERSROLEMNGMT_PERSONAREA_HEADER);
 		cptnpnlPersons.setStyleName("coloredBG2");
 		horizontalPanel.add(cptnpnlPersons);
 		cptnpnlPersons.setWidth("");
@@ -79,8 +76,6 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 		Label lblPersonen = new Label(TextConstants.PERSROLEMNGMT_PERSONTABLE_HEADER);
 		verticalPanelPersons.add(lblPersonen);
-
-
 
 		ScrollPanel scrollPanelPersons = new ScrollPanel();
 		verticalPanelPersons.add(scrollPanelPersons);
@@ -134,7 +129,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		verticalPanelPersonButtons.setWidth("100%");
 		verticalPanelPersons.setCellHorizontalAlignment(verticalPanelPersonButtons, HasHorizontalAlignment.ALIGN_CENTER);
 
-		Button btnPersonNew = new Button("Person anlegen");
+		Button btnPersonNew = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON);
 		btnPersonNew.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -144,7 +139,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		verticalPanelPersonButtons.add(btnPersonNew);
 		btnPersonNew.setWidth("100%");
 
-		Button btnPersonModify = new Button("Person editieren");
+		Button btnPersonModify = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON);
 		btnPersonModify.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -157,7 +152,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		VerticalPanel verticalPanelAssignedRoles = new VerticalPanel();
 		horizontalPanelPers.add(verticalPanelAssignedRoles);
 
-		Label lblNewLabel = new Label("Zugeordnete Rollen");
+		Label lblNewLabel = new Label(TextConstants.PERSROLEMNGMT_ASSIGNEDROLELIST_HEADER);
 		verticalPanelAssignedRoles.add(lblNewLabel);
 		this.cellListAssignedRoles = new CellList<IRole>(new AbstractCell<IRole>() {
 			@Override
@@ -173,7 +168,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		this.cellListAssignedRoles.setSelectionModel(new SingleSelectionModel<IRole>());
 
 
-		Button buttonAddRoleToPerson = new Button("Zuordnung hinzufügen");
+		Button buttonAddRoleToPerson = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON);
 		verticalPanelAssignedRoles.add(buttonAddRoleToPerson);
 		buttonAddRoleToPerson.setWidth("100%");
 		buttonAddRoleToPerson.addClickHandler(new ClickHandler() {
@@ -185,7 +180,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 			}
 		});
 
-		Button buttonRemoveRoleFromPerson = new Button("Zuordnung entfernen");
+		Button buttonRemoveRoleFromPerson = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_REMOVEROLEFROMPERSON);
 		verticalPanelAssignedRoles.add(buttonRemoveRoleFromPerson);
 		buttonRemoveRoleFromPerson.setWidth("100%");
 		buttonRemoveRoleFromPerson.addClickHandler(new ClickHandler() {
@@ -198,7 +193,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 			}
 		});
 
-		CaptionPanel cptnpnlRoles = new CaptionPanel("Rollenverwaltung");
+		CaptionPanel cptnpnlRoles = new CaptionPanel(TextConstants.PERSROLEMNGMT_ROLEAREA_HEADER);
 		cptnpnlRoles.setStyleName("coloredBG1");
 		horizontalPanel.add(cptnpnlRoles);
 
@@ -206,7 +201,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		cptnpnlRoles.setContentWidget(verticalPanelRoles);
 		verticalPanelRoles.setSize("200px", "400px");
 
-		Label lblRollen = new Label("Rollenverzeichnis");
+		Label lblRollen = new Label(TextConstants.PERSROLEMNGMT_ROLELIST_HEADER);
 		verticalPanelRoles.add(lblRollen);
 		this.cellListRoles = new CellList<IRole>(new AbstractCell<IRole>() {
 			@Override
@@ -222,7 +217,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		this.cellListRoles.setSelectionModel(new MultiSelectionModel<IRole>());
 
 
-		Button btnRoleNew = new Button("Neue Rolle anlegen");
+		Button btnRoleNew = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE);
 		btnRoleNew.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -232,7 +227,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		verticalPanelRoles.add(btnRoleNew);
 		btnRoleNew.setWidth("100%");
 
-		Button btnRoleRemove = new Button("Entfernen");
+		Button btnRoleRemove = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_DELETEROLE);
 		btnRoleRemove.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
