@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -19,10 +18,27 @@ import fhdw.ipscrum.shared.observer.Observable;
 public class Release extends Observable implements IRelease {
 
 	private static final long serialVersionUID = 5237642704820206585L;
+
+	/**
+	 * Version of the Relase
+	 */
 	private String version;
+
+	/**
+	 * Release Date
+	 */
 	private Date releaseDate;
 
+	// @final
+	/**
+	 * Bidirectional association to project.
+	 */
 	private ToProjectAssoc projectAssoc;
+
+	// @final
+	/**
+	 * Bidirectional association to sprint.
+	 */
 	private ToSprintAssoc sprintAssoc;
 
 	@Override
@@ -30,14 +46,31 @@ public class Release extends Observable implements IRelease {
 		return this.sprintAssoc;
 	}
 
+	@Override
 	public ToProjectAssoc getProjectAssoc() {
 		return this.projectAssoc;
 	}
 
 	@SuppressWarnings("unused")
+	/**
+	 * Default Constructor for GWT serialization.
+	 */
 	private Release() {
 	}
 
+	/**
+	 * Model based constructor for a release.
+	 * 
+	 * @param version
+	 *            Version of the Release
+	 * @param releaseDate
+	 *            Release Date
+	 * @param project
+	 *            Project where the release belongs to.
+	 * @throws DoubleDefinitionException
+	 *             If the version - release date combination already exits
+	 *             within the project.
+	 */
 	public Release(final String version, final Date releaseDate,
 			final Project project) throws DoubleDefinitionException {
 		this.version = version;
@@ -50,30 +83,35 @@ public class Release extends Observable implements IRelease {
 		this.getProjectAssoc().finalSet(project.getReleaseAssoc());
 	}
 
+	@Override
 	public String getVersion() {
 		return this.version;
 	}
 
-	public void setVersion(final String version) {
+	@Override
+	public void setVersion(final String version)
+			throws DoubleDefinitionException {
+		this.getProject().isReleaseDoubleDefined(this.getVersion(),
+				this.getReleaseDate());
 		this.version = version;
 		this.notifyObservers();
 	}
 
+	@Override
 	public Date getReleaseDate() {
 		return this.releaseDate;
 	}
 
-	public void setReleaseDate(final Date releaseDate) {
+	@Override
+	public void setReleaseDate(final Date releaseDate)
+			throws DoubleDefinitionException {
+		this.getProject().isReleaseDoubleDefined(this.getVersion(),
+				this.getReleaseDate());
 		this.releaseDate = releaseDate;
 		this.notifyObservers();
 	}
 
-	/**
-	 * Return all Sprints which are added to the release. <br />
-	 * <b>Attention</b><br />
-	 * In fact of providing the consistency you have to use, for adding and
-	 * removing a sprint to a release, the methods of the release.
-	 */
+	@Override
 	public Vector<ISprint> getSprints() {
 		final Vector<ISprint> ret = new Vector<ISprint>();
 		for (final ISprint.ToReleaseAssoc current : this.getSprintAssoc()
@@ -83,13 +121,7 @@ public class Release extends Observable implements IRelease {
 		return ret;
 	}
 
-	/**
-	 * Adds a Sprint to the release only if the Sprint was defined within the
-	 * Project.
-	 * 
-	 * @throws NoSprintDefinedException
-	 *             If the sprint wasn't defined within the project.
-	 */
+	@Override
 	public void addSprint(final ISprint sprint) throws UserException {
 		this.getProject().isSprintDefined(sprint);
 		if (sprint.getRelease() == null) {
@@ -101,20 +133,18 @@ public class Release extends Observable implements IRelease {
 	}
 
 	@Override
-	// TODO Kommentar
 	public void removeAllSprints() {
 		for (final ISprint current : this.getSprints()) {
 			this.getSprintAssoc().remove(current.getToReleaseAssoc());
 		}
 	}
 
-	/**
-	 * Removes the given Sprint from the Release.
-	 */
+	@Override
 	public void removeSprint(final ISprint sprint) {
 		this.getSprintAssoc().remove(sprint.getToReleaseAssoc());
 	}
 
+	@Override
 	public Project getProject() {
 		if (this.getProjectAssoc().get() != null) {
 			return this.getProjectAssoc().get().getElement();
@@ -123,9 +153,7 @@ public class Release extends Observable implements IRelease {
 		}
 	}
 
-	/**
-	 * Returns the Number of all defined Sprints within the
-	 */
+	@Override
 	public Integer countSprints() {
 		return this.getSprints().size();
 	}

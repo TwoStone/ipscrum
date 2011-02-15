@@ -6,38 +6,103 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Sprint;
 
+/**
+ * This interface represents a Release. The Interfaces was mainly created to
+ * ensure independent implementations of group 1 and 3 of phase 2.
+ * 
+ */
 public interface IRelease extends BDACompare, Serializable {
 
+	/**
+	 * Returns a list with all sprints connected to the Release.
+	 */
 	public abstract Vector<ISprint> getSprints();
 
+	/**
+	 * Adds a new sprint to the release if the sprint was defined within the
+	 * project where the release belongs to. If the given sprint belongs to
+	 * another release the release for this sprint will be changed.
+	 * 
+	 * @param sprint
+	 *            Sprint to be add.
+	 * @throws UserException
+	 *             Throws if the sprint was not defined within project
+	 */
 	public abstract void addSprint(ISprint sprint) throws UserException;
 
+	/**
+	 * Removes a sprint from the release.
+	 * 
+	 * @param sprint
+	 *            Sprint for removing.
+	 */
 	public abstract void removeSprint(ISprint sprint);
 
-	public abstract Project getProject() throws ConsistencyException;
+	/**
+	 * Returns the project where the release belongs to.
+	 */
+	public abstract Project getProject();
 
+	/**
+	 * Returns the number of sprints within the release.
+	 */
 	public abstract Integer countSprints();
 
+	/**
+	 * Returns the version of the release.
+	 */
 	public abstract String getVersion();
 
-	public abstract void setVersion(String version);
+	/**
+	 * Set the version of the release if no other release within the project has
+	 * the same version and release date combination.
+	 * 
+	 * @param version
+	 *            New Version.
+	 */
+	public abstract void setVersion(String version)
+			throws DoubleDefinitionException;
 
+	/**
+	 * Returns the release date
+	 */
 	public abstract Date getReleaseDate();
 
-	public abstract void setReleaseDate(Date releaseDate);
+	/**
+	 * Set the release date of the release if no other release within the
+	 * project has the same version and release date combination.
+	 * 
+	 * @param releaseDate
+	 *            New release date
+	 */
+	public abstract void setReleaseDate(Date releaseDate)
+			throws DoubleDefinitionException;
 
+	/**
+	 * Returns the bidirectional association to the project.
+	 */
 	public abstract Release.ToProjectAssoc getProjectAssoc();
 
+	/**
+	 * Returns the bidirectional association to the sprints.
+	 */
 	public abstract Release.ToSprintAssoc getSprintAssoc();
 
+	/**
+	 * This will remove all sprints from the release.
+	 */
 	public abstract void removeAllSprints();
 
+	/**
+	 * Class which represents the bidirectional part of the sprint association
+	 * on the release side. See architecture documentation for BDAs!
+	 */
 	public class ToSprintAssoc extends
 			BDAManyToMany<Sprint.ToReleaseAssoc, Release> {
 		public ToSprintAssoc(final Release element) {
@@ -45,6 +110,10 @@ public interface IRelease extends BDACompare, Serializable {
 		}
 	}
 
+	/**
+	 * Class which represents the bidirectional part of the project association
+	 * on the release side. See architecture documentation for BDAs!
+	 */
 	public class ToProjectAssoc extends
 			BDAManyToMany<Project.ToReleaseAssoc, IRelease> {
 		public ToProjectAssoc(final Release element) {
