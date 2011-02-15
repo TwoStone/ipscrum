@@ -152,11 +152,11 @@ public abstract class ProductBacklogItem extends Observable implements
 		return this.lastEditor;
 	}
 
-	public final Integer getManDayCosts() {
+	public Integer getManDayCosts() {
 		return this.manDayCosts;
 	}
 
-	public final String getName() {
+	public String getName() {
 		return this.name;
 	}
 
@@ -248,7 +248,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * @throws NoValidValueException
 	 *             If the value is smaller 0!
 	 */
-	public final void setManDayCosts(final Integer manDayCosts)
+	public void setManDayCosts(final Integer manDayCosts)
 			throws NoValidValueException {
 		if (manDayCosts != null && manDayCosts >= 0) {
 			this.manDayCosts = manDayCosts;
@@ -269,7 +269,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 */
-	public final void setName(final String name) throws NoValidValueException,
+	public void setName(final String name) throws NoValidValueException,
 			DoubleDefinitionException, ConsistencyException {
 		if (this.getBacklog() != null) {
 			this.checkName(this.getBacklog(), name);
