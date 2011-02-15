@@ -73,8 +73,9 @@ h1 {
 }
 
 .tableBorder {
-	border: medium groove;
 	overflow: auto;
+	border: medium groove;
+	background-color: White;
 }
 .LabelElement {
 	font-size: 12pt;
@@ -92,4 +93,10 @@ h1 {
 }
 .TreeItem-leaf {
 	font-style: oblique;
+}
+.coloredBG2 {
+	background-color: ghostwhite;
+}
+.coloredBG1 {
+	background-color: ivory;
 }

@@ -2,10 +2,13 @@ package fhdw.ipscrum.client.view;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Vector;
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
@@ -24,6 +27,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PersonTeamArgs;
 import fhdw.ipscrum.client.view.interfaces.ITeamView;
+import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -61,6 +65,12 @@ public class TeamView extends Composite implements ITeamView {
 		scrollPanelTeamTree.setSize("256px", "400px");
 
 		this.tree = new Tree();
+		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
+			@Override
+			public void onSelection(SelectionEvent<TreeItem> event) {
+				TeamView.this.updateGuiToSelectionChange();
+			}
+		});
 		scrollPanelTeamTree.setWidget(this.tree);
 		this.tree.setAnimationEnabled(true);
 		this.tree.setSize("100%", "100%");
@@ -164,6 +174,14 @@ public class TeamView extends Composite implements ITeamView {
 			}
 		};
 		this.cellTablePersons.addColumn(colRoles,TextConstants.TEAMVIEW_ROLESHEADER);
+	}
+
+	private void updateGuiToSelectionChange() {
+		Vector<IPerson> personsToHide = this.getSelectedTeamOfTree().getMembers();
+		HashSet<IPerson> personsToShow = (HashSet<IPerson>) SessionManager.getInstance().getModel().getPersons().clone();
+		personsToShow.removeAll(personsToHide);
+
+		this.cellTablePersons.setRowData(new ArrayList<IPerson>(personsToShow));
 	}
 
 	/* (non-Javadoc)

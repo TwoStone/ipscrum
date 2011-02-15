@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
@@ -11,8 +13,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -41,6 +45,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
  * It provides controls for creating, modifying and deleting persons and roles as well associate roles to persons or remove associations.
  */
 public class PersonRoleView extends Composite implements IPersonRoleView {
+	private final ListHandler<IPerson> sortHandler = new ListHandler<IPerson>(Collections.<IPerson>emptyList());
 	private CellTable<IPerson> cellTablePersons;
 	private CellList<IRole> cellListAssignedRoles;
 	private CellList<IRole> cellListRoles;
@@ -57,43 +62,36 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		horizontalPanel.setSpacing(5);
 		initWidget(horizontalPanel);
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		horizontalPanel.add(verticalPanel);
+
+
+
+		CaptionPanel cptnpnlPersons = new CaptionPanel("Personenverwaltung");
+		cptnpnlPersons.setStyleName("coloredBG2");
+		horizontalPanel.add(cptnpnlPersons);
+		cptnpnlPersons.setWidth("");
+
+		HorizontalPanel horizontalPanelPers = new HorizontalPanel();
+		cptnpnlPersons.setContentWidget(horizontalPanelPers);
+		horizontalPanelPers.setSize("5cm", "3cm");
+
+		VerticalPanel verticalPanelPersons = new VerticalPanel();
+		horizontalPanelPers.add(verticalPanelPersons);
 
 		Label lblPersonen = new Label(TextConstants.PERSROLEMNGMT_PERSONTABLE_HEADER);
-		verticalPanel.add(lblPersonen);
+		verticalPanelPersons.add(lblPersonen);
 
-		HorizontalPanel horizontalPanelPersonRoles = new HorizontalPanel();
-		verticalPanel.add(horizontalPanelPersonRoles);
-		horizontalPanelPersonRoles.setSize("", "300px");
+
 
 		ScrollPanel scrollPanelPersons = new ScrollPanel();
+		verticalPanelPersons.add(scrollPanelPersons);
 		scrollPanelPersons.setStyleName("tableBorder");
 		scrollPanelPersons.setSize("300px", "400px");
-		horizontalPanelPersonRoles.add(scrollPanelPersons);
 
 		this.cellTablePersons = new CellTable<IPerson>();
+		cellTablePersons.addColumnSortHandler(sortHandler);
 		scrollPanelPersons.setWidget(this.cellTablePersons);
 		this.cellTablePersons.setSize("100%", "100%");
-		final SingleSelectionModel<IPerson> selModelPersons = new SingleSelectionModel<IPerson>();
-		this.cellTablePersons.setSelectionModel(selModelPersons);
-
-		TextColumn<IPerson> colFirstname = new TextColumn<IPerson>() {
-			@Override
-			public String getValue(IPerson object) {
-				return object.getFirstname();
-			}
-		};
-		this.cellTablePersons.addColumn(colFirstname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME);
-
-		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
-			@Override
-			public String getValue(IPerson object) {
-				return object.getLastname();
-			}
-		};
-		this.cellTablePersons.addColumn(colLastname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME);
-
+		this.cellTablePersons.setSelectionModel(new SingleSelectionModel<IPerson>());
 		this.cellTablePersons.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
@@ -101,46 +99,95 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 			}
 		});
 
+		TextColumn<IPerson> colFirstname = new TextColumn<IPerson>() {
+			@Override
+			public String getValue(IPerson object) {
+				return object.getFirstname();
+			}
+		};
+		colFirstname.setSortable(true);
+		this.cellTablePersons.addColumn(colFirstname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME);
+		sortHandler.setComparator(colFirstname, new Comparator<IPerson>() {
+			@Override
+			public int compare(IPerson o1, IPerson o2) {
+				return o1.getFirstname().compareTo(o2.getFirstname());
+			}
+		});
 
-		RoleCell roleCellAssignedRoles = new RoleCell();
-		this.cellListAssignedRoles = new CellList<IRole>(roleCellAssignedRoles);
-		this.cellListAssignedRoles.setStyleName("tableBorder");
-		horizontalPanelPersonRoles.add(this.cellListAssignedRoles);
-		this.cellListAssignedRoles.setSize("200px", "100%");
-		SingleSelectionModel<IRole> selModelAssignedRoles = new SingleSelectionModel<IRole>();
-		this.cellListAssignedRoles.setSelectionModel(selModelAssignedRoles);
+		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
+			@Override
+			public String getValue(IPerson object) {
+				return object.getLastname();
+			}
+		};
+		colLastname.setSortable(true);
+		this.cellTablePersons.addColumn(colLastname, TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME);
+		sortHandler.setComparator(colLastname, new Comparator<IPerson>() {
+			@Override
+			public int compare(IPerson o1, IPerson o2) {
+				return o1.getLastname().compareTo(o2.getLastname());
+			}
+		});
 
-		HorizontalPanel horizontalPanelPersonButtons = new HorizontalPanel();
-		verticalPanel.add(horizontalPanelPersonButtons);
-		horizontalPanelPersonButtons.setWidth("100%");
-		verticalPanel.setCellHorizontalAlignment(horizontalPanelPersonButtons, HasHorizontalAlignment.ALIGN_CENTER);
+		VerticalPanel verticalPanelPersonButtons = new VerticalPanel();
+		verticalPanelPersons.add(verticalPanelPersonButtons);
+		verticalPanelPersonButtons.setWidth("100%");
+		verticalPanelPersons.setCellHorizontalAlignment(verticalPanelPersonButtons, HasHorizontalAlignment.ALIGN_CENTER);
 
-		Button btnPersonNew = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON);
+		Button btnPersonNew = new Button("Person anlegen");
 		btnPersonNew.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				PersonRoleView.this.newPersonEvent.fire(PersonRoleView.this, new EventArgs());
 			}
 		});
-		horizontalPanelPersonButtons.add(btnPersonNew);
+		verticalPanelPersonButtons.add(btnPersonNew);
 		btnPersonNew.setWidth("100%");
 
-		Button btnPersonModify = new Button(TextConstants.PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON);
+		Button btnPersonModify = new Button("Person editieren");
 		btnPersonModify.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				PersonRoleView.this.modifyPersonEvent.fire(PersonRoleView.this, new PersonArgs(PersonRoleView.this.getSelectedPerson()));
 			}
 		});
-		horizontalPanelPersonButtons.add(btnPersonModify);
+		verticalPanelPersonButtons.add(btnPersonModify);
 		btnPersonModify.setWidth("100%");
 
-		VerticalPanel verticalPanelAllocationButtons = new VerticalPanel();
-		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
-		verticalPanelAllocationButtons.setHeight("");
-		horizontalPanel.add(verticalPanelAllocationButtons);
+		VerticalPanel verticalPanelAssignedRoles = new VerticalPanel();
+		horizontalPanelPers.add(verticalPanelAssignedRoles);
 
-		Button buttonRemoveRoleFromPerson = new Button("->");
+		Label lblNewLabel = new Label("Zugeordnete Rollen");
+		verticalPanelAssignedRoles.add(lblNewLabel);
+		this.cellListAssignedRoles = new CellList<IRole>(new AbstractCell<IRole>() {
+			@Override
+			public void render(com.google.gwt.cell.client.Cell.Context context, IRole value, SafeHtmlBuilder sb) {
+				if (value != null) {
+					sb.appendEscaped(value.getDescription());
+				}
+			}
+		});
+		verticalPanelAssignedRoles.add(cellListAssignedRoles);
+		this.cellListAssignedRoles.setStyleName("tableBorder");
+		cellListAssignedRoles.setSize("200px", "400px");
+		this.cellListAssignedRoles.setSelectionModel(new SingleSelectionModel<IRole>());
+
+
+		Button buttonAddRoleToPerson = new Button("Zuordnung hinzufügen");
+		verticalPanelAssignedRoles.add(buttonAddRoleToPerson);
+		buttonAddRoleToPerson.setWidth("100%");
+		buttonAddRoleToPerson.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				Person affectedPerson = PersonRoleView.this.getSelectedPerson();
+				Set<IRole> roleSet = PersonRoleView.this.getSelectedAvailRoles();
+				PersonRoleView.this.addRoletoPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
+			}
+		});
+
+		Button buttonRemoveRoleFromPerson = new Button("Zuordnung entfernen");
+		verticalPanelAssignedRoles.add(buttonRemoveRoleFromPerson);
+		buttonRemoveRoleFromPerson.setWidth("100%");
 		buttonRemoveRoleFromPerson.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -150,33 +197,30 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 				PersonRoleView.this.removeRoleFromPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
 			}
 		});
-		verticalPanelAllocationButtons.add(buttonRemoveRoleFromPerson);
 
-		Button buttonAddRoleToPerson = new Button("<-");
-		buttonAddRoleToPerson.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				Person affectedPerson = PersonRoleView.this.getSelectedPerson();
-				Set<IRole> roleSet = PersonRoleView.this.getSelectedAvailRoles();
-				PersonRoleView.this.addRoletoPersonEvent.fire(PersonRoleView.this, new AssociatePersonAndRoleArgs(affectedPerson, roleSet));
-			}
-		});
-		verticalPanelAllocationButtons.add(buttonAddRoleToPerson);
+		CaptionPanel cptnpnlRoles = new CaptionPanel("Rollenverwaltung");
+		cptnpnlRoles.setStyleName("coloredBG1");
+		horizontalPanel.add(cptnpnlRoles);
 
 		VerticalPanel verticalPanelRoles = new VerticalPanel();
-		horizontalPanel.add(verticalPanelRoles);
-		verticalPanelRoles.setSize("200px", "");
+		cptnpnlRoles.setContentWidget(verticalPanelRoles);
+		verticalPanelRoles.setSize("200px", "400px");
 
-		Label lblRollen = new Label("Rollen");
+		Label lblRollen = new Label("Rollenverzeichnis");
 		verticalPanelRoles.add(lblRollen);
-
-		RoleCell roleCellAvailRoles = new RoleCell();
-		this.cellListRoles = new CellList<IRole>(roleCellAvailRoles);
+		this.cellListRoles = new CellList<IRole>(new AbstractCell<IRole>() {
+			@Override
+			public void render(com.google.gwt.cell.client.Cell.Context context, IRole value, SafeHtmlBuilder sb) {
+				if (value != null) {
+					sb.appendEscaped(value.getDescription());
+				}
+			}
+		});
 		this.cellListRoles.setStyleName("tableBorder");
 		verticalPanelRoles.add(this.cellListRoles);
-		this.cellListRoles.setSize("100%", "377px");
-		MultiSelectionModel<IRole> selModelAvailRoles = new MultiSelectionModel<IRole>();
-		this.cellListRoles.setSelectionModel(selModelAvailRoles);
+		cellListRoles.setSize("100%", "400px");
+		this.cellListRoles.setSelectionModel(new MultiSelectionModel<IRole>());
+
 
 		Button btnRoleNew = new Button("Neue Rolle anlegen");
 		btnRoleNew.addClickHandler(new ClickHandler() {
@@ -272,17 +316,5 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 		MultiSelectionModel<IRole> selAvailRoleModel = (MultiSelectionModel<IRole>) this.cellListRoles.getSelectionModel();
 		Set<IRole> selectedRoles = selAvailRoleModel.getSelectedSet();
 		return selectedRoles;
-	}
-
-	/**
-	 * This class is used to create cell-based widgets like <code>CellList</code> with <code>IRole</code>-Objects.
-	 */
-	private class RoleCell extends AbstractCell<IRole> {
-		@Override
-		public void render(com.google.gwt.cell.client.Cell.Context context, IRole value, SafeHtmlBuilder sb) {
-			if (value != null) {
-				sb.appendEscaped(value.getDescription());
-			}
-		}
 	}
 }
