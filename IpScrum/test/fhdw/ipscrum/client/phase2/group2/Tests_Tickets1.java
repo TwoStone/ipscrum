@@ -34,6 +34,8 @@ public class Tests_Tickets1 {
 	private String featureName1;
 	private String featureName2;
 	private String featureDescription1;
+	private String projectName;
+
 	private Project project;
 	private ProductBacklog productBacklog;
 	private Feature feature1;
@@ -53,8 +55,10 @@ public class Tests_Tickets1 {
 		this.featureName1 = "TestFeature1";
 		this.featureName2 = "TestFeature2";
 		this.featureDescription1 = "TestFeature1";
-		this.project = new Project("TestProject");
-		this.productBacklog = project.getBacklog();
+		this.projectName = "TestProject";
+		
+		this.project = new Project(this.projectName);
+		this.productBacklog = this.project.getBacklog();
 		
 		 this.feature1 = new Feature(this.featureName1, this.featureDescription1, this.productBacklog);
 		 this.feature2 = new Feature(this.featureName2, this.featureDescription1, this.productBacklog);
@@ -69,6 +73,13 @@ public class Tests_Tickets1 {
 		assertEquals(this.featureName1, this.feature1.getName());
 		assertEquals(this.featureDescription1, this.feature1.getDescription());
 		assertEquals(this.productBacklog, this.feature1.getBacklog());
+	}
+	
+	@Test (expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
+	public void createFeatureDoubleFeatureInSameBacklog() throws Exception {
+		new Feature("TestName", "TestDescription", this.productBacklog);
+		new Feature("TestName", "TestDescription", this.productBacklog);
+		
 	}
 	
 	@Test
