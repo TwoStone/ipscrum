@@ -90,7 +90,7 @@ public class RoleTest {
 		person.addRole(fixture);
 
 		boolean result = fixture.equals(obj);
-		assertFalse(result);
+		assertTrue(result);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class RoleTest {
 		person4.addRole(obj);
 
 		boolean result = fixture.equals(obj);
-		assertFalse(result);
+		assertTrue(result);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class RoleTest {
 		person2.addRole(obj);
 
 		boolean result = fixture.equals(obj);
-		assertFalse(result);
+		assertTrue(result);
 	}
 
 	/**
@@ -267,7 +267,7 @@ public class RoleTest {
 		Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
 
-		assertFalse(fixture.hashCode() == obj.hashCode());
+		assertTrue(fixture.hashCode() == obj.hashCode());
 	}
 
 	/**
@@ -305,7 +305,7 @@ public class RoleTest {
 		Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
-		assertFalse(fixture.hashCode() == obj.hashCode());
+		assertTrue(fixture.hashCode() == obj.hashCode());
 	}
 
 	/**
@@ -325,7 +325,7 @@ public class RoleTest {
 		Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
-		assertFalse(fixture.hashCode() == obj.hashCode());
+		assertTrue(fixture.hashCode() == obj.hashCode());
 	}
 
 	/**

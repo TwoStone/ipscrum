@@ -1,667 +1,745 @@
 package fhdw.ipscrum.phase2.gruppe3.shared.model;
 
-import java.text.DateFormat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Date;
+import java.util.Vector;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.Team;
-import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import java.util.Date;
-import java.util.Vector;
-import fhdw.ipscrum.shared.model.interfaces.ITeam;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import org.junit.*;
-import static org.junit.Assert.*;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
- * The class <code>SprintTest</code> contains tests for the class <code>{@link Sprint}</code>.
- *
- * @generatedBy CodePro at 13.02.11 20:00
+ * The class <code>SprintTest</code> contains tests for the class
+ * <code>{@link Sprint}</code>.
+ * 
+ * @generatedBy CodePro at 15.02.11 11:21
  */
 public class SprintTest {
 	/**
-	 * Run the Sprint(String,Date,Date,ITeam) constructor test.
-	 *
+	 * Run the Sprint(String,String,Date,Date,ITeam) constructor test.
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
-	public void testSprint_1()
-		throws Exception {
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSprint_1() throws Exception {
+		String name = "";
 		String description = "";
 		Date begin = new Date();
 		Date end = new Date();
 		ITeam team = new Team("");
 
-		Sprint result = new Sprint(description, begin, end, team);
+		Sprint result = new Sprint(name, description, begin, end, team);
 
 		assertNotNull(result);
-		assertEquals("Sprint mit Team mit Team beginnt am Sun Feb 13 20:00:56 CET 2011 endet am Sun Feb 13 20:00:56 CET 2011", result.toString());
-		assertEquals("Sprint mit Team mit Team beginnt am Sun Feb 13 20:00:56 CET 2011 endet am Sun Feb 13 20:00:56 CET 2011", result.getName());
-		assertEquals("", result.getDescription());
-		assertEquals(null, result.getRelease());
-		assertEquals(-1107459429, result.indirectHashCode());
+	}
+
+	/**
+	 * Run the Sprint(String,String,Date,Date,ITeam) constructor test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSprint_2() throws Exception {
+		String name = "";
+		String description = "a";
+		Date begin = new Date();
+		Date end = new Date();
+		ITeam team = new Team("");
+
+		Sprint result = new Sprint(name, description, begin, end, team);
+
+		assertNotNull(result);
+	}
+
+	/**
+	 * Run the Sprint(String,String,Date,Date,ITeam) constructor test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSprint_3() throws Exception {
+		String name = "";
+		String description = "a";
+		Date begin = new Date();
+		Date end = new Date();
+		ITeam team = new Team("");
+
+		Sprint result = new Sprint(name, description, begin, end, team);
+
+		assertNotNull(result);
+	}
+
+	/**
+	 * Run the Sprint(String,String,Date,Date,ITeam) constructor test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSprint_4() throws Exception {
+		String name = "";
+		String description = "a";
+		Date begin = new Date();
+		Date end = new Date();
+		ITeam team = new Team("");
+
+		Sprint result = new Sprint(name, description, begin, end, team);
+
+		assertNotNull(result);
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testEquals_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testEquals_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 		Object obj = new Object();
 
 		boolean result = fixture.equals(obj);
 
-		assertEquals(false, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the boolean equals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testEquals_2()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testEquals_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
-		obj.setTeam(new Team(""));
+		Object obj = new Object();
 
 		boolean result = fixture.equals(obj);
 
-		assertEquals(true, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the Date getBegin() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetBegin_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetBegin_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		Date result = fixture.getBegin();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals(DateFormat.getInstance().format(new Date(1297623656602L)), DateFormat.getInstance().format(result));
-		assertEquals(1297623656602L, result.getTime());
 	}
 
 	/**
 	 * Run the String getDescription() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetDescription_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetDescription_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		String result = fixture.getDescription();
 
-		assertEquals("", result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertNotNull(result);
 	}
 
 	/**
 	 * Run the Date getEnd() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetEnd_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetEnd_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		Date result = fixture.getEnd();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals(DateFormat.getInstance().format(new Date(1297623656632L)), DateFormat.getInstance().format(result));
-		assertEquals(1297623656632L, result.getTime());
 	}
 
 	/**
 	 * Run the String getName() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetName_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetName_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		String result = fixture.getName();
 
-		assertEquals("Sprint mit Team mit Team beginnt am Sun Feb 13 20:00:56 CET 2011 endet am Sun Feb 13 20:00:56 CET 2011", result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertNotNull(result);
 	}
 
 	/**
 	 * Run the Vector<ProductBacklogItem> getPBIs() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetPBIs_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetPBIs_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		Vector<ProductBacklogItem> result = fixture.getPBIs();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals(0, result.size());
 	}
 
 	/**
 	 * Run the Vector<ProductBacklogItem> getPBIs() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetPBIs_2()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetPBIs_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		Vector<ProductBacklogItem> result = fixture.getPBIs();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals(0, result.size());
 	}
 
 	/**
 	 * Run the IRelease getRelease() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetRelease_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetRelease_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		IRelease result = fixture.getRelease();
 
-		assertEquals(null, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertNotNull(result);
 	}
 
 	/**
 	 * Run the IRelease getRelease() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetRelease_2()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetRelease_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		IRelease result = fixture.getRelease();
 
-		assertEquals(null, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertNotNull(result);
 	}
 
 	/**
 	 * Run the ITeam getTeam() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetTeam_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetTeam_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		ITeam result = fixture.getTeam();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals("", result.getDescription());
 	}
 
 	/**
-	 * Run the fhdw.ipscrum.shared.model.interfaces.ISprint.ToPBIAssoc getToPBIAssoc() method test.
-	 *
+	 * Run the fhdw.ipscrum.shared.model.interfaces.ISprint.ToPBIAssoc
+	 * getToPBIAssoc() method test.
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetToPBIAssoc_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetToPBIAssoc_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		fhdw.ipscrum.shared.model.interfaces.ISprint.ToPBIAssoc result = fixture.getToPBIAssoc();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals(null, result.get());
 	}
 
 	/**
-	 * Run the fhdw.ipscrum.shared.model.interfaces.ISprint.ToReleaseAssoc getToReleaseAssoc() method test.
-	 *
+	 * Run the fhdw.ipscrum.shared.model.interfaces.ISprint.ToReleaseAssoc
+	 * getToReleaseAssoc() method test.
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testGetToReleaseAssoc_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testGetToReleaseAssoc_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		fhdw.ipscrum.shared.model.interfaces.ISprint.ToReleaseAssoc result = fixture.getToReleaseAssoc();
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 		assertNotNull(result);
-		assertEquals(null, result.get());
 	}
 
 	/**
 	 * Run the int hashCode() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testHashCode_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testHashCode_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 
 		int result = fixture.hashCode();
 
-		assertEquals(-464636747, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertEquals(0, result);
 	}
 
 	/**
 	 * Run the boolean indirectEquals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectEquals_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectEquals_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
+		Sprint obj = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		obj.setDescription("");
-		obj.setEnd(new Date());
-		obj.setBegin(new Date());
-		obj.setTeam(new Team(""));
 
 		boolean result = fixture.indirectEquals(obj);
 
-		assertEquals(true, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the boolean indirectEquals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectEquals_2()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectEquals_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 		Object obj = null;
 
 		boolean result = fixture.indirectEquals(obj);
 
-		assertEquals(false, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the boolean indirectEquals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectEquals_3()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectEquals_3() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 		Object obj = new Object();
 
 		boolean result = fixture.indirectEquals(obj);
 
-		assertEquals(false, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the boolean indirectEquals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectEquals_4()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectEquals_4() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
-		obj.setBegin(new Date());
+		Object obj = new Sprint("", "a", new Date(), new Date(), new Team(""));
 
 		boolean result = fixture.indirectEquals(obj);
 
-		assertEquals(false, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the boolean indirectEquals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectEquals_5()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectEquals_5() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
-		obj.setDescription("");
-		obj.setBegin(new Date());
+		Object obj = new Sprint("", "a", new Date(), new Date(), new Team(""));
 
 		boolean result = fixture.indirectEquals(obj);
 
-		assertEquals(true, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the boolean indirectEquals(Object) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectEquals_6()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectEquals_6() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
-		obj.setDescription("");
-		obj.setEnd(new Date());
-		obj.setBegin(new Date());
+		Object obj = new Sprint("", "a", new Date(), new Date(), new Team(""));
 
 		boolean result = fixture.indirectEquals(obj);
 
-		assertEquals(false, result);
-	}
-
-	/**
-	 * Run the boolean indirectEquals(Object) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
-	 */
-	@Test
-	public void testIndirectEquals_7()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
-		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
-		obj.setDescription("");
-		obj.setEnd(new Date());
-		obj.setBegin(new Date());
-
-		boolean result = fixture.indirectEquals(obj);
-
-		assertEquals(true, result);
-	}
-
-	/**
-	 * Run the boolean indirectEquals(Object) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
-	 */
-	@Test
-	public void testIndirectEquals_8()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
-		fixture.setDescription("");
-		fixture.setEnd((Date) null);
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Sprint obj = new Sprint("", new Date(), new Date(), new Team(""));
-		obj.setDescription("");
-		obj.setEnd((Date) null);
-		obj.setBegin(new Date());
-
-		boolean result = fixture.indirectEquals(obj);
-
-		assertEquals(true, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertTrue(result);
 	}
 
 	/**
 	 * Run the int indirectHashCode() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectHashCode_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testIndirectHashCode_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin((Date) null);
-		fixture.setTeam(new Team(""));
 
 		int result = fixture.indirectHashCode();
 
-		assertEquals(543562926, result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertEquals(0, result);
 	}
 
 	/**
 	 * Run the int indirectHashCode() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testIndirectHashCode_2()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
-		fixture.setDescription((String) null);
-		fixture.setEnd((Date) null);
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
+	public void testIndirectHashCode_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
 
 		int result = fixture.indirectHashCode();
 
-		assertEquals(-1650650079, result);
-	}
-
-	/**
-	 * Run the void setBegin(Date) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
-	 */
-	@Test
-	public void testSetBegin_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
-		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Date begin = new Date();
-
-		fixture.setBegin(begin);
-
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertEquals(0, result);
 	}
 
 	/**
 	 * Run the void setDescription(String) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testSetDescription_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testSetDescription_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
 		String description = "";
 
 		fixture.setDescription(description);
 
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
 	}
 
 	/**
-	 * Run the void setEnd(Date) method test.
-	 *
+	 * Run the void setName(String) method test.
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
-	public void testSetEnd_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetName_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
-		Date end = new Date();
+		String name = null;
 
-		fixture.setEnd(end);
+		fixture.setName(name);
+
+	}
+
+	/**
+	 * Run the void setName(String) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetName_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		String name = "";
+
+		fixture.setName(name);
+
+	}
+
+	/**
+	 * Run the void setName(String) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetName_3() throws Exception {
+		Sprint fixture = new Sprint("aaaaaaaaaaaaaaaaaaaaa", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		String name = "aaaaaaaaaaaaaaaaaaaaa";
+
+		fixture.setName(name);
+
+	}
+
+	/**
+	 * Run the void setName(String) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetName_4() throws Exception {
+		Sprint fixture = new Sprint("a", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		String name = "a";
+
+		fixture.setName(name);
 
 	}
 
 	/**
 	 * Run the void setTeam(ITeam) method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
-	public void testSetTeam_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetTeam_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam(new Team(""));
+		ITeam team = null;
+
+		fixture.setTeam(team);
+
+	}
+
+	/**
+	 * Run the void setTeam(ITeam) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetTeam_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
 		ITeam team = new Team("");
 
 		fixture.setTeam(team);
@@ -669,79 +747,131 @@ public class SprintTest {
 	}
 
 	/**
-	 * Run the String toString() method test.
-	 *
+	 * Run the void setTimeFrame(Date,Date) method test.
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
-	@Test
-	public void testToString_1()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
-		fixture.setDescription((String) null);
-		fixture.setEnd(new Date());
-		fixture.setBegin(new Date());
-		fixture.setTeam((ITeam) null);
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetTimeFrame_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		Date begin = null;
+		Date end = new Date();
 
-		String result = fixture.toString();
+		fixture.setTimeFrame(begin, end);
 
-		assertEquals("Sprint beginnt am Sun Feb 13 20:00:56 CET 2011 endet am Sun Feb 13 20:00:56 CET 2011", result);
+	}
+
+	/**
+	 * Run the void setTimeFrame(Date,Date) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetTimeFrame_2() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		Date begin = new Date();
+		Date end = null;
+
+		fixture.setTimeFrame(begin, end);
+
+	}
+
+	/**
+	 * Run the void setTimeFrame(Date,Date) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetTimeFrame_3() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		Date begin = new Date();
+		Date end = new Date();
+
+		fixture.setTimeFrame(begin, end);
+
+	}
+
+	/**
+	 * Run the void setTimeFrame(Date,Date) method test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
+	public void testSetTimeFrame_4() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
+		fixture.setDescription("");
+		Date begin = new Date();
+		Date end = new Date();
+
+		fixture.setTimeFrame(begin, end);
+
 	}
 
 	/**
 	 * Run the String toString() method test.
-	 *
+	 * 
 	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Test
-	public void testToString_2()
-		throws Exception {
-		Sprint fixture = new Sprint("", new Date(), new Date(), new Team(""));
+	public void testToString_1() throws Exception {
+		Sprint fixture = new Sprint("", "a", new Date(), new Date(), new Team(""));
 		fixture.setDescription("");
-		fixture.setEnd((Date) null);
-		fixture.setBegin((Date) null);
-		fixture.setTeam(new Team(""));
 
 		String result = fixture.toString();
 
-		assertEquals("Sprint mit Team mit Team", result);
+		// An unexpected exception was thrown in user code while executing this
+		// test:
+		// fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein
+		// Beschreibung angegeben werden.
+		// at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:28)
+		// at fhdw.ipscrum.shared.model.Team.<init>(Team.java:16)
+		assertNotNull(result);
 	}
 
 	/**
 	 * Perform pre-test initialization.
-	 *
+	 * 
 	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 *             if the initialization fails for some reason
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@Before
-	public void setUp()
-		throws Exception {
+	public void setUp() throws Exception {
 	}
 
 	/**
 	 * Perform post-test clean-up.
-	 *
+	 * 
 	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 *             if the clean-up fails for some reason
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	@After
-	public void tearDown()
-		throws Exception {
+	public void tearDown() throws Exception {
 	}
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 13.02.11 20:00
+	 * 
+	 * @param args
+	 *            the command line arguments
+	 * 
+	 * @generatedBy CodePro at 15.02.11 11:21
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(SprintTest.class);
