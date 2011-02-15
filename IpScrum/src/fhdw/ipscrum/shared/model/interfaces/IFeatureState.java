@@ -1,7 +1,10 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
@@ -75,5 +78,24 @@ public interface IFeatureState {
 	 * @throws ForbiddenStateException
 	 */
 	public void setDescription(String description)
+			throws ForbiddenStateException;
+	/**
+	 * See the documentation of setManDayCosts() in class {@link ProductBacklogItem}
+	 */
+	public void setManDayCosts(Integer manDayCosts) 
+			throws ForbiddenStateException, NoValidValueException;
+	/**
+	 * See the documentation of setName() in class {@link ProductBacklogItem}
+	 */
+	public void setName(String name)
+			throws ForbiddenStateException, NoValidValueException, 
+			       DoubleDefinitionException, ConsistencyException;
+	/**
+	 * See the documentation of setSprint() in class {@link ProductBacklogItem}
+	 */
+	public void setSprint(ISprint sprint)
+			throws ForbiddenStateException, NoSprintDefinedException,
+				   ConsistencyException;
+	public void setLastEditor(IPerson lastEditor) 
 			throws ForbiddenStateException;
 }

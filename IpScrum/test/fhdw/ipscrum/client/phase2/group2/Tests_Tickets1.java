@@ -306,7 +306,6 @@ public class Tests_Tickets1 {
 	}
 	
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
-	@Ignore
 	public void setNameToClosedFeature() throws Exception {
 		assertEquals(this.featureName1, this.feature1.getName());
 		this.feature1.close();
@@ -321,7 +320,6 @@ public class Tests_Tickets1 {
 	}
 	
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
-	@Ignore
 	public void setLastEditorToClosedFeature() throws Exception {
 		Person person = new Person("TestFirstname", "TestNachname");
 		this.feature1.close();
@@ -336,7 +334,6 @@ public class Tests_Tickets1 {
 	}
 	
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
-	@Ignore
 	public void setManDayCostsToClosedFeature() throws Exception {
 		Integer manDayCosts = 5;
 		this.feature1.close();
@@ -352,7 +349,6 @@ public class Tests_Tickets1 {
 	}
 	
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
-	@Ignore
 	public void setSprintToClosedFeature() throws Exception {
 		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
 		project.addSprint(sprint);

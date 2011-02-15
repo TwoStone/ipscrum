@@ -1,9 +1,14 @@
 package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
 
 /**
@@ -81,6 +86,45 @@ public class Closed implements IFeatureState {
 		throw new ForbiddenStateException(
 				fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
+	
+	@Override
+	public void setDescription(final String description)
+			throws ForbiddenStateException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+	
+	
+
+	@Override
+	public void setManDayCosts(Integer manDayCosts)
+			throws ForbiddenStateException, NoValidValueException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+
+	@Override
+	public void setName(String name) throws ForbiddenStateException,
+			NoValidValueException, DoubleDefinitionException,
+			ConsistencyException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+
+	@Override
+	public void setSprint(ISprint sprint) throws ForbiddenStateException,
+			NoSprintDefinedException, ConsistencyException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+	
+
+	@Override
+	public void setLastEditor(IPerson lastEditor)
+			throws ForbiddenStateException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
 
 	@Override
 	public int hashCode() {
@@ -111,13 +155,5 @@ public class Closed implements IFeatureState {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public void setDescription(final String description)
-			throws ForbiddenStateException {
-		throw new ForbiddenStateException(
-				ExceptionConstants.FORBIDDEN_STATE_ERROR);
-
 	}
 }
