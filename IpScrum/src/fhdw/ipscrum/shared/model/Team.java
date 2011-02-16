@@ -111,11 +111,7 @@ public class Team implements ITeam {
 	 */
 	@Override
 	public String toString() {
-		String ret = "Team";
-		if (!this.getDescription().isEmpty()) {
-			ret += " '" + this.description + "'";
-		}
-		return ret;
+		return "Team '" + this.description + "'";
 	}
 
 	/**
@@ -128,7 +124,6 @@ public class Team implements ITeam {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-		result = prime * result + ((this.members == null) ? 0 : this.members.hashCode());
 		return result;
 	}
 
@@ -152,11 +147,6 @@ public class Team implements ITeam {
 			if (other.description != null)
 				return false;
 		} else if (!this.description.equals(other.description))
-			return false;
-		if (this.members == null) {
-			if (other.members != null)
-				return false;
-		} else if (!this.members.equals(other.members))
 			return false;
 		return true;
 	}

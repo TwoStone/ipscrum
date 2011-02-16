@@ -8,7 +8,6 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Sprint;
 
 public interface ISprint extends BDACompare, Serializable {
@@ -38,7 +37,7 @@ public interface ISprint extends BDACompare, Serializable {
 
 	public ToPBIAssoc getToPBIAssoc();
 
-	class ToReleaseAssoc extends BDAManyToMany<Release.ToSprintAssoc, Sprint> {
+	class ToReleaseAssoc extends BDAManyToMany<IRelease.ToSprintAssoc, Sprint> {
 		public ToReleaseAssoc(Sprint element) {
 			super(element);
 		}
