@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import fhdw.ipscrum.shared.SessionManager;
@@ -465,8 +464,11 @@ public class Tests_Tickets1 {
 	 */
 	@Test
 	public void setSprintToOpenFeature() throws Exception {
-		@SuppressWarnings("deprecation")
-		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
+		Date begin = new Date();
+		Date end = new Date();
+		end.setTime(end.getTime() + 1000);
+		
+		ISprint sprint = new Sprint("TestName", "TestDescription", begin, end, new Team("TestDescription"));
 		project.addSprint(sprint);
 		this.feature1.setSprint(sprint);
 		assertEquals(sprint, this.feature1.getSprint());
@@ -477,83 +479,15 @@ public class Tests_Tickets1 {
 	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void setSprintToClosedFeature() throws Exception {
-		@SuppressWarnings("deprecation")
-		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
+		Date begin = new Date();
+		Date end = new Date();
+		end.setTime(end.getTime() + 1000);
+		
+		ISprint sprint = new Sprint("TestName", "TestDescription", begin, end, new Team("TestDescription"));
 		project.addSprint(sprint);
 		this.feature1.close();
 		this.feature1.setSprint(sprint);
 	}
-	
-//	@Test
-//	@Ignore
-//	public void testEquals_1()
-//		throws Exception {
-//		RelationType relationType = RelationType.create("Test");
-//		
-//		
-//		Feature feature1 = new Feature("Test", "Test", new Project("Test").getBacklog());
-//		feature1.setDescription("Test");
-//		feature1.addRelation(new Relation(relationType, new Feature("Test", "Test", new Project("Test").getBacklog())));
-//		feature1.addAcceptanceCriterion(new AcceptanceCriterion("Test"));
-//		feature1.addHint(new Hint("Test"));
-//		feature1.close();
-//		
-//		Feature feature2 = new Feature("Test", "Test", new Project("Test").getBacklog());
-//		feature2.setDescription("Test");
-//		feature2.addRelation(new Relation(relationType, new Feature("Test", "Test", new Project("Test").getBacklog())));
-//		feature2.addAcceptanceCriterion(new AcceptanceCriterion("Test"));
-//		feature2.addHint(new Hint("Test"));
-//		feature2.close();
-//
-//		boolean result = feature1.equals(feature2);
-//
-//		assertTrue(result);
-//	}
-//
-//	@Test
-//	public void testEquals_2() throws Exception {
-//		
-//		Feature feature = new Feature("Test", "Test", new Project("Test").getBacklog());
-//		feature.setDescription("Test");
-//		feature.addRelation(new Relation(RelationType.create("Test2"), new Feature("Test", "Test", new Project("Test").getBacklog())));
-//		feature.addAcceptanceCriterion(new AcceptanceCriterion("Test"));
-//		feature.addHint(new Hint("Test"));
-//		feature.close();
-//		
-//		Object obj = new Object();
-//
-//		assertFalse(feature.equals(obj));
-//	}
-	
-//	@Test
-//	public void HashCodeAcceptanceCriterion()
-//		throws Exception {
-//		AcceptanceCriterion feature1 = new AcceptanceCriterion("Test");
-//		AcceptanceCriterion feature2 = new AcceptanceCriterion("Test");
-//
-//		// add additional test code here
-//		assertEquals(feature1.hashCode(), feature2.hashCode());
-//	}
-	
-//	@Test
-//	public void setDescriptionToOpenFeature() throws Exception {
-//		String description = "TestNewDescription";
-//		assertEquals(this.featureDescription1, this.feature1.getDescription());
-//		this.feature1.setDescription(description);
-//		assertEquals(description, this.feature1.getDescription());
-//	}
-//	
-//	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
-//	public void setDescriptionToClosedFeature() throws Exception {
-//		String description = "TestNewDescription";
-//		assertEquals(this.featureDescription1, this.feature1.getDescription());
-//		this.feature1.close();
-//		this.feature1.setDescription(description);
-//		assertEquals(description, this.feature1.getDescription());
-//	}
-	
-	// TODO: HashCode implementieren
-	// TODO: Equals implementieren
 	
 	
 	
