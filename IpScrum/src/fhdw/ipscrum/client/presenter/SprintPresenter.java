@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Sprint;
@@ -16,7 +17,7 @@ import fhdw.ipscrum.shared.model.Sprint;
 /**
  * Presenter for {@link Sprint}
  * 
- * @author Manu
+ * @author Phase II / Gruppe I
  *
  */
 public class SprintPresenter extends Presenter<ISprintView>{
@@ -37,6 +38,9 @@ public class SprintPresenter extends Presenter<ISprintView>{
 		this.initialize();
 	}
 
+	/**
+	 * Fills the widget {@linkSprintTableView} in the {@link SprintView} with all existing sprints for the selected project
+	 */
 	private void initialize() {
 		if (this.project.getReleasePlan() != null) {
 			this.getView().refreshSprints(this.project.getSprints());
@@ -45,8 +49,11 @@ public class SprintPresenter extends Presenter<ISprintView>{
 
 	@Override
 	protected ISprintView createView() {
+		
+		// New instance of SprintView
 		this.concreteView = new SprintView();
 
+		// Add a handler for the event which opens a dialog to create new sprint
 		this.concreteView.addNewSprintEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -55,7 +62,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				final SprintDialogPresenter presenter = new SprintDialogPresenter(box);
 				box.setAnimationEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText("Neuen Sprint anlegen");
+				box.setText(TextConstants.CREATE_NEW_SPRINT);
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
@@ -79,11 +86,14 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				box.center();
 			}
 		});
-
+		
+		
+		// Add a handler for the event which opens a dialog for editing an existing sprint
 		this.concreteView.addSprintDetailsEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
+				if(eventArgs.getSprint()!=null){
 				final DialogBox box = new DialogBox();
 				final SprintDialogPresenter presenter = new SprintDialogPresenter(box, eventArgs.getSprint());
 				box.setAnimationEnabled(true);
@@ -105,14 +115,19 @@ public class SprintPresenter extends Presenter<ISprintView>{
 					}
 				});
 				box.center();
+			} else {
+				GwtUtils.displayError(TextConstants.NO_SPRINT_SELECTED);
+			}
 			}
 		});
 
+		// Add a handler for the event which should delete the selected sprint
+		// This function is not implementated now
 		this.concreteView.addDeleteSprintEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
-				GwtUtils.displayError("Entfernen von Sprints ist derzeit noch nicht vorgesehen!");
+				GwtUtils.displayError(TextConstants.SPRINT_DELETE_NOT_ALLOWED);
 			}
 		});
 

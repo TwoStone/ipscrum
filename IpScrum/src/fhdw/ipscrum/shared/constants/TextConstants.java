@@ -114,7 +114,11 @@ public final class TextConstants {
 	public static final String ROOT = "Root";
 	public static final String MANDAYS_ERROR = "Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!";
 	public static final String PBL_PBI_ERROR = "Das PBI muss zunächst mit dem Backlog verbunden werden";
-
+	public static final String NO_SPRINT_SELECTED = "Kein Sprint ausgewählt!";
+	public static final String CREATE_NEW_SPRINT = "Neuen Sprint anlegen";
+	public static final String SPRINT_DELETE_NOT_ALLOWED = "Entfernen von Sprints ist derzeit noch nicht vorgesehen!";
+	public static final String NO_RELEASE_SELECTED = "Kein Release ausgewählt!";
+	public static final String NO_PROJECT_SELECTED = "Kein Projekt ausgewählt";
 	/* [END SECTION] */
 
 }

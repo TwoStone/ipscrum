@@ -19,7 +19,7 @@ import fhdw.ipscrum.shared.model.Project;
 /**
  * Presenter for creating new {@link Project}
  * 
- * @author Manu
+ * @author Phase II / Gruppe I
  * 
  */
 public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
@@ -40,6 +40,7 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 		final ICreateProjectView view = new CreateProjectView();
 
 		// Add a handler for the event which creates a new project
+		// Displays an error-dialog if the project can not be added
 		view.addSaveProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -61,6 +62,7 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 		});
 
 		// Add a handler for the event which cancels creating of a new project
+		//Creates an abort-dialog
 		view.addCancelCreateProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override

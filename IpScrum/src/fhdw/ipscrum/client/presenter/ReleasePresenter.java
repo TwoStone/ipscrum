@@ -9,13 +9,14 @@ import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 
 /**
  * Presenter for {@link Release}
  * 
- * @author Manu
+ * @author Phase II / Gruppe I
  * 
  */
 public class ReleasePresenter extends Presenter<IReleaseView> {
@@ -38,6 +39,8 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 	protected IReleaseView createView() {
 		final IReleaseView view = new ReleaseView();
 
+		
+		// Add a handler for a event which should open a new dialog for creating releases
 		view.addNewReleaseEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -58,8 +61,8 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-						view.refreshReleases(ReleasePresenter.this.project
-								.getReleasePlan());
+
+						ReleasePresenter.this.initialize();
 						diaBox.hide();
 					}
 				});
@@ -67,23 +70,33 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 			}
 		});
 
+		// Add a handler for a event which should delete an selected release
+		// Displays an error if no release selected
 		view.addDeleteReleaseEventHandler(new EventHandler<ReleaseArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
-				GwtUtils.displayError("Löschen von Releases ist derzeit noch nicht vorgesehen!");
-				// if (eventArgs.getRelease() != null) {
-				// ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
-				// view.refreshReleases(ReleasePresenter.this.project
-				// .getReleasePlan());
-				// }
+				if (eventArgs.getRelease() != null) {
+				 ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
+				 view.refreshReleases(ReleasePresenter.this.project
+				 .getReleasePlan());
+				 
+					ReleasePresenter.this.initialize();
+				 
+				 } else {
+					 GwtUtils.displayError(TextConstants.NO_RELEASE_SELECTED);
+					 
+				 }
 			}
 		});
 
+
+		// Add a handler for a event which should open the details of a selected release a a dialog
 		view.addReleaseDetailsEventHandler(new EventHandler<ReleaseArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
+				if(eventArgs.getRelease()!=null){
 				final DialogBox diaBox = new DialogBox();
 				ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(
 						diaBox, eventArgs.getRelease());
@@ -98,6 +111,9 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 					}
 				});
 				diaBox.center();
+			}else {
+				GwtUtils.displayError(TextConstants.NO_RELEASE_SELECTED);
+				}
 			}
 		});
 

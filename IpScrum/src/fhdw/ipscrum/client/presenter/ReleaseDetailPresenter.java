@@ -6,14 +6,27 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SprintArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ReleaseDetailView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseDetailView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Release;
 
+/**
+ * @author Phase II / Gruppe I
+ *
+ * Presenter for {@link ReleaseDetailView}, where you can see all sprints for a release
+ */
 public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 
 	private final Release release;
 
+	/**
+	 * Creates a new instance for {@link ReleaseDetailPresenter}
+	 * 
+	 * @param parent
+	 * @param release
+	 */
 	public ReleaseDetailPresenter(final Panel parent, final Release release) {
 		super(parent);
 		this.release = release;
@@ -28,9 +41,11 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 
 	@Override
 	protected IReleaseDetailView createView() {
-
+		
+		// New instance of AddSprintToReleaseView
 		final IReleaseDetailView view = new ReleaseDetailView();
 
+		// Add a handler for the event which cancels the release-details-dialog
 		view.addCancelReleaseDetailViewHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -41,6 +56,7 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 			}
 		});
 
+		// Add a handler for the event which opens the add-sprint-to-release-dialog
 		view.addAddSprintEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -76,15 +92,21 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 			}
 		});
 
+
+		// Add a handler for the event which removes a selected sprint from the release
+		// Displays an error if no sprint is selected
 		view.addDeleteSprintEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final SprintArgs eventArgs) {
 
+				if(eventArgs.getSprint() == null){
+				GwtUtils.displayError(TextConstants.NO_SPRINT_SELECTED);	
+				} else {
 				ReleaseDetailPresenter.this.release.removeSprint(eventArgs
 						.getSprint());
 				ReleaseDetailPresenter.this.initialize();
-
+				}
 			}
 		});
 

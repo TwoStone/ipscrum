@@ -16,7 +16,7 @@ import fhdw.ipscrum.shared.model.Release;
 /**
  * Presenter for creating a new {@link Release}
  * 
- * @author Manu
+ * @author Phase II / Gruppe I
  * 
  */
 public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
@@ -40,6 +40,7 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 		final ICreateReleaseView view = new CreateReleaseView();
 
 		// Add a handler for the event which saves a new Release
+		//Creates an error if the release already exist
 		view.addSaveVersionHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -56,6 +57,7 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 		});
 
 		// Add a handler for the event which cancels creating of a new release
+		// Creates an abort-dialog
 		view.addCancelCreateReleaseHandler(new EventHandler<EventArgs>() {
 
 			@Override
