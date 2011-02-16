@@ -34,6 +34,7 @@ public class Test_THoch {
 	private static Date cvCurrentDate = null;
 	private static Date cvCurrentDate2 = null;
 
+
 	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -52,10 +53,19 @@ public class Test_THoch {
 		// System.out.println(pbltest.getItems().toString());
 	}
 
+
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	// ************************************************************************
+	// move commands
+	// ************************************************************************
+	
+	/**
+	 * MoveUp() on an element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveUp1() throws Exception {
 		final ProductBacklogItem item = pbltest.getItems().get(1);
@@ -65,8 +75,7 @@ public class Test_THoch {
 	}
 
 	/**
-	 * Move Up auf erstes Element der Liste
-	 * 
+	 * MoveUp() on the first element of PBL, throws an exception
 	 * @throws Exception
 	 */
 	@Test
@@ -76,6 +85,10 @@ public class Test_THoch {
 		assertEquals(holder, pbltest.getItems().get(0));
 	}
 
+	/**
+	 * MoveDown() on an element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveDown1() throws Exception {
 		final ProductBacklogItem item = pbltest.getItems().get(0);
@@ -85,8 +98,7 @@ public class Test_THoch {
 	}
 
 	/**
-	 * Move Down auf letztes Element der Liste
-	 * 
+	 * MoveDown() on last element in PBL
 	 * @throws Exception
 	 */
 	@Test
@@ -98,9 +110,10 @@ public class Test_THoch {
 		assertEquals(holder, pbltest.getItems().get(lastPositionInList));
 	}
 
-	// ************************************************************************
-	// ************************************************************************
-
+	/**
+	 * MoveTop() on an element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveTop1() throws Exception {
 		final int lastPositionInList = pbltest.countItems() - 1;
@@ -110,6 +123,10 @@ public class Test_THoch {
 		assertEquals(item, pbltest.getItems().get(0));
 	}
 
+	/**
+	 * special case, MoveTop() on first element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveTop2() throws Exception {
 		final ProductBacklog lvBacklog = pbltest;
@@ -118,6 +135,10 @@ public class Test_THoch {
 		assertEquals(lvBacklog, pbltest);
 	}
 
+	/**
+	 * MoveTop() on last element of PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveTop3() throws Exception {
 		final int lastPositionInList = pbltest.countItems() - 1;
@@ -128,6 +149,10 @@ public class Test_THoch {
 		assertEquals(item2, pbltest.getItems().get(1));
 	}
 
+	/**
+	 * MoveBottom() on first element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveBottom1() throws Exception {
 		final int lastPositionInList = pbltest.countItems() - 1;
@@ -136,6 +161,10 @@ public class Test_THoch {
 		assertEquals(item, pbltest.getItems().get(lastPositionInList));
 	}
 
+	/**
+	 * MoveBottom() on last element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveBottom2() throws Exception {
 		final int lastPositionInList = pbltest.countItems() - 1;
@@ -146,6 +175,10 @@ public class Test_THoch {
 		assertEquals(lvBacklog, pbltest);
 	}
 
+	/**
+	 * MoveBottom() on last element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testMoveBottom3() throws Exception {
 		final int lastPositionInList = pbltest.countItems() - 1;
@@ -157,8 +190,14 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
+	// test of normal commands and their subject specific validity 
+	// add() and remove() of PBIs
 	// ************************************************************************
 
+	/**
+	 * Addition of a new element (here: feature)
+	 * @throws Exception
+	 */
 	@Test
 	public void testAddPBI() throws Exception {
 		final int entriesInList = pbltest.countItems();
@@ -167,6 +206,10 @@ public class Test_THoch {
 		assertEquals(entriesInList + 1, pbltest.getItems().size());
 	}
 
+	/**
+	 * Removal of a selected element in PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testDeletePBI() throws Exception {
 		final int entriesInList = pbltest.countItems();
@@ -176,14 +219,23 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
+	// validity of the count() methods
 	// ************************************************************************
 
+	/**
+	 * No item in PBL, when new Project is created
+	 * @throws Exception
+	 */
 	@Test
 	public void testCount1() throws Exception {
 		final Project lvProject = new Project("wayne");
 		assertEquals(0, lvProject.getBacklog().getItems().size());
 	}
 
+	/**
+	 * Addition of several new elements into a new PBL to test count()
+	 * @throws Exception
+	 */
 	@Test
 	public void testCount2() throws Exception {
 		final Project lvProject = new Project("wayne");
@@ -197,8 +249,13 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
+	// add and double add of a release to a project
 	// ************************************************************************
 
+	/**
+	 * add a new created release
+	 * @throws Exception
+	 */
 	@Test
 	public void testAddRelease() throws Exception {
 		final int holder = test.getReleasePlan().size();
@@ -207,6 +264,9 @@ public class Test_THoch {
 		assertEquals(holder + 1, test.getReleasePlan().size());
 	}
 
+	/**
+	 * add a already created release, expect that a exception will be thrown
+	 */
 	@Test
 	public void testAddRelease2() {
 		final int holder = test.getReleasePlan().size();
@@ -220,14 +280,23 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
+	// some equals()
 	// ************************************************************************
 
+	/**
+	 * simple equals on the same project
+	 * @throws Exception
+	 */
 	@Test
 	public void testProjectEquals() throws Exception {
 		final Project lvProject = test;
 		assertEquals(lvProject, test);
 	}
 
+	/**
+	 * simple equals on the same PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testPBLEquals() throws Exception {
 		final ProductBacklog lvBacklog = pbltest;
@@ -235,9 +304,13 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
-	// Konsinstenz
+	// Konsinstenz vom Project ausgehend
 	// ************************************************************************
 
+	/**
+	 * tests on reference between project and PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testKonsistenzProject1() throws Exception {
 		final Project lvProject = new Project("name");
@@ -247,6 +320,11 @@ public class Test_THoch {
 		assertEquals(lvBacklog, lvProject.getBacklog());
 	}
 
+	/**
+	 * tests on reference of project and release
+	 * @throws NoValidValueException
+	 * @throws ConsistencyException
+	 */
 	@Test
 	public void testKonsistenzProjectAndRelease() throws NoValidValueException,
 			ConsistencyException {
@@ -262,14 +340,15 @@ public class Test_THoch {
 		assertEquals(lvRelease, lvProject.getReleasePlan().get(0));
 
 		// Test, dass ein Release nicht doppelt in der Liste ist
+		assertEquals(1, lvProject.getReleasePlan().size());
 		lvProject.getReleasePlan().add(lvRelease);
 		assertEquals(1, lvProject.getReleasePlan().size());
-
-		final Project lvProject2 = new Project("name2");
-
-		assertTrue(!lvProject2.getReleasePlan().contains(lvRelease));
 	}
 
+	/**
+	 * tests connections of referencing sprints are dissolved, if a release is deleted
+	 * @throws Exception
+	 */
 	@Test
 	public void testKonsistenzProjectAndSprint() throws Exception {
 		final Root lvRoot = new Root();
@@ -302,8 +381,13 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
+	// Konsistenz vom PBL ausgehend
 	// ************************************************************************
 
+	/**
+	 * tests consitency Exception and connections between sprints and PBI's have to be made in both directions
+	 * @throws Exception
+	 */
 	@Test
 	public void testKonsistenzPBLAndPBI() throws Exception {
 		final Project lvProject = new Project("name");
@@ -361,6 +445,10 @@ public class Test_THoch {
 		assertTrue(!lvBacklog.getItems().contains(lvItem));
 	}
 
+	/**
+	 * test connections between sprints and releases
+	 * @throws Exception
+	 */
 	@Test
 	public void testReleaseAndSprint() throws Exception {
 		final Root lvRoot = new Root();
@@ -384,8 +472,13 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
+	// test for double definitions
 	// ************************************************************************
 
+	/**
+	 * double definition on project creation
+	 * @throws Exception
+	 */
 	@Test
 	public void testDoubleDefinedForProjectInRoot() throws Exception {
 		final Root lvRoot = new Root();
@@ -399,6 +492,10 @@ public class Test_THoch {
 		}
 	}
 
+	/**
+	 * double definition on release creation in one project
+	 * @throws Exception
+	 */
 	@Test(expected = DoubleDefinitionException.class)
 	public void testDoubleDefinedForReleaseInProject() throws Exception {
 		final Root lvRoot = new Root();
@@ -409,6 +506,10 @@ public class Test_THoch {
 		fail();
 	}
 
+	/**
+	 * double definition on sprint creation in one project
+	 * @throws Exception
+	 */
 	@Test
 	public void testDoubleDefinedForSprintInProject() throws Exception {
 		final Root lvRoot = new Root();
@@ -428,6 +529,10 @@ public class Test_THoch {
 		}
 	}
 
+	/**
+	 * double definition on PBI creation in one PBL
+	 * @throws Exception
+	 */
 	@Test
 	public void testDoubleDefinedForPBIinPBL() throws Exception {
 		final Root lvRoot = new Root();
