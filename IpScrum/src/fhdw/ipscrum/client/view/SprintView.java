@@ -99,6 +99,7 @@ public class SprintView extends Composite implements ISprintView{
 		
 		scrollPanel = new ScrollPanel();
 		masterSprintTablePanel.add(scrollPanel);
+		scrollPanel.setSize("575px", "215px");
 		
 		this.spTable = new SprintTableView();
 		scrollPanel.setWidget(spTable);
