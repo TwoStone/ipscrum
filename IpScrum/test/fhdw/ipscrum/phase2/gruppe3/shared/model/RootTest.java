@@ -1,20 +1,15 @@
 package fhdw.ipscrum.phase2.gruppe3.shared.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashSet;
-import java.util.Vector;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import fhdw.ipscrum.shared.model.Person;
-import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.RelationTypeManager;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.Team;
@@ -68,18 +63,6 @@ public class RootTest {
 		fixture.addPerson(person1);
 		fixture.addPerson(person2);
 		assertEquals(2, fixture.getPersons().size());
-	}
-
-	/**
-	 * Run the void addProject(Project) method test.
-	 */
-	@Test
-	public void testAddProject_1() throws Exception {
-		Root fixture = new Root();
-		Project project = new Project("project");
-
-		fixture.addProject(project);
-		fail(); // TODO
 	}
 
 	/**
@@ -185,26 +168,6 @@ public class RootTest {
 	}
 
 	/**
-	 * Run the Integer countProjects() method test.
-	 */
-	@Test
-	public void testCountProjects_1() throws Exception {
-		Root fixture = new Root();
-
-		Integer result = fixture.countProjects();
-
-		assertNotNull(result);
-		assertEquals("0", result.toString());
-		assertEquals((byte) 0, result.byteValue());
-		assertEquals(0.0, result.doubleValue(), 1.0);
-		assertEquals(0.0f, result.floatValue(), 1.0f);
-		assertEquals(0, result.intValue());
-		assertEquals(0L, result.longValue());
-		assertEquals((short) 0, result.shortValue());
-		fail(); // TODO
-	}
-
-	/**
 	 * Run the Integer countRoles() method test.
 	 */
 	@Test
@@ -257,123 +220,6 @@ public class RootTest {
 	}
 
 	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_1() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_2() throws Exception {
-		Root fixture = new Root();
-		Object obj = null;
-
-		boolean result = fixture.equals(obj);
-		assertEquals(false, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_3() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Object();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(false, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_4() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_5() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_6() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_7() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_8() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-		fail(); // TODO
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-	}
-
-	/**
-	 * Run the boolean equals(Object) method test.
-	 */
-	@Test
-	public void testEquals_9() throws Exception {
-		Root fixture = new Root();
-		Object obj = new Root();
-
-		boolean result = fixture.equals(obj);
-		assertEquals(true, result);
-		fail(); // TODO
-	}
-
-	/**
 	 * Run the HashSet<IPerson> getPersons() method test.
 	 */
 	@Test
@@ -397,60 +243,6 @@ public class RootTest {
 
 		HashSet<IPerson> result = fixture.getPersons();
 		assertEquals(2, result.size());
-	}
-
-	/**
-	 * Run the Vector<Project> getProjects() method test.
-	 */
-	@Test
-	public void testGetProjects_1() throws Exception {
-		Root fixture = new Root();
-
-		Vector<Project> result = fixture.getProjects();
-
-		assertNotNull(result);
-		assertEquals(0, result.size());
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the Vector<Project> getProjects() method test.
-	 */
-	@Test
-	public void testGetProjects_2() throws Exception {
-		Root fixture = new Root();
-
-		Vector<Project> result = fixture.getProjects();
-
-		assertNotNull(result);
-		assertEquals(0, result.size());
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the RelationTypeManager getRelationTypeManager() method test.
-	 */
-	@Test
-	public void testGetRelationTypeManager_1() throws Exception {
-		Root fixture = new Root();
-
-		RelationTypeManager result = fixture.getRelationTypeManager();
-
-		assertNotNull(result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the RelationTypeManager getRelationTypeManager() method test.
-	 */
-	@Test
-	public void testGetRelationTypeManager_2() throws Exception {
-		Root fixture = new Root();
-
-		RelationTypeManager result = fixture.getRelationTypeManager();
-
-		assertNotNull(result);
-		fail(); // TODO
 	}
 
 	/**
@@ -503,44 +295,6 @@ public class RootTest {
 
 		HashSet<ITeam> result = fixture.getTeams();
 		assertEquals(2, result.size());
-	}
-
-	/**
-	 * Run the int hashCode() method test.
-	 */
-	@Test
-	public void testHashCode_1() throws Exception {
-		Root fixture = new Root();
-
-		int result = fixture.hashCode();
-
-		assertEquals(924482, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the int hashCode() method test.
-	 */
-	@Test
-	public void testHashCode_2() throws Exception {
-		Root fixture = new Root();
-
-		int result = fixture.hashCode();
-
-		assertEquals(924482, result);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the void removeProject(Project) method test.
-	 */
-	@Test
-	public void testRemoveProject_1() throws Exception {
-		Root fixture = new Root();
-		// Project project = new Project("");
-
-		// fixture.removeProject(project);
-		fail(); // TODO
 	}
 
 	/**
@@ -602,31 +356,6 @@ public class RootTest {
 		assertEquals(1, fixture.getRoles().size());
 		fixture.removeRole(role);
 		assertEquals(1, fixture.getRoles().size());
-	}
-
-	/**
-	 * Run the void save(String) method test.
-	 */
-	@Test
-	public void testSave_1() throws Exception {
-		Root fixture = new Root();
-		String identifier = "";
-
-		fixture.save(identifier);
-		fail(); // TODO
-	}
-
-	/**
-	 * Run the String toString() method test.
-	 */
-	@Test
-	public void testToString_1() throws Exception {
-		Root fixture = new Root();
-
-		String result = fixture.toString();
-
-		assertEquals("Root", result);
-		fail(); // TODO
 	}
 
 	/**

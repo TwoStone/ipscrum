@@ -7,6 +7,9 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
+/**
+ * Class Team
+ */
 public class Team implements ITeam {
 	private String description;
 	private Vector<IPerson> members;
@@ -15,17 +18,38 @@ public class Team implements ITeam {
 	private Team() {
 	}
 
+	/**
+	 * Constructor for Team.
+	 * 
+	 * @param description
+	 *            String
+	 * @throws NoValidValueException
+	 */
 	public Team(String description) throws NoValidValueException {
 		super();
 		setDescription(description);
 		this.members = new Vector<IPerson>();
 	}
 
+	/**
+	 * Method getDescription.
+	 * 
+	 * @return String
+	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#getDescription()
+	 */
 	@Override
 	public String getDescription() {
 		return this.description;
 	}
 
+	/**
+	 * Method setDescription.
+	 * 
+	 * @param description
+	 *            String
+	 * @throws NoValidValueException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#setDescription(String)
+	 */
 	@Override
 	public void setDescription(String description) throws NoValidValueException {
 		if (description == null || description.length() == 0) {
@@ -35,11 +59,25 @@ public class Team implements ITeam {
 		}
 	}
 
+	/**
+	 * Method getMembers.
+	 * 
+	 * @return Vector<IPerson>
+	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#getMembers()
+	 */
 	@Override
 	public Vector<IPerson> getMembers() {
 		return this.members;
 	}
 
+	/**
+	 * Method addMember.
+	 * 
+	 * @param member
+	 *            IPerson
+	 * @throws ConsistencyException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#addMember(IPerson)
+	 */
 	@Override
 	public void addMember(IPerson member) throws ConsistencyException {
 		if (members.contains(member)) {
@@ -49,6 +87,14 @@ public class Team implements ITeam {
 		}
 	}
 
+	/**
+	 * Method removeMember.
+	 * 
+	 * @param member
+	 *            IPerson
+	 * @throws ConsistencyException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#removeMember(IPerson)
+	 */
 	@Override
 	public void removeMember(IPerson member) throws ConsistencyException {
 		if (!members.contains(member)) {
@@ -58,6 +104,11 @@ public class Team implements ITeam {
 		}
 	}
 
+	/**
+	 * Method toString.
+	 * 
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		String ret = "Team";
@@ -67,6 +118,11 @@ public class Team implements ITeam {
 		return ret;
 	}
 
+	/**
+	 * Method hashCode.
+	 * 
+	 * @return int
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,6 +132,13 @@ public class Team implements ITeam {
 		return result;
 	}
 
+	/**
+	 * Method equals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

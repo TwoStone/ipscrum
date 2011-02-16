@@ -8,6 +8,9 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
+/**
+ * Class Sprint.
+ */
 public class Sprint implements ISprint {
 	private String name;
 	private String description;
@@ -21,6 +24,21 @@ public class Sprint implements ISprint {
 	private Sprint() {
 	}
 
+	/**
+	 * Constructor for Sprint.
+	 * 
+	 * @param name
+	 *            String
+	 * @param description
+	 *            String
+	 * @param begin
+	 *            Date
+	 * @param end
+	 *            Date
+	 * @param team
+	 *            ITeam
+	 * @throws NoValidValueException
+	 */
 	public Sprint(String name, String description, Date begin, Date end, ITeam team) throws NoValidValueException {
 		super();
 		setName(name);
@@ -31,16 +49,36 @@ public class Sprint implements ISprint {
 		this.toPBIAssoc = new ToPBIAssoc(this);
 	}
 
+	/**
+	 * Method getToReleaseAssoc.
+	 * 
+	 * @return ToReleaseAssoc
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getToReleaseAssoc()
+	 */
 	@Override
 	public ToReleaseAssoc getToReleaseAssoc() {
 		return this.toReleaseAssoc;
 	}
 
+	/**
+	 * Method getToPBIAssoc.
+	 * 
+	 * @return ToPBIAssoc
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getToPBIAssoc()
+	 */
 	@Override
 	public ToPBIAssoc getToPBIAssoc() {
 		return this.toPBIAssoc;
 	}
 
+	/**
+	 * Method setName.
+	 * 
+	 * @param name
+	 *            String
+	 * @throws NoValidValueException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setName(String)
+	 */
 	@Override
 	public void setName(String name) throws NoValidValueException {
 		if (name == null || name.length() == 0 || name.length() > 20) {
@@ -50,21 +88,51 @@ public class Sprint implements ISprint {
 		}
 	}
 
+	/**
+	 * Method setDescription.
+	 * 
+	 * @param description
+	 *            String
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setDescription(String)
+	 */
 	@Override
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Method getDescription.
+	 * 
+	 * @return String
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getDescription()
+	 */
 	@Override
 	public String getDescription() {
 		return this.description;
 	}
 
+	/**
+	 * Method getBegin.
+	 * 
+	 * @return Date
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getBegin()
+	 */
 	@Override
 	public Date getBegin() {
 		return this.begin;
 	}
 
+	/**
+	 * Method setTimeFrame.
+	 * 
+	 * @param begin
+	 *            Date
+	 * @param end
+	 *            Date
+	 * @throws NoValidValueException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTimeFrame(Date,
+	 *      Date)
+	 */
 	@Override
 	public void setTimeFrame(Date begin, Date end) throws NoValidValueException {
 		if (begin == null || end == null) {
@@ -77,16 +145,36 @@ public class Sprint implements ISprint {
 		}
 	}
 
+	/**
+	 * Method getEnd.
+	 * 
+	 * @return Date
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getEnd()
+	 */
 	@Override
 	public Date getEnd() {
 		return this.end;
 	}
 
+	/**
+	 * Method getTeam.
+	 * 
+	 * @return ITeam
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getTeam()
+	 */
 	@Override
 	public ITeam getTeam() {
 		return this.team;
 	}
 
+	/**
+	 * Method setTeam.
+	 * 
+	 * @param team
+	 *            ITeam
+	 * @throws NoValidValueException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTeam(ITeam)
+	 */
 	@Override
 	public void setTeam(ITeam team) throws NoValidValueException {
 		if (team == null) {
@@ -96,6 +184,12 @@ public class Sprint implements ISprint {
 		}
 	}
 
+	/**
+	 * Method getRelease.
+	 * 
+	 * @return IRelease
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getRelease()
+	 */
 	@Override
 	public IRelease getRelease() {
 		if (this.getToReleaseAssoc().get() != null) {
@@ -104,6 +198,12 @@ public class Sprint implements ISprint {
 		return null;
 	}
 
+	/**
+	 * Method getPBIs.
+	 * 
+	 * @return Vector<ProductBacklogItem>
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getPBIs()
+	 */
 	@Override
 	public Vector<ProductBacklogItem> getPBIs() {
 		Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
@@ -113,16 +213,33 @@ public class Sprint implements ISprint {
 		return ret;
 	}
 
+	/**
+	 * Method getName.
+	 * 
+	 * @return String
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getName()
+	 */
 	@Override
 	public String getName() {
 		return this.name;
 	}
 
+	/**
+	 * Method toString.
+	 * 
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return this.getName();
 	}
 
+	/**
+	 * Method indirectHashCode.
+	 * 
+	 * @return int
+	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectHashCode()
+	 */
 	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
@@ -131,11 +248,24 @@ public class Sprint implements ISprint {
 		return result;
 	}
 
+	/**
+	 * Method hashCode.
+	 * 
+	 * @return int
+	 */
 	@Override
 	public int hashCode() {
 		return indirectHashCode();
 	}
 
+	/**
+	 * Method indirectEquals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
+	 */
 	@Override
 	public boolean indirectEquals(Object obj) {
 		if (this == obj)
@@ -153,6 +283,13 @@ public class Sprint implements ISprint {
 		return true;
 	}
 
+	/**
+	 * Method equals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		return indirectEquals(obj);
