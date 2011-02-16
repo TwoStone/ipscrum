@@ -24,6 +24,10 @@ public abstract class ProductBacklogItem extends Observable implements
 
 	private static final long serialVersionUID = 1599696800942615676L;
 
+	/**
+	 * Class which represents the bidirectional part of the backlog association
+	 * on the PBI side. See architecture documentation for BDAs!
+	 */
 	class ToBacklogAssoc extends
 			BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem> {
 		public ToBacklogAssoc(final ProductBacklogItem element) {
@@ -31,6 +35,10 @@ public abstract class ProductBacklogItem extends Observable implements
 		}
 	}
 
+	/**
+	 * Class which represents the bidirectional part of the sprint association
+	 * on the PBI side. See architecture documentation for BDAs!
+	 */
 	public class ToSprintAssoc extends
 			BDAManyToMany<ISprint.ToPBIAssoc, ProductBacklogItem> {
 		public ToSprintAssoc(final ProductBacklogItem element) {
@@ -38,16 +46,34 @@ public abstract class ProductBacklogItem extends Observable implements
 		}
 	}
 
+	/**
+	 * Name of the sprint.
+	 */
 	private String name;
 
+	/**
+	 * Complexity of the PBI.
+	 */
 	private Integer manDayCosts;
+
+	/**
+	 * Last Editor of the PBI.
+	 */
 	private IPerson lastEditor;
 
+	/**
+	 * Returns the bidirectional association to the backlog.
+	 */
 	private ToBacklogAssoc backlogAssoc;
 
+	/**
+	 * Returns the bidirectional association to the sprint.
+	 */
 	private ToSprintAssoc sprintAssoc;
 
-	@SuppressWarnings("unused")
+	/**
+	 * Default Constructor for GWT serialization.
+	 */
 	protected ProductBacklogItem() {
 	}
 
@@ -59,6 +85,9 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * @throws NoValidValueException
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
+	 * @throws DoubleDefinitionException
+	 *             If the name of the PBI already exist within the product
+	 *             backlog
 	 */
 	public ProductBacklogItem(final String name, final ProductBacklog backlog)
 			throws UserException {
@@ -71,15 +100,30 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.getBacklogAssoc().finalSet(backlog.getAssoc());
 	}
 
-
 	/**
-	 * @author stefan optional operation for subclasses to initialize before
-	 *         super call, for example initialize new attributes.
+	 * @author stefan pietsch group 2 in phase 2 optional operation for
+	 *         subclasses to initialize before super call, for example
+	 *         initialize new attributes.
 	 */
 	protected abstract void initialize();
 
+	/**
+	 * Visitor Entry Point for group 2 in phase 2.
+	 */
 	public abstract void accept(IProductBacklogItemVisitor visitor);
 
+	/**
+	 * Checks if a pbi with a same name already exist within the given backlog.
+	 * 
+	 * @param backlog
+	 *            Product Backlog
+	 * @param name
+	 *            Name of the PBI.
+	 * @throws NoValidValueException
+	 *             If name is not valid (see constructor).
+	 * @throws DoubleDefinitionException
+	 *             If name already exist.
+	 */
 	private void checkName(final ProductBacklog backlog, final String name)
 			throws NoValidValueException, DoubleDefinitionException {
 		if (name != null && name.trim().length() > 0) {
@@ -147,6 +191,9 @@ public abstract class ProductBacklogItem extends Observable implements
 		return true;
 	}
 
+	/**
+	 * Returns the backlog of the pbi.
+	 */
 	public ProductBacklog getBacklog() {
 		if (this.getBacklogAssoc().get() != null) {
 			return this.getBacklogAssoc().get().getElement();
@@ -154,22 +201,37 @@ public abstract class ProductBacklogItem extends Observable implements
 		return null;
 	}
 
+	/**
+	 * Returns the bidirectional association to the backlog.
+	 */
 	protected ToBacklogAssoc getBacklogAssoc() {
 		return this.backlogAssoc;
 	}
 
+	/**
+	 * Returns the last editor of the pbi.
+	 */
 	public IPerson getLastEditor() {
 		return this.lastEditor;
 	}
 
+	/**
+	 * Returns the complexity of the pbi.
+	 */
 	public Integer getManDayCosts() {
 		return this.manDayCosts;
 	}
 
+	/**
+	 * Returns the name of the pbi.
+	 */
 	public String getName() {
 		return this.name;
 	}
 
+	/**
+	 * Returns the sprint if it was set else null will be returned.
+	 */
 	public ISprint getSprint() {
 		if (this.getSprintAssoc().get() != null) {
 			return this.getSprintAssoc().get().getElement();
@@ -178,6 +240,9 @@ public abstract class ProductBacklogItem extends Observable implements
 		}
 	}
 
+	/**
+	 * Returns the bidirectional association to the sprint.
+	 */
 	protected ToSprintAssoc getSprintAssoc() {
 		return this.sprintAssoc;
 	}
@@ -253,12 +318,14 @@ public abstract class ProductBacklogItem extends Observable implements
 	}
 
 	/**
+	 * Changes the Complexity of the pbi.
 	 * 
 	 * @param manDayCosts
 	 *            Values smaller 0 are not allow. 0 means not defined.
 	 * @throws NoValidValueException
 	 *             If the value is smaller 0!
 	 * @throws ForbiddenStateException
+	 *             If the pbi was closed.
 	 */
 	public void setManDayCosts(final Integer manDayCosts)
 			throws NoValidValueException, ForbiddenStateException {
@@ -266,8 +333,7 @@ public abstract class ProductBacklogItem extends Observable implements
 			this.manDayCosts = manDayCosts;
 			this.notifyObservers();
 		} else {
-			throw new NoValidValueException(TextConstants.MANDAYS_ERROR
-					);
+			throw new NoValidValueException(TextConstants.MANDAYS_ERROR);
 		}
 	}
 
@@ -280,6 +346,9 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
 	 * @throws ForbiddenStateException
+	 *             if the pbi was closed. * @throws DoubleDefinitionException if
+	 *             a pbi with the same name already exist within the product
+	 *             backlog
 	 */
 	public void setName(final String name) throws NoValidValueException,
 			DoubleDefinitionException, ConsistencyException,
@@ -287,20 +356,21 @@ public abstract class ProductBacklogItem extends Observable implements
 		if (this.getBacklog() != null) {
 			this.checkName(this.getBacklog(), name);
 		} else {
-			throw new ConsistencyException(
-					TextConstants.PBL_PBI_ERROR);
+			throw new ConsistencyException(TextConstants.PBL_PBI_ERROR);
 		}
 	}
 
 	/**
-	 * TODO Kommentar schreiben
+	 * Changes the sprint of a pbi.
 	 * 
 	 * @param sprint
 	 *            Null Value Means, that the PBI will be removed from the
-	 *            Sprint!
+	 *            sprint!
 	 * @throws NoSprintDefinedException
-	 *             , ConsistencyException
+	 *             If the sprint is not defined within the project the pbi
+	 *             belongs to.
 	 * @throws ForbiddenStateException
+	 *             The pbi was closed.
 	 */
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException,

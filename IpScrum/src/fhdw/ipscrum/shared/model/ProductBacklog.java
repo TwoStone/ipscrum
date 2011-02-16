@@ -19,9 +19,21 @@ public class ProductBacklog extends Observable implements BDACompare,
 		Serializable {
 
 	private static final long serialVersionUID = -5276089275386947750L;
+
+	/**
+	 * Bidirectional associations to the pbis.
+	 */
 	private ToPBIAssoc assoc;
+
+	/**
+	 * Bidirectional association to the project.
+	 */
 	private ToProjectAssoc projectAssoc;
 
+	/**
+	 * Class which represents the bidirectional part of the pbi association on
+	 * the pbl side. See architecture documentation for BDAs!
+	 */
 	class ToPBIAssoc extends
 			BDAManyToMany<ProductBacklogItem.ToBacklogAssoc, ProductBacklog> {
 		public ToPBIAssoc(final ProductBacklog element) {
@@ -29,6 +41,10 @@ public class ProductBacklog extends Observable implements BDACompare,
 		}
 	}
 
+	/**
+	 * Class which represents the bidirectional part of the project association
+	 * on the pbl side. See architecture documentation for BDAs!
+	 */
 	class ToProjectAssoc extends
 			BDAManyToMany<Project.ToBacklogAssoc, ProductBacklog> {
 		public ToProjectAssoc(final ProductBacklog element) {
@@ -36,15 +52,24 @@ public class ProductBacklog extends Observable implements BDACompare,
 		}
 	}
 
+	/**
+	 * Returns the bidirectional association to the pbis.
+	 */
 	protected ToPBIAssoc getAssoc() {
 		return this.assoc;
 	}
 
+	/**
+	 * Returns the bidirectional association to the related project.
+	 */
 	protected ToProjectAssoc getProjectAssoc() {
 		return this.projectAssoc;
 	}
 
 	@SuppressWarnings("unused")
+	/**
+	 * Default Constructor for GWT serialization.
+	 */
 	private ProductBacklog() {
 	}
 
@@ -62,6 +87,14 @@ public class ProductBacklog extends Observable implements BDACompare,
 		this.assoc = new ToPBIAssoc(this);
 	}
 
+	/**
+	 * Checks if an pbi with the given name already exist in the product
+	 * backlog.
+	 * 
+	 * @param pbiName
+	 *            Name of the PBI
+	 * @throws DoubleDefinitionException
+	 */
 	public void isDoubleDefined(final String pbiName)
 			throws DoubleDefinitionException {
 		for (final ProductBacklogItem current : this.getItems()) {
@@ -88,9 +121,10 @@ public class ProductBacklog extends Observable implements BDACompare,
 	}
 
 	/**
-	 * TODO Kommentar
+	 * Move the given pbi to the top of the list.
 	 * 
 	 * @param item
+	 *            pbi for moving.
 	 */
 	public void moveTop(final ProductBacklogItem item) {
 		this.getAssoc().moveToTop(item.getBacklogAssoc());
@@ -98,9 +132,10 @@ public class ProductBacklog extends Observable implements BDACompare,
 	}
 
 	/**
-	 * TODO Kommentar
+	 * Move the given pbi to the end of the list.
 	 * 
 	 * @param item
+	 *            pbi for moving.
 	 */
 	public void moveBottom(final ProductBacklogItem item) {
 		this.getAssoc().moveToBottom(item.getBacklogAssoc());
@@ -108,28 +143,32 @@ public class ProductBacklog extends Observable implements BDACompare,
 	}
 
 	/**
-	 * TODO Kommentar
+	 * Move the given pbi one position in top direction of the list. Therefore
+	 * another pbi will move one step down.
 	 * 
 	 * @param item
+	 *            pbi for moving.
 	 */
 	public void moveUp(final ProductBacklogItem item) {
 		this.getAssoc().moveUp(item.getBacklogAssoc());
 	}
 
 	/**
-	 * TODO Kommentar
+	 * Move the given pbi one position in bottom direction of the list.
+	 * Therefore another pbi will move one step up.
 	 * 
 	 * @param item
+	 *            pbi for moving.
 	 */
 	public void moveDown(final ProductBacklogItem item) {
 		this.getAssoc().moveDown(item.getBacklogAssoc());
 	}
 
 	/**
-	 * Adds the item at the end of the list.
+	 * Adds the given pbi at the end of the list.
 	 * 
 	 * @param item
-	 *            to be add
+	 *            For adding.
 	 */
 	public void addItem(final ProductBacklogItem item)
 			throws ConsistencyException {
@@ -146,6 +185,13 @@ public class ProductBacklog extends Observable implements BDACompare,
 		}
 	}
 
+	/**
+	 * Removes the given PBI from the product backlog and provides Consistency.
+	 * 
+	 * @param item
+	 *            PBI which will be removed.
+	 * @throws UserException
+	 */
 	public void removeItem(final ProductBacklogItem item) throws UserException {
 		item.setSprint(null);// Providing Consistency
 		this.getAssoc().remove(item.getBacklogAssoc());
@@ -153,14 +199,15 @@ public class ProductBacklog extends Observable implements BDACompare,
 	}
 
 	/**
-	 * TODO Kommentar
-	 * 
-	 * @return
+	 * Returns the number of pbis within the product backlog.
 	 */
 	public Integer countItems() {
 		return this.getItems().size();
 	}
 
+	/**
+	 * Return the releated project.
+	 */
 	public Project getProject() {
 		if (this.getProjectAssoc().get() != null) {
 			return this.getProjectAssoc().get().getElement();

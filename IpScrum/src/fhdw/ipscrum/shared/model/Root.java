@@ -87,14 +87,25 @@ public class Root extends Observable implements SerializationRoot,
 	 */
 	public void addProject(final Project project)
 			throws DoubleDefinitionException {
-		for (final Project current : this.getProjects()) {
-			if (current.getName().equals(project.getName())) {
-				throw new DoubleDefinitionException(
-						TextConstants.PROJECT_ERROR);
-			}
-		}
+		this.existsProjectName(project.getName());
 		this.getProjects().add(project);
 		this.notifyObservers();
+	}
+
+	/**
+	 * Helper method to ensure that no double project names will exist.
+	 * 
+	 * @param name
+	 *            Name of the Project.
+	 * @throws DoubleDefinitionException
+	 */
+	public void existsProjectName(final String name)
+			throws DoubleDefinitionException {
+		for (final Project current : this.getProjects()) {
+			if (current.getName().equals(name)) {
+				throw new DoubleDefinitionException(TextConstants.PROJECT_ERROR);
+			}
+		}
 	}
 
 	/**

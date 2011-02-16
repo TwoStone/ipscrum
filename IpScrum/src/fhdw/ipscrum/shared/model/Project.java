@@ -23,12 +23,30 @@ public class Project extends Observable implements BDACompare, Serializable {
 
 	private static final long serialVersionUID = 6337710256829006568L;
 
+	/**
+	 * Name of the project.
+	 */
 	private String name;
+
+	/**
+	 * All defined sprints for the project.
+	 */
 	private Vector<ISprint> sprints;// Not-bidirectional
 
+	/**
+	 * Bidirectional association to releases.
+	 */
 	private ToReleaseAssoc releaseAssoc;
+
+	/**
+	 * Bidirectional association to the product backlog.
+	 */
 	private ToBacklogAssoc backlogAssoc;
 
+	/**
+	 * Class which represents the bidirectional part of the release association
+	 * on the project side. See architecture documentation for BDAs!
+	 */
 	public class ToReleaseAssoc extends
 			BDAManyToMany<Release.ToProjectAssoc, Project> {
 		public ToReleaseAssoc(final Project element) {
@@ -36,6 +54,10 @@ public class Project extends Observable implements BDACompare, Serializable {
 		}
 	}
 
+	/**
+	 * Class which represents the bidirectional part of the backlog association
+	 * on the project side. See architecture documentation for BDAs!
+	 */
 	public class ToBacklogAssoc extends
 			BDAManyToMany<ProductBacklog.ToProjectAssoc, Project> {
 		public ToBacklogAssoc(final Project element) {
@@ -43,15 +65,24 @@ public class Project extends Observable implements BDACompare, Serializable {
 		}
 	}
 
+	/**
+	 * Returns the bidirectional association to the backlog.
+	 */
 	protected ToBacklogAssoc getBacklogAssoc() {
 		return this.backlogAssoc;
 	}
 
+	/**
+	 * Returns the bidirectional association to the releases.
+	 */
 	protected ToReleaseAssoc getReleaseAssoc() {
 		return this.releaseAssoc;
 	}
 
 	@SuppressWarnings("unused")
+	/**
+	 * Default Constructor for GWT serialization.
+	 */
 	private Project() {
 	}
 
@@ -65,12 +96,17 @@ public class Project extends Observable implements BDACompare, Serializable {
 	public Project(final String name) throws NoValidValueException,
 			ConsistencyException {
 		super();
-		this.setName(name);
+		this.name = name;
 		this.releaseAssoc = new ToReleaseAssoc(this);
 		this.backlogAssoc = new ToBacklogAssoc(this);
 		this.backlogAssoc.finalSet(new ProductBacklog(this).getProjectAssoc());
 	}
 
+	/**
+	 * Returns all releases to this project. Don't use this list for removing or
+	 * adding release. This will have not effects. Instead e.g. use the
+	 * removeRelease operation to remove a release from the project.
+	 */
 	public Vector<IRelease> getReleasePlan() {
 		final Vector<IRelease> ret = new Vector<IRelease>();
 		for (final Release.ToProjectAssoc current : this.getReleaseAssoc()
@@ -80,32 +116,23 @@ public class Project extends Observable implements BDACompare, Serializable {
 		return ret;
 	}
 
+	/**
+	 * Returns the name of the project.
+	 */
 	public String getName() {
 		return this.name;
 	}
 
-	// TODO Kommentar
+	/**
+	 * Remove the given release from the project. Also it ensures the
+	 * consistency.
+	 * 
+	 * @param release
+	 *            Release to remove.
+	 */
 	public void removeRelease(final IRelease release) {
 		release.removeAllSprints();
 		this.getReleaseAssoc().remove(release.getProjectAssoc());
-	}
-
-	/**
-	 * Set a new Project name!
-	 * 
-	 * @param name
-	 *            Name of the Project
-	 * @throws NoValidValueException
-	 *             If the name for the Project is not valid. Valid names are not
-	 *             null and have not only whitespace characters.
-	 */
-	public void setName(final String name) throws NoValidValueException {
-		if (name != null && name.trim().length() > 0) {
-			this.name = name;
-			this.notifyObservers();
-		} else {
-			throw new NoValidValueException(TextConstants.MISSING_PROJECT_NAME);
-		}
 	}
 
 	public ProductBacklog getBacklog() {
@@ -148,9 +175,12 @@ public class Project extends Observable implements BDACompare, Serializable {
 	}
 
 	/**
-	 * TODO Kommentar
+	 * Adds a new sprint to the project.
 	 * 
 	 * @param sprint
+	 *            Spritn for adding.
+	 * @throws DoubleDefinitionException
+	 *             If the Sprint already exists (equals check).
 	 */
 	public void addSprint(final ISprint sprint)
 			throws DoubleDefinitionException {
@@ -163,13 +193,22 @@ public class Project extends Observable implements BDACompare, Serializable {
 		}
 	}
 
+	/**
+	 * Check if a release already exist within the project. This depends on the
+	 * version and the release date.
+	 * 
+	 * @param version
+	 *            Version of the release.
+	 * @param releaseDate
+	 *            Release date.
+	 * @throws DoubleDefinitionException
+	 */
 	public void isReleaseDoubleDefined(final String version,
 			final Date releaseDate) throws DoubleDefinitionException {
 		for (final IRelease current : this.getReleasePlan()) {
 			if (current.getVersion().equals(version)
 					&& current.getReleaseDate().equals(releaseDate)) {
-				throw new DoubleDefinitionException(
-						TextConstants.RELEASE_ERROR);
+				throw new DoubleDefinitionException(TextConstants.RELEASE_ERROR);
 			}
 		}
 	}
