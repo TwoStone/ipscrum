@@ -28,8 +28,9 @@ import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 /**
+ * This class is used to represent ProductBacklogs.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class ProductBacklogView extends Composite implements
 		IProductBacklogView {

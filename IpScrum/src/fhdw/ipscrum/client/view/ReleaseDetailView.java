@@ -17,11 +17,13 @@ import fhdw.ipscrum.client.view.interfaces.IReleaseDetailView;
 import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
+ * This class is used to represent the details of a {@link Release}.
+ * 
  * @author Phase II / Gruppe I
- *
  */
 public class ReleaseDetailView extends Composite implements IReleaseDetailView{
 	
