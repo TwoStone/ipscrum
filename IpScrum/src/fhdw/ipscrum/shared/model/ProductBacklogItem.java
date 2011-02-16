@@ -266,9 +266,8 @@ public abstract class ProductBacklogItem extends Observable implements
 			this.manDayCosts = manDayCosts;
 			this.notifyObservers();
 		} else {
-			// TODO Textkonstante bauen
-			throw new NoValidValueException(
-					"Es muss eine gï¿½ltige Aufwandsschï¿½tzung in Manntagen (>=0) angegeben werden!");
+			throw new NoValidValueException(TextConstants.MANDAYS_ERROR
+					);
 		}
 	}
 
@@ -288,9 +287,8 @@ public abstract class ProductBacklogItem extends Observable implements
 		if (this.getBacklog() != null) {
 			this.checkName(this.getBacklog(), name);
 		} else {
-			// TODO Textkonstante bauen!
 			throw new ConsistencyException(
-					"Das PBI muss zunächst mit dem Backlog verbunden werden");
+					TextConstants.PBL_PBI_ERROR);
 		}
 	}
 
