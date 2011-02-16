@@ -23,10 +23,8 @@ public class Person implements IPerson {
 	/**
 	 * Constructor for Person.
 	 * 
-	 * @param firstname
-	 *            String
-	 * @param lastname
-	 *            String
+	 * @param firstname String
+	 * @param lastname String
 	 * @throws NoValidValueException
 	 */
 	public Person(String firstname, String lastname) throws NoValidValueException {
@@ -61,8 +59,7 @@ public class Person implements IPerson {
 	/**
 	 * Method setFirstname.
 	 * 
-	 * @param firstname
-	 *            String
+	 * @param firstname String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#setFirstname(String)
 	 */
@@ -89,8 +86,7 @@ public class Person implements IPerson {
 	/**
 	 * Method setLastname.
 	 * 
-	 * @param lastname
-	 *            String
+	 * @param lastname String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#setLastname(String)
 	 */
@@ -122,8 +118,7 @@ public class Person implements IPerson {
 	/**
 	 * Method addRole.
 	 * 
-	 * @param role
-	 *            IRole
+	 * @param role IRole
 	 * @throws ConsistencyException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#addRole(IRole)
 	 */
@@ -139,8 +134,7 @@ public class Person implements IPerson {
 	/**
 	 * Method removeRole.
 	 * 
-	 * @param role
-	 *            IRole
+	 * @param role IRole
 	 * @throws ConsistencyException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#removeRole(IRole)
 	 */
@@ -176,8 +170,7 @@ public class Person implements IPerson {
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 */
 	@Override
@@ -188,8 +181,7 @@ public class Person implements IPerson {
 	/**
 	 * Method indirectEquals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
 	 */

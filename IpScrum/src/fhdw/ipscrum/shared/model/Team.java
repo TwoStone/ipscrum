@@ -21,8 +21,7 @@ public class Team implements ITeam {
 	/**
 	 * Constructor for Team.
 	 * 
-	 * @param description
-	 *            String
+	 * @param description String
 	 * @throws NoValidValueException
 	 */
 	public Team(String description) throws NoValidValueException {
@@ -45,8 +44,7 @@ public class Team implements ITeam {
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description
-	 *            String
+	 * @param description String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#setDescription(String)
 	 */
@@ -73,8 +71,7 @@ public class Team implements ITeam {
 	/**
 	 * Method addMember.
 	 * 
-	 * @param member
-	 *            IPerson
+	 * @param member IPerson
 	 * @throws ConsistencyException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#addMember(IPerson)
 	 */
@@ -90,8 +87,7 @@ public class Team implements ITeam {
 	/**
 	 * Method removeMember.
 	 * 
-	 * @param member
-	 *            IPerson
+	 * @param member IPerson
 	 * @throws ConsistencyException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ITeam#removeMember(IPerson)
 	 */
@@ -130,8 +126,7 @@ public class Team implements ITeam {
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 */
 	@Override

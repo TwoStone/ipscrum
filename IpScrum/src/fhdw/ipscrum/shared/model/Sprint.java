@@ -27,16 +27,11 @@ public class Sprint implements ISprint {
 	/**
 	 * Constructor for Sprint.
 	 * 
-	 * @param name
-	 *            String
-	 * @param description
-	 *            String
-	 * @param begin
-	 *            Date
-	 * @param end
-	 *            Date
-	 * @param team
-	 *            ITeam
+	 * @param name String
+	 * @param description String
+	 * @param begin Date
+	 * @param end Date
+	 * @param team ITeam
 	 * @throws NoValidValueException
 	 */
 	public Sprint(String name, String description, Date begin, Date end, ITeam team) throws NoValidValueException {
@@ -74,8 +69,7 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setName.
 	 * 
-	 * @param name
-	 *            String
+	 * @param name String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setName(String)
 	 */
@@ -91,8 +85,7 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description
-	 *            String
+	 * @param description String
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setDescription(String)
 	 */
 	@Override
@@ -125,13 +118,10 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setTimeFrame.
 	 * 
-	 * @param begin
-	 *            Date
-	 * @param end
-	 *            Date
+	 * @param begin Date
+	 * @param end Date
 	 * @throws NoValidValueException
-	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTimeFrame(Date,
-	 *      Date)
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTimeFrame(Date, Date)
 	 */
 	@Override
 	public void setTimeFrame(Date begin, Date end) throws NoValidValueException {
@@ -170,8 +160,7 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setTeam.
 	 * 
-	 * @param team
-	 *            ITeam
+	 * @param team ITeam
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTeam(ITeam)
 	 */
@@ -261,8 +250,7 @@ public class Sprint implements ISprint {
 	/**
 	 * Method indirectEquals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
 	 */
@@ -286,8 +274,7 @@ public class Sprint implements ISprint {
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 */
 	@Override

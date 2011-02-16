@@ -20,8 +20,7 @@ public class Role implements IRole {
 	/**
 	 * Constructor for Role.
 	 * 
-	 * @param description
-	 *            String
+	 * @param description String
 	 * @throws NoValidValueException
 	 */
 	public Role(String description) throws NoValidValueException {
@@ -55,8 +54,7 @@ public class Role implements IRole {
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description
-	 *            String
+	 * @param description String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IRole#setDescription(String)
 	 */
@@ -107,8 +105,7 @@ public class Role implements IRole {
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 */
 	@Override
@@ -119,8 +116,7 @@ public class Role implements IRole {
 	/**
 	 * Method indirectEquals.
 	 * 
-	 * @param obj
-	 *            Object
+	 * @param obj Object
 	 * @return boolean
 	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
 	 */

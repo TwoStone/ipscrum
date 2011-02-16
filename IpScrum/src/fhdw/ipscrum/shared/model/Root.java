@@ -15,12 +15,9 @@ import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
 
 /**
- * This class represent the root point for the whole model. This class is
- * additionally used for storing project independent data like teams, persons
- * and roles.
+ * This class represent the root point for the whole model. This class is additionally used for storing project independent data like teams, persons and roles.
  */
-public class Root extends Observable implements SerializationRoot,
-		HasRelationTypeManager {
+public class Root extends Observable implements SerializationRoot, HasRelationTypeManager {
 
 	private Vector<Project> projects;
 	private HashSet<IPerson> persons;
@@ -28,11 +25,23 @@ public class Root extends Observable implements SerializationRoot,
 	private HashSet<IRole> roles;
 	private RelationTypeManager relationTypeManager;
 
+	/**
+	 * Method save.
+	 * 
+	 * @param identifier String
+	 * @throws PersistenceException
+	 * @see fhdw.ipscrum.shared.persistence.SerializationRoot#save(String)
+	 */
 	@Override
 	public void save(final String identifier) throws PersistenceException {
 		// No Implementation Needed
 	}
 
+	/**
+	 * Method getPersons.
+	 * 
+	 * @return HashSet<IPerson>
+	 */
 	public HashSet<IPerson> getPersons() {
 		if (this.persons == null) {
 			this.persons = new HashSet<IPerson>();
@@ -40,6 +49,11 @@ public class Root extends Observable implements SerializationRoot,
 		return this.persons;
 	}
 
+	/**
+	 * Method getProjects.
+	 * 
+	 * @return Vector<Project>
+	 */
 	public Vector<Project> getProjects() {
 		if (this.projects == null) {
 			this.projects = new Vector<Project>();
@@ -47,6 +61,11 @@ public class Root extends Observable implements SerializationRoot,
 		return this.projects;
 	}
 
+	/**
+	 * Method getTeams.
+	 * 
+	 * @return HashSet<ITeam>
+	 */
 	public HashSet<ITeam> getTeams() {
 		if (this.teams == null) {
 			this.teams = new HashSet<ITeam>();
@@ -54,6 +73,11 @@ public class Root extends Observable implements SerializationRoot,
 		return this.teams;
 	}
 
+	/**
+	 * Method getRoles.
+	 * 
+	 * @return HashSet<IRole>
+	 */
 	public HashSet<IRole> getRoles() {
 		if (this.roles == null) {
 			this.roles = new HashSet<IRole>();
@@ -61,6 +85,12 @@ public class Root extends Observable implements SerializationRoot,
 		return this.roles;
 	}
 
+	/**
+	 * Method getRelationTypeManager.
+	 * 
+	 * @return RelationTypeManager
+	 * @see fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager#getRelationTypeManager()
+	 */
 	@Override
 	public RelationTypeManager getRelationTypeManager() {
 		if (this.relationTypeManager == null) {
@@ -72,8 +102,7 @@ public class Root extends Observable implements SerializationRoot,
 	/**
 	 * Removes the given project with all depending data from the model.
 	 * 
-	 * @param project
-	 *            Project for Deletion!
+	 * @param project Project for Deletion!
 	 */
 	public void removeProject(final Project project) {
 		this.getProjects().remove(project);
@@ -84,9 +113,9 @@ public class Root extends Observable implements SerializationRoot,
 	 * Add a new Project to the model.
 	 * 
 	 * @param project
+	 * @throws DoubleDefinitionException
 	 */
-	public void addProject(final Project project)
-			throws DoubleDefinitionException {
+	public void addProject(final Project project) throws DoubleDefinitionException {
 		this.existsProjectName(project.getName());
 		this.getProjects().add(project);
 		this.notifyObservers();
@@ -95,12 +124,11 @@ public class Root extends Observable implements SerializationRoot,
 	/**
 	 * Helper method to ensure that no double project names will exist.
 	 * 
-	 * @param name
-	 *            Name of the Project.
+	 * @param name Name of the Project.
+	 * 
 	 * @throws DoubleDefinitionException
 	 */
-	public void existsProjectName(final String name)
-			throws DoubleDefinitionException {
+	public void existsProjectName(final String name) throws DoubleDefinitionException {
 		for (final Project current : this.getProjects()) {
 			if (current.getName().equals(name)) {
 				throw new DoubleDefinitionException(TextConstants.PROJECT_ERROR);
@@ -110,6 +138,8 @@ public class Root extends Observable implements SerializationRoot,
 
 	/**
 	 * Returns the number of Projects within the model!
+	 * 
+	 * @return Integer
 	 */
 	public Integer countProjects() {
 		return this.getProjects().size();
@@ -118,13 +148,13 @@ public class Root extends Observable implements SerializationRoot,
 	/**
 	 * Adds a new person to the model!
 	 * 
+	 * 
+	 * @param person IPerson
 	 * @throws DoubleDefinitionException
 	 */
-	public void addPerson(final IPerson person)
-			throws DoubleDefinitionException {
+	public void addPerson(final IPerson person) throws DoubleDefinitionException {
 		if (this.getPersons().contains(person)) {
-			throw new DoubleDefinitionException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getPersons().add(person);
 			this.notifyObservers();
@@ -133,6 +163,8 @@ public class Root extends Observable implements SerializationRoot,
 
 	/**
 	 * Returns the number of all persons within the Model.
+	 * 
+	 * @return Integer
 	 */
 	public Integer countPersons() {
 		return this.getPersons().size();
@@ -141,12 +173,13 @@ public class Root extends Observable implements SerializationRoot,
 	/**
 	 * Adds a new Team to the model.
 	 * 
+	 * 
+	 * @param team ITeam
 	 * @throws DoubleDefinitionException
 	 */
 	public void addTeam(final ITeam team) throws DoubleDefinitionException {
 		if (this.getTeams().contains(team)) {
-			throw new DoubleDefinitionException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getTeams().add(team);
 			this.notifyObservers();
@@ -155,6 +188,8 @@ public class Root extends Observable implements SerializationRoot,
 
 	/**
 	 * Returns the number of all defined teams.
+	 * 
+	 * @return Integer
 	 */
 	public Integer countTeams() {
 		return this.getTeams().size();
@@ -163,6 +198,8 @@ public class Root extends Observable implements SerializationRoot,
 	/**
 	 * Removes the given role. TODO Check Consistency
 	 * 
+	 * 
+	 * @param role IRole
 	 * @throws ConsistencyException
 	 */
 	public void removeRole(final IRole role) throws ConsistencyException {
@@ -172,12 +209,10 @@ public class Root extends Observable implements SerializationRoot,
 				this.getRoles().remove(role);
 				this.notifyObservers();
 			} else {
-				throw new ConsistencyException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+				throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
 			}
 		} else {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		}
 
 	}
@@ -185,12 +220,14 @@ public class Root extends Observable implements SerializationRoot,
 	/**
 	 * Adds a new Role to the model.
 	 * 
+	 * 
+	 * @param role IRole
+	 * @throws DoubleDefinitionException
 	 * @throws ConsistencyException
 	 */
 	public void addRole(final IRole role) throws DoubleDefinitionException {
 		if (this.getRoles().contains(role)) {
-			throw new DoubleDefinitionException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getRoles().add(role);
 			this.notifyObservers();
@@ -199,35 +236,45 @@ public class Root extends Observable implements SerializationRoot,
 
 	/**
 	 * Returns the number of all Roles.
+	 * 
+	 * @return Integer
 	 */
 	public Integer countRoles() {
 		return this.getRoles().size();
 	}
 
+	/**
+	 * Method toString.
+	 * 
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return TextConstants.ROOT;
 	}
 
+	/**
+	 * Method hashCode.
+	 * 
+	 * @return int
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((this.getPersons() == null) ? 0 : this.getPersons()
-						.hashCode());
-		result = prime
-				* result
-				+ ((this.getProjects() == null) ? 0 : this.getProjects()
-						.hashCode());
-		result = prime * result
-				+ ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
-		result = prime * result
-				+ ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
+		result = prime * result + ((this.getPersons() == null) ? 0 : this.getPersons().hashCode());
+		result = prime * result + ((this.getProjects() == null) ? 0 : this.getProjects().hashCode());
+		result = prime * result + ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
+		result = prime * result + ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
 		return result;
 	}
 
+	/**
+	 * Method equals.
+	 * 
+	 * @param obj Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(final Object obj) {
 		if (this == obj) {
