@@ -21,7 +21,7 @@ import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
- * This class is used to represent the details of a {@link Release}.
+ * This view class is used to represent the details of a {@link Release}.
  * 
  * @author Phase II / Gruppe I
  */

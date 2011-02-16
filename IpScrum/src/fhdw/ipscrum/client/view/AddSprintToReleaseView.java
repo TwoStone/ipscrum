@@ -20,7 +20,7 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
- * This class is used to add a {@link Sprint} to a {@link Release}.
+ * This view class is used to add a {@link Sprint} to a {@link Release}.
  * 
  * @author Phase II / Gruppe I
  */

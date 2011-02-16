@@ -25,7 +25,7 @@ import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 /**
- * This view is used to represent releases.
+ * This view class is used to represent releases.
  * 
  * @author Phase II / Gruppe I
  */

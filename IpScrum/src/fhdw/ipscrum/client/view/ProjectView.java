@@ -26,7 +26,7 @@ import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Project;
 
 /**
- *  This view is used to represent projects.
+ *  This view class is used to represent projects.
  * 
  * @author Phase II / Gruppe I
  */
