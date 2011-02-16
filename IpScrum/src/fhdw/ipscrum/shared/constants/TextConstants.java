@@ -107,6 +107,9 @@ public final class TextConstants {
 	public static final String MISSING_TEXT_ERROR = "Es muss eine Bezeichnung angegeben werden!";
 	public static final String CREATE_FEATURE = "Feature erstellen";
 	public static final String FEATURE_DETAILS = "Feature Details";
+	public static final String MISSING_PROJECT_NAME = "Es muss ein Projektname angegeben werden!";
+	public static final String SPRINT_ERROR = "Der angegebene Sprint ist nicht im Projekt definiert!";
+	public static final String RELEASE_ERROR = "Release existiert bereits und kann nicht hinzugef�gt werden!";
 
 	/* [END SECTION] */
 
