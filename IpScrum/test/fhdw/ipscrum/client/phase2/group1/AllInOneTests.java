@@ -233,29 +233,6 @@ public class AllInOneTests {
 		assertEquals(4, lvProject.getBacklog().getItems().size());
 	}
 
-	// ************************************************************************
-	// add and double add of a release to a project
-	// ************************************************************************
-
-	/**
-	 * add a already created release, expect that a exception will be thrown
-	 */
-	@Test
-	public void testAddRelease2() {
-		final int holder = test.getReleasePlan().size();
-		try {
-			new Release("0.0.1", cvCurrentDate, test);
-
-			fail("keine Fehlermeldung gekommen");
-		} catch (final DoubleDefinitionException e) {
-			assertEquals(holder, test.getReleasePlan().size());
-		}
-	}
-
-	// ************************************************************************
-	// some equals()
-	// ************************************************************************
-
 	/**
 	 * simple equals on the same project
 	 * 
@@ -712,20 +689,6 @@ public class AllInOneTests {
 		pbltest.removeItem(pbltest.getItems().lastElement());
 
 		assertEquals(entriesInList - 1, pbltest.getItems().size());
-	}
-
-	// ************************************************************************
-	// ************************************************************************
-
-	@Test
-	/**
-	 * a new Release is created
-	 */
-	public void testAddRelease() throws Exception {
-		final int holder = test.getReleasePlan().size();
-		new Release("0.0.1", cvCurrentDate, test);
-
-		assertEquals(holder + 1, test.getReleasePlan().size());
 	}
 
 	// ************************************************************************
