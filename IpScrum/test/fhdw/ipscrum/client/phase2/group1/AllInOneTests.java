@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.phase2.group1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -14,6 +15,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -22,8 +24,10 @@ import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.Team;
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
-public class Test_THoch {
+public class AllInOneTests {
 
 	private static Project test = null;
 	private static ProductBacklog pbltest = null;
@@ -33,7 +37,6 @@ public class Test_THoch {
 	private static Feature d = null;
 	private static Date cvCurrentDate = null;
 	private static Date cvCurrentDate2 = null;
-
 
 	@SuppressWarnings("deprecation")
 	@BeforeClass
@@ -53,7 +56,6 @@ public class Test_THoch {
 		// System.out.println(pbltest.getItems().toString());
 	}
 
-
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
@@ -61,9 +63,10 @@ public class Test_THoch {
 	// ************************************************************************
 	// move commands
 	// ************************************************************************
-	
+
 	/**
 	 * MoveUp() on an element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -76,6 +79,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveUp() on the first element of PBL, throws an exception
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -87,6 +91,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveDown() on an element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -99,6 +104,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveDown() on last element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -112,6 +118,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveTop() on an element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -125,6 +132,7 @@ public class Test_THoch {
 
 	/**
 	 * special case, MoveTop() on first element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -137,6 +145,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveTop() on last element of PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -151,6 +160,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveBottom() on first element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -163,6 +173,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveBottom() on last element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -177,6 +188,7 @@ public class Test_THoch {
 
 	/**
 	 * MoveBottom() on last element in PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -190,40 +202,12 @@ public class Test_THoch {
 	}
 
 	// ************************************************************************
-	// test of normal commands and their subject specific validity 
-	// add() and remove() of PBIs
-	// ************************************************************************
-
-	/**
-	 * Addition of a new element (here: feature)
-	 * @throws Exception
-	 */
-	@Test
-	public void testAddPBI() throws Exception {
-		final int entriesInList = pbltest.countItems();
-		new Feature("E", "Test E", pbltest);
-		// System.out.println(pbltest.getItems().get(entriesInList));
-		assertEquals(entriesInList + 1, pbltest.getItems().size());
-	}
-
-	/**
-	 * Removal of a selected element in PBL
-	 * @throws Exception
-	 */
-	@Test
-	public void testDeletePBI() throws Exception {
-		final int entriesInList = pbltest.countItems();
-		pbltest.removeItem(pbltest.getItems().lastElement());
-
-		assertEquals(entriesInList - 1, pbltest.getItems().size());
-	}
-
-	// ************************************************************************
 	// validity of the count() methods
 	// ************************************************************************
 
 	/**
 	 * No item in PBL, when new Project is created
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -234,6 +218,7 @@ public class Test_THoch {
 
 	/**
 	 * Addition of several new elements into a new PBL to test count()
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -251,18 +236,6 @@ public class Test_THoch {
 	// ************************************************************************
 	// add and double add of a release to a project
 	// ************************************************************************
-
-	/**
-	 * add a new created release
-	 * @throws Exception
-	 */
-	@Test
-	public void testAddRelease() throws Exception {
-		final int holder = test.getReleasePlan().size();
-		new Release("0.0.1", cvCurrentDate, test);
-
-		assertEquals(holder + 1, test.getReleasePlan().size());
-	}
 
 	/**
 	 * add a already created release, expect that a exception will be thrown
@@ -285,6 +258,7 @@ public class Test_THoch {
 
 	/**
 	 * simple equals on the same project
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -295,6 +269,7 @@ public class Test_THoch {
 
 	/**
 	 * simple equals on the same PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -309,6 +284,7 @@ public class Test_THoch {
 
 	/**
 	 * tests on reference between project and PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -322,6 +298,7 @@ public class Test_THoch {
 
 	/**
 	 * tests on reference of project and release
+	 * 
 	 * @throws NoValidValueException
 	 * @throws ConsistencyException
 	 */
@@ -346,7 +323,9 @@ public class Test_THoch {
 	}
 
 	/**
-	 * tests connections of referencing sprints are dissolved, if a release is deleted
+	 * tests connections of referencing sprints are dissolved, if a release is
+	 * deleted
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -385,7 +364,9 @@ public class Test_THoch {
 	// ************************************************************************
 
 	/**
-	 * tests consitency Exception and connections between sprints and PBI's have to be made in both directions
+	 * tests consitency Exception and connections between sprints and PBI's have
+	 * to be made in both directions
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -447,6 +428,7 @@ public class Test_THoch {
 
 	/**
 	 * test connections between sprints and releases
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -477,6 +459,7 @@ public class Test_THoch {
 
 	/**
 	 * double definition on project creation
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -494,6 +477,7 @@ public class Test_THoch {
 
 	/**
 	 * double definition on release creation in one project
+	 * 
 	 * @throws Exception
 	 */
 	@Test(expected = DoubleDefinitionException.class)
@@ -508,6 +492,7 @@ public class Test_THoch {
 
 	/**
 	 * double definition on sprint creation in one project
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -531,6 +516,7 @@ public class Test_THoch {
 
 	/**
 	 * double definition on PBI creation in one PBL
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -550,4 +536,216 @@ public class Test_THoch {
 		}
 	}
 
+	@Test
+	/**
+	 * Testing Consistency between Release - Sprint and PBI 
+	 */
+	public void releaseSprintPbiConsistency() {
+		try {
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final Feature f3 = new Feature("T3", "", p.getBacklog());
+
+			p.getBacklog().addItem(f1);
+			p.getBacklog().addItem(f2);
+			p.getBacklog().addItem(f3);
+
+			final ISprint sprint1 = new Sprint("123", "sd", new Date(),
+					new Date(), new Team("Test"));
+			final ISprint sprint2 = new Sprint("1234", "scb", new Date(),
+					new Date(), new Team("Test2"));
+			final ISprint sprint3 = new Sprint("12345", "33", new Date(),
+					new Date(), new Team("Test3"));
+
+			p.addSprint(sprint1);
+			p.addSprint(sprint2);
+			// Sprint3 wird bewusst nicht hinzugefügt
+
+			// FIRST SPRINT<->PBI
+
+			try {
+				f1.setSprint(sprint3);
+				fail();
+			} catch (final Exception e) {
+				assertTrue(f1.getSprint() == null);
+				assertFalse(sprint1.getPBIs().contains(f1));
+			}
+
+			f1.setSprint(sprint1);
+
+			assertEquals(sprint1, f1.getSprint());
+			assertTrue(sprint1.getPBIs().contains(f1));
+
+			f1.setSprint(sprint2);
+			assertEquals(sprint2, f1.getSprint());
+			assertFalse(sprint1.getPBIs().contains(f1));
+			assertTrue(sprint2.getPBIs().contains(f1));
+
+			// NOW RELEASE<->PBI
+			final IRelease release1 = new Release("R1", new Date(), p);
+			final IRelease release2 = new Release("R2", new Date(2011, 10, 11),
+					p);
+			IRelease release3 = null;
+
+			// Doppelt
+			try {
+				release3 = new Release("R2", new Date(2011, 10, 11), p);
+				fail();
+			} catch (final Exception e1) {
+				assertTrue(release3 == null);
+				assertFalse(p.getReleasePlan().contains(release3));
+			}
+
+			assertTrue(p.getReleasePlan().contains(release1));
+			assertTrue(p.getReleasePlan().contains(release2));
+			assertEquals(p, release1.getProject());
+			assertEquals(p, release2.getProject());
+
+			try {
+				release1.addSprint(sprint3);
+				fail();
+			} catch (final Exception e) {
+				assertTrue(sprint3.getRelease() == null);
+				assertFalse(release1.getSprints().contains(sprint3));
+			}
+
+			assertFalse(sprint1.equals(sprint2));
+			assertFalse(sprint1.hashCode() == sprint2.hashCode());
+
+			release1.addSprint(sprint1);
+			release1.addSprint(sprint2);
+
+			assertEquals(release1, sprint1.getRelease());
+			assertEquals(release1, sprint2.getRelease());
+			assertTrue(release1.getSprints().contains(sprint1));
+			assertTrue(release1.getSprints().contains(sprint2));
+
+			release1.removeSprint(sprint1);
+			assertTrue(sprint1.getRelease() == null);
+			assertFalse(release1.getSprints().contains(sprint1));
+			assertTrue(release1.getSprints().contains(sprint2));
+
+		} catch (final UserException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	/**
+	 * Testing Change Sprint for PBI
+	 */
+	public void changeSprintForPBI() {
+		try {
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final ISprint sprint1 = new Sprint("123", "sd", new Date(),
+					new Date(), new Team("Test"));
+			final ISprint sprint2 = new Sprint("1234", "scb", new Date(),
+					new Date(), new Team("Test2"));
+			p.addSprint(sprint1);
+			p.addSprint(sprint2);
+
+			f1.setSprint(sprint1);
+			f1.setSprint(sprint2);
+
+			assertFalse(sprint1.getPBIs().contains(f1));
+			assertTrue(sprint2.getPBIs().contains(f1));
+			assertEquals(f1.getSprint(), sprint2);
+
+		} catch (final UserException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	/**
+	 * Testing Change Release for Sprint
+	 */
+	public void changeReleaseForSprint() {
+		try {
+			final Project p = new Project("Test");
+			final Feature f1 = new Feature("T1", "", p.getBacklog());
+			final Feature f2 = new Feature("T2", "", p.getBacklog());
+			final ISprint sprint1 = new Sprint("123", "sd", new Date(),
+					new Date(), new Team("Test"));
+			final ISprint sprint2 = new Sprint("1234", "scb", new Date(),
+					new Date(), new Team("Test2"));
+
+			final IRelease release = new Release("R1", new Date(), p);
+			final IRelease release2 = new Release("R3", new Date(), p);
+
+			release.addSprint(sprint1);
+
+			assertTrue(release.getSprints().contains(sprint1));
+			assertEquals(release, sprint1.getRelease());
+
+			release2.addSprint(sprint1);
+
+			assertTrue(release2.getSprints().contains(sprint1));
+			assertEquals(release2, sprint1.getRelease());
+			assertFalse(release.getSprints().contains(sprint1));
+
+		} catch (final UserException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	@Test
+	/**
+	 * Addition of a new element (here: feature)
+	 */
+	public void testAddPBI() throws Exception {
+		final int entriesInList = pbltest.getItems().size();
+		new Feature("E", "Test E", pbltest);
+		// System.out.println(pbltest.getItems().get(entriesInList));
+		assertEquals(entriesInList + 1, pbltest.getItems().size());
+	}
+
+	@Test
+	/**
+	 * Removal of a selected element in PBL
+	 */
+	public void testDeletePBI() throws Exception {
+		final int entriesInList = pbltest.getItems().size();
+		pbltest.removeItem(pbltest.getItems().lastElement());
+
+		assertEquals(entriesInList - 1, pbltest.getItems().size());
+	}
+
+	// ************************************************************************
+	// ************************************************************************
+
+	@Test
+	/**
+	 * a new Release is created
+	 */
+	public void testAddRelease() throws Exception {
+		final int holder = test.getReleasePlan().size();
+		new Release("0.0.1", cvCurrentDate, test);
+
+		assertEquals(holder + 1, test.getReleasePlan().size());
+	}
+
+	// ************************************************************************
+	// ************************************************************************
+
+	@Test
+	/**
+	 * a new Project is created
+	 */
+	public void testProjectEquals2() throws Exception {
+		final Project lvProject = test;
+		assertEquals(lvProject, test);
+	}
+
+	@Test
+	/**
+	 * a new PBL is created on creation of a Project
+	 */
+	public void testPBLEquals2() throws Exception {
+		final ProductBacklog lvBacklog = pbltest;
+		assertEquals(lvBacklog, pbltest);
+	}
 }
