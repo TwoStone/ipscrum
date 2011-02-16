@@ -69,8 +69,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 							} catch (final ConsistencyException e) {
 								GwtUtils.displayError(e.getMessage());
 							}
-							view.refreshProductBacklog(ProductBacklogPresenter.this.project
-									.getBacklog().getItems());
+							view
+									.refreshProductBacklog(ProductBacklogPresenter.this.project
+											.getBacklog().getItems());
 							newBox.hide();
 						}
 
@@ -87,7 +88,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 					newBox.center();
 				} catch (final NoFeatureSelectedException e1) {
-					// TODO Handle exception
+					GwtUtils.displayError(e1.getMessage());
 				}
 			}
 		});
@@ -112,8 +113,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 						@Override
 						public void onUpdate(final Object sender,
 								final EventArgs eventArgs) {
-							view.refreshProductBacklog(ProductBacklogPresenter.this.project
-									.getBacklog().getItems());
+							view
+									.refreshProductBacklog(ProductBacklogPresenter.this.project
+											.getBacklog().getItems());
 							newBox.hide();
 						}
 
@@ -130,7 +132,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 					newBox.center();
 				} catch (final NoFeatureSelectedException e) {
-					// TODO Handle exception
+					GwtUtils.displayError(e.getMessage());
 				}
 			}
 		});
@@ -144,8 +146,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 					try {
 						ProductBacklogPresenter.this.project.getBacklog()
 								.removeItem(eventArgs.getPbi());
-						view.refreshProductBacklog(ProductBacklogPresenter.this.project
-								.getBacklog().getItems());
+						view
+								.refreshProductBacklog(ProductBacklogPresenter.this.project
+										.getBacklog().getItems());
 					} catch (final UserException e) {
 						GwtUtils.displayError(e.getMessage());
 					}
@@ -164,8 +167,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog().moveDown(
 							pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					view
+							.refreshProductBacklog(ProductBacklogPresenter.this.project
+									.getBacklog().getItems());
 				}
 			}
 		});
@@ -179,8 +183,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog().moveUp(
 							pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					view
+							.refreshProductBacklog(ProductBacklogPresenter.this.project
+									.getBacklog().getItems());
 				}
 			}
 		});
@@ -194,8 +199,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog().moveTop(
 							pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					view
+							.refreshProductBacklog(ProductBacklogPresenter.this.project
+									.getBacklog().getItems());
 				}
 			}
 
@@ -210,8 +216,9 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				if (pbi != null) {
 					ProductBacklogPresenter.this.project.getBacklog()
 							.moveBottom(pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					view
+							.refreshProductBacklog(ProductBacklogPresenter.this.project
+									.getBacklog().getItems());
 				}
 			}
 

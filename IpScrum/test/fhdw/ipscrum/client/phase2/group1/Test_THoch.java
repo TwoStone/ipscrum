@@ -266,16 +266,8 @@ public class Test_THoch {
 		assertEquals(1, lvProject.getReleasePlan().size());
 
 		final Project lvProject2 = new Project("name2");
-		// lvProject2.addRelease(lvRelease);
-		// Test, Release kann nicht mehreren Projekten zugeordnet werden.
 
-		// System.out.println(lvRelease.getProject().toString());
-		// System.out.println(lvProject2.getReleasePlan().get(0).getProject().toString());
 		assertTrue(!lvProject2.getReleasePlan().contains(lvRelease));
-		// TODO Projekte verweisen aufs selbe Release, Release weiterhin auf
-		// Projekt 1 **/
-
-		// assertEquals(lvRelease, lvProject2.getReleasePlan().get(0));
 	}
 
 	@Test
@@ -303,7 +295,6 @@ public class Test_THoch {
 
 		lvProject.removeRelease(lvRelease);
 
-		// TODO Verbindungen zwischen Release und Project trennen
 		assertTrue(!lvProject.getReleasePlan().contains(lvRelease));
 		assertTrue(lvRelease.getProject() == null);
 		assertTrue(lvSprint.getRelease() == null);
@@ -403,7 +394,6 @@ public class Test_THoch {
 		try {
 			lvRoot.addProject(lvProject);
 			fail("Doppelte Definition von Projekten");
-			// TODO: Doppelte Definition von Projekten
 		} catch (final Exception e) {
 			assertTrue(true);
 		}
