@@ -377,7 +377,7 @@ public abstract class ProductBacklogItem extends Observable implements
 			ForbiddenStateException {
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
-			this.getSprintAssoc().set(sprint.getToPBIAssoc());
+			this.getSprintAssoc().setNotChange((sprint.getToPBIAssoc()));
 		} else {
 			this.getSprintAssoc().set(null);
 		}
