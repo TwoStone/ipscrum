@@ -48,7 +48,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	private ToSprintAssoc sprintAssoc;
 
 	@SuppressWarnings("unused")
-	private ProductBacklogItem() {
+	protected ProductBacklogItem() {
 	}
 
 	/**
@@ -70,6 +70,7 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.setManDayCosts(0);
 		this.getBacklogAssoc().finalSet(backlog.getAssoc());
 	}
+
 
 	/**
 	 * @author stefan optional operation for subclasses to initialize before

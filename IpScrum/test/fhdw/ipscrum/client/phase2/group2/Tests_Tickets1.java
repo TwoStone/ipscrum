@@ -465,6 +465,7 @@ public class Tests_Tickets1 {
 	 */
 	@Test
 	public void setSprintToOpenFeature() throws Exception {
+		@SuppressWarnings("deprecation")
 		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
 		project.addSprint(sprint);
 		this.feature1.setSprint(sprint);
@@ -476,6 +477,7 @@ public class Tests_Tickets1 {
 	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void setSprintToClosedFeature() throws Exception {
+		@SuppressWarnings("deprecation")
 		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
 		project.addSprint(sprint);
 		this.feature1.close();

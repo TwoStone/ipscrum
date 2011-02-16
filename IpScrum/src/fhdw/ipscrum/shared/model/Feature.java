@@ -3,8 +3,6 @@ package fhdw.ipscrum.shared.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
@@ -24,13 +22,16 @@ import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
  */
 public class Feature extends /* implements */ProductBacklogItem /* IProductBacklogItem */{
 
+	private static final long serialVersionUID = 5167167800573928995L;
+	
 	private IFeatureState state;
-	private final List<Relation> relations;
-	private final List<Hint> hints;
-	private final List<AcceptanceCriterion> acceptanceCriteria;
-	//private IPerson editor;
+	private List<Relation> relations;
+	private List<Hint> hints;
+	private List<AcceptanceCriterion> acceptanceCriteria;
 	private String description;
-
+	@SuppressWarnings("unused")
+	private Feature(){
+	}
 	public Feature(final String name, final String description,
 			final ProductBacklog backlog) throws UserException {
 		super(name, backlog);
@@ -171,7 +172,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			}
 		}
 		this.acceptanceCriteria.add(acceptanceCriterion);
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doAddHint(final Hint hint) throws DoubleDefinitionException {
@@ -184,23 +184,19 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			}
 		}
 		this.hints.add(hint);
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doRemoveAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion) {
 		this.acceptanceCriteria.remove(acceptanceCriterion);
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doRemoveRelation(final Relation relation) {
 		this.relations.remove(relation);
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doRemoveHint(final Hint hint) {
 		this.hints.remove(hint);
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doAddRelation(final Relation relation)
@@ -214,7 +210,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 			}
 		}
 		this.relations.add(relation);
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	protected void doClose() {
@@ -223,7 +218,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 	
 	protected void doSetDescription(final String description) {
 		this.description = description;
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 	
 	protected void doSetManDayCosts(Integer manDayCosts) throws NoValidValueException, ForbiddenStateException{
@@ -275,7 +269,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 
 	protected void setState(final IFeatureState state) {
 		this.state = state;
-		//this.setLastEditor(SessionManager.getInstance().getLoginUser());
 	}
 
 	@Override
@@ -304,13 +297,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		} else if (!this.description.equals(other.description)) {
 			return false;
 		}
-		/*if (this.editor == null) {
-			if (other.editor != null) {
-				return false;
-			}
-		} else if (!this.editor.equals(other.editor)) {
-			return false;
-		}*/
 		if (this.hints == null) {
 			if (other.hints != null) {
 				return false;
@@ -346,8 +332,6 @@ public class Feature extends /* implements */ProductBacklogItem /* IProductBackl
 		result = prime
 				* result
 				+ ((this.description == null) ? 0 : this.description.hashCode());
-		/*result = prime * result
-				+ ((this.editor == null) ? 0 : this.editor.hashCode());*/
 		result = prime * result
 				+ ((this.hints == null) ? 0 : this.hints.hashCode());
 		result = prime * result
