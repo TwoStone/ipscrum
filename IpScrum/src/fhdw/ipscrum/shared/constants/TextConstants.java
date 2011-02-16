@@ -110,6 +110,8 @@ public final class TextConstants {
 	public static final String MISSING_PROJECT_NAME = "Es muss ein Projektname angegeben werden!";
 	public static final String SPRINT_ERROR = "Der angegebene Sprint ist nicht im Projekt definiert!";
 	public static final String RELEASE_ERROR = "Release existiert bereits und kann nicht hinzugef�gt werden!";
+	public static final String PROJECT_ERROR = "Projekt mit diesem Namen bereits vorhanden!";
+	public static final String ROOT = "Root";
 
 	/* [END SECTION] */
 
