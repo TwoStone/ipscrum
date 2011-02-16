@@ -112,6 +112,8 @@ public final class TextConstants {
 	public static final String RELEASE_ERROR = "Release existiert bereits und kann nicht hinzugef�gt werden!";
 	public static final String PROJECT_ERROR = "Projekt mit diesem Namen bereits vorhanden!";
 	public static final String ROOT = "Root";
+	public static final String MANDAYS_ERROR = "Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!";
+	public static final String PBL_PBI_ERROR = "Das PBI muss zunächst mit dem Backlog verbunden werden";
 
 	/* [END SECTION] */
 
