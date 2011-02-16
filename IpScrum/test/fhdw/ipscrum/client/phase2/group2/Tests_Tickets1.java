@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.phase2.group2;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
@@ -78,6 +79,9 @@ public class Tests_Tickets1 {
 		assertEquals(this.productBacklog, this.feature1.getBacklog());
 	}
 	
+	/*
+	 * erstellen von zwei Featuren mit gleichem Namen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void createFeatureDoubleFeatureInSameBacklog() throws Exception {
 		new Feature("TestName", "TestDescription", this.productBacklog);
@@ -85,6 +89,9 @@ public class Tests_Tickets1 {
 		
 	}
 	
+	/*
+	 * schließen eines Features
+	 */
 	@Test
 	public void closeFeature() throws Exception {
 		assertTrue(this.feature1.getState() instanceof Open);
@@ -92,6 +99,20 @@ public class Tests_Tickets1 {
 		assertTrue(this.feature1.getState() instanceof Closed);
 	}
 	
+	/*
+	 * ein bereits geschlossenes Feature abschließen
+	 */
+	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	public void closeAlreadyClosedFeature() throws Exception {
+		assertTrue(this.feature1.getState() instanceof Open);
+		this.feature1.close();
+		assertTrue(this.feature1.getState() instanceof Closed);
+		this.feature1.close();
+	}
+	
+	/*
+	 * eine Hinweis zu einem Feature hinzufügen
+	 */
 	@Test
 	public void addHint() throws Exception {
 		String content = "TestHint";
@@ -103,6 +124,9 @@ public class Tests_Tickets1 {
 		assertEquals(content, this.feature1.getHints().listIterator().next().getContent());
 	}
 	
+	/*
+	 * einen Hinweis von einem Feature entfernen
+	 */
 	@Test
 	public void removeHint() throws Exception {
 		Hint hint = new Hint("TestHint");
@@ -114,6 +138,9 @@ public class Tests_Tickets1 {
 		assertFalse(this.feature1.getHints().listIterator().hasNext());
 	}
 	
+	/*
+	 * zwei gleiche Hinweise zu einem Feature hinzufügen
+	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addHintDoubleContent_DiffenretObjects() throws Exception {
 		Hint hint1 = new Hint("TestHint");
@@ -123,6 +150,9 @@ public class Tests_Tickets1 {
 		this.feature1.addHint(hint2);
 	}
 	
+	/*
+	 * den selben Hinweis 2x zu einem Feature hinzufügen
+	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addHintDoubleContent_DoubleAdd() throws Exception {
 		Hint hint = new Hint("TestHint");
@@ -131,6 +161,9 @@ public class Tests_Tickets1 {
 		this.feature1.addHint(hint);
 	}
 	
+	/*
+	 * ein Akzeptanzkriterium zu einem Feature hinzufügen
+	 */
 	@Test
 	public void addAcceptanceCriterion() throws Exception {
 		AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion("TestAcceptanceCriterion");
@@ -140,6 +173,9 @@ public class Tests_Tickets1 {
 		assertEquals(acceptanceCriterion, this.feature1.getAcceptanceCriteria().listIterator().next());
 	}
 	
+	/*
+	 * ein Akzeptanzkriterium von einem Feature entfernen
+	 */
 	@Test
 	public void removeAcceptanceCriterion() throws Exception {
 		AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion("TestAcceptanceCriterion");
@@ -151,6 +187,9 @@ public class Tests_Tickets1 {
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator().hasNext());
 	}
 	
+	/*
+	 * zwei gleiche Akzeptanzkriterien zu einem Feature hinzufügen
+	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addAcceptanceCriterionDoubleContent_DiffenretObjects() throws Exception {
 		AcceptanceCriterion acceptanceCriterion1 = new AcceptanceCriterion("TestAcceptanceCriterion");
@@ -160,6 +199,9 @@ public class Tests_Tickets1 {
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion2);
 	}
 	
+	/*
+	 * das selbe Akzeptanzkriterium 2x zu einem Feature hinzufügen
+	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addAcceptanceCriterionDoubleContent_DoubleAdd() throws Exception {
 		AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion("TestAcceptanceCriterion");
@@ -168,6 +210,9 @@ public class Tests_Tickets1 {
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
 	}
 	
+	/*
+	 * eine Relation zu einem anderen Feature zu einem Feature hinzufügen und dabei einen neuen Relations-Typ angeben
+	 */
 	@Test
 	public void addRelationToOtherFeatureWithNewRelationType() throws Exception {
 		RelationType relationType = RelationType.create("TestRelationType");
@@ -180,6 +225,9 @@ public class Tests_Tickets1 {
 		assertEquals(relationType, this.feature1.getRelations().iterator().next().getType());
 	}
 	
+	/*
+	 * eine Relation auf das eigene Feature hinzufügen und dabei einen neuen Relations-Typ angeben
+	 */
 	@Test
 	public void addRelationToOwnFeatureWithNewRelationType() throws Exception {
 		RelationType relationType = RelationType.create("TestRelationType2");
@@ -192,6 +240,9 @@ public class Tests_Tickets1 {
 		assertEquals(relationType, this.feature1.getRelations().iterator().next().getType());
 	}
 	
+	/*
+	 * eine Relation zu einem anderen Feature zu einem Feature hinzufügen und dabei einen vorhandenen Relations-Typ auswählen
+	 */
 	@Test
 	public void addRelationToOtherFeatureWithoutNewRelationType() throws Exception {
 		if(SessionManager.getInstance().getModel().getRelationTypeManager().getRelationTypes().iterator().hasNext() == false){
@@ -209,6 +260,9 @@ public class Tests_Tickets1 {
 		
 	}
 	
+	/*
+	 * eine Relation zu einem anderen Feature entfernen 
+	 */
 	@Test
 	public void removeRelationToOtherFeatureWithoutNewRelationType() throws Exception {
 		if(SessionManager.getInstance().getModel().getRelationTypeManager().getRelationTypes().iterator().hasNext() == false){
@@ -228,6 +282,9 @@ public class Tests_Tickets1 {
 		
 	}
 	
+	/*
+	 * einen Hinweis zu einem geschlossenen Feature hinzufgüen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void addHintToClosedFeature() throws Exception {
 		this.feature1.close();
@@ -238,6 +295,9 @@ public class Tests_Tickets1 {
 		this.feature1.addHint(hint);
 	}
 	
+	/*
+	 * ein Akzeptanzkriterium zu einem geschlossenen Feature hinzufügen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void addAcceptanceCriterionToClosedFeature() throws Exception {
 		this.feature1.close();
@@ -248,6 +308,9 @@ public class Tests_Tickets1 {
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
 	}
 	
+	/*
+	 * eine Relation zu einem geschlossenen Feature hinzufügen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void addRelationToClosedFeature() throws Exception {
 		this.feature1.close();
@@ -264,6 +327,9 @@ public class Tests_Tickets1 {
 		this.feature1.addRelation(relation);
 	}
 	
+	/*
+	 * einen Hinweis von einem geschlossenen Feature entfernen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void removeHintToClosedFeature() throws Exception {
 		Hint hint = new Hint("TestHint");
@@ -277,6 +343,9 @@ public class Tests_Tickets1 {
 		
 	}
 	
+	/*
+	 * ein Akzeptanzkriterieum von einem geschlossenen Feature entfernen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void removeAcceptanceCriterionToClosedFeature() throws Exception {
 		AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion("TestAcceptanceCriterion");
@@ -290,6 +359,9 @@ public class Tests_Tickets1 {
 		
 	}
 	
+	/*
+	 * eine Relation von einem geschlossenen Feature entfernen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void removeRelationToClosedFeature() throws Exception {
 		if(SessionManager.getInstance().getModel().getRelationTypeManager().getRelationTypes().iterator().hasNext() == false){
@@ -308,6 +380,9 @@ public class Tests_Tickets1 {
 		this.feature1.removeRelation(relation);
 	}
 	
+	/*
+	 * den Namen eines nicht abgeschlossenen Features verändern
+	 */
 	@Test
 	public void setNameToOpenFeature() throws Exception {
 		assertEquals(this.featureName1, this.feature1.getName());
@@ -315,6 +390,9 @@ public class Tests_Tickets1 {
 		assertEquals("TestNewName", this.feature1.getName());
 	}
 	
+	/*
+	 * den Namen einen geschlossenen Features verändern
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void setNameToClosedFeature() throws Exception {
 		assertEquals(this.featureName1, this.feature1.getName());
@@ -322,6 +400,29 @@ public class Tests_Tickets1 {
 		this.feature1.setName("TestNewName");
 	}
 	
+	/*
+	 * die Beschreibung eines nicht abgeschlossenen Features verändern
+	 */
+	@Test
+	public void setDescriptionToOpenFeature() throws Exception {
+		assertEquals(this.featureName1, this.feature1.getDescription());
+		this.feature1.setDescription("TestNewDescription");
+		assertEquals("TestNewDescription", this.feature1.getDescription());
+	}
+	
+	/*
+	 * die Beschreibung eines geschlossenen Features verändern
+	 */
+	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	public void setDescriptionToClosedFeature() throws Exception {
+		assertEquals(this.featureName1, this.feature1.getDescription());
+		this.feature1.close();
+		this.feature1.setDescription("TestNewDescription");
+	}
+	
+	/*
+	 * den letzten Bearbeiter bei einem nicht abgeschlossenen Features verändern
+	 */
 	@Test
 	public void setLastEditorToOpenFeature() throws Exception {
 		Person person = new Person("TestFirstname", "TestNachname");
@@ -329,6 +430,9 @@ public class Tests_Tickets1 {
 		assertEquals(person, this.feature1.getLastEditor());
 	}
 	
+	/*
+	 * den letzten Bearbeiter bei einem abgeschlossenen Features verändern
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void setLastEditorToClosedFeature() throws Exception {
 		Person person = new Person("TestFirstname", "TestNachname");
@@ -336,6 +440,9 @@ public class Tests_Tickets1 {
 		this.feature1.setLastEditor(person);
 	}
 	
+	/*
+	 * die Anzahl der Personentage eines nicht geschlossenen Features verändern
+	 */
 	@Test
 	public void setManDayCostsToOpenFeature() throws Exception {
 		Integer manDayCosts = 5;
@@ -343,6 +450,9 @@ public class Tests_Tickets1 {
 		assertEquals(manDayCosts, this.feature1.getManDayCosts());
 	}
 	
+	/*
+	 * die Anzahl der Personentage eines abgeschlossenen Features verändern
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void setManDayCostsToClosedFeature() throws Exception {
 		Integer manDayCosts = 5;
@@ -350,6 +460,9 @@ public class Tests_Tickets1 {
 		this.feature1.setManDayCosts(manDayCosts);
 	}
 	
+	/*
+	 * ein Sprint einem nicht geschlossenem Feature zuordnen 
+	 */
 	@Test
 	public void setSprintToOpenFeature() throws Exception {
 		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
@@ -358,6 +471,9 @@ public class Tests_Tickets1 {
 		assertEquals(sprint, this.feature1.getSprint());
 	}
 	
+	/*
+	 * ein Sprint einem geschlossenem Feature zuordnen
+	 */
 	@Test (expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void setSprintToClosedFeature() throws Exception {
 		ISprint sprint = new Sprint("TestName", "TestDescription", new Date(2011,2,1), new Date(2012,12,12), new Team("TestDescription"));
@@ -365,6 +481,57 @@ public class Tests_Tickets1 {
 		this.feature1.close();
 		this.feature1.setSprint(sprint);
 	}
+	
+//	@Test
+//	@Ignore
+//	public void testEquals_1()
+//		throws Exception {
+//		RelationType relationType = RelationType.create("Test");
+//		
+//		
+//		Feature feature1 = new Feature("Test", "Test", new Project("Test").getBacklog());
+//		feature1.setDescription("Test");
+//		feature1.addRelation(new Relation(relationType, new Feature("Test", "Test", new Project("Test").getBacklog())));
+//		feature1.addAcceptanceCriterion(new AcceptanceCriterion("Test"));
+//		feature1.addHint(new Hint("Test"));
+//		feature1.close();
+//		
+//		Feature feature2 = new Feature("Test", "Test", new Project("Test").getBacklog());
+//		feature2.setDescription("Test");
+//		feature2.addRelation(new Relation(relationType, new Feature("Test", "Test", new Project("Test").getBacklog())));
+//		feature2.addAcceptanceCriterion(new AcceptanceCriterion("Test"));
+//		feature2.addHint(new Hint("Test"));
+//		feature2.close();
+//
+//		boolean result = feature1.equals(feature2);
+//
+//		assertTrue(result);
+//	}
+//
+//	@Test
+//	public void testEquals_2() throws Exception {
+//		
+//		Feature feature = new Feature("Test", "Test", new Project("Test").getBacklog());
+//		feature.setDescription("Test");
+//		feature.addRelation(new Relation(RelationType.create("Test2"), new Feature("Test", "Test", new Project("Test").getBacklog())));
+//		feature.addAcceptanceCriterion(new AcceptanceCriterion("Test"));
+//		feature.addHint(new Hint("Test"));
+//		feature.close();
+//		
+//		Object obj = new Object();
+//
+//		assertFalse(feature.equals(obj));
+//	}
+	
+//	@Test
+//	public void HashCodeAcceptanceCriterion()
+//		throws Exception {
+//		AcceptanceCriterion feature1 = new AcceptanceCriterion("Test");
+//		AcceptanceCriterion feature2 = new AcceptanceCriterion("Test");
+//
+//		// add additional test code here
+//		assertEquals(feature1.hashCode(), feature2.hashCode());
+//	}
 	
 //	@Test
 //	public void setDescriptionToOpenFeature() throws Exception {
@@ -382,6 +549,11 @@ public class Tests_Tickets1 {
 //		this.feature1.setDescription(description);
 //		assertEquals(description, this.feature1.getDescription());
 //	}
+	
+	// TODO: HashCode implementieren
+	// TODO: Equals implementieren
+	
+	
 	
 	
 	
