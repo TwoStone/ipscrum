@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
@@ -103,9 +104,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 			this.name = name;
 			this.notifyObservers();
 		} else {
-			// TODO Textkonstante bauen
-			throw new NoValidValueException(
-					"Es muss ein Projektname angegeben werden!");
+			throw new NoValidValueException(TextConstants.MISSING_PROJECT_NAME);
 		}
 	}
 
@@ -132,8 +131,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 				return;
 			}
 		}
-		throw new NoSprintDefinedException(
-				"Der angegebene Sprint ist nicht im Projekt definiert!");
+		throw new NoSprintDefinedException(TextConstants.SPRINT_ERROR);
 	}
 
 	/**
@@ -170,9 +168,8 @@ public class Project extends Observable implements BDACompare, Serializable {
 		for (final IRelease current : this.getReleasePlan()) {
 			if (current.getVersion().equals(version)
 					&& current.getReleaseDate().equals(releaseDate)) {
-				// TODO Textkonstante bauen!
 				throw new DoubleDefinitionException(
-						"Release existiert bereits und kann nicht hinzugef�gt werden!");
+						TextConstants.RELEASE_ERROR);
 			}
 		}
 	}
