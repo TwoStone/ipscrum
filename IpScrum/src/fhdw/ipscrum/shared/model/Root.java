@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
@@ -89,7 +90,7 @@ public class Root extends Observable implements SerializationRoot,
 		for (final Project current : this.getProjects()) {
 			if (current.getName().equals(project.getName())) {
 				throw new DoubleDefinitionException(
-						"Projekt mit diesem Namen bereits vorhanden!");
+						TextConstants.PROJECT_ERROR);
 			}
 		}
 		this.getProjects().add(project);
@@ -194,7 +195,7 @@ public class Root extends Observable implements SerializationRoot,
 
 	@Override
 	public String toString() {
-		return "Root";
+		return TextConstants.ROOT;
 	}
 
 	@Override
