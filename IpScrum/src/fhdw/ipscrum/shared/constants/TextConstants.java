@@ -33,6 +33,8 @@ public final class TextConstants {
 	public static final String TYPENAME = "Neuer Typ:";
 	/* [END SECTION] */
 
+	public static final String NAV_PROJECTS = "Projekte";
+	public static final String NAV_REPORTS = "Statistiken";
 	public static final String NAV_PERSONROLEMANAGEMENT = "Personen-Stammdaten";
 	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
 	public static final String NAV_SAVEMODELDATA = "Speichern";

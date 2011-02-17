@@ -15,6 +15,12 @@ public interface INavigationView extends IView{
 	 * @param arg empty arguments
 	 */
 	public abstract void addProjectEventHandler(EventHandler<EventArgs> arg);
+
+	/**
+	 * Method addReportsEventHandler.
+	 * @param arg empty arguments
+	 */
+	public abstract void addReportsEventHandler(EventHandler<EventArgs> arg);
 	/**
 	 * Method addPersonEventHandler.
 	 * @param arg empty arguments

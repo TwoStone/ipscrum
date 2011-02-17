@@ -24,6 +24,7 @@ public class NavigationView extends Composite implements INavigationView {
 
 	// ######## Events ############
 	private final Event<EventArgs> projectEvent = new Event<EventArgs>();
+	private final Event<EventArgs> reportsEvent = new Event<EventArgs>();
 	private final Event<EventArgs> personenEvent = new Event<EventArgs>();
 	private final Event<EventArgs> teamEvent = new Event<EventArgs>();
 	private final Event<EventArgs> saveEvent = new Event<EventArgs>();
@@ -31,6 +32,7 @@ public class NavigationView extends Composite implements INavigationView {
 	// ######## Ende Events #######
 
 	private final MenuItem mntmProjekte;
+	private final MenuItem mntmReports;
 	private final MenuItem mntmPersonenstammdaten;
 	private final MenuItem mntmTeamzuordnung;
 	private final FlowPanel masterMainPanel;
@@ -57,13 +59,21 @@ public class NavigationView extends Composite implements INavigationView {
 		MenuBar menuBar = new MenuBar(false);
 		horizontalPanel.add(menuBar);
 
-		this.mntmProjekte = new MenuItem("Projekte", false, new Command() {
+		this.mntmProjekte = new MenuItem(TextConstants.NAV_PROJECTS, false, new Command() {
 			@Override
 			public void execute() {
 				NavigationView.this.projectEvent.fire(NavigationView.this, new EventArgs());
 			}
 		});
 		menuBar.addItem(this.mntmProjekte);
+
+		this.mntmReports = new MenuItem(TextConstants.NAV_REPORTS, false, new Command() {
+			@Override
+			public void execute() {
+				NavigationView.this.reportsEvent.fire(NavigationView.this, new EventArgs());
+			}
+		});
+		menuBar.addItem(this.mntmReports);
 
 		MenuItemSeparator separator = new MenuItemSeparator();
 		menuBar.addSeparator(separator);
@@ -101,14 +111,20 @@ public class NavigationView extends Composite implements INavigationView {
 		this.masterMainPanel.setSize("1000px", "600px");
 	}
 
-	@Override
-	public void addPersonEventHandler(EventHandler<EventArgs> arg) {
-		this.personenEvent.add(arg);
-	}
 
 	@Override
 	public void addProjectEventHandler(EventHandler<EventArgs> arg) {
 		this.projectEvent.add(arg);
+	}
+
+	@Override
+	public void addReportsEventHandler(EventHandler<EventArgs> arg) {
+		this.reportsEvent.add(arg);
+	}
+
+	@Override
+	public void addPersonEventHandler(EventHandler<EventArgs> arg) {
+		this.personenEvent.add(arg);
 	}
 
 	@Override

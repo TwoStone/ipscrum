@@ -39,6 +39,15 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			}
 		});
 
+		concreteView.addReportsEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				concreteView.getContentPanel().clear();
+				new ReportPresenter(concreteView.getContentPanel());
+			}
+		});
+
 		concreteView.addPersonEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
