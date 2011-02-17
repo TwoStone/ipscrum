@@ -5,7 +5,8 @@ import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Project;
@@ -104,7 +105,7 @@ public interface IRelease extends BDACompare, Serializable {
 	 * on the release side. See architecture documentation for BDAs!
 	 */
 	public class ToSprintAssoc extends
-			BDAManyToMany<Sprint.ToReleaseAssoc, Release> {
+			OneToMany<Sprint.ToReleaseAssoc, Release> {
 		public ToSprintAssoc(final Release element) {
 			super(element);
 		}
@@ -115,7 +116,7 @@ public interface IRelease extends BDACompare, Serializable {
 	 * on the release side. See architecture documentation for BDAs!
 	 */
 	public class ToProjectAssoc extends
-			BDAManyToMany<Project.ToReleaseAssoc, IRelease> {
+			ManyToOne<Project.ToReleaseAssoc, IRelease> {
 		public ToProjectAssoc(final Release element) {
 			super(element);
 		}

@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.phase2.group1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,33 +16,38 @@ import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 
+@SuppressWarnings("unused")
 public class PriorityTests {
 
-	private static Project test = null;
-	private static ProductBacklog pbltest = null;
-	private static Feature a = null;
-	private static Feature b = null;
-	private static Feature c = null;
-	private static Feature d = null;
+	private static Project project = null;
+	private static ProductBacklog pbl = null;
+	private static Feature feature1 = null;
+	private static Feature feature2 = null;
+	private static Feature feature3 = null;
+	private static Feature feature4 = null;
 	private static Date cvCurrentDate = null;
 	private static Date cvCurrentDate2 = null;
 
 	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		test = new Project("test");
-		pbltest = test.getBacklog();
+		project = new Project("test");
+		pbl = project.getBacklog();
+
+		assertTrue(pbl != null);
+		assertEquals("test", project.getName());
+		assertEquals(pbl, project.getBacklog());
 
 		cvCurrentDate = new Date();
 		cvCurrentDate2 = cvCurrentDate;
 		cvCurrentDate2.setMonth(Calendar.MONTH + 1);
 
-		a = new Feature("A", "testA", pbltest);
-		b = new Feature("B", "testB", pbltest);
-		c = new Feature("C", "testC", pbltest);
-		d = new Feature("D", "testD", pbltest);
+		feature1 = new Feature("A", "testA", pbl);
+		feature2 = new Feature("B", "testB", pbl);
+		feature3 = new Feature("C", "testC", pbl);
+		feature4 = new Feature("D", "testD", pbl);
 
-		// System.out.println(pbltest.getItems().toString());
+		assertTrue(pbl.getItems().size() == 4);
 	}
 
 	@AfterClass
@@ -53,10 +59,10 @@ public class PriorityTests {
 	 * successful MoveUp() on an element in PBL
 	 */
 	public void testMoveUp1() throws Exception {
-		final ProductBacklogItem item = pbltest.getItems().get(1);
-		final int positionOfItemNo2 = pbltest.getItemPositionInList(item);
-		pbltest.moveUp(item);
-		assertEquals(item, pbltest.getItems().get(positionOfItemNo2 - 1));
+		final ProductBacklogItem item = pbl.getItems().get(1);
+		final int positionOfItemNo2 = pbl.getItemPositionInList(item);
+		pbl.moveUp(item);
+		assertEquals(item, pbl.getItems().get(positionOfItemNo2 - 1));
 	}
 
 	@Test
@@ -65,9 +71,9 @@ public class PriorityTests {
 	 * @throws Exception
 	 */
 	public void testMoveUp2() throws Exception {
-		final ProductBacklogItem holder = pbltest.getItems().get(0);
-		pbltest.moveUp(holder);
-		assertEquals(holder, pbltest.getItems().get(0));
+		final ProductBacklogItem holder = pbl.getItems().get(0);
+		pbl.moveUp(holder);
+		assertEquals(holder, pbl.getItems().get(0));
 	}
 
 	@Test
@@ -75,10 +81,10 @@ public class PriorityTests {
 	 * successful MoveDown() on an element in PBL
 	 */
 	public void testMoveDown1() throws Exception {
-		final ProductBacklogItem item = pbltest.getItems().get(0);
-		final int positionOfItemNo1 = pbltest.getItemPositionInList(item);
-		pbltest.moveDown(item);
-		assertEquals(item, pbltest.getItems().get(positionOfItemNo1 + 1));
+		final ProductBacklogItem item = pbl.getItems().get(0);
+		final int positionOfItemNo1 = pbl.getItemPositionInList(item);
+		pbl.moveDown(item);
+		assertEquals(item, pbl.getItems().get(positionOfItemNo1 + 1));
 	}
 
 	@Test
@@ -87,11 +93,11 @@ public class PriorityTests {
 	 * @throws Exception
 	 */
 	public void testMoveDown2() throws Exception {
-		final int lastPositionInList = pbltest.getItems().size() - 1;
-		final ProductBacklogItem holder = pbltest.getItems().get(
-				lastPositionInList);
-		pbltest.moveDown(holder);
-		assertEquals(holder, pbltest.getItems().get(lastPositionInList));
+		final int lastPositionInList = pbl.getItems().size() - 1;
+		final ProductBacklogItem holder = pbl.getItems()
+				.get(lastPositionInList);
+		pbl.moveDown(holder);
+		assertEquals(holder, pbl.getItems().get(lastPositionInList));
 	}
 
 	// ************************************************************************
@@ -102,11 +108,10 @@ public class PriorityTests {
 	 * successful MoveTop() on an element in PBL
 	 */
 	public void testMoveTop1() throws Exception {
-		final int lastPositionInList = pbltest.getItems().size() - 1;
-		final ProductBacklogItem item = pbltest.getItems().get(
-				lastPositionInList);
-		pbltest.moveTop(item);
-		assertEquals(item, pbltest.getItems().get(0));
+		final int lastPositionInList = pbl.getItems().size() - 1;
+		final ProductBacklogItem item = pbl.getItems().get(lastPositionInList);
+		pbl.moveTop(item);
+		assertEquals(item, pbl.getItems().get(0));
 	}
 
 	@Test
@@ -115,10 +120,10 @@ public class PriorityTests {
 	 * MoveTop() on first element in PBL
 	 */
 	public void testMoveTop2() throws Exception {
-		final ProductBacklog lvBacklog = pbltest;
-		final ProductBacklogItem item = pbltest.getItems().get(0);
-		pbltest.moveTop(item);
-		assertEquals(lvBacklog, pbltest);
+		final ProductBacklog lvBacklog = pbl;
+		final ProductBacklogItem item = pbl.getItems().get(0);
+		pbl.moveTop(item);
+		assertEquals(lvBacklog, pbl);
 	}
 
 	@Test
@@ -126,12 +131,11 @@ public class PriorityTests {
 	 * MoveTop() on last element of PBL
 	 */
 	public void testMoveTop3() throws Exception {
-		final int lastPositionInList = pbltest.getItems().size() - 1;
-		final ProductBacklogItem item = pbltest.getItems().get(
-				lastPositionInList);
-		final ProductBacklogItem item2 = pbltest.getItems().get(0);
-		pbltest.moveTop(item);
-		assertEquals(item2, pbltest.getItems().get(1));
+		final int lastPositionInList = pbl.getItems().size() - 1;
+		final ProductBacklogItem item = pbl.getItems().get(lastPositionInList);
+		final ProductBacklogItem item2 = pbl.getItems().get(0);
+		pbl.moveTop(item);
+		assertEquals(item2, pbl.getItems().get(1));
 	}
 
 	@Test
@@ -139,10 +143,10 @@ public class PriorityTests {
 	 * successful MoveBottom() on first element in PBL
 	 */
 	public void testMoveBottom1() throws Exception {
-		final int lastPositionInList = pbltest.getItems().size() - 1;
-		final ProductBacklogItem item = pbltest.getItems().get(0);
-		pbltest.moveBottom(item);
-		assertEquals(item, pbltest.getItems().get(lastPositionInList));
+		final int lastPositionInList = pbl.getItems().size() - 1;
+		final ProductBacklogItem item = pbl.getItems().get(0);
+		pbl.moveBottom(item);
+		assertEquals(item, pbl.getItems().get(lastPositionInList));
 	}
 
 	@Test
@@ -150,12 +154,11 @@ public class PriorityTests {
 	 * MoveBottom() on last element in PBL
 	 */
 	public void testMoveBottom2() throws Exception {
-		final int lastPositionInList = pbltest.getItems().size() - 1;
-		final ProductBacklog lvBacklog = pbltest;
-		final ProductBacklogItem item = pbltest.getItems().get(
-				lastPositionInList);
-		pbltest.moveBottom(item);
-		assertEquals(lvBacklog, pbltest);
+		final int lastPositionInList = pbl.getItems().size() - 1;
+		final ProductBacklog lvBacklog = pbl;
+		final ProductBacklogItem item = pbl.getItems().get(lastPositionInList);
+		pbl.moveBottom(item);
+		assertEquals(lvBacklog, pbl);
 	}
 
 	@Test
@@ -163,12 +166,11 @@ public class PriorityTests {
 	 * MoveBottom() on last element in PBL
 	 */
 	public void testMoveBottom3() throws Exception {
-		final int lastPositionInList = pbltest.getItems().size() - 1;
-		final ProductBacklogItem item = pbltest.getItems().get(0);
-		final ProductBacklogItem item2 = pbltest.getItems().get(
-				lastPositionInList);
-		pbltest.moveBottom(item);
-		assertEquals(item2, pbltest.getItems().get(lastPositionInList - 1));
+		final int lastPositionInList = pbl.getItems().size() - 1;
+		final ProductBacklogItem item = pbl.getItems().get(0);
+		final ProductBacklogItem item2 = pbl.getItems().get(lastPositionInList);
+		pbl.moveBottom(item);
+		assertEquals(item2, pbl.getItems().get(lastPositionInList - 1));
 	}
 
 	@Test

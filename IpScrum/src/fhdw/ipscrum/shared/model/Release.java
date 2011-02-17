@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -80,7 +81,7 @@ public class Release extends Observable implements IRelease {
 		this.sprintAssoc = new ToSprintAssoc(this);
 		project.isReleaseDoubleDefined(version, releaseDate);// can throw
 		// DoubleDefinitionException
-		this.getProjectAssoc().finalSet(project.getReleaseAssoc());
+		this.getProjectAssoc().set(project.getReleaseAssoc());
 	}
 
 	@Override
@@ -114,9 +115,8 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public Vector<ISprint> getSprints() {
 		final Vector<ISprint> ret = new Vector<ISprint>();
-		for (final ISprint.ToReleaseAssoc current : this.getSprintAssoc()
-				.getAssociations()) {
-			ret.add(current.getElement());
+		for (final BDACompare current : this.getSprintAssoc().getAssociations()) {
+			ret.add((ISprint) current);
 		}
 		return ret;
 	}
@@ -124,12 +124,7 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public void addSprint(final ISprint sprint) throws UserException {
 		this.getProject().isSprintDefined(sprint);
-		if (sprint.getRelease() == null) {
-			this.getSprintAssoc().add(sprint.getToReleaseAssoc());
-		} else if (!sprint.getRelease().equals(this)) {
-			sprint.getRelease().removeSprint(sprint);
-			this.getSprintAssoc().add(sprint.getToReleaseAssoc());
-		}
+		this.getSprintAssoc().add(sprint.getToReleaseAssoc());
 	}
 
 	@Override
@@ -146,11 +141,7 @@ public class Release extends Observable implements IRelease {
 
 	@Override
 	public Project getProject() {
-		if (this.getProjectAssoc().get() != null) {
-			return this.getProjectAssoc().get().getElement();
-		} else {
-			return null;
-		}
+		return (Project) this.getProjectAssoc().get();
 	}
 
 	@Override

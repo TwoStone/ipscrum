@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
@@ -23,8 +23,10 @@ public interface IPerson extends BDACompare, Serializable {
 	/**
 	 * Method setFirstname.
 	 * 
-	 * @param firstname String
-	 * @throws NoValidValueException thrown, if firstname is empty.
+	 * @param firstname
+	 *            String
+	 * @throws NoValidValueException
+	 *             thrown, if firstname is empty.
 	 */
 	public void setFirstname(String firstname) throws NoValidValueException;
 
@@ -38,8 +40,10 @@ public interface IPerson extends BDACompare, Serializable {
 	/**
 	 * Method setLastname.
 	 * 
-	 * @param lastname String
-	 * @throws NoValidValueException: thrown, if lastname is empty.
+	 * @param lastname
+	 *            String
+	 * @throws NoValidValueException
+	 *             : thrown, if lastname is empty.
 	 */
 	public void setLastname(String lastname) throws NoValidValueException;
 
@@ -53,15 +57,18 @@ public interface IPerson extends BDACompare, Serializable {
 	/**
 	 * Method addRole.
 	 * 
-	 * @param role IRole
-	 * @throws ConsistencyException thrown, if role is already assigned.
+	 * @param role
+	 *            IRole
+	 * @throws ConsistencyException
+	 *             thrown, if role is already assigned.
 	 */
 	public void addRole(IRole role) throws ConsistencyException;
 
 	/**
 	 * Method removeRole.
 	 * 
-	 * @param role IRole
+	 * @param role
+	 *            IRole
 	 * @throws ConsistencyException
 	 */
 	public void removeRole(IRole role) throws ConsistencyException;
@@ -75,13 +82,14 @@ public interface IPerson extends BDACompare, Serializable {
 
 	/**
 	 */
-	class ToRoleAssoc extends BDAManyToMany<IRole.ToPersonAssoc, IPerson> {
+	class ToRoleAssoc extends ManyToMany<IRole.ToPersonAssoc, IPerson> {
 		/**
 		 * Constructor for ToRoleAssoc.
 		 * 
-		 * @param element IPerson
+		 * @param element
+		 *            IPerson
 		 */
-		public ToRoleAssoc(IPerson element) {
+		public ToRoleAssoc(final IPerson element) {
 			super(element);
 		}
 	}

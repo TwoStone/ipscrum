@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -10,6 +11,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
  * Class Role.
  */
 public class Role implements IRole {
+	private static final long serialVersionUID = 4751308921900403733L;
 	private String description;
 	private ToPersonAssoc toPersonAssoc;
 
@@ -20,13 +22,14 @@ public class Role implements IRole {
 	/**
 	 * Constructor for Role.
 	 * 
-	 * @param description String
+	 * @param description
+	 *            String
 	 * @throws NoValidValueException
 	 */
-	public Role(String description) throws NoValidValueException {
+	public Role(final String description) throws NoValidValueException {
 		super();
-		setDescription(description);
-		toPersonAssoc = new ToPersonAssoc(this);
+		this.setDescription(description);
+		this.toPersonAssoc = new ToPersonAssoc(this);
 	}
 
 	/**
@@ -37,7 +40,7 @@ public class Role implements IRole {
 	 */
 	@Override
 	public ToPersonAssoc getToPersonAssoc() {
-		return toPersonAssoc;
+		return this.toPersonAssoc;
 	}
 
 	/**
@@ -48,22 +51,25 @@ public class Role implements IRole {
 	 */
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description String
+	 * @param description
+	 *            String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IRole#setDescription(String)
 	 */
 	@Override
-	public void setDescription(String description) throws NoValidValueException {
+	public void setDescription(final String description)
+			throws NoValidValueException {
 		if (description != null && !description.isEmpty()) {
 			this.description = description;
 		} else {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
 		}
 	}
 
@@ -75,9 +81,10 @@ public class Role implements IRole {
 	 */
 	@Override
 	public Vector<IPerson> getPersons() {
-		Vector<IPerson> ret = new Vector<IPerson>();
-		for (IPerson.ToRoleAssoc personAssocs : toPersonAssoc.getAssociations()) {
-			ret.add(personAssocs.getElement());
+		final Vector<IPerson> ret = new Vector<IPerson>();
+		for (final BDACompare personAssocs : this.toPersonAssoc
+				.getAssociations()) {
+			ret.add((IPerson) personAssocs);
 		}
 		return ret;
 	}
@@ -99,41 +106,48 @@ public class Role implements IRole {
 	 */
 	@Override
 	public int hashCode() {
-		return indirectHashCode();
+		return this.indirectHashCode();
 	}
 
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		return indirectEquals(obj);
+	public boolean equals(final Object obj) {
+		return this.indirectEquals(obj);
 	}
 
 	/**
 	 * Method indirectEquals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
 	 */
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Role other = (Role) obj;
-		if (description == null) {
-			if (other.description != null)
+		}
+		final Role other = (Role) obj;
+		if (this.description == null) {
+			if (other.description != null) {
 				return false;
-		} else if (!description.equals(other.description))
+			}
+		} else if (!this.description.equals(other.description)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -147,7 +161,9 @@ public class Role implements IRole {
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime
+				* result
+				+ ((this.description == null) ? 0 : this.description.hashCode());
 		return result;
 	}
 }

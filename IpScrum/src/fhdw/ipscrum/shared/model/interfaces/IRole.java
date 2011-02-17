@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
 /**
@@ -21,8 +21,10 @@ public interface IRole extends BDACompare, Serializable {
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description String
-	 * @throws NoValidValueException thrown, if description is empty.
+	 * @param description
+	 *            String
+	 * @throws NoValidValueException
+	 *             thrown, if description is empty.
 	 */
 	public void setDescription(String description) throws NoValidValueException;
 
@@ -42,13 +44,14 @@ public interface IRole extends BDACompare, Serializable {
 
 	/**
 	 */
-	class ToPersonAssoc extends BDAManyToMany<IPerson.ToRoleAssoc, IRole> {
+	class ToPersonAssoc extends ManyToMany<IPerson.ToRoleAssoc, IRole> {
 		/**
 		 * Constructor for ToPersonAssoc.
 		 * 
-		 * @param element IRole
+		 * @param element
+		 *            IRole
 		 */
-		public ToPersonAssoc(IRole element) {
+		public ToPersonAssoc(final IRole element) {
 			super(element);
 		}
 	}

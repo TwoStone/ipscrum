@@ -5,13 +5,15 @@ import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Sprint;
 
 /**
- * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has a fixed time frame. The name is used to identify a sprint.
+ * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
+ * a fixed time frame. The name is used to identify a sprint.
  */
 public interface ISprint extends BDACompare, Serializable {
 	/**
@@ -24,7 +26,8 @@ public interface ISprint extends BDACompare, Serializable {
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description String
+	 * @param description
+	 *            String
 	 */
 	public void setDescription(String description);
 
@@ -38,8 +41,10 @@ public interface ISprint extends BDACompare, Serializable {
 	/**
 	 * Method setName.
 	 * 
-	 * @param description String
-	 * @throws NoValidValueException thrown, if name is empty or longer than 20.
+	 * @param description
+	 *            String
+	 * @throws NoValidValueException
+	 *             thrown, if name is empty or longer than 20.
 	 */
 	public void setName(String description) throws NoValidValueException;
 
@@ -60,9 +65,12 @@ public interface ISprint extends BDACompare, Serializable {
 	/**
 	 * Method setTimeFrame.
 	 * 
-	 * @param begin Date
-	 * @param end Date
-	 * @throws NoValidValueException thrown, if begin is null or end is null or begin > end.
+	 * @param begin
+	 *            Date
+	 * @param end
+	 *            Date
+	 * @throws NoValidValueException
+	 *             thrown, if begin is null or end is null or begin > end.
 	 */
 	public void setTimeFrame(Date begin, Date end) throws NoValidValueException;
 
@@ -76,8 +84,10 @@ public interface ISprint extends BDACompare, Serializable {
 	/**
 	 * Method setTeam.
 	 * 
-	 * @param team ITeam
-	 * @throws NoValidValueException thrown, if team is null.
+	 * @param team
+	 *            ITeam
+	 * @throws NoValidValueException
+	 *             thrown, if team is null.
 	 */
 	public void setTeam(ITeam team) throws NoValidValueException;
 
@@ -111,26 +121,29 @@ public interface ISprint extends BDACompare, Serializable {
 
 	/**
 	 */
-	class ToReleaseAssoc extends BDAManyToMany<IRelease.ToSprintAssoc, Sprint> {
+	class ToReleaseAssoc extends ManyToOne<IRelease.ToSprintAssoc, Sprint> {
 		/**
 		 * Constructor for ToReleaseAssoc.
 		 * 
-		 * @param element Sprint
+		 * @param element
+		 *            Sprint
 		 */
-		public ToReleaseAssoc(Sprint element) {
+		public ToReleaseAssoc(final Sprint element) {
 			super(element);
 		}
 	}
 
 	/**
 	 */
-	class ToPBIAssoc extends BDAManyToMany<ProductBacklogItem.ToSprintAssoc, Sprint> {
+	class ToPBIAssoc extends
+			OneToMany<ProductBacklogItem.ToSprintAssoc, Sprint> {
 		/**
 		 * Constructor for ToPBIAssoc.
 		 * 
-		 * @param element Sprint
+		 * @param element
+		 *            Sprint
 		 */
-		public ToPBIAssoc(Sprint element) {
+		public ToPBIAssoc(final Sprint element) {
 			super(element);
 		}
 	}

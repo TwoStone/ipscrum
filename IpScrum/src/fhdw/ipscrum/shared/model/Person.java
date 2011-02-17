@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -12,6 +13,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
  */
 public class Person implements IPerson {
 
+	private static final long serialVersionUID = 7278345193465676081L;
 	private String firstname;
 	private String lastname;
 	private ToRoleAssoc toRoleAssoc;
@@ -23,14 +25,17 @@ public class Person implements IPerson {
 	/**
 	 * Constructor for Person.
 	 * 
-	 * @param firstname String
-	 * @param lastname String
+	 * @param firstname
+	 *            String
+	 * @param lastname
+	 *            String
 	 * @throws NoValidValueException
 	 */
-	public Person(String firstname, String lastname) throws NoValidValueException {
+	public Person(final String firstname, final String lastname)
+			throws NoValidValueException {
 		super();
-		setFirstname(firstname);
-		setLastname(lastname);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
 		this.toRoleAssoc = new ToRoleAssoc(this);
 	}
 
@@ -59,14 +64,17 @@ public class Person implements IPerson {
 	/**
 	 * Method setFirstname.
 	 * 
-	 * @param firstname String
+	 * @param firstname
+	 *            String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#setFirstname(String)
 	 */
 	@Override
-	public void setFirstname(String firstname) throws NoValidValueException {
+	public void setFirstname(final String firstname)
+			throws NoValidValueException {
 		if (firstname == null || firstname.length() == 0) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
 		} else {
 			this.firstname = firstname;
 		}
@@ -86,14 +94,16 @@ public class Person implements IPerson {
 	/**
 	 * Method setLastname.
 	 * 
-	 * @param lastname String
+	 * @param lastname
+	 *            String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#setLastname(String)
 	 */
 	@Override
-	public void setLastname(String lastname) throws NoValidValueException {
+	public void setLastname(final String lastname) throws NoValidValueException {
 		if (lastname == null || lastname.length() == 0) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
 		} else {
 
 			this.lastname = lastname;
@@ -108,9 +118,9 @@ public class Person implements IPerson {
 	 */
 	@Override
 	public Vector<IRole> getRoles() {
-		Vector<IRole> ret = new Vector<IRole>();
-		for (IRole.ToPersonAssoc roleAssocs : this.toRoleAssoc.getAssociations()) {
-			ret.add(roleAssocs.getElement());
+		final Vector<IRole> ret = new Vector<IRole>();
+		for (final BDACompare roleAssocs : this.toRoleAssoc.getAssociations()) {
+			ret.add((IRole) roleAssocs);
 		}
 		return ret;
 	}
@@ -118,30 +128,35 @@ public class Person implements IPerson {
 	/**
 	 * Method addRole.
 	 * 
-	 * @param role IRole
+	 * @param role
+	 *            IRole
 	 * @throws ConsistencyException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#addRole(IRole)
 	 */
 	@Override
-	public void addRole(IRole role) throws ConsistencyException {
-		if (getRoles().contains(role)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
-		} else {
-			this.getToRoleAssoc().add(role.getToPersonAssoc());
-		}
+	public void addRole(final IRole role) throws ConsistencyException {
+		this.getToRoleAssoc().add(role.getToPersonAssoc());
+		// if (getRoles().contains(role)) {
+		// throw new
+		// ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
+		// } else {
+		// this.getToRoleAssoc().add(role.getToPersonAssoc());
+		// }
 	}
 
 	/**
 	 * Method removeRole.
 	 * 
-	 * @param role IRole
+	 * @param role
+	 *            IRole
 	 * @throws ConsistencyException
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#removeRole(IRole)
 	 */
 	@Override
-	public void removeRole(IRole role) throws ConsistencyException {
-		if (!getRoles().contains(role)) {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+	public void removeRole(final IRole role) throws ConsistencyException {
+		if (!this.getRoles().contains(role)) {
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		} else {
 			this.getToRoleAssoc().remove(role.getToPersonAssoc());
 		}
@@ -164,46 +179,55 @@ public class Person implements IPerson {
 	 */
 	@Override
 	public int hashCode() {
-		return indirectHashCode();
+		return this.indirectHashCode();
 	}
 
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		return indirectEquals(obj);
+	public boolean equals(final Object obj) {
+		return this.indirectEquals(obj);
 	}
 
 	/**
 	 * Method indirectEquals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
 	 */
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Person other = (Person) obj;
+		}
+		final Person other = (Person) obj;
 		if (this.firstname == null) {
-			if (other.firstname != null)
+			if (other.firstname != null) {
 				return false;
-		} else if (!this.firstname.equals(other.firstname))
+			}
+		} else if (!this.firstname.equals(other.firstname)) {
 			return false;
+		}
 		if (this.lastname == null) {
-			if (other.lastname != null)
+			if (other.lastname != null) {
 				return false;
-		} else if (!this.lastname.equals(other.lastname))
+			}
+		} else if (!this.lastname.equals(other.lastname)) {
 			return false;
+		}
 		return true;
 
 	}
@@ -218,8 +242,10 @@ public class Person implements IPerson {
 	public int indirectHashCode() {
 		int result = 1;
 		final int prime = 31;
-		result = prime * result + ((this.firstname == null) ? 0 : this.firstname.hashCode());
-		result = prime * result + ((this.lastname == null) ? 0 : this.lastname.hashCode());
+		result = prime * result
+				+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
+		result = prime * result
+				+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
 		return result;
 	}
 }

@@ -6,7 +6,8 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.OneToMany;
+import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -48,7 +49,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 	 * on the project side. See architecture documentation for BDAs!
 	 */
 	public class ToReleaseAssoc extends
-			BDAManyToMany<Release.ToProjectAssoc, Project> {
+			OneToMany<Release.ToProjectAssoc, Project> {
 		public ToReleaseAssoc(final Project element) {
 			super(element);
 		}
@@ -59,7 +60,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 	 * on the project side. See architecture documentation for BDAs!
 	 */
 	public class ToBacklogAssoc extends
-			BDAManyToMany<ProductBacklog.ToProjectAssoc, Project> {
+			OneToOne<ProductBacklog.ToProjectAssoc, Project> {
 		public ToBacklogAssoc(final Project element) {
 			super(element);
 		}
@@ -99,7 +100,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 		this.name = name;
 		this.releaseAssoc = new ToReleaseAssoc(this);
 		this.backlogAssoc = new ToBacklogAssoc(this);
-		this.backlogAssoc.finalSet(new ProductBacklog(this).getProjectAssoc());
+		this.backlogAssoc.set(new ProductBacklog(this).getProjectAssoc());
 	}
 
 	/**
@@ -109,9 +110,9 @@ public class Project extends Observable implements BDACompare, Serializable {
 	 */
 	public Vector<IRelease> getReleasePlan() {
 		final Vector<IRelease> ret = new Vector<IRelease>();
-		for (final Release.ToProjectAssoc current : this.getReleaseAssoc()
+		for (final BDACompare current : this.getReleaseAssoc()
 				.getAssociations()) {
-			ret.add(current.getElement());
+			ret.add((IRelease) current);
 		}
 		return ret;
 	}
@@ -136,11 +137,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 	}
 
 	public ProductBacklog getBacklog() {
-		if (this.getBacklogAssoc().get() != null) {
-			return this.getBacklogAssoc().get().getElement();
-		} else {
-			return null;
-		}
+		return (ProductBacklog) this.getBacklogAssoc().get();
 	}
 
 	/**

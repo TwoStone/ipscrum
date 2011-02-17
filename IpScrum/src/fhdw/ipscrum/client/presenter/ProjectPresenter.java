@@ -28,7 +28,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 	 * 
 	 * @param parent
 	 */
-	public ProjectPresenter(Panel parent) {
+	public ProjectPresenter(final Panel parent) {
 		super(parent);
 	}
 
@@ -43,16 +43,17 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 		view.addNewProjectEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				final DialogBox box = new DialogBox();
 				box.setGlassEnabled(true);
-				CreateProjectPresenter presenter = new CreateProjectPresenter(
+				final CreateProjectPresenter presenter = new CreateProjectPresenter(
 						box);
 
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
 						box.hide();
 					}
 				});
@@ -60,8 +61,9 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						initialize();
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						ProjectPresenter.this.initialize();
 						box.hide();
 					}
 				});
@@ -73,11 +75,12 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 		view.addDeleteProjectEventHandler(new EventHandler<ProjectEventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final ProjectEventArgs eventArgs) {
 				if (eventArgs.getProject() != null) {
-					SessionManager.getInstance().getModel()
-							.removeProject(eventArgs.getProject());
-					initialize();
+					SessionManager.getInstance().getModel().removeProject(
+							eventArgs.getProject());
+					ProjectPresenter.this.initialize();
 				} else {
 					GwtUtils.displayError(TextConstants.NO_PROJECT_SELECTED);
 				}
@@ -89,17 +92,33 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 		view.addProjectSelectionHandler(new EventHandler<ProjectEventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final ProjectEventArgs eventArgs1) {
 				view.getMasterProductBackloglPanel().clear();
 				view.getMasterReleasePanel().clear();
 				view.getMasterSprintPanel().clear();
 
-				new ReleasePresenter(view.getMasterReleasePanel(), eventArgs
-						.getProject());
-				new SprintPresenter(view.getMasterSprintPanel(), eventArgs
+				final ReleasePresenter rel = new ReleasePresenter(view
+						.getMasterReleasePanel(), eventArgs1.getProject());
+
+				rel.getFinished().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						new SprintPresenter(view.getMasterSprintPanel(),
+								eventArgs1.getProject());
+						new ProductBacklogPresenter(view
+								.getMasterProductBackloglPanel(), eventArgs1
+								.getProject());
+					}
+
+				});
+
+				new SprintPresenter(view.getMasterSprintPanel(), eventArgs1
 						.getProject());
 				new ProductBacklogPresenter(view
-						.getMasterProductBackloglPanel(), eventArgs
+						.getMasterProductBackloglPanel(), eventArgs1
 						.getProject());
 
 			}
@@ -112,12 +131,13 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 
 		return view;
 	}
-	
+
 	/**
-	 * Fills the cellTable of {@link ProjectView} with all existing projects 
+	 * Fills the cellTable of {@link ProjectView} with all existing projects
 	 */
-	private void initialize(){
-		this.getView().refreshProjects(new Vector<Project>(SessionManager
-				.getInstance().getModel().getProjects()));
+	private void initialize() {
+		this.getView().refreshProjects(
+				new Vector<Project>(SessionManager.getInstance().getModel()
+						.getProjects()));
 	}
 }

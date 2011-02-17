@@ -29,7 +29,7 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 	 * @param parent
 	 * @param project
 	 */
-	public ReleasePresenter(Panel parent, Project project) {
+	public ReleasePresenter(final Panel parent, final Project project) {
 		super(parent);
 		this.project = project;
 		this.initialize();
@@ -39,20 +39,21 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 	protected IReleaseView createView() {
 		final IReleaseView view = new ReleaseView();
 
-		
-		// Add a handler for a event which should open a new dialog for creating releases
+		// Add a handler for a event which should open a new dialog for creating
+		// releases
 		view.addNewReleaseEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				final DialogBox diaBox = new DialogBox();
-				CreateReleasePresenter presenter = new CreateReleasePresenter(
+				final CreateReleasePresenter presenter = new CreateReleasePresenter(
 						diaBox, ReleasePresenter.this.project);
 
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
 						diaBox.hide();
 					}
 				});
@@ -60,7 +61,8 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
 
 						ReleasePresenter.this.initialize();
 						diaBox.hide();
@@ -75,44 +77,57 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 		view.addDeleteReleaseEventHandler(new EventHandler<ReleaseArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final ReleaseArgs eventArgs) {
 				if (eventArgs.getRelease() != null) {
-				 ReleasePresenter.this.project.removeRelease(eventArgs.getRelease());
-				 view.refreshReleases(ReleasePresenter.this.project
-				 .getReleasePlan());
-				 
+					ReleasePresenter.this.project.removeRelease(eventArgs
+							.getRelease());
+					view.refreshReleases(ReleasePresenter.this.project
+							.getReleasePlan());
+
 					ReleasePresenter.this.initialize();
-				 
-				 } else {
-					 GwtUtils.displayError(TextConstants.NO_RELEASE_SELECTED);
-					 
-				 }
+
+				} else {
+					GwtUtils.displayError(TextConstants.NO_RELEASE_SELECTED);
+
+				}
 			}
 		});
 
-
-		// Add a handler for a event which should open the details of a selected release a a dialog
+		// Add a handler for a event which should open the details of a selected
+		// release a a dialog
 		view.addReleaseDetailsEventHandler(new EventHandler<ReleaseArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
-				if(eventArgs.getRelease()!=null){
-				final DialogBox diaBox = new DialogBox();
-				ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(
-						diaBox, eventArgs.getRelease());
+			public void onUpdate(final Object sender,
+					final ReleaseArgs eventArgs) {
+				if (eventArgs.getRelease() != null) {
+					final DialogBox diaBox = new DialogBox();
+					final ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(
+							diaBox, eventArgs.getRelease());
 
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
+					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
+						@Override
+						public void onUpdate(final Object sender,
+								final EventArgs eventArgs) {
+							ReleasePresenter.this.finish();
+						}
+					});
 
-						diaBox.clear();
-						diaBox.hide();
-					}
-				});
-				diaBox.center();
-			}else {
-				GwtUtils.displayError(TextConstants.NO_RELEASE_SELECTED);
+					presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+						@Override
+						public void onUpdate(final Object sender,
+								final EventArgs eventArgs) {
+
+							diaBox.clear();
+							diaBox.hide();
+						}
+					});
+					diaBox.center();
+				} else {
+					GwtUtils.displayError(TextConstants.NO_RELEASE_SELECTED);
 				}
 			}
 		});

@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -27,19 +28,26 @@ public class Sprint implements ISprint {
 	/**
 	 * Constructor for Sprint.
 	 * 
-	 * @param name String
-	 * @param description String
-	 * @param begin Date
-	 * @param end Date
-	 * @param team ITeam
+	 * @param name
+	 *            String
+	 * @param description
+	 *            String
+	 * @param begin
+	 *            Date
+	 * @param end
+	 *            Date
+	 * @param team
+	 *            ITeam
 	 * @throws NoValidValueException
 	 */
-	public Sprint(String name, String description, Date begin, Date end, ITeam team) throws NoValidValueException {
+	public Sprint(final String name, final String description,
+			final Date begin, final Date end, final ITeam team)
+			throws NoValidValueException {
 		super();
-		setName(name);
-		setDescription(description);
-		setTimeFrame(begin, end);
-		setTeam(team);
+		this.setName(name);
+		this.setDescription(description);
+		this.setTimeFrame(begin, end);
+		this.setTeam(team);
 		this.toReleaseAssoc = new ToReleaseAssoc(this);
 		this.toPBIAssoc = new ToPBIAssoc(this);
 	}
@@ -69,14 +77,16 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setName.
 	 * 
-	 * @param name String
+	 * @param name
+	 *            String
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setName(String)
 	 */
 	@Override
-	public void setName(String name) throws NoValidValueException {
+	public void setName(final String name) throws NoValidValueException {
 		if (name == null || name.length() == 0 || name.length() > 20) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.SPRINT_NAME_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.SPRINT_NAME_ERROR);
 		} else {
 			this.name = name;
 		}
@@ -85,11 +95,12 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setDescription.
 	 * 
-	 * @param description String
+	 * @param description
+	 *            String
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setDescription(String)
 	 */
 	@Override
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -118,17 +129,23 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setTimeFrame.
 	 * 
-	 * @param begin Date
-	 * @param end Date
+	 * @param begin
+	 *            Date
+	 * @param end
+	 *            Date
 	 * @throws NoValidValueException
-	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTimeFrame(Date, Date)
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTimeFrame(Date,
+	 *      Date)
 	 */
 	@Override
-	public void setTimeFrame(Date begin, Date end) throws NoValidValueException {
+	public void setTimeFrame(final Date begin, final Date end)
+			throws NoValidValueException {
 		if (begin == null || end == null) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
 		} else if (end.before(begin)) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.END_BEFORE_BEGIN_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		} else {
 			this.begin = begin;
 			this.end = end;
@@ -160,14 +177,16 @@ public class Sprint implements ISprint {
 	/**
 	 * Method setTeam.
 	 * 
-	 * @param team ITeam
+	 * @param team
+	 *            ITeam
 	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#setTeam(ITeam)
 	 */
 	@Override
-	public void setTeam(ITeam team) throws NoValidValueException {
+	public void setTeam(final ITeam team) throws NoValidValueException {
 		if (team == null) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
 		} else {
 			this.team = team;
 		}
@@ -181,10 +200,7 @@ public class Sprint implements ISprint {
 	 */
 	@Override
 	public IRelease getRelease() {
-		if (this.getToReleaseAssoc().get() != null) {
-			return this.getToReleaseAssoc().get().getElement();
-		}
-		return null;
+		return (IRelease) this.getToReleaseAssoc().get();
 	}
 
 	/**
@@ -195,9 +211,9 @@ public class Sprint implements ISprint {
 	 */
 	@Override
 	public Vector<ProductBacklogItem> getPBIs() {
-		Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
-		for (ProductBacklogItem.ToSprintAssoc pbiAssocs : this.toPBIAssoc.getAssociations()) {
-			ret.add(pbiAssocs.getElement());
+		final Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
+		for (final BDACompare pbiAssocs : this.toPBIAssoc.getAssociations()) {
+			ret.add((ProductBacklogItem) pbiAssocs);
 		}
 		return ret;
 	}
@@ -233,7 +249,8 @@ public class Sprint implements ISprint {
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -244,41 +261,48 @@ public class Sprint implements ISprint {
 	 */
 	@Override
 	public int hashCode() {
-		return indirectHashCode();
+		return this.indirectHashCode();
 	}
 
 	/**
 	 * Method indirectEquals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
 	 */
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Sprint other = (Sprint) obj;
-		if (name == null) {
-			if (other.name != null)
+		}
+		final Sprint other = (Sprint) obj;
+		if (this.name == null) {
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!this.name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		return indirectEquals(obj);
+	public boolean equals(final Object obj) {
+		return this.indirectEquals(obj);
 	}
 }

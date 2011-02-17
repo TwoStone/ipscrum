@@ -3,7 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.io.Serializable;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -29,7 +29,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * on the PBI side. See architecture documentation for BDAs!
 	 */
 	class ToBacklogAssoc extends
-			BDAManyToMany<ProductBacklog.ToPBIAssoc, ProductBacklogItem> {
+			ManyToOne<ProductBacklog.ToPBIAssoc, ProductBacklogItem> {
 		public ToBacklogAssoc(final ProductBacklogItem element) {
 			super(element);
 		}
@@ -40,7 +40,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * on the PBI side. See architecture documentation for BDAs!
 	 */
 	public class ToSprintAssoc extends
-			BDAManyToMany<ISprint.ToPBIAssoc, ProductBacklogItem> {
+			ManyToOne<ISprint.ToPBIAssoc, ProductBacklogItem> {
 		public ToSprintAssoc(final ProductBacklogItem element) {
 			super(element);
 		}
@@ -97,7 +97,7 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.sprintAssoc = new ToSprintAssoc(this);
 		this.checkName(backlog, name); // Initiale Prüfung
 		this.setManDayCosts(0);
-		this.getBacklogAssoc().finalSet(backlog.getAssoc());
+		this.getBacklogAssoc().set(backlog.getAssoc());
 	}
 
 	/**
@@ -195,10 +195,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * Returns the backlog of the pbi.
 	 */
 	public ProductBacklog getBacklog() {
-		if (this.getBacklogAssoc().get() != null) {
-			return this.getBacklogAssoc().get().getElement();
-		}
-		return null;
+		return (ProductBacklog) this.getBacklogAssoc().get();
 	}
 
 	/**
@@ -233,11 +230,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * Returns the sprint if it was set else null will be returned.
 	 */
 	public ISprint getSprint() {
-		if (this.getSprintAssoc().get() != null) {
-			return this.getSprintAssoc().get().getElement();
-		} else {
-			return null;
-		}
+		return (ISprint) this.getSprintAssoc().get();
 	}
 
 	/**
@@ -377,7 +370,7 @@ public abstract class ProductBacklogItem extends Observable implements
 			ForbiddenStateException {
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
-			this.getSprintAssoc().setNotChange((sprint.getToPBIAssoc()));
+			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
 		} else {
 			this.getSprintAssoc().set(null);
 		}

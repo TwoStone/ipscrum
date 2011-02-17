@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
-import fhdw.ipscrum.shared.bdas.BDAManyToMany;
+import fhdw.ipscrum.shared.bdas.OneToMany;
+import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -35,7 +36,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 * the pbl side. See architecture documentation for BDAs!
 	 */
 	class ToPBIAssoc extends
-			BDAManyToMany<ProductBacklogItem.ToBacklogAssoc, ProductBacklog> {
+			OneToMany<ProductBacklogItem.ToBacklogAssoc, ProductBacklog> {
 		public ToPBIAssoc(final ProductBacklog element) {
 			super(element);
 		}
@@ -46,7 +47,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 * on the pbl side. See architecture documentation for BDAs!
 	 */
 	class ToProjectAssoc extends
-			BDAManyToMany<Project.ToBacklogAssoc, ProductBacklog> {
+			OneToOne<Project.ToBacklogAssoc, ProductBacklog> {
 		public ToProjectAssoc(final ProductBacklog element) {
 			super(element);
 		}
@@ -113,9 +114,8 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 */
 	public Vector<ProductBacklogItem> getItems() {
 		final Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
-		for (final ProductBacklogItem.ToBacklogAssoc current : this.getAssoc()
-				.getAssociations()) {
-			ret.add(current.getElement());
+		for (final BDACompare current : this.getAssoc().getAssociations()) {
+			ret.add((ProductBacklogItem) current);
 		}
 		return ret;
 	}
@@ -180,6 +180,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 				this.getAssoc().add(item.getBacklogAssoc());
 				this.notifyObservers();
 			} else {
+				// Needed because in this case a change is not alowed.
 				throw new ConsistencyException(TextConstants.PBI_ERROR);
 			}
 		}
@@ -209,11 +210,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 * Return the releated project.
 	 */
 	public Project getProject() {
-		if (this.getProjectAssoc().get() != null) {
-			return this.getProjectAssoc().get().getElement();
-		} else {
-			return null;
-		}
+		return (Project) this.getProjectAssoc().get();
 	}
 
 	@Override
