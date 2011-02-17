@@ -29,8 +29,9 @@ public class Event<T extends EventArgs> implements IEvent<T> {
 	 * )
 	 */
 	@Override
-	public void add(final EventHandler<T> handler) {
+	public EventRegistration<T> add(final EventHandler<T> handler) {
 		this.handlers.add(handler);
+		return new EventRegistration<T>(this, handler);
 	}
 
 	/**
@@ -47,13 +48,11 @@ public class Event<T extends EventArgs> implements IEvent<T> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Removes the specific {@link EventHandler} from the events handler list.
 	 * 
-	 * @see fhdw.ipscrum.client.events.IEvent#remove(fhdw.ipscrum.client.events.
-	 * EventHandler)
+	 * @param handler
 	 */
-	@Override
 	public void remove(final EventHandler<T> handler) {
 		this.handlers.remove(handler);
 	}
