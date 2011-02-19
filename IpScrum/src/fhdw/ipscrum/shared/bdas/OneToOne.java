@@ -5,7 +5,7 @@ package fhdw.ipscrum.shared.bdas;
  * This association in a On-to-One scenario is referenced 0/1 time 
  * and references 1 or 0 associations.
  */
-public final class OneToOne<A extends OneToOne, F extends BDACompare> extends
+public class OneToOne<A extends OneToOne, F extends BDACompare> extends
 		BDABaseLogic<A, F> {
 
 	public OneToOne(final F element) {

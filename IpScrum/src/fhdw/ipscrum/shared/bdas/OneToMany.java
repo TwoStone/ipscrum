@@ -7,7 +7,7 @@ import java.util.Vector;
  * This association in a Many-to-One scenario is referenced 0/1 time and
  * references 0/many associations.
  */
-public final class OneToMany<A extends ManyToOne, F extends BDACompare> extends
+public class OneToMany<A extends ManyToOne, F extends BDACompare> extends
 		BDABaseLogic<A, F> {
 
 	public OneToMany(final F element) {

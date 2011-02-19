@@ -301,7 +301,7 @@ public class SprintTest {
 		final Sprint fixture = new Sprint("name", "a", new Date(), new Date(),
 				new Team("team"));
 
-		final ManyToOne<OneToMany, ISprint> result = fixture
+		ManyToOne<OneToMany, ISprint> result = fixture
 				.getToReleaseAssoc();
 		assertNotNull(result);
 	}

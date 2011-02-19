@@ -6,8 +6,8 @@ import java.util.Vector;
 /**
  * This element is referenced 0 or many times and references many
  */
-public final class ManyToMany<A extends ManyToMany, F extends BDACompare>
-		extends BDABaseLogic<A, F> {
+public class ManyToMany<A extends ManyToMany, F extends BDACompare> extends
+		BDABaseLogic<A, F> {
 
 	public ManyToMany(final F element) {
 		super(element);
