@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -18,8 +20,8 @@ public class Sprint implements ISprint {
 	private Date begin;
 	private Date end;
 	private ITeam team;
-	private ToReleaseAssoc toReleaseAssoc;
-	private ToPBIAssoc toPBIAssoc;
+	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
+	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
 
 	@SuppressWarnings("unused")
 	private Sprint() {
@@ -48,8 +50,8 @@ public class Sprint implements ISprint {
 		this.setDescription(description);
 		this.setTimeFrame(begin, end);
 		this.setTeam(team);
-		this.toReleaseAssoc = new ToReleaseAssoc(this);
-		this.toPBIAssoc = new ToPBIAssoc(this);
+		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
+		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
 	}
 
 	/**
@@ -59,7 +61,7 @@ public class Sprint implements ISprint {
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getToReleaseAssoc()
 	 */
 	@Override
-	public ToReleaseAssoc getToReleaseAssoc() {
+	public ManyToOne<OneToMany, ISprint> getToReleaseAssoc() {
 		return this.toReleaseAssoc;
 	}
 
@@ -70,7 +72,7 @@ public class Sprint implements ISprint {
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getToPBIAssoc()
 	 */
 	@Override
-	public ToPBIAssoc getToPBIAssoc() {
+	public OneToMany<ManyToOne, ISprint> getToPBIAssoc() {
 		return this.toPBIAssoc;
 	}
 

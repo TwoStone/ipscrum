@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.constants.TextConstants;
@@ -37,46 +38,24 @@ public class Project extends Observable implements BDACompare, Serializable {
 	/**
 	 * Bidirectional association to releases.
 	 */
-	private ToReleaseAssoc releaseAssoc;
+	private OneToMany<ManyToOne, Project> releaseAssoc;
 
 	/**
 	 * Bidirectional association to the product backlog.
 	 */
-	private ToBacklogAssoc backlogAssoc;
-
-	/**
-	 * Class which represents the bidirectional part of the release association
-	 * on the project side. See architecture documentation for BDAs!
-	 */
-	public class ToReleaseAssoc extends
-			OneToMany<Release.ToProjectAssoc, Project> {
-		public ToReleaseAssoc(final Project element) {
-			super(element);
-		}
-	}
-
-	/**
-	 * Class which represents the bidirectional part of the backlog association
-	 * on the project side. See architecture documentation for BDAs!
-	 */
-	public class ToBacklogAssoc extends
-			OneToOne<ProductBacklog.ToProjectAssoc, Project> {
-		public ToBacklogAssoc(final Project element) {
-			super(element);
-		}
-	}
+	private OneToOne<OneToOne, Project> backlogAssoc;
 
 	/**
 	 * Returns the bidirectional association to the backlog.
 	 */
-	protected ToBacklogAssoc getBacklogAssoc() {
+	protected OneToOne<OneToOne, Project> getBacklogAssoc() {
 		return this.backlogAssoc;
 	}
 
 	/**
 	 * Returns the bidirectional association to the releases.
 	 */
-	protected ToReleaseAssoc getReleaseAssoc() {
+	protected OneToMany<ManyToOne, Project> getReleaseAssoc() {
 		return this.releaseAssoc;
 	}
 
@@ -98,8 +77,8 @@ public class Project extends Observable implements BDACompare, Serializable {
 			ConsistencyException {
 		super();
 		this.name = name;
-		this.releaseAssoc = new ToReleaseAssoc(this);
-		this.backlogAssoc = new ToBacklogAssoc(this);
+		this.releaseAssoc = new OneToMany<ManyToOne, Project>(this);
+		this.backlogAssoc = new OneToOne<OneToOne, Project>(this);
 		this.backlogAssoc.set(new ProductBacklog(this).getProjectAssoc());
 	}
 

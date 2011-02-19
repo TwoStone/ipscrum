@@ -10,8 +10,6 @@ import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.Release;
-import fhdw.ipscrum.shared.model.Sprint;
 
 /**
  * This interface represents a Release. The Interfaces was mainly created to
@@ -88,37 +86,15 @@ public interface IRelease extends BDACompare, Serializable {
 	/**
 	 * Returns the bidirectional association to the project.
 	 */
-	public abstract Release.ToProjectAssoc getProjectAssoc();
+	public abstract ManyToOne<OneToMany, IRelease> getProjectAssoc();
 
 	/**
 	 * Returns the bidirectional association to the sprints.
 	 */
-	public abstract Release.ToSprintAssoc getSprintAssoc();
+	public abstract OneToMany<ManyToOne, IRelease> getSprintAssoc();
 
 	/**
 	 * This will remove all sprints from the release.
 	 */
 	public abstract void removeAllSprints();
-
-	/**
-	 * Class which represents the bidirectional part of the sprint association
-	 * on the release side. See architecture documentation for BDAs!
-	 */
-	public class ToSprintAssoc extends
-			OneToMany<Sprint.ToReleaseAssoc, Release> {
-		public ToSprintAssoc(final Release element) {
-			super(element);
-		}
-	}
-
-	/**
-	 * Class which represents the bidirectional part of the project association
-	 * on the release side. See architecture documentation for BDAs!
-	 */
-	public class ToProjectAssoc extends
-			ManyToOne<Project.ToReleaseAssoc, IRelease> {
-		public ToProjectAssoc(final Release element) {
-			super(element);
-		}
-	}
 }

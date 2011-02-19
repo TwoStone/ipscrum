@@ -9,7 +9,6 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.Sprint;
 
 /**
  * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
@@ -110,41 +109,13 @@ public interface ISprint extends BDACompare, Serializable {
 	 * 
 	 * @return ToReleaseAssoc
 	 */
-	public ToReleaseAssoc getToReleaseAssoc();
+	public ManyToOne<OneToMany, ISprint> getToReleaseAssoc();
 
 	/**
 	 * Method getToPBIAssoc.
 	 * 
 	 * @return ToPBIAssoc
 	 */
-	public ToPBIAssoc getToPBIAssoc();
+	public OneToMany<ManyToOne, ISprint> getToPBIAssoc();
 
-	/**
-	 */
-	class ToReleaseAssoc extends ManyToOne<IRelease.ToSprintAssoc, Sprint> {
-		/**
-		 * Constructor for ToReleaseAssoc.
-		 * 
-		 * @param element
-		 *            Sprint
-		 */
-		public ToReleaseAssoc(final Sprint element) {
-			super(element);
-		}
-	}
-
-	/**
-	 */
-	class ToPBIAssoc extends
-			OneToMany<ProductBacklogItem.ToSprintAssoc, Sprint> {
-		/**
-		 * Constructor for ToPBIAssoc.
-		 * 
-		 * @param element
-		 *            Sprint
-		 */
-		public ToPBIAssoc(final Sprint element) {
-			super(element);
-		}
-	}
 }

@@ -11,9 +11,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.Role;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.IRole;
 
 /**
  * The class <code>RoleTest</code> contains tests for the class
@@ -24,8 +26,8 @@ public class RoleTest {
 	 * Run the Role(String) constructor test.
 	 */
 	public void testRole_1() throws Exception {
-		String description = "Rolle";
-		Role result = new Role(description);
+		final String description = "Rolle";
+		final Role result = new Role(description);
 		assertNotNull(result);
 	}
 
@@ -34,8 +36,8 @@ public class RoleTest {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
 	public void testRole_2() throws Exception {
-		String description = "";
-		Role result = new Role(description);
+		final String description = "";
+		final Role result = new Role(description);
 		assertNotNull(result);
 	}
 
@@ -44,9 +46,9 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		Object obj = new Role("Rolle");
-		boolean result = fixture.equals(obj);
+		final Role fixture = new Role("Rolle");
+		final Object obj = new Role("Rolle");
+		final boolean result = fixture.equals(obj);
 		assertTrue(result);
 	}
 
@@ -55,9 +57,9 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_2() throws Exception {
-		Role fixture = new Role("Rolle1");
-		Object obj = new Role("Rolle2");
-		boolean result = fixture.equals(obj);
+		final Role fixture = new Role("Rolle1");
+		final Object obj = new Role("Rolle2");
+		final boolean result = fixture.equals(obj);
 		assertFalse(result);
 	}
 
@@ -66,15 +68,15 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_3() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
-		boolean result = fixture.equals(obj);
+		final boolean result = fixture.equals(obj);
 		assertTrue(result);
 	}
 
@@ -83,13 +85,13 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_4() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
 
-		boolean result = fixture.equals(obj);
+		final boolean result = fixture.equals(obj);
 		assertTrue(result);
 	}
 
@@ -98,19 +100,19 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_5() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
-		boolean result = fixture.equals(obj);
+		final boolean result = fixture.equals(obj);
 		assertTrue(result);
 	}
 
@@ -119,17 +121,17 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_6() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
-		boolean result = fixture.equals(obj);
+		final boolean result = fixture.equals(obj);
 		assertTrue(result);
 	}
 
@@ -138,19 +140,19 @@ public class RoleTest {
 	 */
 	@Test
 	public void testEquals_7() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
-		boolean result = fixture.equals(obj);
+		final boolean result = fixture.equals(obj);
 		assertTrue(result);
 	}
 
@@ -159,8 +161,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testGetDescription_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		String result = fixture.getDescription();
+		final Role fixture = new Role("Rolle");
+		final String result = fixture.getDescription();
 		assertEquals("Rolle", result);
 	}
 
@@ -169,8 +171,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testGetPersons_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		Vector<IPerson> result = fixture.getPersons();
+		final Role fixture = new Role("Rolle");
+		final Vector<IPerson> result = fixture.getPersons();
 		assertEquals(new Vector<IPerson>(), result);
 	}
 
@@ -179,13 +181,13 @@ public class RoleTest {
 	 */
 	@Test
 	public void testGetPersons_2() throws Exception {
-		Role fixture = new Role("Rolle");
-		Person person = new Person("firstname", "lastname");
+		final Role fixture = new Role("Rolle");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
 
-		Vector<IPerson> expected = new Vector<IPerson>();
+		final Vector<IPerson> expected = new Vector<IPerson>();
 		expected.add(person);
-		Vector<IPerson> result = fixture.getPersons();
+		final Vector<IPerson> result = fixture.getPersons();
 
 		assertEquals(expected, result);
 	}
@@ -195,16 +197,16 @@ public class RoleTest {
 	 */
 	@Test
 	public void testGetPersons_3() throws Exception {
-		Role fixture = new Role("Rolle");
-		Person person = new Person("firstname", "lastname");
+		final Role fixture = new Role("Rolle");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person2 = new Person("firstname2", "lastname2");
+		final Person person2 = new Person("firstname2", "lastname2");
 		person2.addRole(fixture);
 
-		Vector<IPerson> expected = new Vector<IPerson>();
+		final Vector<IPerson> expected = new Vector<IPerson>();
 		expected.add(person);
 		expected.add(person2);
-		Vector<IPerson> result = fixture.getPersons();
+		final Vector<IPerson> result = fixture.getPersons();
 
 		assertEquals(expected, result);
 	}
@@ -215,8 +217,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testGetToPersonAssoc_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		fhdw.ipscrum.shared.model.interfaces.IRole.ToPersonAssoc result = fixture.getToPersonAssoc();
+		final Role fixture = new Role("Rolle");
+		final ManyToMany<ManyToMany, IRole> result = fixture.getToPersonAssoc();
 		assertNotNull(result);
 	}
 
@@ -225,8 +227,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		Object obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Object obj = new Role("Rolle");
 		assertTrue(fixture.hashCode() == obj.hashCode());
 	}
 
@@ -235,8 +237,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_2() throws Exception {
-		Role fixture = new Role("Rolle1");
-		Object obj = new Role("Rolle2");
+		final Role fixture = new Role("Rolle1");
+		final Object obj = new Role("Rolle2");
 		assertFalse(fixture.hashCode() == obj.hashCode());
 	}
 
@@ -245,12 +247,12 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_3() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
 		assertTrue(fixture.hashCode() == obj.hashCode());
@@ -261,10 +263,10 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_4() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
 
 		assertTrue(fixture.hashCode() == obj.hashCode());
@@ -275,16 +277,16 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_5() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
 		assertTrue(fixture.hashCode() == obj.hashCode());
@@ -295,14 +297,14 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_6() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
 		assertTrue(fixture.hashCode() == obj.hashCode());
@@ -313,16 +315,16 @@ public class RoleTest {
 	 */
 	@Test
 	public void testHashCode_7() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
 		assertTrue(fixture.hashCode() == obj.hashCode());
@@ -333,9 +335,9 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		Object obj = new Role("Rolle");
-		boolean result = fixture.indirectEquals(obj);
+		final Role fixture = new Role("Rolle");
+		final Object obj = new Role("Rolle");
+		final boolean result = fixture.indirectEquals(obj);
 		assertTrue(result);
 	}
 
@@ -344,9 +346,9 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_2() throws Exception {
-		Role fixture = new Role("Rolle1");
-		Object obj = new Role("Rolle2");
-		boolean result = fixture.indirectEquals(obj);
+		final Role fixture = new Role("Rolle1");
+		final Object obj = new Role("Rolle2");
+		final boolean result = fixture.indirectEquals(obj);
 		assertFalse(result);
 	}
 
@@ -355,15 +357,15 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_3() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
-		boolean result = fixture.indirectEquals(obj);
+		final boolean result = fixture.indirectEquals(obj);
 		assertTrue(result);
 	}
 
@@ -372,13 +374,13 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_4() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
 
-		boolean result = fixture.indirectEquals(obj);
+		final boolean result = fixture.indirectEquals(obj);
 		assertTrue(result);
 	}
 
@@ -387,19 +389,19 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_5() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
-		boolean result = fixture.indirectEquals(obj);
+		final boolean result = fixture.indirectEquals(obj);
 		assertTrue(result);
 	}
 
@@ -408,17 +410,17 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_6() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
-		boolean result = fixture.indirectEquals(obj);
+		final boolean result = fixture.indirectEquals(obj);
 		assertTrue(result);
 	}
 
@@ -427,19 +429,19 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectEquals_7() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
-		boolean result = fixture.indirectEquals(obj);
+		final boolean result = fixture.indirectEquals(obj);
 		assertTrue(result);
 	}
 
@@ -448,8 +450,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 		assertTrue(fixture.indirectHashCode() == obj.indirectHashCode());
 	}
 
@@ -458,8 +460,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_2() throws Exception {
-		Role fixture = new Role("Rolle1");
-		Role obj = new Role("Rolle2");
+		final Role fixture = new Role("Rolle1");
+		final Role obj = new Role("Rolle2");
 		assertFalse(fixture.indirectHashCode() == obj.indirectHashCode());
 	}
 
@@ -468,12 +470,12 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_3() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
 		assertTrue(fixture.indirectHashCode() == obj.indirectHashCode());
@@ -484,10 +486,10 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_4() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
 
 		assertTrue(fixture.indirectHashCode() == obj.indirectHashCode());
@@ -498,16 +500,16 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_5() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person1 = new Person("firstname", "lastname");
+		final Person person1 = new Person("firstname", "lastname");
 		person1.addRole(fixture);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
 		assertTrue(fixture.indirectHashCode() == obj.indirectHashCode());
@@ -518,14 +520,14 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_6() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
 
 		assertTrue(fixture.indirectHashCode() == obj.indirectHashCode());
@@ -536,16 +538,16 @@ public class RoleTest {
 	 */
 	@Test
 	public void testIndirectHashCode_7() throws Exception {
-		Role fixture = new Role("Rolle");
-		Role obj = new Role("Rolle");
+		final Role fixture = new Role("Rolle");
+		final Role obj = new Role("Rolle");
 
-		Person person = new Person("firstname", "lastname");
+		final Person person = new Person("firstname", "lastname");
 		person.addRole(fixture);
-		Person person3 = new Person("firstname2", "lastname2");
+		final Person person3 = new Person("firstname2", "lastname2");
 		person3.addRole(fixture);
-		Person person4 = new Person("firstname2", "lastname2");
+		final Person person4 = new Person("firstname2", "lastname2");
 		person4.addRole(obj);
-		Person person2 = new Person("firstname", "lastname");
+		final Person person2 = new Person("firstname", "lastname");
 		person2.addRole(obj);
 
 		assertTrue(fixture.indirectHashCode() == obj.indirectHashCode());
@@ -556,8 +558,8 @@ public class RoleTest {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
 	public void testSetDescription_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		String description = null;
+		final Role fixture = new Role("Rolle");
+		final String description = null;
 		fixture.setDescription(description);
 	}
 
@@ -566,8 +568,8 @@ public class RoleTest {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.NoValidValueException.class)
 	public void testSetDescription_2() throws Exception {
-		Role fixture = new Role("Rolle");
-		String description = "";
+		final Role fixture = new Role("Rolle");
+		final String description = "";
 		fixture.setDescription(description);
 	}
 
@@ -576,8 +578,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testSetDescription_3() throws Exception {
-		Role fixture = new Role("Rolle");
-		String description = "andereRolle";
+		final Role fixture = new Role("Rolle");
+		final String description = "andereRolle";
 		fixture.setDescription(description);
 		assertEquals(description, fixture.getDescription());
 	}
@@ -587,8 +589,8 @@ public class RoleTest {
 	 */
 	@Test
 	public void testToString_1() throws Exception {
-		Role fixture = new Role("Rolle");
-		String result = fixture.toString();
+		final Role fixture = new Role("Rolle");
+		final String result = fixture.toString();
 		assertEquals("Rolle", result);
 	}
 
@@ -609,7 +611,7 @@ public class RoleTest {
 	/**
 	 * Launch the test.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		new org.junit.runner.JUnitCore().run(RoleTest.class);
 	}
 }

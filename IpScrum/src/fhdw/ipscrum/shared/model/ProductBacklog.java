@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.constants.TextConstants;
@@ -24,46 +25,24 @@ public class ProductBacklog extends Observable implements BDACompare,
 	/**
 	 * Bidirectional associations to the pbis.
 	 */
-	private ToPBIAssoc assoc;
+	private OneToMany<ManyToOne, ProductBacklog> assoc;
 
 	/**
 	 * Bidirectional association to the project.
 	 */
-	private ToProjectAssoc projectAssoc;
-
-	/**
-	 * Class which represents the bidirectional part of the pbi association on
-	 * the pbl side. See architecture documentation for BDAs!
-	 */
-	class ToPBIAssoc extends
-			OneToMany<ProductBacklogItem.ToBacklogAssoc, ProductBacklog> {
-		public ToPBIAssoc(final ProductBacklog element) {
-			super(element);
-		}
-	}
-
-	/**
-	 * Class which represents the bidirectional part of the project association
-	 * on the pbl side. See architecture documentation for BDAs!
-	 */
-	class ToProjectAssoc extends
-			OneToOne<Project.ToBacklogAssoc, ProductBacklog> {
-		public ToProjectAssoc(final ProductBacklog element) {
-			super(element);
-		}
-	}
+	private OneToOne<OneToOne, ProductBacklog> projectAssoc;
 
 	/**
 	 * Returns the bidirectional association to the pbis.
 	 */
-	protected ToPBIAssoc getAssoc() {
+	protected OneToMany<ManyToOne, ProductBacklog> getAssoc() {
 		return this.assoc;
 	}
 
 	/**
 	 * Returns the bidirectional association to the related project.
 	 */
-	protected ToProjectAssoc getProjectAssoc() {
+	protected OneToOne<OneToOne, ProductBacklog> getProjectAssoc() {
 		return this.projectAssoc;
 	}
 
@@ -84,8 +63,8 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 */
 	protected ProductBacklog(final Project project) {
 		super();
-		this.projectAssoc = new ToProjectAssoc(this);
-		this.assoc = new ToPBIAssoc(this);
+		this.projectAssoc = new OneToOne<OneToOne, ProductBacklog>(this);
+		this.assoc = new OneToMany<ManyToOne, ProductBacklog>(this);
 	}
 
 	/**

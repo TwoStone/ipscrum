@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -13,7 +14,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
 public class Role implements IRole {
 	private static final long serialVersionUID = 4751308921900403733L;
 	private String description;
-	private ToPersonAssoc toPersonAssoc;
+	private ManyToMany<ManyToMany, IRole> toPersonAssoc;
 
 	@SuppressWarnings("unused")
 	private Role() {
@@ -29,7 +30,7 @@ public class Role implements IRole {
 	public Role(final String description) throws NoValidValueException {
 		super();
 		this.setDescription(description);
-		this.toPersonAssoc = new ToPersonAssoc(this);
+		this.toPersonAssoc = new ManyToMany<ManyToMany, IRole>(this);
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class Role implements IRole {
 	 * @see fhdw.ipscrum.shared.model.interfaces.IRole#getToPersonAssoc()
 	 */
 	@Override
-	public ToPersonAssoc getToPersonAssoc() {
+	public ManyToMany<ManyToMany, IRole> getToPersonAssoc() {
 		return this.toPersonAssoc;
 	}
 

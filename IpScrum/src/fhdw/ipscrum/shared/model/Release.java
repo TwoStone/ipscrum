@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -34,21 +36,21 @@ public class Release extends Observable implements IRelease {
 	/**
 	 * Bidirectional association to project.
 	 */
-	private ToProjectAssoc projectAssoc;
+	private ManyToOne<OneToMany, IRelease> projectAssoc;
 
 	// @final
 	/**
 	 * Bidirectional association to sprint.
 	 */
-	private ToSprintAssoc sprintAssoc;
+	private OneToMany<ManyToOne, IRelease> sprintAssoc;
 
 	@Override
-	public ToSprintAssoc getSprintAssoc() {
+	public OneToMany<ManyToOne, IRelease> getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 
 	@Override
-	public ToProjectAssoc getProjectAssoc() {
+	public ManyToOne<OneToMany, IRelease> getProjectAssoc() {
 		return this.projectAssoc;
 	}
 
@@ -77,8 +79,8 @@ public class Release extends Observable implements IRelease {
 		this.version = version;
 		this.releaseDate = releaseDate;
 		// this.project = project;
-		this.projectAssoc = new ToProjectAssoc(this);
-		this.sprintAssoc = new ToSprintAssoc(this);
+		this.projectAssoc = new ManyToOne<OneToMany, IRelease>(this);
+		this.sprintAssoc = new OneToMany<ManyToOne, IRelease>(this);
 		project.isReleaseDoubleDefined(version, releaseDate);// can throw
 		// DoubleDefinitionException
 		this.getProjectAssoc().set(project.getReleaseAssoc());

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -25,28 +26,6 @@ public abstract class ProductBacklogItem extends Observable implements
 	private static final long serialVersionUID = 1599696800942615676L;
 
 	/**
-	 * Class which represents the bidirectional part of the backlog association
-	 * on the PBI side. See architecture documentation for BDAs!
-	 */
-	class ToBacklogAssoc extends
-			ManyToOne<ProductBacklog.ToPBIAssoc, ProductBacklogItem> {
-		public ToBacklogAssoc(final ProductBacklogItem element) {
-			super(element);
-		}
-	}
-
-	/**
-	 * Class which represents the bidirectional part of the sprint association
-	 * on the PBI side. See architecture documentation for BDAs!
-	 */
-	public class ToSprintAssoc extends
-			ManyToOne<ISprint.ToPBIAssoc, ProductBacklogItem> {
-		public ToSprintAssoc(final ProductBacklogItem element) {
-			super(element);
-		}
-	}
-
-	/**
 	 * Name of the sprint.
 	 */
 	private String name;
@@ -64,12 +43,12 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the bidirectional association to the backlog.
 	 */
-	private ToBacklogAssoc backlogAssoc;
+	private ManyToOne<OneToMany, ProductBacklogItem> backlogAssoc;
 
 	/**
 	 * Returns the bidirectional association to the sprint.
 	 */
-	private ToSprintAssoc sprintAssoc;
+	private ManyToOne<OneToMany, ProductBacklogItem> sprintAssoc;
 
 	/**
 	 * Default Constructor for GWT serialization.
@@ -93,8 +72,8 @@ public abstract class ProductBacklogItem extends Observable implements
 			throws UserException {
 		super();
 		this.initialize();
-		this.backlogAssoc = new ToBacklogAssoc(this);
-		this.sprintAssoc = new ToSprintAssoc(this);
+		this.backlogAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
+		this.sprintAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
 		this.checkName(backlog, name); // Initiale Prüfung
 		this.setManDayCosts(0);
 		this.getBacklogAssoc().set(backlog.getAssoc());
@@ -201,7 +180,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the bidirectional association to the backlog.
 	 */
-	protected ToBacklogAssoc getBacklogAssoc() {
+	protected ManyToOne<OneToMany, ProductBacklogItem> getBacklogAssoc() {
 		return this.backlogAssoc;
 	}
 
@@ -236,7 +215,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the bidirectional association to the sprint.
 	 */
-	protected ToSprintAssoc getSprintAssoc() {
+	protected ManyToOne<OneToMany, ProductBacklogItem> getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 
