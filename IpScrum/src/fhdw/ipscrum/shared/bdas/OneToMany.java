@@ -40,4 +40,24 @@ public class OneToMany<A extends ManyToOne, F extends BDACompare> extends
 	public Vector<BDACompare> getAssociations() {
 		return super.getAssociations();
 	}
+
+	@Override
+	public void moveDown(final A bda) {
+		super.moveDown(bda);
+	}
+
+	@Override
+	public void moveToBottom(final A bda) {
+		super.moveToBottom(bda);
+	}
+
+	@Override
+	public void moveToTop(final A bda) {
+		super.moveToTop(bda);
+	}
+
+	@Override
+	public void moveUp(final A bda) {
+		super.moveUp(bda);
+	}
 }

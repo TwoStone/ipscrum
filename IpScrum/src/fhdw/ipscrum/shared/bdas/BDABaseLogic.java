@@ -120,7 +120,7 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	 * Changes the position of the given association within the list.
 	 * Association will move to bottom, that means the new position = size-1
 	 */
-	public void moveToBottom(final T bda) {
+	protected void moveToBottom(final T bda) {
 		this.getConnectTo().remove(bda);
 		this.getConnectTo().insertElementAt(bda, this.getConnectTo().size());
 	}
@@ -129,7 +129,7 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	 * Changes the position of the given association within the list.
 	 * Association will move to top, that means the new position = 0
 	 */
-	public void moveToTop(final T bda) {
+	protected void moveToTop(final T bda) {
 		this.getConnectTo().remove(bda);
 		this.getConnectTo().insertElementAt(bda, 0);
 	}
@@ -139,7 +139,7 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	 * Association will move up, that means the new position = current position
 	 * + 1!
 	 */
-	public void moveUp(final T bda) {
+	protected void moveUp(final T bda) {
 		final Integer position = this.getConnectTo().indexOf(bda);
 		if (position > 0) {
 			this.getConnectTo().remove(bda);
@@ -152,7 +152,7 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	 * Association will move down, that means the new position = current
 	 * position - 1!
 	 */
-	public void moveDown(final T bda) {
+	protected void moveDown(final T bda) {
 		final Integer position = this.getConnectTo().indexOf(bda);
 		if (position > -1 && position < (this.getConnectTo().size() - 1)) {
 			this.getConnectTo().remove(bda);
