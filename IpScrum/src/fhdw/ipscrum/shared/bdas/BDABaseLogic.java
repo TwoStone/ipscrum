@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.bdas;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
@@ -32,18 +33,28 @@ import java.util.Vector;
  *</p>
  */
 @SuppressWarnings("unchecked")
-public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare> {
+public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
+		implements Serializable {
+
+	private static final long serialVersionUID = 1325822695842459160L;
 
 	/**
 	 * Base Element of the association.
 	 */
-	private final E element;
+	private E element;
 
 	/**
 	 * List of all connected associations to other classes with an association
 	 * of type T.
 	 */
 	private Vector<T> connectTo;
+
+	/**
+	 * Only for Serialization
+	 */
+	@SuppressWarnings("unused")
+	private BDABaseLogic() {
+	}
 
 	public BDABaseLogic(final E element) {
 		super();
