@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -34,9 +35,13 @@ public class ReportView extends Composite implements IView {
 		initWidget(horizontalPanelLayout);
 		horizontalPanelLayout.setSize("700px", "600px");
 
+		ScrollPanel scrollPanel = new ScrollPanel();
+		horizontalPanelLayout.add(scrollPanel);
+		scrollPanel.setSize("225px", "610px");
+
 		DecoratedStackPanel decoratedStackPanel = new DecoratedStackPanel();
-		horizontalPanelLayout.add(decoratedStackPanel);
-		decoratedStackPanel.setWidth("225px");
+		scrollPanel.setWidget(decoratedStackPanel);
+		decoratedStackPanel.setSize("100%", "100%");
 
 		CellTree cellTreeReleases = new CellTree(new ReleaseSelectionTreeViewModel(releaseSelectionModel), null);
 		decoratedStackPanel.add(cellTreeReleases, "Releaseauswahl", false);
