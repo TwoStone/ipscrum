@@ -38,21 +38,7 @@ public class SprintBurndownChart extends GChart {
 
 
 
-		// GENERATE DEMO BURNDOWN DATA
-		int dayCount = (int) (Math.random() * 21 + 5);
-		int dayInSprint = (int) (Math.random()*dayCount + dayCount*0.5);
-		int taskCount = (int) (Math.random() * 100 + 50);
-
-		for (int i = 0; i < dayCount; i++) {
-			if (i < dayInSprint) {
-				int ideal = taskCount / (dayCount-1) * (dayCount-1 - i);
-				double deviation = Math.random() * 0.4 + 0.8;
-
-				getCurve().addPoint(i, ideal*deviation);
-			} else {
-				getCurve().addPoint(i, 0);
-			}
-		}
+		this.initChartData();
 
 
 
@@ -82,5 +68,23 @@ public class SprintBurndownChart extends GChart {
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		this.update();
+	}
+
+	private void initChartData() {
+		// GENERATE DEMO BURNDOWN DATA
+		int dayCount = (int) (Math.random() * 21 + 5);
+		int dayInSprint = (int) (Math.random()*dayCount + dayCount*0.5);
+		int taskCount = (int) (Math.random() * 100 + 50);
+
+		for (int i = 0; i < dayCount; i++) {
+			if (i < dayInSprint) {
+				int ideal = taskCount / (dayCount-1) * (dayCount-1 - i);
+				double deviation = Math.random() * 0.4 + 0.8;
+
+				getCurve().addPoint(i, ideal*deviation);
+			} else {
+				getCurve().addPoint(i, 0);
+			}
+		}
 	}
 }

@@ -52,6 +52,7 @@ public class Sprint implements ISprint {
 		this.setDescription(description);
 		this.setTimeFrame(begin, end);
 		this.setTeam(team);
+		this.chartData = new SprintChartData();
 		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
 		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
 	}
@@ -123,6 +124,7 @@ public class Sprint implements ISprint {
 	 * Method getChartData.
 	 * @return SprintChartData
 	 */
+	@Override
 	public SprintChartData getChartData() {
 		return this.chartData;
 	}
