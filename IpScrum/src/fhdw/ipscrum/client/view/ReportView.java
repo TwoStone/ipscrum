@@ -34,7 +34,7 @@ public class ReportView extends Composite implements IView {
 		HorizontalPanel horizontalPanelLayout = new HorizontalPanel();
 		horizontalPanelLayout.setSpacing(5);
 		initWidget(horizontalPanelLayout);
-		horizontalPanelLayout.setSize("900px", "600px");
+		horizontalPanelLayout.setSize("900px", "610px");
 
 		ScrollPanel scrollPanel = new ScrollPanel();
 		horizontalPanelLayout.add(scrollPanel);
