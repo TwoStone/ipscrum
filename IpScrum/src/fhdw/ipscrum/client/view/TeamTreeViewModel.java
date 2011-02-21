@@ -10,93 +10,92 @@ import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
-	  /**
-	   * The model that defines the nodes in the tree.
-	   */
-	  public class TeamTreeViewModel implements TreeViewModel {
-		
-		private SelectionModel selectionModel;
+/**
+ * The model that defines the nodes in the tree.
+ */
+public class TeamTreeViewModel implements TreeViewModel {
 
-		/**
-		 * Method getSelectionModel.
-		 * @return SelectionModel
-		 */
-		public SelectionModel getSelectionModel() {
-			return selectionModel;
+	private SelectionModel selectionModel;
+
+	/**
+	 * Method getSelectionModel.
+	 * @return SelectionModel
+	 */
+	public SelectionModel getSelectionModel() {
+		return selectionModel;
+	}
+
+	/**
+	 * Method setSelectionModel.
+	 * @param selectionModel SelectionModel
+	 */
+	public void setSelectionModel(SelectionModel selectionModel) {
+		this.selectionModel = selectionModel;
+	}
+
+	/**
+	 * Check if the specified value represents a leaf node. Leaf nodes cannot be
+	 * opened.
+	 * @param value Object
+	 * @return boolean
+	 * @see com.google.gwt.view.client.TreeViewModel#isLeaf(Object)
+	 */
+	@Override
+	public boolean isLeaf(Object value) {
+		// The leaf nodes are the Persons.
+		if (value instanceof IPerson) {
+			return true;
 		}
+		return false;
+	}
 
-		/**
-		 * Method setSelectionModel.
-		 * @param selectionModel SelectionModel
-		 */
-		public void setSelectionModel(SelectionModel selectionModel) {
-			this.selectionModel = selectionModel;
-		}
+	public TeamTreeViewModel() {
+	}
 
-		/**
-	     * Check if the specified value represents a leaf node. Leaf nodes cannot be
-	     * opened.
-	     * @param value Object
-		 * @return boolean
-		 * @see com.google.gwt.view.client.TreeViewModel#isLeaf(Object)
-		 */
-		@Override
-		public boolean isLeaf(Object value) {
-			// The leaf nodes are the Persons.
-			if (value instanceof IPerson) {
-				return true;
-			}
-			return false;
-		}
+	/**
+	 * Method getNodeInfo.
+	 * @param value T
+	 * @return NodeInfo<?>
+	 * @see com.google.gwt.view.client.TreeViewModel#getNodeInfo(T)
+	 */
+	@Override
+	public <T> NodeInfo<?> getNodeInfo(T value) {
 
-		public TeamTreeViewModel() {
-		}
-		
-		/**
-		 * Method getNodeInfo.
-		 * @param value T
-		 * @return NodeInfo<?>
-		 * @see com.google.gwt.view.client.TreeViewModel#getNodeInfo(T)
-		 */
-		@Override
-		public <T> NodeInfo<?> getNodeInfo(T value) {
 
-			
-			
-			if (value == null) {
-				// Create a data provider that provides Teams.
-				ListDataProvider<ITeam> teamDataProvider = new ListDataProvider<ITeam>();
-				teamDataProvider.getList().addAll(SessionManager.getInstance().getModel().getTeams());
-				
-				Cell<ITeam> tCell = new AbstractCell<ITeam>() {
-					public void render(Context context, ITeam value, SafeHtmlBuilder sb) {
-						if (value != null) {
-							sb.appendEscaped(value.toString());
-						}
+
+		if (value == null) {
+			// Create a data provider that provides Teams.
+			ListDataProvider<ITeam> teamDataProvider = new ListDataProvider<ITeam>();
+			teamDataProvider.getList().addAll(SessionManager.getInstance().getModel().getTeams());
+
+			Cell<ITeam> tCell = new AbstractCell<ITeam>() {
+				@Override
+				public void render(Context context, ITeam value, SafeHtmlBuilder sb) {
+					if (value != null) {
+						sb.appendEscaped(value.toString());
 					}
-				};
-				DefaultNodeInfo<ITeam> tNodeInfo = new DefaultNodeInfo<ITeam>(teamDataProvider, tCell, TeamTreeViewModel.this.selectionModel, null);
-				return tNodeInfo;
-				
-			} else if (value instanceof ITeam) {
-				// Create a data provider that provides Team-Members.
-				ListDataProvider<IPerson> personDataProvider = new ListDataProvider<IPerson>();
-				personDataProvider.getList().addAll(((ITeam) value).getMembers());
-				
-				Cell<IPerson> pCell = new AbstractCell<IPerson>() {
-					public void render(Context context, IPerson value, SafeHtmlBuilder sb) {
-						if (value != null) {
-							sb.appendEscaped(value.toString());
-						}
+				}
+			};
+			DefaultNodeInfo<ITeam> tNodeInfo = new DefaultNodeInfo<ITeam>(teamDataProvider, tCell, TeamTreeViewModel.this.selectionModel, null);
+			return tNodeInfo;
+
+		} else if (value instanceof ITeam) {
+			// Create a data provider that provides Team-Members.
+			ListDataProvider<IPerson> personDataProvider = new ListDataProvider<IPerson>();
+			personDataProvider.getList().addAll(((ITeam) value).getMembers());
+
+			Cell<IPerson> pCell = new AbstractCell<IPerson>() {
+				@Override
+				public void render(Context context, IPerson value, SafeHtmlBuilder sb) {
+					if (value != null) {
+						sb.appendEscaped(value.toString());
 					}
-				};
-				DefaultNodeInfo<IPerson> pNodeInfo = new DefaultNodeInfo<IPerson>(personDataProvider, pCell, TeamTreeViewModel.this.selectionModel, null);
-				return pNodeInfo;
-				
-			} else if (value instanceof IPerson) {
-				System.out.println("p" + value.toString());
-			}
-			
-			return null;
+				}
+			};
+			DefaultNodeInfo<IPerson> pNodeInfo = new DefaultNodeInfo<IPerson>(personDataProvider, pCell, TeamTreeViewModel.this.selectionModel, null);
+			return pNodeInfo;
 		}
-	  }
+
+		return null;
+	}
+}
