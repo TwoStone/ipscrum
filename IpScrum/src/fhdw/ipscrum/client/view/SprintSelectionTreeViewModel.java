@@ -1,7 +1,9 @@
 package fhdw.ipscrum.client.view;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.text.client.DateTimeFormatRenderer;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
@@ -68,6 +70,10 @@ public class SprintSelectionTreeViewModel implements TreeViewModel {
 		@Override
 		public void render(Context context, ISprint value, SafeHtmlBuilder sb) {
 			if (value != null) {
+				sb.appendHtmlConstant("<span style='font-size:75%;'>");
+				DateTimeFormatRenderer dtr = new DateTimeFormatRenderer(DateTimeFormat.getFormat("dd.MM.yy"));
+				sb.appendEscaped(dtr.render(value.getBegin()) + " - " + dtr.render(value.getEnd()));
+				sb.appendHtmlConstant("</span><br />");
 				sb.appendEscaped(value.toString());
 			}
 		}
