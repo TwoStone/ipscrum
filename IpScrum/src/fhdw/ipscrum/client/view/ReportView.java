@@ -3,15 +3,15 @@ package fhdw.ipscrum.client.view;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.client.view.widgets.SprintBurndownChart;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
@@ -21,11 +21,11 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  * statistical data regarding the sprint-/release progress (burn-down-charts)
  */
 
-// TODO extract interface when base-implementation is done
+// TODO extract interface + constants when base-implementation is done
 public class ReportView extends Composite implements IView {
-	private final Label lblVariable;
 	private SingleSelectionModel<IRelease> releaseSelectionModel;
 	private SingleSelectionModel<ISprint> sprintSelectionModel;
+	private final SimplePanel contentPanel;
 
 	public ReportView() {
 		this.initSelectionModels();
@@ -51,17 +51,15 @@ public class ReportView extends Composite implements IView {
 		CellTree cellTreeSprints = new CellTree(new SprintSelectionTreeViewModel(sprintSelectionModel), null);
 		cellTreeSprints.setAnimationEnabled(true);
 		decoratedStackPanel.add(cellTreeSprints, "Sprintauswahl", false);
+		decoratedStackPanel.showStack(1);
 		cellTreeSprints.setSize("100%", "100%");
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		horizontalPanelLayout.add(verticalPanel);
+		contentPanel = new SimplePanel();
+		horizontalPanelLayout.add(contentPanel);
 
-		Image image = new Image("images/demoChart.jpg");
-		verticalPanel.add(image);
-
-		lblVariable = new Label("variable");
-		lblVariable.setStyleName("header3");
-		verticalPanel.add(lblVariable);
+		HTML htmlLabel = new HTML("<h1>Bitte treffen Sie eine Auswahl.</h1>", true);
+		contentPanel.setWidget(htmlLabel);
+		htmlLabel.setSize("100%", "100%");
 
 	}
 
@@ -70,7 +68,10 @@ public class ReportView extends Composite implements IView {
 		this.releaseSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				ReportView.this.lblVariable.setText(releaseSelectionModel.getSelectedObject().toString());
+				HTML htmlLabel = new HTML("<h1>Release Burndown-Chart<br />not ready yet.</h1>" + releaseSelectionModel.getSelectedObject().toString(), true);
+				ReportView.this.contentPanel.setWidget(htmlLabel);
+				contentPanel.setWidget(htmlLabel);
+				htmlLabel.setSize("100%", "100%");
 			}
 		});
 
@@ -78,7 +79,8 @@ public class ReportView extends Composite implements IView {
 		this.sprintSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				ReportView.this.lblVariable.setText(sprintSelectionModel.getSelectedObject().toString());
+				ReportView.this.contentPanel.clear();
+				ReportView.this.contentPanel.setWidget(new SprintBurndownChart(sprintSelectionModel.getSelectedObject()));
 			}
 		});
 	}
