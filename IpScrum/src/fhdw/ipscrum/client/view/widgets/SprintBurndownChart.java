@@ -75,10 +75,10 @@ public class SprintBurndownChart extends GChart {
 
 
 		// SETUP X- AND Y-AXIS
-		getXAxis().setAxisLabel("<i>Arbeitstage</i>");
+		getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
 		getXAxis().setTickCount(getCurve(0).getNPoints());
 
-		getYAxis().setAxisLabel("<i>Aufwaende</i>");
+		getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
 		getYAxis().setHasGridlines(true);
 		getYAxis().setTickLength(25);
 

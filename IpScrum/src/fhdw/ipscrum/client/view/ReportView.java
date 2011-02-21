@@ -4,6 +4,7 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -33,7 +34,7 @@ public class ReportView extends Composite implements IView {
 		HorizontalPanel horizontalPanelLayout = new HorizontalPanel();
 		horizontalPanelLayout.setSpacing(5);
 		initWidget(horizontalPanelLayout);
-		horizontalPanelLayout.setSize("700px", "600px");
+		horizontalPanelLayout.setSize("900px", "600px");
 
 		ScrollPanel scrollPanel = new ScrollPanel();
 		horizontalPanelLayout.add(scrollPanel);
@@ -56,6 +57,7 @@ public class ReportView extends Composite implements IView {
 
 		contentPanel = new SimplePanel();
 		horizontalPanelLayout.add(contentPanel);
+		horizontalPanelLayout.setCellHorizontalAlignment(contentPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		HTML htmlLabel = new HTML("<h1>Bitte treffen Sie eine Auswahl.</h1>", true);
 		contentPanel.setWidget(htmlLabel);
