@@ -9,6 +9,7 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.SprintChartData;
 
 /**
  * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
@@ -21,6 +22,13 @@ public interface ISprint extends BDACompare, Serializable {
 	 * @return String
 	 */
 	public String getDescription();
+
+
+	/**
+	 * Method getChartData.
+	 * @return SprintChartData
+	 */
+	public SprintChartData getChartData();
 
 	/**
 	 * Method setDescription.

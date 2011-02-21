@@ -7,14 +7,12 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public class SprintBurndownChart extends GChart {
 
-
 	private final ISprint sprint;
 
 	// these will be constants
-	private final String generalHoverTextTemplatePrefix = "<html><div style='background-color:#FFFFF0; border-color:black; border-style:solid; border-width:1px 1px 1px 1px; padding:2px; text-align:left'>";
-	private final String generalHoverTextTemplateSuffix = "</div>";
-	private final String idealHoverTextTemplate = generalHoverTextTemplatePrefix + "Ideal-Burndown (Tag ${x}: ${y} ausstehende Aufwaende)" + generalHoverTextTemplateSuffix;
-	private final String actualHoverTextTemplate = generalHoverTextTemplatePrefix + "Tag ${x}: ${y} ausstehende Aufwaende" + generalHoverTextTemplateSuffix;
+	private final String idealHoverTextTemplate = "<div id='chartToolTip'>Ideal-Burndown (Tag ${x}: ${y} ausstehende Aufwaende)</div>";
+	private final String actualHoverTextTemplate = "<div id='chartToolTip'>Tag ${x}: ${y} ausstehende Aufwaende</div>";
+
 
 	public SprintBurndownChart(ISprint sprint) {
 		this.sprint = sprint;

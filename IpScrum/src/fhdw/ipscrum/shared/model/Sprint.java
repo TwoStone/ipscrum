@@ -20,6 +20,8 @@ public class Sprint implements ISprint {
 	private Date begin;
 	private Date end;
 	private ITeam team;
+	private SprintChartData chartData;
+
 	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
 	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
 
@@ -44,7 +46,7 @@ public class Sprint implements ISprint {
 	 */
 	public Sprint(final String name, final String description,
 			final Date begin, final Date end, final ITeam team)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		super();
 		this.setName(name);
 		this.setDescription(description);
@@ -118,6 +120,14 @@ public class Sprint implements ISprint {
 	}
 
 	/**
+	 * Method getChartData.
+	 * @return SprintChartData
+	 */
+	public SprintChartData getChartData() {
+		return this.chartData;
+	}
+
+	/**
 	 * Method getBegin.
 	 * 
 	 * @return Date
@@ -141,7 +151,7 @@ public class Sprint implements ISprint {
 	 */
 	@Override
 	public void setTimeFrame(final Date begin, final Date end)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		if (begin == null || end == null) {
 			throw new NoValidValueException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
@@ -252,7 +262,7 @@ public class Sprint implements ISprint {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
+		+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 

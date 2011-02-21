@@ -100,3 +100,11 @@ h1 {
 .coloredBG1 {
 	background-color: ivory;
 }
+.chartToolTip {
+	background-color:#FFFFF0;
+	border-color:black;
+	border-style:solid;
+	border-width:1px 1px 1px 1px;
+	padding:2px;
+	text-align:left;
+}
