@@ -8,6 +8,9 @@ package fhdw.ipscrum.shared.bdas;
 public class OneToOne<A extends OneToOne, F extends BDACompare> extends
 		BDABaseLogic<A, F> {
 
+	private OneToOne() {
+	}
+
 	public OneToOne(final F element) {
 		super(element);
 	}

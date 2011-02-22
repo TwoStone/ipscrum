@@ -9,6 +9,9 @@ import java.util.Vector;
 public class ManyToMany<A extends ManyToMany, F extends BDACompare> extends
 		BDABaseLogic<A, F> {
 
+	private ManyToMany() {
+	}
+
 	public ManyToMany(final F element) {
 		super(element);
 	}

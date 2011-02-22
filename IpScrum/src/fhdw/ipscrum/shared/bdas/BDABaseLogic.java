@@ -53,7 +53,7 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	 * Only for Serialization
 	 */
 	@SuppressWarnings("unused")
-	private BDABaseLogic() {
+	protected BDABaseLogic() {
 	}
 
 	public BDABaseLogic(final E element) {
