@@ -7,9 +7,9 @@ import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
 public class TaskAssigned implements ITaskState {
 	
-	private ITask myTask;
+	private Task myTask;
 	
-	public TaskAssigned (ITask myTask){
+	public TaskAssigned (Task myTask){
 		this.myTask = myTask;
 	}
 
@@ -62,7 +62,7 @@ public class TaskAssigned implements ITaskState {
 	}
 
 	@Override
-	public ITask getMyTask() {
+	public Task getMyTask() {
 		return this.myTask;
 	}
 

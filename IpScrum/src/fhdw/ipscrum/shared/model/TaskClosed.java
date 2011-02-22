@@ -7,9 +7,9 @@ import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
 public class TaskClosed implements ITaskState {
 	
-	private ITask myTask;
+	private Task myTask;
 	
-	public TaskClosed (ITask myTask){
+	public TaskClosed (Task myTask){
 		this.myTask = myTask;
 	}
 
@@ -62,7 +62,7 @@ public class TaskClosed implements ITaskState {
 	}
 
 	@Override
-	public ITask getMyTask() {
+	public Task getMyTask() {
 		return this.myTask;
 	}
 
