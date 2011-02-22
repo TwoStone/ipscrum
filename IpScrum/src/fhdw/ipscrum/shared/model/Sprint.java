@@ -20,7 +20,6 @@ public class Sprint implements ISprint {
 	private Date begin;
 	private Date end;
 	private ITeam team;
-	private SprintChartData chartData;
 
 	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
 	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
@@ -52,7 +51,6 @@ public class Sprint implements ISprint {
 		this.setDescription(description);
 		this.setTimeFrame(begin, end);
 		this.setTeam(team);
-		this.chartData = new SprintChartData();
 		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
 		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
 	}
@@ -118,15 +116,6 @@ public class Sprint implements ISprint {
 	@Override
 	public String getDescription() {
 		return this.description;
-	}
-
-	/**
-	 * Method getChartData.
-	 * @return SprintChartData
-	 */
-	@Override
-	public SprintChartData getChartData() {
-		return this.chartData;
 	}
 
 	/**
