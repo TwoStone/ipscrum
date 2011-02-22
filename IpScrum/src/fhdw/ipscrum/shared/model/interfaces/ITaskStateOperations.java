@@ -6,7 +6,7 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
  * This interface defines a set of operations which are state-relevant for tasks
  */
 public interface ITaskStateOperations {
-	
+	//TODO: Exceptions definieren!
 	public void setResponsibility(IPerson responsiblePerson);
 	public void changeResponsibility(IPerson responsiblePerson);
 	public void close();
