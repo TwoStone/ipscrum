@@ -49,7 +49,7 @@ public class SprintBurndownChart extends GChart {
 
 				getCurve().addPoint(i, ideal*deviation);
 			} else {
-				getCurve().addPoint(i, 0);
+				getCurve().addPoint(i, Double.NaN);
 			}
 		}
 
