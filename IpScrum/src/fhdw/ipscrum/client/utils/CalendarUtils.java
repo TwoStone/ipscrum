@@ -16,8 +16,8 @@ public class CalendarUtils extends CalendarUtil {
 	 */
 	public static Date getRandomDateOfThisMonth() {
 		Date date = new Date();
-		CalendarUtil.setToFirstDayOfMonth(date);
-		CalendarUtil.addDaysToDate(date, (int) (Math.random()*28));
+		setToFirstDayOfMonth(date);
+		addDaysToDate(date, (int) (Math.random()*28));
 		return date;
 	}
 
@@ -28,7 +28,7 @@ public class CalendarUtils extends CalendarUtil {
 	 * @return a random enddate (begindate+(5--26))
 	 */
 	public static Date getRandomSprintEnddate(Date beginDate) {
-		Date endDate = CalendarUtil.copyDate(beginDate);
+		Date endDate = copyDate(beginDate);
 		CalendarUtil.addDaysToDate(endDate, (int) (Math.random() * 21 + 5));
 		return endDate;
 	}
@@ -41,10 +41,10 @@ public class CalendarUtils extends CalendarUtil {
 	 */
 	public static ArrayList<Date> getAListOfDatesFromParam1ToParam2(Date param1, Date param2) {
 		ArrayList<Date> result = new ArrayList<Date>();
-		Date tempDate = CalendarUtil.copyDate(param1);
+		Date tempDate = copyDate(param1);
 		while (!tempDate.after(param2)) {
-			result.add(CalendarUtil.copyDate(tempDate));
-			CalendarUtil.addDaysToDate(tempDate, 1);
+			result.add(copyDate(tempDate));
+			addDaysToDate(tempDate, 1);
 		}
 		return result;
 	}
