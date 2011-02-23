@@ -5,11 +5,12 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 
 /**
  * Interface for Teams in Scrum. Teams represent an amount of persons.
  */
-public interface ITeam extends Serializable {
+public interface ITeam extends Serializable, ITreeVisitorRelevantElement {
 	/**
 	 * Method getDescription.
 	 * 

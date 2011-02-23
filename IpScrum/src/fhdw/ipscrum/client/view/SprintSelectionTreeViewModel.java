@@ -10,7 +10,12 @@ import com.google.gwt.view.client.TreeViewModel;
 
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
+import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 
 /**
  * The model that defines the nodes in the tree.
@@ -19,18 +24,48 @@ public class SprintSelectionTreeViewModel implements TreeViewModel {
 
 	private final SingleSelectionModel<ISprint> selectionModel;
 
-	@Override
-	public boolean isLeaf(Object value) {
-		if (value instanceof Project) {
-			if (((Project) value).getSprints().size() == 0) {
-				return true;
-			}
-		}
-		if (value instanceof ISprint) {
-			return true;
+	private class LeafCheckVisitor implements ITreeConstructionVisitor {
+
+		private boolean result = false;
+
+		@Override
+		public void handlePerson(IPerson person) {
+			// NOT RELEVANT
 		}
 
-		return false;
+		@Override
+		public void handleTeam(ITeam team) {
+			// NOT RELEVANT
+		}
+
+		@Override
+		public void handleProject(Project project) {
+			if (project.getSprints().size() == 0) {
+				this.result = true;
+			}
+		}
+
+		@Override
+		public void handleRelease(IRelease release) {
+			// NOT RELEVANT
+		}
+
+		@Override
+		public void handleSprint(ISprint sprint) {
+			this.result = true;
+		}
+
+		public boolean getResult() {
+			return this.result;
+		}
+	}
+
+	@Override
+	public boolean isLeaf(Object value) {
+		if (value == null) return false;
+		LeafCheckVisitor lcVisitor = new LeafCheckVisitor();
+		((ITreeVisitorRelevantElement) value).accept(lcVisitor);
+		return lcVisitor.getResult();
 	}
 
 	public SprintSelectionTreeViewModel(SingleSelectionModel<ISprint> selectionModel) {

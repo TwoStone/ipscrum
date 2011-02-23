@@ -7,11 +7,12 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 
 /**
  * Interface for Persons in Scrum.
  */
-public interface IPerson extends BDACompare, Serializable {
+public interface IPerson extends BDACompare, Serializable, ITreeVisitorRelevantElement {
 
 	/**
 	 * Method getFirstname.

@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
@@ -93,7 +94,7 @@ public class Release extends Observable implements IRelease {
 
 	@Override
 	public void setVersion(final String version)
-			throws DoubleDefinitionException {
+	throws DoubleDefinitionException {
 		this.getProject().isReleaseDoubleDefined(this.getVersion(),
 				this.getReleaseDate());
 		this.version = version;
@@ -107,7 +108,7 @@ public class Release extends Observable implements IRelease {
 
 	@Override
 	public void setReleaseDate(final Date releaseDate)
-			throws DoubleDefinitionException {
+	throws DoubleDefinitionException {
 		this.getProject().isReleaseDoubleDefined(this.getVersion(),
 				this.getReleaseDate());
 		this.releaseDate = releaseDate;
@@ -154,7 +155,7 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public String toString() {
 		return "Release [releaseDate=" + this.releaseDate + ", version="
-				+ this.version + "]";
+		+ this.version + "]";
 	}
 
 	@Override
@@ -162,10 +163,10 @@ public class Release extends Observable implements IRelease {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime
-				* result
-				+ ((this.releaseDate == null) ? 0 : this.releaseDate.hashCode());
+		* result
+		+ ((this.releaseDate == null) ? 0 : this.releaseDate.hashCode());
 		result = prime * result
-				+ ((this.version == null) ? 0 : this.version.hashCode());
+		+ ((this.version == null) ? 0 : this.version.hashCode());
 		return result;
 	}
 
@@ -174,12 +175,12 @@ public class Release extends Observable implements IRelease {
 		final int prime = 31;
 		int result = this.indirectHashCode();
 		result = prime
-				* result
-				+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
-						.hashCode());
+		* result
+		+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
+				.hashCode());
 		result = prime
-				* result
-				+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
+		* result
+		+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
 		return result;
 	}
 
@@ -234,5 +235,10 @@ public class Release extends Observable implements IRelease {
 			}
 			return true;
 		}
+	}
+
+	@Override
+	public void accept(ITreeConstructionVisitor treeVisitor) {
+		treeVisitor.handleRelease(this);
 	}
 }

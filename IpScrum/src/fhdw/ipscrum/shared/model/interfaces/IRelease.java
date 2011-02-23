@@ -10,13 +10,14 @@ import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 
 /**
  * This interface represents a Release. The Interfaces was mainly created to
  * ensure independent implementations of group 1 and 3 of phase 2.
  * 
  */
-public interface IRelease extends BDACompare, Serializable {
+public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevantElement {
 
 	/**
 	 * Returns a list with all sprints connected to the Release.
@@ -66,7 +67,7 @@ public interface IRelease extends BDACompare, Serializable {
 	 *            New Version.
 	 */
 	public abstract void setVersion(String version)
-			throws DoubleDefinitionException;
+	throws DoubleDefinitionException;
 
 	/**
 	 * Returns the release date
@@ -81,7 +82,7 @@ public interface IRelease extends BDACompare, Serializable {
 	 *            New release date
 	 */
 	public abstract void setReleaseDate(Date releaseDate)
-			throws DoubleDefinitionException;
+	throws DoubleDefinitionException;
 
 	/**
 	 * Returns the bidirectional association to the project.

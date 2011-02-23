@@ -6,6 +6,7 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 
 /**
  * Class Team
@@ -144,5 +145,10 @@ public class Team implements ITeam {
 		} else if (!this.description.equals(other.description))
 			return false;
 		return true;
+	}
+
+	@Override
+	public void accept(ITreeConstructionVisitor treeVisitor) {
+		treeVisitor.handleTeam(this);
 	}
 }

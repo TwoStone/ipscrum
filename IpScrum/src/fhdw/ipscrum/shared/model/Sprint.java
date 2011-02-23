@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 
 /**
  * Class Sprint.
@@ -307,5 +308,10 @@ public class Sprint implements ISprint {
 	@Override
 	public boolean equals(final Object obj) {
 		return this.indirectEquals(obj);
+	}
+
+	@Override
+	public void accept(ITreeConstructionVisitor treeVisitor) {
+		treeVisitor.handleSprint(this);
 	}
 }

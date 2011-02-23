@@ -9,12 +9,13 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 
 /**
  * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
  * a fixed time frame. The name is used to identify a sprint.
  */
-public interface ISprint extends BDACompare, Serializable {
+public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantElement {
 	/**
 	 * Method getDescription.
 	 * 

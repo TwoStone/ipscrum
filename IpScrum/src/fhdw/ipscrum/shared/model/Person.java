@@ -8,6 +8,7 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
+import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 
 /**
  * Class Person.
@@ -33,7 +34,7 @@ public class Person implements IPerson {
 	 * @throws NoValidValueException
 	 */
 	public Person(final String firstname, final String lastname)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		super();
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
@@ -72,7 +73,7 @@ public class Person implements IPerson {
 	 */
 	@Override
 	public void setFirstname(final String firstname)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		if (firstname == null || firstname.length() == 0) {
 			throw new NoValidValueException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
@@ -244,9 +245,14 @@ public class Person implements IPerson {
 		int result = 1;
 		final int prime = 31;
 		result = prime * result
-				+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
+		+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
 		result = prime * result
-				+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
+		+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
 		return result;
+	}
+
+	@Override
+	public void accept(ITreeConstructionVisitor treeVisitor) {
+		treeVisitor.handlePerson(this);
 	}
 }

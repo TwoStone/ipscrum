@@ -16,12 +16,14 @@ import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
+import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
  * Represents a Scrum Project.
  */
-public class Project extends Observable implements BDACompare, Serializable {
+public class Project extends Observable implements BDACompare, Serializable, ITreeVisitorRelevantElement {
 
 	private static final long serialVersionUID = 6337710256829006568L;
 
@@ -74,7 +76,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 	 *             null and have not only whitespace characters.
 	 */
 	public Project(final String name) throws NoValidValueException,
-			ConsistencyException {
+	ConsistencyException {
 		super();
 		this.name = name;
 		this.releaseAssoc = new OneToMany<ManyToOne, Project>(this);
@@ -127,7 +129,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 	 *            Sprint for check!
 	 */
 	public void isSprintDefined(final ISprint sprint)
-			throws NoSprintDefinedException {
+	throws NoSprintDefinedException {
 		final Iterator<ISprint> i = this.getSprints().iterator();
 		while (i.hasNext()) {
 			if (i.next().equals(sprint)) {
@@ -159,7 +161,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 	 *             If the Sprint already exists (equals check).
 	 */
 	public void addSprint(final ISprint sprint)
-			throws DoubleDefinitionException {
+	throws DoubleDefinitionException {
 		if (this.getSprints().contains(sprint)) {
 			throw new DoubleDefinitionException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
@@ -206,7 +208,7 @@ public class Project extends Observable implements BDACompare, Serializable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
+		+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -215,17 +217,17 @@ public class Project extends Observable implements BDACompare, Serializable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
+		+ ((this.name == null) ? 0 : this.name.hashCode());
 		result = prime
-				* result
-				+ ((this.releaseAssoc == null) ? 0 : this.releaseAssoc
-						.hashCode());
+		* result
+		+ ((this.releaseAssoc == null) ? 0 : this.releaseAssoc
+				.hashCode());
 		result = prime
-				* result
-				+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
-						.hashCode());
+		* result
+		+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
+				.hashCode());
 		result = prime * result
-				+ ((this.sprints == null) ? 0 : this.sprints.hashCode());
+		+ ((this.sprints == null) ? 0 : this.sprints.hashCode());
 		return result;
 	}
 
@@ -280,5 +282,10 @@ public class Project extends Observable implements BDACompare, Serializable {
 			}
 			return true;
 		}
+	}
+
+	@Override
+	public void accept(ITreeConstructionVisitor treeVisitor) {
+		treeVisitor.handleProject(this);
 	}
 }
