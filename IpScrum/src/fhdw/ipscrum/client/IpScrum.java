@@ -4,9 +4,9 @@ import java.util.Date;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
+import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -117,17 +117,17 @@ public class IpScrum implements EntryPoint {
 						e1.printStackTrace();
 					}
 
-					Date sprint1BeginDate = this.getRandomDateOfThisMonth();
-					Date sprint2BeginDate = this.getRandomDateOfThisMonth();
-					Date sprint3BeginDate = this.getRandomDateOfThisMonth();
-					Date sprint4BeginDate = this.getRandomDateOfThisMonth();
-					Date sprint5BeginDate = this.getRandomDateOfThisMonth();
+					Date sprint1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+					Date sprint2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+					Date sprint3BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+					Date sprint4BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+					Date sprint5BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 
-					final Sprint sprint1 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, this.getRandomSprintEnddate(sprint1BeginDate), t1);
-					final Sprint sprint2 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, this.getRandomSprintEnddate(sprint2BeginDate), t2);
-					final Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, this.getRandomSprintEnddate(sprint3BeginDate), t1);
-					final Sprint sprint4 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, this.getRandomSprintEnddate(sprint4BeginDate), t1);
-					final Sprint sprint5 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, this.getRandomSprintEnddate(sprint5BeginDate), t2);
+					final Sprint sprint1 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, CalendarUtils.getRandomSprintEnddate(sprint1BeginDate), t1);
+					final Sprint sprint2 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, CalendarUtils.getRandomSprintEnddate(sprint2BeginDate), t2);
+					final Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, CalendarUtils.getRandomSprintEnddate(sprint3BeginDate), t1);
+					final Sprint sprint4 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, CalendarUtils.getRandomSprintEnddate(sprint4BeginDate), t1);
+					final Sprint sprint5 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, CalendarUtils.getRandomSprintEnddate(sprint5BeginDate), t2);
 					project1.addSprint(sprint1);
 					project1.addSprint(sprint2);
 					project1.addSprint(sprint3);
@@ -176,29 +176,6 @@ public class IpScrum implements EntryPoint {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Generates a random date of the current month.
-	 * @return random date of this month
-	 */
-	private Date getRandomDateOfThisMonth() {
-		Date date = new Date();
-		CalendarUtil.setToFirstDayOfMonth(date);
-		CalendarUtil.addDaysToDate(date, (int) (Math.random()*28));
-		return date;
-	}
-
-	/**
-	 * Generates a random enddate to the given begindate.
-	 * The duration is set to a random value between 5 and 26.
-	 * @param sprintBeginDate a begindate
-	 * @return a random enddate (begindate+(5--26))
-	 */
-	private Date getRandomSprintEnddate(Date sprintBeginDate) {
-		Date endDate = CalendarUtil.copyDate(sprintBeginDate);
-		CalendarUtil.addDaysToDate(endDate, (int) (Math.random() * 21 + 5));
-		return endDate;
 	}
 
 	/**

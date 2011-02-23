@@ -1,17 +1,25 @@
 package fhdw.ipscrum.client.view.widgets;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import com.googlecode.gchart.client.GChart;
 
+import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 
+/**
+ * This is a widget. It shows statistical data about the progress of a sprint.
+ *
+ */
 public class SprintBurndownChart extends GChart {
 
 	private final ISprint sprint;
 
 	// these will be constants
-	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown (Tag ${x}: ${y} ausstehende Aufwaende)</div>";
-	private final String actualHoverTextTemplate = "<html><div class='chartToolTip'>Tag ${x}: ${y} ausstehende Aufwaende</div>";
+	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown (${y} ausstehende Aufwaende am ${x})</div>";
+	private final String actualHoverTextTemplate = "<html><div class='chartToolTip'>${y} ausstehende Aufwaende am ${x}</div>";
 
 
 	public SprintBurndownChart(ISprint sprint) {
@@ -33,28 +41,11 @@ public class SprintBurndownChart extends GChart {
 		getCurve().getSymbol().setBackgroundColor("orange");
 		getCurve().getSymbol().setBorderColor("red");
 		getCurve().getSymbol().setBorderWidth(1);
-		getCurve().getSymbol().setModelWidth(0.5);
+		getCurve().getSymbol().setModelWidth(50000000); // high value is caused by using a date as x-value. normally 0.5 would be sufficient.
 
 
-
-		// GENERATE DEMO BURNDOWN DATA
-		int dayCount = (int) (Math.random() * 21 + 5);
-		int dayInSprint = (int) (Math.random()*dayCount + dayCount*0.5);
-		int taskCount = (int) (Math.random() * 100 + 50);
-
-		for (int i = 0; i < dayCount; i++) {
-			if (i < dayInSprint) {
-				int ideal = taskCount / (dayCount-1) * (dayCount-1 - i);
-				double deviation = Math.random() * 0.4 + 0.8;
-
-				getCurve().addPoint(i, ideal*deviation);
-			} else {
-				getCurve().addPoint(i, Double.NaN);
-			}
-		}
-
-
-
+		// SETUP ACTUAL BURNDOWN CURVE
+		this.addBurndownData(generateDemoData()); // TODO update to use real data here.
 
 		// SETUP IDEAL BURNDOWN CURVE
 		addCurve();
@@ -64,16 +55,17 @@ public class SprintBurndownChart extends GChart {
 		getCurve().getSymbol().setBorderColor("black");
 		getCurve().getSymbol().setBackgroundColor("yellow");
 
-		int dataCount = getCurve(0).getNPoints() - 1;
-		double startingPoint = getCurve(0).getPoint(0).getY();
-		for (int i=0; i < getCurve(0).getNPoints(); i++) {
-			getCurve().addPoint(i, startingPoint / dataCount * (dataCount - i));
+		ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
+		int dayCount = daysInvolved.size();
+		double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
+		for (int i = 0; i < dayCount; i++) {
+			getCurve().addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
 		}
-
 
 		// SETUP X- AND Y-AXIS
 		getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
-		getXAxis().setTickCount(getCurve(0).getNPoints());
+		getXAxis().setTickLabelFormat("=(Date)dd.");
+		getXAxis().setTickCount(dayCount);
 
 		getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
 		getYAxis().setHasGridlines(true);
@@ -81,5 +73,41 @@ public class SprintBurndownChart extends GChart {
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		this.update();
+	}
+
+	/**
+	 * This is used to initialize the chart with data.
+	 * @param chartData a list of SprintChartData. SCD is a container format with a data and a value.
+	 */
+	private void addBurndownData(ArrayList<SprintChartData> chartData) {
+		for (SprintChartData data : chartData) {
+			this.getCurve(0).addPoint(data.getDate().getTime(), data.getValue());
+		}
+	}
+
+	/**
+	 * This is to generate realistic demonstration data.
+	 * @return a list of SprintChartData. SCD is a container format with a data and a value.
+	 */
+	private ArrayList<SprintChartData> generateDemoData() {
+
+		ArrayList<SprintChartData> resultList = new ArrayList<SprintChartData>();
+
+		ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
+		int dayCount = daysInvolved.size();
+		Date today = new Date();
+		int taskCount = (int) (Math.random() * 100 + 50);
+
+		for (int i = 0; i < dayCount; i++) {
+			if (daysInvolved.get(i).before(today)) {
+				int ideal = taskCount / (dayCount-1) * (dayCount-1 - i);
+				double deviation = Math.random() * 0.4 + 0.8;
+
+				resultList.add(new SprintChartData(daysInvolved.get(i), (int) (ideal*deviation)));
+			} else {
+				resultList.add(new SprintChartData(daysInvolved.get(i), 0));
+			}
+		}
+		return resultList;
 	}
 }
