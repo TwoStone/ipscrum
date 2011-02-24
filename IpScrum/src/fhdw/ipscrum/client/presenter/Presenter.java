@@ -6,6 +6,7 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.shared.SessionManager;
 
 /**
  * Base class for presenters. Encapsulates the process of adding the new view to
@@ -18,6 +19,7 @@ public abstract class Presenter<T extends IView> {
 
 	private final Panel parent;
 	private final T myView;
+	private final SessionManager manager;
 
 	private final Event<EventArgs> finished = new Event<EventArgs>();
 	private final Event<EventArgs> aborted = new Event<EventArgs>();
@@ -34,6 +36,7 @@ public abstract class Presenter<T extends IView> {
 		this.parent = parent;
 		this.myView = this.createView();
 		this.parent.add(this.myView);
+		this.manager = SessionManager.getInstance();
 	}
 
 	/**
@@ -71,6 +74,13 @@ public abstract class Presenter<T extends IView> {
 	 */
 	public IEvent<EventArgs> getFinished() {
 		return this.finished;
+	}
+
+	/**
+	 * Returns the manager for the current session.
+	 */
+	public SessionManager getSessionManager() {
+		return this.manager;
 	}
 
 	/**
