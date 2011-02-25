@@ -62,7 +62,7 @@ public class ReleaseBurndownChart extends GChart {
 		getXAxis().setAxisLabel("<i>S p r i n t s</i>");
 		getXAxis().setTickCount(sprintCount);
 
-		getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
+		getYAxis().setAxisLabel("<i>P<br />B<br />I<br />s</i>");
 		getYAxis().setHasGridlines(true);
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON

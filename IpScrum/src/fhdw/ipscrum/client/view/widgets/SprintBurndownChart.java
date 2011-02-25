@@ -76,7 +76,7 @@ public class SprintBurndownChart extends GChart {
 		for (int i = 1; i < getCurve(0).getNPoints(); i++) {
 			deltaAvg += getCurve(0).getPoint(i).getY() - getCurve(0).getPoint(i-1).getY();
 		}
-		deltaAvg = deltaAvg / (getCurve(0).getNPoints());
+		deltaAvg = deltaAvg / (getCurve(0).getNPoints() - 1);
 
 		getCurve().addPoint(daysInvolved.get(0).getTime(), getCurve(0).getPoint(0).getY());
 		for (int i = 1; i < dayCount; i++) {
