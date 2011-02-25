@@ -37,7 +37,7 @@ public class IpScrum implements EntryPoint {
 		if (SessionManager.getInstance().getModel().countRoles() == 0) {
 			this.initDemodate();
 		}
-	
+
 		new RootPresenter(RootPanel.get("mainPanel"));
 	}
 
@@ -114,7 +114,7 @@ public class IpScrum implements EntryPoint {
 			// Initial Projects
 			final Project project1 = new Project("Testprojekt 4");
 			final Project project2 = new Project("Testprojekt 5");
-			final Project project3 = new Project("Phase III");
+			final Project project3 = new Project("IP-Scrum");
 
 			// Initial Releases
 			final Release release1 = new Release("1.1", new Date(), project1);
@@ -122,7 +122,7 @@ public class IpScrum implements EntryPoint {
 			final Release release3 = new Release("1.3", new Date(), project1);
 			final Release release4 = new Release("2.0", new Date(), project1);
 			final Release release5 = new Release("2.1", new Date(), project1);
-			final Release release6 = new Release("Abgabe", new Date(2011-1900,3-1,9), project3);
+			final Release release6 = new Release("Phase III", new Date(2011-1900,3-1,9), project3);
 
 			// Initial Sprints
 			Date sprint1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
@@ -136,7 +136,9 @@ public class IpScrum implements EntryPoint {
 			final Sprint sprint3 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, CalendarUtils.getRandomSprintEnddate(sprint3BeginDate), t1);
 			final Sprint sprint4 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, CalendarUtils.getRandomSprintEnddate(sprint4BeginDate), t1);
 			final Sprint sprint5 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, CalendarUtils.getRandomSprintEnddate(sprint5BeginDate), t2);
-			final Sprint sprint6 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t3);
+			final Sprint sprint6 = new Sprint("Taskboard", "Bereitstellung von Task-Funktionalitäten", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t3);
+			final Sprint sprint7 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t1);
+			final Sprint sprint8 = new Sprint("Tickets II", "Bereitstellung von Bugtracking-Funktionen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t2);
 
 			project1.addSprint(sprint1);
 			project1.addSprint(sprint2);
@@ -144,6 +146,8 @@ public class IpScrum implements EntryPoint {
 			project2.addSprint(sprint4);
 			project2.addSprint(sprint5);
 			project3.addSprint(sprint6);
+			project3.addSprint(sprint7);
+			project3.addSprint(sprint8);
 
 			// Initial Features
 			final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", project1.getBacklog());
@@ -153,12 +157,12 @@ public class IpScrum implements EntryPoint {
 			final Feature f4 = new Feature("Sprint-BDChart", "Burndown-Auswertung", project3.getBacklog());
 			f4.setLastEditor(pWilken);
 			f4.setManDayCosts(20);
-			f4.setSprint(sprint6);
+			f4.setSprint(sprint7);
 
 			final Feature f5 = new Feature("Release-BDChart", "Burndown-Auswertung", project3.getBacklog());
 			f5.setLastEditor(pWilken);
 			f5.setManDayCosts(15);
-			f5.setSprint(sprint6);
+			f5.setSprint(sprint7);
 
 			project1.getBacklog().addItem(f1);
 			project1.getBacklog().addItem(f2);
@@ -170,6 +174,8 @@ public class IpScrum implements EntryPoint {
 			release2.addSprint(sprint2);
 			release5.addSprint(sprint3);
 			release6.addSprint(sprint6);
+			release6.addSprint(sprint7);
+			release6.addSprint(sprint8);
 
 			SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 1"));
 			SessionManager.getInstance().getModel().addProject(new Project("Testprojekt 2"));

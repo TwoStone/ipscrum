@@ -12,6 +12,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.client.view.widgets.ReleaseBurndownChart;
 import fhdw.ipscrum.client.view.widgets.SprintBurndownChart;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -70,10 +71,8 @@ public class ReportView extends Composite implements IView {
 		this.releaseSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				HTML htmlLabel = new HTML("<h1>Release Burndown-Chart<br />not ready yet.</h1>" + releaseSelectionModel.getSelectedObject().toString(), true);
-				ReportView.this.contentPanel.setWidget(htmlLabel);
-				contentPanel.setWidget(htmlLabel);
-				htmlLabel.setSize("100%", "100%");
+				ReportView.this.contentPanel.clear();
+				ReportView.this.contentPanel.setWidget(new ReleaseBurndownChart(releaseSelectionModel.getSelectedObject()));
 			}
 		});
 

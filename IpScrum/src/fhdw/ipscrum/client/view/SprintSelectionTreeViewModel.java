@@ -83,7 +83,7 @@ public class SprintSelectionTreeViewModel implements TreeViewModel {
 
 		} else if (value instanceof Project) {
 			ListDataProvider<ISprint> sprintDataProvider = new ListDataProvider<ISprint>();
-			sprintDataProvider.getList().addAll(((Project) value).getSprints());
+			sprintDataProvider.getList().addAll(((Project) value).getSprints()); // TODO umdrehen!
 
 			return new DefaultNodeInfo<ISprint>(sprintDataProvider, sCell, this.selectionModel, null);
 		}

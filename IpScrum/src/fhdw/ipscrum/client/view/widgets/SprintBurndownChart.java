@@ -43,8 +43,6 @@ public class SprintBurndownChart extends GChart {
 		getCurve().getSymbol().setBorderWidth(1);
 		getCurve().getSymbol().setModelWidth(50000000); // high value is caused by using a date as x-value. normally 0.5 would be sufficient.
 
-
-		// SETUP ACTUAL BURNDOWN CURVE
 		this.addBurndownData(generateDemoData()); // TODO update to use real data here.
 
 		// SETUP IDEAL BURNDOWN CURVE
