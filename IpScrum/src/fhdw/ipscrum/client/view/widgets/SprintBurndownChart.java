@@ -45,6 +45,7 @@ public class SprintBurndownChart extends GChart {
 
 		this.addBurndownData(generateDemoData()); // TODO update to use real data here.
 
+
 		// SETUP IDEAL BURNDOWN CURVE
 		addCurve();
 		getCurve().setYAxis(Y_AXIS);
@@ -59,6 +60,32 @@ public class SprintBurndownChart extends GChart {
 		for (int i = 0; i < dayCount; i++) {
 			getCurve().addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
 		}
+
+
+		// SETUP TREND LINE
+		addCurve();
+		getCurve().setYAxis(Y_AXIS);
+		getCurve().getSymbol().setSymbolType(SymbolType.LINE);
+		getCurve().getSymbol().setHoverAnnotationEnabled(false);
+		getCurve().getSymbol().setWidth(1);
+		getCurve().getSymbol().setHeight(1);
+		getCurve().getSymbol().setBorderColor("grey");
+		getCurve().getSymbol().setBackgroundColor("grey");
+
+		Double deltaAvg = 0d;
+		for (int i = 1; i < getCurve(0).getNPoints(); i++) {
+			deltaAvg += getCurve(0).getPoint(i).getY() - getCurve(0).getPoint(i-1).getY();
+		}
+		deltaAvg = deltaAvg / (getCurve(0).getNPoints());
+
+		getCurve().addPoint(daysInvolved.get(0).getTime(), getCurve(0).getPoint(0).getY());
+		for (int i = 1; i < dayCount; i++) {
+			double value = getCurve().getPoint().getY() + deltaAvg;
+			if (value>=0) {
+				getCurve().addPoint(daysInvolved.get(i).getTime(), value);
+			}
+		}
+
 
 		// SETUP X- AND Y-AXIS
 		getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
@@ -103,8 +130,6 @@ public class SprintBurndownChart extends GChart {
 				double deviation = Math.random() * 0.4 + 0.8;
 
 				resultList.add(new SprintChartData(daysInvolved.get(i), (int) (ideal*deviation)));
-			} else {
-				resultList.add(new SprintChartData(daysInvolved.get(i), 0));
 			}
 		}
 		return resultList;
