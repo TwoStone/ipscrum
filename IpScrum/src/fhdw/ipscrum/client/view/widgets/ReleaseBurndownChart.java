@@ -18,7 +18,7 @@ public class ReleaseBurndownChart extends GChart {
 	private final IRelease release;
 
 	// these will be constants
-	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown (${y} ausstehende Aufwaende nach Sprint ${x})</div>";
+	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown<br />(${y} ausstehende Aufwaende nach Sprint ${x})</div>";
 	private final String actualHoverTextTemplate = "<html><div class='chartToolTip'>${y} ausstehende Aufwaende nach Sprint ${x}</div>";
 
 
