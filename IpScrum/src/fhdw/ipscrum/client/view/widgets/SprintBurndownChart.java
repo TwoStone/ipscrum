@@ -63,6 +63,7 @@ public class SprintBurndownChart extends GChart {
 
 
 		// SETUP TREND LINE
+		/* formatting */
 		addCurve();
 		getCurve().setYAxis(Y_AXIS);
 		getCurve().getSymbol().setSymbolType(SymbolType.LINE);
@@ -72,15 +73,29 @@ public class SprintBurndownChart extends GChart {
 		getCurve().getSymbol().setBorderColor("grey");
 		getCurve().getSymbol().setBackgroundColor("grey");
 
-		Double deltaAvg = 0d;
-		for (int i = 1; i < getCurve(0).getNPoints(); i++) {
-			deltaAvg += getCurve(0).getPoint(i-1).getY() - getCurve(0).getPoint(i).getY();
+		/* calculate averages */
+		double xAvg = 0d; double yAvg = 0d;
+		for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+			xAvg += i;
+			yAvg += getCurve(0).getPoint(i).getY();
 		}
-		deltaAvg = deltaAvg / (getCurve(0).getNPoints() - 1);
+		xAvg = xAvg/getCurve(0).getNPoints();
+		yAvg = yAvg/getCurve(0).getNPoints();
 
-		getCurve().addPoint(daysInvolved.get(0).getTime(), getCurve(0).getPoint(0).getY());
-		for (int i = 1; i < dayCount; i++) {
-			double value = getCurve().getPoint().getY() - deltaAvg;
+		/* calculate m (slope or gradient) */
+		double calcVar1 = 0d; double calcVar2 = 0d;
+		for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+			calcVar1 += (i-xAvg)*(getCurve(0).getPoint(i).getY()-yAvg);
+			calcVar2 += Math.pow(i-xAvg, 2);
+		}
+		double m = calcVar1 / calcVar2;
+
+		/* calculate q (y-intercept) */
+		double q = yAvg - m * xAvg;
+
+		/* draw trend curve */
+		for (int i = 0; i < dayCount; i++) {
+			double value = m * i + q;
 			if (value>=0) {
 				getCurve().addPoint(daysInvolved.get(i).getTime(), value);
 			}
@@ -132,6 +147,18 @@ public class SprintBurndownChart extends GChart {
 				resultList.add(new SprintChartData(daysInvolved.get(i), (int) (ideal*deviation)));
 			}
 		}
+
+
+		//		resultList.add(new SprintChartData(daysInvolved.get(0), 46));
+		//		resultList.add(new SprintChartData(daysInvolved.get(1), 44));
+		//		resultList.add(new SprintChartData(daysInvolved.get(2), 42));
+		//		resultList.add(new SprintChartData(daysInvolved.get(3), 40));
+		//		resultList.add(new SprintChartData(daysInvolved.get(4), 38));
+		//		resultList.add(new SprintChartData(daysInvolved.get(5), 36));
+		//		resultList.add(new SprintChartData(daysInvolved.get(6), 34));
+		//		resultList.add(new SprintChartData(daysInvolved.get(7), 32));
+		//		resultList.add(new SprintChartData(daysInvolved.get(8), 30));
+		//		resultList.add(new SprintChartData(daysInvolved.get(9), 44));
 		return resultList;
 	}
 }
