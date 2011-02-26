@@ -20,7 +20,7 @@ public class SprintBurndownChart extends GChart {
 	private final int height;
 
 	// these will be constants
-	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown (${y} ausstehende Aufwaende am ${x})</div>";
+	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown<br />(${y} ausstehende Aufwaende am ${x})</div>";
 	private final String actualHoverTextTemplate = "<html><div class='chartToolTip'>${y} ausstehende Aufwaende am ${x}</div>";
 
 
