@@ -1,4 +1,6 @@
 package fhdw.ipscrum.client.view;
+import java.util.Collections;
+
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -75,12 +77,14 @@ public class ReleaseSelectionTreeViewModel implements TreeViewModel {
 		if (value == null) {
 			ListDataProvider<Project> projectDataProvider = new ListDataProvider<Project>();
 			projectDataProvider.getList().addAll(SessionManager.getInstance().getModel().getProjects());
+			Collections.reverse(projectDataProvider.getList());
 
 			return new DefaultNodeInfo<Project>(projectDataProvider, pCell);
 
 		} else if (value instanceof Project) {
 			ListDataProvider<IRelease> releaseDataProvider = new ListDataProvider<IRelease>();
 			releaseDataProvider.getList().addAll(((Project) value).getReleasePlan());
+			Collections.reverse(releaseDataProvider.getList());
 
 			return new DefaultNodeInfo<IRelease>(releaseDataProvider, rCell, this.selectionModel, null);
 		}

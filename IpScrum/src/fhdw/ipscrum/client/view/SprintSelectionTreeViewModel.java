@@ -1,4 +1,6 @@
 package fhdw.ipscrum.client.view;
+import java.util.Collections;
+
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -78,12 +80,14 @@ public class SprintSelectionTreeViewModel implements TreeViewModel {
 		if (value == null) {
 			ListDataProvider<Project> projectDataProvider = new ListDataProvider<Project>();
 			projectDataProvider.getList().addAll(SessionManager.getInstance().getModel().getProjects());
+			Collections.reverse(projectDataProvider.getList());
 
 			return new DefaultNodeInfo<Project>(projectDataProvider, pCell);
 
 		} else if (value instanceof Project) {
 			ListDataProvider<ISprint> sprintDataProvider = new ListDataProvider<ISprint>();
-			sprintDataProvider.getList().addAll(((Project) value).getSprints()); // TODO umdrehen!
+			sprintDataProvider.getList().addAll(((Project) value).getSprints());
+			Collections.reverse(sprintDataProvider.getList());
 
 			return new DefaultNodeInfo<ISprint>(sprintDataProvider, sCell, this.selectionModel, null);
 		}
