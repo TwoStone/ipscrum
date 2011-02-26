@@ -9,7 +9,7 @@ import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
  * @author Niklas
  * 
  */
-public class Bug extends ProductBacklogItem {
+public abstract class Bug extends ProductBacklogItem {
 
 	/*
 	 * (non-Javadoc)
