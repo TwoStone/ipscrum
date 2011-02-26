@@ -16,6 +16,8 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 public class SprintBurndownChart extends GChart {
 
 	private final ISprint sprint;
+	private final int width;
+	private final int height;
 
 	// these will be constants
 	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown (${y} ausstehende Aufwaende am ${x})</div>";
@@ -23,14 +25,20 @@ public class SprintBurndownChart extends GChart {
 
 
 	public SprintBurndownChart(ISprint sprint) {
+		this(sprint, 500, 500);
+	}
+
+	public SprintBurndownChart(ISprint sprint, int width, int height) {
 		this.sprint = sprint;
+		this.width = width;
+		this.height = height;
 		this.createChart();
 	}
 
 	private void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>" + this.sprint.getName() + "</h2>");
-		setChartSize(500, 500);
+		setChartSize(this.width, this.height);
 
 
 		// SETUP ACTUAL BURNDOWN CURVE

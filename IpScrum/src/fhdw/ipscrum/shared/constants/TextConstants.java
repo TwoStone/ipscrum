@@ -77,7 +77,7 @@ public final class TextConstants {
 	public static final String PERSROLEMNGMT_ROLELIST_HEADER = "Rollenverzeichnis";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Rolle anlegen";
 	public static final String PERSROLEMNGMT_BUTTONLABEL_DELETEROLE = "Rolle entfernen";
-	/* [BEGIN SECTION] : VIEW CONSTANTS FOR ORGANIZATIONAL UNIT GROUP */
+	/* [END SECTION] */
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR PRODUCTBACKLOG GROUP */
 	public static final String NEW_PROJECT = "Neues Projekt erstellen";
@@ -121,6 +121,10 @@ public final class TextConstants {
 	public static final String SPRINT_DELETE_NOT_ALLOWED = "Entfernen von Sprints ist derzeit noch nicht vorgesehen!";
 	public static final String NO_RELEASE_SELECTED = "Kein Release ausgewählt!";
 	public static final String NO_PROJECT_SELECTED = "Kein Projekt ausgewählt";
+	/* [END SECTION] */
+
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR REPORTING I GROUP */
+	public static final String CHARTPOPUP_TITLE = "Burndown-Chart";
 	/* [END SECTION] */
 
 }

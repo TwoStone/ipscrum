@@ -16,24 +16,24 @@ public interface ISprintView extends IView {
 
 	/**
 	 * Method addNewSprintEventHandler
-	 * Use this to register a handler for an event 
-	 * which creates a new {@link Sprint} 
+	 * Use this to register a handler for an event
+	 * which creates a new {@link Sprint}
 	 * @param args from Type {@link EventHandler<EventArgs>}
 	 */
 	public abstract void addNewSprintEventHandler(EventHandler<EventArgs> arg);
 
 	/**
 	 * Method addSprintDetailsEventHandler
-	 * Use this to register a handler for an event 
-	 * which shows the details of a {@link Sprint} 
+	 * Use this to register a handler for an event
+	 * which shows the details of a {@link Sprint}
 	 * @param args from Type {@link EventHandler<SprintArgs>}
 	 */
 	void addSprintDetailsEventHandler(EventHandler<SprintArgs> arg);
 
 	/**
 	 * Method addDeleteSprintEventHandler
-	 * Use this to register a handler for an event 
-	 * which deletes sprints 
+	 * Use this to register a handler for an event
+	 * which deletes sprints
 	 * @param args from Type {@link EventHandler<SprintArgs>}
 	 */
 	void addDeleteSprintEventHandler(
@@ -45,5 +45,12 @@ public interface ISprintView extends IView {
 	 * @param args from Type {@link Vector<ISprint>}
 	 */
 	void refreshSprints(Vector<ISprint> sprints);
-	
+
+	/**
+	 * Method addShowChartEventHandler
+	 * Use this to register a handler for an event which shows sprint-data in form of a burndown-chart.
+	 * @param args {@link EventHandler<SprintArgs>}
+	 */
+	void addShowChartEventHandler(EventHandler<SprintArgs> arg);
+
 }

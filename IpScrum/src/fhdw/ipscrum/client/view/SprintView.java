@@ -33,14 +33,16 @@ public class SprintView extends Composite implements ISprintView{
 	private final Event<EventArgs> newSprintEvent = new Event<EventArgs>();
 	private final Event<SprintArgs> deleteSelectedSprintEvent = new Event<SprintArgs>();
 	private final Event<SprintArgs> detailsSelectedSprintEvent = new Event<SprintArgs>();
+	private final Event<SprintArgs> showChartEvent = new Event<SprintArgs>();
 	// ###### Ende Events ###########
 
-	private Image imgNewSprint;
-	private Image imgDetailSprint;
-	private Image imgDeleteSprint;
-	
-	private SprintTableView spTable;
-	private ScrollPanel scrollPanel;
+	private final Image imgNewSprint;
+	private final Image imgDetailSprint;
+	private final Image imgDeleteSprint;
+
+	private final SprintTableView spTable;
+	private final ScrollPanel scrollPanel;
+	private final Image imgChart;
 
 	public static IView createView(){
 		return new SprintView();
@@ -90,17 +92,29 @@ public class SprintView extends Composite implements ISprintView{
 				SprintView.this.deleteSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
 			}
 		});
-
 		flowPanel.add(this.imgDeleteSprint);
+
+		imgChart = new Image(TextConstants_FilePaths.CHART_PATH);
+		imgChart.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (SprintView.this.spTable.getCurrentlySelected() != null) {
+					SprintView.this.showChartEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
+				}
+			}
+		});
+		flowPanel.add(imgChart);
+
 
 		AbsolutePanel masterSprintTablePanel = new AbsolutePanel();
 		absolutePanel.add(masterSprintTablePanel, 10, 72);
 		masterSprintTablePanel.setSize("575px", "215px");
-		
+
 		scrollPanel = new ScrollPanel();
 		masterSprintTablePanel.add(scrollPanel);
 		scrollPanel.setSize("575px", "215px");
-		
+
 		this.spTable = new SprintTableView();
 		scrollPanel.setWidget(spTable);
 		spTable.setSize("100%", "100%");
@@ -120,6 +134,11 @@ public class SprintView extends Composite implements ISprintView{
 	@Override
 	public void addNewSprintEventHandler(EventHandler<EventArgs> arg) {
 		this.newSprintEvent.add(arg);
+	}
+
+	@Override
+	public void addShowChartEventHandler(EventHandler<SprintArgs> arg) {
+		this.showChartEvent.add(arg);
 	}
 
 	@Override

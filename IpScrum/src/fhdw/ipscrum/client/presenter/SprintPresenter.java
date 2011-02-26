@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
+import fhdw.ipscrum.client.view.widgets.SprintBurndownChart;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;
@@ -49,7 +50,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 
 	@Override
 	protected ISprintView createView() {
-		
+
 		// New instance of SprintView
 		this.concreteView = new SprintView();
 
@@ -86,38 +87,52 @@ public class SprintPresenter extends Presenter<ISprintView>{
 				box.center();
 			}
 		});
-		
-		
+
+
 		// Add a handler for the event which opens a dialog for editing an existing sprint
 		this.concreteView.addSprintDetailsEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
 				if(eventArgs.getSprint()!=null){
-				final DialogBox box = new DialogBox();
-				final SprintDialogPresenter presenter = new SprintDialogPresenter(box, eventArgs.getSprint());
+					final DialogBox box = new DialogBox();
+					final SprintDialogPresenter presenter = new SprintDialogPresenter(box, eventArgs.getSprint());
+					box.setAnimationEnabled(true);
+					box.setGlassEnabled(true);
+					box.setText("Sprint " + eventArgs.getSprint().getName() + " bearbeiten");
+
+					presenter.getFinished().add(new EventHandler<EventArgs>() {
+						@Override
+						public void onUpdate(Object sender, EventArgs eventArgs) {
+							SprintPresenter.this.initialize();
+							box.hide();
+						}
+					});
+
+					presenter.getAborted().add(new EventHandler<EventArgs>() {
+						@Override
+						public void onUpdate(Object sender, EventArgs eventArgs) {
+							box.hide();
+						}
+					});
+					box.center();
+				} else {
+					GwtUtils.displayError(TextConstants.NO_SPRINT_SELECTED);
+				}
+			}
+		});
+
+		// Adding a handler for the event of chart-displaying
+		this.concreteView.addShowChartEventHandler(new EventHandler<SprintArgs>() {
+			@Override
+			public void onUpdate(Object sender, SprintArgs eventArgs) {
+				DialogBox box = new DialogBox();
+				box.setAutoHideEnabled(true); // thats okay because no separate presenter will be created
 				box.setAnimationEnabled(true);
 				box.setGlassEnabled(true);
-				box.setText("Sprint " + eventArgs.getSprint().getName() + " bearbeiten");
-
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						SprintPresenter.this.initialize();
-						box.hide();
-					}
-				});
-
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						box.hide();
-					}
-				});
+				box.setText(TextConstants.CHARTPOPUP_TITLE);
+				box.add(new SprintBurndownChart(eventArgs.getSprint(), 300, 200));
 				box.center();
-			} else {
-				GwtUtils.displayError(TextConstants.NO_SPRINT_SELECTED);
-			}
 			}
 		});
 
