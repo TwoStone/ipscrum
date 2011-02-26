@@ -12,11 +12,11 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
 import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.Closed;
-import fhdw.ipscrum.shared.model.Open;
-import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
+import fhdw.ipscrum.shared.model.PBIClosedState;
+import fhdw.ipscrum.shared.model.PBIOpenState;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
+import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
 public class EditFeatureView extends CreateFeatureView implements
 		IEditFeatureView {
@@ -103,11 +103,11 @@ public class EditFeatureView extends CreateFeatureView implements
 	}
 
 	@Override
-	public void setState(final IFeatureState state) {
-		state.accept(new IFeatureVisitor() {
+	public void setState(final IProductBacklogItemState state) {
+		state.accept(new IPBIStateVisitor() {
 
 			@Override
-			public void handleClosed(final Closed closed) {
+			public void handleClosed(final PBIClosedState closed) {
 				EditFeatureView.this.currentStateLbl
 						.setText(TextConstants.CLOSED);
 				EditFeatureView.this.toggleStateBtn
@@ -120,7 +120,7 @@ public class EditFeatureView extends CreateFeatureView implements
 			}
 
 			@Override
-			public void handleOpen(final Open open) {
+			public void handleOpen(final PBIOpenState open) {
 				EditFeatureView.this.currentStateLbl
 						.setText(TextConstants.OPEN);
 				EditFeatureView.this.toggleStateBtn

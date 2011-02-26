@@ -1,6 +1,10 @@
 package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
@@ -13,6 +17,7 @@ import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -20,6 +25,7 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
+@SuppressWarnings("rawtypes")
 public abstract class ProductBacklogItem extends Observable implements
 		BDACompare, Serializable {
 
@@ -50,6 +56,16 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	private ManyToOne<OneToMany, ProductBacklogItem> sprintAssoc;
 
+	private List<Relation> relations;
+
+	private List<Hint> hints;
+
+	private List<AcceptanceCriterion> acceptanceCriteria;
+
+	private String description;
+
+	private IProductBacklogItemState state;
+
 	/**
 	 * Default Constructor for GWT serialization.
 	 */
@@ -59,6 +75,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * @param name
 	 *            Name of the PBI.
+	 * @param description
 	 * @param backlog
 	 *            Backlog of the PBI.
 	 * @throws NoValidValueException
@@ -68,56 +85,230 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             If the name of the PBI already exist within the product
 	 *             backlog
 	 */
-	public ProductBacklogItem(final String name, final ProductBacklog backlog)
-			throws UserException {
+	public ProductBacklogItem(final String name, final String description,
+			final ProductBacklog backlog) throws UserException {
 		super();
-		this.initialize();
+
+		this.relations = new ArrayList<Relation>();
+		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
+		this.hints = new ArrayList<Hint>();
 		this.backlogAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
 		this.sprintAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
-		this.checkName(backlog, name); // Initiale Prüfung
-		this.setManDayCosts(0);
-		this.getBacklogAssoc().set(backlog.getAssoc());
+
+		this.description = description;
+		this.manDayCosts = 0;
+		this.state = new PBIOpenState(this);
+
+		this.setBacklog(backlog);
+		this.setName(name);
+		this.initialize();
 	}
 
 	/**
-	 * @author stefan pietsch group 2 in phase 2 optional operation for
-	 *         subclasses to initialize before super call, for example
-	 *         initialize new attributes.
-	 */
-	protected abstract void initialize();
-
-	/**
-	 * Visitor Entry Point for group 2 in phase 2.
+	 * Visitor pattern operation for type determination.
 	 */
 	public abstract void accept(IProductBacklogItemVisitor visitor);
 
 	/**
-	 * Checks if a pbi with a same name already exist within the given backlog.
+	 * adds a new {@link AcceptanceCriterion} to a feature.
 	 * 
-	 * @param backlog
-	 *            Product Backlog
-	 * @param name
-	 *            Name of the PBI.
-	 * @throws NoValidValueException
-	 *             If name is not valid (see constructor).
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
 	 * @throws DoubleDefinitionException
-	 *             If name already exist.
+	 *             will be thrown if the acceptanceCriterion already exists
 	 */
-	private void checkName(final ProductBacklog backlog, final String name)
-			throws NoValidValueException, DoubleDefinitionException {
-		if (name != null && name.trim().length() > 0) {
-			if (backlog != null) {
-				for (final ProductBacklogItem item : backlog.getItems()) {
-					if (!item.equals(this) && item.getName().equals(name)) {
-						throw new DoubleDefinitionException(
-								TextConstants.DOUBLE_DEFINITION_PBI);
+	public void addAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion)
+			throws DoubleDefinitionException, ForbiddenStateException {
+		this.state.addAcceptanceCriterion(acceptanceCriterion);
+	}
+
+	/**
+	 * adds a new {@link Hint} to a feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 * @throws DoubleDefinitionException
+	 *             will be thrown if the hint already exists
+	 * 
+	 */
+	public void addHint(final Hint hint) throws DoubleDefinitionException,
+			ForbiddenStateException {
+		this.state.addHint(hint);
+	}
+
+	/**
+	 * adds a new {@link Relation} to a feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 * @throws DoubleDefinitionException
+	 *             will be thrown if the relation already exists
+	 */
+	public void addRelation(final Relation relation)
+			throws DoubleDefinitionException, ForbiddenStateException {
+		this.state.addRelation(relation);
+	}
+
+	/**
+	 * Sets the state of the feature to "closed".
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the feature is already closed
+	 */
+	public void close() throws ForbiddenStateException {
+		this.state.close();
+	}
+
+	protected void doAddAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion)
+			throws DoubleDefinitionException {
+		final Iterator<AcceptanceCriterion> iterator = this.acceptanceCriteria
+				.iterator();
+		while (iterator.hasNext()) {
+			final AcceptanceCriterion current = iterator.next();
+			if (current.equals(acceptanceCriterion)) {
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.acceptanceCriteria.add(acceptanceCriterion);
+		this.notifyObservers();
+	}
+
+	protected void doAddHint(final Hint hint) throws DoubleDefinitionException {
+		final Iterator<Hint> iterator = this.hints.iterator();
+		while (iterator.hasNext()) {
+			final Hint current = iterator.next();
+			if (current.equals(hint)) {
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.hints.add(hint);
+		this.notifyObservers();
+	}
+
+	// /**
+	// * Checks if a pbi with a same name already exist within the given
+	// backlog.
+	// *
+	// * @param backlog
+	// * Product Backlog
+	// * @param name
+	// * Name of the PBI.
+	// * @throws NoValidValueException
+	// * If name is not valid (see constructor).
+	// * @throws DoubleDefinitionException
+	// * If name already exist.
+	// */
+	// private void checkName(final ProductBacklog backlog, final String name)
+	// throws NoValidValueException, DoubleDefinitionException {
+	// if (name != null && name.trim().length() > 0) {
+	// if (backlog != null) {
+	// for (final ProductBacklogItem item : backlog.getItems()) {
+	// if (!item.equals(this) && item.getName().equals(name)) {
+	// throw new DoubleDefinitionException(
+	// TextConstants.DOUBLE_DEFINITION_PBI);
+	// }
+	// }
+	// }
+	// this.name = name;
+	// } else {
+	// throw new NoValidValueException(TextConstants.MISSING_TEXT_ERROR);
+	// }
+	// }
+
+	protected void doAddRelation(final Relation relation)
+			throws DoubleDefinitionException {
+		final Iterator<Relation> iterator = this.relations.iterator();
+		while (iterator.hasNext()) {
+			final Relation current = iterator.next();
+			if (current.equals(relation)) {
+				throw new DoubleDefinitionException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		this.relations.add(relation);
+		this.notifyObservers();
+	}
+
+	protected void doClose() {
+		this.setState(new PBIClosedState());
+		this.notifyObservers();
+	}
+
+	protected void doRemoveAcceptanceCriterion(
+			final AcceptanceCriterion acceptanceCriterion) {
+		this.acceptanceCriteria.remove(acceptanceCriterion);
+		this.notifyObservers();
+	}
+
+	protected void doRemoveHint(final Hint hint) {
+		this.hints.remove(hint);
+		this.notifyObservers();
+	}
+
+	protected void doRemoveRelation(final Relation relation) {
+		this.relations.remove(relation);
+		this.notifyObservers();
+	}
+
+	protected void doSetDescription(final String description) {
+		this.description = description;
+		this.notifyObservers();
+	}
+
+	protected void doSetLastEditor(final IPerson lastEditor)
+			throws ForbiddenStateException {
+		this.lastEditor = lastEditor;
+		this.notifyObservers();
+	}
+
+	protected void doSetManDayCosts(final Integer manDayCosts)
+			throws NoValidValueException, ForbiddenStateException {
+		if (manDayCosts != null && manDayCosts >= 0) {
+			this.manDayCosts = manDayCosts;
+			this.notifyObservers();
+		} else {
+			throw new NoValidValueException(TextConstants.MANDAYS_ERROR);
+		}
+	}
+
+	protected void doSetName(final String name) throws NoValidValueException,
+			DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
+		if (this.getBacklog() != null) {
+			if (name != null && name.trim().length() > 0) {
+				if (this.getBacklog() != null) {
+					for (final ProductBacklogItem item : this.getBacklog()
+							.getItems()) {
+						if (item != this && item.getName().equals(name)) {
+							throw new DoubleDefinitionException(
+									TextConstants.DOUBLE_DEFINITION_PBI);
+						}
 					}
 				}
+				this.name = name;
+			} else {
+				throw new NoValidValueException(
+						TextConstants.MISSING_TEXT_ERROR);
 			}
-			this.name = name;
 		} else {
-			throw new NoValidValueException(TextConstants.MISSING_TEXT_ERROR);
+			throw new ConsistencyException(TextConstants.PBL_PBI_ERROR);
 		}
+	}
+
+	protected void doSetSprint(final ISprint sprint)
+			throws NoSprintDefinedException, ConsistencyException,
+			ForbiddenStateException {
+		if (sprint != null) {
+			this.getBacklog().getProject().isSprintDefined(sprint);
+			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
+		} else {
+			this.getSprintAssoc().set(null);
+		}
+		this.notifyObservers();
 	}
 
 	@Override
@@ -171,6 +362,13 @@ public abstract class ProductBacklogItem extends Observable implements
 	}
 
 	/**
+	 * @return the acceptanceCriteria
+	 */
+	public List<AcceptanceCriterion> getAcceptanceCriteria() {
+		return Collections.unmodifiableList(this.acceptanceCriteria);
+	}
+
+	/**
 	 * Returns the backlog of the pbi.
 	 */
 	public ProductBacklog getBacklog() {
@@ -182,6 +380,17 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	protected ManyToOne<OneToMany, ProductBacklogItem> getBacklogAssoc() {
 		return this.backlogAssoc;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	/**
+	 * @return the hints
+	 */
+	public List<Hint> getHints() {
+		return Collections.unmodifiableList(this.hints);
 	}
 
 	/**
@@ -206,6 +415,13 @@ public abstract class ProductBacklogItem extends Observable implements
 	}
 
 	/**
+	 * @return the relations
+	 */
+	public List<Relation> getRelations() {
+		return Collections.unmodifiableList(this.relations);
+	}
+
+	/**
 	 * Returns the sprint if it was set else null will be returned.
 	 */
 	public ISprint getSprint() {
@@ -217,6 +433,10 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	protected ManyToOne<OneToMany, ProductBacklogItem> getSprintAssoc() {
 		return this.sprintAssoc;
+	}
+
+	public IProductBacklogItemState getState() {
+		return this.state;
 	}
 
 	@Override
@@ -283,10 +503,67 @@ public abstract class ProductBacklogItem extends Observable implements
 		return result;
 	}
 
+	/**
+	 * @author stefan pietsch group 2 in phase 2 optional operation for
+	 *         subclasses to initialize before super call, for example
+	 *         initialize new attributes.
+	 */
+	protected abstract void initialize();
+
+	/**
+	 * removes an {@link AcceptanceCriterion} from this feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 */
+	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion)
+			throws ForbiddenStateException {
+		this.state.removeAcceptanceCriterion(criterion);
+		this.notifyObservers();
+
+	}
+
+	/**
+	 * removes a {@link Hint} from this feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 */
+	public void removeHint(final Hint hint) throws ForbiddenStateException {
+		this.state.removeHint(hint);
+		this.notifyObservers();
+	}
+
+	/**
+	 * removes a {@link Relation} from this feature.
+	 * 
+	 * @throws ForbiddenStateException
+	 *             will be thrown if the state does not allow this action
+	 */
+	public void removeRelation(final Relation relation)
+			throws ForbiddenStateException {
+		this.state.removeRelation(relation);
+		this.notifyObservers();
+	}
+
+	private void setBacklog(final ProductBacklog backlog) {
+		this.getBacklogAssoc().set(backlog.getAssoc());
+	}
+
+	/**
+	 * Sets the description of the feature object.
+	 * 
+	 * @param description
+	 * @throws ForbiddenStateException
+	 */
+	public void setDescription(final String description)
+			throws ForbiddenStateException {
+		this.getState().setDescription(description);
+	}
+
 	public void setLastEditor(final IPerson lastEditor)
 			throws ForbiddenStateException {
-		this.lastEditor = lastEditor;
-		this.notifyObservers();
+		this.getState().setLastEditor(lastEditor);
 	}
 
 	/**
@@ -301,12 +578,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void setManDayCosts(final Integer manDayCosts)
 			throws NoValidValueException, ForbiddenStateException {
-		if (manDayCosts != null && manDayCosts >= 0) {
-			this.manDayCosts = manDayCosts;
-			this.notifyObservers();
-		} else {
-			throw new NoValidValueException(TextConstants.MANDAYS_ERROR);
-		}
+		this.getState().setManDayCosts(manDayCosts);
 	}
 
 	/**
@@ -325,11 +597,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	public void setName(final String name) throws NoValidValueException,
 			DoubleDefinitionException, ConsistencyException,
 			ForbiddenStateException {
-		if (this.getBacklog() != null) {
-			this.checkName(this.getBacklog(), name);
-		} else {
-			throw new ConsistencyException(TextConstants.PBL_PBI_ERROR);
-		}
+		this.getState().setName(name);
 	}
 
 	/**
@@ -347,13 +615,11 @@ public abstract class ProductBacklogItem extends Observable implements
 	public void setSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException,
 			ForbiddenStateException {
-		if (sprint != null) {
-			this.getBacklog().getProject().isSprintDefined(sprint);
-			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
-		} else {
-			this.getSprintAssoc().set(null);
-		}
-		this.notifyObservers();
+		this.getState().setSprint(sprint);
+	}
+
+	protected void setState(final IProductBacklogItemState state) {
+		this.state = state;
 	}
 
 	@Override

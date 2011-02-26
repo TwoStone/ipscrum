@@ -16,6 +16,7 @@ import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
+import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -100,6 +101,12 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		final List<Feature> result = new Vector<Feature>();
 		for (final ProductBacklogItem productBacklogItem : backlogItems) {
 			productBacklogItem.accept(new IProductBacklogItemVisitor() {
+
+				@Override
+				public void handleBug(final Bug bug) {
+					// TODO Sollten Features und Bugs untereinander in Beziehung
+					// stehen?
+				}
 
 				@Override
 				public void handleFeature(final Feature feature) {

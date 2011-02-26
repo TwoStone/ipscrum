@@ -13,10 +13,10 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.Closed;
+import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.Feature;
-import fhdw.ipscrum.shared.model.Open;
-import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
+import fhdw.ipscrum.shared.model.PBIOpenState;
+import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
 /**
  * Presenter to edit a feature.
@@ -70,14 +70,14 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 	 * done.
 	 */
 	private void toggleFeatureState() {
-		this.getFeature().getState().accept(new IFeatureVisitor() {
+		this.getFeature().getState().accept(new IPBIStateVisitor() {
 
 			@Override
-			public void handleClosed(final Closed closed) {
+			public void handleClosed(final PBIClosedState closed) {
 			}
 
 			@Override
-			public void handleOpen(final Open open) {
+			public void handleOpen(final PBIOpenState open) {
 				try {
 					EditFeaturePresenter.this.getFeature().close();
 					EditFeaturePresenter.this.finish();

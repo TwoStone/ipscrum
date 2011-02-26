@@ -8,30 +8,20 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
-import fhdw.ipscrum.shared.model.visitor.IFeatureVisitor;
+import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
 /**
  * This interface defines a set of states, which may be associated with a
- * feature. Furthermore it provides state relevant operations delegated by
- * a feature.
- *  Operations of a feature that are state-relevant, are authorized by
+ * feature. Furthermore it provides state relevant operations delegated by a
+ * feature. Operations of a feature that are state-relevant, are authorized by
  * the state. Authorization means here, that an operation may be executed or
  * not. Non-authorized calls will return a {@link ForbiddenStateException}
  */
-public interface IFeatureState {
+public interface IProductBacklogItemState {
 
-	public void accept(IFeatureVisitor visitor);
-
-	/**
-	 * @return the {@link Feature}, which is the owner of this state
-	 */
-	public Feature getMyFeature();
-
-	/**
-	 * See the documentation of close() in class {@link Feature}
-	 */
-	public void close() throws ForbiddenStateException;
+	public void accept(IPBIStateVisitor visitor);
 
 	/**
 	 * See the documentation of addAcceptanceCriterion() in class
@@ -42,16 +32,21 @@ public interface IFeatureState {
 			throws DoubleDefinitionException, ForbiddenStateException;
 
 	/**
+	 * See the documentation of addHint() in class {@link Feature}
+	 */
+	public void addHint(final Hint hint) throws DoubleDefinitionException,
+			ForbiddenStateException;
+
+	/**
 	 * See the documentation of addRelation() in class {@link Feature}
 	 */
 	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException;
 
 	/**
-	 * See the documentation of addHint() in class {@link Feature}
+	 * See the documentation of close() in class {@link Feature}
 	 */
-	public void addHint(final Hint hint) throws DoubleDefinitionException,
-			ForbiddenStateException;
+	public void close() throws ForbiddenStateException;
 
 	/**
 	 * See the documentation of removeAcceptanceCriterion() in class
@@ -62,15 +57,15 @@ public interface IFeatureState {
 			throws ForbiddenStateException;
 
 	/**
+	 * See the documentation of removeHint() in class {@link Feature}
+	 */
+	public void removeHint(Hint hint) throws ForbiddenStateException;
+
+	/**
 	 * See the documentation of removeRelation() in class {@link Feature}
 	 */
 	public void removeRelation(final Relation relation)
 			throws ForbiddenStateException;
-
-	/**
-	 * See the documentation of removeHint() in class {@link Feature}
-	 */
-	public void removeHint(Hint hint) throws ForbiddenStateException;
 
 	/**
 	 * See the documentation of setDescription() in class {@link Feature}
@@ -79,23 +74,27 @@ public interface IFeatureState {
 	 */
 	public void setDescription(String description)
 			throws ForbiddenStateException;
+
+	public void setLastEditor(IPerson lastEditor)
+			throws ForbiddenStateException;
+
 	/**
-	 * See the documentation of setManDayCosts() in class {@link ProductBacklogItem}
+	 * See the documentation of setManDayCosts() in class
+	 * {@link ProductBacklogItem}
 	 */
-	public void setManDayCosts(Integer manDayCosts) 
+	public void setManDayCosts(Integer manDayCosts)
 			throws ForbiddenStateException, NoValidValueException;
+
 	/**
 	 * See the documentation of setName() in class {@link ProductBacklogItem}
 	 */
-	public void setName(String name)
-			throws ForbiddenStateException, NoValidValueException, 
-			       DoubleDefinitionException, ConsistencyException;
+	public void setName(String name) throws ForbiddenStateException,
+			NoValidValueException, DoubleDefinitionException,
+			ConsistencyException;
+
 	/**
 	 * See the documentation of setSprint() in class {@link ProductBacklogItem}
 	 */
-	public void setSprint(ISprint sprint)
-			throws ForbiddenStateException, NoSprintDefinedException,
-				   ConsistencyException;
-	public void setLastEditor(IPerson lastEditor) 
-			throws ForbiddenStateException;
+	public void setSprint(ISprint sprint) throws ForbiddenStateException,
+			NoSprintDefinedException, ConsistencyException;
 }

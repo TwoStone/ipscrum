@@ -2,7 +2,7 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 public interface IEditFeatureView extends ICreateFeatureView {
@@ -33,7 +33,7 @@ public interface IEditFeatureView extends ICreateFeatureView {
 	 * 
 	 * @param state
 	 */
-	void setState(IFeatureState state);
+	void setState(IProductBacklogItemState state);
 
 	/**
 	 * Returns the event, that is fired, when the feature state should be
