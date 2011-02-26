@@ -45,66 +45,67 @@ public class SprintBurndownChart extends GChart {
 
 		this.addBurndownData(generateDemoData()); // TODO update to use real data here.
 
+		if (getCurve(0).getNPoints() > 0) {
 
-		// SETUP IDEAL BURNDOWN CURVE
-		addCurve();
-		getCurve().setYAxis(Y_AXIS);
-		getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-		getCurve().getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
-		getCurve().getSymbol().setBorderColor("black");
-		getCurve().getSymbol().setBackgroundColor("yellow");
+			// SETUP IDEAL BURNDOWN CURVE
+			addCurve();
+			getCurve().setYAxis(Y_AXIS);
+			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
+			getCurve().getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
+			getCurve().getSymbol().setBorderColor("black");
+			getCurve().getSymbol().setBackgroundColor("yellow");
 
-		ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
-		int dayCount = daysInvolved.size();
-		double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
-		for (int i = 0; i < dayCount; i++) {
-			getCurve().addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
-		}
+			ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
+			int dayCount = daysInvolved.size();
+			double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
+			for (int i = 0; i < dayCount; i++) {
+				getCurve().addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
+			}
 
 
-		// SETUP TREND LINE
-		/* formatting */
-		addCurve();
-		getCurve().setYAxis(Y_AXIS);
-		getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-		getCurve().getSymbol().setHoverAnnotationEnabled(false);
-		getCurve().getSymbol().setWidth(1);
-		getCurve().getSymbol().setHeight(1);
-		getCurve().getSymbol().setBorderColor("grey");
-		getCurve().getSymbol().setBackgroundColor("grey");
+			// SETUP TREND LINE
+			/* formatting */
+			addCurve();
+			getCurve().setYAxis(Y_AXIS);
+			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
+			getCurve().getSymbol().setHoverAnnotationEnabled(false);
+			getCurve().getSymbol().setWidth(1);
+			getCurve().getSymbol().setHeight(1);
+			getCurve().getSymbol().setBorderColor("grey");
+			getCurve().getSymbol().setBackgroundColor("grey");
 
-		/* calculate averages */
-		double xAvg = 0d; double yAvg = 0d;
-		for (int i = 0; i < getCurve(0).getNPoints(); i++) {
-			xAvg += i;
-			yAvg += getCurve(0).getPoint(i).getY();
-		}
-		xAvg = xAvg/getCurve(0).getNPoints();
-		yAvg = yAvg/getCurve(0).getNPoints();
+			/* calculate averages */
+			double xAvg = 0d; double yAvg = 0d;
+			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+				xAvg += i;
+				yAvg += getCurve(0).getPoint(i).getY();
+			}
+			xAvg = xAvg/getCurve(0).getNPoints();
+			yAvg = yAvg/getCurve(0).getNPoints();
 
-		/* calculate m (slope or gradient) */
-		double calcVar1 = 0d; double calcVar2 = 0d;
-		for (int i = 0; i < getCurve(0).getNPoints(); i++) {
-			calcVar1 += (i-xAvg)*(getCurve(0).getPoint(i).getY()-yAvg);
-			calcVar2 += Math.pow(i-xAvg, 2);
-		}
-		double m = calcVar1 / calcVar2;
+			/* calculate m (slope or gradient) */
+			double calcVar1 = 0d; double calcVar2 = 0d;
+			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+				calcVar1 += (i-xAvg)*(getCurve(0).getPoint(i).getY()-yAvg);
+				calcVar2 += Math.pow(i-xAvg, 2);
+			}
+			double m = calcVar1 / calcVar2;
 
-		/* calculate q (y-intercept) */
-		double q = yAvg - m * xAvg;
+			/* calculate q (y-intercept) */
+			double q = yAvg - m * xAvg;
 
-		/* draw trend curve */
-		for (int i = 0; i < dayCount; i++) {
-			double value = m * i + q;
-			if (value>=0) {
-				getCurve().addPoint(daysInvolved.get(i).getTime(), value);
+			/* draw trend curve */
+			for (int i = 0; i < dayCount; i++) {
+				double value = m * i + q;
+				if (value>=0) {
+					getCurve().addPoint(daysInvolved.get(i).getTime(), value);
+				}
 			}
 		}
 
-
 		// SETUP X- AND Y-AXIS
 		getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
-		getXAxis().setTickCount(dayCount);
+		getXAxis().setTickCount(getCurve(0).getNPoints());
 		getXAxis().setTickLabelFormat("=(Date)dd.");
 
 		getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
