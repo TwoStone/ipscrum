@@ -7,17 +7,17 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  */
 public class ReleaseChartData {
 
-	private final int number;
+	private final double number;
 	private final ISprint sprint;
 	private final int value;
 
-	public ReleaseChartData(int number, ISprint sprint, int value) {
+	public ReleaseChartData(double number, ISprint sprint, int value) {
 		this.number = number;
 		this.sprint = sprint;
 		this.value = value;
 	}
 
-	public int getNumber() {
+	public double getNumber() {
 		return number;
 	}
 

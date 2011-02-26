@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.view.widgets;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import com.googlecode.gchart.client.GChart;
 
@@ -37,33 +38,78 @@ public class ReleaseBurndownChart extends GChart {
 		getCurve().setYAxis(Y_AXIS);
 		getCurve().getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
 		getCurve().getSymbol().setHovertextTemplate(actualHoverTextTemplate);
-		getCurve().getSymbol().setBackgroundColor("lime");
-		getCurve().getSymbol().setBorderColor("teal");
+		getCurve().getSymbol().setBackgroundColor("GreenYellow ");
+		getCurve().getSymbol().setBorderColor("Green");
 		getCurve().getSymbol().setBorderWidth(1);
-		//		getCurve().getSymbol().setModelWidth(0.5);
+		getCurve().getSymbol().setModelWidth(0.05);
 
-		this.addBurndownData(generateDemoData()); // TODO update to use real data here.
+		if (this.release.getSprints().size() > 0) {
 
-		// SETUP IDEAL BURNDOWN CURVE
-		addCurve();
-		getCurve().setYAxis(Y_AXIS);
-		getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-		getCurve().getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
-		getCurve().getSymbol().setBorderColor("black");
-		getCurve().getSymbol().setBackgroundColor("yellow");
+			this.addBurndownData(generateDemoData()); // TODO update to use real data here.
 
-		int sprintCount = this.release.getSprints().size();
-		double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
-		for (int i = 0; i < sprintCount; i++) {
-			getCurve().addPoint(i, taskSum / (sprintCount-1) * (sprintCount-1 - i));
+
+			// SETUP IDEAL BURNDOWN CURVE
+			addCurve();
+			getCurve().setYAxis(Y_AXIS);
+			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
+			getCurve().getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
+			getCurve().getSymbol().setBorderColor("black");
+			getCurve().getSymbol().setBackgroundColor("yellow");
+
+			int sprintCount = this.release.getSprints().size();
+			double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
+			for (int i = 0; i < sprintCount; i++) {
+				getCurve().addPoint(i, taskSum / (sprintCount-1) * (sprintCount-1 - i));
+			}
+
+			// SETUP TREND LINE
+			/* formatting */
+			addCurve();
+			getCurve().setYAxis(Y_AXIS);
+			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
+			getCurve().getSymbol().setHoverAnnotationEnabled(false);
+			getCurve().getSymbol().setWidth(1);
+			getCurve().getSymbol().setHeight(1);
+			getCurve().getSymbol().setBorderColor("grey");
+			getCurve().getSymbol().setBackgroundColor("grey");
+
+			/* calculate averages */
+			double xAvg = 0d; double yAvg = 0d;
+			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+				xAvg += i;
+				yAvg += getCurve(0).getPoint(i).getY();
+			}
+			xAvg = xAvg/getCurve(0).getNPoints();
+			yAvg = yAvg/getCurve(0).getNPoints();
+
+			/* calculate m (slope or gradient) */
+			double calcVar1 = 0d; double calcVar2 = 0d;
+			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+				calcVar1 += (i-xAvg)*(getCurve(0).getPoint(i).getY()-yAvg);
+				calcVar2 += Math.pow(i-xAvg, 2);
+			}
+			double m = calcVar1 / calcVar2;
+
+			/* calculate q (y-intercept) */
+			double q = yAvg - m * xAvg;
+
+			/* draw trend curve */
+			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+				double value = m * i + q;
+				if (value>=0) {
+					getCurve().addPoint(getCurve(0).getPoint(i).getX(), value);
+				}
+			}
 		}
 
 		// SETUP X- AND Y-AXIS
 		getXAxis().setAxisLabel("<i>S p r i n t s</i>");
-		getXAxis().setTickCount(sprintCount);
+		getXAxis().setTickCount(getCurve(0).getNPoints());
 
 		getYAxis().setAxisLabel("<i>P<br />B<br />I<br />s</i>");
 		getYAxis().setHasGridlines(true);
+		//		getYAxis().setTickLabelFormat("#");
+		getYAxis().setTickLength(25);
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		this.update();
@@ -84,29 +130,15 @@ public class ReleaseBurndownChart extends GChart {
 	 * @return a list of ReleaseChartData. RCD is a container format for chart data.
 	 */
 	private ArrayList<ReleaseChartData> generateDemoData() {
-
 		ArrayList<ReleaseChartData> resultList = new ArrayList<ReleaseChartData>();
+		Vector<ISprint> sprints = this.release.getSprints();
 
-		//		ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
-		//		int dayCount = daysInvolved.size();
-		//		Date today = new Date();
-		//		int taskCount = (int) (Math.random() * 100 + 50);
-		//
-		//		for (int i = 0; i < dayCount; i++) {
-		//			if (daysInvolved.get(i).before(today)) {
-		//				int ideal = taskCount / (dayCount-1) * (dayCount-1 - i);
-		//				double deviation = Math.random() * 0.4 + 0.8;
-		//
-		//				resultList.add(new SprintChartData(daysInvolved.get(i), (int) (ideal*deviation)));
-		//			} else {
-		//				resultList.add(new SprintChartData(daysInvolved.get(i), 0));
-		//			}
-		//		}
+		int pbiCount = (int) (Math.random() * 5 + 3);
 
-		for (ISprint sprint : this.release.getSprints()) {
-			for (int i = 0; i < this.release.getSprints().size(); i++) {
-				resultList.add(new ReleaseChartData(i, sprint, (int) (Math.random() * 100 + 50)));
-			}
+		for (int i = 0; i < sprints.size(); i++) {
+			int ideal = pbiCount / sprints.size() * (sprints.size() - i);
+			double deviation = Math.random() * 0.3 + 0.85;
+			resultList.add(new ReleaseChartData(i, sprints.get(i), (int) (ideal * deviation)));
 		}
 		return resultList;
 	}
