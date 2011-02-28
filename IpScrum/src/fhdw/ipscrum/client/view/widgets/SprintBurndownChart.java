@@ -109,17 +109,17 @@ public class SprintBurndownChart extends GChart {
 					getCurve().addPoint(daysInvolved.get(i).getTime(), value);
 				}
 			}
+
+			// SETUP X- AND Y-AXIS
+			getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
+			getXAxis().setTickCount(dayCount);
+			getXAxis().setTickLabelFormat("=(Date)dd.");
+
+			getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
+			getYAxis().setHasGridlines(true);
+			getYAxis().setTickLabelFormat("#");
+			getYAxis().setTickLength(25);
 		}
-
-		// SETUP X- AND Y-AXIS
-		getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
-		getXAxis().setTickCount(getCurve(0).getNPoints());
-		getXAxis().setTickLabelFormat("=(Date)dd.");
-
-		getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
-		getYAxis().setHasGridlines(true);
-		getYAxis().setTickLabelFormat("#");
-		getYAxis().setTickLength(25);
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		this.update();

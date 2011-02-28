@@ -100,16 +100,16 @@ public class ReleaseBurndownChart extends GChart {
 					getCurve().addPoint(getCurve(0).getPoint(i).getX(), value);
 				}
 			}
+
+			// SETUP X- AND Y-AXIS
+			getXAxis().setAxisLabel("<i>S p r i n t s</i>");
+			getXAxis().setTickCount(this.release.getSprints().size()); // todo customize?
+
+			getYAxis().setAxisLabel("<i>P<br />B<br />I<br />s</i>");
+			getYAxis().setHasGridlines(true);
+			//		getYAxis().setTickLabelFormat("#");
+			getYAxis().setTickLength(25);
 		}
-
-		// SETUP X- AND Y-AXIS
-		getXAxis().setAxisLabel("<i>S p r i n t s</i>");
-		getXAxis().setTickCount(getCurve(0).getNPoints());
-
-		getYAxis().setAxisLabel("<i>P<br />B<br />I<br />s</i>");
-		getYAxis().setHasGridlines(true);
-		//		getYAxis().setTickLabelFormat("#");
-		getYAxis().setTickLength(25);
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		this.update();
