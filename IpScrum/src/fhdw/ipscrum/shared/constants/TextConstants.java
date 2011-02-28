@@ -6,6 +6,7 @@ public final class TextConstants {
 	public static final String NEW_CRITERION_LABEL = "Neues \n Akzeptanzkriterium:";
 	public static final String NEW_HINT_LABEL = "Neuer Hinweis:";
 	public static final String EMPTY_TEXT = "";
+	public static final String SPACE = " ";
 	public static final String SAVE = "Speichern";
 	public static final String ADD_CRITERION = "Kriterium hinzufügen";
 	public static final String CRITERIA_HEADER = "Akzptanzkriterien:";
@@ -128,4 +129,8 @@ public final class TextConstants {
 	public static final String CHARTPOPUP_TITLE = "Burndown-Chart";
 	/* [END SECTION] */
 
+	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
+	public static final String CREATE_TASK = "Neuen Task erstellen";
+	/* [END SECTION] */
+	
 }
