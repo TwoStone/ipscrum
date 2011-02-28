@@ -16,6 +16,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 public class SprintBurndownChart extends GChart {
 
 	private final ISprint sprint;
+	private Curve burndownCurve;
 	private final int width;
 	private final int height;
 
@@ -43,58 +44,61 @@ public class SprintBurndownChart extends GChart {
 
 		// SETUP ACTUAL BURNDOWN CURVE
 		addCurve();
-		getCurve().setYAxis(Y_AXIS);
-		getCurve().getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		getCurve().getSymbol().setHovertextTemplate(actualHoverTextTemplate);
-		getCurve().getSymbol().setBackgroundColor("orange");
-		getCurve().getSymbol().setBorderColor("red");
-		getCurve().getSymbol().setBorderWidth(1);
-		getCurve().getSymbol().setModelWidth(50000000); // high value is caused by using a date as x-value. normally 0.5 would be sufficient.
+		burndownCurve = this.getCurve();
+		burndownCurve.setYAxis(Y_AXIS);
+		burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		burndownCurve.getSymbol().setHovertextTemplate(actualHoverTextTemplate);
+		burndownCurve.getSymbol().setBackgroundColor("orange");
+		burndownCurve.getSymbol().setBorderColor("red");
+		burndownCurve.getSymbol().setBorderWidth(1);
+		burndownCurve.getSymbol().setModelWidth(50000000); // high value is caused by using a date as x-value. normally 0.5 would be sufficient.
 
 		this.addBurndownData(generateDemoData()); // TODO update to use real data here.
 
-		if (getCurve(0).getNPoints() > 0) {
+		if (burndownCurve.getNPoints() > 0) {
 
 			// SETUP IDEAL BURNDOWN CURVE
 			addCurve();
-			getCurve().setYAxis(Y_AXIS);
-			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-			getCurve().getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
-			getCurve().getSymbol().setBorderColor("black");
-			getCurve().getSymbol().setBackgroundColor("yellow");
+			Curve idealCurve = getCurve();
+			idealCurve.setYAxis(Y_AXIS);
+			idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
+			idealCurve.getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
+			idealCurve.getSymbol().setBorderColor("black");
+			idealCurve.getSymbol().setBackgroundColor("yellow");
 
 			ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
 			int dayCount = daysInvolved.size();
-			double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
+			double taskSum = burndownCurve.getPoint(0).getY(); // TODO maybe use actual sum of efforts later
 			for (int i = 0; i < dayCount; i++) {
-				getCurve().addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
+				idealCurve.addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
 			}
 
 
 			// SETUP TREND LINE
 			/* formatting */
 			addCurve();
-			getCurve().setYAxis(Y_AXIS);
-			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-			getCurve().getSymbol().setHoverAnnotationEnabled(false);
-			getCurve().getSymbol().setWidth(1);
-			getCurve().getSymbol().setHeight(1);
-			getCurve().getSymbol().setBorderColor("grey");
-			getCurve().getSymbol().setBackgroundColor("grey");
+			Curve trendCurve = getCurve();
+			trendCurve.setYAxis(Y_AXIS);
+			trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
+			trendCurve.getSymbol().setHoverAnnotationEnabled(false);
+			trendCurve.getSymbol().setWidth(1);
+			trendCurve.getSymbol().setHeight(1);
+			trendCurve.getSymbol().setBorderColor("grey");
+			trendCurve.getSymbol().setBackgroundColor("grey");
 
 			/* calculate averages */
 			double xAvg = 0d; double yAvg = 0d;
-			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
 				xAvg += i;
-				yAvg += getCurve(0).getPoint(i).getY();
+				yAvg += burndownCurve.getPoint(i).getY();
 			}
-			xAvg = xAvg/getCurve(0).getNPoints();
-			yAvg = yAvg/getCurve(0).getNPoints();
+			xAvg = xAvg/burndownCurve.getNPoints();
+			yAvg = yAvg/burndownCurve.getNPoints();
 
 			/* calculate m (slope or gradient) */
 			double calcVar1 = 0d; double calcVar2 = 0d;
-			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
-				calcVar1 += (i-xAvg)*(getCurve(0).getPoint(i).getY()-yAvg);
+			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
+				calcVar1 += (i-xAvg)*(burndownCurve.getPoint(i).getY()-yAvg);
 				calcVar2 += Math.pow(i-xAvg, 2);
 			}
 			double m = calcVar1 / calcVar2;
@@ -106,7 +110,7 @@ public class SprintBurndownChart extends GChart {
 			for (int i = 0; i < dayCount; i++) {
 				double value = m * i + q;
 				if (value>=0) {
-					getCurve().addPoint(daysInvolved.get(i).getTime(), value);
+					trendCurve.addPoint(daysInvolved.get(i).getTime(), value);
 				}
 			}
 
@@ -131,7 +135,7 @@ public class SprintBurndownChart extends GChart {
 	 */
 	private void addBurndownData(ArrayList<SprintChartData> chartData) {
 		for (SprintChartData data : chartData) {
-			this.getCurve(0).addPoint(data.getDate().getTime(), data.getValue());
+			this.burndownCurve.addPoint(data.getDate().getTime(), data.getValue());
 		}
 	}
 
@@ -157,17 +161,6 @@ public class SprintBurndownChart extends GChart {
 			}
 		}
 
-
-		//		resultList.add(new SprintChartData(daysInvolved.get(0), 46));
-		//		resultList.add(new SprintChartData(daysInvolved.get(1), 44));
-		//		resultList.add(new SprintChartData(daysInvolved.get(2), 42));
-		//		resultList.add(new SprintChartData(daysInvolved.get(3), 40));
-		//		resultList.add(new SprintChartData(daysInvolved.get(4), 38));
-		//		resultList.add(new SprintChartData(daysInvolved.get(5), 36));
-		//		resultList.add(new SprintChartData(daysInvolved.get(6), 34));
-		//		resultList.add(new SprintChartData(daysInvolved.get(7), 32));
-		//		resultList.add(new SprintChartData(daysInvolved.get(8), 30));
-		//		resultList.add(new SprintChartData(daysInvolved.get(9), 44));
 		return resultList;
 	}
 }
