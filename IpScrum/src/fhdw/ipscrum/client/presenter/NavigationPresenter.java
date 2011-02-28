@@ -73,7 +73,16 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 				Window.alert("Speicherung folgt!");
 			}
 		});
+		
+		concreteView.addTasksEventHandler(new EventHandler<EventArgs>() {
 
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+			concreteView.getContentPanel().clear();
+			new TaskBoardPresenter(concreteView.getContentPanel());
+			}
+		});
+		
 		return concreteView;
 	}
 }

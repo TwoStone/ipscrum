@@ -24,6 +24,7 @@ public class NavigationView extends Composite implements INavigationView {
 
 	// ######## Events ############
 	private final Event<EventArgs> projectEvent = new Event<EventArgs>();
+	private final Event<EventArgs> tasksEvent = new Event<EventArgs>();
 	private final Event<EventArgs> reportsEvent = new Event<EventArgs>();
 	private final Event<EventArgs> personenEvent = new Event<EventArgs>();
 	private final Event<EventArgs> teamEvent = new Event<EventArgs>();
@@ -35,6 +36,7 @@ public class NavigationView extends Composite implements INavigationView {
 	private final MenuItem mntmReports;
 	private final MenuItem mntmPersonenstammdaten;
 	private final MenuItem mntmTeamzuordnung;
+	private final MenuItem mntmTaskBoard;
 	private final FlowPanel masterMainPanel;
 	private final FlowPanel innerMasterPanel;
 	private final PushButton pshbtnSpeichern;
@@ -66,6 +68,15 @@ public class NavigationView extends Composite implements INavigationView {
 			}
 		});
 		menuBar.addItem(this.mntmProjekte);
+		
+		mntmTaskBoard = new MenuItem(TextConstants.NAV_TASKBOARD, false, new Command() {
+			@Override
+			public void execute() {
+				NavigationView.this.tasksEvent.fire(NavigationView.this, new EventArgs());	
+			}
+		});
+		mntmTaskBoard.setHTML(TextConstants.NAV_TASKBOARD);
+		menuBar.addItem(mntmTaskBoard);
 
 		this.mntmReports = new MenuItem(TextConstants.NAV_REPORTS, false, new Command() {
 			@Override
@@ -137,6 +148,11 @@ public class NavigationView extends Composite implements INavigationView {
 		this.saveEvent.add(arg);
 	}
 
+	@Override
+	public void addTasksEventHandler(EventHandler<EventArgs> arg) {
+		this.tasksEvent.add(arg);
+	}
+	
 	@Override
 	public FlowPanel getContentPanel() {
 		return this.masterMainPanel;

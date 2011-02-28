@@ -38,8 +38,16 @@ public interface INavigationView extends IView{
 	public abstract void addSaveEventHandler(EventHandler<EventArgs> arg);
 
 	/**
+	 * Method addTasksEventHandler
+	 * @param arg empty arguments
+	 */
+	public void addTasksEventHandler(EventHandler<EventArgs> arg);
+
+	
+	/**
 	 * Method getContentPanel.
 	 * @return main content panel.
 	 */
 	public abstract Panel getContentPanel();
+
 }
