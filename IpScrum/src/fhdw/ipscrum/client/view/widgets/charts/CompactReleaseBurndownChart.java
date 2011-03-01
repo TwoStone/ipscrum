@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.view.widgets;
+package fhdw.ipscrum.client.view.widgets.charts;
 
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 

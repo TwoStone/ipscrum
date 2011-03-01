@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.view.widgets;
+package fhdw.ipscrum.client.view.widgets.charts;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +19,8 @@ public abstract class ReleaseBurndownChart extends Composite {
 
 	IRelease release;
 	private final ReleaseChartData data;
-	static int width = 500;
-	static int height = 250;
+	int width = 500;
+	int height = 250;
 
 	private Curve burndownCurve;
 

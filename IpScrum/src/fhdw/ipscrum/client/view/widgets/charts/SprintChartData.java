@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.view.widgets;
+package fhdw.ipscrum.client.view.widgets.charts;
 
 import java.util.Date;
 

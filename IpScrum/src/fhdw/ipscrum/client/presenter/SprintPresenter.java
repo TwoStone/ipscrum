@@ -9,7 +9,7 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
-import fhdw.ipscrum.client.view.widgets.SprintBurndownChart;
+import fhdw.ipscrum.client.view.widgets.charts.SprintBurndownChart;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;

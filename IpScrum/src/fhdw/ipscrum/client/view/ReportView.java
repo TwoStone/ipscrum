@@ -12,8 +12,8 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.IView;
-import fhdw.ipscrum.client.view.widgets.RegularReleaseBurndownChart;
-import fhdw.ipscrum.client.view.widgets.SprintBurndownChart;
+import fhdw.ipscrum.client.view.widgets.charts.RegularReleaseBurndownChart;
+import fhdw.ipscrum.client.view.widgets.charts.SprintBurndownChart;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 

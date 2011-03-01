@@ -1,8 +1,9 @@
-package fhdw.ipscrum.client.view.widgets;
+package fhdw.ipscrum.client.view.widgets.charts;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.googlecode.gchart.client.GChart;
 
+import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 public class RegularReleaseBurndownChart extends ReleaseBurndownChart {
