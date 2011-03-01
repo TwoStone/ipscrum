@@ -109,8 +109,10 @@ h1 {
 	text-align:left;
 }
 .rotated {
-	-webkit-transform: rotate(-90deg); 
-	-moz-transform: rotate(-90deg);
 	width: 160px;
-	padding-bottom:150px
+	padding-bottom:150px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+	writing-mode: tb-rl;
+    filter: flipv fliph;
 }
