@@ -11,26 +11,35 @@ import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public class Task extends Observable implements ITask {
-	
-	//TODO: Tasks dem PBI bekannt machen!
 	//TODO: Konsistenzbedingungen für den Zustand von Tasks im System definieren und sicherstellen!
-	//TODO: Nutzung des bdA-Frameworks sinnvoll??
 	
 	private String name;
 	private ITaskState state;
-	private IPerson responsiblePerson;
-	private List<ProductBacklogItem> assignedPBIs;
+	private ProductBacklogItem assignedPBI;
+		//TODO: klären, on one to one sinnvoll
 	
-	public Task(String name){
+	public Task(String name, ProductBacklogItem pbi){
+		super();
 		this.name = name;
-		this.state = null;
-		//TODO: Initialize Task state
-		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
-		this.responsiblePerson = null; 
-		//TODO: Handle null references
+		this.assignedPBI = pbi;
+		//TODO: Status setzen.
+	}
+
+	@Override
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		
 	}
 	
-	
+	protected void doSetName(String name){
+		this.name = name;
+	}
+
+	@Override
+	public void setPBI(ProductBacklogItem pbi) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson) {
@@ -38,31 +47,11 @@ public class Task extends Observable implements ITask {
 		
 	}
 
-
-
 	@Override
-	public void changeResponsibility(IPerson responsiblePerson) {
+	public void finish() {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void changeName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 	@Override
 	public IPerson getResponsiblePerson() {
@@ -70,55 +59,15 @@ public class Task extends Observable implements ITask {
 		return null;
 	}
 
-
-
 	@Override
-	public ISprint getAssignedSprint() {
+	public Integer getPlanEffort() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-
-
 	@Override
-	public void addBacklogItem(ProductBacklogItem pbi) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void removeBacklogItem(ProductBacklogItem pbi) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public List<ProductBacklogItem> getAssignedPBIs() {
+	public Integer getActualEffort() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		return this==obj 
-		&& this.name.equals(((Task)obj).name);
-		//TODO: More necessary for equals??
-	}
-
-	
-	
 }

@@ -5,65 +5,12 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
-public class TaskAssigned implements ITaskState {
-	
-	private Task myTask;
-	
-	public TaskAssigned (Task myTask){
-		this.myTask = myTask;
+public abstract class TaskAssigned extends AbstractTaskState {
+	public TaskAssigned(Task task) {
+		super(task);
+		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public void setResponsibility(IPerson responsiblePerson) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void changeResponsibility(IPerson responsiblePerson) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void close() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void changeName(String name) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public IPerson getResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISprint getAssignedSprint() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addBacklogItem(ProductBacklogItem pbi) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeBacklogItem(ProductBacklogItem pbi) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Task getMyTask() {
-		return this.myTask;
-	}
-
+	private IPerson responsiblePerson;
+	private Integer planEffort;
+	private Integer actualEffort;
 }

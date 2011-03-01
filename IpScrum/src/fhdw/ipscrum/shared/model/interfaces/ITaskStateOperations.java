@@ -7,14 +7,11 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
  */
 public interface ITaskStateOperations {
 	//TODO: Exceptions definieren!
+	public void setName(String name);
+	public void setPBI(ProductBacklogItem pbi);
 	public void setResponsibility(IPerson responsiblePerson);
-	public void changeResponsibility(IPerson responsiblePerson);
-	public void close();
-	public void changeName(String name);
+	public void finish();
+;
 	
 	public IPerson getResponsiblePerson();
-	public ISprint getAssignedSprint();
-	
-	public void addBacklogItem( ProductBacklogItem pbi);
-	public void removeBacklogItem (ProductBacklogItem pbi);
 }
