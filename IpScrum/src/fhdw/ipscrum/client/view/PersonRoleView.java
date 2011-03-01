@@ -281,6 +281,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 	@Override
 	public Person getSelectedPerson() {
+		@SuppressWarnings("unchecked")
 		SingleSelectionModel<IPerson> selPersModel = (SingleSelectionModel<IPerson>) this.cellTablePersons.getSelectionModel();
 		Person selectedPerson = (Person) selPersModel.getSelectedObject();
 		return selectedPerson;
@@ -289,6 +290,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 	@Override
 	public Role getSelectedAssignedRole() {
+		@SuppressWarnings("unchecked")
 		SingleSelectionModel<IRole> selAssignedRoleModel = (SingleSelectionModel<IRole>) this.cellListAssignedRoles.getSelectionModel();
 		Role selectedRole = (Role) selAssignedRoleModel.getSelectedObject();
 		return selectedRole;
@@ -297,6 +299,7 @@ public class PersonRoleView extends Composite implements IPersonRoleView {
 
 	@Override
 	public Set<IRole> getSelectedAvailRoles() {
+		@SuppressWarnings("unchecked")
 		MultiSelectionModel<IRole> selAvailRoleModel = (MultiSelectionModel<IRole>) this.cellListRoles.getSelectionModel();
 		Set<IRole> selectedRoles = selAvailRoleModel.getSelectedSet();
 		return selectedRoles;

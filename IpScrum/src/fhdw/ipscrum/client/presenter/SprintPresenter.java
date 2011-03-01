@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SprintView;
 import fhdw.ipscrum.client.view.interfaces.ISprintView;
+import fhdw.ipscrum.client.view.widgets.charts.ChartWrappingDialogBox;
 import fhdw.ipscrum.client.view.widgets.charts.SprintBurndownChart;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -126,12 +127,7 @@ public class SprintPresenter extends Presenter<ISprintView>{
 		this.concreteView.addShowChartEventHandler(new EventHandler<SprintArgs>() {
 			@Override
 			public void onUpdate(Object sender, SprintArgs eventArgs) {
-				DialogBox box = new DialogBox();
-				box.setAutoHideEnabled(true); // thats okay because no separate presenter will be created
-				box.setAnimationEnabled(true);
-				box.setGlassEnabled(true);
-				box.setText(TextConstants.CHARTPOPUP_TITLE);
-				box.add(new SprintBurndownChart(eventArgs.getSprint(), 300, 200));
+				ChartWrappingDialogBox box = new ChartWrappingDialogBox(new SprintBurndownChart(eventArgs.getSprint(), 300, 200));
 				box.center();
 			}
 		});
