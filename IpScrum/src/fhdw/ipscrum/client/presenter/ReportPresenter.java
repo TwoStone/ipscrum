@@ -3,14 +3,15 @@ package fhdw.ipscrum.client.presenter;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.view.ReportView;
+import fhdw.ipscrum.client.view.interfaces.IReportView;
 
 /**
  * presenter class of the report interface. this interface is to inspect
  * statistical data regarding the sprint-/release progress (burn-down-charts)
  */
-public class ReportPresenter extends Presenter<ReportView> {
+public class ReportPresenter extends Presenter<IReportView> {
 
-	private ReportView concreteView;
+	private IReportView concreteView;
 
 	public ReportPresenter(Panel parent) {
 		super(parent);
@@ -20,7 +21,7 @@ public class ReportPresenter extends Presenter<ReportView> {
 	 * @see fhdw.ipscrum.client.presenter.Presenter#createView()
 	 */
 	@Override
-	protected ReportView createView() {
+	protected IReportView createView() {
 		this.concreteView = new ReportView();
 		this.setupEventHandlers();
 		return this.concreteView;

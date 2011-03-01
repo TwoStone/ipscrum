@@ -11,9 +11,10 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-import fhdw.ipscrum.client.view.interfaces.IView;
+import fhdw.ipscrum.client.view.interfaces.IReportView;
 import fhdw.ipscrum.client.view.widgets.charts.RegularReleaseBurndownChart;
 import fhdw.ipscrum.client.view.widgets.charts.SprintBurndownChart;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
@@ -23,8 +24,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  * statistical data regarding the sprint-/release progress (burn-down-charts)
  */
 
-// TODO extract interface + constants when base-implementation is done
-public class ReportView extends Composite implements IView {
+public class ReportView extends Composite implements IReportView {
 	private SingleSelectionModel<IRelease> releaseSelectionModel;
 	private SingleSelectionModel<ISprint> sprintSelectionModel;
 	private final SimplePanel contentPanel;
@@ -46,13 +46,13 @@ public class ReportView extends Composite implements IView {
 		decoratedStackPanel.setSize("100%", "100%");
 
 		CellTree cellTreeReleases = new CellTree(new ReleaseSelectionTreeViewModel(releaseSelectionModel), null);
-		decoratedStackPanel.add(cellTreeReleases, "Releaseauswahl", false);
+		decoratedStackPanel.add(cellTreeReleases, TextConstants.CHART_RELEASESTACK_TITLE, false);
 		cellTreeReleases.setSize("100%", "100%");
 		cellTreeReleases.setAnimationEnabled(true);
 
 		CellTree cellTreeSprints = new CellTree(new SprintSelectionTreeViewModel(sprintSelectionModel), null);
 		cellTreeSprints.setAnimationEnabled(true);
-		decoratedStackPanel.add(cellTreeSprints, "Sprintauswahl", false);
+		decoratedStackPanel.add(cellTreeSprints, TextConstants.CHART_SPRINTSTACK_TITLE, false);
 		decoratedStackPanel.showStack(1);
 		cellTreeSprints.setSize("100%", "100%");
 
@@ -60,7 +60,7 @@ public class ReportView extends Composite implements IView {
 		horizontalPanelLayout.add(contentPanel);
 		horizontalPanelLayout.setCellHorizontalAlignment(contentPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
-		HTML htmlLabel = new HTML("<h1>Bitte treffen Sie eine Auswahl.</h1>", true);
+		HTML htmlLabel = new HTML(TextConstants.CHART_USAGETIP, true);
 		contentPanel.setWidget(htmlLabel);
 		htmlLabel.setSize("100%", "100%");
 

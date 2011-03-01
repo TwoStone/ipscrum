@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import fhdw.ipscrum.shared.constants.TextConstants;
+
 /**
  *	This is just a wrapper for GCharts, which adds a close-button.
  *	Since there is no functionality provided, a separate presenter is not necessary.
@@ -21,7 +23,7 @@ public class ChartWrappingDialogBox extends DialogBox {
 	public ChartWrappingDialogBox(Widget content) {
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
-		setHTML("Burndown-Chart");
+		setHTML(TextConstants.CHARTPOPUP_TITLE);
 
 		VerticalPanel verticalPanel = new VerticalPanel();
 		setWidget(verticalPanel);
@@ -29,7 +31,7 @@ public class ChartWrappingDialogBox extends DialogBox {
 
 		verticalPanel.add(content);
 
-		Button btnClose = new Button("Schießen");
+		Button btnClose = new Button(TextConstants.CHARTPOPUP_CLOSEBUTTON);
 		btnClose.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
