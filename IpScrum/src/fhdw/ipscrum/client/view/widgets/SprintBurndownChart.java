@@ -20,10 +20,6 @@ public class SprintBurndownChart extends GChart {
 	private final int width;
 	private final int height;
 
-	// these will be constants
-	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown<br />(${y} ausstehende Aufwaende am ${x})</div>";
-	private final String actualHoverTextTemplate = "<html><div class='chartToolTip'>${y} ausstehende Aufwaende am ${x}</div>";
-
 
 	public SprintBurndownChart(ISprint sprint) {
 		this(sprint, 500, 500);
@@ -47,7 +43,7 @@ public class SprintBurndownChart extends GChart {
 		burndownCurve = this.getCurve();
 		burndownCurve.setYAxis(Y_AXIS);
 		burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		burndownCurve.getSymbol().setHovertextTemplate(actualHoverTextTemplate);
+		burndownCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("${y} ausstehende Aufwaende am ${x}"));
 		burndownCurve.getSymbol().setBackgroundColor("orange");
 		burndownCurve.getSymbol().setBorderColor("red");
 		burndownCurve.getSymbol().setBorderWidth(1);
@@ -62,7 +58,7 @@ public class SprintBurndownChart extends GChart {
 			Curve idealCurve = getCurve();
 			idealCurve.setYAxis(Y_AXIS);
 			idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
-			idealCurve.getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
+			idealCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwaende am ${x})"));
 			idealCurve.getSymbol().setBorderColor("black");
 			idealCurve.getSymbol().setBackgroundColor("yellow");
 
@@ -116,7 +112,7 @@ public class SprintBurndownChart extends GChart {
 
 			// SETUP X- AND Y-AXIS
 			getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
-			getXAxis().setTickCount(dayCount);
+			getXAxis().setTickCount((dayCount<21) ? dayCount : 20);
 			getXAxis().setTickLabelFormat("=(Date)dd.");
 
 			getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");

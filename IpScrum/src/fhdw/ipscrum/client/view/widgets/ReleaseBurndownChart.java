@@ -1,91 +1,98 @@
 package fhdw.ipscrum.client.view.widgets;
 
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.Date;
+import java.util.Iterator;
 
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.googlecode.gchart.client.GChart;
+import com.googlecode.gchart.client.GChart.Curve;
+import com.googlecode.gchart.client.GChart.Curve.Point;
+import com.googlecode.gchart.client.GChart.SymbolType;
+import com.googlecode.gchart.client.HoverUpdateable;
 
+import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
+public abstract class ReleaseBurndownChart extends Composite {
 
-/**
- * This is a widget. It shows statistical data about the progress of a release.
- *
- */
-public class ReleaseBurndownChart extends GChart {
+	IRelease release;
+	private final ReleaseChartData data;
+	static int width = 500;
+	static int height = 250;
 
-	private final IRelease release;
-
-	// these will be constants
-	private final String idealHoverTextTemplate = "<html><div class='chartToolTip'>Ideal-Burndown<br />(${y} ausstehende Aufwaende nach Sprint ${x})</div>";
-	private final String actualHoverTextTemplate = "<html><div class='chartToolTip'>${y} ausstehende Aufwaende nach Sprint ${x}</div>";
-
+	private Curve burndownCurve;
 
 	public ReleaseBurndownChart(IRelease release) {
+		super();
 		this.release = release;
-		this.createChart();
+		this.data = new ReleaseChartData(this.release);
 	}
 
-	private void createChart() {
+	GChart createChart() {
 		// GENERAL SETUP
-		setChartTitle("<h2>Release " + this.release.getVersion() + "</h2>");
-		setChartSize(500, 500);
+		GChart rbdChart = new GChart(width, height);
+		rbdChart.setChartTitle("<h2>Release " + this.release.getVersion() + "</h2>");
 
 
 		// SETUP ACTUAL BURNDOWN CURVE
-		addCurve();
-		getCurve().setYAxis(Y_AXIS);
-		getCurve().getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		getCurve().getSymbol().setHovertextTemplate(actualHoverTextTemplate);
-		getCurve().getSymbol().setBackgroundColor("GreenYellow ");
-		getCurve().getSymbol().setBorderColor("Green");
-		getCurve().getSymbol().setBorderWidth(1);
-		getCurve().getSymbol().setModelWidth(0.05);
+		rbdChart.addCurve();
+		burndownCurve = rbdChart.getCurve();
+		burndownCurve.setYAxis(GChart.Y_AXIS);
+		burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		burndownCurve.getSymbol().setHoverWidget(new ReleaseChartHoverWidget());
+		burndownCurve.getSymbol().setBackgroundColor("GreenYellow");
+		burndownCurve.getSymbol().setBorderColor("Green");
+		burndownCurve.getSymbol().setBorderWidth(1);
+		burndownCurve.getSymbol().setModelWidth(50000000); // high value is caused by using a date as x-value. normally 0.5 would be sufficient.
 
-		if (this.release.getSprints().size() > 0) {
+		this.populateChart();
 
-			this.addBurndownData(generateDemoData()); // TODO update to use real data here.
-
+		if (burndownCurve.getNPoints() > 0) {
 
 			// SETUP IDEAL BURNDOWN CURVE
-			addCurve();
-			getCurve().setYAxis(Y_AXIS);
-			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-			getCurve().getSymbol().setHovertextTemplate(this.idealHoverTextTemplate);
-			getCurve().getSymbol().setBorderColor("black");
-			getCurve().getSymbol().setBackgroundColor("yellow");
+			rbdChart.addCurve();
+			Curve idealCurve = rbdChart.getCurve();
+			idealCurve.setYAxis(GChart.Y_AXIS);
+			idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
+			idealCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwaende am ${x})"));
+			idealCurve.getSymbol().setBorderColor("black");
+			idealCurve.getSymbol().setBackgroundColor("yellow");
 
-			int sprintCount = this.release.getSprints().size();
-			double taskSum = getCurve(0).getPoint(0).getY(); // TODO maybe use actual sum of efforts later
-			for (int i = 0; i < sprintCount; i++) {
-				getCurve().addPoint(i, taskSum / (sprintCount-1) * (sprintCount-1 - i));
+			ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(data.getData().firstKey(), release.getReleaseDate()); // TODO is this correct?
+			int dayCount = daysInvolved.size();
+			double taskSum = burndownCurve.getPoint(0).getY(); // TODO maybe use actual sum of efforts later
+			for (int i = 0; i < dayCount; i++) {
+				idealCurve.addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
 			}
+
 
 			// SETUP TREND LINE
 			/* formatting */
-			addCurve();
-			getCurve().setYAxis(Y_AXIS);
-			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-			getCurve().getSymbol().setHoverAnnotationEnabled(false);
-			getCurve().getSymbol().setWidth(1);
-			getCurve().getSymbol().setHeight(1);
-			getCurve().getSymbol().setBorderColor("grey");
-			getCurve().getSymbol().setBackgroundColor("grey");
+			rbdChart.addCurve();
+			Curve trendCurve = rbdChart.getCurve();
+			trendCurve.setYAxis(GChart.Y_AXIS);
+			trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
+			trendCurve.getSymbol().setHoverAnnotationEnabled(false);
+			trendCurve.getSymbol().setWidth(1);
+			trendCurve.getSymbol().setHeight(1);
+			trendCurve.getSymbol().setBorderColor("grey");
+			trendCurve.getSymbol().setBackgroundColor("grey");
 
 			/* calculate averages */
 			double xAvg = 0d; double yAvg = 0d;
-			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
 				xAvg += i;
-				yAvg += getCurve(0).getPoint(i).getY();
+				yAvg += burndownCurve.getPoint(i).getY();
 			}
-			xAvg = xAvg/getCurve(0).getNPoints();
-			yAvg = yAvg/getCurve(0).getNPoints();
+			xAvg = xAvg/burndownCurve.getNPoints();
+			yAvg = yAvg/burndownCurve.getNPoints();
 
 			/* calculate m (slope or gradient) */
 			double calcVar1 = 0d; double calcVar2 = 0d;
-			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
-				calcVar1 += (i-xAvg)*(getCurve(0).getPoint(i).getY()-yAvg);
+			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
+				calcVar1 += (i-xAvg)*(burndownCurve.getPoint(i).getY()-yAvg);
 				calcVar2 += Math.pow(i-xAvg, 2);
 			}
 			double m = calcVar1 / calcVar2;
@@ -94,52 +101,53 @@ public class ReleaseBurndownChart extends GChart {
 			double q = yAvg - m * xAvg;
 
 			/* draw trend curve */
-			for (int i = 0; i < getCurve(0).getNPoints(); i++) {
+			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
 				double value = m * i + q;
 				if (value>=0) {
-					getCurve().addPoint(getCurve(0).getPoint(i).getX(), value);
+					trendCurve.addPoint(burndownCurve.getPoint(i).getX(), value);
 				}
 			}
 
 			// SETUP X- AND Y-AXIS
-			getXAxis().setAxisLabel("<i>S p r i n t s</i>");
-			getXAxis().setTickCount(this.release.getSprints().size()); // todo customize?
+			rbdChart.getXAxis().setAxisLabel("<i>S p r i n t s</i>");
+			rbdChart.getXAxis().setTickCount((dayCount<21) ? dayCount : 20);
+			rbdChart.getXAxis().setTickLabelFormat("=(Date)dd.");
 
-			getYAxis().setAxisLabel("<i>P<br />B<br />I<br />s</i>");
-			getYAxis().setHasGridlines(true);
-			//		getYAxis().setTickLabelFormat("#");
-			getYAxis().setTickLength(25);
+			rbdChart.getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
+			rbdChart.getYAxis().setHasGridlines(true);
+			rbdChart.getYAxis().setTickLabelFormat("#");
+			rbdChart.getYAxis().setTickLength(25);
+			rbdChart.getYAxis().setAxisMin(0);
 		}
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
-		this.update();
+		rbdChart.update();
+
+		return rbdChart;
 	}
 
 	/**
-	 * This is used to initialize the chart with data.
-	 * @param chartData a list of ReleaseChartData. RCD is a container format for chart data.
+	 * This is to populate the chart with release-data.
 	 */
-	private void addBurndownData(ArrayList<ReleaseChartData> chartData) {
-		for (ReleaseChartData data : chartData) {
-			this.getCurve(0).addPoint(data.getNumber(), data.getValue());
+	private void populateChart() {
+		Iterator<Date> i = data.getData().keySet().iterator();
+		while (i.hasNext()) {
+			Date current = i.next();
+			burndownCurve.addPoint(current.getTime(), data.getData().get(current).getValue());
+			burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(data.getData().get(current).getValue() + " ausstehende Aufwände nach " + data.getData().get(current).getSprints().toString())); // TODO stylize and extract constants
+			burndownCurve.getPoint().setAnnotationVisible(false);
 		}
 	}
 
-	/**
-	 * This is to generate realistic demonstration data.
-	 * @return a list of ReleaseChartData. RCD is a container format for chart data.
-	 */
-	private ArrayList<ReleaseChartData> generateDemoData() {
-		ArrayList<ReleaseChartData> resultList = new ArrayList<ReleaseChartData>();
-		Vector<ISprint> sprints = this.release.getSprints();
-
-		int pbiCount = (int) (Math.random() * 5 + 3);
-
-		for (int i = 0; i < sprints.size(); i++) {
-			int ideal = pbiCount / sprints.size() * (sprints.size() - i);
-			double deviation = Math.random() * 0.3 + 0.85;
-			resultList.add(new ReleaseChartData(i, sprints.get(i), (int) (ideal * deviation)));
+	class ReleaseChartHoverWidget extends Label implements HoverUpdateable {
+		@Override
+		public void hoverCleanup(Point hoveredAwayFrom) {
+			hoveredAwayFrom.setAnnotationVisible(false);
 		}
-		return resultList;
+
+		@Override
+		public void hoverUpdate(Point hoveredOver) {
+			hoveredOver.setAnnotationVisible(true);
+		}
 	}
 }

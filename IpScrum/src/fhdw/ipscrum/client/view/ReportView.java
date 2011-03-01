@@ -12,7 +12,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.IView;
-import fhdw.ipscrum.client.view.widgets.ReleaseBurndownChart;
+import fhdw.ipscrum.client.view.widgets.RegularReleaseBurndownChart;
 import fhdw.ipscrum.client.view.widgets.SprintBurndownChart;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -72,7 +72,7 @@ public class ReportView extends Composite implements IView {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				ReportView.this.contentPanel.clear();
-				ReportView.this.contentPanel.setWidget(new ReleaseBurndownChart(releaseSelectionModel.getSelectedObject()));
+				ReportView.this.contentPanel.setWidget(new RegularReleaseBurndownChart(releaseSelectionModel.getSelectedObject()));
 			}
 		});
 

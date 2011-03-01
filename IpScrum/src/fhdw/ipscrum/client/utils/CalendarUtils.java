@@ -29,7 +29,7 @@ public class CalendarUtils extends CalendarUtil {
 	 */
 	public static Date getRandomSprintEnddate(Date beginDate) {
 		Date endDate = copyDate(beginDate);
-		CalendarUtil.addDaysToDate(endDate, (int) (Math.random() * 21 + 5));
+		addDaysToDate(endDate, (int) (Math.random() * 21 + 5));
 		return endDate;
 	}
 
@@ -47,5 +47,16 @@ public class CalendarUtils extends CalendarUtil {
 			addDaysToDate(tempDate, 1);
 		}
 		return result;
+	}
+
+	/**
+	 * Generates a random releasedate.
+	 * The return value will be between 30 and 60 days frm today.
+	 * @return random date (30-60 days in the future)
+	 */
+	public static Date getRandomReleaseDate() {
+		Date temp = new Date();
+		addDaysToDate(temp, (int) (Math.random() * 30 + 30));
+		return temp;
 	}
 }

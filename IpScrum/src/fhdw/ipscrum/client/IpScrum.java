@@ -117,11 +117,11 @@ public class IpScrum implements EntryPoint {
 			final Project project3 = new Project("IP-Scrum");
 
 			// Initial Releases
-			final Release release1 = new Release("1.1", new Date(), project1);
-			final Release release2 = new Release("1.2", new Date(), project1);
-			final Release release3 = new Release("1.3", new Date(), project1);
-			final Release release4 = new Release("2.0", new Date(), project1);
-			final Release release5 = new Release("2.1", new Date(), project1);
+			final Release release1 = new Release("1.1", CalendarUtils.getRandomReleaseDate(), project1);
+			final Release release2 = new Release("1.2", CalendarUtils.getRandomReleaseDate(), project1);
+			final Release release3 = new Release("1.3", CalendarUtils.getRandomReleaseDate(), project1);
+			final Release release4 = new Release("2.0", CalendarUtils.getRandomReleaseDate(), project1);
+			final Release release5 = new Release("2.1", CalendarUtils.getRandomReleaseDate(), project1);
 			final Release release6 = new Release("Phase III", new Date(2011-1900,3-1,9), project3);
 
 			// Initial Sprints
