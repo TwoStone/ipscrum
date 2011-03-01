@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.StackPanel;
@@ -33,7 +34,12 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	//####### Events ###############
 	private final Event<SprintArgs> selectSprint = new Event<SprintArgs>();
 	private final Event<PBIArgs> newTaskEvent = new Event<PBIArgs>();
+	private final Event<TaskArgs> deleteTaskEvent = new Event<TaskArgs>();
 	private final Event<TaskArgs> editTaskEvent = new Event<TaskArgs>();
+	private final Event<PBIArgs> prioTopEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> prioUpEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> prioDownEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> prioBottomEvent = new Event<PBIArgs>();
 	//##### Ende ##################
 	
 	private SingleSelectionModel<ISprint> sprintSelectionModel;
@@ -46,10 +52,17 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	private Button btnEditTodoTask;
 	private CellList<Task> DoneCellList;
 	private CellList<Task> inProgresscellList;
+	private Button btnDeleteTodoTask;
+	private Image imgPrioUp;
+	private Image imgPrioDown;
+	private Button btnDeleteInProgressTask;
+	private Image imgPrioBottom;
+	private Image imgPrioTop;
+	private Button btnDeleteDoneTask;
 	
 	public TaskboardView() {
 		
-		this.initSelectionModel();
+		this.initTreeSelectionModel();
 		
 		contentPanel = new HorizontalPanel();
 		initWidget(contentPanel);
@@ -80,23 +93,24 @@ public class TaskboardView extends Composite implements ITaskboardView {
 			}
 		});
 		pbiCellList.setStyleName("tableBorder");
-		concreteTaskboardPanel.add(pbiCellList, 70, 50);
-		pbiCellList.setSize("150px", "500px");
+		concreteTaskboardPanel.add(pbiCellList, 25, 50);
+		pbiCellList.setSize("150px", "400px");
 		pbiCellList.setSelectionModel(new SingleSelectionModel<ProductBacklogItem>());
 		
 		Label lblAnforderung = new Label("Anforderungen");
 		lblAnforderung.setStyleName("bold");
-		concreteTaskboardPanel.add(lblAnforderung, 70, 28);
+		concreteTaskboardPanel.add(lblAnforderung, 25, 28);
 		
 		todoCellList = new CellList<Task>(new AbstractCell<Task>(){
 			@Override
 			public void render(Context context, Task value, SafeHtmlBuilder sb) {
-				// TODO
+			sb.appendEscaped(value.getName());
 			}
 		});
 		todoCellList.setStyleName("tableBorder");
 		concreteTaskboardPanel.add(todoCellList, 291, 50);
-		todoCellList.setSize("150px", "500px");
+		todoCellList.setSize("150px", "400px");
+		todoCellList.setSelectionModel(new SingleSelectionModel<Task>());
 		
 		Label lblZuErledigen = new Label("Zu erledigen");
 		lblZuErledigen.setStyleName("bold");
@@ -105,22 +119,24 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		inProgresscellList = new CellList<Task>(new AbstractCell<Task>(){
 			@Override
 			public void render(Context context, Task value, SafeHtmlBuilder sb) {
-				// TODO
+				sb.appendEscaped(value.getName());
 			}
 		});
 		inProgresscellList.setStyleName("tableBorder");
 		concreteTaskboardPanel.add(inProgresscellList, 447, 50);
-		inProgresscellList.setSize("150px", "500px");
+		inProgresscellList.setSize("150px", "400px");
+		inProgresscellList.setSelectionModel(new SingleSelectionModel<Task>());
 		
 		DoneCellList = new CellList<Task>(new AbstractCell<Task>(){
 			@Override
 			public void render(Context context, Task value, SafeHtmlBuilder sb) {
-				// TODO
-			}
+				sb.appendEscaped(value.getName());
+				}
 		});
 		DoneCellList.setStyleName("tableBorder");
 		concreteTaskboardPanel.add(DoneCellList, 603, 50);
-		DoneCellList.setSize("150px", "500px");
+		DoneCellList.setSize("150px", "400px");
+		DoneCellList.setSelectionModel(new SingleSelectionModel<Task>());
 		
 		Label lblInArbeit = new Label("In Arbeit");
 		lblInArbeit.setStyleName("bold");
@@ -132,7 +148,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		
 		btnNewTask = new Button("New button");
 		btnNewTask.setText("Neuer Task");
-		concreteTaskboardPanel.add(btnNewTask, 70, 562);
+		concreteTaskboardPanel.add(btnNewTask, 25, 464);
 		btnNewTask.setSize("150px", "28px");
 		btnNewTask.addClickHandler(new ClickHandler() {
 			
@@ -144,21 +160,121 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		
 		btnEditTodoTask = new Button("Task bearbeiten");
 		btnEditTodoTask.setText("Task bearbeiten");
-		concreteTaskboardPanel.add(btnEditTodoTask, 291, 562);
+		concreteTaskboardPanel.add(btnEditTodoTask, 291, 464);
 		btnEditTodoTask.setSize("150px", "28px");
+		btnEditTodoTask.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				editTaskEvent.fire(TaskboardView.this, new TaskArgs(getSelectedTodoTask()));
+			}
+		});
 		
 		btnEditInProgressTask = new Button("Task bearbeiten");
 		btnEditInProgressTask.setText("Task bearbeiten");
-		concreteTaskboardPanel.add(btnEditInProgressTask, 447, 562);
+		concreteTaskboardPanel.add(btnEditInProgressTask, 447, 464);
 		btnEditInProgressTask.setSize("150px", "28px");
+		btnEditInProgressTask.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				editTaskEvent.fire(TaskboardView.this, new TaskArgs(getSelectedInProgressTask()));
+			}
+		});
 		
 		btnEditDoneTask = new Button("Task bearbeiten");
 		btnEditDoneTask.setText("Task bearbeiten");
-		concreteTaskboardPanel.add(btnEditDoneTask, 603, 562);
+		concreteTaskboardPanel.add(btnEditDoneTask, 603, 464);
 		btnEditDoneTask.setSize("150px", "28px");
+		btnEditDoneTask.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+			editTaskEvent.fire(TaskboardView.this, new TaskArgs(getSelectedDoneTask()));	
+			}
+		});
+		
+		btnDeleteTodoTask = new Button("Task löschen");
+		concreteTaskboardPanel.add(btnDeleteTodoTask, 291, 498);
+		btnDeleteTodoTask.setSize("150px", "28px");
+		btnDeleteTodoTask.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+			deleteTaskEvent.fire(TaskboardView.this, new TaskArgs(getSelectedTodoTask()));	
+			}
+		});
+		
+		btnDeleteInProgressTask = new Button("Task löschen");
+		concreteTaskboardPanel.add(btnDeleteInProgressTask, 447, 498);
+		btnDeleteInProgressTask.setSize("150px", "28px");
+		btnDeleteInProgressTask.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				deleteTaskEvent.fire(TaskboardView.this, new TaskArgs(getSelectedInProgressTask()));
+						}
+		});
+		
+		btnDeleteDoneTask = new Button("Task löschen");
+		concreteTaskboardPanel.add(btnDeleteDoneTask, 603, 498);
+		btnDeleteDoneTask.setSize("150px", "28px");
+		btnDeleteDoneTask.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+			deleteTaskEvent.fire(TaskboardView.this, new TaskArgs(getSelectedDoneTask()));	
+			}
+		});
+		
+		imgPrioTop = new Image("images/.svn/text-base/toparrow.png.svn-base");
+		concreteTaskboardPanel.add(imgPrioTop, 189, 50);
+		imgPrioTop.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				prioTopEvent.fire(TaskboardView.this, new PBIArgs(getSelectedPBI()));
+			}
+		});
+		
+		
+		imgPrioUp = new Image("images/.svn/text-base/uparrow.png.svn-base");
+		concreteTaskboardPanel.add(imgPrioUp, 189, 81);
+		imgPrioUp.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				prioUpEvent.fire(TaskboardView.this, new PBIArgs(getSelectedPBI()));
+			}
+		});
+		
+		imgPrioDown = new Image("images/.svn/text-base/downarrow.png.svn-base");
+		concreteTaskboardPanel.add(imgPrioDown, 189, 112);
+		imgPrioDown.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				prioDownEvent.fire(TaskboardView.this, new PBIArgs(getSelectedPBI()));
+			}
+		});
+		
+		imgPrioBottom = new Image("images/.svn/text-base/bottomarrow.png.svn-base");
+		concreteTaskboardPanel.add(imgPrioBottom, 189, 143);
+		imgPrioBottom.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				prioBottomEvent.fire(TaskboardView.this, new PBIArgs(getSelectedPBI()));
+			}
+		});
+		
+		
+		Label lblPrio = new Label("Priorität");
+		lblPrio.setStyleName("bold");
+		concreteTaskboardPanel.add(lblPrio, 190, 28);
 	}
 	
-	private void initSelectionModel() {
+	private void initTreeSelectionModel() {
 		this.sprintSelectionModel = new SingleSelectionModel<ISprint>();
 		this.sprintSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
@@ -167,6 +283,8 @@ public class TaskboardView extends Composite implements ITaskboardView {
 			}
 		});
 	}
+	
+	// Methods for registrate EventHandler
 	
 	@Override
 	public void addSelectSprintHandler(EventHandler<SprintArgs> arg) {
@@ -178,30 +296,39 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		newTaskEvent.add(arg);
 	}
 	
-	public Button getBtnEditInProgressTask() {
-		return btnEditInProgressTask;
+	@Override
+	public void addDeleteTaskEventHandler(EventHandler<TaskArgs> arg) {
+		deleteTaskEvent.add(arg);
 	}
-	public CellList<Task> getTodoCellList() {
-		return todoCellList;
+	
+	@Override
+	public void addEditTaskEventHandler(EventHandler<TaskArgs> arg) {
+		editTaskEvent.add(arg);
 	}
-	public CellList<ProductBacklogItem> getPbiCellList() {
-		return pbiCellList;
+	
+	@Override
+	public void addPrioTopEventHandler(EventHandler<PBIArgs> arg) {
+		prioTopEvent.add(arg);
 	}
-	public Button getBtnNewTask() {
-		return btnNewTask;
+	
+	@Override
+	public void addPrioUpEventHandler(EventHandler<PBIArgs> arg) {
+		prioUpEvent.add(arg);
 	}
-	public Button getBtnEditDoneTask() {
-		return btnEditDoneTask;
+	
+	@Override
+	public void addPrioDownEventHandler(EventHandler<PBIArgs> arg) {
+		prioDownEvent.add(arg);
 	}
-	public Button getBtnEditTodoTask() {
-		return btnEditTodoTask;
+	
+	@Override
+	public void addPrioBottomEventHandler(EventHandler<PBIArgs> arg) {
+		prioBottomEvent.add(arg);
 	}
-	public CellList<Task> getDoneCellList() {
-		return DoneCellList;
-	}
-	public CellList<Task> getInProgresscellList() {
-		return inProgresscellList;
-	}
+
+	
+	
+	// Methods for refreshin / filling the cell-Lists 
 	
 	@Override
 	public void refreshPBIs(Vector<ProductBacklogItem> pbis){
@@ -209,9 +336,96 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	}
 	
 	@Override
+	public void refreshTodoTasks(Vector<Task> tasks){
+		this.getTodoCellList().setRowData(tasks);
+	}
+	
+	@Override
+	public void refreshInProgressTasks(Vector<Task> tasks){
+		this.getInProgresscellList().setRowData(tasks);
+	}
+	
+	@Override
+	public void refreshDoneTasks(Vector<Task> tasks){
+		this.getDoneCellList().setRowData(tasks);
+	}
+	
+	// Setter / Getter Methods
+	// Private because only needed inside of the TaskboardView
+	
+	// Getter for selected Objects
+	@Override
 	public ProductBacklogItem getSelectedPBI() {
 		SingleSelectionModel<ProductBacklogItem> selPBIModel = (SingleSelectionModel<ProductBacklogItem>) this.pbiCellList.getSelectionModel();
 		ProductBacklogItem selectedPBI= (ProductBacklogItem) selPBIModel.getSelectedObject();
 		return selectedPBI;
+	}
+
+	@Override
+	public Task getSelectedTodoTask() {
+		SingleSelectionModel<Task> selTaskModel = (SingleSelectionModel<Task>) this.todoCellList.getSelectionModel();
+		Task selectedTask= (Task) selTaskModel.getSelectedObject();
+		return selectedTask;
+	}
+	
+	@Override
+	public Task getSelectedInProgressTask() {
+		SingleSelectionModel<Task> selTaskModel = (SingleSelectionModel<Task>) this.inProgresscellList.getSelectionModel();
+		Task selectedTask= (Task) selTaskModel.getSelectedObject();
+		return selectedTask;
+	}
+	
+	@Override
+	public Task getSelectedDoneTask() {
+		SingleSelectionModel<Task> selTaskModel = (SingleSelectionModel<Task>) this.DoneCellList.getSelectionModel();
+		Task selectedTask= (Task) selTaskModel.getSelectedObject();
+		return selectedTask;
+	}
+	
+	// Getter for the Widgets
+	private Button getBtnEditInProgressTask() {
+		return btnEditInProgressTask;
+	}
+	private CellList<Task> getTodoCellList() {
+		return todoCellList;
+	}
+	private CellList<ProductBacklogItem> getPbiCellList() {
+		return pbiCellList;
+	}
+	private Button getBtnNewTask() {
+		return btnNewTask;
+	}
+	private Button getBtnEditDoneTask() {
+		return btnEditDoneTask;
+	}
+	private Button getBtnEditTodoTask() {
+		return btnEditTodoTask;
+	}
+	private CellList<Task> getDoneCellList() {
+		return DoneCellList;
+	}
+	private CellList<Task> getInProgresscellList() {
+		return inProgresscellList;
+	}
+	private Button getBtnDeleteTodoTask() {
+		return btnDeleteTodoTask;
+	}
+	private Image getImgPrioUp() {
+		return imgPrioUp;
+	}
+	private Image getImgPrioDown() {
+		return imgPrioDown;
+	}
+	private Button getBtnDeleteInProgressTask() {
+		return btnDeleteInProgressTask;
+	}
+	private Image getImgPrioBottom() {
+		return imgPrioBottom;
+	}
+	private Image getImgPrioTop() {
+		return imgPrioTop;
+	}
+	private Button getBtnDeleteDoneTask() {
+		return btnDeleteDoneTask;
 	}
 }
