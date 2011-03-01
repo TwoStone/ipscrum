@@ -24,12 +24,14 @@ public class CalendarUtils extends CalendarUtil {
 	/**
 	 * Generates a random enddate to the given begindate.
 	 * The duration is set to a random value between 5 and 26.
-	 * @param sprintBeginDate a begindate
-	 * @return a random enddate (begindate+(5--26))
+	 * @param sprintBeginDate minimal date
+	 * @param releaseDate maximal date
+	 * @return a random enddate
 	 */
-	public static Date getRandomSprintEnddate(Date beginDate) {
-		Date endDate = copyDate(beginDate);
-		addDaysToDate(endDate, (int) (Math.random() * 21 + 5));
+	public static Date getRandomSprintEnddate(Date sprintBeginDate, Date releaseDate) {
+		Date endDate = copyDate(sprintBeginDate);
+		int dayCount = getDaysBetween(sprintBeginDate, releaseDate);
+		addDaysToDate(endDate, (int) (Math.random() * (dayCount-5) + 5));
 		return endDate;
 	}
 
@@ -51,7 +53,7 @@ public class CalendarUtils extends CalendarUtil {
 
 	/**
 	 * Generates a random releasedate.
-	 * The return value will be between 30 and 60 days frm today.
+	 * The return value will be between 30 and 60 days from today.
 	 * @return random date (30-60 days in the future)
 	 */
 	public static Date getRandomReleaseDate() {

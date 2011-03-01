@@ -60,7 +60,7 @@ public abstract class ReleaseBurndownChart extends Composite {
 			idealCurve.getSymbol().setBorderColor("black");
 			idealCurve.getSymbol().setBackgroundColor("yellow");
 
-			ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(data.getData().firstKey(), release.getReleaseDate()); // TODO is this correct?
+			ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(data.getFirstDate(), release.getReleaseDate());
 			int dayCount = daysInvolved.size();
 			double taskSum = burndownCurve.getPoint(0).getY(); // TODO maybe use actual sum of efforts later
 			for (int i = 0; i < dayCount; i++) {
@@ -108,17 +108,21 @@ public abstract class ReleaseBurndownChart extends Composite {
 				}
 			}
 
-			// SETUP X- AND Y-AXIS
-			rbdChart.getXAxis().setAxisLabel("<i>S p r i n t s</i>");
-			rbdChart.getXAxis().setTickCount((dayCount<21) ? dayCount : 20);
-			rbdChart.getXAxis().setTickLabelFormat("=(Date)dd.");
 
-			rbdChart.getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
-			rbdChart.getYAxis().setHasGridlines(true);
-			rbdChart.getYAxis().setTickLabelFormat("#");
-			rbdChart.getYAxis().setTickLength(25);
-			rbdChart.getYAxis().setAxisMin(0);
+			// set x-axis ticks
+			if (this.width > 400) {
+				rbdChart.getXAxis().setTickCount((dayCount<26) ? dayCount : 25);
+			}
 		}
+
+		rbdChart.getXAxis().setAxisLabel("<i>S p r i n t s</i>");
+		rbdChart.getXAxis().setTickLabelFormat("=(Date)dd.");
+
+		rbdChart.getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
+		rbdChart.getYAxis().setHasGridlines(true);
+		rbdChart.getYAxis().setTickLabelFormat("#");
+		rbdChart.getYAxis().setTickLength(25);
+		rbdChart.getYAxis().setAxisMin(0);
 
 		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		rbdChart.update();

@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.view.widgets.charts;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -68,5 +69,20 @@ public class ReleaseChartData {
 		void setValue(int value) {
 			this.value = value;
 		}
+	}
+
+
+	public Date getFirstDate() {
+		Date firstDate = this.release.getReleaseDate();
+		Iterator<ReleaseChartDataDetails> i = this.data.values().iterator();
+		while (i.hasNext()) {
+			ReleaseChartDataDetails current = i.next();
+			for (ISprint sprint : current.getSprints()) {
+				if (sprint.getBegin().before(firstDate)) {
+					firstDate = sprint.getBegin();
+				}
+			}
+		}
+		return firstDate;
 	}
 }
