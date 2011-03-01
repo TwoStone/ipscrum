@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import java.io.Serializable;
+
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
@@ -19,7 +21,7 @@ import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
  * the state. Authorization means here, that an operation may be executed or
  * not. Non-authorized calls will return a {@link ForbiddenStateException}
  */
-public interface IProductBacklogItemState {
+public interface IProductBacklogItemState extends Serializable {
 
 	public void accept(IPBIStateVisitor visitor);
 

@@ -17,9 +17,14 @@ import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
  * feature will result in a {@link ForbiddenStateException}, under the condition
  * that the Feature instance delegates the equal-named method to the state.
  */
-public class PBIClosedState implements IProductBacklogItemState {
+public abstract class PBIClosedState implements IProductBacklogItemState {
 
-	public PBIClosedState() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5398450398352004980L;
+
+	protected PBIClosedState() {
 	}
 
 	@Override

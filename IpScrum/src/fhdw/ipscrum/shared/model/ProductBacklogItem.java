@@ -15,7 +15,6 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -64,8 +63,6 @@ public abstract class ProductBacklogItem extends Observable implements
 
 	private String description;
 
-	private IProductBacklogItemState state;
-
 	/**
 	 * Default Constructor for GWT serialization.
 	 */
@@ -78,6 +75,8 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * @param description
 	 * @param backlog
 	 *            Backlog of the PBI.
+	 * @throws ForbiddenStateException
+	 * @throws ConsistencyException
 	 * @throws NoValidValueException
 	 *             If the name for the PBI is not valid. Valid names are not
 	 *             null and have not only whitespace characters.
@@ -86,7 +85,9 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             backlog
 	 */
 	public ProductBacklogItem(final String name, final String description,
-			final ProductBacklog backlog) throws UserException {
+			final ProductBacklog backlog) throws NoValidValueException,
+			DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
 		super();
 
 		this.relations = new ArrayList<Relation>();
@@ -97,11 +98,11 @@ public abstract class ProductBacklogItem extends Observable implements
 
 		this.description = description;
 		this.manDayCosts = 0;
-		this.state = new PBIOpenState(this);
+		this.initializeState();
 
 		this.setBacklog(backlog);
 		this.setName(name);
-		this.initialize();
+
 	}
 
 	/**
@@ -120,7 +121,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException, ForbiddenStateException {
-		this.state.addAcceptanceCriterion(acceptanceCriterion);
+		this.getState().addAcceptanceCriterion(acceptanceCriterion);
 	}
 
 	/**
@@ -134,7 +135,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
 			ForbiddenStateException {
-		this.state.addHint(hint);
+		this.getState().addHint(hint);
 	}
 
 	/**
@@ -147,7 +148,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException {
-		this.state.addRelation(relation);
+		this.getState().addRelation(relation);
 	}
 
 	/**
@@ -157,7 +158,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             will be thrown if the feature is already closed
 	 */
 	public void close() throws ForbiddenStateException {
-		this.state.close();
+		this.getState().close();
 	}
 
 	protected void doAddAcceptanceCriterion(
@@ -233,10 +234,7 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.notifyObservers();
 	}
 
-	protected void doClose() {
-		this.setState(new PBIClosedState());
-		this.notifyObservers();
-	}
+	protected abstract void doClose();
 
 	protected void doRemoveAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion) {
@@ -435,9 +433,7 @@ public abstract class ProductBacklogItem extends Observable implements
 		return this.sprintAssoc;
 	}
 
-	public IProductBacklogItemState getState() {
-		return this.state;
-	}
+	public abstract IProductBacklogItemState getState();
 
 	@Override
 	public int hashCode() {
@@ -508,7 +504,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *         subclasses to initialize before super call, for example
 	 *         initialize new attributes.
 	 */
-	protected abstract void initialize();
+	protected abstract void initializeState();
 
 	/**
 	 * removes an {@link AcceptanceCriterion} from this feature.
@@ -518,7 +514,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion)
 			throws ForbiddenStateException {
-		this.state.removeAcceptanceCriterion(criterion);
+		this.getState().removeAcceptanceCriterion(criterion);
 		this.notifyObservers();
 
 	}
@@ -530,7 +526,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             will be thrown if the state does not allow this action
 	 */
 	public void removeHint(final Hint hint) throws ForbiddenStateException {
-		this.state.removeHint(hint);
+		this.getState().removeHint(hint);
 		this.notifyObservers();
 	}
 
@@ -542,7 +538,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void removeRelation(final Relation relation)
 			throws ForbiddenStateException {
-		this.state.removeRelation(relation);
+		this.getState().removeRelation(relation);
 		this.notifyObservers();
 	}
 
@@ -616,10 +612,6 @@ public abstract class ProductBacklogItem extends Observable implements
 			throws NoSprintDefinedException, ConsistencyException,
 			ForbiddenStateException {
 		this.getState().setSprint(sprint);
-	}
-
-	protected void setState(final IProductBacklogItemState state) {
-		this.state = state;
 	}
 
 	@Override

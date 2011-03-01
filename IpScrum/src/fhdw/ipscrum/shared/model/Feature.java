@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -12,6 +13,7 @@ import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 public class Feature extends ProductBacklogItem {
 
 	private static final long serialVersionUID = 5167167800573928995L;
+	private IProductBacklogItemState state;
 
 	@SuppressWarnings("unused")
 	private Feature() {
@@ -28,8 +30,19 @@ public class Feature extends ProductBacklogItem {
 	}
 
 	@Override
-	protected void initialize() {
+	protected void doClose() {
+		this.state = new FeatureClosedState();
+		this.notifyObservers();
+	}
 
+	@Override
+	public IProductBacklogItemState getState() {
+		return this.state;
+	}
+
+	@Override
+	protected void initializeState() {
+		this.state = new FeatureOpenState(this);
 	}
 
 }

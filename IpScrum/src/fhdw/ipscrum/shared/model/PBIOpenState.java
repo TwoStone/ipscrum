@@ -8,49 +8,47 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
 /**
  * An instance of Open represents a state of a {@link ProductBacklogItem}, which
  * is in process and may be changed due to the actions executed by the process.
  */
-public class PBIOpenState implements IProductBacklogItemState {
-	private final ProductBacklogItem myPBI;
+public abstract class PBIOpenState implements IProductBacklogItemState {
 
-	public PBIOpenState(final ProductBacklogItem myFeature) {
-		this.myPBI = myFeature;
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1758899732152472013L;
 
-	@Override
-	public void accept(final IPBIStateVisitor visitor) {
-		visitor.handleOpen(this);
+	protected PBIOpenState() {
+
 	}
 
 	@Override
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
 			throws DoubleDefinitionException, ForbiddenStateException {
-		this.myPBI.doAddAcceptanceCriterion(acceptanceCriterion);
+		this.getOwner().doAddAcceptanceCriterion(acceptanceCriterion);
 
 	}
 
 	@Override
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
 			ForbiddenStateException {
-		this.myPBI.doAddHint(hint);
+		this.getOwner().doAddHint(hint);
 
 	}
 
 	@Override
 	public void addRelation(final Relation relation)
 			throws DoubleDefinitionException, ForbiddenStateException {
-		this.myPBI.doAddRelation(relation);
+		this.getOwner().doAddRelation(relation);
 
 	}
 
 	@Override
 	public void close() throws ForbiddenStateException {
-		this.myPBI.doClose();
+		this.getOwner().doClose();
 
 	}
 
@@ -66,26 +64,24 @@ public class PBIOpenState implements IProductBacklogItemState {
 			return false;
 		}
 		final PBIOpenState other = (PBIOpenState) obj;
-		if (this.myPBI == null) {
-			if (other.myPBI != null) {
+		if (this.getOwner() == null) {
+			if (other.getOwner() != null) {
 				return false;
 			}
-		} else if (!this.myPBI.equals(other.myPBI)) {
+		} else if (!this.getOwner().equals(other.getOwner())) {
 			return false;
 		}
 		return true;
 	}
 
-	private ProductBacklogItem getPBI() {
-		return this.myPBI;
-	}
+	protected abstract ProductBacklogItem getOwner();
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((this.myPBI == null) ? 0 : this.myPBI.hashCode());
+				+ ((this.getOwner() == null) ? 0 : this.getOwner().hashCode());
 		return result;
 	}
 
@@ -93,49 +89,49 @@ public class PBIOpenState implements IProductBacklogItemState {
 	public void removeAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
 			throws ForbiddenStateException {
-		this.getPBI().doRemoveAcceptanceCriterion(acceptanceCriterion);
+		this.getOwner().doRemoveAcceptanceCriterion(acceptanceCriterion);
 
 	}
 
 	@Override
 	public void removeHint(final Hint hint) throws ForbiddenStateException {
-		this.getPBI().doRemoveHint(hint);
+		this.getOwner().doRemoveHint(hint);
 	}
 
 	@Override
 	public void removeRelation(final Relation relation)
 			throws ForbiddenStateException {
-		this.getPBI().doRemoveRelation(relation);
+		this.getOwner().doRemoveRelation(relation);
 	}
 
 	@Override
 	public void setDescription(final String description) {
-		this.getPBI().doSetDescription(description);
+		this.getOwner().doSetDescription(description);
 	}
 
 	@Override
 	public void setLastEditor(final IPerson lastEditor)
 			throws ForbiddenStateException {
-		this.getPBI().doSetLastEditor(lastEditor);
+		this.getOwner().doSetLastEditor(lastEditor);
 	}
 
 	@Override
 	public void setManDayCosts(final Integer manDayCosts)
 			throws ForbiddenStateException, NoValidValueException {
-		this.getPBI().doSetManDayCosts(manDayCosts);
+		this.getOwner().doSetManDayCosts(manDayCosts);
 	}
 
 	@Override
 	public void setName(final String name) throws ForbiddenStateException,
 			NoValidValueException, DoubleDefinitionException,
 			ConsistencyException {
-		this.getPBI().doSetName(name);
+		this.getOwner().doSetName(name);
 	}
 
 	@Override
 	public void setSprint(final ISprint sprint) throws ForbiddenStateException,
 			NoSprintDefinedException, ConsistencyException {
-		this.getPBI().doSetSprint(sprint);
+		this.getOwner().doSetSprint(sprint);
 	}
 
 }
