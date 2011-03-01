@@ -108,3 +108,9 @@ h1 {
 	padding:2px;
 	text-align:left;
 }
+.rotated {
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);
+	width: 160px;
+	padding-bottom:150px
+}

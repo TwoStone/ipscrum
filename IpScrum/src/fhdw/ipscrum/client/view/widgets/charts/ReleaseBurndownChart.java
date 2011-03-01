@@ -115,16 +115,17 @@ public abstract class ReleaseBurndownChart extends Composite {
 			}
 		}
 
-		rbdChart.getXAxis().setAxisLabel("<i>S p r i n t s</i>");
+		rbdChart.getXAxis().setAxisLabel("<i>E n d t e r m i n e&nbsp;&nbsp;&nbsp;d e r&nbsp;&nbsp;&nbsp;S p r i n t s</i>");
 		rbdChart.getXAxis().setTickLabelFormat("=(Date)dd.");
 
-		rbdChart.getYAxis().setAxisLabel("<i>A<br />u<br />f<br />w<br />a<br />e<br />n<br />d<br />e</i>");
+		rbdChart.getYAxis().setAxisLabel("<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>");
+		rbdChart.getYAxis().getAxisLabel().setStyleName("rotated");
+		rbdChart.getYAxis().setAxisLabelThickness(20);
 		rbdChart.getYAxis().setHasGridlines(true);
 		rbdChart.getYAxis().setTickLabelFormat("#");
 		rbdChart.getYAxis().setTickLength(25);
 		rbdChart.getYAxis().setAxisMin(0);
 
-		// UPDATE - THIS IS NECESSARY FOR SOME REASON
 		rbdChart.update();
 
 		return rbdChart;
