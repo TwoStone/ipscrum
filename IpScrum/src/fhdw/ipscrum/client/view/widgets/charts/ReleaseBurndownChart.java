@@ -139,7 +139,7 @@ public abstract class ReleaseBurndownChart extends Composite {
 		while (i.hasNext()) {
 			Date current = i.next();
 			burndownCurve.addPoint(current.getTime(), data.getData().get(current).getValue());
-			burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(data.getData().get(current).getValue() + " ausstehende Aufwände nach " + data.getData().get(current).getSprints().toString())); // TODO stylize and extract constants
+			burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(data.getData().get(current).getValue() + " ausstehende Aufwände<br />nach " + data.getData().get(current).getSprints().toString())); // TODO stylize and extract constants
 			burndownCurve.getPoint().setAnnotationVisible(false);
 		}
 	}
