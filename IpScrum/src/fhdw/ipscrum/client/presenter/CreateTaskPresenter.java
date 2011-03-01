@@ -11,17 +11,21 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 
 	private ProductBacklogItem pbi;
+	private ICreateTaskView concreteView;
 	
 	public CreateTaskPresenter(Panel parent, ProductBacklogItem pbi) {
 		super(parent);
-	this.pbi = pbi;
+		this.pbi = pbi;
+		initzialize();
+	}
+
+	private void initzialize() {
+		concreteView.refreshNameBox(pbi.getSprint().getTeam().getMembers());
 	}
 
 	@Override
 	protected ICreateTaskView createView() {
-		final ICreateTaskView concreteView = new CreateTaskView();
-		
-		concreteView.refreshNameBox(pbi.getSprint().getTeam().getMembers());
+		this.concreteView = new CreateTaskView();
 		
 		concreteView.addSaveNewTaskEventHandler(new EventHandler<EventArgs>() {
 			
@@ -32,8 +36,6 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 				
 			}
 		});
-		
-		this.finish();
 		
 		concreteView.addCancelNewTaskEventHandler(new EventHandler<EventArgs>() {
 

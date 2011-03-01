@@ -85,6 +85,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		pbiCellList.setSelectionModel(new SingleSelectionModel<ProductBacklogItem>());
 		
 		Label lblAnforderung = new Label("Anforderungen");
+		lblAnforderung.setStyleName("bold");
 		concreteTaskboardPanel.add(lblAnforderung, 70, 28);
 		
 		todoCellList = new CellList<Task>(new AbstractCell<Task>(){
@@ -98,6 +99,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		todoCellList.setSize("150px", "500px");
 		
 		Label lblZuErledigen = new Label("Zu erledigen");
+		lblZuErledigen.setStyleName("bold");
 		concreteTaskboardPanel.add(lblZuErledigen, 291, 28);
 		
 		inProgresscellList = new CellList<Task>(new AbstractCell<Task>(){
@@ -121,9 +123,11 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		DoneCellList.setSize("150px", "500px");
 		
 		Label lblInArbeit = new Label("In Arbeit");
+		lblInArbeit.setStyleName("bold");
 		concreteTaskboardPanel.add(lblInArbeit, 447, 28);
 		
 		Label lblErledigt = new Label("Erledigt");
+		lblErledigt.setStyleName("bold");
 		concreteTaskboardPanel.add(lblErledigt, 603, 28);
 		
 		btnNewTask = new Button("New button");

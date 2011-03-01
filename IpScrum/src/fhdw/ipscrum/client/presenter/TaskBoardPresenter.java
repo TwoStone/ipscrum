@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.presenter;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PBIArgs;
 import fhdw.ipscrum.client.events.args.SprintArgs;
@@ -42,11 +43,21 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			@Override
 			public void onUpdate(Object sender, PBIArgs eventArgs) {
 				
-				DialogBox diaBox = new DialogBox();
+				final DialogBox diaBox = new DialogBox();
 				diaBox.setAnimationEnabled(true);
-				diaBox.setTitle(TextConstants.CREATE_TASK);
+				diaBox.setText(TextConstants.CREATE_TASK);
 				
-				new CreateTaskPresenter(diaBox, eventArgs.getPbi());
+				CreateTaskPresenter tPresenter = new CreateTaskPresenter(diaBox, eventArgs.getPbi());
+		
+				diaBox.center();
+			
+				tPresenter.getAborted().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						diaBox.hide();
+					}
+				});
 			}
 		});
 	}

@@ -131,6 +131,7 @@ public final class TextConstants {
 
 	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
 	public static final String CREATE_TASK = "Neuen Task erstellen";
+	public static final String NO_PBI_SELECTED = "Keine Anforderung ausgewählt";
 	/* [END SECTION] */
 	
 }

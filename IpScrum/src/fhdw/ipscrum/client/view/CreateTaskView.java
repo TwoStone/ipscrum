@@ -2,6 +2,8 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Vector;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -42,6 +44,13 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		btnAbort = new Button("Abbrechen");
 		contentPanel.add(btnAbort, 221, 136);
 		btnAbort.setSize("100px", "28px");
+		btnAbort.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				CreateTaskView.this.cancelNewTaskEvent.fire(CreateTaskView.this, new EventArgs());
+			}
+		});
 		
 		Label lblTaskname = new Label("Task-Name:");
 		contentPanel.add(lblTaskname, 10, 40);
