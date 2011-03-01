@@ -9,6 +9,7 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
  * one or more Product Backlog Items. A Task has a state of Type ITaskState.
  */
 public interface ITask extends ITaskStateOperations {
+	public String getName();
 	public Integer getPlanEffort();
 	public Integer getActualEffort();
 }

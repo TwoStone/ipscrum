@@ -70,4 +70,9 @@ public class Task extends Observable implements ITask {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public final String getName() {
+		return this.name;
+	}
 }
