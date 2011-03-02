@@ -16,18 +16,18 @@ public class Task extends Observable implements ITask {
 	private String name;
 	private ITaskState state;
 	private ProductBacklogItem assignedPBI;
-		//TODO: klären, on one to one sinnvoll
+	
 	
 	public Task(String name, ProductBacklogItem pbi){
 		super();
 		this.name = name;
 		this.assignedPBI = pbi;
-		//TODO: Status setzen.
+		this.state = new TaskUnassigned(this);
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
+		this.state.setName(name);
 		
 	}
 	
@@ -37,31 +37,29 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void setPBI(ProductBacklogItem pbi) {
-		// TODO Auto-generated method stub
+		//TODO: setPBI
 		
 	}
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson) {
-		// TODO Auto-generated method stub
+		this.state.setResponsibility(responsiblePerson);
 		
 	}
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
+		// TODO finish
 		
 	}
 
 	@Override
 	public IPerson getResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.state.getResponsiblePerson();
 	}
 
 	@Override
 	public Integer getPlanEffort() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

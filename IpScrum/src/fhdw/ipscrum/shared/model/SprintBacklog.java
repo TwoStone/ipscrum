@@ -12,12 +12,26 @@ public class SprintBacklog{
 		super();
 		this.tasks = new ArrayList<ITask>();
 	}
+	/**
+	 * This method provides access to all tasks contained in the sprint backlog
+	 * by an iterator.
+	 * 
+	 * @return Iterator
+	 */
 	public Iterator<ITask> iterator(){
 		return this.tasks.iterator();
 	}
+	/**
+	 * Adds a task to the sprint backlog
+	 * @param task
+	 */
 	public void addTask(ITask task){
 		this.tasks.add(task);
 	}
+	/**
+	 * removes a task from the sprint backlog
+	 * @param task
+	 */
 	public void removeTask(ITask task){
 		this.tasks.remove(task);
 	}

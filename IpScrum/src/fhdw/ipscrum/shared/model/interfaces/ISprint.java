@@ -9,6 +9,7 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 
 /**
@@ -22,6 +23,12 @@ public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantE
 	 * @return String
 	 */
 	public String getDescription();
+	/**
+	 * Method getSprintBacklog.
+	 * 
+	 * @return SprintBacklog
+	 */
+	public SprintBacklog getSprintBacklog();
 
 	/**
 	 * Method setDescription.
