@@ -131,14 +131,14 @@ public final class TextConstants {
 	public static final String CHART_SPRINTSTACK_TITLE = "Sprintauswahl";
 	public static final String CHART_USAGETIP = "<h1>Bitte treffen Sie eine Auswahl.</h1>";
 	public static final String CHARTPOPUP_TITLE = "Burndown-Chart";
-	public static final String CHARTPOPUP_CLOSEBUTTON = "Schießen";
+	public static final String CHARTPOPUP_CLOSEBUTTON = "Schließen";
 	/* [END SECTION] */
 
 	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
 	public static final String CREATE_TASK = "Neuen Task erstellen";
 	public static final String NO_PBI_SELECTED = "Keine Anforderung ausgewählt";
 	public static final String NO_TASK_SELECTED = "Keine Task ausgewählt";
-	
+
 	/* [END SECTION] */
 
 }
