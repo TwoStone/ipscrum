@@ -30,10 +30,6 @@ public class Task extends Observable implements ITask {
 		this.state.setName(name);
 		
 	}
-	
-	protected void doSetName(String name){
-		this.name = name;
-	}
 
 	@Override
 	public void setPBI(ProductBacklogItem pbi) {
@@ -49,8 +45,7 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void finish() {
-		// TODO finish
-		
+		this.state.finish();		
 	}
 
 	@Override
@@ -73,4 +68,27 @@ public class Task extends Observable implements ITask {
 	public final String getName() {
 		return this.name;
 	}
+	
+	protected void setState(ITaskState state){
+		this.state=state;
+	}
+	
+	protected void doSetName(String name){
+		this.name = name;
+	}
+	/**
+	 * changes state to TaskAssigned and passes responsiblePerson
+	 * @param responsiblePerson
+	 */
+	protected void setTaskAssigned(IPerson responsiblePerson){
+		this.state = new TaskInProgress(this, responsiblePerson);
+	}
+	/**
+	 * changes state to TaskFinished and passes actual responsiblePerson
+	 */
+	protected void doSetTaskFinished(){
+		IPerson responsiblePerson = this.getResponsiblePerson();
+		this.setState(new TaskFinished(this, responsiblePerson));
+	}
+
 }

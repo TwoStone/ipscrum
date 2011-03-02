@@ -3,7 +3,7 @@ package fhdw.ipscrum.shared.model;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
-public class AbstractTaskState implements ITaskState {
+public abstract class AbstractTaskState implements ITaskState {
 	
 	private Task myTask; //Konkrete Referenz, da Zugriff auf protected-Methoden
 
@@ -23,11 +23,6 @@ public class AbstractTaskState implements ITaskState {
 
 	}
 
-	@Override
-	public void setResponsibility(IPerson responsiblePerson) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void finish() {

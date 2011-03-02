@@ -9,8 +9,13 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 
 	public TaskUnassigned(Task task) {
 		super(task);
-		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public void setResponsibility(IPerson responsiblePerson) {
+		this.getMyTask().setTaskAssigned(responsiblePerson);
+	}
+	
 	
 	
 }

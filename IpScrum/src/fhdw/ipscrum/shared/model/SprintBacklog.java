@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 
-public class SprintBacklog{
+public class SprintBacklog {
 	private List<ITask> tasks;
 	
 	public SprintBacklog(){
