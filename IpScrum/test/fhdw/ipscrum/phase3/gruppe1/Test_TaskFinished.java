@@ -11,10 +11,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import fhdw.ipscrum.shared.TaskClosed;
+;
 
 
-public class Test_Task {
+public class Test_TaskFinished {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

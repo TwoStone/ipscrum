@@ -11,10 +11,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import fhdw.ipscrum.shared.TaskUnassigned;
+import fhdw.ipscrum.shared.model.TaskUnassigned;
 
 
-public class Test_Task {
+public class Test_TaskUnassigned {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

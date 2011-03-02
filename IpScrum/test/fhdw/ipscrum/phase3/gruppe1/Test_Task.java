@@ -49,8 +49,8 @@ public class Test_Task extends junit.framework.TestCase{
 	 * Test on assigned a task to a Person
 	 */
 	public void testSetResponsibility() throws Exception{
-		t1.setResponsibilty(per1);
-		asserEquals(per1, t1.getResponsiblePerson());
+		t1.setResponsibility(per1);
+		assertEquals(per1, t1.getResponsiblePerson());
 	}
 	
 	@Test
@@ -59,29 +59,10 @@ public class Test_Task extends junit.framework.TestCase{
 	 * throws Exception
 	 */
 	public void testSetResponsibility1() throws Exception{
-		t1.setResponsibilty(per1);
-		asserEquals(per2, t1.getResponsiblePerson());
-	}
-	
-	@Test
-	/**
-	 * Change the assigned Person of a task
-	 */
-	
-	public void testchangeResponsibility() throws Exception{
-		t1.changeResponsibility(per2);
-		assertEquals(per2,t1.getResposibleperson);
+		t1.setResponsibility(per1);
+		assertEquals(per2, t1.getResponsiblePerson());
 	}
 
-	
-	@Test
-	/**
-	 * Change the name of a task
-	 */
-	public void testchangeName() throws Exception{
-		t1.changeName("Task 2");
-		assertEquals("Task 2", t1.getName());
-	}
 	
 //	@Test
 	/**
@@ -95,8 +76,8 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Closing of a task
 	 */
-	public void testclose() throws Exception{
-		t1.close();
+	public void testFinish() throws Exception{
+		t1.finish();
 		// TODO
 	}
 	
