@@ -18,7 +18,7 @@ public class SprintBacklog {
 	 * 
 	 * @return Iterator
 	 */
-	public Iterator<ITask> iterator(){
+	public Iterator<ITask> taskIterator(){
 		return this.tasks.iterator();
 	}
 	/**
@@ -26,6 +26,7 @@ public class SprintBacklog {
 	 * @param task
 	 */
 	public void addTask(ITask task){
+		//TODO: Dublettenprüfung?
 		this.tasks.add(task);
 	}
 	/**
@@ -35,24 +36,4 @@ public class SprintBacklog {
 	public void removeTask(ITask task){
 		this.tasks.remove(task);
 	}
-	
-	public Integer aggregatePlanEffort(){
-		Iterator<ITask> i = this.iterator();
-		Integer result = 0;
-		while (i.hasNext()){
-			ITask current = i.next();
-			result = result + current.getPlanEffort();
-		}
-		return result;
-	}
-	public Integer aggregateActualEffort(){
-		Iterator<ITask> i = this.iterator();
-		Integer result = 0;
-		while (i.hasNext()){
-			ITask current = i.next();
-			result = result + current.getActualEffort();
-		}
-		return result;
-	}
-
 }

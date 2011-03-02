@@ -16,16 +16,14 @@ public class Test_Task extends junit.framework.TestCase{
 	private static Task t1 = null;
 	
 	
-	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		test = new Project("Test");
 		pbltest = test.getBacklog();
-		
 		per1 = new Person("Max", "Mustermann");
 		per2 = new Person("Karin","Katze");
 		pbi = new Feature("T", "Test", pbltest);
-		t1 = new Task("Task 1", pbi);
+		t1 = new Task("Task 1", "Beschreibung");
 	
 		
 	}

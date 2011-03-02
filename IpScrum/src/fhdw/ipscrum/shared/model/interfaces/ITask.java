@@ -1,8 +1,5 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-import java.util.List;
-
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 /**
  * A Task represents an activity which realizes
@@ -10,6 +7,8 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
  */
 public interface ITask extends ITaskStateOperations {
 	public String getName();
+	public String getDescription();
 	public Integer getPlanEffort();
-	public Integer getActualEffort();
+	public ITaskState getState();
+
 }

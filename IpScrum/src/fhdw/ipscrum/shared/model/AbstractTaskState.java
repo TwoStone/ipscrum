@@ -1,6 +1,5 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
 public abstract class AbstractTaskState implements ITaskState {
@@ -15,25 +14,6 @@ public abstract class AbstractTaskState implements ITaskState {
 	@Override
 	public void setName(String name) {
 		this.getMyTask().doSetName(name);
-	}
-
-	@Override
-	public void setPBI(ProductBacklogItem pbi) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void finish() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public IPerson getResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
