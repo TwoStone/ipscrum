@@ -86,6 +86,7 @@ public abstract class Presenter<T extends IView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				Presenter.this.children.remove(presenter);
+
 			}
 
 		}
