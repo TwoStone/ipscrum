@@ -3,10 +3,17 @@
  */
 package fhdw.ipscrum.shared.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
-import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -24,6 +31,16 @@ public class Bug extends ProductBacklogItem {
 
 	private IBugState state;
 
+	private final Collection<ISystem> systems;
+
+	public Bug(final String name, final String description,
+			final ProductBacklog backlog) throws NoValidValueException,
+			DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
+		super(name, description, backlog);
+		this.systems = new ArrayList<ISystem>();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -32,8 +49,16 @@ public class Bug extends ProductBacklogItem {
 	 * .model.visitor.IProductBacklogItemVisitor)
 	 */
 	@Override
-	public void accept(final IProductBacklogItemVisitor visitor) { //
+	public void accept(final IProductBacklogItemVisitor visitor) {
 		visitor.handleBug(this);
+	}
+
+	public void addSystem(final ISystem system) throws ForbiddenStateException {
+		this.getState().addSystem(system);
+	}
+
+	public void doAddSystem(final ISystem system) {
+		this.systems.add(system);
 	}
 
 	@Override
@@ -41,7 +66,7 @@ public class Bug extends ProductBacklogItem {
 		this.state = new BugClosedState();
 	}
 
-	public void doSetRelease(IRelease release) {
+	public void doSetRelease(final IRelease release) {
 		this.release = release;
 	}
 
@@ -50,8 +75,12 @@ public class Bug extends ProductBacklogItem {
 	}
 
 	@Override
-	public IProductBacklogItemState getState() {
+	public IBugState getState() {
 		return this.state;
+	}
+
+	public Collection<ISystem> getSystems() {
+		return Collections.unmodifiableCollection(this.systems);
 	}
 
 	/*
@@ -64,7 +93,8 @@ public class Bug extends ProductBacklogItem {
 		this.state = new BugOpenState(this);
 	}
 
-	public void setRelease(IRelease release) throws ForbiddenStateException {
+	public void setRelease(final IRelease release)
+			throws ForbiddenStateException {
 		this.state.setRelease(release);
 	}
 

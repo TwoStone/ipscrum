@@ -4,6 +4,7 @@ import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 public class BugClosedState extends PBIClosedState implements IBugState {
 
@@ -17,7 +18,14 @@ public class BugClosedState extends PBIClosedState implements IBugState {
 	}
 
 	@Override
-	public void setRelease(IRelease release) throws ForbiddenStateException {
+	public void addSystem(final ISystem system) throws ForbiddenStateException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+
+	@Override
+	public void setRelease(final IRelease release)
+			throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
