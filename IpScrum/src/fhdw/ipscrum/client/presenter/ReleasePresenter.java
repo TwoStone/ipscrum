@@ -9,6 +9,8 @@ import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ReleaseView;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
+import fhdw.ipscrum.client.view.widgets.charts.ChartWrappingDialogBox;
+import fhdw.ipscrum.client.view.widgets.charts.CompactReleaseBurndownChart;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
@@ -131,6 +133,15 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 				}
 			}
 		});
+
+		view.addShowChartEventHandler(new EventHandler<ReleaseArgs>() {
+			@Override
+			public void onUpdate(Object sender, ReleaseArgs eventArgs) {
+				ChartWrappingDialogBox box = new ChartWrappingDialogBox(new CompactReleaseBurndownChart(eventArgs.getRelease(), 300, 200));
+				box.center();
+			}
+		});
+
 
 		return view;
 	}

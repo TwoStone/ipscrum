@@ -3,10 +3,10 @@ package fhdw.ipscrum.client.view.widgets.charts;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import fhdw.ipscrum.shared.constants.TextConstants;
 
@@ -20,10 +20,7 @@ public class ChartWrappingDialogBox extends DialogBox {
 	 * Constructor.
 	 * @param content the content to be wrapped.
 	 */
-	public ChartWrappingDialogBox(Widget content) {
-		setAnimationEnabled(true);
-		setGlassEnabled(true);
-		setHTML(TextConstants.CHARTPOPUP_TITLE);
+	public ChartWrappingDialogBox(Composite content) {
 
 		VerticalPanel verticalPanel = new VerticalPanel();
 		setWidget(verticalPanel);
@@ -40,6 +37,10 @@ public class ChartWrappingDialogBox extends DialogBox {
 		});
 		verticalPanel.add(btnClose);
 		verticalPanel.setCellHorizontalAlignment(btnClose, HasHorizontalAlignment.ALIGN_RIGHT);
+
+		setAnimationEnabled(true);
+		setGlassEnabled(true);
+		setHTML(TextConstants.CHARTPOPUP_TITLE);
 	}
 
 }

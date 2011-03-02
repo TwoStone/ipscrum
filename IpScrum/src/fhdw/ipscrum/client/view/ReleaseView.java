@@ -21,6 +21,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ReleaseArgs;
 import fhdw.ipscrum.client.view.interfaces.IReleaseView;
+import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
@@ -35,6 +36,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 	private final Event<EventArgs> newReleaseEvent = new Event<EventArgs>();
 	private final Event<ReleaseArgs> deleteSelectedReleaseEvent = new Event<ReleaseArgs>();
 	private final Event<ReleaseArgs> detailsSelectedReleaseEvent = new Event<ReleaseArgs>();
+	private final Event<ReleaseArgs> showChartEvent = new Event<ReleaseArgs>();
 	private final Event<ReleaseArgs> releaseSelectedEvent = new Event<ReleaseArgs>();
 	// ###### Ende Events ###########
 
@@ -43,6 +45,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 	private Image imgNewFile;
 	private Image imgDetails;
 	private Image imgDelete;
+	private Image imgChart;
 	private CellTable<IRelease> tableRelease;
 	private ScrollPanel scrollPanel;
 	private Label lblReleaseuebersicht;
@@ -100,6 +103,17 @@ public class ReleaseView extends Composite implements IReleaseView {
 		});
 		ReleaseMenuPanel.add(imgDelete);
 
+		imgChart = new Image(TextConstants_FilePaths.CHART_PATH);
+		imgChart.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				if (ReleaseView.this.currentlySelected != null) {
+					ReleaseView.this.showChartEvent.fire(ReleaseView.this, new ReleaseArgs(ReleaseView.this.currentlySelected));
+				}
+			}
+		});
+		ReleaseMenuPanel.add(imgChart);
+
 		scrollPanel = new ScrollPanel();
 		concreteReleasePanel.add(scrollPanel, 10, 72);
 		scrollPanel.setSize("375px", "215px");
@@ -109,7 +123,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 		tableRelease.setSelectionModel(new SingleSelectionModel<IRelease>());
 
 		tableRelease.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-			
+
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				@SuppressWarnings("unchecked")
@@ -117,7 +131,7 @@ public class ReleaseView extends Composite implements IReleaseView {
 				currentlySelected = (Release) model.getSelectedObject();
 			}
 		});
-		
+
 		TextColumn<IRelease> version = new TextColumn<IRelease>() {
 			@Override
 			public String getValue(IRelease release) {
@@ -129,8 +143,8 @@ public class ReleaseView extends Composite implements IReleaseView {
 		TextColumn<IRelease> date = new TextColumn<IRelease>() {
 			@Override
 			public String getValue(IRelease release) {
-				
-				DateTimeFormat fmt = DateTimeFormat.getFormat("EEEE, dd.MM.yyyy");	
+
+				DateTimeFormat fmt = DateTimeFormat.getFormat("EEEE, dd.MM.yyyy");
 				return fmt.format(release.getReleaseDate());
 			}
 		};
@@ -151,6 +165,11 @@ public class ReleaseView extends Composite implements IReleaseView {
 
 	}
 
+	@Override
+	public void addShowChartEventHandler(EventHandler<ReleaseArgs> arg) {
+		showChartEvent.add(arg);
+	}
+
 	private CellTable<IRelease> getTableRelease() {
 		return this.tableRelease;
 	}
@@ -169,5 +188,5 @@ public class ReleaseView extends Composite implements IReleaseView {
 	public void addReleaseSelectedEventHandler(EventHandler<ReleaseArgs> arg) {
 		releaseSelectedEvent.add(arg);
 	}
-	
+
 }
