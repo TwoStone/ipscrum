@@ -29,9 +29,9 @@ public class Event<T extends EventArgs> implements IEvent<T> {
 	 * )
 	 */
 	@Override
-	public EventRegistration<T> add(final EventHandler<T> handler) {
+	public EventRegistration add(final EventHandler<T> handler) {
 		this.handlers.add(handler);
-		return new EventRegistration<T>(this, handler);
+		return new EventRegistration(this, handler);
 	}
 
 	/**

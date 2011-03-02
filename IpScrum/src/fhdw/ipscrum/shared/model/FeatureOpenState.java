@@ -1,10 +1,9 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
+import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
-public class FeatureOpenState extends PBIOpenState implements
-		IProductBacklogItemState {
+public class FeatureOpenState extends PBIOpenState implements IFeatureState {
 
 	/**
 	 * 
@@ -16,13 +15,13 @@ public class FeatureOpenState extends PBIOpenState implements
 	private FeatureOpenState() {
 	}
 
-	public FeatureOpenState(Feature owner) {
+	public FeatureOpenState(final Feature owner) {
 		super();
 		this.owner = owner;
 	}
 
 	@Override
-	public void accept(IPBIStateVisitor visitor) {
+	public void accept(final IPBIStateVisitor visitor) {
 		visitor.handleOpen(this);
 	}
 

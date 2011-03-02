@@ -17,8 +17,9 @@ import fhdw.ipscrum.shared.model.Release;
 /**
  * @author Phase II / Gruppe I
  * 
- * Presenter for {@link AddSprintToReleaseView} where you can add Sprints to a Release
- *
+ *         Presenter for {@link AddSprintToReleaseView} where you can add
+ *         Sprints to a Release
+ * 
  */
 public class AddSprintToReleasePresenter extends
 		Presenter<IAddSprintToReleaseView> {
@@ -31,21 +32,14 @@ public class AddSprintToReleasePresenter extends
 	 * 
 	 * @param parent
 	 * @param release
+	 * @param parentPresenter
 	 */
-	public AddSprintToReleasePresenter(final Panel parent, final Release release) {
-		super(parent);
+	public AddSprintToReleasePresenter(final Panel parent,
+			final Release release, final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.release = release;
 		this.project = this.release.getProject();
 		this.initialize();
-	}
-
-	/**
-	 * Fills the cellTable of {@link AddSprintToReleaseView} with the existing sprints
-	 */
-	private void initialize() {
-		if (this.project.getSprints() != null) {
-			this.getView().refreshSprints(this.project.getSprints());
-		}
 	}
 
 	@Override
@@ -54,8 +48,8 @@ public class AddSprintToReleasePresenter extends
 		// New instance of AddSprintToReleaseView
 		final AddSprintToReleaseView view = new AddSprintToReleaseView();
 
-
-		// Add a handler for the event which cancels the add-sprint-to-release-dialog
+		// Add a handler for the event which cancels the
+		// add-sprint-to-release-dialog
 		// Creates an abort-dialog
 		view.addCancelAddSprintViewEventHandler(new EventHandler<EventArgs>() {
 
@@ -71,9 +65,9 @@ public class AddSprintToReleasePresenter extends
 			}
 		});
 
-
-		// Add a handler for the event which saves the selected sprint to 
-		// Displays an error if the selected sprint can not be added to the release
+		// Add a handler for the event which saves the selected sprint to
+		// Displays an error if the selected sprint can not be added to the
+		// release
 		view.addSaveSprintsEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
@@ -89,5 +83,15 @@ public class AddSprintToReleasePresenter extends
 		});
 
 		return view;
+	}
+
+	/**
+	 * Fills the cellTable of {@link AddSprintToReleaseView} with the existing
+	 * sprints
+	 */
+	private void initialize() {
+		if (this.project.getSprints() != null) {
+			this.getView().refreshSprints(this.project.getSprints());
+		}
 	}
 }

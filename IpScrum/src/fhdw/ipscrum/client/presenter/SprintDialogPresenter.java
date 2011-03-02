@@ -29,29 +29,33 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	/**
 	 * Constructor for SprintDialogPresenter.
 	 * 
-	 * Required for making new sprints
-	 * 
-	 * @param parent
-	 *            Panel
-	 */
-	public SprintDialogPresenter(Panel parent) {
-		this(parent, null);
-	}
-
-	/**
-	 * Constructor for SprintDialogPresenter.
-	 * 
 	 * Required for changing sprints
 	 * 
 	 * @param parent
 	 *            Panel
 	 * @param sprint
 	 *            ISprint
+	 * @param parentPresenter
 	 */
-	public SprintDialogPresenter(Panel parent, ISprint sprint) {
-		super(parent);
+	public SprintDialogPresenter(final Panel parent, final ISprint sprint,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.sprint = sprint;
 		this.initialize();
+	}
+
+	/**
+	 * Constructor for SprintDialogPresenter.
+	 * 
+	 * Required for making new sprints
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param parentPresenter
+	 */
+	public SprintDialogPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		this(parent, null, parentPresenter);
 	}
 
 	/**
@@ -70,32 +74,45 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 
 		this.concreteView.addCancelHandler(new EventHandler<EventArgs>() {
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				abort();
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				SprintDialogPresenter.this.abort();
 			}
 		});
 
 		this.concreteView.addOkHandler(new EventHandler<SprintDetailArgs>() {
 			@Override
-			public void onUpdate(Object sender, SprintDetailArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final SprintDetailArgs eventArgs) {
 				try {
 					if (SprintDialogPresenter.this.sprint == null) {
-						SprintDialogPresenter.this.sprint = new Sprint(eventArgs.getName(), eventArgs.getDescription(), eventArgs.getBeginDate(),
+						SprintDialogPresenter.this.sprint = new Sprint(
+								eventArgs.getName(),
+								eventArgs.getDescription(), eventArgs
+										.getBeginDate(),
 								eventArgs.getEndDate(), eventArgs.getTeam());
 					} else {
-						SprintDialogPresenter.this.sprint.setName(eventArgs.getName());
-						SprintDialogPresenter.this.sprint.setDescription(eventArgs.getDescription());
-						SprintDialogPresenter.this.sprint.setTimeFrame(eventArgs.getBeginDate(), eventArgs.getEndDate());
-						SprintDialogPresenter.this.sprint.setTeam(eventArgs.getTeam());
+						SprintDialogPresenter.this.sprint.setName(eventArgs
+								.getName());
+						SprintDialogPresenter.this.sprint
+								.setDescription(eventArgs.getDescription());
+						SprintDialogPresenter.this.sprint.setTimeFrame(
+								eventArgs.getBeginDate(),
+								eventArgs.getEndDate());
+						SprintDialogPresenter.this.sprint.setTeam(eventArgs
+								.getTeam());
 					}
-					finish();
-				} catch (NoValidValueException e) {
+					SprintDialogPresenter.this.finish();
+				} catch (final NoValidValueException e) {
 					Window.alert(e.getMessage());
 				}
 			}
 		});
 
 		return this.concreteView;
+	}
+
+	public ISprint getSprint() {
+		return this.sprint;
 	}
 
 	/**
@@ -105,7 +122,8 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 	 * also initializes the teams for the view.
 	 */
 	private void initialize() {
-		HashSet<ITeam> teamSet = SessionManager.getInstance().getModel().getTeams();
+		final HashSet<ITeam> teamSet = SessionManager.getInstance().getModel()
+				.getTeams();
 		if (teamSet != null) {
 			this.concreteView.fillComboBoxTeams(new ArrayList<ITeam>(teamSet));
 		}
@@ -118,9 +136,5 @@ public class SprintDialogPresenter extends Presenter<ISprintDialogView> {
 			this.concreteView.setEnd(this.sprint.getEnd());
 			this.concreteView.setSelectedTeam(this.sprint.getTeam());
 		}
-	}
-
-	public ISprint getSprint() {
-		return this.sprint;
 	}
 }

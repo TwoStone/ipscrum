@@ -26,31 +26,35 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 	/**
 	 * Constructor for TeamDialogPresenter.
 	 * 
-	 * Used for making new teams.
-	 * 
-	 * @param parent
-	 *            Panel
-	 * 
-	 */
-	public TeamDialogPresenter(Panel parent) {
-		this(parent, null);
-	}
-
-	/**
-	 * Constructor for TeamDialogPresenter.
-	 * 
 	 * Used for changing teams.
 	 * 
 	 * @param parent
 	 *            Panel
 	 * @param selectedTeam
 	 *            ITeam
+	 * @param parentPresenter
 	 * 
 	 */
-	public TeamDialogPresenter(Panel parent, ITeam selectedTeam) {
-		super(parent);
+	public TeamDialogPresenter(final Panel parent, final ITeam selectedTeam,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.team = selectedTeam;
-		initialize();
+		this.initialize();
+	}
+
+	/**
+	 * Constructor for TeamDialogPresenter.
+	 * 
+	 * Used for making new teams.
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param parentPresenter
+	 * 
+	 */
+	public TeamDialogPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		this(parent, null, parentPresenter);
 	}
 
 	/**
@@ -69,25 +73,28 @@ public class TeamDialogPresenter extends Presenter<ITeamDialogView> {
 
 		this.concreteView.addCancelEventHandler(new EventHandler<EventArgs>() {
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				abort();
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				TeamDialogPresenter.this.abort();
 			}
 		});
 
 		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
 			@Override
-			public void onUpdate(Object sender, OneStringArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final OneStringArgs eventArgs) {
 				try {
 					if (TeamDialogPresenter.this.team == null) {
-						SessionManager.getInstance().getModel().addTeam(new Team(eventArgs.getString()));
+						SessionManager.getInstance().getModel()
+								.addTeam(new Team(eventArgs.getString()));
 
 					} else {
-						TeamDialogPresenter.this.team.setDescription(eventArgs.getString());
+						TeamDialogPresenter.this.team.setDescription(eventArgs
+								.getString());
 					}
-					finish();
-				} catch (NoValidValueException e) {
+					TeamDialogPresenter.this.finish();
+				} catch (final NoValidValueException e) {
 					Window.alert(e.getMessage());
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					Window.alert(e.getMessage());
 				}
 

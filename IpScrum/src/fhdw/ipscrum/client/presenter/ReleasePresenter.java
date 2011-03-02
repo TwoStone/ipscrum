@@ -30,9 +30,11 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 	 * 
 	 * @param parent
 	 * @param project
+	 * @param parentPresenter
 	 */
-	public ReleasePresenter(final Panel parent, final Project project) {
-		super(parent);
+	public ReleasePresenter(final Panel parent, final Project project,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.project = project;
 		this.initialize();
 	}
@@ -49,7 +51,8 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				final DialogBox diaBox = new DialogBox();
 				final CreateReleasePresenter presenter = new CreateReleasePresenter(
-						diaBox, ReleasePresenter.this.project);
+						diaBox, ReleasePresenter.this.project,
+						ReleasePresenter.this);
 
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
@@ -106,7 +109,8 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 				if (eventArgs.getRelease() != null) {
 					final DialogBox diaBox = new DialogBox();
 					final ReleaseDetailPresenter presenter = new ReleaseDetailPresenter(
-							diaBox, eventArgs.getRelease());
+							diaBox, eventArgs.getRelease(),
+							ReleasePresenter.this);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 

@@ -14,8 +14,9 @@ import fhdw.ipscrum.shared.model.Release;
 
 /**
  * @author Phase II / Gruppe I
- *
- * Presenter for {@link ReleaseDetailView}, where you can see all sprints for a release
+ * 
+ *         Presenter for {@link ReleaseDetailView}, where you can see all
+ *         sprints for a release
  */
 public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 
@@ -26,22 +27,18 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 	 * 
 	 * @param parent
 	 * @param release
+	 * @param parentPresenter
 	 */
-	public ReleaseDetailPresenter(final Panel parent, final Release release) {
-		super(parent);
+	public ReleaseDetailPresenter(final Panel parent, final Release release,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.release = release;
 		this.initialize();
 	}
 
-	private void initialize() {
-		if (this.release.getSprints() != null) {
-			this.getView().refreshSprints(this.release.getSprints());
-		}
-	}
-
 	@Override
 	protected IReleaseDetailView createView() {
-		
+
 		// New instance of AddSprintToReleaseView
 		final IReleaseDetailView view = new ReleaseDetailView();
 
@@ -56,7 +53,8 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 			}
 		});
 
-		// Add a handler for the event which opens the add-sprint-to-release-dialog
+		// Add a handler for the event which opens the
+		// add-sprint-to-release-dialog
 		view.addAddSprintEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
@@ -65,7 +63,8 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 				final DialogBox diaBox = new DialogBox();
 
 				final AddSprintToReleasePresenter presenter = new AddSprintToReleasePresenter(
-						diaBox, ReleaseDetailPresenter.this.release);
+						diaBox, ReleaseDetailPresenter.this.release,
+						ReleaseDetailPresenter.this);
 
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
@@ -92,25 +91,31 @@ public class ReleaseDetailPresenter extends Presenter<IReleaseDetailView> {
 			}
 		});
 
-
-		// Add a handler for the event which removes a selected sprint from the release
+		// Add a handler for the event which removes a selected sprint from the
+		// release
 		// Displays an error if no sprint is selected
 		view.addDeleteSprintEventHandler(new EventHandler<SprintArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final SprintArgs eventArgs) {
 
-				if(eventArgs.getSprint() == null){
-				GwtUtils.displayError(TextConstants.NO_SPRINT_SELECTED);	
+				if (eventArgs.getSprint() == null) {
+					GwtUtils.displayError(TextConstants.NO_SPRINT_SELECTED);
 				} else {
-				ReleaseDetailPresenter.this.release.removeSprint(eventArgs
-						.getSprint());
-				ReleaseDetailPresenter.this.initialize();
+					ReleaseDetailPresenter.this.release.removeSprint(eventArgs
+							.getSprint());
+					ReleaseDetailPresenter.this.initialize();
 				}
 			}
 		});
 
 		return view;
+	}
+
+	private void initialize() {
+		if (this.release.getSprints() != null) {
+			this.getView().refreshSprints(this.release.getSprints());
+		}
 	}
 
 }

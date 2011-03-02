@@ -17,34 +17,28 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 
 	private ITaskboardView concreteView;
 
-	public TaskBoardPresenter(Panel parent) {
-		super(parent);
-	}
-
-	@Override
-	protected ITaskboardView createView() {
-		this.concreteView = new TaskboardView();
-
-		this.addHandler();
-
-		return this.concreteView;
+	public TaskBoardPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 	}
 
 	private void addHandler() {
 
-		concreteView.addSelectSprintHandler(new EventHandler<SprintArgs>() {
+		this.concreteView
+				.addSelectSprintHandler(new EventHandler<SprintArgs>() {
+
+					@Override
+					public void onUpdate(final Object sender,
+							final SprintArgs eventArgs) {
+						TaskBoardPresenter.this.concreteView
+								.refreshPBIs(eventArgs.getSprint().getPBIs());
+					}
+				});
+
+		this.concreteView.addNewTaskEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, SprintArgs eventArgs) {
-				TaskBoardPresenter.this.concreteView.refreshPBIs(eventArgs
-						.getSprint().getPBIs());
-			}
-		});
-
-		concreteView.addNewTaskEventHandler(new EventHandler<PBIArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 
 				if (eventArgs.getPbi() != null) {
 
@@ -52,15 +46,16 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 					diaBox.setAnimationEnabled(true);
 					diaBox.setText(TextConstants.CREATE_TASK);
 
-					CreateTaskPresenter tPresenter = new CreateTaskPresenter(
-							diaBox, eventArgs.getPbi());
+					final CreateTaskPresenter tPresenter = new CreateTaskPresenter(
+							diaBox, eventArgs.getPbi(), TaskBoardPresenter.this);
 
 					diaBox.center();
 
 					tPresenter.getAborted().add(new EventHandler<EventArgs>() {
 
 						@Override
-						public void onUpdate(Object sender, EventArgs eventArgs) {
+						public void onUpdate(final Object sender,
+								final EventArgs eventArgs) {
 							diaBox.hide();
 						}
 					});
@@ -70,10 +65,10 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			};
 		});
 
-		concreteView.addEditTaskEventHandler(new EventHandler<TaskArgs>() {
+		this.concreteView.addEditTaskEventHandler(new EventHandler<TaskArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, TaskArgs eventArgs) {
+			public void onUpdate(final Object sender, final TaskArgs eventArgs) {
 				if (eventArgs.getTask() != null) {
 
 					// TODO: new EditTaskPresenter
@@ -84,24 +79,26 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			}
 		});
 
-		concreteView.addDeleteTaskEventHandler(new EventHandler<TaskArgs>() {
+		this.concreteView
+				.addDeleteTaskEventHandler(new EventHandler<TaskArgs>() {
+
+					@Override
+					public void onUpdate(final Object sender,
+							final TaskArgs eventArgs) {
+
+						if (eventArgs.getTask() != null) {
+							// TODO: Delete TASk
+
+						} else {
+							GwtUtils.displayError(TextConstants.NO_TASK_SELECTED);
+						}
+					}
+				});
+
+		this.concreteView.addPrioTopEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, TaskArgs eventArgs) {
-
-				if (eventArgs.getTask() != null) {
-					// TODO: Delete TASk
-
-				} else {
-					GwtUtils.displayError(TextConstants.NO_TASK_SELECTED);
-				}
-			}
-		});
-
-		concreteView.addPrioTopEventHandler(new EventHandler<PBIArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 
 				if (eventArgs.getPbi() != null) {
 					// TODO: PBI nach ganz oben
@@ -112,10 +109,10 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			}
 		});
 
-		concreteView.addPrioUpEventHandler(new EventHandler<PBIArgs>() {
+		this.concreteView.addPrioUpEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 
 				if (eventArgs.getPbi() != null) {
 					// TODO: PBI nach oben
@@ -126,10 +123,10 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			}
 		});
 
-		concreteView.addPrioDownEventHandler(new EventHandler<PBIArgs>() {
+		this.concreteView.addPrioDownEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 
 				if (eventArgs.getPbi() != null) {
 					// TODO: PBI nach unten
@@ -140,17 +137,28 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			}
 		});
 
-		concreteView.addPrioBottomEventHandler(new EventHandler<PBIArgs>() {
+		this.concreteView
+				.addPrioBottomEventHandler(new EventHandler<PBIArgs>() {
 
-			@Override
-			public void onUpdate(Object sender, PBIArgs eventArgs) {
+					@Override
+					public void onUpdate(final Object sender,
+							final PBIArgs eventArgs) {
 
-				if (eventArgs.getPbi() != null) {
-					// TODO: PBI nach ganz unten
-				} else {
-					GwtUtils.displayError(TextConstants.NO_PBI_SELECTED);
-				}
-			}
-		});
+						if (eventArgs.getPbi() != null) {
+							// TODO: PBI nach ganz unten
+						} else {
+							GwtUtils.displayError(TextConstants.NO_PBI_SELECTED);
+						}
+					}
+				});
+	}
+
+	@Override
+	protected ITaskboardView createView() {
+		this.concreteView = new TaskboardView();
+
+		this.addHandler();
+
+		return this.concreteView;
 	}
 }

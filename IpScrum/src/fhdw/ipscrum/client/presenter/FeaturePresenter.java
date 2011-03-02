@@ -47,11 +47,13 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	 *            Panel
 	 * @param feature
 	 *            Feature
+	 * @param parentPresenter
 	 * @throws NoFeatureSelectedException
 	 */
-	public FeaturePresenter(final Panel parent, final Feature feature)
+	public FeaturePresenter(final Panel parent, final Feature feature,
+			final Presenter<?> parentPresenter)
 			throws NoFeatureSelectedException {
-		super(parent);
+		super(parent, parentPresenter);
 		if (feature == null) {
 			this.abort();
 			throw new NoFeatureSelectedException(
@@ -70,7 +72,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		final DialogBox box = GwtUtils.createDialog("Hinweis erstellen");
 
 		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(
-				box);
+				box, this);
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
@@ -102,7 +104,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 	private void createHint() {
 		final DialogBox box = GwtUtils.createDialog("Hinweis erstellen");
 
-		final HintPresenter presenter = new HintPresenter(box);
+		final HintPresenter presenter = new HintPresenter(box, this);
 
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
@@ -136,7 +138,7 @@ public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
 		final DialogBox box = GwtUtils.createDialog("Beziehung anlegen");
 		box.center();
 		final CreateRelationPresenter presenter = new CreateRelationPresenter(
-				box, this.getView().getName(), this.feature.getBacklog());
+				box, this.getView().getName(), this.feature.getBacklog(), this);
 
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 

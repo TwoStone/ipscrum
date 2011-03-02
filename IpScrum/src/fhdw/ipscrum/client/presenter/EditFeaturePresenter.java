@@ -13,8 +13,8 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
@@ -30,11 +30,13 @@ public class EditFeaturePresenter extends FeaturePresenter<IEditFeatureView> {
 	 *            Panel
 	 * @param feature
 	 *            Feature
+	 * @param parentPresenter
 	 * @throws NoFeatureSelectedException
 	 */
-	public EditFeaturePresenter(final Panel parent, final Feature feature)
+	public EditFeaturePresenter(final Panel parent, final Feature feature,
+			final Presenter<?> parentPresenter)
 			throws NoFeatureSelectedException {
-		super(parent, feature);
+		super(parent, feature, parentPresenter);
 	}
 
 	/**

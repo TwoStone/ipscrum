@@ -13,11 +13,14 @@ public class ReportPresenter extends Presenter<IReportView> {
 
 	private IReportView concreteView;
 
-	public ReportPresenter(Panel parent) {
-		super(parent);
+	public ReportPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.client.presenter.Presenter#createView()
 	 */
 	@Override

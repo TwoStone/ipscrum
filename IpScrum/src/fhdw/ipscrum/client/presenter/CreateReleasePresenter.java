@@ -28,9 +28,11 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 	 * 
 	 * @param parent
 	 * @param project
+	 * @param parentPresenter
 	 */
-	public CreateReleasePresenter(final Panel parent, final Project project) {
-		super(parent);
+	public CreateReleasePresenter(final Panel parent, final Project project,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.project = project;
 	}
 
@@ -40,7 +42,7 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 		final ICreateReleaseView view = new CreateReleaseView();
 
 		// Add a handler for the event which saves a new Release
-		//Creates an error if the release already exist
+		// Creates an error if the release already exist
 		view.addSaveVersionHandler(new EventHandler<EventArgs>() {
 
 			@Override

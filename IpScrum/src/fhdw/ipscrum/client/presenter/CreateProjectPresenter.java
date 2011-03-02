@@ -28,9 +28,11 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 	 * Creates a new instance of {@link CreateProjectPresenter}
 	 * 
 	 * @param parent
+	 * @param parentPresenter
 	 */
-	public CreateProjectPresenter(final Panel parent) {
-		super(parent);
+	public CreateProjectPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 	}
 
 	@Override
@@ -47,8 +49,8 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
 					try {
-						SessionManager.getInstance().getModel().addProject(
-								new Project(view.getProjectName()));
+						SessionManager.getInstance().getModel()
+								.addProject(new Project(view.getProjectName()));
 					} catch (final ConsistencyException e) {
 						GwtUtils.displayError(e.getMessage());
 					} catch (final DoubleDefinitionException e) {
@@ -62,7 +64,7 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 		});
 
 		// Add a handler for the event which cancels creating of a new project
-		//Creates an abort-dialog
+		// Creates an abort-dialog
 		view.addCancelCreateProjectHandler(new EventHandler<EventArgs>() {
 
 			@Override

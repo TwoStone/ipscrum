@@ -42,11 +42,13 @@ public class CreateFeaturePresenter extends
 	 * 
 	 * @param parent
 	 * @param backlog
+	 * @param parentPresenter
 	 * @throws NoFeatureSelectedException
 	 */
 	public CreateFeaturePresenter(final Panel parent,
-			final ProductBacklog backlog) throws NoFeatureSelectedException {
-		super(parent, createNewFeature(backlog));
+			final ProductBacklog backlog, final Presenter<?> parentPresenter)
+			throws NoFeatureSelectedException {
+		super(parent, createNewFeature(backlog), parentPresenter);
 	}
 
 	@Override

@@ -1,9 +1,8 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
+import fhdw.ipscrum.shared.model.interfaces.IFeatureState;
 
-public class FeatureClosedState extends PBIClosedState implements
-		IProductBacklogItemState {
+public class FeatureClosedState extends PBIClosedState implements IFeatureState {
 
 	/**
 	 * 

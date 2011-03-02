@@ -5,5 +5,5 @@ public interface IEvent<T extends EventArgs> {
 	/**
 	 * Adds the specific handler to the events handler list.
 	 */
-	public EventRegistration<T> add(EventHandler<T> handler);
+	public EventRegistration add(EventHandler<T> handler);
 }

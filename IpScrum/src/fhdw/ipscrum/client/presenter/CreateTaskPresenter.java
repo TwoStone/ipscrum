@@ -10,44 +10,48 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 
-	private ProductBacklogItem pbi;
+	private final ProductBacklogItem pbi;
 	private ICreateTaskView concreteView;
-	
-	public CreateTaskPresenter(Panel parent, ProductBacklogItem pbi) {
-		super(parent);
-		this.pbi = pbi;
-		initzialize();
-	}
 
-	private void initzialize() {
-		concreteView.refreshNameBox(pbi.getSprint().getTeam().getMembers());
+	public CreateTaskPresenter(final Panel parent,
+			final ProductBacklogItem pbi, final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
+		this.pbi = pbi;
+		this.initzialize();
 	}
 
 	@Override
 	protected ICreateTaskView createView() {
 		this.concreteView = new CreateTaskView();
-		
-		concreteView.addSaveNewTaskEventHandler(new EventHandler<EventArgs>() {
-			
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				
-				// TODO: TASK zum pbi hinzufügen
-				
-			}
-		});
-		
-		concreteView.addCancelNewTaskEventHandler(new EventHandler<EventArgs>() {
 
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				CreateTaskPresenter.this.abort();
-			}
-		});
-		
-		return concreteView;
+		this.concreteView
+				.addSaveNewTaskEventHandler(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+
+						// TODO: TASK zum pbi hinzufügen
+
+					}
+				});
+
+		this.concreteView
+				.addCancelNewTaskEventHandler(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						CreateTaskPresenter.this.abort();
+					}
+				});
+
+		return this.concreteView;
 	}
 
-	
-	
+	private void initzialize() {
+		this.concreteView.refreshNameBox(this.pbi.getSprint().getTeam()
+				.getMembers());
+	}
+
 }

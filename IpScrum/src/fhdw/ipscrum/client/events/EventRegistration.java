@@ -6,9 +6,10 @@ package fhdw.ipscrum.client.events;
  * 
  * @param <T>
  */
-public class EventRegistration<T extends EventArgs> {
-	private final Event<T> event;
-	private final EventHandler<T> handler;
+@SuppressWarnings({ "rawtypes", "unchecked" })
+public class EventRegistration {
+	private final Event event;
+	private final EventHandler handler;
 
 	/**
 	 * Creates a new instance of {@link EventRegistration}.
@@ -18,8 +19,8 @@ public class EventRegistration<T extends EventArgs> {
 	 * @param handler
 	 *            The handler that is registered.
 	 */
-	protected EventRegistration(final Event<T> event,
-			final EventHandler<T> handler) {
+
+	protected EventRegistration(final Event event, final EventHandler handler) {
 		super();
 		this.event = event;
 		this.handler = handler;

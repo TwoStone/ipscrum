@@ -32,9 +32,11 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	 * 
 	 * @param parent
 	 * @param project
+	 * @param parentPresenter
 	 */
-	public ProductBacklogPresenter(final Panel parent, final Project project) {
-		super(parent);
+	public ProductBacklogPresenter(final Panel parent, final Project project,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.project = project;
 		this.initialize();
 	}
@@ -56,7 +58,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				final CreateFeaturePresenter presenter;
 				try {
 					presenter = new CreateFeaturePresenter(newBox,
-							ProductBacklogPresenter.this.project.getBacklog());
+							ProductBacklogPresenter.this.project.getBacklog(),
+							ProductBacklogPresenter.this);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
@@ -106,7 +109,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				EditFeaturePresenter presenter;
 				try {
 					presenter = new EditFeaturePresenter(newBox,
-							(Feature) eventArgs.getPbi());
+							(Feature) eventArgs.getPbi(),
+							ProductBacklogPresenter.this);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 

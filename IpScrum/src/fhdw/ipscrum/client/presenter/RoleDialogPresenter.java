@@ -26,29 +26,33 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 	/**
 	 * Constructor for RoleDialogPresenter.
 	 * 
-	 * Required for making new roles.
-	 * 
-	 * @param parent
-	 *            Panel
-	 */
-	public RoleDialogPresenter(Panel parent) {
-		this(parent, null);
-	}
-
-	/**
-	 * Constructor for RoleDialogPresenter.
-	 * 
 	 * Required for changing roles.
 	 * 
 	 * @param parent
 	 *            Panel
 	 * @param selectedRole
 	 *            IRole
+	 * @param parentPresenter
 	 */
-	public RoleDialogPresenter(Panel parent, IRole selectedRole) {
-		super(parent);
+	public RoleDialogPresenter(final Panel parent, final IRole selectedRole,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.role = selectedRole;
-		initialize();
+		this.initialize();
+	}
+
+	/**
+	 * Constructor for RoleDialogPresenter.
+	 * 
+	 * Required for making new roles.
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param parentPresenter
+	 */
+	public RoleDialogPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		this(parent, null, parentPresenter);
 	}
 
 	/**
@@ -65,24 +69,27 @@ public class RoleDialogPresenter extends Presenter<IRoleDialogView> {
 
 		this.concreteView.addCancelEventHandler(new EventHandler<EventArgs>() {
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				abort();
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				RoleDialogPresenter.this.abort();
 			}
 		});
 
 		this.concreteView.addOkEventHandler(new EventHandler<OneStringArgs>() {
 			@Override
-			public void onUpdate(Object sender, OneStringArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final OneStringArgs eventArgs) {
 				try {
 					if (RoleDialogPresenter.this.role == null) {
-						SessionManager.getInstance().getModel().addRole(new Role(eventArgs.getString()));
+						SessionManager.getInstance().getModel()
+								.addRole(new Role(eventArgs.getString()));
 					} else {
-						RoleDialogPresenter.this.role.setDescription(eventArgs.getString());
+						RoleDialogPresenter.this.role.setDescription(eventArgs
+								.getString());
 					}
-					finish();
-				} catch (NoValidValueException e) {
+					RoleDialogPresenter.this.finish();
+				} catch (final NoValidValueException e) {
 					Window.alert(e.getMessage());
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					Window.alert(e.getMessage());
 				}
 			}

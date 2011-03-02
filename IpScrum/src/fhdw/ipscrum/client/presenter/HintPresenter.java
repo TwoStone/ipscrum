@@ -23,26 +23,29 @@ public class HintPresenter extends Presenter<ITextView> {
 
 	/**
 	 * Creates a new instance of {@link HintPresenter}. Use this constructor to
-	 * create a new {@link Hint} object.
-	 * 
-	 * @param parent
-	 */
-	public HintPresenter(final Panel parent) {
-		this(parent, new Hint(""));
-	}
-
-	/**
-	 * Creates a new instance of {@link HintPresenter}. Use this constructor to
 	 * display an existing {@link Hint} object.
 	 * 
 	 * @param parent
 	 * @param hint
+	 * @param parentPresenter
 	 */
-	public HintPresenter(final Panel parent, final Hint hint) {
-		super(parent);
+	public HintPresenter(final Panel parent, final Hint hint,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.hint = hint;
 		this.updateView(this.hint);
 		this.registerViewEvents();
+	}
+
+	/**
+	 * Creates a new instance of {@link HintPresenter}. Use this constructor to
+	 * create a new {@link Hint} object.
+	 * 
+	 * @param parent
+	 * @param parentPresenter
+	 */
+	public HintPresenter(final Panel parent, final Presenter<?> parentPresenter) {
+		this(parent, new Hint(""), parentPresenter);
 	}
 
 	@Override

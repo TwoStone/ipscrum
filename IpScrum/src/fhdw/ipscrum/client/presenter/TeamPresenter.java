@@ -29,9 +29,10 @@ public class TeamPresenter extends Presenter<ITeamView> {
 	 * 
 	 * @param parent
 	 *            Panel
+	 * @param parentPresenter
 	 */
-	public TeamPresenter(Panel parent) {
-		super(parent);
+	public TeamPresenter(final Panel parent, final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 	}
 
 	/**
@@ -48,19 +49,6 @@ public class TeamPresenter extends Presenter<ITeamView> {
 	}
 
 	/**
-	 * this is called to update or fill the entries in the
-	 * gui-tables/tree-display.
-	 */
-	private void updateGuiData() {
-		HashSet<IPerson> personSet = SessionManager.getInstance().getModel().getPersons();
-		this.concreteView.updatePersonTableData(personSet);
-
-		HashSet<ITeam> teamSet = SessionManager.getInstance().getModel().getTeams();
-		this.concreteView.updateTeamTreeData(teamSet);
-
-	}
-
-	/**
 	 * this is called to set up the behaviour of all interaction widgets of this
 	 * view.
 	 */
@@ -68,16 +56,18 @@ public class TeamPresenter extends Presenter<ITeamView> {
 
 		this.concreteView.defineNewTeamEvent(new EventHandler<EventArgs>() {
 			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				final DialogBox box = new DialogBox();
-				final TeamDialogPresenter presenter = new TeamDialogPresenter(box);
+				final TeamDialogPresenter presenter = new TeamDialogPresenter(
+						box, TeamPresenter.this);
 				box.setAnimationEnabled(true);
 				box.setGlassEnabled(true);
 				box.setText(TextConstants.TEAMDIALOG_TITLE_CREATE);
 
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
 						TeamPresenter.this.updateGuiData();
 						box.hide();
 					}
@@ -85,7 +75,8 @@ public class TeamPresenter extends Presenter<ITeamView> {
 
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
 						box.hide();
 					}
 				});
@@ -93,59 +84,87 @@ public class TeamPresenter extends Presenter<ITeamView> {
 			}
 		});
 
-		this.concreteView.defineModifyTeamEvent(new EventHandler<PersonTeamArgs>() {
-			@Override
-			public void onUpdate(Object sender, PersonTeamArgs eventArgs) {
-				final DialogBox box = new DialogBox();
-				final TeamDialogPresenter presenter = new TeamDialogPresenter(box, eventArgs.getTeam());
-				box.setAnimationEnabled(true);
-				box.setGlassEnabled(true);
-				box.setText("Team " + eventArgs.getTeam().getDescription() + " bearbeiten");
-
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
+		this.concreteView
+				.defineModifyTeamEvent(new EventHandler<PersonTeamArgs>() {
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						TeamPresenter.this.updateGuiData();
-						box.hide();
+					public void onUpdate(final Object sender,
+							final PersonTeamArgs eventArgs) {
+						final DialogBox box = new DialogBox();
+						final TeamDialogPresenter presenter = new TeamDialogPresenter(
+								box, eventArgs.getTeam(), TeamPresenter.this);
+						box.setAnimationEnabled(true);
+						box.setGlassEnabled(true);
+						box.setText("Team "
+								+ eventArgs.getTeam().getDescription()
+								+ " bearbeiten");
+
+						presenter.getFinished().add(
+								new EventHandler<EventArgs>() {
+									@Override
+									public void onUpdate(final Object sender,
+											final EventArgs eventArgs) {
+										TeamPresenter.this.updateGuiData();
+										box.hide();
+									}
+								});
+
+						presenter.getAborted().add(
+								new EventHandler<EventArgs>() {
+									@Override
+									public void onUpdate(final Object sender,
+											final EventArgs eventArgs) {
+										box.hide();
+									}
+								});
+						box.center();
 					}
 				});
 
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
+		this.concreteView
+				.defineRemovePersonFromTeamEvent(new EventHandler<PersonTeamArgs>() {
 					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						box.hide();
+					public void onUpdate(final Object sender,
+							final PersonTeamArgs eventArgs) {
+						for (final IPerson person : eventArgs.getPersons()) {
+							try {
+								eventArgs.getTeam().removeMember(person);
+							} catch (final ConsistencyException e) {
+								TeamPresenter.this.abort();
+							}
+							TeamPresenter.this.updateGuiData();
+						}
 					}
 				});
-				box.center();
-			}
-		});
 
-		this.concreteView.defineRemovePersonFromTeamEvent(new EventHandler<PersonTeamArgs>() {
-			@Override
-			public void onUpdate(Object sender, PersonTeamArgs eventArgs) {
-				for (IPerson person : eventArgs.getPersons()) {
-					try {
-						eventArgs.getTeam().removeMember(person);
-					} catch (ConsistencyException e) {
-						abort();
+		this.concreteView
+				.defineAddPersonToTeamEvent(new EventHandler<PersonTeamArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final PersonTeamArgs eventArgs) {
+						for (final IPerson person : eventArgs.getPersons()) {
+							try {
+								eventArgs.getTeam().addMember(person);
+							} catch (final ConsistencyException e) {
+								TeamPresenter.this.abort();
+							}
+							TeamPresenter.this.updateGuiData();
+						}
 					}
-					TeamPresenter.this.updateGuiData();
-				}
-			}
-		});
+				});
+	}
 
-		this.concreteView.defineAddPersonToTeamEvent(new EventHandler<PersonTeamArgs>() {
-			@Override
-			public void onUpdate(Object sender, PersonTeamArgs eventArgs) {
-				for (IPerson person : eventArgs.getPersons()) {
-					try {
-						eventArgs.getTeam().addMember(person);
-					} catch (ConsistencyException e) {
-						abort();
-					}
-					TeamPresenter.this.updateGuiData();
-				}
-			}
-		});
+	/**
+	 * this is called to update or fill the entries in the
+	 * gui-tables/tree-display.
+	 */
+	private void updateGuiData() {
+		final HashSet<IPerson> personSet = SessionManager.getInstance()
+				.getModel().getPersons();
+		this.concreteView.updatePersonTableData(personSet);
+
+		final HashSet<ITeam> teamSet = SessionManager.getInstance().getModel()
+				.getTeams();
+		this.concreteView.updateTeamTreeData(teamSet);
+
 	}
 }

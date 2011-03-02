@@ -22,30 +22,35 @@ public class AcceptanceCriterionPresenter extends Presenter<ITextView> {
 
 	/**
 	 * Creates an instance of {@link AcceptanceCriterionPresenter}. Use this
-	 * constructor to create a new {@link AcceptanceCriterion} object.
-	 * 
-	 * @param parent
-	 *            {@link Panel}
-	 */
-	public AcceptanceCriterionPresenter(final Panel parent) {
-		this(parent, new AcceptanceCriterion(TextConstants.EMPTY_TEXT));
-	}
-
-	/**
-	 * Creates an instance of {@link AcceptanceCriterionPresenter}. Use this
 	 * constructor to display an existing {@link AcceptanceCriterion} object.
 	 * 
 	 * @param parent
 	 *            {@link Panel}
 	 * @param criterion
 	 *            {@link AcceptanceCriterion}
+	 * @param parentPresenter
 	 */
 	public AcceptanceCriterionPresenter(final Panel parent,
-			final AcceptanceCriterion criterion) {
-		super(parent);
+			final AcceptanceCriterion criterion,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.criterion = criterion;
 		this.updateView(criterion);
 		this.registerViewEvents();
+	}
+
+	/**
+	 * Creates an instance of {@link AcceptanceCriterionPresenter}. Use this
+	 * constructor to create a new {@link AcceptanceCriterion} object.
+	 * 
+	 * @param parent
+	 *            {@link Panel}
+	 * @param parentPresenter
+	 */
+	public AcceptanceCriterionPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		this(parent, new AcceptanceCriterion(TextConstants.EMPTY_TEXT),
+				parentPresenter);
 	}
 
 	@Override

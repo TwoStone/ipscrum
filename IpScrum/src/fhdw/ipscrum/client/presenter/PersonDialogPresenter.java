@@ -27,31 +27,35 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView> {
 	/**
 	 * Constructor for PersonDialogPresenter.
 	 * 
-	 * Required for making new persons.
-	 * 
-	 * @param parent
-	 *            Panel
-	 * 
-	 */
-	public PersonDialogPresenter(Panel parent) {
-		this(parent, null);
-	}
-
-	/**
-	 * Constructor for PersonDialogPresenter.
-	 * 
 	 * Required for changing persons.
 	 * 
 	 * @param parent
 	 *            Panel
 	 * @param person
 	 *            IPerson
+	 * @param parentPresenter
 	 * 
 	 */
-	public PersonDialogPresenter(Panel parent, IPerson person) {
-		super(parent);
+	public PersonDialogPresenter(final Panel parent, final IPerson person,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 		this.person = person;
-		initialize();
+		this.initialize();
+	}
+
+	/**
+	 * Constructor for PersonDialogPresenter.
+	 * 
+	 * Required for making new persons.
+	 * 
+	 * @param parent
+	 *            Panel
+	 * @param parentPresenter
+	 * 
+	 */
+	public PersonDialogPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		this(parent, null, parentPresenter);
 	}
 
 	/**
@@ -69,31 +73,43 @@ public class PersonDialogPresenter extends Presenter<IPersonDialogView> {
 
 		this.concreteView = new PersonDialogView();
 
-		this.concreteView.defineCancelEventHandler(new EventHandler<EventArgs>() {
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				abort();
-			}
-		});
-
-		this.concreteView.defineCommitEventHandler(new EventHandler<TwoStringArgs>() {
-			@Override
-			public void onUpdate(Object sender, TwoStringArgs eventArgs) {
-				try {
-					if (PersonDialogPresenter.this.person == null) {
-						SessionManager.getInstance().getModel().addPerson(new Person(eventArgs.getString1(), eventArgs.getString2()));
-					} else {
-						PersonDialogPresenter.this.person.setFirstname(eventArgs.getString1());
-						PersonDialogPresenter.this.person.setLastname(eventArgs.getString2());
+		this.concreteView
+				.defineCancelEventHandler(new EventHandler<EventArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						PersonDialogPresenter.this.abort();
 					}
-					finish();
-				} catch (NoValidValueException e) {
-					Window.alert(e.getMessage());
-				} catch (DoubleDefinitionException e) {
-					Window.alert(e.getMessage());
-				}
-			}
-		});
+				});
+
+		this.concreteView
+				.defineCommitEventHandler(new EventHandler<TwoStringArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final TwoStringArgs eventArgs) {
+						try {
+							if (PersonDialogPresenter.this.person == null) {
+								SessionManager
+										.getInstance()
+										.getModel()
+										.addPerson(
+												new Person(eventArgs
+														.getString1(),
+														eventArgs.getString2()));
+							} else {
+								PersonDialogPresenter.this.person
+										.setFirstname(eventArgs.getString1());
+								PersonDialogPresenter.this.person
+										.setLastname(eventArgs.getString2());
+							}
+							PersonDialogPresenter.this.finish();
+						} catch (final NoValidValueException e) {
+							Window.alert(e.getMessage());
+						} catch (final DoubleDefinitionException e) {
+							Window.alert(e.getMessage());
+						}
+					}
+				});
 
 		return this.concreteView;
 	}

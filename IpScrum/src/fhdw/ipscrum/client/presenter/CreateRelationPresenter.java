@@ -41,10 +41,11 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	 *            Panel
 	 * @param backlog
 	 *            ProductBacklog
+	 * @param parentPresenter
 	 */
 	public CreateRelationPresenter(final Panel parent, final String sourceName,
-			final ProductBacklog backlog) {
-		super(parent);
+			final ProductBacklog backlog, final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 
 		this.sourceName = sourceName;
 		this.backlog = backlog;
@@ -56,7 +57,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		final DialogBox box = GwtUtils.createDialog("Neuer Beziehungstyp");
 
 		final CreateRelationTypePresenter presenter = new CreateRelationTypePresenter(
-				box);
+				box, this);
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 

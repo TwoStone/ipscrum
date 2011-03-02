@@ -1,9 +1,18 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.EventRegistration;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.shared.SessionManager;
@@ -20,6 +29,8 @@ public abstract class Presenter<T extends IView> {
 	private final Panel parent;
 	private final T myView;
 	private final SessionManager manager;
+	private final Presenter<?> parentPresenter;
+	private final Map<Presenter<?>, Collection<EventRegistration>> children;
 
 	private final Event<EventArgs> finished = new Event<EventArgs>();
 	private final Event<EventArgs> aborted = new Event<EventArgs>();
@@ -31,22 +42,57 @@ public abstract class Presenter<T extends IView> {
 	 * @param parent
 	 *            GUI-Panel where the presenters view should be added.
 	 */
-	public Presenter(final Panel parent) {
+	public Presenter(final Panel parent, final Presenter<?> parentPresenter) {
 		super();
 		this.parent = parent;
+		this.children = new HashMap<Presenter<?>, Collection<EventRegistration>>();
 		this.myView = this.createView();
 		this.parent.add(this.myView);
 		this.manager = SessionManager.getInstance();
+		this.parentPresenter = parentPresenter;
+		if (this.parentPresenter != null) {
+			this.parentPresenter.addChildren(this);
+		}
+
 	}
 
 	/**
 	 * Aborts the workflow of the presenter. Has to be called to rise the
 	 * aborted event.
 	 */
-	protected void abort() {
+	public void abort() {
 		if (this.onAbort()) {
+			this.abortChildren();
 			this.aborted.fire(this, new EventArgs());
 		}
+	}
+
+	private void abortChildren() {
+		for (final Entry<Presenter<?>, Collection<EventRegistration>> current : this.children
+				.entrySet()) {
+			for (final EventRegistration eventRegistration : current.getValue()) {
+				eventRegistration.removeHandler();
+			}
+			current.getKey().abort();
+		}
+	}
+
+	private void addChildren(final Presenter<?> presenter) {
+
+		final List<EventRegistration> registrations = new ArrayList<EventRegistration>();
+
+		class Handler implements EventHandler<EventArgs> {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				Presenter.this.children.remove(presenter);
+			}
+
+		}
+
+		registrations.add(presenter.getFinished().add(new Handler()));
+		registrations.add(presenter.getAborted().add(new Handler()));
+
 	}
 
 	protected abstract T createView();

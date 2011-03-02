@@ -15,8 +15,9 @@ public class CreateRelationTypePresenter extends Presenter<ITextView> {
 
 	private RelationType relationType;
 
-	public CreateRelationTypePresenter(final Panel parent) {
-		super(parent);
+	public CreateRelationTypePresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 
 		this.registerViewEvents();
 	}
@@ -26,11 +27,15 @@ public class CreateRelationTypePresenter extends Presenter<ITextView> {
 		return new TextView(TextConstants.TYPENAME);
 	}
 
+	public RelationType getRelationType() {
+		return this.relationType;
+	}
+
 	@Override
 	protected boolean onFinish() {
 		try {
-			this.setRelationType(RelationType
-					.create(this.getView().getContent()));
+			this.setRelationType(RelationType.create(this.getView()
+					.getContent()));
 		} catch (final DoubleDefinitionException e) {
 			GwtUtils.displayError(e.getMessage());
 			return false;
@@ -56,12 +61,8 @@ public class CreateRelationTypePresenter extends Presenter<ITextView> {
 		});
 	}
 
-	public void setRelationType(RelationType relationType) {
+	public void setRelationType(final RelationType relationType) {
 		this.relationType = relationType;
-	}
-
-	public RelationType getRelationType() {
-		return relationType;
 	}
 
 }

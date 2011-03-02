@@ -27,9 +27,11 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 	 * Creates a new instance of {@link ProductBacklogPresenter}
 	 * 
 	 * @param parent
+	 * @param parentPresenter
 	 */
-	public ProjectPresenter(final Panel parent) {
-		super(parent);
+	public ProjectPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
+		super(parent, parentPresenter);
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 				final DialogBox box = new DialogBox();
 				box.setGlassEnabled(true);
 				final CreateProjectPresenter presenter = new CreateProjectPresenter(
-						box);
+						box, ProjectPresenter.this);
 
 				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
@@ -78,8 +80,8 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			public void onUpdate(final Object sender,
 					final ProjectEventArgs eventArgs) {
 				if (eventArgs.getProject() != null) {
-					SessionManager.getInstance().getModel().removeProject(
-							eventArgs.getProject());
+					SessionManager.getInstance().getModel()
+							.removeProject(eventArgs.getProject());
 					ProjectPresenter.this.initialize();
 				} else {
 					GwtUtils.displayError(TextConstants.NO_PROJECT_SELECTED);
@@ -99,7 +101,8 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 				view.getMasterSprintPanel().clear();
 
 				final ReleasePresenter rel = new ReleasePresenter(view
-						.getMasterReleasePanel(), eventArgs1.getProject());
+						.getMasterReleasePanel(), eventArgs1.getProject(),
+						ProjectPresenter.this);
 
 				rel.getFinished().add(new EventHandler<EventArgs>() {
 
@@ -107,19 +110,19 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 					public void onUpdate(final Object sender,
 							final EventArgs eventArgs) {
 						new SprintPresenter(view.getMasterSprintPanel(),
-								eventArgs1.getProject());
+								eventArgs1.getProject(), ProjectPresenter.this);
 						new ProductBacklogPresenter(view
 								.getMasterProductBackloglPanel(), eventArgs1
-								.getProject());
+								.getProject(), ProjectPresenter.this);
 					}
 
 				});
 
 				new SprintPresenter(view.getMasterSprintPanel(), eventArgs1
-						.getProject());
+						.getProject(), ProjectPresenter.this);
 				new ProductBacklogPresenter(view
 						.getMasterProductBackloglPanel(), eventArgs1
-						.getProject());
+						.getProject(), ProjectPresenter.this);
 
 			}
 
