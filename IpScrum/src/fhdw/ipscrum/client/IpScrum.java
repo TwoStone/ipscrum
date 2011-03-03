@@ -97,22 +97,27 @@ public class IpScrum implements EntryPoint {
 			root.addPerson(pChris);
 
 			// Initial Teams
-			final Team t1 = new Team("Frontend");
-			t1.addMember(pSarah);
-			t1.addMember(pWilken);
+			final Team team1 = new Team("Frontend");
+			team1.addMember(pSarah);
+			team1.addMember(pWilken);
 
-			final Team t2 = new Team("Backend");
-			t2.addMember(pChristin);
-			t2.addMember(pNils);
+			final Team team2 = new Team("Backend");
+			team2.addMember(pChristin);
+			team2.addMember(pNils);
 
-			final Team t3 = new Team("Reporting");
-			t3.addMember(pChris);
-			t3.addMember(pSarah);
-			t3.addMember(pWilken);
+			final Team team3 = new Team("Reporting");
+			team3.addMember(pChris);
+			team3.addMember(pSarah);
+			team3.addMember(pWilken);
 
-			root.addTeam(t1);
-			root.addTeam(t2);
-			root.addTeam(t3);
+			final Team team4 = new Team("Testing");
+			team4.addMember(pChris);
+			team4.addMember(pNils);
+
+			root.addTeam(team1);
+			root.addTeam(team2);
+			root.addTeam(team3);
+			root.addTeam(team4);
 
 			// Initial Projects
 			final Project projekt1 = new Project("Projekt 1");
@@ -128,50 +133,50 @@ public class IpScrum implements EntryPoint {
 			// Initial Sprints
 			Date sprint1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint1EndDate = CalendarUtils.getRandomSprintEnddate(sprint1BeginDate, rel10.getReleaseDate());
-			final Sprint sprint1rel10 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, sprint1EndDate, t1);
+			final Sprint sprint1rel10 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, sprint1EndDate, team1);
 
 			Date sprint2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint2EndDate = CalendarUtils.getRandomSprintEnddate(sprint2BeginDate, rel10.getReleaseDate());
-			final Sprint sprint2rel10 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, sprint2EndDate, t2);
+			final Sprint sprint2rel10 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, sprint2EndDate, team2);
 
 			Date sprint3BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint3EndDate = CalendarUtils.getRandomSprintEnddate(sprint3BeginDate, rel10.getReleaseDate());
-			final Sprint sprint3rel10 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, sprint3EndDate, t1);
+			final Sprint sprint3rel10 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, sprint3EndDate, team1);
 
 			Date sprint4BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint4EndDate = CalendarUtils.getRandomSprintEnddate(sprint4BeginDate, rel10.getReleaseDate());
-			final Sprint sprint4rel10 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, sprint4EndDate, t1);
+			final Sprint sprint4rel10 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, sprint4EndDate, team1);
 
 			Date sprint5BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint5EndDate = CalendarUtils.getRandomSprintEnddate(sprint5BeginDate, rel10.getReleaseDate());
-			final Sprint sprint5rel10 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, sprint5EndDate, t2);
+			final Sprint sprint5rel10 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, sprint5EndDate, team2);
 
 
 			Date sprint6BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint6EndDate = CalendarUtils.getRandomSprintEnddate(sprint6BeginDate, rel13.getReleaseDate());
-			final Sprint sprint6rel13 = new Sprint("Sprint6", "Beschreibung Sprint 6", sprint6BeginDate, sprint6EndDate, t2);
+			final Sprint sprint6rel13 = new Sprint("Sprint6", "Beschreibung Sprint 6", sprint6BeginDate, sprint6EndDate, team2);
 
 
 			Date sprint7BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint7EndDate = CalendarUtils.getRandomSprintEnddate(sprint7BeginDate, rel20.getReleaseDate());
-			final Sprint sprint7rel20 = new Sprint("Sprint7", "Beschreibung Sprint 7", sprint7BeginDate, sprint7EndDate, t2);
+			final Sprint sprint7rel20 = new Sprint("Sprint7", "Beschreibung Sprint 7", sprint7BeginDate, sprint7EndDate, team2);
 
 			Date sprint8BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint8EndDate = CalendarUtils.getRandomSprintEnddate(sprint8BeginDate, rel20.getReleaseDate());
-			final Sprint sprint8rel20 = new Sprint("Sprint8", "Beschreibung Sprint 8", sprint8BeginDate, sprint8EndDate, t2);
+			final Sprint sprint8rel20 = new Sprint("Sprint8", "Beschreibung Sprint 8", sprint8BeginDate, sprint8EndDate, team2);
 
 			Date sprint9BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint9EndDate = CalendarUtils.getRandomSprintEnddate(sprint9BeginDate, rel20.getReleaseDate());
-			final Sprint sprint9rel20 = new Sprint("Sprint9", "Beschreibung Sprint 9", sprint9BeginDate, sprint9EndDate, t2);
+			final Sprint sprint9rel20 = new Sprint("Sprint9", "Beschreibung Sprint 9", sprint9BeginDate, sprint9EndDate, team2);
 
 			Date sprint10BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 			Date sprint10EndDate = CalendarUtils.getRandomSprintEnddate(sprint10BeginDate, rel20.getReleaseDate());
-			final Sprint sprint10rel20 = new Sprint("Sprint10", "Beschreibung Sprint 10", sprint10BeginDate, sprint10EndDate, t2);
+			final Sprint sprint10rel20 = new Sprint("Sprint10", "Beschreibung Sprint 10", sprint10BeginDate, sprint10EndDate, team2);
 
 
-			final Sprint taskboardRelPhase3 = new Sprint("Taskboard", "Bereitstellung von Task-Funktionalitäten", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t1);
-			final Sprint reportingRelPhase3 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t3);
-			final Sprint ticketsRelPhase3 = new Sprint("Tickets II", "Bereitstellung von Bugtracking-Funktionen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t2);
+			final Sprint taskboardRelPhase3 = new Sprint("Taskboard", "Bereitstellung von Task-Funktionalitäten", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), team1);
+			final Sprint reportingRelPhase3 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), team3);
+			final Sprint ticketsRelPhase3 = new Sprint("Tickets II", "Bereitstellung von Bugtracking-Funktionen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), team2);
 
 
 			// assigning sprints to projects
@@ -297,7 +302,6 @@ public class IpScrum implements EntryPoint {
 			Window.alert(e.getMessage());
 		} catch (NoSprintDefinedException e) {
 			Window.alert(e.getMessage());
-			e.printStackTrace(); // TODO delete this
 		} catch (UserException e) {
 			Window.alert(e.getMessage());
 		}
