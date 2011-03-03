@@ -61,4 +61,15 @@ public class CalendarUtils extends CalendarUtil {
 		addDaysToDate(temp, (int) (Math.random() * 30 + 30));
 		return temp;
 	}
+
+	/**
+	 * Removes the given number of days from a date.
+	 * 
+	 * @param date the date
+	 * @param days number of days
+	 */
+	@SuppressWarnings("deprecation") // Unfortunately GWT requires Date
+	public static void removeDaysFromDate(Date date, int days) {
+		date.setDate(date.getDate() - days);
+	}
 }
