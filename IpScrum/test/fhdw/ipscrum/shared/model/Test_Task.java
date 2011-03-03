@@ -1,12 +1,14 @@
 package fhdw.ipscrum.shared.model;
 
+import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.*;
 
 
-public class Test_Task extends junit.framework.TestCase{
+public class Test_Task {
 
 	private static Person per1 = null;
 	private static Person per2 = null;
@@ -17,8 +19,8 @@ public class Test_Task extends junit.framework.TestCase{
 	private static Project test = null;
 	private static ProductBacklog pbltest = null;
 	private static Task t1 = null;
-	
-	
+
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		test = new Project("Test");
@@ -30,18 +32,18 @@ public class Test_Task extends junit.framework.TestCase{
 		pbi3 = new Feature("C", "Test3", pbltest);
 		pbi4 = new Feature("D", "Test4", pbltest);
 		t1 = new Task("Task 1", "Beschreibung");
-	
-		
+
+
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
-	
+
 	// ---------------------------------------------------------------------------
 	// ------------------------- Test of basic functions -------------------------
 	// ---------------------------------------------------------------------------
-	
+
 	@Test
 	/**
 	 * Get Name of a task
@@ -49,7 +51,7 @@ public class Test_Task extends junit.framework.TestCase{
 	public void testGetName() throws Exception{
 		assertEquals("Task 1", t1.getName());
 	}
-	
+
 	@Test
 	/**
 	 * Test of setName()
@@ -63,11 +65,11 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Test on getting the assigned person
 	 */
-	
+
 	public void testGetResposiblePersoon() throws Exception{
 		// TODO: How best to test, if no person is assigned at first?
 	}
-	
+
 	@Test
 	/**
 	 * Test on assigned a task to a Person
@@ -76,7 +78,7 @@ public class Test_Task extends junit.framework.TestCase{
 		t1.setResponsibility(per1);
 		assertEquals(per1, t1.getResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Test on assigned a task to a Person
@@ -87,16 +89,16 @@ public class Test_Task extends junit.framework.TestCase{
 		assertEquals(per2, t1.getResponsiblePerson());
 	}
 
-	
-//	@Test
+
+	//	@Test
 	/**
 	 * 
 	 */
-	
-	
-	
-	
-//	@Test
+
+
+
+
+	//	@Test
 	/**
 	 * Closing of a task
 	 */
@@ -105,7 +107,7 @@ public class Test_Task extends junit.framework.TestCase{
 		// TODO: assertEquals
 		//assertEquals(,t1.getState())
 	}
-	
-	
+
+
 
 }

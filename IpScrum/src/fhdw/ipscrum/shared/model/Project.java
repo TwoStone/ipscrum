@@ -2,7 +2,6 @@ package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -130,13 +129,8 @@ public class Project extends Observable implements BDACompare, Serializable, ITr
 	 */
 	public void isSprintDefined(final ISprint sprint)
 	throws NoSprintDefinedException {
-		final Iterator<ISprint> i = this.getSprints().iterator();
-		while (i.hasNext()) {
-			if (i.next().equals(sprint)) {
-				return;
-			}
-		}
-		throw new NoSprintDefinedException(TextConstants.SPRINT_ERROR);
+		if (!this.sprints.contains(sprint))
+			throw new NoSprintDefinedException(TextConstants.SPRINT_ERROR);
 	}
 
 	/**

@@ -115,94 +115,171 @@ public class IpScrum implements EntryPoint {
 			root.addTeam(t3);
 
 			// Initial Projects
-			final Project project1r1 = new Project("Testprojekt 1");
-			final Project project2r3 = new Project("Testprojekt 2");
-			final Project project3r4 = new Project("IP-Scrum");
+			final Project projekt1 = new Project("Projekt 1");
+			final Project projekt2 = new Project("Projekt 2");
+			final Project ipScrum = new Project("IP-Scrum");
 
 			// Initial Releases
-			final Release release1p1 = new Release("1.2", CalendarUtils.getRandomReleaseDate(), project1r1);
-			final Release release2p1 = new Release("2.0", CalendarUtils.getRandomReleaseDate(), project1r1);
-			final Release release3p2 = new Release("1.0", CalendarUtils.getRandomReleaseDate(), project2r3);
-			final Release release4p3 = new Release("Phase III", new Date(2011-1900,3-1,9), project3r4);
+			final Release rel10 = new Release("1.0", CalendarUtils.getRandomReleaseDate(), projekt1);
+			final Release rel13 = new Release("1.3", CalendarUtils.getRandomReleaseDate(), projekt1);
+			final Release rel20 = new Release("2.0", CalendarUtils.getRandomReleaseDate(), projekt2);
+			final Release phase3 = new Release("Phase III", new Date(2011-1900,3-1,9), ipScrum);
 
 			// Initial Sprints
 			Date sprint1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint1EndDate = CalendarUtils.getRandomSprintEnddate(sprint1BeginDate, rel10.getReleaseDate());
+			final Sprint sprint1rel10 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, sprint1EndDate, t1);
+
 			Date sprint2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint2EndDate = CalendarUtils.getRandomSprintEnddate(sprint2BeginDate, rel10.getReleaseDate());
+			final Sprint sprint2rel10 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, sprint2EndDate, t2);
+
 			Date sprint3BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint3EndDate = CalendarUtils.getRandomSprintEnddate(sprint3BeginDate, rel10.getReleaseDate());
+			final Sprint sprint3rel10 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, sprint3EndDate, t1);
+
 			Date sprint4BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint4EndDate = CalendarUtils.getRandomSprintEnddate(sprint4BeginDate, rel10.getReleaseDate());
+			final Sprint sprint4rel10 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, sprint4EndDate, t1);
+
 			Date sprint5BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint5EndDate = CalendarUtils.getRandomSprintEnddate(sprint5BeginDate, rel10.getReleaseDate());
+			final Sprint sprint5rel10 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, sprint5EndDate, t2);
+
+
 			Date sprint6BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint6EndDate = CalendarUtils.getRandomSprintEnddate(sprint6BeginDate, rel13.getReleaseDate());
+			final Sprint sprint6rel13 = new Sprint("Sprint6", "Beschreibung Sprint 6", sprint6BeginDate, sprint6EndDate, t2);
+
+
 			Date sprint7BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint7EndDate = CalendarUtils.getRandomSprintEnddate(sprint7BeginDate, rel20.getReleaseDate());
+			final Sprint sprint7rel20 = new Sprint("Sprint7", "Beschreibung Sprint 7", sprint7BeginDate, sprint7EndDate, t2);
+
 			Date sprint8BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint8EndDate = CalendarUtils.getRandomSprintEnddate(sprint8BeginDate, rel20.getReleaseDate());
+			final Sprint sprint8rel20 = new Sprint("Sprint8", "Beschreibung Sprint 8", sprint8BeginDate, sprint8EndDate, t2);
+
 			Date sprint9BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint9EndDate = CalendarUtils.getRandomSprintEnddate(sprint9BeginDate, rel20.getReleaseDate());
+			final Sprint sprint9rel20 = new Sprint("Sprint9", "Beschreibung Sprint 9", sprint9BeginDate, sprint9EndDate, t2);
+
 			Date sprint10BeginDate = CalendarUtils.getRandomDateOfThisMonth();
+			Date sprint10EndDate = CalendarUtils.getRandomSprintEnddate(sprint10BeginDate, rel20.getReleaseDate());
+			final Sprint sprint10rel20 = new Sprint("Sprint10", "Beschreibung Sprint 10", sprint10BeginDate, sprint10EndDate, t2);
 
-			final Sprint sprint1p1r1 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, CalendarUtils.getRandomSprintEnddate(sprint1BeginDate, release1p1.getReleaseDate()), t1);
-			final Sprint sprint2p1r1 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, CalendarUtils.getRandomSprintEnddate(sprint2BeginDate, release1p1.getReleaseDate()), t2);
-			final Sprint sprint3p1r1 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, CalendarUtils.getRandomSprintEnddate(sprint3BeginDate, release1p1.getReleaseDate()), t1);
-			final Sprint sprint4p1r1 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, CalendarUtils.getRandomSprintEnddate(sprint4BeginDate, release1p1.getReleaseDate()), t1);
-			final Sprint sprint5p1r1 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, CalendarUtils.getRandomSprintEnddate(sprint5BeginDate, release1p1.getReleaseDate()), t2);
-			final Sprint sprint6p1r1 = new Sprint("Sprint6", "Beschreibung Sprint 6", sprint6BeginDate, CalendarUtils.getRandomSprintEnddate(sprint6BeginDate, release1p1.getReleaseDate()), t2);
-			final Sprint sprint7p2r3 = new Sprint("Sprint7", "Beschreibung Sprint 7", sprint7BeginDate, CalendarUtils.getRandomSprintEnddate(sprint7BeginDate, release3p2.getReleaseDate()), t2);
-			final Sprint sprint8p2r3 = new Sprint("Sprint8", "Beschreibung Sprint 8", sprint8BeginDate, CalendarUtils.getRandomSprintEnddate(sprint8BeginDate, release3p2.getReleaseDate()), t2);
-			final Sprint sprint9p2r3 = new Sprint("Sprint9", "Beschreibung Sprint 9", sprint9BeginDate, CalendarUtils.getRandomSprintEnddate(sprint9BeginDate, release3p2.getReleaseDate()), t2);
-			final Sprint sprint10p2r3 = new Sprint("Sprint10", "Beschreibung Sprint 10", sprint10BeginDate, CalendarUtils.getRandomSprintEnddate(sprint10BeginDate, release3p2.getReleaseDate()), t2);
-			final Sprint sprint11p3r4 = new Sprint("Taskboard", "Bereitstellung von Task-Funktionalitäten", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t1);
-			final Sprint sprint12p3r4 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t3);
-			final Sprint sprint13p3r4 = new Sprint("Tickets II", "Bereitstellung von Bugtracking-Funktionen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t2);
 
-			project1r1.addSprint(sprint1p1r1);
-			project1r1.addSprint(sprint2p1r1);
-			project1r1.addSprint(sprint3p1r1);
-			project1r1.addSprint(sprint4p1r1);
-			project1r1.addSprint(sprint5p1r1);
-			project1r1.addSprint(sprint6p1r1);
-			project2r3.addSprint(sprint7p2r3);
-			project2r3.addSprint(sprint8p2r3);
-			project2r3.addSprint(sprint9p2r3);
-			project2r3.addSprint(sprint10p2r3);
-			project3r4.addSprint(sprint11p3r4);
-			project3r4.addSprint(sprint12p3r4);
-			project3r4.addSprint(sprint13p3r4);
+			final Sprint taskboardRelPhase3 = new Sprint("Taskboard", "Bereitstellung von Task-Funktionalitäten", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t1);
+			final Sprint reportingRelPhase3 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t3);
+			final Sprint ticketsRelPhase3 = new Sprint("Tickets II", "Bereitstellung von Bugtracking-Funktionen", new Date(2011-1900,2-1,14), new Date(2011-1900,3-1,9), t2);
 
-			release1p1.addSprint(sprint1p1r1);
-			release1p1.addSprint(sprint2p1r1);
-			release1p1.addSprint(sprint3p1r1);
-			release1p1.addSprint(sprint4p1r1);
-			release1p1.addSprint(sprint5p1r1);
-			release2p1.addSprint(sprint6p1r1);
-			release3p2.addSprint(sprint7p2r3);
-			release3p2.addSprint(sprint8p2r3);
-			release3p2.addSprint(sprint9p2r3);
-			release3p2.addSprint(sprint10p2r3);
-			release4p3.addSprint(sprint11p3r4);
-			release4p3.addSprint(sprint12p3r4);
-			release4p3.addSprint(sprint13p3r4);
 
-			root.addProject(project1r1);
-			root.addProject(project2r3);
-			root.addProject(project3r4);
+			// assigning sprints to projects
+			projekt1.addSprint(sprint1rel10);
+			projekt1.addSprint(sprint2rel10);
+			projekt1.addSprint(sprint3rel10);
+			projekt1.addSprint(sprint4rel10);
+			projekt1.addSprint(sprint5rel10);
+			projekt1.addSprint(sprint6rel13);
+
+			projekt2.addSprint(sprint7rel20);
+			projekt2.addSprint(sprint8rel20);
+			projekt2.addSprint(sprint9rel20);
+			projekt2.addSprint(sprint10rel20);
+
+			ipScrum.addSprint(taskboardRelPhase3);
+			ipScrum.addSprint(reportingRelPhase3);
+			ipScrum.addSprint(ticketsRelPhase3);
+
+
+			// assigning sprints to releases
+			rel10.addSprint(sprint1rel10);
+			rel10.addSprint(sprint2rel10);
+			rel10.addSprint(sprint3rel10);
+			rel10.addSprint(sprint4rel10);
+			rel10.addSprint(sprint5rel10);
+			rel13.addSprint(sprint6rel13);
+
+			rel20.addSprint(sprint7rel20);
+			rel20.addSprint(sprint8rel20);
+			rel20.addSprint(sprint9rel20);
+			rel20.addSprint(sprint10rel20);
+
+			phase3.addSprint(taskboardRelPhase3);
+			phase3.addSprint(reportingRelPhase3);
+			phase3.addSprint(ticketsRelPhase3);
+
+
+			root.addProject(projekt1);
+			root.addProject(projekt2);
+			root.addProject(ipScrum);
+
 
 			// Initial Features
-			final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", project1r1.getBacklog());
-			final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", project1r1.getBacklog());
-			final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", project1r1.getBacklog());
+			final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
+			f1.setLastEditor(pNils);
+			f1.setManDayCosts(10);
+			f1.setSprint(sprint4rel10);
 
-			final Feature f4 = new Feature("Sprint-BDChart", "Burndown-Auswertung", project3r4.getBacklog());
-			f4.setLastEditor(pWilken);
-			f4.setManDayCosts(20);
-			f4.setSprint(sprint12p3r4);
+			final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
+			f2.setLastEditor(pNils);
+			f2.setManDayCosts(4);
+			f2.setSprint(sprint4rel10);
+			f2.close();
 
-			final Feature f5 = new Feature("Release-BDChart", "Burndown-Auswertung", project3r4.getBacklog());
-			f5.setLastEditor(pWilken);
-			f5.setManDayCosts(15);
-			f5.setSprint(sprint12p3r4);
+			final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
+			f3.setLastEditor(pNils);
+			f3.setManDayCosts(2);
+			f3.setSprint(sprint4rel10);
 
-			project1r1.getBacklog().addItem(f1);
-			project1r1.getBacklog().addItem(f2);
-			project1r1.getBacklog().addItem(f3);
-			project3r4.getBacklog().addItem(f4);
-			project3r4.getBacklog().addItem(f5);
+			final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
+			f3.setLastEditor(pNils);
+			f3.setManDayCosts(2);
+			f3.setSprint(sprint6rel13);
+
+			final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
+			f3.setLastEditor(pNils);
+			f3.setManDayCosts(2);
+			f3.setSprint(sprint5rel10);
+
+			final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6", projekt1.getBacklog());
+			f3.setLastEditor(pNils);
+			f3.setManDayCosts(2);
+			f3.setSprint(sprint5rel10);
+
+			//			final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7", projekt2.getBacklog());
+			//			f3.setLastEditor(pNils);
+			//			f3.setManDayCosts(2);
+			//			f3.setSprint(sprint7rel20);
+			//
+			//			final Feature f8 = new Feature("Feature 8", "Beschreibung Feature 8", projekt2.getBacklog());
+			//			f3.setLastEditor(pNils);
+			//			f3.setManDayCosts(2);
+			//			f3.setSprint(sprint7rel20);
+			//
+			//			final Feature f9 = new Feature("Sprint-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
+			//			f9.setLastEditor(pWilken);
+			//			f9.setManDayCosts(20);
+			//			f9.setSprint(reportingRelPhase3);
+			//			f9.close();
+			//
+			//			final Feature f10 = new Feature("Release-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
+			//			f10.setLastEditor(pWilken);
+			//			f10.setManDayCosts(15);
+			//			f10.setSprint(reportingRelPhase3);
+
+			projekt1.getBacklog().addItem(f1);
+			projekt1.getBacklog().addItem(f2);
+			projekt1.getBacklog().addItem(f3);
+			projekt1.getBacklog().addItem(f4);
+			projekt1.getBacklog().addItem(f5);
+			projekt1.getBacklog().addItem(f6);
+
+			//			projekt2.getBacklog().addItem(f7);
+			//			projekt2.getBacklog().addItem(f8);
+			//
+			//			ipScrum.getBacklog().addItem(f9);
+			//			ipScrum.getBacklog().addItem(f10);
 
 			// Initial Relations
 			RelationType.create("Abhängig von");
@@ -218,6 +295,7 @@ public class IpScrum implements EntryPoint {
 			Window.alert(e.getMessage());
 		} catch (NoSprintDefinedException e) {
 			Window.alert(e.getMessage());
+			e.printStackTrace(); // TODO delete this
 		} catch (UserException e) {
 			Window.alert(e.getMessage());
 		}
