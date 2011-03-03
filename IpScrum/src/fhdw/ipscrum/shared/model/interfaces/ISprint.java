@@ -16,13 +16,50 @@ import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
  * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
  * a fixed time frame. The name is used to identify a sprint.
  */
-public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantElement {
+public interface ISprint extends BDACompare, Serializable,
+		ITreeVisitorRelevantElement {
+	/**
+	 * Method getBegin.
+	 * 
+	 * @return Date
+	 */
+	public Date getBegin();
+
 	/**
 	 * Method getDescription.
 	 * 
 	 * @return String
 	 */
 	public String getDescription();
+
+	/**
+	 * Method getEnd.
+	 * 
+	 * @return Date
+	 */
+	public Date getEnd();
+
+	/**
+	 * Method getName.
+	 * 
+	 * @return String
+	 */
+	public String getName();
+
+	/**
+	 * Method getPBIs.
+	 * 
+	 * @return Vector<ProductBacklogItem>
+	 */
+	public Vector<ProductBacklogItem> getPBIs();
+
+	/**
+	 * Method getRelease.
+	 * 
+	 * @return IRelease
+	 */
+	public IRelease getRelease();
+
 	/**
 	 * Method getSprintBacklog.
 	 * 
@@ -31,19 +68,33 @@ public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantE
 	public SprintBacklog getSprintBacklog();
 
 	/**
+	 * Method getTeam.
+	 * 
+	 * @return ITeam
+	 */
+	public ITeam getTeam();
+
+	/**
+	 * Method getToPBIAssoc.
+	 * 
+	 * @return ToPBIAssoc
+	 */
+	public OneToMany<ManyToOne, ISprint> getToPBIAssoc();
+
+	/**
+	 * Method getToReleaseAssoc.
+	 * 
+	 * @return ToReleaseAssoc
+	 */
+	public ManyToOne<OneToMany, ISprint> getToReleaseAssoc();
+
+	/**
 	 * Method setDescription.
 	 * 
 	 * @param description
 	 *            String
 	 */
 	public void setDescription(String description);
-
-	/**
-	 * Method getName.
-	 * 
-	 * @return String
-	 */
-	public String getName();
 
 	/**
 	 * Method setName.
@@ -56,18 +107,14 @@ public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantE
 	public void setName(String description) throws NoValidValueException;
 
 	/**
-	 * Method getBegin.
+	 * Method setTeam.
 	 * 
-	 * @return Date
+	 * @param team
+	 *            ITeam
+	 * @throws NoValidValueException
+	 *             thrown, if team is null.
 	 */
-	public Date getBegin();
-
-	/**
-	 * Method getEnd.
-	 * 
-	 * @return Date
-	 */
-	public Date getEnd();
+	public void setTeam(ITeam team) throws NoValidValueException;
 
 	/**
 	 * Method setTimeFrame.
@@ -80,51 +127,6 @@ public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantE
 	 *             thrown, if begin is null or end is null or begin > end.
 	 */
 	public void setTimeFrame(Date begin, Date end) throws NoValidValueException;
-
-	/**
-	 * Method getTeam.
-	 * 
-	 * @return ITeam
-	 */
-	public ITeam getTeam();
-
-	/**
-	 * Method setTeam.
-	 * 
-	 * @param team
-	 *            ITeam
-	 * @throws NoValidValueException
-	 *             thrown, if team is null.
-	 */
-	public void setTeam(ITeam team) throws NoValidValueException;
-
-	/**
-	 * Method getRelease.
-	 * 
-	 * @return IRelease
-	 */
-	public IRelease getRelease();
-
-	/**
-	 * Method getPBIs.
-	 * 
-	 * @return Vector<ProductBacklogItem>
-	 */
-	public Vector<ProductBacklogItem> getPBIs();
-
-	/**
-	 * Method getToReleaseAssoc.
-	 * 
-	 * @return ToReleaseAssoc
-	 */
-	public ManyToOne<OneToMany, ISprint> getToReleaseAssoc();
-
-	/**
-	 * Method getToPBIAssoc.
-	 * 
-	 * @return ToPBIAssoc
-	 */
-	public OneToMany<ManyToOne, ISprint> getToPBIAssoc();
 
 	/**
 	 * Method getCumulatedManDayCosts

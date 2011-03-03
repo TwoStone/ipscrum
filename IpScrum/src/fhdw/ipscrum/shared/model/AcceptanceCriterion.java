@@ -1,43 +1,65 @@
 package fhdw.ipscrum.shared.model;
+
+import java.io.Serializable;
+
 /**
- * An acceptance criterion is a textual description of a condition,
- * under that a product owner accepts a implemented {@link Feature}.
+ * An acceptance criterion is a textual description of a condition, under that a
+ * product owner accepts a implemented {@link Feature}.
  */
-public class AcceptanceCriterion {
+public class AcceptanceCriterion implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 891100243968877751L;
 	private String content;
-	
-	public AcceptanceCriterion(String content){
+
+	@SuppressWarnings("unused")
+	private AcceptanceCriterion() {
+
+	}
+
+	public AcceptanceCriterion(final String content) {
 		this.content = content;
 	}
-	public void setContent(String content){
-		this.content = content;
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final AcceptanceCriterion other = (AcceptanceCriterion) obj;
+		if (this.content == null) {
+			if (other.content != null) {
+				return false;
+			}
+		} else if (!this.content.equals(other.content)) {
+			return false;
+		}
+		return true;
 	}
-	public String getContent(){
+
+	public String getContent() {
 		return this.content;
 	}
-		
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result
+				+ ((this.content == null) ? 0 : this.content.hashCode());
 		return result;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AcceptanceCriterion other = (AcceptanceCriterion) obj;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
-		return true;
+
+	public void setContent(final String content) {
+		this.content = content;
 	}
 
 }

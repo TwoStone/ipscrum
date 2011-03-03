@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,9 +12,13 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
  * 
  * @author n.w.
  */
-public class RelationTypeManager {
+public class RelationTypeManager implements Serializable {
 
-	private final List<RelationType> relationTypes;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8250533100122662401L;
+	private List<RelationType> relationTypes;
 
 	/**
 	 * Creates a new instance of {@link RelationTypeManager}.
@@ -46,5 +51,10 @@ public class RelationTypeManager {
 	 */
 	public Collection<RelationType> getRelationTypes() {
 		return java.util.Collections.unmodifiableCollection(this.relationTypes);
+	}
+
+	@SuppressWarnings("unused")
+	private void setRelationType(final List<RelationType> relationTypes) {
+		this.relationTypes = relationTypes;
 	}
 }

@@ -1,14 +1,24 @@
 package fhdw.ipscrum.shared.model;
 
+import java.io.Serializable;
+
 /**
  * Objects of this class describe relations to one target {@link Feature}. The
  * relation has one type (see {@link RelationType}), which can be customized by
  * a user of the ticket system.
  */
-public class Relation {
+public class Relation implements Serializable {
 
-	private final RelationType type;
-	private final ProductBacklogItem target;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8092507081061821465L;
+	private RelationType type;
+	private ProductBacklogItem target;
+
+	@SuppressWarnings("unused")
+	private Relation() {
+	}
 
 	public Relation(final RelationType type, final ProductBacklogItem target) {
 		this.type = type;

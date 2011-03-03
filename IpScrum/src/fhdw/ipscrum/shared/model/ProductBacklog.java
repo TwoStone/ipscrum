@@ -32,20 +32,6 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 */
 	private OneToOne<OneToOne, ProductBacklog> projectAssoc;
 
-	/**
-	 * Returns the bidirectional association to the pbis.
-	 */
-	protected OneToMany<ManyToOne, ProductBacklog> getAssoc() {
-		return this.assoc;
-	}
-
-	/**
-	 * Returns the bidirectional association to the related project.
-	 */
-	protected OneToOne<OneToOne, ProductBacklog> getProjectAssoc() {
-		return this.projectAssoc;
-	}
-
 	@SuppressWarnings("unused")
 	/**
 	 * Default Constructor for GWT serialization.
@@ -65,82 +51,6 @@ public class ProductBacklog extends Observable implements BDACompare,
 		super();
 		this.projectAssoc = new OneToOne<OneToOne, ProductBacklog>(this);
 		this.assoc = new OneToMany<ManyToOne, ProductBacklog>(this);
-	}
-
-	/**
-	 * Checks if an pbi with the given name already exist in the product
-	 * backlog.
-	 * 
-	 * @param pbiName
-	 *            Name of the PBI
-	 * @throws DoubleDefinitionException
-	 */
-	public void isDoubleDefined(final String pbiName)
-			throws DoubleDefinitionException {
-		for (final ProductBacklogItem current : this.getItems()) {
-			if (current.getName() == pbiName) {
-				throw new DoubleDefinitionException(
-						TextConstants.DOUBLE_DEFINITION_PBI);
-			}
-		}
-	}
-
-	/**
-	 * Returns all ProductBacklogItems of the this Backlog. <br />
-	 * <b>Attention</b><br />
-	 * For adding and removing Items to/from the list please use the methods of
-	 * the Backlog. Else we cannot guarantee the consistency!
-	 */
-	public Vector<ProductBacklogItem> getItems() {
-		final Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
-		for (final BDACompare current : this.getAssoc().getAssociations()) {
-			ret.add((ProductBacklogItem) current);
-		}
-		return ret;
-	}
-
-	/**
-	 * Move the given pbi to the top of the list.
-	 * 
-	 * @param item
-	 *            pbi for moving.
-	 */
-	public void moveTop(final ProductBacklogItem item) {
-		this.getAssoc().moveToTop(item.getBacklogAssoc());
-		this.notifyObservers();
-	}
-
-	/**
-	 * Move the given pbi to the end of the list.
-	 * 
-	 * @param item
-	 *            pbi for moving.
-	 */
-	public void moveBottom(final ProductBacklogItem item) {
-		this.getAssoc().moveToBottom(item.getBacklogAssoc());
-		this.notifyObservers();
-	}
-
-	/**
-	 * Move the given pbi one position in top direction of the list. Therefore
-	 * another pbi will move one step down.
-	 * 
-	 * @param item
-	 *            pbi for moving.
-	 */
-	public void moveUp(final ProductBacklogItem item) {
-		this.getAssoc().moveUp(item.getBacklogAssoc());
-	}
-
-	/**
-	 * Move the given pbi one position in bottom direction of the list.
-	 * Therefore another pbi will move one step up.
-	 * 
-	 * @param item
-	 *            pbi for moving.
-	 */
-	public void moveDown(final ProductBacklogItem item) {
-		this.getAssoc().moveDown(item.getBacklogAssoc());
 	}
 
 	/**
@@ -166,61 +76,10 @@ public class ProductBacklog extends Observable implements BDACompare,
 	}
 
 	/**
-	 * Removes the given PBI from the product backlog and provides Consistency.
-	 * 
-	 * @param item
-	 *            PBI which will be removed.
-	 * @throws UserException
-	 */
-	public void removeItem(final ProductBacklogItem item) throws UserException {
-		item.setSprint(null);// Providing Consistency
-		this.getAssoc().remove(item.getBacklogAssoc());
-		this.notifyObservers();
-	}
-
-	/**
 	 * Returns the number of pbis within the product backlog.
 	 */
 	public Integer countItems() {
 		return this.getItems().size();
-	}
-
-	/**
-	 * Return the releated project.
-	 */
-	public Project getProject() {
-		return (Project) this.getProjectAssoc().get();
-	}
-
-	@Override
-	public String toString() {
-		return TextConstants.PRODUCT_BACKLOG;
-	}
-
-	@Override
-	public int indirectHashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result;
-		return result;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((this.assoc == null) ? 0 : this.assoc.hashCode());
-		result = prime
-				* result
-				+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
-						.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean indirectEquals(final Object obj) {
-		return super.equals(obj);
 	}
 
 	@Override
@@ -248,6 +107,13 @@ public class ProductBacklog extends Observable implements BDACompare,
 	}
 
 	/**
+	 * Returns the bidirectional association to the pbis.
+	 */
+	protected OneToMany<ManyToOne, ProductBacklog> getAssoc() {
+		return this.assoc;
+	}
+
+	/**
 	 * Returns the position of the ProductBacklogItem within the list.
 	 * 
 	 * @param item
@@ -256,5 +122,139 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 */
 	public Integer getItemPositionInList(final ProductBacklogItem item) {
 		return this.getItems().indexOf(item);
+	}
+
+	/**
+	 * Returns all ProductBacklogItems of the this Backlog. <br />
+	 * <b>Attention</b><br />
+	 * For adding and removing Items to/from the list please use the methods of
+	 * the Backlog. Else we cannot guarantee the consistency!
+	 */
+	public Vector<ProductBacklogItem> getItems() {
+		final Vector<ProductBacklogItem> ret = new Vector<ProductBacklogItem>();
+		for (final BDACompare current : this.getAssoc().getAssociations()) {
+			ret.add((ProductBacklogItem) current);
+		}
+		return ret;
+	}
+
+	/**
+	 * Return the releated project.
+	 */
+	public Project getProject() {
+		return (Project) this.getProjectAssoc().get();
+	}
+
+	/**
+	 * Returns the bidirectional association to the related project.
+	 */
+	protected OneToOne<OneToOne, ProductBacklog> getProjectAssoc() {
+		return this.projectAssoc;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((this.assoc == null) ? 0 : this.assoc.hashCode());
+		result = prime
+				* result
+				+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
+						.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean indirectEquals(final Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	public int indirectHashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result;
+		return result;
+	}
+
+	/**
+	 * Checks if an pbi with the given name already exist in the product
+	 * backlog.
+	 * 
+	 * @param pbiName
+	 *            Name of the PBI
+	 * @throws DoubleDefinitionException
+	 */
+	public void isDoubleDefined(final String pbiName)
+			throws DoubleDefinitionException {
+		for (final ProductBacklogItem current : this.getItems()) {
+			if (current.getName().equals(pbiName)) {
+				throw new DoubleDefinitionException(
+						TextConstants.DOUBLE_DEFINITION_PBI);
+			}
+		}
+	}
+
+	/**
+	 * Move the given pbi to the end of the list.
+	 * 
+	 * @param item
+	 *            pbi for moving.
+	 */
+	public void moveBottom(final ProductBacklogItem item) {
+		this.getAssoc().moveToBottom(item.getBacklogAssoc());
+		this.notifyObservers();
+	}
+
+	/**
+	 * Move the given pbi one position in bottom direction of the list.
+	 * Therefore another pbi will move one step up.
+	 * 
+	 * @param item
+	 *            pbi for moving.
+	 */
+	public void moveDown(final ProductBacklogItem item) {
+		this.getAssoc().moveDown(item.getBacklogAssoc());
+	}
+
+	/**
+	 * Move the given pbi to the top of the list.
+	 * 
+	 * @param item
+	 *            pbi for moving.
+	 */
+	public void moveTop(final ProductBacklogItem item) {
+		this.getAssoc().moveToTop(item.getBacklogAssoc());
+		this.notifyObservers();
+	}
+
+	/**
+	 * Move the given pbi one position in top direction of the list. Therefore
+	 * another pbi will move one step down.
+	 * 
+	 * @param item
+	 *            pbi for moving.
+	 */
+	public void moveUp(final ProductBacklogItem item) {
+		this.getAssoc().moveUp(item.getBacklogAssoc());
+	}
+
+	/**
+	 * Removes the given PBI from the product backlog and provides Consistency.
+	 * 
+	 * @param item
+	 *            PBI which will be removed.
+	 * @throws UserException
+	 */
+	public void removeItem(final ProductBacklogItem item) throws UserException {
+		item.setSprint(null);// Providing Consistency
+		this.getAssoc().remove(item.getBacklogAssoc());
+		this.notifyObservers();
+	}
+
+	@Override
+	public String toString() {
+		return TextConstants.PRODUCT_BACKLOG;
 	}
 }

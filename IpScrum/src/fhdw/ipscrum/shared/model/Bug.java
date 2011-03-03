@@ -31,7 +31,11 @@ public class Bug extends ProductBacklogItem {
 
 	private IBugState state;
 
-	private final Collection<ISystem> systems;
+	private Collection<ISystem> systems;
+
+	@SuppressWarnings("unused")
+	private Bug() {
+	}
 
 	public Bug(final String name, final String description,
 			final ProductBacklog backlog) throws NoValidValueException,

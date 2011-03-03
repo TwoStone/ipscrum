@@ -1,7 +1,5 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
@@ -28,14 +26,6 @@ public class BugOpenState extends PBIOpenState implements IBugState {
 	@Override
 	public void accept(final IPBIStateVisitor visitor) {
 		visitor.handleOpen(this);
-	}
-
-	@Override
-	public void addAcceptanceCriterion(
-			final AcceptanceCriterion acceptanceCriterion)
-			throws DoubleDefinitionException, ForbiddenStateException {
-		// TODO Auto-generated method stub
-		super.addAcceptanceCriterion(acceptanceCriterion);
 	}
 
 	@Override
