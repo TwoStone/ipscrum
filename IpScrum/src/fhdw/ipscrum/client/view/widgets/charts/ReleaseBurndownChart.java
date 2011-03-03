@@ -23,7 +23,6 @@ public abstract class ReleaseBurndownChart extends Composite {
 	private Curve burndownCurve;
 
 	public ReleaseBurndownChart(IRelease release) {
-		super();
 		this.data = new ReleaseChartData(release);
 	}
 
