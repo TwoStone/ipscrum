@@ -1,6 +1,8 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.google.gwt.user.client.ui.Panel;
 
@@ -49,8 +51,13 @@ public class RootPresenter extends Presenter<IRootView> {
 	 * adding the admin-user to it.
 	 */
 	private void initUserList() {
-		final ArrayList<IPerson> tempUserList = new ArrayList<IPerson>(
-				SessionManager.getInstance().getModel().getPersons());
+		final ArrayList<IPerson> tempUserList = new ArrayList<IPerson>(SessionManager.getInstance().getModel().getPersons());
+		Collections.sort(tempUserList, new Comparator<IPerson>() {
+			@Override
+			public int compare(IPerson o1, IPerson o2) {
+				return o1.getFirstname().toLowerCase().compareTo(o2.getFirstname().toLowerCase());
+			}
+		});
 		tempUserList.add(Admin.getInstance());
 		this.concreteView.fillComboBoxUsers(tempUserList);
 	}
@@ -64,7 +71,7 @@ public class RootPresenter extends Presenter<IRootView> {
 			@Override
 			public void onUpdate(final Object sender, final PersonArgs eventArgs) {
 				SessionManager.getInstance()
-						.setLoginUser(eventArgs.getPerson());
+				.setLoginUser(eventArgs.getPerson());
 				new NavigationPresenter(RootPresenter.this.concreteView
 						.getContentPanel(), RootPresenter.this);
 				RootPresenter.this.concreteView.deactivateLogin();
