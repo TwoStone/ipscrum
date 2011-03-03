@@ -1,6 +1,5 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -80,7 +79,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				Window.alert("Speicherung folgt!");
+				NavigationPresenter.this.getSessionManager().save();
 			}
 		});
 

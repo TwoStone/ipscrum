@@ -10,15 +10,14 @@
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>IpScrum.html</welcome-file>
-  </welcome-file-list>
-  <!--  
+  </welcome-file-list> 
   <servlet>
-  	<servlet-name>PersistenceService</servlet-name>
+  	<servlet-name>PersistenceServiceImpl</servlet-name>
   	<servlet-class>fhdw.ipscrum.server.services.PersistenceServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>PersistenceService</servlet-name>
+  	<servlet-name>PersistenceServiceImpl</servlet-name>
   	<url-pattern>/ipscrum/PersistenceService</url-pattern>
-  </servlet-mapping>-->
+  </servlet-mapping>
 
 </web-app>
