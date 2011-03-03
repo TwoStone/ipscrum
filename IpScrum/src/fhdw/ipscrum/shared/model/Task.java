@@ -93,8 +93,9 @@ public class Task extends Observable implements ITask {
 	 * changes state to TaskFinished and passes actual responsiblePerson
 	 */
 	protected void doSetTaskFinished(){
-		IPerson responsiblePerson = this.getResponsiblePerson();
-		this.setState(new TaskFinished(this, responsiblePerson));
+		TaskFinished newState = new TaskFinished(this, this.getResponsiblePerson());
+		this.setState(newState);
+		
 	}
 
 	@Override
