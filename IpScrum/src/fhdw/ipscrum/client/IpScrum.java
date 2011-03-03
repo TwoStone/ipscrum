@@ -139,16 +139,22 @@ public class IpScrum implements EntryPoint {
 			Date sprint2EndDate = CalendarUtils.getRandomSprintEnddate(sprint2BeginDate, rel10.getReleaseDate());
 			final Sprint sprint2rel10 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, sprint2EndDate, team2);
 
-			Date sprint3BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-			Date sprint3EndDate = CalendarUtils.getRandomSprintEnddate(sprint3BeginDate, rel10.getReleaseDate());
+			Date sprint3BeginDate = new Date();
+			Date sprint3EndDate = new Date();
+			CalendarUtils.removeDaysFromDate(sprint3BeginDate, 6);
+			CalendarUtils.removeDaysFromDate(sprint3EndDate, 4);
 			final Sprint sprint3rel10 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, sprint3EndDate, team1);
 
-			Date sprint4BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-			Date sprint4EndDate = CalendarUtils.getRandomSprintEnddate(sprint4BeginDate, rel10.getReleaseDate());
+			Date sprint4BeginDate = new Date();
+			Date sprint4EndDate = new Date();
+			CalendarUtils.removeDaysFromDate(sprint4BeginDate, 8);
+			CalendarUtils.removeDaysFromDate(sprint4EndDate, 1);
 			final Sprint sprint4rel10 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, sprint4EndDate, team1);
 
-			Date sprint5BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-			Date sprint5EndDate = CalendarUtils.getRandomSprintEnddate(sprint5BeginDate, rel10.getReleaseDate());
+			Date sprint5BeginDate = new Date();
+			Date sprint5EndDate = new Date();
+			CalendarUtils.removeDaysFromDate(sprint5BeginDate, 9);
+			CalendarUtils.removeDaysFromDate(sprint5EndDate, 4);
 			final Sprint sprint5rel10 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, sprint5EndDate, team2);
 
 
@@ -223,8 +229,8 @@ public class IpScrum implements EntryPoint {
 			// Initial Features
 			final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 			f1.setLastEditor(pNils);
-			f1.setManDayCosts(10);
-			f1.setSprint(sprint4rel10);
+			f1.setManDayCosts(6);
+			f1.setSprint(sprint1rel10);
 
 			final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 			f2.setLastEditor(pNils);
@@ -234,23 +240,23 @@ public class IpScrum implements EntryPoint {
 
 			final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 			f3.setLastEditor(pNils);
-			f3.setManDayCosts(2);
+			f3.setManDayCosts(4);
 			f3.setSprint(sprint4rel10);
 
 			final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 			f4.setLastEditor(pNils);
-			f4.setManDayCosts(23);
-			f4.setSprint(sprint6rel13);
+			f4.setManDayCosts(12);
+			f4.setSprint(sprint3rel10);
 
 			final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 			f5.setLastEditor(pNils);
-			f5.setManDayCosts(122);
+			f5.setManDayCosts(10);
 			f5.setSprint(sprint5rel10);
 
 			final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6", projekt1.getBacklog());
 			f6.setLastEditor(pNils);
-			f6.setManDayCosts(32);
-			f6.setSprint(sprint5rel10);
+			f6.setManDayCosts(5);
+			f6.setSprint(sprint2rel10);
 
 			final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7", projekt2.getBacklog());
 			f7.setLastEditor(pNils);

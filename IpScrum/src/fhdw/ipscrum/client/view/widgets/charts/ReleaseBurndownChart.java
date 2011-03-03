@@ -44,7 +44,7 @@ public abstract class ReleaseBurndownChart extends Composite {
 
 		this.populateChart();
 
-		if (burndownCurve.getNPoints() > 1) {
+		if (burndownCurve.getNPoints() > 0) {
 
 			// SETUP IDEAL BURNDOWN CURVE
 			rbdChart.addCurve();
@@ -55,9 +55,11 @@ public abstract class ReleaseBurndownChart extends Composite {
 			idealCurve.getSymbol().setBorderColor("black");
 			idealCurve.getSymbol().setBackgroundColor("yellow");
 
-			double taskSum = burndownCurve.getPoint(0).getY();
-			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
-				idealCurve.addPoint(burndownCurve.getPoint(i).getX(), taskSum / (burndownCurve.getNPoints() - 1) * (burndownCurve.getNPoints() - 1 - i));
+			double taskSum = this.data.getRelease().getOverallEfforts();
+			double idealBurndown = taskSum / burndownCurve.getNPoints();
+			idealCurve.addPoint(burndownCurve.getPoint(0).getX(), taskSum - idealBurndown);
+			for (int i = 1; i < burndownCurve.getNPoints(); i++) {
+				idealCurve.addPoint(burndownCurve.getPoint(i).getX(), idealCurve.getPoint(i-1).getY() - idealBurndown);
 			}
 
 			// SETUP TREND LINE
