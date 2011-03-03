@@ -1,4 +1,4 @@
-package fhdw.ipscrum.client.phase2.group1;
+package fhdw.ipscrum.shared.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,7 +17,7 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 
 @SuppressWarnings("unused")
-public class PriorityTests {
+public class ProductBacklogTest2_Priority {
 
 	private static Project project = null;
 	private static ProductBacklog pbl = null;
