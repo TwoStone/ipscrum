@@ -54,11 +54,12 @@ public class SessionManager {
 					public void onFailure(final Throwable caught) {
 						try {
 							DemoModel.populateModel(SessionManager.this.model);
+							GwtUtils.displayError("Modell korrumpiert. Demo-Daten geladen.");
+							callback.onLoaded();
 						} catch (final UserException e) {
 							GwtUtils.displayError(e.getMessage());
 						}
-						GwtUtils.displayError("Modell korrumpiert. Demo-Daten geladen.");
-						callback.onLoaded();
+
 					}
 
 					@Override

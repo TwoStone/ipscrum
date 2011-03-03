@@ -16,7 +16,7 @@ public class SprintBacklog implements Serializable {
 
 	public SprintBacklog() {
 		super();
-		this.tasks = new ArrayList<ITask>();
+		this.setTasks(new ArrayList<ITask>());
 	}
 
 	/**

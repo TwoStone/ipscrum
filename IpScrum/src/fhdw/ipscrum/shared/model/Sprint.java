@@ -21,7 +21,7 @@ public class Sprint implements ISprint {
 	private Date begin;
 	private Date end;
 	private ITeam team;
-	// private SprintBacklog sprintBacklog;
+	private SprintBacklog sprintBacklog;
 
 	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
 	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
@@ -55,7 +55,7 @@ public class Sprint implements ISprint {
 		this.setTeam(team);
 		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
 		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
-		// this.sprintBacklog = new SprintBacklog();
+		this.sprintBacklog = new SprintBacklog();
 	}
 
 	@Override
@@ -156,8 +156,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public SprintBacklog getSprintBacklog() {
-		// return this.sprintBacklog;
-		return null;
+		return this.sprintBacklog;
 	}
 
 	/**
