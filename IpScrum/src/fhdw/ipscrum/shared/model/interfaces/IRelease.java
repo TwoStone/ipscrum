@@ -98,4 +98,10 @@ public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevant
 	 * This will remove all sprints from the release.
 	 */
 	public abstract void removeAllSprints();
+
+	/**
+	 * This is to calculate the overall Effort of a release.
+	 * @return int, containing overall efforts
+	 */
+	int getOverallEfforts();
 }

@@ -57,7 +57,7 @@ public class Sprint implements ISprint {
 		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
 		this.sprintBacklog = new SprintBacklog();
 	}
-	
+
 
 	@Override
 	public SprintBacklog getSprintBacklog() {
@@ -321,5 +321,14 @@ public class Sprint implements ISprint {
 	@Override
 	public void accept(ITreeConstructionVisitor treeVisitor) {
 		treeVisitor.handleSprint(this);
+	}
+
+	@Override
+	public int getCumulatedManDayCosts() {
+		int result = 0;
+		for (ProductBacklogItem pbi : this.getPBIs()) {
+			result += pbi.getManDayCosts();
+		}
+		return result;
 	}
 }

@@ -126,4 +126,10 @@ public interface ISprint extends BDACompare, Serializable, ITreeVisitorRelevantE
 	 */
 	public OneToMany<ManyToOne, ISprint> getToPBIAssoc();
 
+	/**
+	 * Method getCumulatedManDayCosts
+	 * @return cumulated Efforts
+	 */
+	int getCumulatedManDayCosts();
+
 }

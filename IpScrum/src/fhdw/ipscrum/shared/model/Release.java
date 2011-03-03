@@ -238,6 +238,18 @@ public class Release extends Observable implements IRelease {
 	}
 
 	@Override
+	public int getOverallEfforts() {
+		int overallEfforts = 0;
+
+		for (ISprint sprint : this.getSprints()) {
+			for (ProductBacklogItem pbi : sprint.getPBIs()) {
+				overallEfforts += pbi.getManDayCosts();
+			}
+		}
+		return overallEfforts;
+	}
+
+	@Override
 	public void accept(ITreeConstructionVisitor treeVisitor) {
 		treeVisitor.handleRelease(this);
 	}
