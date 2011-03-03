@@ -6,15 +6,17 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
 public abstract class TaskAssigned extends AbstractTaskState {
+
+	private static final long serialVersionUID = 2003517415381360893L;
 	private IPerson responsiblePerson;
-	private Integer planEffort;
-	private Integer actualEffort;
 
 	public TaskAssigned(Task task, IPerson responsiblePerson){
 		super(task);
 		this.responsiblePerson = responsiblePerson;
-		this.planEffort = 0;
-		this.actualEffort = 0;
+	}
+
+	protected TaskAssigned(){
+		super();
 	}
 	
 	@Override

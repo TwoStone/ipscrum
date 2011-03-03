@@ -16,7 +16,7 @@ import fhdw.ipscrum.shared.observer.Observable;
 
 public class Task extends Observable implements ITask {
 	//TODO: Define Consistency conditions / class invariants
-	
+	private static final long serialVersionUID = -7493025129803401507L;
 	private String name;
 	private String description;
 	private ITaskState state;
@@ -41,6 +41,10 @@ public class Task extends Observable implements ITask {
 		}
 		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
 		this.planEffort = 0;
+	}
+	@SuppressWarnings("unused")
+	private Task(){
+		super();
 	}
 
 	@Override

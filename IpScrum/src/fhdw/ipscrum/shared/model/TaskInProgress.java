@@ -11,8 +11,14 @@ import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
 public class TaskInProgress extends TaskAssigned {
 
+	private static final long serialVersionUID = 1765965731350458463L;
+
 	public TaskInProgress(Task task, IPerson responsiblePerson) {
 		super(task, responsiblePerson);
+	}
+	@SuppressWarnings("unused")
+	private TaskInProgress(){
+		super();
 	}
 
 	@Override

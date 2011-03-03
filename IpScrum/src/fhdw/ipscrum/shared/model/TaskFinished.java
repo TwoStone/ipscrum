@@ -19,6 +19,10 @@ public class TaskFinished extends TaskAssigned {
 		this.setResponsiblePerson(responsiblePerson);
 		this.finishDate = new Date();
 	}
+	@SuppressWarnings("unused")
+	private TaskFinished(){
+		super();
+	}
 
 	@Override
 	public void setName(String name) throws ForbiddenStateException {
