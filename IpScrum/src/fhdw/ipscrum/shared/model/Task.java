@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
@@ -162,6 +163,11 @@ public class Task extends Observable implements ITask {
 	protected void doAddPBI(ProductBacklogItem pbi) {
 		//TODO: Priorisierung klären
 		this.assignedPBIs.add(pbi);
+	}
+
+	@Override
+	public Iterator<ProductBacklogItem> getPBIIterator() {
+		return this.assignedPBIs.iterator();
 	}
 
 }

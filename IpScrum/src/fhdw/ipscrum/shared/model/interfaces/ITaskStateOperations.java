@@ -10,7 +10,6 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
  * This interface defines a set of operations which are state-relevant for tasks
  */
 public interface ITaskStateOperations {
-	//TODO: Exceptions definieren!
 	public void setName(String name) throws ForbiddenStateException, NoValidValueException;
 	public void setDescription(String description) throws ForbiddenStateException, NoValidValueException;
 	/**
@@ -25,6 +24,10 @@ public interface ITaskStateOperations {
 	public void removePBI(ProductBacklogItem pbi) throws ForbiddenStateException;
 	public boolean hasResponsiblePerson();
 	public boolean isFinished();
+	/**
+	 * PRECONDITION: hasResponsiblePerson() == true
+	 * @return person responsible for the task
+	 */
 	public IPerson getResponsiblePerson();
 	public Date getFinishDate();
 	

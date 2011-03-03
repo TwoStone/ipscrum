@@ -1,5 +1,9 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
+import java.util.Iterator;
+
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
+
 
 /**
  * A Task represents an activity which realizes
@@ -25,5 +29,10 @@ public interface ITask extends ITaskStateOperations {
 	 * @return actual state of the task. 
 	 */
 	public ITaskState getState();
+	/**
+	 * Provides Access to the PBIs, which the task is assigned to.
+	 * @return iterator for PBIs
+	 */
+	public Iterator<ProductBacklogItem> getPBIIterator();
 
 }
