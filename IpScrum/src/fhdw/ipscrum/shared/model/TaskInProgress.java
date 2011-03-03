@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 
@@ -19,52 +20,52 @@ public class TaskInProgress extends TaskAssigned {
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+			throws ForbiddenStateException, NoValidValueException {
+		this.getMyTask().doSetDescription(description);
 		
 	}
 
 	@Override
 	public void finish() throws ForbiddenStateException {
-		// TODO Auto-generated method stub
-		
+		this.getMyTask().doSetTaskFinished();		
 	}
 
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
-		// TODO Auto-generated method stub
-		
+		this.getMyTask().doAddPBI(pbi);		
 	}
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
 			throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+		this.getMyTask().doRemovePBI(pbi);
 		
 	}
 
 	@Override
 	public boolean hasResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return false;
+		//state class invariant: responsible person is permanently assigned;
+		return true;
 	}
 
 	@Override
 	public IPerson getResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getResponsiblePerson();
 	}
 
 	@Override
 	public Date getFinishDate() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
+		this.getMyTask().doSetName(name);		
 	}
 	
 

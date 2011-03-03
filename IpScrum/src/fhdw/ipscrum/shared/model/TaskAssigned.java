@@ -17,8 +17,14 @@ public abstract class TaskAssigned extends AbstractTaskState {
 		this.actualEffort = 0;
 	}
 	
+	@Override
+	public IPerson getResponsiblePerson() {
+		return this.responsiblePerson;
+	}
+
 	protected final void setResponsiblePerson(IPerson responsiblePerson){
 		this.responsiblePerson = responsiblePerson;
 	}
+	
 	
 }

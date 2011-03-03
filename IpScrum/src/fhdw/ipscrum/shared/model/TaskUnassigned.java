@@ -2,7 +2,9 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Date;
 
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
@@ -13,61 +15,60 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 	}
 
 	@Override
-	public void setResponsibility(IPerson responsiblePerson) {
-		this.getMyTask().setTaskAssigned(responsiblePerson);
+	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
+		this.getMyTask().doSetName(name);
+		
 	}
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+			throws ForbiddenStateException, NoValidValueException {
+		this.getMyTask().doSetDescription(description);
 		
+	}
+
+	@Override
+	public void setResponsibility(IPerson responsiblePerson)
+			throws ForbiddenStateException {
+		this.getMyTask().setTaskAssigned(responsiblePerson);
 	}
 
 	@Override
 	public void finish() throws ForbiddenStateException {
-		// TODO Auto-generated method stub
-		
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+		this.getMyTask().doAddPBI(pbi);
 		
 	}
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
 			throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+		this.getMyTask().doRemovePBI(pbi);
 		
 	}
 
 	@Override
 	public boolean hasResponsiblePerson() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 
 	@Override
 	public IPerson getResponsiblePerson() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Date getFinishDate() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	
 	
 }

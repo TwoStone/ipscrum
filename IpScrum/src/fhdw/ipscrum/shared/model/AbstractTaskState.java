@@ -10,11 +10,6 @@ public abstract class AbstractTaskState implements ITaskState {
 		super();
 		this.myTask = task;
 	}
-	
-	@Override
-	public void setName(String name) {
-		this.getMyTask().doSetName(name);
-	}
 
 	@Override
 	public Task getMyTask() {

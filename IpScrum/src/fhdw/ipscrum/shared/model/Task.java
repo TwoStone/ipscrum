@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public class Task extends Observable implements ITask {
-	//TODO: Konsistenzbedingungen für den Zustand von Tasks im System definieren und sicherstellen!
+	//TODO: Define Consistency conditions / class invariants
 	
 	private String name;
 	private String description;
@@ -20,16 +23,27 @@ public class Task extends Observable implements ITask {
 	private Integer planEffort;
 	
 	
-	public Task(String name, String description){
+	public Task(String name, String description) throws NoValidValueException{
 		super();
-		this.name = name;
-		this.description = description;
-		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
 		this.state = new TaskUnassigned(this);
+		try {
+			this.setName(name);
+			this.description = description;
+		} catch (ForbiddenStateException e) {
+			/*
+			 * INTERNAL ERROR 
+			 * should never happen, make sure that the initial State is <TaskUnassigned>
+			 * exception should not be passed to passed to the UI because it's an internal error
+			 * and only relevant for debugging
+			 */
+			System.out.print(ExceptionConstants.TASK_INITIAL_STATE_ERROR);
+		}
+		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
+		this.planEffort = 0;
 	}
 
 	@Override
-	public void setName(String name) throws ForbiddenStateException {
+	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
 		this.state.setName(name);
 		
 	}
@@ -37,17 +51,19 @@ public class Task extends Observable implements ITask {
 	@Override
 	public void setResponsibility(IPerson responsiblePerson) throws ForbiddenStateException {
 		this.state.setResponsibility(responsiblePerson);
+		this.notifyObservers();
 		
 	}
 
 	@Override
 	public void finish() throws ForbiddenStateException {
-		this.state.finish();		
+		this.state.finish();
+		this.notifyObservers();
 	}
 
 	@Override
 	public Integer getPlanEffort() {
-		return null;
+		return this.planEffort;
 	}
 
 	@Override
@@ -59,8 +75,12 @@ public class Task extends Observable implements ITask {
 		this.state=state;
 	}
 	
-	protected void doSetName(String name){
-		this.name = name;
+	protected void doSetName(String name) throws NoValidValueException{
+		if (name.equals(TextConstants.EMPTY_TEXT)){
+			throw new NoValidValueException(ExceptionConstants.EMPTY_NAME_ERROR);
+		} else {
+			this.name = name;
+		}
 	}
 	/**
 	 * changes state to TaskAssigned and passes responsiblePerson
@@ -79,58 +99,68 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+			throws ForbiddenStateException, NoValidValueException {
+		this.state.setDescription(description);
 		
 	}
 
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
-		// TODO Auto-generated method stub
-		
+		this.state.addPBI(pbi);	
 	}
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
 			throws ForbiddenStateException {
-		// TODO Auto-generated method stub
+		this.state.removePBI(pbi);
 		
 	}
 
 	@Override
 	public boolean hasResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.state.hasResponsiblePerson();
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.description;
 	}
 
 	@Override
-	public ITaskState getState() {
-		// TODO Auto-generated method stub
-		return null;
+	public final ITaskState getState() {
+		return this.state;
 	}
 
 	@Override
 	public IPerson getResponsiblePerson() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.state.getResponsiblePerson();
 	}
 
 	@Override
 	public Date getFinishDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.state.getFinishDate();
 	}
 
 	@Override
 	public boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.state.isFinished();
+	}
+
+	protected void doSetDescription(String description) throws NoValidValueException {
+		if (description.equals(TextConstants.EMPTY_TEXT)){
+			throw new NoValidValueException(ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
+		}else{
+			this.description = description;	
+		}
+	}
+
+	protected void doRemovePBI(ProductBacklogItem pbi) {
+		this.assignedPBIs.remove(pbi);
+	}
+
+	protected void doAddPBI(ProductBacklogItem pbi) {
+		//TODO: Priorisierung klären
+		this.assignedPBIs.add(pbi);
 	}
 
 }
