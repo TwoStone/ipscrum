@@ -275,8 +275,8 @@ public class IpScrum implements EntryPoint {
 			projekt1.getBacklog().addItem(f5);
 			projekt1.getBacklog().addItem(f6);
 
-			//			projekt2.getBacklog().addItem(f7);
-			//			projekt2.getBacklog().addItem(f8);
+			projekt2.getBacklog().addItem(f7);
+			projekt2.getBacklog().addItem(f8);
 
 			ipScrum.getBacklog().addItem(f9);
 			ipScrum.getBacklog().addItem(f10);
