@@ -5,6 +5,7 @@ import java.util.Date;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
 
 
@@ -72,5 +73,10 @@ public class TaskFinished extends TaskAssigned {
 	@Override
 	public Date getFinishDate() {
 		return this.finishDate;
+	}
+
+	@Override
+	public void accept(ITaskStateVisitor iTaskStateVisitor) {
+		iTaskStateVisitor.handleTaskFinished(this);		
 	}
 }

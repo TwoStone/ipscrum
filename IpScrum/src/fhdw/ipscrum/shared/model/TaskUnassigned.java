@@ -7,6 +7,7 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
+import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
 public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 
@@ -69,6 +70,11 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 	@Override
 	public Date getFinishDate() {
 		return null;
+	}
+
+	@Override
+	public void accept(ITaskStateVisitor iTaskStateVisitor) {
+		iTaskStateVisitor.handleTaskUnassigned(this);
 	}
 	
 }

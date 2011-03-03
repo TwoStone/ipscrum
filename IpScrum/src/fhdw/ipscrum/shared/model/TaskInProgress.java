@@ -5,6 +5,7 @@ import java.util.Date;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
 
 public class TaskInProgress extends TaskAssigned {
@@ -66,6 +67,11 @@ public class TaskInProgress extends TaskAssigned {
 	@Override
 	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
 		this.getMyTask().doSetName(name);		
+	}
+
+	@Override
+	public void accept(ITaskStateVisitor iTaskStateVisitor) {
+		iTaskStateVisitor.handleTaskInProgress(this);
 	}
 	
 
