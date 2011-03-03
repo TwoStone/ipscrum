@@ -28,7 +28,7 @@ public class RegularReleaseBurndownChart extends ReleaseBurndownChart {
 
 	private Vector<ISprint> getSortedSprintList() {
 		Vector<ISprint> sortedSprints = new Vector<ISprint>();
-		sortedSprints.addAll(this.release.getSprints());
+		sortedSprints.addAll(this.getData().getRelease().getSprints());
 		java.util.Collections.sort(sortedSprints, new Comparator<ISprint>() {
 			@Override
 			public int compare(ISprint o1, ISprint o2) {

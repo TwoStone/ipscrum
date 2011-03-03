@@ -1,9 +1,8 @@
 package fhdw.ipscrum.client.view.widgets.charts;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.googlecode.gchart.client.GChart;
@@ -12,12 +11,11 @@ import com.googlecode.gchart.client.GChart.Curve.Point;
 import com.googlecode.gchart.client.GChart.SymbolType;
 import com.googlecode.gchart.client.HoverUpdateable;
 
-import fhdw.ipscrum.client.utils.CalendarUtils;
+import fhdw.ipscrum.client.view.widgets.charts.ReleaseChartData.ReleaseChartDataDetails;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 public abstract class ReleaseBurndownChart extends Composite {
 
-	IRelease release;
 	private final ReleaseChartData data;
 	int width = 500;
 	int height = 250;
@@ -26,15 +24,13 @@ public abstract class ReleaseBurndownChart extends Composite {
 
 	public ReleaseBurndownChart(IRelease release) {
 		super();
-		this.release = release;
-		this.data = new ReleaseChartData(this.release);
+		this.data = new ReleaseChartData(release);
 	}
 
 	GChart createChart() {
 		// GENERAL SETUP
 		GChart rbdChart = new GChart(width, height);
-		rbdChart.setChartTitle("<h2>Release " + this.release.getVersion() + "</h2>");
-
+		rbdChart.setChartTitle("<h2>Release " + this.getData().getRelease().getVersion() + "</h2>");
 
 		// SETUP ACTUAL BURNDOWN CURVE
 		rbdChart.addCurve();
@@ -45,33 +41,29 @@ public abstract class ReleaseBurndownChart extends Composite {
 		burndownCurve.getSymbol().setBackgroundColor("GreenYellow");
 		burndownCurve.getSymbol().setBorderColor("Green");
 		burndownCurve.getSymbol().setBorderWidth(1);
-		burndownCurve.getSymbol().setModelWidth(50000000); // high value is caused by using a date as x-value. normally 0.5 would be sufficient.
 
 		this.populateChart();
 
-		if (burndownCurve.getNPoints() > 0) {
+		if (burndownCurve.getNPoints() > 1) {
 
 			// SETUP IDEAL BURNDOWN CURVE
 			rbdChart.addCurve();
 			Curve idealCurve = rbdChart.getCurve();
 			idealCurve.setYAxis(GChart.Y_AXIS);
 			idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
-			idealCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwaende am ${x})"));
+			idealCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwände)"));
 			idealCurve.getSymbol().setBorderColor("black");
 			idealCurve.getSymbol().setBackgroundColor("yellow");
 
-			ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(data.getFirstDate(), release.getReleaseDate());
-			int dayCount = daysInvolved.size();
-			double taskSum = burndownCurve.getPoint(0).getY(); // TODO maybe use actual sum of efforts later
-			for (int i = 0; i < dayCount; i++) {
-				idealCurve.addPoint(daysInvolved.get(i).getTime(), taskSum / (dayCount-1) * (dayCount-1 - i));
+			double taskSum = burndownCurve.getPoint(0).getY();
+			for (int i = 0; i < burndownCurve.getNPoints(); i++) {
+				idealCurve.addPoint(burndownCurve.getPoint(i).getX(), taskSum / (burndownCurve.getNPoints() - 1) * (burndownCurve.getNPoints() - 1 - i));
 			}
 
-
 			// SETUP TREND LINE
-			/* formatting */
 			rbdChart.addCurve();
 			Curve trendCurve = rbdChart.getCurve();
+			/* formatting */
 			trendCurve.setYAxis(GChart.Y_AXIS);
 			trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
 			trendCurve.getSymbol().setHoverAnnotationEnabled(false);
@@ -107,16 +99,17 @@ public abstract class ReleaseBurndownChart extends Composite {
 					trendCurve.addPoint(burndownCurve.getPoint(i).getX(), value);
 				}
 			}
-
-
-			// set x-axis ticks
-			if (this.width > 400) {
-				rbdChart.getXAxis().setTickCount((dayCount<26) ? dayCount : 25);
-			}
 		}
 
 		rbdChart.getXAxis().setAxisLabel("<i>E n d t e r m i n e&nbsp;&nbsp;&nbsp;d e r&nbsp;&nbsp;&nbsp;S p r i n t s</i>");
-		rbdChart.getXAxis().setTickLabelFormat("=(Date)dd.");
+		rbdChart.getXAxis().clearTicks();
+
+		int counter = 0;
+		DateTimeFormat xAxisDateFormatter = DateTimeFormat.getFormat("d.M.");
+		for (Date endDate : this.getData().getData().keySet()) {
+			rbdChart.getXAxis().addTick(counter, xAxisDateFormatter.format(endDate));
+			counter++;
+		}
 
 		rbdChart.getYAxis().setAxisLabel("<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>");
 		rbdChart.getYAxis().getAxisLabel().setStyleName("rotated");
@@ -135,13 +128,20 @@ public abstract class ReleaseBurndownChart extends Composite {
 	 * This is to populate the chart with release-data.
 	 */
 	private void populateChart() {
-		Iterator<Date> i = data.getData().keySet().iterator();
-		while (i.hasNext()) {
-			Date current = i.next();
-			burndownCurve.addPoint(current.getTime(), data.getData().get(current).getValue());
-			burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(data.getData().get(current).getValue() + " ausstehende Aufwände<br />nach " + data.getData().get(current).getSprints().toString())); // TODO stylize and extract constants
+		int counter = 0;
+		for (Date endDate : this.getData().getData().keySet()) {
+			ReleaseChartDataDetails currentData = getData().getData().get(endDate);
+			burndownCurve.addPoint(counter, currentData.getValue());
+
+			String annotationText = currentData.getValue() + " ausstehende Aufwände<br />nach " + currentData.getSprints().toString();
+			burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
 			burndownCurve.getPoint().setAnnotationVisible(false);
+			counter++;
 		}
+	}
+
+	public ReleaseChartData getData() {
+		return this.data;
 	}
 
 	class ReleaseChartHoverWidget extends Label implements HoverUpdateable {

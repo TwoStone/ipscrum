@@ -71,9 +71,9 @@ public class SprintBurndownChart extends GChart {
 
 
 			// SETUP TREND LINE
-			/* formatting */
 			addCurve();
 			Curve trendCurve = getCurve();
+			/* formatting */
 			trendCurve.setYAxis(Y_AXIS);
 			trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
 			trendCurve.getSymbol().setHoverAnnotationEnabled(false);
