@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Date;
 
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -33,13 +34,13 @@ public class TaskInProgress extends TaskAssigned {
 
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
-		this.getMyTask().doAddPBI(pbi);		
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);	
 	}
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
 			throws ForbiddenStateException {
-		this.getMyTask().doRemovePBI(pbi);
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);
 		
 	}
 

@@ -13,6 +13,12 @@ public interface ITaskStateOperations {
 	//TODO: Exceptions definieren!
 	public void setName(String name) throws ForbiddenStateException, NoValidValueException;
 	public void setDescription(String description) throws ForbiddenStateException, NoValidValueException;
+	/**
+	 * POSTCONDITION: person is assigned to the task &
+	 * 				  state of task is {@link TaskInProgress}
+	 * @param responsiblePerson
+	 * @throws ForbiddenStateException
+	 */
 	public void setResponsibility(IPerson responsiblePerson) throws ForbiddenStateException;
 	public void finish() throws ForbiddenStateException;
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException;
