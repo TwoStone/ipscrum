@@ -268,6 +268,7 @@ public class IpScrum implements EntryPoint {
 			f10.setManDayCosts(15);
 			f10.setSprint(reportingRelPhase3);
 
+			// adding features to projects
 			projekt1.getBacklog().addItem(f1);
 			projekt1.getBacklog().addItem(f2);
 			projekt1.getBacklog().addItem(f3);
@@ -280,6 +281,7 @@ public class IpScrum implements EntryPoint {
 
 			ipScrum.getBacklog().addItem(f9);
 			ipScrum.getBacklog().addItem(f10);
+
 
 			// Initial Relations
 			RelationType.create("Abhängig von");
