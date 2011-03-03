@@ -12,7 +12,7 @@ public class SprintBacklog implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2775810634965110269L;
-	private final List<ITask> tasks;
+	private List<ITask> tasks;
 
 	public SprintBacklog() {
 		super();
@@ -36,6 +36,10 @@ public class SprintBacklog implements Serializable {
 	 */
 	public void removeTask(final ITask task) {
 		this.tasks.remove(task);
+	}
+
+	private void setTasks(List<ITask> tasks) {
+		this.tasks = tasks;
 	}
 
 	/**

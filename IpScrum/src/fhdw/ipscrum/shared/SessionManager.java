@@ -5,6 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import fhdw.ipscrum.client.services.PersistenceService;
 import fhdw.ipscrum.client.utils.GwtUtils;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.DemoModel;
 import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -51,7 +52,11 @@ public class SessionManager {
 
 					@Override
 					public void onFailure(final Throwable caught) {
-						SessionManager.this.model = new DemoModel();
+						try {
+							DemoModel.populateModel(SessionManager.this.model);
+						} catch (final UserException e) {
+							GwtUtils.displayError(e.getMessage());
+						}
 						GwtUtils.displayError("Modell korrumpiert. Demo-Daten geladen.");
 						callback.onLoaded();
 					}
@@ -62,10 +67,6 @@ public class SessionManager {
 						callback.onLoaded();
 					}
 				});
-	}
-
-	public void loadDemoData() {
-		this.model = new DemoModel();
 	}
 
 	public void save() {

@@ -1,19 +1,18 @@
 package fhdw.ipscrum.shared.model;
 
-import java.io.Serializable;
-
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 
-public abstract class AbstractTaskState implements ITaskState, Serializable {
-	
-	private static final long serialVersionUID = 191308404327461283L;
-	private Task myTask; //Konkrete Referenz, da Zugriff auf protected-Methoden
+public abstract class AbstractTaskState implements ITaskState {
 
-	public AbstractTaskState(Task task){
+	private static final long serialVersionUID = 191308404327461283L;
+	private Task myTask; // Konkrete Referenz, da Zugriff auf protected-Methoden
+
+	protected AbstractTaskState() {
+	}
+
+	public AbstractTaskState(Task task) {
 		super();
 		this.myTask = task;
-	}
-	protected AbstractTaskState(){
 	}
 
 	@Override
