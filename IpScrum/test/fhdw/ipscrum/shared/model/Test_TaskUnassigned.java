@@ -1,4 +1,4 @@
-package fhdw.ipscrum.phase3.gruppe1;
+package fhdw.ipscrum.shared.model;
 
 
 import static org.junit.Assert.assertEquals;
@@ -11,10 +11,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-;
+import fhdw.ipscrum.shared.model.TaskUnassigned;
 
 
-public class Test_TaskFinished {
+public class Test_TaskUnassigned {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

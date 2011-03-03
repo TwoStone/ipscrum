@@ -1,4 +1,4 @@
-package fhdw.ipscrum.phase3.gruppe1;
+package fhdw.ipscrum.shared.model;
 
 
 import static org.junit.Assert.assertEquals;

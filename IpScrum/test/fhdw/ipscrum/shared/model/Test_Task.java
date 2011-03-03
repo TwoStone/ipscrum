@@ -1,4 +1,4 @@
-package fhdw.ipscrum.phase3.gruppe1;
+package fhdw.ipscrum.shared.model;
 
 
 import org.junit.*;
@@ -10,7 +10,10 @@ public class Test_Task extends junit.framework.TestCase{
 
 	private static Person per1 = null;
 	private static Person per2 = null;
-	private static Feature pbi = null;
+	private static Feature pbi1 = null;
+	private static Feature pbi2 = null;
+	private static Feature pbi3 = null;
+	private static Feature pbi4 = null;
 	private static Project test = null;
 	private static ProductBacklog pbltest = null;
 	private static Task t1 = null;
@@ -22,7 +25,10 @@ public class Test_Task extends junit.framework.TestCase{
 		pbltest = test.getBacklog();
 		per1 = new Person("Max", "Mustermann");
 		per2 = new Person("Karin","Katze");
-		pbi = new Feature("T", "Test", pbltest);
+		pbi1 = new Feature("A", "Test1", pbltest);
+		pbi2 = new Feature("B", "Test2", pbltest);
+		pbi3 = new Feature("C", "Test3", pbltest);
+		pbi4 = new Feature("D", "Test4", pbltest);
 		t1 = new Task("Task 1", "Beschreibung");
 	
 		
@@ -31,7 +37,11 @@ public class Test_Task extends junit.framework.TestCase{
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
-
+	
+	// ---------------------------------------------------------------------------
+	// ------------------------- Test of basic functions -------------------------
+	// ---------------------------------------------------------------------------
+	
 	@Test
 	/**
 	 * Get Name of a task
@@ -40,7 +50,23 @@ public class Test_Task extends junit.framework.TestCase{
 		assertEquals("Task 1", t1.getName());
 	}
 	
+	@Test
+	/**
+	 * Test of setName()
+	 */
+	public void testSetName() throws Exception{
+		t1.setName("Task");
+		assertEquals("Task", t1.getName());
+	}
+
+	@Test
+	/**
+	 * Test on getting the assigned person
+	 */
 	
+	public void testGetResposiblePersoon() throws Exception{
+		// TODO: How best to test, if no person is assigned at first?
+	}
 	
 	@Test
 	/**
@@ -76,7 +102,8 @@ public class Test_Task extends junit.framework.TestCase{
 	 */
 	public void testFinish() throws Exception{
 		t1.finish();
-		// TODO
+		// TODO: assertEquals
+		//assertEquals(,t1.getState())
 	}
 	
 	
