@@ -1,4 +1,4 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-public interface ISystem extends IAbsSystem {
+public interface ISystem {
 }
