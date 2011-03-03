@@ -233,40 +233,40 @@ public class IpScrum implements EntryPoint {
 			f3.setSprint(sprint4rel10);
 
 			final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
-			f3.setLastEditor(pNils);
-			f3.setManDayCosts(2);
-			f3.setSprint(sprint6rel13);
+			f4.setLastEditor(pNils);
+			f4.setManDayCosts(23);
+			f4.setSprint(sprint6rel13);
 
 			final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
-			f3.setLastEditor(pNils);
-			f3.setManDayCosts(2);
-			f3.setSprint(sprint5rel10);
+			f5.setLastEditor(pNils);
+			f5.setManDayCosts(122);
+			f5.setSprint(sprint5rel10);
 
 			final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6", projekt1.getBacklog());
-			f3.setLastEditor(pNils);
-			f3.setManDayCosts(2);
-			f3.setSprint(sprint5rel10);
+			f6.setLastEditor(pNils);
+			f6.setManDayCosts(32);
+			f6.setSprint(sprint5rel10);
 
-			//			final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7", projekt2.getBacklog());
-			//			f3.setLastEditor(pNils);
-			//			f3.setManDayCosts(2);
-			//			f3.setSprint(sprint7rel20);
-			//
-			//			final Feature f8 = new Feature("Feature 8", "Beschreibung Feature 8", projekt2.getBacklog());
-			//			f3.setLastEditor(pNils);
-			//			f3.setManDayCosts(2);
-			//			f3.setSprint(sprint7rel20);
-			//
-			//			final Feature f9 = new Feature("Sprint-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
-			//			f9.setLastEditor(pWilken);
-			//			f9.setManDayCosts(20);
-			//			f9.setSprint(reportingRelPhase3);
-			//			f9.close();
-			//
-			//			final Feature f10 = new Feature("Release-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
-			//			f10.setLastEditor(pWilken);
-			//			f10.setManDayCosts(15);
-			//			f10.setSprint(reportingRelPhase3);
+			final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7", projekt2.getBacklog());
+			f7.setLastEditor(pNils);
+			f7.setManDayCosts(7);
+			f7.setSprint(sprint7rel20);
+
+			final Feature f8 = new Feature("Feature 8", "Beschreibung Feature 8", projekt2.getBacklog());
+			f8.setLastEditor(pNils);
+			f8.setManDayCosts(9);
+			f8.setSprint(sprint7rel20);
+
+			final Feature f9 = new Feature("Sprint-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
+			f9.setLastEditor(pWilken);
+			f9.setManDayCosts(20);
+			f9.setSprint(reportingRelPhase3);
+			f9.close();
+
+			final Feature f10 = new Feature("Release-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
+			f10.setLastEditor(pWilken);
+			f10.setManDayCosts(15);
+			f10.setSprint(reportingRelPhase3);
 
 			projekt1.getBacklog().addItem(f1);
 			projekt1.getBacklog().addItem(f2);
@@ -277,9 +277,9 @@ public class IpScrum implements EntryPoint {
 
 			//			projekt2.getBacklog().addItem(f7);
 			//			projekt2.getBacklog().addItem(f8);
-			//
-			//			ipScrum.getBacklog().addItem(f9);
-			//			ipScrum.getBacklog().addItem(f10);
+
+			ipScrum.getBacklog().addItem(f9);
+			ipScrum.getBacklog().addItem(f10);
 
 			// Initial Relations
 			RelationType.create("Abhängig von");
