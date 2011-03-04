@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 
 /**
@@ -25,6 +26,7 @@ public class Sprint implements ISprint {
 
 	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
 	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
+	private int result;
 
 	@SuppressWarnings("unused")
 	private Sprint() {
@@ -86,11 +88,48 @@ public class Sprint implements ISprint {
 		return this.begin;
 	}
 
+	/**
+	 * Method getCumulatedManDayCosts.
+	 * Calculates the cumulated ManDayCosts of all PBIs of this Sprint.
+	 * 
+	 * @return int
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCosts()
+	 */
 	@Override
 	public int getCumulatedManDayCosts() {
 		int result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
 			result += pbi.getManDayCosts();
+		}
+		return result;
+	}
+	
+	/**
+	 * Method getCumulatedManDayCostsOfClosedPbis.
+	 * Calculates the cumulated ManDayCosts of all closed PBIs of this Sprint. 
+	 * 
+	 * @return int
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCostsOfClosedPbis()
+	 */
+	@Override
+	public int getCumulatedManDayCostsOfClosedPbis() {
+		this.result = 0;
+		for (final ProductBacklogItem pbi : this.getPBIs()) {
+			pbi.getState().accept(new IPBIStateVisitor() {
+				
+				@Override
+				public void handleOpen(PBIOpenState open) {
+					//nothing to do, because state is Open
+					System.out.println("Stellen \"Open\" angesprungen");
+				}
+				
+				@Override
+				public void handleClosed(PBIClosedState closed) {
+					Sprint.this.result += pbi.getManDayCosts();
+					//TODO: Muss für "result" wirklich eine Klassenvariable erstellt werden?
+					System.out.println("Stellen \"Closed\" angesprungen");
+				}
+			});
 		}
 		return result;
 	}
@@ -330,4 +369,5 @@ public class Sprint implements ISprint {
 	public String toString() {
 		return this.getName();
 	}
+
 }

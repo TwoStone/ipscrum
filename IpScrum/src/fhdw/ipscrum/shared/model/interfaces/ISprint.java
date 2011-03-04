@@ -132,6 +132,14 @@ public interface ISprint extends BDACompare, Serializable,
 	 * Method getCumulatedManDayCosts
 	 * @return cumulated Efforts
 	 */
-	int getCumulatedManDayCosts();
+	public abstract int getCumulatedManDayCosts();
+	
+	/**
+	 * Method getCumulatedManDayCostsOfClosedPbis
+	 * @return cumulated Efforts of Closed PBIs
+	 */
+	public abstract int getCumulatedManDayCostsOfClosedPbis();
+	
+	
 
 }

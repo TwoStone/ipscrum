@@ -66,7 +66,8 @@ public class ReleaseChartData {
 		int runningValue = overallEfforts;
 
 		for (ISprint sprint : sortedSprints) {
-			runningValue -= sprint.getCumulatedManDayCosts();
+			
+			runningValue -= sprint.getCumulatedManDayCostsOfClosedPbis();
 
 			if (this.data.containsKey(sprint.getEnd())) {
 				ReleaseChartDataDetails details = this.data.get(sprint.getEnd());
