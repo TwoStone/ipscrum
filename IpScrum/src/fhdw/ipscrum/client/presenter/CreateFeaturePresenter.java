@@ -9,7 +9,6 @@ import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
-import fhdw.ipscrum.shared.observer.Observer;
 
 /**
  * Presenter for creating new features.
@@ -17,7 +16,7 @@ import fhdw.ipscrum.shared.observer.Observer;
  * @author Niklas
  */
 public class CreateFeaturePresenter extends
-		FeaturePresenter<ICreateFeatureView> implements Observer {
+		FeaturePresenter<ICreateFeatureView> {
 
 	/**
 	 * Creates a new feature. Only for internal use because catching exceptions

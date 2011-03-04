@@ -11,7 +11,7 @@ import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveHintEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.interfaces.ICreateFeatureView;
+import fhdw.ipscrum.client.view.interfaces.IFeatureView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
@@ -34,7 +34,7 @@ import fhdw.ipscrum.shared.observer.Observer;
 /**
  * Base class for presenting {@link Feature}s.
  */
-public abstract class FeaturePresenter<T extends ICreateFeatureView> extends
+public abstract class FeaturePresenter<T extends IFeatureView> extends
 		Presenter<T> implements Observer {
 	protected static final String NEWFTRNAME = "###empty###";
 

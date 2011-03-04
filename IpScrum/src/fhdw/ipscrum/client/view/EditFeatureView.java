@@ -14,12 +14,11 @@ import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
-import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
-public class EditFeatureView extends CreateFeatureView implements
-		IEditFeatureView {
+public class EditFeatureView extends FeatureView implements IEditFeatureView {
 
 	private final IntegerBox complexityBox = new IntegerBox();
 	private final Label currentStateLbl = new Label("");

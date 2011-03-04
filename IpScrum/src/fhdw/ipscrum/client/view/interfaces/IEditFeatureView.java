@@ -2,10 +2,10 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 
-public interface IEditFeatureView extends ICreateFeatureView {
+public interface IEditFeatureView extends IFeatureView {
 
 	/**
 	 * Returns the currently entered complexity.
