@@ -7,6 +7,7 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
+import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
 import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -19,11 +20,17 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
  */
 public class Root extends Observable implements SerializationRoot, HasRelationTypeManager {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6666063945302893637L;
+	
 	private Vector<Project> projects;
 	private HashSet<IPerson> persons;
 	private HashSet<ITeam> teams;
 	private HashSet<IRole> roles;
 	private RelationTypeManager relationTypeManager;
+	private Rootsystem systems;
 
 	/**
 	 * Method save.
@@ -98,7 +105,7 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		}
 		return this.relationTypeManager;
 	}
-
+	
 	/**
 	 * Removes the given project with all depending data from the model.
 	 * 
@@ -243,6 +250,37 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		return this.getRoles().size();
 	}
 
+	
+	/**
+	 * Method getSystems
+	 * 
+	 * @return Systemgroup
+	 */
+	public Rootsystem getSystems(){
+		if (this.systems == null) {
+			this.systems = new Rootsystem();
+		}
+		return this.systems;
+	} 
+	
+	
+	/**
+	 *  add a component to the root for systems
+	 * 
+	 * @param child
+	 * @throws DoubleDefinitionException
+	 */
+	public void addComponent(AbsSystem child) throws DoubleDefinitionException {
+		if (this.getSystems().contains(child)) {
+			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		} else {
+			this.getSystems().addChild(child);
+			this.notifyObservers();
+		}
+	}
+	
+	
+	
 	/**
 	 * Method toString.
 	 * 

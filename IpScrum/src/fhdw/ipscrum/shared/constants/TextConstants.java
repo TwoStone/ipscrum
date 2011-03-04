@@ -38,6 +38,7 @@ public final class TextConstants {
 	public static final String NAV_PROJECTS = "Projekte";
 	public static final String NAV_TASKBOARD = "Taskboard";
 	public static final String NAV_REPORTS = "Statistiken";
+	public static final String NAV_SYSTEMS = "Systeme";
 	public static final String NAV_PERSONROLEMANAGEMENT = "Personen-Stammdaten";
 	public static final String NAV_TEAMMANAGEMENT = "Teamzuordnung";
 	public static final String NAV_SAVEMODELDATA = "Speichern";
