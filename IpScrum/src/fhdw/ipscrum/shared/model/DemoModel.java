@@ -173,14 +173,14 @@ public class DemoModel {
 		final Sprint taskboardRelPhase3 = new Sprint("Taskboard",
 				"Bereitstellung von Task-Funktionalitäten", new Date(
 						2011 - 1900, 2 - 1, 14),
-				new Date(2011 - 1900, 3 - 1, 9), team1);
+						new Date(2011 - 1900, 3 - 1, 9), team1);
 		final Sprint reportingRelPhase3 = new Sprint("Reporting I",
 				"Bereitstellung von Statistikelementen", new Date(2011 - 1900,
 						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team3);
 		final Sprint ticketsRelPhase3 = new Sprint("Tickets II",
 				"Bereitstellung von Bugtracking-Funktionen", new Date(
 						2011 - 1900, 2 - 1, 14),
-				new Date(2011 - 1900, 3 - 1, 9), team2);
+						new Date(2011 - 1900, 3 - 1, 9), team2);
 
 		// assigning sprints to projects
 		projekt1.addSprint(sprint1rel10);
@@ -226,6 +226,7 @@ public class DemoModel {
 		f1.setLastEditor(pNils);
 		f1.setManDayCosts(6);
 		f1.setSprint(sprint1rel10);
+		f1.close();
 
 		final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2",
 				projekt1.getBacklog());
@@ -239,24 +240,31 @@ public class DemoModel {
 		f3.setLastEditor(pNils);
 		f3.setManDayCosts(4);
 		f3.setSprint(sprint4rel10);
+		f3.close();
 
 		final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4",
 				projekt1.getBacklog());
 		f4.setLastEditor(pNils);
 		f4.setManDayCosts(12);
 		f4.setSprint(sprint3rel10);
+		f4.close();
+
 
 		final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5",
 				projekt1.getBacklog());
 		f5.setLastEditor(pNils);
 		f5.setManDayCosts(10);
 		f5.setSprint(sprint5rel10);
+		f5.close();
+
 
 		final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6",
 				projekt1.getBacklog());
 		f6.setLastEditor(pNils);
 		f6.setManDayCosts(5);
 		f6.setSprint(sprint2rel10);
+		f6.close();
+
 
 		final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7",
 				projekt2.getBacklog());
@@ -269,6 +277,7 @@ public class DemoModel {
 		f8.setLastEditor(pNils);
 		f8.setManDayCosts(9);
 		f8.setSprint(sprint7rel20);
+		f8.close();
 
 		final Feature f9 = new Feature("Sprint-BDChart", "Burndown-Auswertung",
 				ipScrum.getBacklog());
@@ -282,6 +291,7 @@ public class DemoModel {
 		f10.setLastEditor(pWilken);
 		f10.setManDayCosts(15);
 		f10.setSprint(reportingRelPhase3);
+		f10.close();
 
 		// adding features to projects
 		projekt1.getBacklog().addItem(f1);

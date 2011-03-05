@@ -49,7 +49,7 @@ public class Sprint implements ISprint {
 	 */
 	public Sprint(final String name, final String description,
 			final Date begin, final Date end, final ITeam team)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		super();
 		this.setName(name);
 		this.setDescription(description);
@@ -120,18 +120,12 @@ public class Sprint implements ISprint {
 				@Override
 				public void handleClosed(PBIClosedState closed) {
 					Sprint.this.result += pbi.getManDayCosts();
-					// TODO: Muss für "result" wirklich eine Klassenvariable
-					// erstellt werden?
-
-					java.lang.System.out
-							.println("Stellen \"Closed\" angesprungen");
+					// TODO: Muss für "result" wirklich eine Klassenvariable erstellt werden?
 				}
 
 				@Override
 				public void handleOpen(PBIOpenState open) {
-					// nothing to do, because state is Open
-					java.lang.System.out
-							.println("Stellen \"Open\" angesprungen");
+					// we're only interested in closed tasks, so there's nothing to do here
 				}
 			});
 		}
@@ -286,7 +280,7 @@ public class Sprint implements ISprint {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
+		+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -351,7 +345,7 @@ public class Sprint implements ISprint {
 	 */
 	@Override
 	public void setTimeFrame(final Date begin, final Date end)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		if (begin == null || end == null) {
 			throw new NoValidValueException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
