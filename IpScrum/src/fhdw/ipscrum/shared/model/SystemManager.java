@@ -12,7 +12,7 @@ public class SystemManager implements Serializable {
 
 	private Rootsystem rootsystem;
 
-	IHasChildren getSystems() {
+	public IHasChildren getSystems() {
 		if (this.rootsystem == null) {
 			this.rootsystem = new Rootsystem();
 		}

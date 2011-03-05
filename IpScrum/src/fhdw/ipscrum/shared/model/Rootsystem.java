@@ -3,6 +3,8 @@
  */
 package fhdw.ipscrum.shared.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -25,12 +27,17 @@ public class Rootsystem extends Observable implements IHasChildren {
 	private static final long serialVersionUID = 3375902891368480223L;
 	private Vector<System> childs;
 	private String name;
-	private final OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
+	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
+
+	private void setToSystemAssoc(
+			OneToMany<ManyToOne, IHasChildren> toSystemAssoc) {
+		this.toSystemAssoc = toSystemAssoc;
+	}
 
 	public Rootsystem() {
 		// TODO: textkonstante
 		this.setName("Systemübersicht");
-		this.toSystemAssoc = new OneToMany<ManyToOne, IHasChildren>(this);
+		this.setToSystemAssoc(new OneToMany<ManyToOne, IHasChildren>(this));
 	}
 
 	@Override
@@ -154,6 +161,15 @@ public class Rootsystem extends Observable implements IHasChildren {
 	@Override
 	public void accept(HasChildVisitor visitor) {
 		visitor.handleRoot(this);
+	}
+
+	@Override
+	public List<Systemgroup> getGroups() {
+		final List<Systemgroup> result = new ArrayList<Systemgroup>();
+		for (final System system : this.getChilds()) {
+			result.addAll(system.getGroups());
+		}
+		return result;
 	}
 
 }

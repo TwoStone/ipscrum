@@ -1,5 +1,8 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.Collections;
+import java.util.List;
+
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
@@ -29,6 +32,11 @@ public class ConcreteSystem extends System {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+	@Override
+	public List<Systemgroup> getGroups() {
+		return Collections.emptyList();
 	}
 
 }

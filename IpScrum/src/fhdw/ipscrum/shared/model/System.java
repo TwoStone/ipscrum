@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.List;
+
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
@@ -96,4 +98,6 @@ public abstract class System extends Observable implements BDACompare {
 	}
 
 	public abstract void accept(ISystemVisitor visitor);
+
+	public abstract List<Systemgroup> getGroups();
 }

@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -68,6 +70,16 @@ public class Systemgroup extends System implements IHasChildren {
 	@Override
 	public void accept(HasChildVisitor visitor) {
 		visitor.handleSystemGroup(this);
+	}
+
+	@Override
+	public List<Systemgroup> getGroups() {
+		final List<Systemgroup> result = new ArrayList<Systemgroup>();
+		result.add(this);
+		for (final System system : this.getChilds()) {
+			result.addAll(system.getGroups());
+		}
+		return result;
 	}
 
 }
