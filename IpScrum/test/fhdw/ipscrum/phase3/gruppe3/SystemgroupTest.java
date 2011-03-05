@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.HashSet;
+import java.util.Vector;
 
 import org.junit.After;
 import org.junit.Before;
@@ -126,7 +127,7 @@ public class SystemgroupTest {
 	public void testGetChilds_1() throws Exception {
 		final Systemgroup fixture = new Systemgroup("", new Rootsystem());
 
-		final HashSet<System> result = fixture.getChilds();
+		final Vector<System> result = fixture.getChilds();
 
 		// add additional test code here
 		assertNotNull(result);
@@ -144,7 +145,7 @@ public class SystemgroupTest {
 	public void testGetChilds_2() throws Exception {
 		final Systemgroup fixture = new Systemgroup("", new Rootsystem());
 
-		final HashSet<System> result = fixture.getChilds();
+		final Vector<System> result = fixture.getChilds();
 
 		// add additional test code here
 		assertNotNull(result);
