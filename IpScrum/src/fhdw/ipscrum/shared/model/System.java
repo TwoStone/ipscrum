@@ -1,29 +1,33 @@
 package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public abstract class System extends Observable implements BDACompare {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5808437328511791688L;
 	private String name;
-	private IHasChildren parent;
+	private final ManyToOne<OneToMany, System> toIHasChildAssoc;
 
-	public System(String name, IHasChildren parent) {
+	public System(final String name, final IHasChildren parent) {
 		this.name = name;
 		this.setParent(parent);
+		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
+	}
+
+	protected ManyToOne<OneToMany, System> getToIHasChildAssoc() {
+		return this.toIHasChildAssoc;
 	}
 
 	/**
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -38,49 +42,26 @@ public abstract class System extends Observable implements BDACompare {
 	 * @return the parent
 	 */
 	public IHasChildren getParent() {
-		return this.parent;
+		return (IHasChildren) this.toIHasChildAssoc.get();
 	}
 
-	private void setParent(IHasChildren parent) {
-		this.parent = parent;
+	private void setParent(final IHasChildren parent) {
+		this.toIHasChildAssoc.set(parent.getToSystemAssoc());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (!this.indirectEquals(obj)) {
-			return false;
-			// } else {
-			// final System other = (System) obj;
-			// if (this.assoc == null) {
-			// if (other.assoc != null) {
-			// return false;
-			// }
-			// } else if (!this.assoc.equals(other.assoc)) {
-			// return false;
-		}
-		return true;
-		// }
+	public boolean equals(final Object obj) {
+		return this.indirectEquals(obj);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int result = this.indirectHashCode();
-		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean indirectEquals(Object obj) {
+	public boolean indirectEquals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -98,13 +79,6 @@ public abstract class System extends Observable implements BDACompare {
 		} else if (!this.name.equals(other.name)) {
 			return false;
 		}
-		if (this.parent == null) {
-			if (other.parent != null) {
-				return false;
-			}
-		} else if (!this.parent.equals(other.parent)) {
-			return false;
-		}
 		return true;
 	}
 
@@ -114,8 +88,6 @@ public abstract class System extends Observable implements BDACompare {
 		int result = super.hashCode();
 		result = prime * result
 				+ ((this.name == null) ? 0 : this.name.hashCode());
-		result = prime * result
-				+ ((this.parent == null) ? 0 : this.parent.hashCode());
 		return result;
 	}
 

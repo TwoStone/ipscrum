@@ -6,23 +6,20 @@ import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 
 public class ConcreteSystem extends System {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6315896002098835977L;
 
-	public ConcreteSystem(String name, IHasChildren parent)
+	public ConcreteSystem(final String name, final IHasChildren parent)
 			throws DoubleDefinitionException {
 		super(name, parent);
 		parent.addChild(this);
 	}
 
 	@Override
-	public void accept(ISystemVisitor visitor) {
+	public void accept(final ISystemVisitor visitor) {
 		visitor.handleConcreteSystem(this);
 	}
 
-	public boolean contains(System child) {
+	public boolean contains(final System child) {
 		return this.equals(child);
 	}
 

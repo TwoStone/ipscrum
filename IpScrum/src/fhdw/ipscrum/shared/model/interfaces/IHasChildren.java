@@ -3,6 +3,8 @@ package fhdw.ipscrum.shared.model.interfaces;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.System;
 
@@ -14,8 +16,9 @@ public interface IHasChildren extends BDACompare {
 	 * @param child
 	 * @throws DoubleDefinitionException
 	 */
-	void addChild(System child) throws DoubleDefinitionException;
+	abstract void addChild(System child) throws DoubleDefinitionException;
 
-	Vector<System> getChilds();
+	abstract Vector<System> getChilds();
 
+	abstract OneToMany<ManyToOne, IHasChildren> getToSystemAssoc();
 }

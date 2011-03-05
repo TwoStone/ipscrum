@@ -5,6 +5,9 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -21,10 +24,17 @@ public class Rootsystem extends Observable implements IHasChildren {
 	private static final long serialVersionUID = 3375902891368480223L;
 	private Vector<System> childs;
 	private String name;
+	private final OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
 	public Rootsystem() {
 		// TODO: textkonstante
 		this.setName("Systemübersicht");
+		this.toSystemAssoc = new OneToMany<ManyToOne, IHasChildren>(this);
+	}
+
+	@Override
+	public OneToMany<ManyToOne, IHasChildren> getToSystemAssoc() {
+		return this.toSystemAssoc;
 	}
 
 	/**
@@ -39,7 +49,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 			throw new DoubleDefinitionException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
-			this.getChilds().add(child);
+			this.getToSystemAssoc().add(child.getToIHasChildAssoc());
 			this.notifyObservers();
 		}
 	}
@@ -51,9 +61,10 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * fhdw.ipscrum.shared.model.Component#contains(fhdw.ipscrum.shared.model
 	 * .Component)
 	 */
-	public boolean contains(System child) {
-		if (this.equals(child))
+	public boolean contains(final System child) {
+		if (this.equals(child)) {
 			return true;
+		}
 		return this.getChilds().contains(child);
 	}
 
@@ -61,10 +72,12 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * @return the childs
 	 */
 	public Vector<System> getChilds() {
-		if (this.childs == null) {
-			this.childs = new Vector<System>();
+		final Vector<System> ret = new Vector<System>();
+		for (final BDACompare current : this.getToSystemAssoc()
+				.getAssociations()) {
+			ret.add((System) current);
 		}
-		return this.childs;
+		return ret;
 	}
 
 	public String getName() {
@@ -75,7 +88,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * @param name
 	 *            the name to set
 	 */
-	private void setName(String name) {
+	private void setName(final String name) {
 		this.name = name;
 	}
 
@@ -91,8 +104,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 */
 	@Override
 	public int hashCode() {
-		int result = this.indirectHashCode();
-		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
+		final int result = this.indirectHashCode();
 		return result;
 	}
 
@@ -102,41 +114,29 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (!this.indirectEquals(obj)) {
-			return false;
-			// } else {
-			// final IHasChildren other = (IHasChildren) obj;
-			// if (this.assoc == null) {
-			// if (other.assoc != null) {
-			// return false;
-			// }
-			// } else if (!this.assoc.equals(other.assoc)) {
-			// return false;
-		}
-		return true;
-		// }
+	public boolean equals(final Object obj) {
+		return this.indirectEquals(obj);
 	}
 
 	@Override
-	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+	public boolean indirectEquals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Rootsystem other = (Rootsystem) obj;
-		if (childs == null) {
-			if (other.childs != null)
+		}
+		final Rootsystem other = (Rootsystem) obj;
+		if (this.name == null) {
+			if (other.name != null) {
 				return false;
-		} else if (!childs.equals(other.childs))
+			}
+		} else if (!this.name.equals(other.name)) {
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
+		}
 		return true;
 	}
 
@@ -144,8 +144,8 @@ public class Rootsystem extends Observable implements IHasChildren {
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((childs == null) ? 0 : childs.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 

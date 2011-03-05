@@ -3,13 +3,11 @@ package fhdw.ipscrum.shared.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.*;
-
-
-
-public class Test_Task extends junit.framework.TestCase{
+public class Test_Task extends junit.framework.TestCase {
 
 	private static Person per1 = null;
 	private static Person per2 = null;
@@ -28,13 +26,12 @@ public class Test_Task extends junit.framework.TestCase{
 	private static Integer zero = null;
 	private static Integer three = null;
 
-
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		test = new Project("Test");
 		pbltest = test.getBacklog();
 		per1 = new Person("Max", "Mustermann");
-		per2 = new Person("Karin","Katze");
+		per2 = new Person("Karin", "Katze");
 		pbi1 = new Feature("A", "Test1", pbltest);
 		pbi2 = new Feature("B", "Test2", pbltest);
 		pbi3 = new Feature("C", "Test3", pbltest);
@@ -54,14 +51,15 @@ public class Test_Task extends junit.framework.TestCase{
 	}
 
 	// ---------------------------------------------------------------------------
-	// ------------------------- Test of basic functions -------------------------
+	// ------------------------- Test of basic functions
+	// -------------------------
 	// ---------------------------------------------------------------------------
 
 	@Test
 	/**
 	 * Get Name of a task
 	 */
-	public void testGetName() throws Exception{
+	public void testGetName() throws Exception {
 		assertEquals("Task 1", t1.getName());
 	}
 
@@ -69,7 +67,7 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Test of setName()
 	 */
-	public void testSetName() throws Exception{
+	public void testSetName() throws Exception {
 		t1.setName("Task");
 		assertEquals("Task", t1.getName());
 	}
@@ -78,8 +76,7 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Test on getting the assigned person
 	 */
-
-	public void testGetResposiblePerson() throws Exception{
+	public void testGetResposiblePerson() throws Exception {
 		assertEquals(null, t1.getResponsiblePerson());
 	}
 
@@ -87,7 +84,7 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Test on assigned a task to a Person
 	 */
-	public void testSetResponsibility() throws Exception{
+	public void testSetResponsibility() throws Exception {
 		t1.setResponsibility(per1);
 		assertEquals(per1, t1.getResponsiblePerson());
 	}
@@ -97,7 +94,7 @@ public class Test_Task extends junit.framework.TestCase{
 	 * Test on assigned a task to a Person
 	 * throws Exception
 	 */
-	public void testSetResponsibility1() throws Exception{
+	public void testSetResponsibility1() throws Exception {
 		t1.setResponsibility(per1);
 		assertEquals(per2, t1.getResponsiblePerson());
 	}
@@ -106,7 +103,7 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Getting pbi's of a task
 	 */
-	public void testgetpbi() throws Exception{
+	public void testgetpbi() throws Exception {
 		assertEquals(null, t1.getPBIIterator());
 	}
 
@@ -114,128 +111,129 @@ public class Test_Task extends junit.framework.TestCase{
 	/**
 	 * Addition of a pbi
 	 */
-
-	public void testaddpbi() throws Exception{
+	public void testaddpbi() throws Exception {
 		t1.addPBI(pbi1);
 		assertEquals(pbi1, t1.getPBIIterator());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the description
 	 */
-	public void testgetDescription() throws Exception{
+	public void testgetDescription() throws Exception {
 		assertEquals("Beschreibung", t1.getDescription());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the finish Date
 	 */
-	public void testgetFinishDate() throws Exception{
+	public void testgetFinishDate() throws Exception {
 		assertEquals(null, t1.getFinishDate());
 	}
-	
+
 	@Test
 	/**
 	 * Closing of a task
 	 */
-	public void testFinish() throws Exception{
+	public void testFinish() throws Exception {
 		t1.finish();
-		assertEquals(true,t1.isFinished());
+		assertEquals(true, t1.isFinished());
 	}
 
 	@Test
 	/**
 	 * Getting pbi-Iterator
 	 */
-	public void testIterator() throws Exception{
+	public void testIterator() throws Exception {
 		assertEquals(apbis.add(pbi1), t1.getPBIIterator());
 	}
-	
+
 	@Test
 	/**
 	 * Getting planed effort
 	 */
-	public void testGetPlanEffort() throws Exception{
+	public void testGetPlanEffort() throws Exception {
 		assertEquals(zero, t1.getPlanEffort());
 	}
-	
+
 	@Test
 	/**
 	 * Setting the planed effort
 	 */
-	public void testSetPlanEffort() throws Exception{
+	public void testSetPlanEffort() throws Exception {
 		t1.setPlanEffort(3);
-		assertEquals(three,t1.getPlanEffort());
+		assertEquals(three, t1.getPlanEffort());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the state of a task
 	 */
-	public void testgetState() throws Exception{
+	public void testgetState() throws Exception {
 		// TODO: assertEquals(,t1.getState());
 	}
-	
+
 	@Test
 	/**
 	 * Test of having a responsible person
 	 */
-	public void testHasResponsiblePerson() throws Exception{
+	public void testHasResponsiblePerson() throws Exception {
 		assertEquals(false, t1.hasResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Setting of description
 	 */
-	public void testSetDescription() throws Exception{
+	public void testSetDescription() throws Exception {
 		t1.setDescription("Beschreibung geändert");
 		assertEquals("Beschreibung geändert", t1.getDescription());
 	}
-	
+
 	// ---------------------------------------------------------------------------------
-	// ---------------------- Test of more complex functions ---------------------------
+	// ---------------------- Test of more complex functions
+	// ---------------------------
 	// ---------------------------------------------------------------------------------
 
 	@Test
 	/**
 	 * Removing a PBI
 	 */
-	public void testRemovePBI() throws Exception{
+	public void testRemovePBI() throws Exception {
 		t1.removePBI(pbi1);
-		assertEquals(apbis.remove(pbi1),t1.getPBIIterator());
+		assertEquals(apbis.remove(pbi1), t1.getPBIIterator());
 	}
-	
+
 	// ----------------------------------------------------------------------------------
-	// -------------------------------------- Test of cases -----------------------------
+	// -------------------------------------- Test of cases
+	// -----------------------------
 	// ----------------------------------------------------------------------------------
-	
+
 	@Test
 	/**
 	 * Full run through of the life circle of a task
 	 */
-	public void testLifeCircle1() throws Exception{
+	public void testLifeCircle1() throws Exception {
 		// Setting name and planed effort
 		t2.setName("Task");
 		t2.setPlanEffort(3);
-				
+
 		// Adding a pbi
 		t2.addPBI(pbi2);
-				
+
 		// Assigning a person
 		t2.setResponsibility(per2);
-				
+
 		// Finish task
 		t2.finish();
-		
+
 		assertEquals(true, t2.isFinished());
 		assertEquals("Task", t2.getName());
 		assertEquals(three, t2.getPlanEffort());
-		assertEquals(apbis2.add(pbi2),t2.getPBIIterator());
+		assertEquals(apbis2.add(pbi2), t2.getPBIIterator());
 		assertEquals(per2, t2.getResponsiblePerson());
-		
+
 	}
 
 	@Test
@@ -245,39 +243,39 @@ public class Test_Task extends junit.framework.TestCase{
 	 * pbi's removed
 	 * person changed
 	 */
-	public void testLifeCircle2() throws Exception{
+	public void testLifeCircle2() throws Exception {
 		// setting name and planned effort
 		t3.setName("Task");
 		t3.setPlanEffort(3);
-		
+
 		// adding 2 pbi's
 		t3.addPBI(pbi3);
 		t3.addPBI(pbi4);
-		
+
 		// assigning a person
 		t3.setResponsibility(per1);
-				
+
 		// change person
 		t3.setResponsibility(per2);
-		
+
 		// remove a pbi
 		t3.removePBI(pbi3);
-		
+
 		// adding a pbi
 		t3.addPBI(pbi1);
-		
+
 		// finish task
 		t3.finish();
-		
+
 		// preparing apbis3
 		apbis3.add(pbi4);
 		apbis3.add(pbi1);
-		
+
 		assertEquals(true, t3.isFinished());
 		assertEquals("Task", t3.getName());
 		assertEquals(three, t3.getPlanEffort());
-		assertEquals(apbis3,t3.getPBIIterator());
+		assertEquals(apbis3, t3.getPBIIterator());
 		assertEquals(per2, t3.getResponsiblePerson());
-		
+
 	}
 }
