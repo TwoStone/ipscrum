@@ -15,7 +15,10 @@ public interface ITaskStateOperations extends Serializable {
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException;
 
 	public void finish() throws ForbiddenStateException;
-
+	/**
+	 * PRECONDITION: isFinished() == true
+	 * @return date when the task has been finished.
+	 */
 	public Date getFinishDate();
 
 	/**
@@ -47,5 +50,11 @@ public interface ITaskStateOperations extends Serializable {
 	 */
 	public void setResponsibility(IPerson responsiblePerson)
 			throws ForbiddenStateException;
+	/**
+	 * PRECONDITION: state of task must not be finished
+	 * @param planEffort
+	 * @throws ForbiddenStateException
+	 */
+	public void setPlanEffort(Integer planEffort) throws ForbiddenStateException;
 
 }

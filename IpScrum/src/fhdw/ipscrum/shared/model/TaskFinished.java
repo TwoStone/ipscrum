@@ -91,4 +91,11 @@ public class TaskFinished extends TaskAssigned {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
+
+	@Override
+	public void setPlanEffort(Integer planEffort)
+			throws ForbiddenStateException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
 }

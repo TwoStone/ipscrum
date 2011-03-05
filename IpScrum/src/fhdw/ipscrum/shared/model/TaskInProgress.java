@@ -80,6 +80,11 @@ public class TaskInProgress extends TaskAssigned {
 	public void accept(ITaskStateVisitor iTaskStateVisitor) {
 		iTaskStateVisitor.handleTaskInProgress(this);
 	}
+	@Override
+	public void setPlanEffort(Integer planEffort)
+			throws ForbiddenStateException {
+		this.getMyTask().doSetPlanEffort(planEffort);
+	}
 	
 
 }

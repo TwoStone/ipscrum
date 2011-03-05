@@ -183,4 +183,16 @@ public class Task extends Observable implements ITask {
 		this.state = new TaskInProgress(this, responsiblePerson);
 	}
 
+	@Override
+	public void setPlanEffort(Integer planEffort)
+			throws ForbiddenStateException {
+		this.state.setPlanEffort(planEffort);
+		this.notifyObservers();
+		
+	}
+
+	protected void doSetPlanEffort(Integer planEffort) {
+		this.planEffort = planEffort;
+	}
+
 }

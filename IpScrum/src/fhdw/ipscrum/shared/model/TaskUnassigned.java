@@ -81,5 +81,10 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 	public void accept(ITaskStateVisitor iTaskStateVisitor) {
 		iTaskStateVisitor.handleTaskUnassigned(this);
 	}
+	@Override
+	public void setPlanEffort(Integer planEffort)
+			throws ForbiddenStateException {
+		this.getMyTask().doSetPlanEffort(planEffort);
+	}
 	
 }
