@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.HashSet;
+import java.util.Vector;
 
 import org.junit.After;
 import org.junit.Before;
@@ -122,7 +123,7 @@ public class RootsystemTest {
 	public void testGetChilds_1() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
 
-		final HashSet<System> result = fixture.getChilds();
+		final Vector<System> result = fixture.getChilds();
 
 		// add additional test code here
 		assertNotNull(result);
@@ -140,7 +141,7 @@ public class RootsystemTest {
 	public void testGetChilds_2() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
 
-		final HashSet<System> result = fixture.getChilds();
+		final Vector<System> result = fixture.getChilds();
 
 		// add additional test code here
 		assertNotNull(result);
