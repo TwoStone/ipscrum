@@ -1,4 +1,4 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-public interface ISystem {
+public interface IHasChildren {
 }

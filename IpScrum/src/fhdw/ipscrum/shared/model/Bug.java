@@ -13,7 +13,7 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import fhdw.ipscrum.shared.model.interfaces.ISystem;
+import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -31,7 +31,7 @@ public class Bug extends ProductBacklogItem {
 
 	private IBugState state;
 
-	private Collection<ISystem> systems;
+	private Collection<IHasChildren> systems;
 
 	@SuppressWarnings("unused")
 	private Bug() {
@@ -42,7 +42,7 @@ public class Bug extends ProductBacklogItem {
 			DoubleDefinitionException, ConsistencyException,
 			ForbiddenStateException {
 		super(name, description, backlog);
-		this.systems = new ArrayList<ISystem>();
+		this.systems = new ArrayList<IHasChildren>();
 	}
 
 	/*
@@ -57,11 +57,12 @@ public class Bug extends ProductBacklogItem {
 		visitor.handleBug(this);
 	}
 
-	public void addSystem(final ISystem system) throws ForbiddenStateException {
+	public void addSystem(final IHasChildren system)
+			throws ForbiddenStateException {
 		this.getState().addSystem(system);
 	}
 
-	public void doAddSystem(final ISystem system) {
+	public void doAddSystem(final IHasChildren system) {
 		this.systems.add(system);
 	}
 
@@ -83,7 +84,7 @@ public class Bug extends ProductBacklogItem {
 		return this.state;
 	}
 
-	public Collection<ISystem> getSystems() {
+	public Collection<IHasChildren> getSystems() {
 		return Collections.unmodifiableCollection(this.systems);
 	}
 

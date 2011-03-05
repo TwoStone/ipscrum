@@ -264,22 +264,6 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	} 
 	
 	
-	/**
-	 *  add a component to the root for systems
-	 * 
-	 * @param child
-	 * @throws DoubleDefinitionException
-	 */
-	public void addComponent(AbsSystem child) throws DoubleDefinitionException {
-		if (this.getSystems().contains(child)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-		} else {
-			this.getSystems().addChild(child);
-			this.notifyObservers();
-		}
-	}
-	
-	
 	
 	/**
 	 * Method toString.

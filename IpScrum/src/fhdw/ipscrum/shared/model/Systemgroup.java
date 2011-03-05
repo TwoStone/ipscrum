@@ -4,9 +4,9 @@ import java.util.HashSet;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
+import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
-
-public class Systemgroup extends AbsSystem {
+public class Systemgroup extends AbsSystem implements IHasChildren {
 
 	/**
 	 * 
@@ -14,20 +14,24 @@ public class Systemgroup extends AbsSystem {
 	private static final long serialVersionUID = -319562480100341293L;
 	private HashSet<AbsSystem> childs;
 
-	public Systemgroup(String name, AbsSystem parent) {
+	public Systemgroup(String name, IHasChildren parent) {
 		super(name, parent);
 	}
 
-	public void addChild(final AbsSystem child) throws DoubleDefinitionException {
+	public void addChild(final AbsSystem child)
+			throws DoubleDefinitionException {
 		if (this.contains(child)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getChilds().add(child);
 			this.notifyObservers();
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.shared.model.Componentgroup#getChilds()
 	 */
 	public HashSet<AbsSystem> getChilds() {
@@ -40,7 +44,7 @@ public class Systemgroup extends AbsSystem {
 	public boolean contains(AbsSystem child) {
 		return this.getChilds().contains(child);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Systemgruppe " + getName();

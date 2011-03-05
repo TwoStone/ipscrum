@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import fhdw.ipscrum.shared.model.interfaces.ISystem;
+import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -61,7 +61,7 @@ public class BugTest {
 	public void testAccept_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 		final IProductBacklogItemVisitor visitor = null;
 
 		fixture.accept(visitor);
@@ -88,8 +88,8 @@ public class BugTest {
 	public void testAddSystem_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
-		final ISystem system = null;
+		fixture.doAddSystem((IHasChildren) null);
+		final IHasChildren system = null;
 
 		fixture.addSystem(system);
 
@@ -115,8 +115,8 @@ public class BugTest {
 	public void testAddSystem_2() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
-		final ISystem system = null;
+		fixture.doAddSystem((IHasChildren) null);
+		final IHasChildren system = null;
 
 		fixture.addSystem(system);
 
@@ -142,8 +142,8 @@ public class BugTest {
 	public void testDoAddSystem_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
-		final ISystem system = null;
+		fixture.doAddSystem((IHasChildren) null);
+		final IHasChildren system = null;
 
 		fixture.doAddSystem(system);
 
@@ -169,7 +169,7 @@ public class BugTest {
 	public void testDoSetRelease_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 		final IRelease release = new Release("", new Date(), new Project(""));
 
 		fixture.doSetRelease(release);
@@ -196,7 +196,7 @@ public class BugTest {
 	public void testGetRelease_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 
 		final IRelease result = fixture.getRelease();
 
@@ -223,7 +223,7 @@ public class BugTest {
 	public void testGetState_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 
 		final IBugState result = fixture.getState();
 
@@ -250,9 +250,9 @@ public class BugTest {
 	public void testGetSystems_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 
-		final Collection<ISystem> result = fixture.getSystems();
+		final Collection<IHasChildren> result = fixture.getSystems();
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this
@@ -277,7 +277,7 @@ public class BugTest {
 	public void testSetRelease_1() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 		final IRelease release = new Release("", new Date(), new Project(""));
 
 		fixture.setRelease(release);
@@ -304,7 +304,7 @@ public class BugTest {
 	public void testSetRelease_2() throws Exception {
 		final Bug fixture = new Bug("", "", (ProductBacklog) null);
 		fixture.doSetRelease(new Release("", new Date(), new Project("")));
-		fixture.doAddSystem((ISystem) null);
+		fixture.doAddSystem((IHasChildren) null);
 		final IRelease release = new Release("", new Date(), new Project(""));
 
 		fixture.setRelease(release);
