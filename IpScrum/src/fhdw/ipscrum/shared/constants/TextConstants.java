@@ -1,6 +1,5 @@
 package fhdw.ipscrum.shared.constants;
 
-
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -33,6 +32,7 @@ public final class TextConstants {
 	public static final String ERROR = "Fehler";
 	public static final String CLOSE = "Schließen";
 	public static final String TYPENAME = "Neuer Typ:";
+	public static final String CHANGE_SYSTEM = "Systemzuordnung bearbeiten";
 	/* [END SECTION] */
 
 	public static final String NAV_PROJECTS = "Projekte";
@@ -51,8 +51,8 @@ public final class TextConstants {
 	public static final String TEAMVIEW_FIRSTNAMEHEADER = "Vorname";
 	public static final String TEAMVIEW_LASTNAMEHEADER = "Nachname";
 	public static final String TEAMVIEW_ROLESHEADER = "Rolle(n)";
-	public static final String TEAMVIEW_BUTTONLABEL_REMOVEPERSONFROMTEAM = "->";
-	public static final String TEAMVIEW_BUTTONLABEL_ASSIGNPERSONTOTEAM = "<-";
+	public static final String TEAMVIEW_BUTTONLABEL_REMOVE = "->";
+	public static final String TEAMVIEW_BUTTONLABEL_ASSIGN = "<-";
 
 	public static final String DIALOGBOX_OK = "OK";
 	public static final String DIALOGBOX_CANCEL = "Abbrechen";

@@ -34,8 +34,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	 * @param project
 	 * @param parentPresenter
 	 */
-	public ProductBacklogPresenter(final Panel parent, final Project project,
-			final Presenter<?> parentPresenter) {
+	public ProductBacklogPresenter(final Panel parent, final Project project, final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 		this.project = project;
 		this.initialize();
@@ -53,28 +52,21 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
-				final DialogBox newBox = GwtUtils
-						.createDialog(TextConstants.CREATE_FEATURE);
-				final CreateFeaturePresenter presenter;
+				final DialogBox newBox = GwtUtils.createDialog(TextConstants.CREATE_FEATURE);
+				final CreatePBIPresenter presenter;
 				try {
-					presenter = new CreateFeaturePresenter(newBox,
-							ProductBacklogPresenter.this.project.getBacklog(),
-							ProductBacklogPresenter.this);
+					presenter = new CreatePBIPresenter(newBox, ProductBacklogPresenter.this.project.getBacklog(), ProductBacklogPresenter.this);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 						@Override
-						public void onUpdate(final Object sender,
-								final EventArgs eventArgs) {
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
 							try {
-								ProductBacklogPresenter.this.project
-										.getBacklog().addItem(
-												presenter.getFeature());
+								ProductBacklogPresenter.this.project.getBacklog().addItem(presenter.getPbi());
 							} catch (final ConsistencyException e) {
 								GwtUtils.displayError(e.getMessage());
 							}
-							view.refreshProductBacklog(ProductBacklogPresenter.this.project
-									.getBacklog().getItems());
+							view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 							newBox.hide();
 						}
 
@@ -83,8 +75,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 					presenter.getAborted().add(new EventHandler<EventArgs>() {
 
 						@Override
-						public void onUpdate(final Object sender,
-								final EventArgs eventArgs) {
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
 							newBox.hide();
 						}
 					});
@@ -102,23 +93,18 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 			@Override
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-				final DialogBox newBox = GwtUtils
-						.createDialog(TextConstants.FEATURE_DETAILS);
+				final DialogBox newBox = GwtUtils.createDialog(TextConstants.FEATURE_DETAILS);
 				// TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst
 				// der Typ SICHERGESTELLT WERDEN
-				EditFeaturePresenter presenter;
+				EditPBIPresenter presenter;
 				try {
-					presenter = new EditFeaturePresenter(newBox,
-							(Feature) eventArgs.getPbi(),
-							ProductBacklogPresenter.this);
+					presenter = new EditPBIPresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 						@Override
-						public void onUpdate(final Object sender,
-								final EventArgs eventArgs) {
-							view.refreshProductBacklog(ProductBacklogPresenter.this.project
-									.getBacklog().getItems());
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
+							view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 							newBox.hide();
 						}
 
@@ -127,8 +113,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 					presenter.getAborted().add(new EventHandler<EventArgs>() {
 
 						@Override
-						public void onUpdate(final Object sender,
-								final EventArgs eventArgs) {
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
 							newBox.hide();
 						}
 					});
@@ -147,10 +132,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				if (eventArgs.getPbi() != null) {
 					try {
-						ProductBacklogPresenter.this.project.getBacklog()
-								.removeItem(eventArgs.getPbi());
-						view.refreshProductBacklog(ProductBacklogPresenter.this.project
-								.getBacklog().getItems());
+						ProductBacklogPresenter.this.project.getBacklog().removeItem(eventArgs.getPbi());
+						view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 					} catch (final UserException e) {
 						GwtUtils.displayError(e.getMessage());
 					}
@@ -167,10 +150,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
-					ProductBacklogPresenter.this.project.getBacklog().moveDown(
-							pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					ProductBacklogPresenter.this.project.getBacklog().moveDown(pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 				}
 			}
 		});
@@ -182,10 +163,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
-					ProductBacklogPresenter.this.project.getBacklog().moveUp(
-							pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					ProductBacklogPresenter.this.project.getBacklog().moveUp(pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 				}
 			}
 		});
@@ -197,10 +176,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
-					ProductBacklogPresenter.this.project.getBacklog().moveTop(
-							pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					ProductBacklogPresenter.this.project.getBacklog().moveTop(pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 				}
 			}
 
@@ -213,10 +190,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final ProductBacklogItem pbi = eventArgs.getPbi();
 				if (pbi != null) {
-					ProductBacklogPresenter.this.project.getBacklog()
-							.moveBottom(pbi);
-					view.refreshProductBacklog(ProductBacklogPresenter.this.project
-							.getBacklog().getItems());
+					ProductBacklogPresenter.this.project.getBacklog().moveBottom(pbi);
+					view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 				}
 			}
 
@@ -226,13 +201,11 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 	}
 
 	/**
-	 * Fills the cellTable of {@link ProductBacklogView} with the items of the
-	 * Backlog
+	 * Fills the cellTable of {@link ProductBacklogView} with the items of the Backlog
 	 */
 	private void initialize() {
 		if (this.project.getBacklog() != null) {
-			this.getView().refreshProductBacklog(
-					this.project.getBacklog().getItems());
+			this.getView().refreshProductBacklog(this.project.getBacklog().getItems());
 		}
 	}
 }

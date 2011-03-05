@@ -5,7 +5,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 
-public interface IEditFeatureView extends IFeatureView {
+public interface IEditPBIView extends IPBIView {
 
 	/**
 	 * Returns the currently entered complexity.

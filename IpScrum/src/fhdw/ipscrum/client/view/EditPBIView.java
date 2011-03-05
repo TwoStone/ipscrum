@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Label;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
+import fhdw.ipscrum.client.view.interfaces.IEditPBIView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
@@ -18,7 +18,7 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
-public class EditFeatureView extends FeatureView implements IEditFeatureView {
+public class EditPBIView extends PBIView implements IEditPBIView {
 
 	private final IntegerBox complexityBox = new IntegerBox();
 	private final Label currentStateLbl = new Label("");
@@ -26,7 +26,7 @@ public class EditFeatureView extends FeatureView implements IEditFeatureView {
 	private final Label editorLabel = new Label("");
 	private final Event<EventArgs> toggleStateEvent = new Event<EventArgs>();
 
-	public EditFeatureView() {
+	public EditPBIView() {
 		super();
 		this.getBtnAbort().setVisible(false);
 
@@ -53,8 +53,8 @@ public class EditFeatureView extends FeatureView implements IEditFeatureView {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				EditFeatureView.this.toggleStateEvent.fire(
-						EditFeatureView.this, new EventArgs());
+				EditPBIView.this.toggleStateEvent.fire(
+						EditPBIView.this, new EventArgs());
 			}
 		});
 
@@ -107,27 +107,27 @@ public class EditFeatureView extends FeatureView implements IEditFeatureView {
 
 			@Override
 			public void handleClosed(final PBIClosedState closed) {
-				EditFeatureView.this.currentStateLbl
+				EditPBIView.this.currentStateLbl
 						.setText(TextConstants.CLOSED);
-				EditFeatureView.this.toggleStateBtn
+				EditPBIView.this.toggleStateBtn
 						.setText(TextConstants.OPEN_FEATURE);
 				// TODO Wenn Features wieder geöffnet werden können, hier
 				// ändern.
-				EditFeatureView.this.toggleStateBtn.setVisible(false);
-				EditFeatureView.this.setEditFieldsEnabled(false);
+				EditPBIView.this.toggleStateBtn.setVisible(false);
+				EditPBIView.this.setEditFieldsEnabled(false);
 
 			}
 
 			@Override
 			public void handleOpen(final PBIOpenState open) {
-				EditFeatureView.this.currentStateLbl
+				EditPBIView.this.currentStateLbl
 						.setText(TextConstants.OPEN);
-				EditFeatureView.this.toggleStateBtn
+				EditPBIView.this.toggleStateBtn
 						.setText(TextConstants.CLOSE_FEATURE);
 				// TODO Wenn Features wieder geöffnet werden können, hier
 				// ändern.
-				EditFeatureView.this.toggleStateBtn.setVisible(true);
-				EditFeatureView.this.setEditFieldsEnabled(true);
+				EditPBIView.this.toggleStateBtn.setVisible(true);
+				EditPBIView.this.setEditFieldsEnabled(true);
 			}
 		});
 	}

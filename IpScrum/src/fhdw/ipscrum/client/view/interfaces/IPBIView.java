@@ -13,7 +13,7 @@ import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
-public interface IFeatureView extends IView {
+public interface IPBIView extends IView {
 
 	/**
 	 * Returns the event that is fired, when the workflow should be aborted.
@@ -28,6 +28,13 @@ public interface IFeatureView extends IView {
 	 * @return
 	 */
 	IEvent<EventArgs> getCreateCriterion();
+
+	/**
+	 * Returns the event that is fired, when the selected systems should be change.
+	 * 
+	 * @return
+	 */
+	IEvent<EventArgs> getChangeSystems();
 
 	/**
 	 * Returns the event that is fired, when a new hint should be created.
@@ -89,8 +96,7 @@ public interface IFeatureView extends IView {
 	 * Returns the currently selected {@link ISprint} object.
 	 * 
 	 * @return
-	 * @throws NothingSelectedException
-	 *             Is thrown if nothing is selected.
+	 * @throws NothingSelectedException Is thrown if nothing is selected.
 	 */
 	ISprint getSelectedSprint() throws NothingSelectedException;
 
@@ -130,14 +136,10 @@ public interface IFeatureView extends IView {
 	void setRelations(List<Relation> relations);
 
 	/**
-	 * Displays a list of {@link ISprint} objects in the gui and selects the
-	 * defined {@link ISprint} object.
+	 * Displays a list of {@link ISprint} objects in the gui and selects the defined {@link ISprint} object.
 	 * 
-	 * @param sprints
-	 *            {@link ISprint} objects to display.
-	 * @param selected
-	 *            {@link ISprint} object to preselect. Object <b>must</b> be
-	 *            included in the sprints list, otherwise it will be added.
+	 * @param sprints {@link ISprint} objects to display.
+	 * @param selected {@link ISprint} object to preselect. Object <b>must</b> be included in the sprints list, otherwise it will be added.
 	 */
 	void setSprints(List<ISprint> sprints, ISprint selected);
 

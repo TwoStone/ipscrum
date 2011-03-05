@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
@@ -11,7 +12,7 @@ import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveHintEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.interfaces.IFeatureView;
+import fhdw.ipscrum.client.view.interfaces.IPBIView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
@@ -24,9 +25,12 @@ import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
+import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
@@ -34,33 +38,28 @@ import fhdw.ipscrum.shared.observer.Observer;
 /**
  * Base class for presenting {@link Feature}s.
  */
-public abstract class FeaturePresenter<T extends IFeatureView> extends
-		Presenter<T> implements Observer {
-	protected static final String NEWFTRNAME = "###empty###";
+public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> implements Observer {
+	protected static final String NEWPBINAME = "###empty###";
 
-	private final Feature feature;
+	private final ProductBacklogItem pbi;
 
 	/**
-	 * Constructor for FeaturePresenter.
+	 * Constructor for PBIPresenter.
 	 * 
-	 * @param parent
-	 *            Panel
-	 * @param feature
-	 *            Feature
+	 * @param parent Panel
+	 * @param feature Feature
 	 * @param parentPresenter
 	 * @throws NoFeatureSelectedException
 	 */
-	public FeaturePresenter(final Panel parent, final Feature feature,
-			final Presenter<?> parentPresenter)
-			throws NoFeatureSelectedException {
+	public PBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoFeatureSelectedException {
 		super(parent, parentPresenter);
-		if (feature == null) {
+		// TODO Christin sollte das nicht in den Edit-Konsturktor?
+		if (pbi == null) {
 			this.abort();
-			throw new NoFeatureSelectedException(
-					"Kein Feature ausgewählt zur Bearbeitung!");
+			throw new NoFeatureSelectedException("Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
 		}
-		this.feature = feature;
-		this.feature.addObserver(this);
+		this.pbi = pbi;
+		this.pbi.addObserver(this);
 		this.setupView();
 		this.registerViewEvents();
 	}
@@ -69,22 +68,58 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	 * Creates a new presenter to create a new {@link AcceptanceCriterion}
 	 */
 	private void createCriterion() {
-		final DialogBox box = GwtUtils.createDialog("Hinweis erstellen");
+		final DialogBox box = GwtUtils.createDialog("Kriterium erstellen");
 
-		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(
-				box, this);
+		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(box, this);
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					FeaturePresenter.this.feature
-							.addAcceptanceCriterion(presenter.getCriterion());
+					PBIPresenter.this.pbi.addAcceptanceCriterion(presenter.getCriterion());
 					box.hide();
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				} catch (final ForbiddenStateException e) {
 					GwtUtils.displayError(e.getMessage());
+				}
+
+			}
+		});
+		presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				box.hide();
+			}
+		});
+	}
+
+	/**
+	 * Creates a new presenter to select {@link System}s
+	 */
+	private void changeSystems() {
+		final DialogBox box = GwtUtils.createDialog("Systemzuornung ändern");
+
+		List<System> availableSystems = PBIPresenter.this.pbi.getBacklog().getProject().getPossibleSystems();
+		final SelectSystemPresenter presenter = new SelectSystemPresenter(box, this, new ArrayList<System>(), availableSystems);
+		box.center();
+		presenter.getFinished().add(new EventHandler<EventArgs>() {
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				try {
+					if (pbi instanceof Bug) {
+						// TODO Christin: add für mehrere Systeme!
+						((Bug) PBIPresenter.this.pbi).addSystem(presenter.getSelectedSystems().iterator().next());
+					}
+					box.hide();
+				} catch (final DoubleDefinitionException e) {
+					GwtUtils.displayError(e.getMessage());
+				} catch (final ForbiddenStateException e) {
+					GwtUtils.displayError(e.getMessage());
+				} catch (UserException e) {
+					// TODO Christin Auto-generated catch block
+					e.printStackTrace();
 				}
 
 			}
@@ -111,7 +146,7 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					FeaturePresenter.this.feature.addHint(presenter.getHint());
+					PBIPresenter.this.pbi.addHint(presenter.getHint());
 					box.hide();
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
@@ -131,22 +166,19 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	/**
 	 * Creates a presenter to create a new {@link Relation}
 	 * 
-	 * @param createDialog
-	 *            DialogBox
+	 * @param createDialog DialogBox
 	 */
 	private void createRelation() {
 		final DialogBox box = GwtUtils.createDialog("Beziehung anlegen");
 		box.center();
-		final CreateRelationPresenter presenter = new CreateRelationPresenter(
-				box, this.getView().getName(), this.feature.getBacklog(), this);
+		final CreateRelationPresenter presenter = new CreateRelationPresenter(box, this.getView().getName(), this.pbi.getBacklog(), this);
 
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					FeaturePresenter.this.getFeature().addRelation(
-							presenter.getRelation());
+					PBIPresenter.this.getPbi().addRelation(presenter.getRelation());
 					box.hide();
 				} catch (final UserException e) {
 					GwtUtils.displayError(e.getMessage());
@@ -174,14 +206,14 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	 * 
 	 * @return Feature
 	 */
-	public Feature getFeature() {
-		return this.feature;
+	public ProductBacklogItem getPbi() {
+		return this.pbi;
 	}
 
 	@Override
 	protected boolean onFinish() {
 		try {
-			FeaturePresenter.this.updateFeature();
+			PBIPresenter.this.updateFeature();
 		} catch (final ForbiddenStateException e) {
 			// Wenn das Feature nicht bearbeitbar ist, speichern wir an dieser
 			// Stelle auch nichts.
@@ -203,7 +235,7 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.finish();
+				PBIPresenter.this.finish();
 			}
 		});
 
@@ -215,7 +247,7 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 
 					@Override
 					public void onExecute() {
-						FeaturePresenter.this.abort();
+						PBIPresenter.this.abort();
 					}
 				});
 			}
@@ -225,7 +257,15 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.createCriterion();
+				PBIPresenter.this.createCriterion();
+			}
+		});
+
+		this.getView().getChangeSystems().add(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				PBIPresenter.this.changeSystems();
 			}
 		});
 
@@ -233,56 +273,47 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.createHint();
+				PBIPresenter.this.createHint();
 			}
 		});
 
 		this.getView().getCreateRelation().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				FeaturePresenter.this.createRelation();
+				PBIPresenter.this.createRelation();
 			}
 		});
 
-		this.getView().getRemoveCriterion()
-				.add(new EventHandler<RemoveCriterionEventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final RemoveCriterionEventArgs eventArgs) {
-						FeaturePresenter.this.removeCriterion(eventArgs
-								.getCriterion());
-					}
-				});
+		this.getView().getRemoveCriterion().add(new EventHandler<RemoveCriterionEventArgs>() {
+			@Override
+			public void onUpdate(final Object sender, final RemoveCriterionEventArgs eventArgs) {
+				PBIPresenter.this.removeCriterion(eventArgs.getCriterion());
+			}
+		});
 
-		this.getView().getRemoveHint()
-				.add(new EventHandler<RemoveHintEventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final RemoveHintEventArgs eventArgs) {
-						FeaturePresenter.this.removeHint(eventArgs.getHint());
-					}
-				});
+		this.getView().getRemoveHint().add(new EventHandler<RemoveHintEventArgs>() {
+			@Override
+			public void onUpdate(final Object sender, final RemoveHintEventArgs eventArgs) {
+				PBIPresenter.this.removeHint(eventArgs.getHint());
+			}
+		});
 
-		this.getView().getRemoveRelation()
-				.add(new EventHandler<RemoveRelationEventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final RemoveRelationEventArgs eventArgs) {
-						FeaturePresenter.this.removeRelation(eventArgs
-								.getRelation());
-					}
-				});
+		this.getView().getRemoveRelation().add(new EventHandler<RemoveRelationEventArgs>() {
+			@Override
+			public void onUpdate(final Object sender, final RemoveRelationEventArgs eventArgs) {
+				PBIPresenter.this.removeRelation(eventArgs.getRelation());
+			}
+		});
 	}
 
 	/**
 	 * Removes the {@link AcceptanceCriterion} from the {@link Feature}.
 	 * 
-	 * @param criterion
-	 *            AcceptanceCriterion
+	 * @param criterion AcceptanceCriterion
 	 */
 	private void removeCriterion(final AcceptanceCriterion criterion) {
 		try {
-			this.feature.removeAcceptanceCriterion(criterion);
+			this.pbi.removeAcceptanceCriterion(criterion);
 		} catch (final ForbiddenStateException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
@@ -291,12 +322,11 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	/**
 	 * Removes the {@link Hint} from the {@link Feature}.
 	 * 
-	 * @param hint
-	 *            Hint
+	 * @param hint Hint
 	 */
 	private void removeHint(final Hint hint) {
 		try {
-			this.feature.removeHint(hint);
+			this.pbi.removeHint(hint);
 		} catch (final ForbiddenStateException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
@@ -305,12 +335,11 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	/**
 	 * Removes the {@link Relation} from the {@link Feature}.
 	 * 
-	 * @param relation
-	 *            Relation
+	 * @param relation Relation
 	 */
 	private void removeRelation(final Relation relation) {
 		try {
-			this.feature.removeRelation(relation);
+			this.pbi.removeRelation(relation);
 		} catch (final ForbiddenStateException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
@@ -320,22 +349,18 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	 * Sets the values of the loaded feature in the view.
 	 */
 	protected void setupView() {
-		this.getView().setName(
-				this.feature.getName().replaceAll(NEWFTRNAME, ""));
-		this.getView().setDescription(this.feature.getDescription());
-		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.feature
-				.getBacklog().getProject().getSprints());
-		this.getView().setSprints(sprints, this.getFeature().getSprint());
+		this.getView().setName(this.pbi.getName().replaceAll(NEWPBINAME, ""));
+		this.getView().setDescription(this.pbi.getDescription());
+		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.pbi.getBacklog().getProject().getSprints());
+		this.getView().setSprints(sprints, this.getPbi().getSprint());
 		this.updateView();
 	}
 
 	/**
 	 * Method update.
 	 * 
-	 * @param observable
-	 *            Observable
-	 * @param argument
-	 *            Object
+	 * @param observable Observable
+	 * @param argument Object
 	 * @see fhdw.ipscrum.shared.observer.Observer#update(Observable, Object)
 	 */
 	@Override
@@ -353,30 +378,27 @@ public abstract class FeaturePresenter<T extends IFeatureView> extends
 	 * @throws DoubleDefinitionException
 	 * @throws ForbiddenStateException
 	 */
-	protected void updateFeature() throws NoValidValueException,
-			NoSprintDefinedException, ConsistencyException,
-			DoubleDefinitionException, ForbiddenStateException {
-		this.feature.setName(this.getView().getName());
-		this.feature.setDescription(this.getView().getDescription());
-		this.feature.setLastEditor(SessionManager.getInstance().getLoginUser());
+	protected void updateFeature() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
+		this.pbi.setName(this.getView().getName());
+		this.pbi.setDescription(this.getView().getDescription());
+		this.pbi.setLastEditor(SessionManager.getInstance().getLoginUser());
 		try {
-			this.feature.setSprint(this.getView().getSelectedSprint());
+			this.pbi.setSprint(this.getView().getSelectedSprint());
 		} catch (final NothingSelectedException e) {
 			// Kein Sprint ausgewählt, also setzen wir den Sprint auf null.
 			// TODO NoObject Pattern wäre besser, gibt es für Sprint aber zZ
 			// nicht.
-			this.feature.setSprint(null);
+			this.pbi.setSprint(null);
 		}
 	}
 
 	/**
-	 * Updates the view with the values of the feature. Does not set name and
-	 * description. Call setupView to set them.
+	 * Updates the view with the values of the feature. Does not set name and description. Call setupView to set them.
 	 */
 	protected void updateView() {
-		this.getView().setHints(this.feature.getHints());
-		this.getView().setRelations(this.feature.getRelations());
-		this.getView().setCriteria(this.feature.getAcceptanceCriteria());
+		this.getView().setHints(this.pbi.getHints());
+		this.getView().setRelations(this.pbi.getRelations());
+		this.getView().setCriteria(this.pbi.getAcceptanceCriteria());
 
 	}
 }

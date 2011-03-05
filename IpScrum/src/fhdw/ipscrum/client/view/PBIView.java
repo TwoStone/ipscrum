@@ -27,7 +27,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveHintEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
-import fhdw.ipscrum.client.view.interfaces.IFeatureView;
+import fhdw.ipscrum.client.view.interfaces.IPBIView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
@@ -36,7 +36,7 @@ import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
-public abstract class FeatureView extends Composite implements IFeatureView {
+public abstract class PBIView extends Composite implements IPBIView {
 
 	private TextBox txtBxName;
 	private TextArea textArea;
@@ -44,6 +44,7 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 	private final Button btnAddRelation;
 	private final Button btnAddHint;
 	private final Button btnAddCriterion;
+	private final Button btnChangeSystems;
 	private final Button btnSave;
 	private final Button btnAbort = new Button(TextConstants.ABORT);
 	private final CellTable<Relation> relationTable;
@@ -60,15 +61,15 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 	private final Event<EventArgs> createRelation = new Event<EventArgs>();
 	private final Event<EventArgs> createHint = new Event<EventArgs>();
 	private final Event<EventArgs> createCriterion = new Event<EventArgs>();
+	private final Event<EventArgs> changeSystems = new Event<EventArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 	private final FlexTable detailTable;
 	private List<ISprint> sprints;
 
-	public FeatureView() {
+	public PBIView() {
 
 		final VerticalPanel verticalPanel_2 = new VerticalPanel();
-		verticalPanel_2
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel_2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		this.initWidget(verticalPanel_2);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
@@ -130,8 +131,7 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		};
 		this.relationTable.addColumn(targetCol);
 
-		final Column<Relation, String> deleteCol = new Column<Relation, String>(
-				new ButtonCell()) {
+		final Column<Relation, String> deleteCol = new Column<Relation, String>(new ButtonCell()) {
 			@Override
 			public String getValue(final Relation object) {
 				return TextConstants.DELETE_BUTTON_TEXT;
@@ -141,10 +141,8 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		deleteCol.setFieldUpdater(new FieldUpdater<Relation, String>() {
 
 			@Override
-			public void update(final int index, final Relation object,
-					final String value) {
-				FeatureView.this.removeRelationEvent.fire(FeatureView.this,
-						new RemoveRelationEventArgs(object));
+			public void update(final int index, final Relation object, final String value) {
+				PBIView.this.removeRelationEvent.fire(PBIView.this, new RemoveRelationEventArgs(object));
 			}
 		});
 
@@ -154,8 +152,7 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		this.btnAddRelation.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				FeatureView.this.createRelation.fire(FeatureView.this,
-						new EventArgs());
+				PBIView.this.createRelation.fire(PBIView.this, new EventArgs());
 			}
 		});
 		verticalPanel.add(this.btnAddRelation);
@@ -185,22 +182,18 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		};
 		this.hintTable.addColumn(hintTextCol);
 
-		final Column<Hint, String> removeHintCol = new Column<Hint, String>(
-				new ButtonCell()) {
+		final Column<Hint, String> removeHintCol = new Column<Hint, String>(new ButtonCell()) {
 			@Override
 			public String getValue(final Hint object) {
 				return "X";
 			}
 		};
-		removeHintCol
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		removeHintCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		removeHintCol.setFieldUpdater(new FieldUpdater<Hint, String>() {
 
 			@Override
-			public void update(final int index, final Hint object,
-					final String value) {
-				FeatureView.this.removeHintEvent.fire(FeatureView.this,
-						new RemoveHintEventArgs(object));
+			public void update(final int index, final Hint object, final String value) {
+				PBIView.this.removeHintEvent.fire(PBIView.this, new RemoveHintEventArgs(object));
 			}
 		});
 		this.hintTable.addColumn(removeHintCol);
@@ -209,8 +202,7 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		this.btnAddHint.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				FeatureView.this.createHint.fire(FeatureView.this,
-						new EventArgs());
+				PBIView.this.createHint.fire(PBIView.this, new EventArgs());
 			}
 		});
 		verticalPanel_1.add(this.btnAddHint);
@@ -236,26 +228,20 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		};
 		this.criteriaTable.addColumn(criterionTextCol);
 
-		final Column<AcceptanceCriterion, String> removeCriterionCol = new Column<AcceptanceCriterion, String>(
-				new ButtonCell()) {
+		final Column<AcceptanceCriterion, String> removeCriterionCol = new Column<AcceptanceCriterion, String>(new ButtonCell()) {
 			@Override
 			public String getValue(final AcceptanceCriterion object) {
 				return TextConstants.DELETE_BUTTON_TEXT;
 			}
 		};
-		removeCriterionCol
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		removeCriterionCol
-				.setFieldUpdater(new FieldUpdater<AcceptanceCriterion, String>() {
+		removeCriterionCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		removeCriterionCol.setFieldUpdater(new FieldUpdater<AcceptanceCriterion, String>() {
 
-					@Override
-					public void update(final int index,
-							final AcceptanceCriterion object, final String value) {
-						FeatureView.this.removeCriterionEvent.fire(
-								FeatureView.this, new RemoveCriterionEventArgs(
-										object));
-					}
-				});
+			@Override
+			public void update(final int index, final AcceptanceCriterion object, final String value) {
+				PBIView.this.removeCriterionEvent.fire(PBIView.this, new RemoveCriterionEventArgs(object));
+			}
+		});
 
 		this.criteriaTable.addColumn(removeCriterionCol);
 
@@ -263,11 +249,19 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		this.btnAddCriterion.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				FeatureView.this.createCriterion.fire(FeatureView.this,
-						new EventArgs());
+				PBIView.this.createCriterion.fire(PBIView.this, new EventArgs());
 			}
 		});
 		verticalPanel_1.add(this.btnAddCriterion);
+
+		this.btnChangeSystems = new Button(TextConstants.CHANGE_SYSTEM);
+		this.btnChangeSystems.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				PBIView.this.changeSystems.fire(PBIView.this, new EventArgs());
+			}
+		});
+		verticalPanel_1.add(btnChangeSystems);
 
 		final HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setSpacing(5);
@@ -278,14 +272,14 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		this.btnSave.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				FeatureView.this.save.fire(FeatureView.this, new EventArgs());
+				PBIView.this.save.fire(PBIView.this, new EventArgs());
 			}
 		});
 		buttonPanel.add(this.btnSave);
 		this.btnAbort.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				FeatureView.this.abort.fire(FeatureView.this, new EventArgs());
+				PBIView.this.abort.fire(PBIView.this, new EventArgs());
 			}
 		});
 
@@ -307,6 +301,10 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 		return this.btnAddCriterion;
 	}
 
+	protected Button getBtnChangeSystems() {
+		return this.btnChangeSystems;
+	}
+
 	protected Button getBtnAddHint() {
 		return this.btnAddHint;
 	}
@@ -318,6 +316,11 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 	@Override
 	public IEvent<EventArgs> getCreateCriterion() {
 		return this.createCriterion;
+	}
+
+	@Override
+	public IEvent<EventArgs> getChangeSystems() {
+		return this.changeSystems;
 	}
 
 	@Override
@@ -368,8 +371,7 @@ public abstract class FeatureView extends Composite implements IFeatureView {
 	public ISprint getSelectedSprint() throws NothingSelectedException {
 		final Integer index = this.sprintComboBox.getSelectedIndex();
 		if (index.equals(0) || index.equals(-1)) {
-			throw new NothingSelectedException(
-					ExceptionConstants.NO_SPRINT_SELECTED);
+			throw new NothingSelectedException(ExceptionConstants.NO_SPRINT_SELECTED);
 		} else {
 			return this.sprints.get(index - 1);
 		}

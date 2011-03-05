@@ -107,7 +107,7 @@ public class TeamView extends Composite implements ITeamView {
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
 		horizontalPanel.add(verticalPanelAllocationButtons);
 
-		Button btnRemovePersonFromTeam = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_REMOVEPERSONFROMTEAM);
+		Button btnRemovePersonFromTeam = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_REMOVE);
 		btnRemovePersonFromTeam.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -118,7 +118,7 @@ public class TeamView extends Composite implements ITeamView {
 		});
 		verticalPanelAllocationButtons.add(btnRemovePersonFromTeam);
 
-		Button btnAddPersonToTeam = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_ASSIGNPERSONTOTEAM);
+		Button btnAddPersonToTeam = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_ASSIGN);
 		btnAddPersonToTeam.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
