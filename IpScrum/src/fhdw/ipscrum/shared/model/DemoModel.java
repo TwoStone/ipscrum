@@ -4,7 +4,6 @@ import java.util.Date;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.exceptions.UserException;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 public class DemoModel {
 
@@ -81,24 +80,6 @@ public class DemoModel {
 		root.addTeam(team2);
 		root.addTeam(team3);
 		root.addTeam(team4);
-
-		// Initial Systems
-		final IHasChildren rootSystem = root.getSysManager().getSystems();
-		final Systemgroup os = new Systemgroup("OS", rootSystem);
-		final Systemgroup os_win = new Systemgroup("Windows", os);
-		final Systemgroup os_linux = new Systemgroup("Linux", os);
-		final Systemgroup browser = new Systemgroup("Browser", rootSystem);
-
-		new ConcreteSystem("Windows 7", os_win);
-		new ConcreteSystem("Windows XP", os_win);
-		new ConcreteSystem("OpenSuse 9.11", os_linux);
-		new ConcreteSystem("Ubuntu 10.2", os_linux);
-		new ConcreteSystem("RedHat", os_linux);
-		new ConcreteSystem("ChromeOS", os);
-		new ConcreteSystem("Mozilla Firefox 3", browser);
-		new ConcreteSystem("Mozilla Firefox 4", browser);
-		new ConcreteSystem("Chrome 10.1", browser);
-		new ConcreteSystem("Safari", browser);
 
 		// Initial Projects
 		final Project projekt1 = new Project("Projekt 1");
@@ -192,14 +173,14 @@ public class DemoModel {
 		final Sprint taskboardRelPhase3 = new Sprint("Taskboard",
 				"Bereitstellung von Task-Funktionalitäten", new Date(
 						2011 - 1900, 2 - 1, 14),
-				new Date(2011 - 1900, 3 - 1, 9), team1);
+						new Date(2011 - 1900, 3 - 1, 9), team1);
 		final Sprint reportingRelPhase3 = new Sprint("Reporting I",
 				"Bereitstellung von Statistikelementen", new Date(2011 - 1900,
 						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team3);
 		final Sprint ticketsRelPhase3 = new Sprint("Tickets II",
 				"Bereitstellung von Bugtracking-Funktionen", new Date(
 						2011 - 1900, 2 - 1, 14),
-				new Date(2011 - 1900, 3 - 1, 9), team2);
+						new Date(2011 - 1900, 3 - 1, 9), team2);
 
 		// assigning sprints to projects
 		projekt1.addSprint(sprint1rel10);
@@ -268,6 +249,7 @@ public class DemoModel {
 		f4.setSprint(sprint3rel10);
 		f4.close();
 
+
 		final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5",
 				projekt1.getBacklog());
 		f5.setLastEditor(pNils);
@@ -275,12 +257,14 @@ public class DemoModel {
 		f5.setSprint(sprint5rel10);
 		f5.close();
 
+
 		final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6",
 				projekt1.getBacklog());
 		f6.setLastEditor(pNils);
 		f6.setManDayCosts(5);
 		f6.setSprint(sprint2rel10);
 		f6.close();
+
 
 		final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7",
 				projekt2.getBacklog());

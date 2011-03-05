@@ -28,7 +28,8 @@ public interface IHasChildren extends BDACompare {
 	OneToMany<ManyToOne, IHasChildren> getToSystemAssoc();
 
 	/**
-	 * Returns all systemgroups in the hierarchy.
+	 * Returns all systemgroups in the hierarchy. TODO PW: Hinterfragen warum
+	 * benötigt!!!
 	 * 
 	 * @return
 	 */

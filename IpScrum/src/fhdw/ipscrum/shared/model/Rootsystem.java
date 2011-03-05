@@ -21,16 +21,12 @@ import fhdw.ipscrum.shared.observer.Observable;
  */
 public class Rootsystem extends Observable implements IHasChildren {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3375902891368480223L;
-	private Vector<System> childs;
 	private String name;
 	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
 	private void setToSystemAssoc(
-			OneToMany<ManyToOne, IHasChildren> toSystemAssoc) {
+			final OneToMany<ManyToOne, IHasChildren> toSystemAssoc) {
 		this.toSystemAssoc = toSystemAssoc;
 	}
 
@@ -159,7 +155,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	}
 
 	@Override
-	public void accept(HasChildVisitor visitor) {
+	public void accept(final HasChildVisitor visitor) {
 		visitor.handleRoot(this);
 	}
 

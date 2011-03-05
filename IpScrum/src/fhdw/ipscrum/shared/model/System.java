@@ -6,6 +6,8 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -17,8 +19,8 @@ public abstract class System extends Observable implements BDACompare {
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
 
 	public System(final String name, final IHasChildren parent)
-			throws DoubleDefinitionException {
-		this.name = name;
+			throws UserException {
+		this.setName(name);
 		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
 		this.setParent(parent);
 	}
@@ -35,7 +37,11 @@ public abstract class System extends Observable implements BDACompare {
 	 * @param name
 	 *            the name to set
 	 */
-	public void setName(final String name) {
+	public void setName(final String name) throws UserException {
+		if (name == null || name.trim().length() <= 0) {
+			throw new NoValidValueException(
+					"Es muss eine Bezeichnung angegeben werden");
+		}
 		this.name = name;
 	}
 
@@ -103,5 +109,6 @@ public abstract class System extends Observable implements BDACompare {
 
 	public abstract void accept(ISystemVisitor visitor);
 
+	// TODO PW: Hinterfragen!?!?
 	public abstract List<Systemgroup> getGroups();
 }
