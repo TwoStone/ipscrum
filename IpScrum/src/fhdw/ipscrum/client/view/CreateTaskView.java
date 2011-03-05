@@ -88,10 +88,10 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	
 	@Override
 	public String getName() {
-		return	this.getTextArea().getValue();
+		return	this.getTextBox().getValue();
 	}
 	@Override
 	public String getDescription() {
-	return this.getTextBox().getValue();
+	return this.getTextArea().getValue();
 	}
 }

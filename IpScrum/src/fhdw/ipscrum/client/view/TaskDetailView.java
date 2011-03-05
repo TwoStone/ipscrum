@@ -33,11 +33,13 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
 
 /**
  * This class is used to represent generally details of {@link Task}
+ * 
  * @author Phase III / Group I
- *
- *	This is an abstract class who creates every view-element which is needed to show {@link Task} details.
- *	Independent by the state of the task. 
- *	Template-Method pattern is used to specify the specialization view-classes
+ * 
+ *         This is an abstract class who creates every view-element which is
+ *         needed to show {@link Task} details. Independent by the state of the
+ *         task. Template-Method pattern is used to specify the specialization
+ *         view-classes
  */
 public abstract class TaskDetailView extends Composite implements
 		ITaskDetailView {
@@ -45,7 +47,7 @@ public abstract class TaskDetailView extends Composite implements
 	// ####### Events ###############
 	private final Event<EventArgs> okayEvent = new Event<EventArgs>();
 	private final Event<EventArgs> cancelEvent = new Event<EventArgs>();
-	private final Event<MultiplePBIArgs> addPBIsEvent = new Event<MultiplePBIArgs>();
+	private final Event<EventArgs> addPBIsEvent = new Event<EventArgs>();
 	private final Event<MultiplePBIArgs> removePBIsEvent = new Event<MultiplePBIArgs>();
 	// ##### Ende ##################
 
@@ -62,16 +64,17 @@ public abstract class TaskDetailView extends Composite implements
 	private IntegerBox iBoxEffort;
 	private Label lblTaskAbgeschlossen;
 	private Label lblPBIs;
+
 	// ########## Ende ###################
-	
+
 	public TaskDetailView() {
-		
+
 		// Creates concrete TaskDetailPanel
 		AbsolutePanel concreteTaskDetailPanel = new AbsolutePanel();
 		initWidget(concreteTaskDetailPanel);
 		concreteTaskDetailPanel.setSize("430px", "430px");
 
-		//Creates label for the name
+		// Creates label for the name
 		Label lblName = new Label("Name:");
 		lblName.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		concreteTaskDetailPanel.add(lblName, 10, 10);
@@ -86,12 +89,12 @@ public abstract class TaskDetailView extends Composite implements
 		Label lblDescription = new Label("Beschreibung");
 		concreteTaskDetailPanel.add(lblDescription, 10, 40);
 
-		//Creates a text area for the description
+		// Creates a text area for the description
 		txtAreaDescription = new TextArea();
 		concreteTaskDetailPanel.add(txtAreaDescription, 10, 62);
 		txtAreaDescription.setSize("187px", "125px");
 
-		//creates a label for the person
+		// creates a label for the person
 		Label lblPerson = new Label("Person");
 		concreteTaskDetailPanel.add(lblPerson, 10, 231);
 
@@ -127,7 +130,7 @@ public abstract class TaskDetailView extends Composite implements
 		lblPBIs = new Label("ProductBacklog Einträge");
 		concreteTaskDetailPanel.add(lblPBIs, 226, 10);
 
-		//create button for add pbis
+		// create button for add pbis
 		btnAddPBIs = new Button("Einträge hinzufügen");
 		concreteTaskDetailPanel.add(btnAddPBIs, 277, 223);
 		btnAddPBIs.setSize("141px", "28px");
@@ -135,12 +138,12 @@ public abstract class TaskDetailView extends Composite implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-			// fire addPBIsEvent
+				// fire addPBIsEvent
 				TaskDetailView.this.addPBIsEvent.fire(TaskDetailView.this,
 						new MultiplePBIArgs(getSelectedPBIs()));
 			}
 		});
-		//create button okay
+		// create button okay
 		btnOkay = new Button("Okay");
 		concreteTaskDetailPanel.add(btnOkay, 10, 392);
 		btnOkay.setSize("100px", "28px");
@@ -148,13 +151,13 @@ public abstract class TaskDetailView extends Composite implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				//fire okayEvent
+				// fire okayEvent
 				TaskDetailView.this.okayEvent.fire(TaskDetailView.this,
 						new EventArgs());
 			}
 		});
 
-		//create button for cancel
+		// create button for cancel
 		btnCancel = new Button("Abbrechen");
 		concreteTaskDetailPanel.add(btnCancel, 318, 392);
 		btnCancel.setSize("100px", "28px");
@@ -162,14 +165,14 @@ public abstract class TaskDetailView extends Composite implements
 
 			@Override
 			public void onClick(ClickEvent event) {
-				//fire cancelEvent
+				// fire cancelEvent
 				TaskDetailView.this.cancelEvent.fire(TaskDetailView.this,
 						new EventArgs());
 			}
 		});
 
-		//create button delete pbis
-		btnDeletePBIs = new Button("Eintraege entfernen");
+		// create button delete pbis
+		btnDeletePBIs = new Button("Einträge entfernen");
 		concreteTaskDetailPanel.add(btnDeletePBIs, 277, 257);
 		btnDeletePBIs.setSize("142px", "28px");
 		btnDeletePBIs.addClickHandler(new ClickHandler() {
@@ -197,15 +200,16 @@ public abstract class TaskDetailView extends Composite implements
 		cellListPerson.setSize("193px", "102px");
 		cellListPerson.setSelectionModel(new SingleSelectionModel<IPerson>());
 
-		//creates integerBox for effort
+		// creates integerBox for effort
 		iBoxEffort = new IntegerBox();
 		concreteTaskDetailPanel.add(iBoxEffort, 76, 201);
 		iBoxEffort.setSize("123px", "16px");
 	}
 
-	// ################## SETTER / GETTER for view elements #############################
+	// ################## SETTER / GETTER for view elements
+	// #############################
 	// proteced cause only use in view classes
-	
+
 	/**
 	 * @return the Button for adding PBIs
 	 */
@@ -219,39 +223,45 @@ public abstract class TaskDetailView extends Composite implements
 	protected CellList<ProductBacklogItem> getCellListPBI() {
 		return cellListPBI;
 	}
-/**
- * @return the TextBox for the tasks name
- */
+
+	/**
+	 * @return the TextBox for the tasks name
+	 */
 	protected TextBox getTxtBoxName() {
 		return txtBoxName;
 	}
-/**
- * @return the button for canceling
- */
+
+	/**
+	 * @return the button for canceling
+	 */
 	protected Button getBtnCancel() {
 		return btnCancel;
 	}
-/**
- * @return checkbox to finish a task
- */
+
+	/**
+	 * @return checkbox to finish a task
+	 */
 	protected SimpleCheckBox getSimpleCheckBox() {
 		return simpleCheckBox;
 	}
-/**
- * @return textarea for description
- */
+
+	/**
+	 * @return textarea for description
+	 */
 	protected TextArea getTxtAreaDescription() {
 		return txtAreaDescription;
 	}
-/**
- * @return button to save the task details
- */
+
+	/**
+	 * @return button to save the task details
+	 */
 	protected Button getBtnOkay() {
 		return btnOkay;
 	}
-/**
- * @return button to remove a selected pbi
- */
+
+	/**
+	 * @return button to remove a selected pbi
+	 */
 	protected Button getBtnDeletePBI() {
 		return btnDeletePBIs;
 	}
@@ -262,28 +272,36 @@ public abstract class TaskDetailView extends Composite implements
 	protected CellList<IPerson> getCellListPerson() {
 		return cellListPerson;
 	}
-/**
- * @return the IntegerBox for the effort
- */
+
+	/**
+	 * @return the IntegerBox for the effort
+	 */
 	protected IntegerBox getIBoxEffort() {
 		return iBoxEffort;
 	}
-/**
- * @return the label for text of task finish
- */
-	public Label getLblTaskAbgeschlossen() {
+
+	/**
+	 * @return the label for text of task finish
+	 */
+	protected Label getLblTaskAbgeschlossen() {
 		return lblTaskAbgeschlossen;
 	}
+
 	/**
 	 * @return the label for text PBIs
 	 */
-	public Label getLblPBIs() {
+	protected Label getLblPBIs() {
 		return lblPBIs;
 	}
-	
+
+	protected Set<ProductBacklogItem> getSelectedPBIs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	// ################## Ende #############################
-	
-	// ######################## THIS METHODS ARE USED BY THE PRESENTATORS #####################
+
+	// ######################## THIS METHODS ARE USED BY THE PRESENTATORS	// #####################
 	@Override
 	public String getName() {
 		return this.getTxtBoxName().getValue();
@@ -315,10 +333,10 @@ public abstract class TaskDetailView extends Composite implements
 	public void refreshPBIs(Vector<ProductBacklogItem> pbis) {
 		this.getCellListPBI().setRowData(pbis);
 	}
-	
+
 	@Override
 	public void refreshPersons(Vector<IPerson> persons) {
-	this.getCellListPerson().setRowData(persons);	
+		this.getCellListPerson().setRowData(persons);
 	}
 
 	@Override
@@ -355,7 +373,7 @@ public abstract class TaskDetailView extends Composite implements
 		Iterator<ProductBacklogItem> pbiIt = task.getPBIIterator();
 
 		this.setEffort(task.getPlanEffort());
-		
+
 		Vector<ProductBacklogItem> pbis = new Vector<ProductBacklogItem>();
 
 		while (pbiIt.hasNext()) {
@@ -365,14 +383,9 @@ public abstract class TaskDetailView extends Composite implements
 		this.initSpecificTaskView(task);
 	}
 
-	private Set<ProductBacklogItem> getSelectedPBIs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public void addOkayEventHandler(EventHandler<EventArgs> arg) {
-	this.okayEvent.add(arg);	
+		this.okayEvent.add(arg);
 	}
 
 	@Override
@@ -381,7 +394,7 @@ public abstract class TaskDetailView extends Composite implements
 	}
 
 	@Override
-	public void addAddPBIsEventHandler(EventHandler<MultiplePBIArgs> arg) {
+	public void addAddPBIsEventHandler(EventHandler<EventArgs> arg) {
 		this.addPBIsEvent.add(arg);
 	}
 
