@@ -253,7 +253,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 	public Boolean isPossibleSystem(System system) {
 		final Boolean result = false;
 		for (final System current : this.possibleSystems) {
-			// TODO implemenent when contains is implemeneted
+			// TODO Nik: implemenent when contains is implemeneted
 			// result = result || current.contains(system);
 		}
 		return result;

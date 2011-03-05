@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public abstract class System extends Observable implements BDACompare {
@@ -73,7 +74,7 @@ public abstract class System extends Observable implements BDACompare {
 	 */
 	@Override
 	public int hashCode() {
-		int result = this.indirectHashCode();
+		final int result = this.indirectHashCode();
 		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
 		return result;
 	}
@@ -117,4 +118,6 @@ public abstract class System extends Observable implements BDACompare {
 				+ ((this.parent == null) ? 0 : this.parent.hashCode());
 		return result;
 	}
+
+	public abstract void accept(ISystemVisitor visitor);
 }

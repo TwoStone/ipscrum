@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 
 public class Systemgroup extends System implements IHasChildren {
 
@@ -16,10 +17,11 @@ public class Systemgroup extends System implements IHasChildren {
 	public Systemgroup(String name, IHasChildren parent)
 			throws DoubleDefinitionException {
 		super(name, parent);
-		getChilds();
+		this.getChilds();
 		parent.addChild(this);
 	}
 
+	@Override
 	public void addChild(final System child) throws DoubleDefinitionException {
 		if (this.contains(child)) {
 			throw new DoubleDefinitionException(
@@ -35,11 +37,12 @@ public class Systemgroup extends System implements IHasChildren {
 	 * 
 	 * @see fhdw.ipscrum.shared.model.Componentgroup#getChilds()
 	 */
+	@Override
 	public Vector<System> getChilds() {
 		if (this.childs == null) {
 			this.childs = new Vector<System>();
 		}
-		return childs;
+		return this.childs;
 	}
 
 	public boolean contains(System child) {
@@ -48,7 +51,7 @@ public class Systemgroup extends System implements IHasChildren {
 
 	@Override
 	public String toString() {
-		return "Systemgruppe " + getName();
+		return "Systemgruppe " + this.getName();
 	}
 
 	/*
@@ -58,7 +61,7 @@ public class Systemgroup extends System implements IHasChildren {
 	 */
 	@Override
 	public int hashCode() {
-		int result = this.indirectHashCode();
+		final int result = this.indirectHashCode();
 		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
 		return result;
 	}
@@ -83,6 +86,11 @@ public class Systemgroup extends System implements IHasChildren {
 		}
 		return true;
 		// }
+	}
+
+	@Override
+	public void accept(ISystemVisitor visitor) {
+		visitor.handleSystemGroup(this);
 	}
 
 }
