@@ -7,7 +7,6 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
-import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
 import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;

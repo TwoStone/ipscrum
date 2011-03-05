@@ -2,7 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
-public class ConcreteSystem extends AbsSystem {
+public class ConcreteSystem extends System {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class ConcreteSystem extends AbsSystem {
 		super(name, parent);
 	}
 
-	public boolean contains(AbsSystem child) {
+	public boolean contains(System child) {
 		return this.equals(child);
 	}
 

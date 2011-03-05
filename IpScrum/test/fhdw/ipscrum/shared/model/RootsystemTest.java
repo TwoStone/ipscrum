@@ -54,7 +54,7 @@ public class RootsystemTest {
 	@Test
 	public void testAddChild_1() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
-		final AbsSystem child = new ConcreteSystem("", new Rootsystem());
+		final System child = new ConcreteSystem("", new Rootsystem());
 
 		fixture.addChild(child);
 
@@ -71,7 +71,7 @@ public class RootsystemTest {
 	@Test
 	public void testAddChild_2() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
-		final AbsSystem child = new ConcreteSystem("", new Rootsystem());
+		final System child = new ConcreteSystem("", new Rootsystem());
 
 		fixture.addChild(child);
 
@@ -88,7 +88,7 @@ public class RootsystemTest {
 	@Test
 	public void testContains_1() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
-		final AbsSystem child = new ConcreteSystem("", new Rootsystem());
+		final System child = new ConcreteSystem("", new Rootsystem());
 
 		final boolean result = fixture.contains(child);
 
@@ -106,7 +106,7 @@ public class RootsystemTest {
 	@Test
 	public void testContains_2() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
-		final AbsSystem child = new ConcreteSystem("", new Rootsystem());
+		final System child = new ConcreteSystem("", new Rootsystem());
 
 		final boolean result = fixture.contains(child);
 
@@ -125,7 +125,7 @@ public class RootsystemTest {
 	public void testGetChilds_1() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
 
-		final HashSet<AbsSystem> result = fixture.getChilds();
+		final HashSet<System> result = fixture.getChilds();
 
 		// add additional test code here
 		assertNotNull(result);
@@ -143,7 +143,7 @@ public class RootsystemTest {
 	public void testGetChilds_2() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
 
-		final HashSet<AbsSystem> result = fixture.getChilds();
+		final HashSet<System> result = fixture.getChilds();
 
 		// add additional test code here
 		assertNotNull(result);

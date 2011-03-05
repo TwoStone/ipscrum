@@ -89,8 +89,8 @@ public class Sprint implements ISprint {
 	}
 
 	/**
-	 * Method getCumulatedManDayCosts.
-	 * Calculates the cumulated ManDayCosts of all PBIs of this Sprint.
+	 * Method getCumulatedManDayCosts. Calculates the cumulated ManDayCosts of
+	 * all PBIs of this Sprint.
 	 * 
 	 * @return int
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCosts()
@@ -103,10 +103,10 @@ public class Sprint implements ISprint {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Method getCumulatedManDayCostsOfClosedPbis.
-	 * Calculates the cumulated ManDayCosts of all closed PBIs of this Sprint. 
+	 * Method getCumulatedManDayCostsOfClosedPbis. Calculates the cumulated
+	 * ManDayCosts of all closed PBIs of this Sprint.
 	 * 
 	 * @return int
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCostsOfClosedPbis()
@@ -116,22 +116,26 @@ public class Sprint implements ISprint {
 		this.result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
 			pbi.getState().accept(new IPBIStateVisitor() {
-				
-				@Override
-				public void handleOpen(PBIOpenState open) {
-					//nothing to do, because state is Open
-					System.out.println("Stellen \"Open\" angesprungen");
-				}
-				
+
 				@Override
 				public void handleClosed(PBIClosedState closed) {
 					Sprint.this.result += pbi.getManDayCosts();
-					//TODO: Muss für "result" wirklich eine Klassenvariable erstellt werden?
-					System.out.println("Stellen \"Closed\" angesprungen");
+					// TODO: Muss für "result" wirklich eine Klassenvariable
+					// erstellt werden?
+
+					java.lang.System.out
+							.println("Stellen \"Closed\" angesprungen");
+				}
+
+				@Override
+				public void handleOpen(PBIOpenState open) {
+					// nothing to do, because state is Open
+					java.lang.System.out
+							.println("Stellen \"Open\" angesprungen");
 				}
 			});
 		}
-		return result;
+		return this.result;
 	}
 
 	/**

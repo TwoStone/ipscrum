@@ -19,7 +19,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * 
 	 */
 	private static final long serialVersionUID = 3375902891368480223L;
-	private HashSet<AbsSystem> childs;
+	private HashSet<System> childs;
 	private String name;
 
 	public Rootsystem() {
@@ -33,7 +33,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * @param child
 	 * @throws DoubleDefinitionException
 	 */
-	public void addChild(final AbsSystem child)
+	public void addChild(final System child)
 			throws DoubleDefinitionException {
 		if (this.contains(child)) {
 			throw new DoubleDefinitionException(
@@ -51,16 +51,16 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * fhdw.ipscrum.shared.model.Component#contains(fhdw.ipscrum.shared.model
 	 * .Component)
 	 */
-	public boolean contains(AbsSystem child) {
+	public boolean contains(System child) {
 		return getChilds().contains(child);
 	}
 
 	/**
 	 * @return the childs
 	 */
-	public HashSet<AbsSystem> getChilds() {
+	public HashSet<System> getChilds() {
 		if (this.childs == null) {
-			this.childs = new HashSet<AbsSystem>();
+			this.childs = new HashSet<System>();
 		}
 		return childs;
 	}

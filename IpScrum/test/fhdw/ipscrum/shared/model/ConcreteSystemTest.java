@@ -75,7 +75,7 @@ public class ConcreteSystemTest {
 	@Test
 	public void testContains_1() throws Exception {
 		final ConcreteSystem fixture = new ConcreteSystem("", new Rootsystem());
-		final AbsSystem child = new ConcreteSystem("", new Rootsystem());
+		final System child = new ConcreteSystem("", new Rootsystem());
 
 		final boolean result = fixture.contains(child);
 
@@ -93,7 +93,7 @@ public class ConcreteSystemTest {
 	@Test
 	public void testContains_2() throws Exception {
 		final ConcreteSystem fixture = new ConcreteSystem("", new Rootsystem());
-		final AbsSystem child = new ConcreteSystem("", new Rootsystem());
+		final System child = new ConcreteSystem("", new Rootsystem());
 
 		final boolean result = fixture.contains(child);
 

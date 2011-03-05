@@ -3,7 +3,7 @@ package fhdw.ipscrum.shared.model;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.observer.Observable;
 
-public abstract class AbsSystem extends Observable {
+public abstract class System extends Observable {
 
 	/**
 	 * 
@@ -12,7 +12,7 @@ public abstract class AbsSystem extends Observable {
 	private String name;
 	final private IHasChildren parent;
 
-	public AbsSystem(String name, IHasChildren parent) {
+	public System(String name, IHasChildren parent) {
 		this.name = name;
 		this.parent = parent;
 	}
