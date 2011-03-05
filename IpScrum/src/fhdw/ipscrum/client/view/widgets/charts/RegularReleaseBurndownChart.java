@@ -10,6 +10,9 @@ import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
+/**
+ * This represents the regular version of the RBD-Chart with the sprint-table.
+ */
 public class RegularReleaseBurndownChart extends ReleaseBurndownChart {
 
 	public RegularReleaseBurndownChart(IRelease release) {
@@ -26,6 +29,10 @@ public class RegularReleaseBurndownChart extends ReleaseBurndownChart {
 		verticalPanel.add(sprintTable);
 	}
 
+	/**
+	 * This is too obtain a sorted list of sprints.
+	 * @return a sorted list of sprints
+	 */
 	private Vector<ISprint> getSortedSprintList() {
 		Vector<ISprint> sortedSprints = new Vector<ISprint>();
 		sortedSprints.addAll(this.getData().getRelease().getSprints());

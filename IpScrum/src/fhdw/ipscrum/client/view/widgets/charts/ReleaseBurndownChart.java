@@ -17,13 +17,19 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 public abstract class ReleaseBurndownChart extends Composite {
 
 	private final ReleaseChartData data;
-	int width = 500;
-	int height = 250;
+	private final int width;
+	private final int height;
 
 	private Curve burndownCurve;
 
 	public ReleaseBurndownChart(IRelease release) {
+		this(release, 500, 250);
+	}
+
+	ReleaseBurndownChart(IRelease release, int width, int height) {
 		this.data = new ReleaseChartData(release);
+		this.width = width;
+		this.height = height;
 	}
 
 	GChart createChart() {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -33,6 +32,7 @@ public class ReleaseChartData {
 		return this.data;
 	}
 
+	@SuppressWarnings("unused")
 	private void calculateDemoData() {
 		for (ISprint sprint : this.release.getSprints()) {
 
@@ -52,7 +52,7 @@ public class ReleaseChartData {
 	}
 
 	private void calculateData() {
-		// obaining a sorted list of sprints associated with the release
+		// obtaining a sorted list of sprints associated with the release
 		ArrayList<ISprint> sortedSprints = new ArrayList<ISprint>(this.getRelease().getSprints());
 		Collections.sort(sortedSprints, new Comparator<ISprint>() {
 			@Override
@@ -66,7 +66,7 @@ public class ReleaseChartData {
 		int runningValue = overallEfforts;
 
 		for (ISprint sprint : sortedSprints) {
-			
+
 			runningValue -= sprint.getCumulatedManDayCostsOfClosedPbis();
 
 			if (this.data.containsKey(sprint.getEnd())) {
@@ -104,47 +104,4 @@ public class ReleaseChartData {
 			this.value = value;
 		}
 	}
-
-
-	public Date getStartDateofFirstSprint() {
-		Date firstDate = this.release.getReleaseDate();
-		Iterator<ReleaseChartDataDetails> i = this.data.values().iterator();
-		while (i.hasNext()) {
-			ReleaseChartDataDetails current = i.next();
-			for (ISprint sprint : current.getSprints()) {
-				if (sprint.getBegin().before(firstDate)) {
-					firstDate = sprint.getBegin();
-				}
-			}
-		}
-		return firstDate;
-	}
-
-	//	public Date getEndeDateofFirstSprint() {
-	//		Date firstDate = this.release.getReleaseDate();
-	//		Iterator<ReleaseChartDataDetails> i = this.data.values().iterator();
-	//		while (i.hasNext()) {
-	//			ReleaseChartDataDetails current = i.next();
-	//			for (ISprint sprint : current.getSprints()) {
-	//				if (sprint.getBegin().before(firstDate)) {
-	//					firstDate = sprint.getBegin();
-	//				}
-	//			}
-	//		}
-	//		return firstDate;
-	//	}
-	//
-	//	public Date getEndDateofLastSprint() {
-	//		Date firstDate = this.release.getReleaseDate();
-	//		Iterator<ReleaseChartDataDetails> i = this.data.values().iterator();
-	//		while (i.hasNext()) {
-	//			ReleaseChartDataDetails current = i.next();
-	//			for (ISprint sprint : current.getSprints()) {
-	//				if (sprint.getBegin().before(firstDate)) {
-	//					firstDate = sprint.getBegin();
-	//				}
-	//			}
-	//		}
-	//		return firstDate;
-	//	}
 }
