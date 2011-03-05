@@ -29,7 +29,7 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	private HashSet<ITeam> teams;
 	private HashSet<IRole> roles;
 	private RelationTypeManager relationTypeManager;
-	private Rootsystem systems;
+	private SystemManager sysManager;
 
 	/**
 	 * Method save.
@@ -249,20 +249,15 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		return this.getRoles().size();
 	}
 
-	
 	/**
-	 * Method getSystems
-	 * 
-	 * @return Systemgroup
+	 * @return the sysManager
 	 */
-	public Rootsystem getSystems(){
-		if (this.systems == null) {
-			this.systems = new Rootsystem();
+	public SystemManager getSysManager() {
+		if (this.sysManager == null) {
+			this.sysManager = new SystemManager();
 		}
-		return this.systems;
-	} 
-	
-	
+		return sysManager;
+	}
 	
 	/**
 	 * Method toString.
@@ -338,4 +333,5 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		}
 		return true;
 	}
+
 }
