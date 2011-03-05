@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
-import java.util.HashSet;
+import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
@@ -11,14 +11,15 @@ public class Systemgroup extends System implements IHasChildren {
 	 * 
 	 */
 	private static final long serialVersionUID = -319562480100341293L;
-	private HashSet<System> childs;
+	private Vector<System> childs;
 
-	public Systemgroup(String name, IHasChildren parent) {
+	public Systemgroup(String name, IHasChildren parent) throws DoubleDefinitionException {
 		super(name, parent);
+		getChilds();
+		parent.addChild(this);
 	}
 
-	public void addChild(final System child)
-			throws DoubleDefinitionException {
+	public void addChild(final System child) throws DoubleDefinitionException {
 		if (this.contains(child)) {
 			throw new DoubleDefinitionException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
@@ -33,9 +34,9 @@ public class Systemgroup extends System implements IHasChildren {
 	 * 
 	 * @see fhdw.ipscrum.shared.model.Componentgroup#getChilds()
 	 */
-	public HashSet<System> getChilds() {
+	public Vector<System> getChilds() {
 		if (this.childs == null) {
-			this.childs = new HashSet<System>();
+			this.childs = new Vector<System>();
 		}
 		return childs;
 	}

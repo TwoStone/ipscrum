@@ -3,7 +3,7 @@
  */
 package fhdw.ipscrum.shared.model;
 
-import java.util.HashSet;
+import java.util.Vector;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
@@ -19,7 +19,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * 
 	 */
 	private static final long serialVersionUID = 3375902891368480223L;
-	private HashSet<System> childs;
+	private Vector<System> childs;
 	private String name;
 
 	public Rootsystem() {
@@ -59,9 +59,9 @@ public class Rootsystem extends Observable implements IHasChildren {
 	/**
 	 * @return the childs
 	 */
-	public HashSet<System> getChilds() {
+	public Vector<System> getChilds() {
 		if (this.childs == null) {
-			this.childs = new HashSet<System>();
+			this.childs = new Vector<System>();
 		}
 		return this.childs;
 	}
