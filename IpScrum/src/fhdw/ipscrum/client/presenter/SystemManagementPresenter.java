@@ -9,14 +9,15 @@ import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SystemManagementView;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView.NewSystemEventArgs;
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.ConcreteSystem;
 import fhdw.ipscrum.shared.model.Systemgroup;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 public class SystemManagementPresenter extends Presenter<ISystemManagementView> {
 
-	public SystemManagementPresenter(Panel parent, Presenter<?> parentPresenter) {
+	public SystemManagementPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 		this.registerEvents();
 		this.updateView();
@@ -38,19 +39,18 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 	}
 
 	private void registerEvents() {
-		this.getView()
-				.getCreateSystemEvent()
-				.add(new EventHandler<ISystemManagementView.NewSystemEventArgs>() {
+		this.getView().getCreateSystemEvent().add(
+				new EventHandler<ISystemManagementView.NewSystemEventArgs>() {
 
 					@Override
-					public void onUpdate(Object sender,
-							NewSystemEventArgs eventArgs) {
+					public void onUpdate(final Object sender,
+							final NewSystemEventArgs eventArgs) {
 						SystemManagementPresenter.this.createSystem(eventArgs);
 					}
 				});
 	}
 
-	private void createSystem(NewSystemEventArgs eventArgs) {
+	private void createSystem(final NewSystemEventArgs eventArgs) {
 		final IHasChildren parent;
 		if (eventArgs.Parent == null) {
 			parent = this.getSessionManager().getModel().getSysManager()
@@ -66,7 +66,7 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 				new ConcreteSystem(eventArgs.Name, parent);
 			}
 			this.updateView();
-		} catch (final DoubleDefinitionException e) {
+		} catch (final UserException e) {
 			GwtUtils.displayError(e.getMessage());
 		}
 
