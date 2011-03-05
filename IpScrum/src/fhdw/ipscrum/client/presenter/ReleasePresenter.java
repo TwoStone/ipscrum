@@ -138,6 +138,7 @@ public class ReleasePresenter extends Presenter<IReleaseView> {
 			}
 		});
 
+		// Adding a handler for the event of chart-displaying
 		view.addShowChartEventHandler(new EventHandler<ReleaseArgs>() {
 			@Override
 			public void onUpdate(Object sender, ReleaseArgs eventArgs) {

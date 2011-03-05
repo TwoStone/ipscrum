@@ -101,7 +101,7 @@ public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevant
 
 	/**
 	 * This is to calculate the overall Effort of a release.
-	 * @return int, containing overall efforts
+	 * @return int: sum of overall efforts
 	 */
 	public abstract int getOverallEfforts();
 }

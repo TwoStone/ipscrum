@@ -29,6 +29,9 @@ public class ReportView extends Composite implements IReportView {
 	private SingleSelectionModel<ISprint> sprintSelectionModel;
 	private final SimplePanel contentPanel;
 
+	/**
+	 * Constructor of the class.
+	 */
 	public ReportView() {
 		this.initSelectionModels();
 
@@ -66,7 +69,12 @@ public class ReportView extends Composite implements IReportView {
 
 	}
 
+	/**
+	 * this is to initialize the selection-models.
+	 * it defines what happens when the user changes the selection of the cell-trees.
+	 */
 	private void initSelectionModels() {
+		// Releases
 		this.releaseSelectionModel = new SingleSelectionModel<IRelease>();
 		this.releaseSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
@@ -76,6 +84,7 @@ public class ReportView extends Composite implements IReportView {
 			}
 		});
 
+		// Sprints
 		this.sprintSelectionModel = new SingleSelectionModel<ISprint>();
 		this.sprintSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
