@@ -1,9 +1,10 @@
 package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.observer.Observable;
 
-public abstract class System extends Observable {
+public abstract class System extends Observable implements BDACompare {
 
 	/**
 	 * 
@@ -17,6 +18,32 @@ public abstract class System extends Observable {
 		this.setParent(parent);
 	}
 
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * @return the parent
+	 */
+	public IHasChildren getParent() {
+		return this.parent;
+	}
+
+	private void setParent(IHasChildren parent) {
+		this.parent = parent;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -24,6 +51,35 @@ public abstract class System extends Observable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		if (!this.indirectEquals(obj)) {
+			return false;
+			// } else {
+			// final System other = (System) obj;
+			// if (this.assoc == null) {
+			// if (other.assoc != null) {
+			// return false;
+			// }
+			// } else if (!this.assoc.equals(other.assoc)) {
+			// return false;
+		}
+		return true;
+		// }
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = this.indirectHashCode();
+		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean indirectEquals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -51,27 +107,8 @@ public abstract class System extends Observable {
 		return true;
 	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-	/**
-	 * @return the parent
-	 */
-	public IHasChildren getParent() {
-		return this.parent;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
-	public int hashCode() {
+	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
@@ -80,17 +117,4 @@ public abstract class System extends Observable {
 				+ ((this.parent == null) ? 0 : this.parent.hashCode());
 		return result;
 	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	private void setParent(IHasChildren parent) {
-		this.parent = parent;
-	}
-
 }

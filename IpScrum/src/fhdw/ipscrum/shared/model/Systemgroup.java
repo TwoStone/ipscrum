@@ -13,7 +13,8 @@ public class Systemgroup extends System implements IHasChildren {
 	private static final long serialVersionUID = -319562480100341293L;
 	private Vector<System> childs;
 
-	public Systemgroup(String name, IHasChildren parent) throws DoubleDefinitionException {
+	public Systemgroup(String name, IHasChildren parent)
+			throws DoubleDefinitionException {
 		super(name, parent);
 		getChilds();
 		parent.addChild(this);
@@ -50,35 +51,38 @@ public class Systemgroup extends System implements IHasChildren {
 		return "Systemgruppe " + getName();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((childs == null) ? 0 : childs.hashCode());
+		int result = this.indirectHashCode();
+		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
+		if (!this.indirectEquals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Systemgroup other = (Systemgroup) obj;
-		if (childs == null) {
-			if (other.childs != null)
-				return false;
-		} else if (!childs.equals(other.childs))
-			return false;
+			// } else {
+			// final IHasChildren other = (IHasChildren) obj;
+			// if (this.assoc == null) {
+			// if (other.assoc != null) {
+			// return false;
+			// }
+			// } else if (!this.assoc.equals(other.assoc)) {
+			// return false;
+		}
 		return true;
+		// }
 	}
 
 }

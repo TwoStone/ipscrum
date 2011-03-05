@@ -52,7 +52,8 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * .Component)
 	 */
 	public boolean contains(System child) {
-		if (this.equals(child)) return true;
+		if (this.equals(child))
+			return true;
 		return this.getChilds().contains(child);
 	}
 
@@ -83,23 +84,42 @@ public class Rootsystem extends Observable implements IHasChildren {
 		return this.getName();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((childs == null) ? 0 : childs.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		int result = this.indirectHashCode();
+		// result = result + ((this.assoc == null) ? 0 : this.assoc.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		if (!this.indirectEquals(obj)) {
+			return false;
+			// } else {
+			// final IHasChildren other = (IHasChildren) obj;
+			// if (this.assoc == null) {
+			// if (other.assoc != null) {
+			// return false;
+			// }
+			// } else if (!this.assoc.equals(other.assoc)) {
+			// return false;
+		}
+		return true;
+		// }
+	}
+
+	@Override
+	public boolean indirectEquals(Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -118,6 +138,15 @@ public class Rootsystem extends Observable implements IHasChildren {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int indirectHashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((childs == null) ? 0 : childs.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
 }
