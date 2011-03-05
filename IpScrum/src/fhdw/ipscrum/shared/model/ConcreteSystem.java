@@ -1,6 +1,5 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 public class ConcreteSystem extends AbsSystem {

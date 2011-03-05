@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 /**
@@ -19,6 +18,32 @@ import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
  * @version $Revision: 1.0 $
  */
 public class ConcreteSystemTest {
+	/**
+	 * Perform pre-test initialization.
+	 * 
+	 * @throws Exception
+	 *             if the initialization fails for some reason
+	 * 
+	 * @generatedBy CodePro at 05.03.11 10:57
+	 */
+	@Before
+	public void setUp() throws Exception {
+		// add additional set up code here
+	}
+
+	/**
+	 * Perform post-test clean-up.
+	 * 
+	 * @throws Exception
+	 *             if the clean-up fails for some reason
+	 * 
+	 * @generatedBy CodePro at 05.03.11 10:57
+	 */
+	@After
+	public void tearDown() throws Exception {
+		// Add additional tear down code here
+	}
+
 	/**
 	 * Run the ConcreteSystem(String,IHasChildren) constructor test.
 	 * 
@@ -91,31 +116,5 @@ public class ConcreteSystemTest {
 
 		// add additional test code here
 		assertEquals("", result);
-	}
-
-	/**
-	 * Perform pre-test initialization.
-	 * 
-	 * @throws Exception
-	 *             if the initialization fails for some reason
-	 * 
-	 * @generatedBy CodePro at 05.03.11 10:57
-	 */
-	@Before
-	public void setUp() throws Exception {
-		// add additional set up code here
-	}
-
-	/**
-	 * Perform post-test clean-up.
-	 * 
-	 * @throws Exception
-	 *             if the clean-up fails for some reason
-	 * 
-	 * @generatedBy CodePro at 05.03.11 10:57
-	 */
-	@After
-	public void tearDown() throws Exception {
-		// Add additional tear down code here
 	}
 }

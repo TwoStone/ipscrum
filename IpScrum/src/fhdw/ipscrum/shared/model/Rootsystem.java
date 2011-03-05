@@ -6,7 +6,6 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.observer.Observable;
 

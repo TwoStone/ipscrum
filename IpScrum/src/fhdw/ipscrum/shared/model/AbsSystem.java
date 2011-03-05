@@ -1,5 +1,6 @@
-package fhdw.ipscrum.shared.model.interfaces;
+package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public abstract class AbsSystem extends Observable {

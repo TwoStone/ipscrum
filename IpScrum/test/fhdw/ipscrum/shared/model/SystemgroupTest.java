@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.interfaces.AbsSystem;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 /**
@@ -22,24 +21,29 @@ import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
  */
 public class SystemgroupTest {
 	/**
-	 * Run the Systemgroup(String,IHasChildren) constructor test.
+	 * Perform pre-test initialization.
 	 * 
 	 * @throws Exception
+	 *             if the initialization fails for some reason
 	 * 
 	 * @generatedBy CodePro at 05.03.11 10:57
 	 */
-	@Test
-	public void testSystemgroup_1() throws Exception {
-		final String name = "";
-		final IHasChildren parent = new Rootsystem();
+	@Before
+	public void setUp() throws Exception {
+		// add additional set up code here
+	}
 
-		final Systemgroup result = new Systemgroup(name, parent);
-
-		// add additional test code here
-		assertNotNull(result);
-		assertEquals("Systemgruppe ", result.toString());
-		assertEquals("", result.getName());
-		assertEquals(0, result.countObservers());
+	/**
+	 * Perform post-test clean-up.
+	 * 
+	 * @throws Exception
+	 *             if the clean-up fails for some reason
+	 * 
+	 * @generatedBy CodePro at 05.03.11 10:57
+	 */
+	@After
+	public void tearDown() throws Exception {
+		// Add additional tear down code here
 	}
 
 	/**
@@ -149,6 +153,27 @@ public class SystemgroupTest {
 	}
 
 	/**
+	 * Run the Systemgroup(String,IHasChildren) constructor test.
+	 * 
+	 * @throws Exception
+	 * 
+	 * @generatedBy CodePro at 05.03.11 10:57
+	 */
+	@Test
+	public void testSystemgroup_1() throws Exception {
+		final String name = "";
+		final IHasChildren parent = new Rootsystem();
+
+		final Systemgroup result = new Systemgroup(name, parent);
+
+		// add additional test code here
+		assertNotNull(result);
+		assertEquals("Systemgruppe ", result.toString());
+		assertEquals("", result.getName());
+		assertEquals(0, result.countObservers());
+	}
+
+	/**
 	 * Run the String toString() method test.
 	 * 
 	 * @throws Exception
@@ -163,31 +188,5 @@ public class SystemgroupTest {
 
 		// add additional test code here
 		assertEquals("Systemgruppe ", result);
-	}
-
-	/**
-	 * Perform pre-test initialization.
-	 * 
-	 * @throws Exception
-	 *             if the initialization fails for some reason
-	 * 
-	 * @generatedBy CodePro at 05.03.11 10:57
-	 */
-	@Before
-	public void setUp() throws Exception {
-		// add additional set up code here
-	}
-
-	/**
-	 * Perform post-test clean-up.
-	 * 
-	 * @throws Exception
-	 *             if the clean-up fails for some reason
-	 * 
-	 * @generatedBy CodePro at 05.03.11 10:57
-	 */
-	@After
-	public void tearDown() throws Exception {
-		// Add additional tear down code here
 	}
 }
