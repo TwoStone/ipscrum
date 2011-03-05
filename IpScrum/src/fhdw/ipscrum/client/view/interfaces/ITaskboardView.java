@@ -32,7 +32,7 @@ public interface ITaskboardView extends IView{
 
 	void addEditInProgressTaskEventHandler(EventHandler<TaskArgs> arg);
 
-	void addDetailsFinishEventHandler(EventHandler<TaskArgs> arg);
+	void addDetailsFinishTaskEventHandler(EventHandler<TaskArgs> arg);
 
 	
 }
