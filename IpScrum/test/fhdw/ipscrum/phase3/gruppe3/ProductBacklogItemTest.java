@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.model;
+package fhdw.ipscrum.phase3.gruppe3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,6 +11,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.model.AcceptanceCriterion;
+import fhdw.ipscrum.shared.model.Bug;
+import fhdw.ipscrum.shared.model.Hint;
+import fhdw.ipscrum.shared.model.Person;
+import fhdw.ipscrum.shared.model.ProductBacklog;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 

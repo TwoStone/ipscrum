@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.model;
+package fhdw.ipscrum.phase3.gruppe3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,6 +13,10 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
+import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Release;
+import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;

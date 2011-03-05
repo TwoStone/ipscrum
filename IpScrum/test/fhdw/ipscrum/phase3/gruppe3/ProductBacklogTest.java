@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.model;
+package fhdw.ipscrum.phase3.gruppe3;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,6 +9,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklog;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.Project;
 
 /**
  * The class <code>ProductBacklogTest</code> contains tests for the class

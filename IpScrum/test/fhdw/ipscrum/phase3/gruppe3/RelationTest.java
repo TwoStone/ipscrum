@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.model;
+package fhdw.ipscrum.phase3.gruppe3;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import fhdw.ipscrum.shared.model.Bug;
+import fhdw.ipscrum.shared.model.ProductBacklog;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.RelationType;
 
 /**
  * The class <code>RelationTest</code> contains tests for the class
