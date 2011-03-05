@@ -139,6 +139,9 @@ public final class TextConstants {
 	public static final String CREATE_TASK = "Neuen Task erstellen";
 	public static final String NO_PBI_SELECTED = "Keine Anforderung ausgewählt";
 	public static final String NO_TASK_SELECTED = "Keine Task ausgewählt";
+	public static final String INSERT_NAME_DESCRIPTION = "Bitte Namen und Beschreibung eingeben.";
+	public static final String NOT_ALLOWED = "Operation ist nicht erlaubt.";
+	public static final String EDIT_TASK = "Task Details";
 
 	/* [END SECTION] */
 

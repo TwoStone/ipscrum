@@ -1,22 +1,18 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Vector;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 public class CreateTaskView extends Composite implements ICreateTaskView {
 	
@@ -26,23 +22,29 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	//##### Ende ##################
 	
 	private Button btnOK;
-	private ListBox comboBox;
 	private AbsolutePanel contentPanel;
 	private Button btnAbort;
 	private TextBox textBox;
+	private TextArea textArea;
 	public CreateTaskView() {
 		
 		contentPanel = new AbsolutePanel();
 		initWidget(contentPanel);
-		contentPanel.setSize("331px", "174px");
+		contentPanel.setSize("251px", "267px");
 		
-		btnOK = new Button("O.K.");
-		btnOK.setText("O.K.");
-		contentPanel.add(btnOK, 10, 125);
+		btnOK = new Button("Anlegen");
+		contentPanel.add(btnOK, 10, 230);
 		btnOK.setSize("100px", "28px");
+		btnOK.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				CreateTaskView.this.saveNewTaskEvent.fire(CreateTaskView.this, new EventArgs());
+			}
+		});
 		
 		btnAbort = new Button("Abbrechen");
-		contentPanel.add(btnAbort, 221, 136);
+		contentPanel.add(btnAbort, 141, 230);
 		btnAbort.setSize("100px", "28px");
 		btnAbort.addClickHandler(new ClickHandler() {
 			
@@ -53,56 +55,23 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		});
 		
 		Label lblTaskname = new Label("Task-Name:");
-		contentPanel.add(lblTaskname, 10, 40);
+		contentPanel.add(lblTaskname, 10, 10);
 		
 		textBox = new TextBox();
-		contentPanel.add(textBox, 86, 40);
+		contentPanel.add(textBox, 86, 10);
+		textBox.setSize("147px", "16px");
 		
-		Label lblBearbeitendePerson = new Label("Bearbeitende Person:");
-		contentPanel.add(lblBearbeitendePerson, 10, 80);
+		Label lblDescription = new Label("Beschreibung");
+		contentPanel.add(lblDescription, 10, 51);
 		
-		comboBox = new ListBox();
-		contentPanel.add(comboBox, 141, 74);
-		comboBox.setSize("160px", "22px");
+		textArea = new TextArea();
+		contentPanel.add(textArea, 10, 73);
+		textArea.setSize("223px", "143px");
 	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ICreateTaskView#getBtnOK()
-	 */
-	@Override
-	public Button getBtnOK() {
-		return btnOK;
-	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ICreateTaskView#getComboBox()
-	 */
-	@Override
-	public ListBox getComboBox() {
-		return comboBox;
-	}
-	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ICreateTaskView#getBtnAbort()
-	 */
-	@Override
-	public Button getBtnAbort() {
-		return btnAbort;
-	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ICreateTaskView#getTextBox()
-	 */
-	@Override
-	public TextBox getTextBox() {
+
+	private TextBox getTextBox() {
 		return textBox;
 	}
-	
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ICreateTaskView#refreshNameBox(java.util.Vector)
-	 */
-	@Override
-	public void refreshNameBox(Vector<IPerson> persons){
-		for(int i = 0; i < persons.size(); i++){	
-		this.getComboBox().addItem(persons.get(i).getFirstname() + TextConstants.SPACE + persons.get(i).getLastname());
-		}		}
 	
 	@Override
 	public void addSaveNewTaskEventHandler(EventHandler<EventArgs> arg) {
@@ -112,5 +81,17 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	@Override
 	public void addCancelNewTaskEventHandler(EventHandler<EventArgs> arg) {
 		cancelNewTaskEvent.add(arg);
+	}
+	private TextArea getTextArea() {
+		return textArea;
+	}
+	
+	@Override
+	public String getName() {
+		return	this.getTextArea().getValue();
+	}
+	@Override
+	public String getDescription() {
+	return this.getTextBox().getValue();
 	}
 }

@@ -3,44 +3,36 @@ package fhdw.ipscrum.client.view.interfaces;
 import java.util.Vector;
 
 import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.PBIArgs;
+import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.events.args.TaskArgs;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.Task;
+import fhdw.ipscrum.shared.model.interfaces.ITask;
 
 public interface ITaskboardView extends IView{
 
-	void addSelectSprintHandler(EventHandler<SprintArgs> arg);
 
 	void refreshPBIs(Vector<ProductBacklogItem> pbis);
 
-	ProductBacklogItem getSelectedPBI();
+	void refreshTodoTasks(Vector<ITask> tasks);
 
-	void addNewTaskEventHandler(EventHandler<PBIArgs> arg);
+	void refreshInProgressTasks(Vector<ITask> tasks);
+
+	void refreshDoneTasks(Vector<ITask> tasks);
+
+	public void setTaskboardVisibility(Boolean visible);
+
+	void addNewTaskEventHandler(EventHandler<MultiplePBIArgs> arg);
 
 	void addDeleteTaskEventHandler(EventHandler<TaskArgs> arg);
 
-	void addEditTaskEventHandler(EventHandler<TaskArgs> arg);
+	void addEditToDoTaskEventHandler(EventHandler<TaskArgs> arg);
 
-	void addPrioTopEventHandler(EventHandler<PBIArgs> arg);
+	void addSelectSprintEventHandler(EventHandler<SprintArgs> arg);
 
-	void addPrioUpEventHandler(EventHandler<PBIArgs> arg);
+	void addEditInProgressTaskEventHandler(EventHandler<TaskArgs> arg);
 
-	void addPrioDownEventHandler(EventHandler<PBIArgs> arg);
+	void addDetailsFinishEventHandler(EventHandler<TaskArgs> arg);
 
-	void addPrioBottomEventHandler(EventHandler<PBIArgs> arg);
-
-	void refreshTodoTasks(Vector<Task> tasks);
-
-	void refreshInProgressTasks(Vector<Task> tasks);
-
-	void refreshDoneTasks(Vector<Task> tasks);
-
-	Task getSelectedDoneTask();
-
-	Task getSelectedInProgressTask();
-
-	Task getSelectedTodoTask();
-
+	
 }
