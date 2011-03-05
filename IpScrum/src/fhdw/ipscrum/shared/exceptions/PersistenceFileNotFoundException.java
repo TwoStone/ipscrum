@@ -17,4 +17,8 @@ public class PersistenceFileNotFoundException extends PersistenceException {
 	public PersistenceFileNotFoundException(final String message) {
 		super(message);
 	}
+
+	@SuppressWarnings("unused")
+	private PersistenceFileNotFoundException() {
+	}
 }
