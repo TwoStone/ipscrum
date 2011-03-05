@@ -39,7 +39,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 	/**
 	 * All defined sprints for the project.
 	 */
-	private Vector<ISprint> sprints;// Not-bidirectional
+	private List<ISprint> sprints;// Not-bidirectional
 
 	/**
 	 * Bidirectional association to releases.
@@ -193,7 +193,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 * For adding and removing a sprint use the functionalities of the Project,
 	 * else we cannot guarantee the consistency!
 	 */
-	public Vector<ISprint> getSprints() {
+	public List<ISprint> getSprints() {
 		if (this.sprints == null) {
 			this.sprints = new Vector<ISprint>();
 		}

@@ -17,14 +17,13 @@ public class BugClosedState extends PBIClosedState implements IBugState {
 	}
 
 	@Override
-	public void addSystem(final System system)
-			throws ForbiddenStateException {
+	public void addSystem(final System system) throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
-	public void setRelease(final IRelease release)
+	public void setVersion(final IRelease version)
 			throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);

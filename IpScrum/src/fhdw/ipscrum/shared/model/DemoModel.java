@@ -7,6 +7,7 @@ import fhdw.ipscrum.shared.exceptions.UserException;
 
 public class DemoModel {
 
+	@SuppressWarnings("deprecation")
 	public static void populateModel(Root model) throws UserException {
 
 		final Root root = model;

@@ -1,6 +1,6 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,42 +23,44 @@ import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
- *  This view class is used to represent sprints.
+ * This view class is used to represent sprints.
  * 
  * @author Phase II / Gruppe I
  */
-public class SprintView extends Composite implements ISprintView{
+public class SprintView extends Composite implements ISprintView {
+
+	public static IView createView() {
+		return new SprintView();
+	}
 
 	// ########## Events #############
 	private final Event<EventArgs> newSprintEvent = new Event<EventArgs>();
 	private final Event<SprintArgs> deleteSelectedSprintEvent = new Event<SprintArgs>();
 	private final Event<SprintArgs> detailsSelectedSprintEvent = new Event<SprintArgs>();
+
 	private final Event<SprintArgs> showChartEvent = new Event<SprintArgs>();
 	// ###### Ende Events ###########
-
 	private final Image imgNewSprint;
 	private final Image imgDetailSprint;
-	private final Image imgDeleteSprint;
 
+	private final Image imgDeleteSprint;
 	private final SprintTableView spTable;
 	private final ScrollPanel scrollPanel;
-	private final Image imgChart;
 
-	public static IView createView(){
-		return new SprintView();
-	}
+	private final Image imgChart;
 
 	public SprintView() {
 
-		AbsolutePanel absolutePanel = new AbsolutePanel();
-		initWidget(absolutePanel);
+		final AbsolutePanel absolutePanel = new AbsolutePanel();
+		this.initWidget(absolutePanel);
 		absolutePanel.setSize("600px", "300px");
 
-		Label lblSprintUebersicht = new Label(TextConstants.SPRINT_OVERWIEW);
+		final Label lblSprintUebersicht = new Label(
+				TextConstants.SPRINT_OVERWIEW);
 		lblSprintUebersicht.setStyleName(TextConstants.LABELELEMENT);
 		absolutePanel.add(lblSprintUebersicht, 10, 5);
 
-		FlowPanel flowPanel = new FlowPanel();
+		final FlowPanel flowPanel = new FlowPanel();
 		absolutePanel.add(flowPanel, 10, 34);
 		flowPanel.setSize("250px", "25px");
 
@@ -67,7 +69,8 @@ public class SprintView extends Composite implements ISprintView{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				SprintView.this.newSprintEvent.fire(SprintView.this, new EventArgs());
+				SprintView.this.newSprintEvent.fire(SprintView.this,
+						new EventArgs());
 			}
 		});
 
@@ -78,7 +81,10 @@ public class SprintView extends Composite implements ISprintView{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				SprintView.this.detailsSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
+				SprintView.this.detailsSelectedSprintEvent.fire(
+						SprintView.this,
+						new SprintArgs(SprintView.this.spTable
+								.getCurrentlySelected()));
 			}
 		});
 
@@ -89,41 +95,41 @@ public class SprintView extends Composite implements ISprintView{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				SprintView.this.deleteSelectedSprintEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
+				SprintView.this.deleteSelectedSprintEvent.fire(
+						SprintView.this,
+						new SprintArgs(SprintView.this.spTable
+								.getCurrentlySelected()));
 			}
 		});
 		flowPanel.add(this.imgDeleteSprint);
 
-		imgChart = new Image(TextConstants_FilePaths.CHART_PATH);
-		imgChart.addClickHandler(new ClickHandler() {
+		this.imgChart = new Image(TextConstants_FilePaths.CHART_PATH);
+		this.imgChart.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				if (SprintView.this.spTable.getCurrentlySelected() != null) {
-					SprintView.this.showChartEvent.fire(SprintView.this, new SprintArgs(SprintView.this.spTable.getCurrentlySelected()));
+					SprintView.this.showChartEvent.fire(
+							SprintView.this,
+							new SprintArgs(SprintView.this.spTable
+									.getCurrentlySelected()));
 				}
 			}
 		});
-		flowPanel.add(imgChart);
+		flowPanel.add(this.imgChart);
 
-
-		AbsolutePanel masterSprintTablePanel = new AbsolutePanel();
+		final AbsolutePanel masterSprintTablePanel = new AbsolutePanel();
 		absolutePanel.add(masterSprintTablePanel, 10, 72);
 		masterSprintTablePanel.setSize("575px", "215px");
 
-		scrollPanel = new ScrollPanel();
-		masterSprintTablePanel.add(scrollPanel);
-		scrollPanel.setSize("575px", "215px");
+		this.scrollPanel = new ScrollPanel();
+		masterSprintTablePanel.add(this.scrollPanel);
+		this.scrollPanel.setSize("575px", "215px");
 
 		this.spTable = new SprintTableView();
-		scrollPanel.setWidget(spTable);
-		spTable.setSize("100%", "100%");
+		this.scrollPanel.setWidget(this.spTable);
+		this.spTable.setSize("100%", "100%");
 
-	}
-
-	@Override
-	public void addSprintDetailsEventHandler(EventHandler<SprintArgs> arg) {
-		this.detailsSelectedSprintEvent.add(arg);
 	}
 
 	@Override
@@ -142,9 +148,13 @@ public class SprintView extends Composite implements ISprintView{
 	}
 
 	@Override
-	public void refreshSprints(Vector<ISprint> sprints) {
+	public void addSprintDetailsEventHandler(EventHandler<SprintArgs> arg) {
+		this.detailsSelectedSprintEvent.add(arg);
+	}
+
+	@Override
+	public void refreshSprints(List<ISprint> sprints) {
 		this.spTable.getTableSprint().setRowData(sprints);
 	}
 
 }
-

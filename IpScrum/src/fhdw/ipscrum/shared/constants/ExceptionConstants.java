@@ -27,4 +27,5 @@ public abstract class ExceptionConstants {
 
 	public static final String TASK_INITIAL_STATE_ERROR = "INTERNAL ERROR! - The initial State does not allow initializing attributes";
 	public static final String SYSTEM_IS_NOT_POSSIBLE = "System ist nicht als mögliches System im Projekt definiert.";
+	public static final String RELEASE_NOT_IN_PROJECT = "Release gehört nicht zum übergeordneten Projekt!";
 }

@@ -1,6 +1,6 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,6 +17,8 @@ import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.view.interfaces.IAddSprintToReleaseView;
 import fhdw.ipscrum.client.view.widgets.SprintTableView;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.model.Release;
+import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
@@ -24,104 +26,104 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  * 
  * @author Phase II / Gruppe I
  */
-public class AddSprintToReleaseView extends Composite implements IAddSprintToReleaseView {
-	private Button btnSave;
-	private Button btnAbort;
-	private Label lblRelease;
-	private SprintTableView spTable;
-	
+public class AddSprintToReleaseView extends Composite implements
+		IAddSprintToReleaseView {
+	private final Button btnSave;
+	private final Button btnAbort;
+	private final Label lblRelease;
+	private final SprintTableView spTable;
+
 	// ########## Events #############
 	private final Event<SprintArgs> saveSprintsEvent = new Event<SprintArgs>();
 	private final Event<EventArgs> cancelAddSprintViewEvent = new Event<EventArgs>();
+
 	// ###### Ende Events ###########
-	
-	
+
 	public AddSprintToReleaseView() {
-		
-		AbsolutePanel absolutePanel = new AbsolutePanel();
-		initWidget(absolutePanel);
+
+		final AbsolutePanel absolutePanel = new AbsolutePanel();
+		this.initWidget(absolutePanel);
 		absolutePanel.setSize("600px", "345px");
-		
-		Label lblAddSprint = new Label(TextConstants.SPRINT_TO_RELEASE);
+
+		final Label lblAddSprint = new Label(TextConstants.SPRINT_TO_RELEASE);
 		lblAddSprint.setStyleName(TextConstants.LABELELEMENT);
 		lblAddSprint.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		absolutePanel.add(lblAddSprint, 10, 10);
 		lblAddSprint.setSize("300px", "28px");
-		
-		btnSave = new Button(TextConstants.NEW_BUTTON);
-		btnSave.setText(TextConstants.SAVE);
-		absolutePanel.add(btnSave, 10, 307);
-		btnSave.setSize("100px", "28px");
-		btnSave.addClickHandler(new ClickHandler() {
-			
+
+		this.btnSave = new Button(TextConstants.NEW_BUTTON);
+		this.btnSave.setText(TextConstants.SAVE);
+		absolutePanel.add(this.btnSave, 10, 307);
+		this.btnSave.setSize("100px", "28px");
+		this.btnSave.addClickHandler(new ClickHandler() {
+
 			@Override
 			public void onClick(ClickEvent event) {
-				AddSprintToReleaseView.this.saveSprintsEvent.fire(AddSprintToReleaseView.this, new SprintArgs(AddSprintToReleaseView.this.spTable.getCurrentlySelected()));
+				AddSprintToReleaseView.this.saveSprintsEvent.fire(
+						AddSprintToReleaseView.this,
+						new SprintArgs(AddSprintToReleaseView.this.spTable
+								.getCurrentlySelected()));
 			}
 		});
-		
-		lblRelease = new Label(TextConstants.EMPTY_TEXT);
-		lblRelease.setStyleName(TextConstants.LABELELEMENT);
-		lblRelease.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		absolutePanel.add(lblRelease, 253, 10);
-		lblRelease.setSize("250px", "25px");
-		
-		btnAbort = new Button(TextConstants.NEW_BUTTON);
-		btnAbort.setText(TextConstants.ABORT);
-		absolutePanel.add(btnAbort, 465, 307);
-		btnAbort.setSize("100px", "28px");
-		
-		AbsolutePanel masterSprintTableViewPanel = new AbsolutePanel();
+
+		this.lblRelease = new Label(TextConstants.EMPTY_TEXT);
+		this.lblRelease.setStyleName(TextConstants.LABELELEMENT);
+		this.lblRelease
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		absolutePanel.add(this.lblRelease, 253, 10);
+		this.lblRelease.setSize("250px", "25px");
+
+		this.btnAbort = new Button(TextConstants.NEW_BUTTON);
+		this.btnAbort.setText(TextConstants.ABORT);
+		absolutePanel.add(this.btnAbort, 465, 307);
+		this.btnAbort.setSize("100px", "28px");
+
+		final AbsolutePanel masterSprintTableViewPanel = new AbsolutePanel();
 		absolutePanel.add(masterSprintTableViewPanel, 10, 44);
-		
+
 		masterSprintTableViewPanel.setSize("580px", "235px");
-		
+
 		this.spTable = new SprintTableView();
 		masterSprintTableViewPanel.add(this.spTable);
-		
-		btnAbort.addClickHandler(new ClickHandler() {
-			
+
+		this.btnAbort.addClickHandler(new ClickHandler() {
+
 			@Override
 			public void onClick(ClickEvent event) {
-			AddSprintToReleaseView.this.cancelAddSprintViewEvent.fire(AddSprintToReleaseView.this, new EventArgs());	
+				AddSprintToReleaseView.this.cancelAddSprintViewEvent.fire(
+						AddSprintToReleaseView.this, new EventArgs());
 			}
 		});
-		
-	}
 
-	
-	@Override
-	public Button getBtnSave() {
-		return btnSave;
 	}
-
-	
-	@Override
-	public Button getBtnAbort() {
-		return btnAbort;
-	}
-	
-
-	@Override
-	public Label getLblRelease() {
-		return lblRelease;
-	}
-	
-
-	@Override
-	public void addSaveSprintsEventHandler(EventHandler<SprintArgs> arg) {
-		saveSprintsEvent.add(arg);
-	}
-	
 
 	@Override
 	public void addCancelAddSprintViewEventHandler(EventHandler<EventArgs> arg) {
-		cancelAddSprintViewEvent.add(arg);
+		this.cancelAddSprintViewEvent.add(arg);
 	}
-	
 
 	@Override
-	public void refreshSprints(Vector<ISprint> sprints) {
-	this.spTable.getTableSprint().setRowData(sprints);
+	public void addSaveSprintsEventHandler(EventHandler<SprintArgs> arg) {
+		this.saveSprintsEvent.add(arg);
+	}
+
+	@Override
+	public Button getBtnAbort() {
+		return this.btnAbort;
+	}
+
+	@Override
+	public Button getBtnSave() {
+		return this.btnSave;
+	}
+
+	@Override
+	public Label getLblRelease() {
+		return this.lblRelease;
+	}
+
+	@Override
+	public void refreshSprints(List<ISprint> sprints) {
+		this.spTable.getTableSprint().setRowData(sprints);
 	}
 }

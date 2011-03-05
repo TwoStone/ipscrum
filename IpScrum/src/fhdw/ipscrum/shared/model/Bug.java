@@ -8,11 +8,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
-import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
 import fhdw.ipscrum.shared.exceptions.WrongSystemException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -29,7 +26,7 @@ public class Bug extends ProductBacklogItem {
 	 */
 	private static final long serialVersionUID = 3237023915419793623L;
 
-	private IRelease release;
+	private IRelease version;
 
 	private IBugState state;
 
@@ -39,11 +36,10 @@ public class Bug extends ProductBacklogItem {
 	private Bug() {
 	}
 
-	public Bug(final String name, final String description,
-			final ProductBacklog backlog) throws NoValidValueException,
-			DoubleDefinitionException, ConsistencyException,
-			ForbiddenStateException {
+	public Bug(final String name, final String description, IRelease version,
+			final ProductBacklog backlog) throws UserException {
 		super(name, description, backlog);
+		this.setVersion(version);
 		this.systems = new ArrayList<System>();
 	}
 
@@ -77,12 +73,18 @@ public class Bug extends ProductBacklogItem {
 		this.state = new BugClosedState();
 	}
 
-	public void doSetRelease(final IRelease release) {
-		this.release = release;
+	public void doSetVersion(final IRelease version)
+			throws WrongReleaseException {
+		if (this.getBacklog().getProject().getReleasePlan().contains(version)) {
+			this.version = version;
+		} else {
+			throw new WrongReleaseException(
+					ExceptionConstants.RELEASE_NOT_IN_PROJECT);
+		}
 	}
 
 	public IRelease getRelease() {
-		return this.release;
+		return this.version;
 	}
 
 	@Override
@@ -104,9 +106,8 @@ public class Bug extends ProductBacklogItem {
 		this.state = new BugOpenState(this);
 	}
 
-	public void setRelease(final IRelease release)
-			throws ForbiddenStateException {
-		this.state.setRelease(release);
+	public void setVersion(final IRelease version) throws UserException {
+		this.state.setVersion(version);
 	}
 
 }
