@@ -52,6 +52,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * .Component)
 	 */
 	public boolean contains(System child) {
+		if (this.equals(child)) return true;
 		return this.getChilds().contains(child);
 	}
 
@@ -80,6 +81,43 @@ public class Rootsystem extends Observable implements IHasChildren {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((childs == null) ? 0 : childs.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rootsystem other = (Rootsystem) obj;
+		if (childs == null) {
+			if (other.childs != null)
+				return false;
+		} else if (!childs.equals(other.childs))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }
