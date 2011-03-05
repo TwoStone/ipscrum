@@ -14,6 +14,9 @@ public class ConcreteSystem extends System {
 		parent.addChild(this);
 	}
 
+	private ConcreteSystem() {
+	}
+
 	@Override
 	public void accept(final ISystemVisitor visitor) {
 		visitor.handleConcreteSystem(this);

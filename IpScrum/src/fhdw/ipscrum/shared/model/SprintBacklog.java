@@ -1,9 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -26,18 +24,23 @@ public class SprintBacklog implements BDACompare, Serializable {
 		this.sprintAssoc = new OneToOne<OneToOne, SprintBacklog>(this);
 		this.taskAssoc = new OneToMany<ManyToOne, SprintBacklog>(this);
 	}
-	
-	public OneToMany<ManyToOne, SprintBacklog> getTaskAssoc(){
+
+	private SprintBacklog() {
+
+	}
+
+	public OneToMany<ManyToOne, SprintBacklog> getTaskAssoc() {
 		return this.taskAssoc;
 	}
-	
-	public OneToOne<OneToOne, SprintBacklog> getSprintAssoc(){
+
+	public OneToOne<OneToOne, SprintBacklog> getSprintAssoc() {
 		return this.sprintAssoc;
 	}
-	public ISprint getSprint(){
+
+	public ISprint getSprint() {
 		return (ISprint) this.getSprintAssoc().get();
 	}
-	
+
 	/**
 	 * Adds a task to the sprint backlog
 	 * 
@@ -56,7 +59,6 @@ public class SprintBacklog implements BDACompare, Serializable {
 		this.getTaskAssoc().remove(task.getSprintBacklogAssoc());
 	}
 
-
 	/**
 	 * This method provides access to all tasks contained in the sprint backlog
 	 * by an iterator.
@@ -65,25 +67,29 @@ public class SprintBacklog implements BDACompare, Serializable {
 	 */
 	public Iterator<ITask> taskIterator() {
 		Iterator<ITask> result = null;
-		Iterator<BDACompare> i = this.getTaskAssoc().getAssociations().iterator();
-		Vector<ITask> taskVector = new Vector<ITask>();
-		while (i.hasNext()){
+		final Iterator<BDACompare> i = this.getTaskAssoc().getAssociations()
+				.iterator();
+		final Vector<ITask> taskVector = new Vector<ITask>();
+		while (i.hasNext()) {
 			taskVector.add((ITask) i.next());
 		}
 		result = taskVector.iterator();
 		return result;
 	}
+
 	/**
 	 * Checks a task by identity whether it is contained in the sprint backlog
+	 * 
 	 * @param task
-	 * @return 
+	 * @return
 	 */
 	public boolean hasTask(final ITask task) {
-		Iterator<ITask> i = this.taskIterator();
+		final Iterator<ITask> i = this.taskIterator();
 		boolean result = false;
-		while (i.hasNext()){
-			if (task == i.next()){
-				result = true; break;
+		while (i.hasNext()) {
+			if (task == i.next()) {
+				result = true;
+				break;
 			}
 		}
 		return result;

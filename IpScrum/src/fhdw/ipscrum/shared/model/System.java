@@ -11,12 +11,16 @@ public abstract class System extends Observable implements BDACompare {
 
 	private static final long serialVersionUID = -5808437328511791688L;
 	private String name;
-	private final ManyToOne<OneToMany, System> toIHasChildAssoc;
+	private ManyToOne<OneToMany, System> toIHasChildAssoc;
 
 	public System(final String name, final IHasChildren parent) {
 		this.name = name;
 		this.setParent(parent);
 		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
+	}
+
+	protected System() {
+
 	}
 
 	protected ManyToOne<OneToMany, System> getToIHasChildAssoc() {

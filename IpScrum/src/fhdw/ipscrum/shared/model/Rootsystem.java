@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
@@ -71,6 +72,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	/**
 	 * @return the childs
 	 */
+	@Override
 	public Vector<System> getChilds() {
 		final Vector<System> ret = new Vector<System>();
 		for (final BDACompare current : this.getToSystemAssoc()
@@ -147,6 +149,11 @@ public class Rootsystem extends Observable implements IHasChildren {
 		result = prime * result
 				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
+	}
+
+	@Override
+	public void accept(HasChildVisitor visitor) {
+		visitor.handleRoot(this);
 	}
 
 }

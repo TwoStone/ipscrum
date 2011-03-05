@@ -7,18 +7,23 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 
 public class Systemgroup extends System implements IHasChildren {
 
 	private static final long serialVersionUID = -319562480100341293L;
 	private Vector<System> childs;
-	private final OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
+	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
 	public Systemgroup(final String name, final IHasChildren parent)
 			throws DoubleDefinitionException {
 		super(name, parent);
 		this.toSystemAssoc = new OneToMany<ManyToOne, IHasChildren>(this);
+	}
+
+	private Systemgroup() {
+
 	}
 
 	@Override
@@ -59,4 +64,10 @@ public class Systemgroup extends System implements IHasChildren {
 	public void accept(final ISystemVisitor visitor) {
 		visitor.handleSystemGroup(this);
 	}
+
+	@Override
+	public void accept(HasChildVisitor visitor) {
+		visitor.handleSystemGroup(this);
+	}
+
 }
