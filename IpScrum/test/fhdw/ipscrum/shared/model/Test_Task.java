@@ -47,10 +47,6 @@ public class Test_Task extends junit.framework.TestCase{
 		apbis3 = new ArrayList<ProductBacklogItem>();
 		zero = 0;
 		three = 3;
-		
-		// TODO: apbis has to be list for t1
-
-
 	}
 
 	@AfterClass
