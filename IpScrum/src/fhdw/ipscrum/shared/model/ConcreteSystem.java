@@ -14,7 +14,6 @@ public class ConcreteSystem extends System {
 	public ConcreteSystem(final String name, final IHasChildren parent)
 			throws DoubleDefinitionException {
 		super(name, parent);
-		parent.addChild(this);
 	}
 
 	private ConcreteSystem() {

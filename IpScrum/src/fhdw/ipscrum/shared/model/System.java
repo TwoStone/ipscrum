@@ -5,6 +5,7 @@ import java.util.List;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -15,10 +16,11 @@ public abstract class System extends Observable implements BDACompare {
 	private String name;
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
 
-	public System(final String name, final IHasChildren parent) {
+	public System(final String name, final IHasChildren parent)
+			throws DoubleDefinitionException {
 		this.name = name;
-		this.setParent(parent);
 		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
+		this.setParent(parent);
 	}
 
 	protected System() {
@@ -51,8 +53,10 @@ public abstract class System extends Observable implements BDACompare {
 		return (IHasChildren) this.toIHasChildAssoc.get();
 	}
 
-	private void setParent(final IHasChildren parent) {
-		this.toIHasChildAssoc.set(parent.getToSystemAssoc());
+	private void setParent(final IHasChildren parent)
+			throws DoubleDefinitionException {
+		parent.addChild(this);
+		// this.toIHasChildAssoc.set(parent.getToSystemAssoc());
 	}
 
 	@Override

@@ -29,6 +29,7 @@ public class NavigationView extends Composite implements INavigationView {
 	private final Event<EventArgs> personenEvent = new Event<EventArgs>();
 	private final Event<EventArgs> teamEvent = new Event<EventArgs>();
 	private final Event<EventArgs> saveEvent = new Event<EventArgs>();
+	private final Event<EventArgs> systemManagement = new Event<EventArgs>();
 
 	// ######## Ende Events #######
 
@@ -40,9 +41,11 @@ public class NavigationView extends Composite implements INavigationView {
 	private final FlowPanel masterMainPanel;
 	private final FlowPanel innerMasterPanel;
 	private final PushButton pshbtnSpeichern;
+	private final MenuItem mntmSystemeverwaltung;
 
 	/**
 	 * Method createView.
+	 * 
 	 * @return INavigationView
 	 */
 	public static INavigationView createView() {
@@ -51,60 +54,79 @@ public class NavigationView extends Composite implements INavigationView {
 
 	private NavigationView() {
 		this.innerMasterPanel = new FlowPanel();
-		initWidget(this.innerMasterPanel);
+		this.initWidget(this.innerMasterPanel);
 		this.innerMasterPanel.setSize("1000px", "650px");
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		this.innerMasterPanel.add(horizontalPanel);
 		horizontalPanel.setWidth("100%");
 
-		MenuBar menuBar = new MenuBar(false);
+		final MenuBar menuBar = new MenuBar(false);
 		horizontalPanel.add(menuBar);
 
-		this.mntmProjekte = new MenuItem(TextConstants.NAV_PROJECTS, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.projectEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmProjekte = new MenuItem(TextConstants.NAV_PROJECTS, false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.projectEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
 		menuBar.addItem(this.mntmProjekte);
-		
-		mntmTaskBoard = new MenuItem(TextConstants.NAV_TASKBOARD, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.tasksEvent.fire(NavigationView.this, new EventArgs());	
-			}
-		});
-		mntmTaskBoard.setHTML(TextConstants.NAV_TASKBOARD);
-		menuBar.addItem(mntmTaskBoard);
 
-		this.mntmReports = new MenuItem(TextConstants.NAV_REPORTS, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.reportsEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmTaskBoard = new MenuItem(TextConstants.NAV_TASKBOARD, false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.tasksEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
+		this.mntmTaskBoard.setHTML(TextConstants.NAV_TASKBOARD);
+		menuBar.addItem(this.mntmTaskBoard);
+
+		this.mntmReports = new MenuItem(TextConstants.NAV_REPORTS, false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.reportsEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
 		menuBar.addItem(this.mntmReports);
 
-		MenuItemSeparator separator = new MenuItemSeparator();
+		final MenuItemSeparator separator = new MenuItemSeparator();
 		menuBar.addSeparator(separator);
 
-		this.mntmPersonenstammdaten = new MenuItem(TextConstants.NAV_PERSONROLEMANAGEMENT, false,
-				new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.personenEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmPersonenstammdaten = new MenuItem(
+				TextConstants.NAV_PERSONROLEMANAGEMENT, false, new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.personenEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
 		menuBar.addItem(this.mntmPersonenstammdaten);
 
-		this.mntmTeamzuordnung = new MenuItem(TextConstants.NAV_TEAMMANAGEMENT, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.teamEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmTeamzuordnung = new MenuItem(TextConstants.NAV_TEAMMANAGEMENT,
+				false, new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.teamEvent.fire(NavigationView.this,
+								new EventArgs());
+					}
+				});
 		menuBar.addItem(this.mntmTeamzuordnung);
+
+		this.mntmSystemeverwaltung = new MenuItem("Systemeverwaltung", false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.systemManagement.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
+		menuBar.addItem(this.mntmSystemeverwaltung);
 
 		this.pshbtnSpeichern = new PushButton(TextConstants.NAV_SAVEMODELDATA);
 		this.pshbtnSpeichern.setHeight("16px");
@@ -113,7 +135,8 @@ public class NavigationView extends Composite implements INavigationView {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				NavigationView.this.saveEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.saveEvent.fire(NavigationView.this,
+						new EventArgs());
 			}
 		});
 
@@ -121,7 +144,6 @@ public class NavigationView extends Composite implements INavigationView {
 		this.innerMasterPanel.add(this.masterMainPanel);
 		this.masterMainPanel.setSize("1000px", "600px");
 	}
-
 
 	@Override
 	public void addProjectEventHandler(EventHandler<EventArgs> arg) {
@@ -152,9 +174,14 @@ public class NavigationView extends Composite implements INavigationView {
 	public void addTasksEventHandler(EventHandler<EventArgs> arg) {
 		this.tasksEvent.add(arg);
 	}
-	
+
 	@Override
 	public FlowPanel getContentPanel() {
 		return this.masterMainPanel;
+	}
+
+	@Override
+	public void addSystemManagementHandler(EventHandler<EventArgs> handler) {
+		this.systemManagement.add(handler);
 	}
 }

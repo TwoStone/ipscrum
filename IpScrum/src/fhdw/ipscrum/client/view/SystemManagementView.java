@@ -9,10 +9,10 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CaptionPanel;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
@@ -34,7 +34,7 @@ import fhdw.ipscrum.shared.model.Systemgroup;
  */
 public class SystemManagementView extends Composite implements
 		ISystemManagementView {
-	private Event<NewSystemEventArgs> createSystemEvent;
+	private final Event<NewSystemEventArgs> createSystemEvent = new Event<NewSystemEventArgs>();
 	private List<Systemgroup> possibleParents;
 	final Tree systemTree;
 	final RadioButton rdbtnSystem;
@@ -43,31 +43,34 @@ public class SystemManagementView extends Composite implements
 
 	public SystemManagementView() {
 
-		final CaptionPanel cptnpnlNewPanel = new CaptionPanel(
-				"Systemverwaltung");
-		cptnpnlNewPanel.setCaptionHTML("Systemverwaltung");
-		this.initWidget(cptnpnlNewPanel);
-
 		final VerticalPanel verticalPanel = new VerticalPanel();
-		cptnpnlNewPanel.setContentWidget(verticalPanel);
-		verticalPanel.setSize("100%", "");
+		verticalPanel.setStyleName("center");
+		this.initWidget(verticalPanel);
+		verticalPanel.setSize("50%", "");
+
+		final HTML htmlNewHtml = new HTML("<h1>Systemeverwaltung</h1>", true);
+		verticalPanel.add(htmlNewHtml);
 
 		final ScrollPanel scrollPanel = new ScrollPanel();
+		scrollPanel.setStyleName("smallborder");
 		verticalPanel.add(scrollPanel);
+		scrollPanel.setSize("100%", "300px");
 
 		this.systemTree = new Tree();
+		this.systemTree.setAnimationEnabled(true);
 		scrollPanel.setWidget(this.systemTree);
-		this.systemTree.setSize("100%", "100%");
+		this.systemTree.setSize("100%", "");
 
 		final DisclosurePanel createSystemPanel = new DisclosurePanel(
 				"Neues System anlegen");
-		createSystemPanel.setOpen(true);
 		createSystemPanel.setAnimationEnabled(true);
 		verticalPanel.add(createSystemPanel);
+		createSystemPanel.setWidth("100%");
 
-		final Grid grid = new Grid(3, 3);
+		final Grid grid = new Grid(4, 2);
+		grid.setStyleName("lightBackground");
 		createSystemPanel.setContent(grid);
-		grid.setSize("", "");
+		grid.setSize("100%", "");
 
 		final Label lblName = new Label("Name:");
 		lblName.setWordWrap(false);
@@ -83,14 +86,24 @@ public class SystemManagementView extends Composite implements
 		this.parentComboBox = new ListBox();
 		grid.setWidget(1, 1, this.parentComboBox);
 
+		this.rdbtnSystem = new RadioButton("new name", "System");
+		this.rdbtnSystem.setValue(true);
+		grid.setWidget(2, 0, this.rdbtnSystem);
+
+		this.rdbtnGruppe = new RadioButton("new name", "Gruppe");
+		grid.setWidget(2, 1, this.rdbtnGruppe);
+
 		final Button btnNewSystem = new Button("Neues System hinzufügen");
 		btnNewSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				final String name = nameTextBox.getText();
-				final Systemgroup parent = SystemManagementView.this.possibleParents
-						.get(SystemManagementView.this.parentComboBox
-								.getSelectedIndex());
+				Systemgroup parent = null;
+				if (SystemManagementView.this.parentComboBox.getSelectedIndex() > 0) {
+					parent = SystemManagementView.this.possibleParents
+							.get(SystemManagementView.this.parentComboBox
+									.getSelectedIndex() - 1);
+				}
 				final Boolean asGroup = SystemManagementView.this.rdbtnGruppe
 						.getValue();
 				SystemManagementView.this.createSystemEvent.fire(
@@ -98,14 +111,7 @@ public class SystemManagementView extends Composite implements
 								parent, asGroup));
 			}
 		});
-
-		this.rdbtnSystem = new RadioButton("new name", "System");
-		this.rdbtnSystem.setValue(true);
-		grid.setWidget(2, 0, this.rdbtnSystem);
-
-		this.rdbtnGruppe = new RadioButton("new name", "Gruppe");
-		grid.setWidget(2, 1, this.rdbtnGruppe);
-		grid.setWidget(2, 2, btnNewSystem);
+		grid.setWidget(3, 1, btnNewSystem);
 	}
 
 	/*
@@ -137,6 +143,10 @@ public class SystemManagementView extends Composite implements
 	@Override
 	public void setPossibleParents(List<Systemgroup> parents) {
 		this.possibleParents = parents;
-
+		this.parentComboBox.clear();
+		this.parentComboBox.addItem("");
+		for (final Systemgroup systemgroup : parents) {
+			this.parentComboBox.addItem(systemgroup.getName());
+		}
 	}
 }

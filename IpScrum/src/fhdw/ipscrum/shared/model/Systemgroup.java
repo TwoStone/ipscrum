@@ -15,7 +15,6 @@ import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 public class Systemgroup extends System implements IHasChildren {
 
 	private static final long serialVersionUID = -319562480100341293L;
-	private Vector<System> childs;
 	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
 	public Systemgroup(final String name, final IHasChildren parent)
@@ -24,6 +23,7 @@ public class Systemgroup extends System implements IHasChildren {
 		this.toSystemAssoc = new OneToMany<ManyToOne, IHasChildren>(this);
 	}
 
+	@SuppressWarnings("unused")
 	private Systemgroup() {
 
 	}

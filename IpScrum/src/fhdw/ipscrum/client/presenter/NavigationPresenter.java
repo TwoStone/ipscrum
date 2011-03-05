@@ -93,6 +93,16 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			}
 		});
 
+		concreteView.addSystemManagementHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				concreteView.getContentPanel().clear();
+				new SystemManagementPresenter(concreteView.getContentPanel(),
+						NavigationPresenter.this);
+			}
+		});
+
 		return concreteView;
 	}
 }
