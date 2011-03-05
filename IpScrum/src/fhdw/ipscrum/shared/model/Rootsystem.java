@@ -33,8 +33,8 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * @param child
 	 * @throws DoubleDefinitionException
 	 */
-	public void addChild(final System child)
-			throws DoubleDefinitionException {
+	@Override
+	public void addChild(final System child) throws DoubleDefinitionException {
 		if (this.contains(child)) {
 			throw new DoubleDefinitionException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
@@ -52,7 +52,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * .Component)
 	 */
 	public boolean contains(System child) {
-		return getChilds().contains(child);
+		return this.getChilds().contains(child);
 	}
 
 	/**
@@ -62,7 +62,11 @@ public class Rootsystem extends Observable implements IHasChildren {
 		if (this.childs == null) {
 			this.childs = new HashSet<System>();
 		}
-		return childs;
+		return this.childs;
+	}
+
+	public String getName() {
+		return this.name;
 	}
 
 	/**
@@ -75,11 +79,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 
 	@Override
 	public String toString() {
-		return getName();
-	}
-
-	public String getName() {
-		return this.name;
+		return this.getName();
 	}
 
 }

@@ -1,7 +1,10 @@
 package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -26,6 +29,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 		ITreeVisitorRelevantElement {
 
 	private static final long serialVersionUID = 6337710256829006568L;
+	private List<System> possibleSystems;
 
 	/**
 	 * Name of the project.
@@ -68,11 +72,19 @@ public class Project extends Observable implements BDACompare, Serializable,
 		this.releaseAssoc = new OneToMany<ManyToOne, Project>(this);
 		this.backlogAssoc = new OneToOne<OneToOne, Project>(this);
 		this.backlogAssoc.set(new ProductBacklog(this).getProjectAssoc());
+		this.possibleSystems = new ArrayList<System>();
 	}
 
 	@Override
 	public void accept(ITreeConstructionVisitor treeVisitor) {
 		treeVisitor.handleProject(this);
+	}
+
+	public void addPossibleSystem(System system) {
+
+		if (!this.possibleSystems.contains(system)) {
+			this.possibleSystems.add(system);
+		}
 	}
 
 	/**
@@ -148,6 +160,10 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 */
 	public String getName() {
 		return this.name;
+	}
+
+	public List<System> getPossibleSystems() {
+		return Collections.unmodifiableList(this.possibleSystems);
 	}
 
 	/**
