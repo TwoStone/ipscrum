@@ -24,7 +24,7 @@ public abstract class ExceptionConstants {
 
 	public static final String GUI_PERSROLEMNGMT_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Zuordnung von Rollen zu einer Person eine (oder mehrere) Rollen aus der rechten Liste, sowie eine Person aus der linken Tabelle aus.";
 	public static final String GUI_TEAMVIEW_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Teamzuordnung eine (oder mehrere) Personen aus der rechten Tabelle, sowie ein Team aus der linken Liste aus.";
-	
-	public static final String TASK_INITIAL_STATE_ERROR = "INTERNAL ERROR! - The initial State does not allow initializing attributes";
-}
 
+	public static final String TASK_INITIAL_STATE_ERROR = "INTERNAL ERROR! - The initial State does not allow initializing attributes";
+	public static final String SYSTEM_IS_NOT_POSSIBLE = "System ist nicht als mögliches System im Projekt definiert.";
+}

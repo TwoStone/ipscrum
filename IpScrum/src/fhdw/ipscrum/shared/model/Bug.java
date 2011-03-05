@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.exceptions.WrongSystemException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
@@ -56,12 +59,17 @@ public class Bug extends ProductBacklogItem {
 		visitor.handleBug(this);
 	}
 
-	public void addSystem(final System system) throws ForbiddenStateException {
+	public void addSystem(final System system) throws UserException {
 		this.getState().addSystem(system);
 	}
 
-	public void doAddSystem(final System system) {
-		this.systems.add(system);
+	public void doAddSystem(final System system) throws WrongSystemException {
+		if (this.getBacklog().getProject().isPossibleSystem(system)) {
+			this.systems.add(system);
+		} else {
+			throw new WrongSystemException(
+					ExceptionConstants.SYSTEM_IS_NOT_POSSIBLE);
+		}
 	}
 
 	@Override

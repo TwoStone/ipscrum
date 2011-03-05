@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
-import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
@@ -29,7 +29,7 @@ public class BugOpenState extends PBIOpenState implements IBugState {
 	}
 
 	@Override
-	public void addSystem(System system) throws ForbiddenStateException {
+	public void addSystem(System system) throws UserException {
 		this.owner.doAddSystem(system);
 
 	}
