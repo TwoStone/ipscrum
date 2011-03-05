@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
@@ -22,6 +25,7 @@ public class Task extends Observable implements ITask {
 	private ITaskState state;
 	private List<ProductBacklogItem> assignedPBIs;
 	private Integer planEffort;
+	private ManyToOne<OneToMany, ITask> sprintBacklogAssoc;
 
 	@SuppressWarnings("unused")
 	private Task() {
@@ -31,6 +35,7 @@ public class Task extends Observable implements ITask {
 	public Task(String name, String description) throws NoValidValueException {
 		super();
 		this.state = new TaskUnassigned(this);
+		this.sprintBacklogAssoc = new ManyToOne<OneToMany, ITask>(this);
 		try {
 			this.setName(name);
 			this.description = description;
@@ -47,6 +52,14 @@ public class Task extends Observable implements ITask {
 		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
 		this.planEffort = 0;
 	}
+	@Override
+	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc(){
+		return this.sprintBacklogAssoc;
+	}
+	@Override 
+	public SprintBacklog getSprintBacklog(){
+		return (SprintBacklog)this.getSprintBacklogAssoc().get();
+	}
 
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
@@ -54,7 +67,15 @@ public class Task extends Observable implements ITask {
 	}
 
 	protected void doAddPBI(ProductBacklogItem pbi) {
-		// TODO: Priorisierung klären
+		if (pbi.getSprint()==null){
+			// Inkonsistent
+			//TODO: Exception
+		} 
+		if (!pbi.getSprint().getSprintBacklog().hasTask(this)){
+			// Inkonsistent
+			//TODO: Exception
+		}
+		
 		this.assignedPBIs.add(pbi);
 	}
 
@@ -82,8 +103,10 @@ public class Task extends Observable implements ITask {
 
 	/**
 	 * changes state to TaskFinished and passes actual responsiblePerson
+	 * @throws ForbiddenStateException 
 	 */
-	protected void doSetTaskFinished() {
+	protected void doSetTaskFinished() throws ForbiddenStateException {
+		this.setPlanEffort(0);
 		final TaskFinished newState = new TaskFinished(this,
 				this.getResponsiblePerson());
 		this.setState(newState);
@@ -180,6 +203,24 @@ public class Task extends Observable implements ITask {
 	 * @param responsiblePerson
 	 */
 	protected void setTaskAssigned(IPerson responsiblePerson) {
+		Vector<IPerson> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
+		if (sprintTeamMembers==null){
+			//Inkonsistent
+			//TODO: Exception
+		}
+		Iterator<IPerson> memberIterator = sprintTeamMembers.iterator();
+		boolean isPersonValid = false;
+		while (memberIterator.hasNext()){
+			IPerson current = memberIterator.next();
+			if (current.equals(responsiblePerson)){
+				isPersonValid = true; break;
+			}
+		}
+		if (!isPersonValid){
+			//Inkonsistent
+			//TODO: Exception;
+		}
+		
 		this.state = new TaskInProgress(this, responsiblePerson);
 	}
 
@@ -193,6 +234,18 @@ public class Task extends Observable implements ITask {
 
 	protected void doSetPlanEffort(Integer planEffort) {
 		this.planEffort = planEffort;
+	}
+
+	@Override
+	public int indirectHashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean indirectEquals(Object obj) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

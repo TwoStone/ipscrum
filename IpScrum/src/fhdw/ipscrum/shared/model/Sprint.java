@@ -6,6 +6,7 @@ import java.util.Vector;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
+import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -22,10 +23,10 @@ public class Sprint implements ISprint {
 	private Date begin;
 	private Date end;
 	private ITeam team;
-	private SprintBacklog sprintBacklog;
 
 	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
 	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
+	private OneToOne<OneToOne, Sprint> sprintBacklogAssoc;
 	private int result;
 
 	@SuppressWarnings("unused")
@@ -57,7 +58,8 @@ public class Sprint implements ISprint {
 		this.setTeam(team);
 		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
 		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
-		this.sprintBacklog = new SprintBacklog();
+		this.sprintBacklogAssoc = new OneToOne<OneToOne, Sprint>(this);
+		this.sprintBacklogAssoc.set(new SprintBacklog(this).getSprintAssoc());
 	}
 
 	@Override
@@ -193,7 +195,7 @@ public class Sprint implements ISprint {
 
 	@Override
 	public SprintBacklog getSprintBacklog() {
-		return this.sprintBacklog;
+		return (SprintBacklog)this.sprintBacklogAssoc.get();
 	}
 
 	/**

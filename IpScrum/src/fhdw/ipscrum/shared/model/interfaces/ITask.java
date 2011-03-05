@@ -2,14 +2,18 @@ package fhdw.ipscrum.shared.model.interfaces;
 
 import java.util.Iterator;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.SprintBacklog;
 
 
 /**
  * A Task represents an activity which realizes
  * one or more Product Backlog Items. A Task has a state of Type ITaskState.
  */
-public interface ITask extends ITaskStateOperations {
+public interface ITask extends ITaskStateOperations, BDACompare {
 	/**
 	 * @return name of the task
 	 */
@@ -34,5 +38,11 @@ public interface ITask extends ITaskStateOperations {
 	 * @return iterator for PBIs
 	 */
 	public Iterator<ProductBacklogItem> getPBIIterator();
+	/**
+	 * 
+	 * @return the sprint backlog which is associated with the task
+	 */
+	public SprintBacklog getSprintBacklog();
+	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc();
 
 }
