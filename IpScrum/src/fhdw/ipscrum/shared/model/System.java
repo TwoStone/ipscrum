@@ -61,6 +61,7 @@ public abstract class System extends Observable implements BDACompare {
 
 	private void setParent(final IHasChildren parent)
 			throws DoubleDefinitionException {
+
 		parent.addChild(this);
 		// this.toIHasChildAssoc.set(parent.getToSystemAssoc());
 	}
@@ -109,6 +110,5 @@ public abstract class System extends Observable implements BDACompare {
 
 	public abstract void accept(ISystemVisitor visitor);
 
-	// TODO PW: Hinterfragen!?!?
 	public abstract List<Systemgroup> getGroups();
 }

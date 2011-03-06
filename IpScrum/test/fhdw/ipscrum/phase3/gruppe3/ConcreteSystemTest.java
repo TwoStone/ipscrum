@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ConcreteSystem;
 import fhdw.ipscrum.shared.model.Rootsystem;
@@ -52,7 +53,20 @@ public class ConcreteSystemTest {
 		assertEquals(parent, result.getParent());
 	}
 
-	// TODO Testing DoubleDefined
+	/**
+	 * Run the ConcreteSystem(String,IHasChildren) constructor test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = DoubleDefinitionException.class)
+	public void testConcreteSystem_3() throws Exception {
+		final String name = "MySystem";
+		final IHasChildren parent = new Rootsystem();
+
+		new ConcreteSystem(name, parent);
+		new ConcreteSystem(name, parent);
+		fail();
+	}
 
 	/**
 	 * Run the boolean contains(System) method test.
@@ -109,8 +123,6 @@ public class ConcreteSystemTest {
 	 * Run the String toString() method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	@Test
 	public void testToString_1() throws Exception {
@@ -126,8 +138,6 @@ public class ConcreteSystemTest {
 	 * Run the void accept(ISystemVisitor) method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	@Test
 	public void testAccept_1() throws Exception {

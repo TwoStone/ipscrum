@@ -41,6 +41,22 @@ public class SystemgroupTest {
 	}
 
 	/**
+	 * Run the Systemgroup(String,IHasChildren) constructor test.
+	 * 
+	 * @throws Exception
+	 * 
+	 */
+	@Test(expected = DoubleDefinitionException.class)
+	public void testSystemgroup_2() throws Exception {
+		final String name = "G1";
+		final IHasChildren parent = new Rootsystem();
+
+		new Systemgroup(name, parent);
+		new Systemgroup(name, parent);
+		fail();
+	}
+
+	/**
 	 * Run the void accept(HasChildVisitor) method test.
 	 * 
 	 * @throws Exception
@@ -167,8 +183,6 @@ public class SystemgroupTest {
 	 * Run the Vector<System> getChilds() method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	@Test
 	public void testGetChilds_1() throws Exception {
@@ -208,8 +222,6 @@ public class SystemgroupTest {
 	 * Run the List<Systemgroup> getGroups() method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	@Test
 	public void testGetGroups_1() throws Exception {
@@ -235,8 +247,6 @@ public class SystemgroupTest {
 	 * Run the List<Systemgroup> getGroups() method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	@Test
 	public void testGetGroups_2() throws Exception {
@@ -290,8 +300,6 @@ public class SystemgroupTest {
 	 * 
 	 * @throws Exception
 	 *             if the clean-up fails for some reason
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	@After
 	public void tearDown() throws Exception {
@@ -303,8 +311,6 @@ public class SystemgroupTest {
 	 * 
 	 * @param args
 	 *            the command line arguments
-	 * 
-	 * @generatedBy CodePro at 05.03.11 23:32
 	 */
 	public static void main(final String[] args) {
 		new org.junit.runner.JUnitCore().run(SystemgroupTest.class);
