@@ -322,18 +322,21 @@ public class DemoModel {
 		taskSBDCurve.addPBI(f9);
 		taskSBDCurve.setPlanEffort(5);
 		taskSBDCurve.setResponsibility(pWilken);
+		taskSBDCurve.finish(new Date(2011-1900, 3-1, 1));
 
 		Task taskSIdealCurve = new Task("Sprint Ideal-Curve", "Darstellung Ideal-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSIdealCurve);
 		taskSIdealCurve.addPBI(f9);
 		taskSIdealCurve.setPlanEffort(5);
 		taskSIdealCurve.setResponsibility(pWilken);
+		taskSIdealCurve.finish(new Date(2011-1900, 3-1, 5));
 
 		Task taskSTrendCurve = new Task("Sprint Trend-Curve", "Darstellung Trend");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSTrendCurve);
 		taskSTrendCurve.addPBI(f9);
 		taskSTrendCurve.setPlanEffort(10);
 		taskSTrendCurve.setResponsibility(pWilken);
+		taskSTrendCurve.finish(new Date(2011-1900, 3-1, 5));
 
 
 		Task taskRBDCurve = new Task("Release Burndown-Curve", "Darstellung Release-Fortschritt");
@@ -341,30 +344,36 @@ public class DemoModel {
 		taskRBDCurve.addPBI(f10);
 		taskRBDCurve.setPlanEffort(5);
 		taskRBDCurve.setResponsibility(pSarah);
+		taskRBDCurve.finish(new Date(2011-1900, 2-1, 18));
+
 
 		Task taskRIdealCurve = new Task("Release Ideal-Curve", "Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRIdealCurve);
 		taskRIdealCurve.addPBI(f10);
 		taskRIdealCurve.setPlanEffort(5);
 		taskRIdealCurve.setResponsibility(pSarah);
+		taskRIdealCurve.finish(new Date(2011-1900, 2-1, 19));
 
 		Task taskRTrendCurve = new Task("Release Trend-Curve", "Darstellung Release");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRTrendCurve);
 		taskRTrendCurve.addPBI(f10);
 		taskRTrendCurve.setPlanEffort(5);
 		taskRTrendCurve.setResponsibility(pSarah);
-
+		taskRTrendCurve.finish(new Date(2011-1900, 2-1, 19));
 
 		Task taskReportView = new Task("Report View", "Report View-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportView);
 		taskReportView.addPBI(f11);
 		taskReportView.setPlanEffort(4);
 		taskReportView.setResponsibility(pChris);
+		taskReportView.finish(new Date(2011-1900, 2-1, 17));
 
 		Task taskReportPresenter = new Task("Report Presenter", "Report Presenter-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportPresenter);
 		taskReportPresenter.addPBI(f11);
 		taskReportPresenter.setPlanEffort(1);
 		taskReportPresenter.setResponsibility(pChris);
+		taskReportPresenter.finish(new Date(2011-1900, 2-1, 17));
+
 	}
 }
