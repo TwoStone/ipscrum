@@ -28,7 +28,6 @@ import fhdw.ipscrum.client.view.interfaces.ISelectSystemView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.Systemgroup;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
@@ -191,11 +190,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 			}
 			tItem.setState(true);
 
-			if (system instanceof Systemgroup) {
-				fillTree(((Systemgroup) system).getChilds(), tItem);
-			} else {
-				tItem.setStyleName("TreeItem-leaf");
-			}
+			fillTree(system.getSystems(), tItem);
 		}
 	}
 

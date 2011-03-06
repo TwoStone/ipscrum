@@ -33,7 +33,6 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.Systemgroup;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
@@ -105,8 +104,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 		final DialogBox box = GwtUtils.createDialog("Systemzuornung ändern");
 		Collection<System> systems = new ArrayList<System>();
 		try {
-			systems.add(new Systemgroup("Name der SysGrp", new Rootsystem()));
-			systems.add(new Systemgroup("Name des konkreten Systems", new Rootsystem()));
+			systems.add(new System("Name der SysGrp", new Rootsystem()));
+			systems.add(new System("Name des konkreten Systems", new Rootsystem()));
 		} catch (UserException e1) {
 			// TODO Christin
 			GwtUtils.displayError(e1.getMessage());
