@@ -1,17 +1,18 @@
 package fhdw.ipscrum.shared.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.*;
 
 
 
-
-public class Test_TaskAssigned extends junit.framework.TestCase{
+public class Test_TaskAssigned {
 
 	private static Person per1 = null;
 	private static Person per2 = null;
@@ -36,12 +37,12 @@ public class Test_TaskAssigned extends junit.framework.TestCase{
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	// ------------------------------------------------------------------
 	// ------------------------ Test of functions -----------------------
 	// ------------------------------------------------------------------
-	
-	
+
+
 	@Test
 	/**
 	 * Getting the responsible Person
@@ -49,7 +50,7 @@ public class Test_TaskAssigned extends junit.framework.TestCase{
 	public void testGetResponsiblePerson() throws Exception{
 		assertEquals(per1,t1.getResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Setting the responsible person

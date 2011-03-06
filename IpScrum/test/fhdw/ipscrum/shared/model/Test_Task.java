@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class Test_Task extends junit.framework.TestCase {
+public class Test_Task {
 
 	private static Person per1 = null;
 	private static Person per2 = null;

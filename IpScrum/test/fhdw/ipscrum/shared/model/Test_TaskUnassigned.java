@@ -1,19 +1,20 @@
 package fhdw.ipscrum.shared.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Date;
+import java.util.List;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.*;
 
-import fhdw.ipscrum.shared.model.TaskUnassigned;
+public class Test_TaskUnassigned {
 
-
-public class Test_TaskUnassigned extends junit.framework.TestCase{
-	
 	private static Person per1 = null;
 	private static Feature pbi1 = null;
 	private static Project test = null;
@@ -46,11 +47,11 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void tearDown() throws Exception {
 	}
 
-	
+
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
-	
+
 	@Test
 	/**
 	 * Getting the name of the task
@@ -58,7 +59,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void testGetName() throws Exception{
 		assertEquals("Task 1", t1.getName());
 	}
-	
+
 	@Test
 	/**
 	 * Setting the name of the task
@@ -66,7 +67,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void testSetName() throws Exception{
 		t1.setName("Task");
 		assertEquals("Task", t1.getName());
-		
+
 	}
 
 	@Test
@@ -77,7 +78,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 		t1.setDescription("Beschreibung geändert");
 		assertEquals("Beschreibung geändert", t1.getDescription());
 	}
-	
+
 	@Test
 	/**
 	 * Test on having a responsible Person
@@ -85,7 +86,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void testHasResponsiblePerson() throws Exception{
 		assertEquals(false, t1.hasResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Test on getting responsible Person
@@ -93,7 +94,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void testGetResponsiblePerson() throws Exception{
 		assertEquals(null, t1.getResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Setting the Responsibility
@@ -128,7 +129,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void testFinished() throws Exception{
 		assertEquals(false, t1.isFinished());
 	}
-	
+
 	@Test
 	/**
 	 * Getting Finished Date
@@ -136,7 +137,7 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 	public void testGetFinishedDate() throws Exception{
 		assertEquals(null, t1.getFinishDate());
 	}
-	
+
 	@Test
 	/**
 	 * Setting of planned effort
@@ -145,11 +146,11 @@ public class Test_TaskUnassigned extends junit.framework.TestCase{
 		t1.setPlanEffort(3);
 		assertEquals(three, t1.getPlanEffort());
 	}
-	
+
 	// ----------------------------------------------------------------------------
 	// ------------------------------ Test of Exceptions --------------------------
 	// ----------------------------------------------------------------------------
-	
+
 	// TODO: Test of setting a Task on finished()
 
 }
