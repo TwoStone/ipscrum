@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -11,6 +12,8 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
@@ -248,9 +251,34 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 * @throws UserException
 	 */
 	public void removeItem(final ProductBacklogItem item) throws UserException {
+		this.removeFromDependentTasks(item); // Phase III
 		item.setSprint(null);// Providing Consistency
 		this.getAssoc().remove(item.getBacklogAssoc());
 		this.notifyObservers();
+	}
+	/**
+	 * removes item from tasks, which have a reference to the item.
+	 * if dependent tasks are finished, the reference cannot be deleted and it
+	 * will persist in the task as a string-value
+	 * @param item item which shall be deleted
+	 */
+	private void removeFromDependentTasks(ProductBacklogItem item) {
+		Iterator<ISprint> sprintIterator = this.getProject().getSprints().iterator();
+		Vector<ISprint> mySprints = new Vector<ISprint>();
+		while (sprintIterator.hasNext()){
+			ISprint current = sprintIterator.next();
+			if ((current).hasPBI(item)){
+				mySprints.add(current);
+			}	
+		}
+		sprintIterator = mySprints.iterator();
+		while (sprintIterator.hasNext()){
+			ISprint current = sprintIterator.next();
+			SprintBacklog currentSprintBacklog = current.getSprintBacklog();
+			if (currentSprintBacklog.hasPBI(item)){
+				currentSprintBacklog.removePBIFromTasks(item);
+			}
+		}
 	}
 
 	@Override

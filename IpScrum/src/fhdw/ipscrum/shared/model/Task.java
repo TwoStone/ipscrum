@@ -323,6 +323,19 @@ public class Task extends Observable implements ITask {
 		return isPersonValid;
 	}
 
+	@Override
+	public boolean hasPBI(ProductBacklogItem pbi) {
+		boolean result = false;
+		Iterator<ProductBacklogItem> pbiIterator = this.getPBIIterator();
+		while (pbiIterator.hasNext()){
+			ProductBacklogItem current = pbiIterator.next();
+			if (current.equals(pbi)){
+				result = true; break;
+			}
+		}
+		return result;
+	}
+
 	
 	
 

@@ -140,6 +140,14 @@ public interface ISprint extends BDACompare, Serializable,
 	 */
 	public abstract int getCumulatedManDayCostsOfClosedPbis();
 	
+	/**
+	 * @param item PBI to check
+	 * @return true, if the item is associated with the sprint
+	 */
+	public boolean hasPBI(ProductBacklogItem item);
+
+
+	
 	
 
 }

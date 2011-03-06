@@ -8,6 +8,7 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 
@@ -94,6 +95,18 @@ public class SprintBacklog implements BDACompare, Serializable {
 		}
 		return result;
 	}
+	
+	public boolean hasPBI(ProductBacklogItem pbi){
+		boolean result = false;
+		Iterator<ITask> taskIterator = this.taskIterator();
+		while (taskIterator.hasNext()){
+			ITask current = taskIterator.next();
+			if (current.hasPBI(pbi)){
+				result = true;
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public int indirectHashCode() {
@@ -106,4 +119,20 @@ public class SprintBacklog implements BDACompare, Serializable {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public void removePBIFromTasks(ProductBacklogItem pbi) {
+		Iterator<ITask> taskIterator = this.taskIterator();
+		while (taskIterator.hasNext()){
+			ITask current = taskIterator.next();
+			if (current.hasPBI(pbi)){
+				try {
+					current.removePBI(pbi);
+				} catch (ForbiddenStateException e) {
+					// finished Tasks cannot be changed
+					return;
+				}
+			}
+		}
+	}
+	
 }

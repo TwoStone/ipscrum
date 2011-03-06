@@ -44,5 +44,6 @@ public interface ITask extends ITaskStateOperations, BDACompare {
 	 */
 	public SprintBacklog getSprintBacklog();
 	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc();
+	public boolean hasPBI(ProductBacklogItem pbi);
 
 }

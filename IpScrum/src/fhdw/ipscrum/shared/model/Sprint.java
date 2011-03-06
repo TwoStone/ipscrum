@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
@@ -368,6 +369,19 @@ public class Sprint implements ISprint {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+	@Override
+	public boolean hasPBI(ProductBacklogItem item) {
+		boolean result = false;
+		Iterator<ProductBacklogItem> pbiIterator = this.getPBIs().iterator();
+		while (pbiIterator.hasNext()){
+			ProductBacklogItem current = pbiIterator.next();
+			if (current.equals(item)){
+				result = true; break;
+			}
+		}
+		return result;
 	}
 
 }
