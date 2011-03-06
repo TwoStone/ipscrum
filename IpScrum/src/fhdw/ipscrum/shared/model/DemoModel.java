@@ -283,19 +283,19 @@ public class DemoModel {
 		f9.setLastEditor(pWilken);
 		f9.setManDayCosts(20);
 		f9.setSprint(reportingRelPhase3);
-		//		f9.close();
+		f9.close();
 
 		final Feature f10 = new Feature("Release-BDChart", "Burndown-Auswertung", ipScrum.getBacklog());
 		f10.setLastEditor(pWilken);
 		f10.setManDayCosts(15);
 		f10.setSprint(reportingRelPhase3);
-		//		f10.close();
+		f10.close();
 
 		final Feature f11 = new Feature("Reporting-Page", "Statistik-Bereich", ipScrum.getBacklog());
 		f11.setLastEditor(pWilken);
 		f11.setManDayCosts(5);
 		f11.setSprint(reportingRelPhase3);
-		//		f11.close();
+		f11.close();
 
 		// adding features to projects
 		projekt1.getBacklog().addItem(f1);
