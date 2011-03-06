@@ -13,6 +13,7 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
+import com.google.gwt.user.client.ui.IntegerBox;
 
 public class CreateTaskView extends Composite implements ICreateTaskView {
 	
@@ -26,14 +27,15 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	private Button btnAbort;
 	private TextBox textBox;
 	private TextArea textArea;
+	private IntegerBox iBoxEffort;
 	public CreateTaskView() {
 		
 		contentPanel = new AbsolutePanel();
 		initWidget(contentPanel);
-		contentPanel.setSize("251px", "267px");
+		contentPanel.setSize("251px", "333px");
 		
 		btnOK = new Button("Anlegen");
-		contentPanel.add(btnOK, 10, 230);
+		contentPanel.add(btnOK, 10, 295);
 		btnOK.setSize("100px", "28px");
 		btnOK.addClickHandler(new ClickHandler() {
 			
@@ -44,7 +46,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		});
 		
 		btnAbort = new Button("Abbrechen");
-		contentPanel.add(btnAbort, 141, 230);
+		contentPanel.add(btnAbort, 141, 295);
 		btnAbort.setSize("100px", "28px");
 		btnAbort.addClickHandler(new ClickHandler() {
 			
@@ -67,6 +69,12 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		textArea = new TextArea();
 		contentPanel.add(textArea, 10, 73);
 		textArea.setSize("223px", "143px");
+		
+		Label lblAufwandpersonenstunden = new Label("Aufwand [in Personenstunden]");
+		contentPanel.add(lblAufwandpersonenstunden, 10, 238);
+		
+		iBoxEffort = new IntegerBox();
+		contentPanel.add(iBoxEffort, 10, 260);
 	}
 
 	private TextBox getTextBox() {
@@ -93,5 +101,13 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	@Override
 	public String getDescription() {
 	return this.getTextArea().getValue();
+	}
+
+	@Override
+	public Integer getEffort() {
+		return this.getIBoxEffort().getValue();
+	}
+	protected IntegerBox getIBoxEffort() {
+		return iBoxEffort;
 	}
 }

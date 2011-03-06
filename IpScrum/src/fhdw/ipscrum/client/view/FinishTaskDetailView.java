@@ -21,5 +21,6 @@ public class FinishTaskDetailView extends TaskDetailView implements
 		this.getLblTaskAbgeschlossen().setVisible(false);
 		this.getSimpleCheckBox().setVisible(false);
 		this.getBtnOkay().setVisible(false);
+		this.getLblTaskFinished().setVisible(true);
 	}
 }

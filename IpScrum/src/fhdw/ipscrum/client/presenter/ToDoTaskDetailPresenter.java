@@ -1,20 +1,27 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.Iterator;
+
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.TodoTaskDetailVIew;
 import fhdw.ipscrum.client.view.interfaces.ITaskDetailView;
 import fhdw.ipscrum.client.view.interfaces.ITodoTaskDetailView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.TaskUnassigned;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
+
 
 /**
  * Presenter for {@link Task} with the state {@link TaskUnassigned} 
@@ -88,6 +95,48 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 						ToDoTaskDetailPresenter.this.finish();
 					}
 				});
+		
+		this.getView().addAddPBIsEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				
+				final DialogBox diaBox = new DialogBox();
+				diaBox.setText(TextConstants.EDIT_TASK);
+				
+				AddPBIsToTaskPresenter addPresenter = new AddPBIsToTaskPresenter(diaBox, ToDoTaskDetailPresenter.this, ToDoTaskDetailPresenter.this.task);
+			
+				diaBox.center();
+				
+				addPresenter.getFinished().add(new EventHandler<EventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+					diaBox.clear();
+					diaBox.hide();
+					ToDoTaskDetailPresenter.this.getView().initTaskView(task);
+					}
+				});
+			}
+		});
+		
+		this.getView().addRemovePBIsEventHandler(new EventHandler<MultiplePBIArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, MultiplePBIArgs eventArgs) {
+				Iterator<ProductBacklogItem> pbisIt = eventArgs.getPbis().iterator();
+				
+				while(pbisIt.hasNext()){
+				try {
+					task.removePBI(pbisIt.next());
+				} catch (ForbiddenStateException e) {
+					GwtUtils.displayError(e.getMessage());
+				}	
+				}
+				ToDoTaskDetailPresenter.this.getView().initTaskView(task);
+				
+			}
+		});
 	}
 
 	@Override

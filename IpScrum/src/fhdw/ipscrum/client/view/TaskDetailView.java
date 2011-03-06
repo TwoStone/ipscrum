@@ -65,6 +65,7 @@ public abstract class TaskDetailView extends Composite implements
 	private IntegerBox iBoxEffort;
 	private Label lblTaskAbgeschlossen;
 	private Label lblPBIs;
+	private Label lblTaskFinished;
 
 	// ########## Ende ###################
 
@@ -73,7 +74,7 @@ public abstract class TaskDetailView extends Composite implements
 		// Creates concrete TaskDetailPanel
 		AbsolutePanel concreteTaskDetailPanel = new AbsolutePanel();
 		initWidget(concreteTaskDetailPanel);
-		concreteTaskDetailPanel.setSize("430px", "462px");
+		concreteTaskDetailPanel.setSize("430px", "482px");
 
 		// Creates label for the name
 		Label lblName = new Label("Name:");
@@ -97,19 +98,19 @@ public abstract class TaskDetailView extends Composite implements
 
 		// creates a label for the person
 		Label lblPerson = new Label("Zuständige Person");
-		concreteTaskDetailPanel.add(lblPerson, 10, 242);
+		concreteTaskDetailPanel.add(lblPerson, 10, 287);
 
 		// creates a label for the effort
-		Label lblAufwand = new Label("Aufwand:");
-		concreteTaskDetailPanel.add(lblAufwand, 10, 213);
+		Label lblAufwand = new Label("Aufwand [in Personsnstunden]:");
+		concreteTaskDetailPanel.add(lblAufwand, 10, 226);
 
 		// creates a label for task finish
 		lblTaskAbgeschlossen = new Label("Task abgeschlossen:");
-		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 10, 400);
+		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 226, 365);
 
 		// creates a checkbox to finish a task
 		simpleCheckBox = new SimpleCheckBox();
-		concreteTaskDetailPanel.add(simpleCheckBox, 144, 400);
+		concreteTaskDetailPanel.add(simpleCheckBox, 366, 365);
 
 		// create label for pbis
 		lblPBIs = new Label("ProductBacklog Einträge");
@@ -117,7 +118,7 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button for add pbis
 		btnAddPBIs = new Button("Einträge hinzufügen");
-		concreteTaskDetailPanel.add(btnAddPBIs, 277, 242);
+		concreteTaskDetailPanel.add(btnAddPBIs, 265, 273);
 		btnAddPBIs.setSize("141px", "28px");
 		btnAddPBIs.addClickHandler(new ClickHandler() {
 
@@ -130,7 +131,7 @@ public abstract class TaskDetailView extends Composite implements
 		});
 		// create button okay
 		btnOkay = new Button("Okay");
-		concreteTaskDetailPanel.add(btnOkay, 10, 424);
+		concreteTaskDetailPanel.add(btnOkay, 10, 446);
 		btnOkay.setSize("100px", "28px");
 		btnOkay.addClickHandler(new ClickHandler() {
 
@@ -144,7 +145,7 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button for cancel
 		btnCancel = new Button("Abbrechen");
-		concreteTaskDetailPanel.add(btnCancel, 318, 424);
+		concreteTaskDetailPanel.add(btnCancel, 320, 446);
 		btnCancel.setSize("100px", "28px");
 		btnCancel.addClickHandler(new ClickHandler() {
 
@@ -158,7 +159,7 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button delete pbis
 		btnDeletePBIs = new Button("Einträge entfernen");
-		concreteTaskDetailPanel.add(btnDeletePBIs, 277, 276);
+		concreteTaskDetailPanel.add(btnDeletePBIs, 265, 308);
 		btnDeletePBIs.setSize("142px", "28px");
 		btnDeletePBIs.addClickHandler(new ClickHandler() {
 
@@ -172,13 +173,13 @@ public abstract class TaskDetailView extends Composite implements
 
 		// creates integerBox for effort
 		iBoxEffort = new IntegerBox();
-		concreteTaskDetailPanel.add(iBoxEffort, 76, 214);
+		concreteTaskDetailPanel.add(iBoxEffort, 10, 248);
 		iBoxEffort.setSize("123px", "16px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("smallborder");
-		concreteTaskDetailPanel.add(verticalPanel, 10, 264);
-		verticalPanel.setSize("195px", "130px");
+		concreteTaskDetailPanel.add(verticalPanel, 10, 311);
+		verticalPanel.setSize("171px", "129px");
 		
 				// creates a cell list for all persons of the sprint of the task
 				// with single selection modell
@@ -197,7 +198,7 @@ public abstract class TaskDetailView extends Composite implements
 				VerticalPanel verticalPanel_1 = new VerticalPanel();
 				verticalPanel_1.setStyleName("smallborder");
 				concreteTaskDetailPanel.add(verticalPanel_1, 226, 30);
-				verticalPanel_1.setSize("192px", "199px");
+				verticalPanel_1.setSize("180px", "237px");
 				
 						// creates a cell list for all related pbis
 						// with multiselectionmodel
@@ -213,6 +214,11 @@ public abstract class TaskDetailView extends Composite implements
 						cellListPBI.setSize("100%", "100%");
 						cellListPBI
 								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
+						
+						lblTaskFinished = new Label("Task abgeschlossen!");
+						lblTaskFinished.setStyleName("LabelElement");
+						lblTaskFinished.setVisible(false);
+						concreteTaskDetailPanel.add(lblTaskFinished, 226, 399);
 	}
 
 	// ################## SETTER / GETTER for view elements
@@ -302,10 +308,18 @@ public abstract class TaskDetailView extends Composite implements
 	protected Label getLblPBIs() {
 		return lblPBIs;
 	}
+	
+	/**
+	 * 
+	 * @return Label for for a 'Task is finished' text
+	 */
+	protected Label getLblTaskFinished() {
+		return lblTaskFinished;
+	}
 
+	@SuppressWarnings("unchecked")
 	protected Set<ProductBacklogItem> getSelectedPBIs() {
-		// TODO Auto-generated method stub
-		return null;
+	return ((MultiSelectionModel<ProductBacklogItem>)this.getCellListPBI().getSelectionModel()).getSelectedSet();
 	}
 
 	// ################## Ende #############################
@@ -341,6 +355,7 @@ public abstract class TaskDetailView extends Composite implements
 	@Override
 	public void refreshPBIs(Vector<ProductBacklogItem> pbis) {
 		this.getCellListPBI().setRowData(pbis);
+		this.getCellListPBI().setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 	}
 
 	@Override
@@ -411,4 +426,5 @@ public abstract class TaskDetailView extends Composite implements
 	public void addRemovePBIsEventHandler(EventHandler<MultiplePBIArgs> arg) {
 		this.removePBIsEvent.add(arg);
 	}
+	
 }

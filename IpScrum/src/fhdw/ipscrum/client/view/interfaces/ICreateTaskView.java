@@ -8,6 +8,8 @@ public interface ICreateTaskView extends IView{
 	public String getName();
 
 	public String getDescription();
+	
+	public Integer getEffort();
 
 	void addSaveNewTaskEventHandler(EventHandler<EventArgs> arg);
 

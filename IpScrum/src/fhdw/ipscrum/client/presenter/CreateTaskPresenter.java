@@ -46,6 +46,8 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 									.getView().getName(),
 									CreateTaskPresenter.this.getView()
 											.getDescription());
+							
+							newTask.setPlanEffort(CreateTaskPresenter.this.getView().getEffort());
 
 							Iterator<ProductBacklogItem> pbiIterator = selectedPBIs
 									.iterator();
@@ -65,6 +67,8 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 							CreateTaskPresenter.this.finish();
 						} catch (NoValidValueException e1) {
 							GwtUtils.displayError(e1.getMessage());
+						} catch (ForbiddenStateException e) {
+							GwtUtils.displayError(e.getMessage());
 						}
 						CreateTaskPresenter.this.finish();
 					}
