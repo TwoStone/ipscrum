@@ -1,6 +1,5 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-import java.util.Collection;
 import java.util.List;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -28,7 +27,7 @@ public interface ISystemManagementView extends IView {
 
 	IEvent<NewSystemEventArgs> getCreateSystemEvent();
 
-	void setRootSystemGroup(Collection<System> group);
+	void setRootSystemGroup(List<System> group);
 
 	void setPossibleParents(List<Systemgroup> parents);
 }
