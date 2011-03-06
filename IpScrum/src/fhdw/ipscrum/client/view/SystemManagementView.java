@@ -3,7 +3,8 @@
  */
 package fhdw.ipscrum.client.view;
 
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -133,7 +134,13 @@ public class SystemManagementView extends Composite implements
 	 * (fhdw.ipscrum.shared.model.interfaces.IHasChildren)
 	 */
 	@Override
-	public void setRootSystemGroup(Collection<System> systems) {
+	public void setRootSystemGroup(List<System> systems) {
+		Collections.sort(systems, new Comparator<System>() {
+			@Override
+			public int compare(System o1, System o2) {
+				return o1.getName().compareToIgnoreCase(o2.getName());
+			}
+		});
 		this.systemTree.clear();
 		for (final System system : systems) {
 			this.systemTree.addItem(new SystemTreeItem(system));
@@ -142,6 +149,13 @@ public class SystemManagementView extends Composite implements
 
 	@Override
 	public void setPossibleParents(List<Systemgroup> parents) {
+		Collections.sort(parents, new Comparator<Systemgroup>() {
+
+			@Override
+			public int compare(Systemgroup o1, Systemgroup o2) {
+				return o1.getName().compareToIgnoreCase(o2.getName());
+			}
+		});
 		this.possibleParents = parents;
 		this.parentComboBox.clear();
 		this.parentComboBox.addItem("");
