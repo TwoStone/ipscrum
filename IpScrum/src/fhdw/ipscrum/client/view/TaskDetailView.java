@@ -26,6 +26,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.view.interfaces.ITaskDetailView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -77,7 +78,7 @@ public abstract class TaskDetailView extends Composite implements
 		concreteTaskDetailPanel.setSize("430px", "482px");
 
 		// Creates label for the name
-		Label lblName = new Label("Name:");
+		Label lblName = new Label(TextConstants.NAME);
 		lblName.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		concreteTaskDetailPanel.add(lblName, 10, 10);
 		lblName.setSize("41px", "16px");
@@ -88,7 +89,7 @@ public abstract class TaskDetailView extends Composite implements
 		txtBoxName.setSize("137px", "16px");
 
 		// Creates label for the description
-		Label lblDescription = new Label("Beschreibung");
+		Label lblDescription = new Label(TextConstants.DESCRIPTION);
 		concreteTaskDetailPanel.add(lblDescription, 10, 50);
 
 		// Creates a text area for the description
@@ -97,15 +98,15 @@ public abstract class TaskDetailView extends Composite implements
 		txtAreaDescription.setSize("187px", "125px");
 
 		// creates a label for the person
-		Label lblPerson = new Label("Zuständige Person");
+		Label lblPerson = new Label(TextConstants.ASSIGNED_PERSON);
 		concreteTaskDetailPanel.add(lblPerson, 10, 287);
 
 		// creates a label for the effort
-		Label lblAufwand = new Label("Aufwand [in Personenstunden]:");
+		Label lblAufwand = new Label(TextConstants.EFFORT);
 		concreteTaskDetailPanel.add(lblAufwand, 10, 226);
 
 		// creates a label for task finish
-		lblTaskAbgeschlossen = new Label("Task abgeschlossen:");
+		lblTaskAbgeschlossen = new Label(TextConstants.TASK_FINISHED);
 		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 226, 365);
 
 		// creates a checkbox to finish a task
@@ -113,11 +114,11 @@ public abstract class TaskDetailView extends Composite implements
 		concreteTaskDetailPanel.add(simpleCheckBox, 366, 365);
 
 		// create label for pbis
-		lblPBIs = new Label("ProductBacklog Einträge");
+		lblPBIs = new Label(TextConstants.PBIS);
 		concreteTaskDetailPanel.add(lblPBIs, 226, 10);
 
 		// create button for add pbis
-		btnAddPBIs = new Button("Einträge hinzufügen");
+		btnAddPBIs = new Button(TextConstants.NEW_ITEMS);
 		concreteTaskDetailPanel.add(btnAddPBIs, 265, 273);
 		btnAddPBIs.setSize("141px", "28px");
 		btnAddPBIs.addClickHandler(new ClickHandler() {
@@ -130,7 +131,7 @@ public abstract class TaskDetailView extends Composite implements
 			}
 		});
 		// create button okay
-		btnOkay = new Button("Okay");
+		btnOkay = new Button(TextConstants.OKAY);
 		concreteTaskDetailPanel.add(btnOkay, 10, 446);
 		btnOkay.setSize("100px", "28px");
 		btnOkay.addClickHandler(new ClickHandler() {
@@ -144,7 +145,7 @@ public abstract class TaskDetailView extends Composite implements
 		});
 
 		// create button for cancel
-		btnCancel = new Button("Abbrechen");
+		btnCancel = new Button(TextConstants.DIALOGBOX_CANCEL);
 		concreteTaskDetailPanel.add(btnCancel, 320, 446);
 		btnCancel.setSize("100px", "28px");
 		btnCancel.addClickHandler(new ClickHandler() {
@@ -158,7 +159,7 @@ public abstract class TaskDetailView extends Composite implements
 		});
 
 		// create button delete pbis
-		btnDeletePBIs = new Button("Einträge entfernen");
+		btnDeletePBIs = new Button(TextConstants.DELETE_ITEMS);
 		concreteTaskDetailPanel.add(btnDeletePBIs, 265, 308);
 		btnDeletePBIs.setSize("142px", "28px");
 		btnDeletePBIs.addClickHandler(new ClickHandler() {
@@ -215,7 +216,7 @@ public abstract class TaskDetailView extends Composite implements
 						cellListPBI
 								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 						
-						lblTaskFinished = new Label("Task abgeschlossen!");
+						lblTaskFinished = new Label(TextConstants.FINISHED_TASK);
 						lblTaskFinished.setStyleName("LabelElement");
 						lblTaskFinished.setVisible(false);
 						concreteTaskDetailPanel.add(lblTaskFinished, 226, 399);
