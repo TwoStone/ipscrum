@@ -36,6 +36,11 @@ public class TaskFinished extends TaskAssigned {
 		this.finishDate = new Date();
 	}
 
+	public TaskFinished(Task task, IPerson responsiblePerson, Date finishDate) {
+		this.setMyTask(task);
+		this.doSetResponsiblePerson(responsiblePerson);
+		this.finishDate = finishDate;
+	}
 	@Override
 	public void accept(ITaskStateVisitor iTaskStateVisitor) {
 		iTaskStateVisitor.handleTaskFinished(this);
@@ -53,7 +58,13 @@ public class TaskFinished extends TaskAssigned {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
+	
 
+	@Override
+	public void finish(Date finishDate) throws ForbiddenStateException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
 	@Override
 	public Date getFinishDate() {
 		return this.finishDate;

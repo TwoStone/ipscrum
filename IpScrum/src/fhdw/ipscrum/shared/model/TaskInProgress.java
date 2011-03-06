@@ -48,6 +48,10 @@ public class TaskInProgress extends TaskAssigned {
 	}
 
 	@Override
+	public void finish(Date finishDate) throws ForbiddenStateException {
+		this.getMyTask().doSetTaskFinished(finishDate);		
+	}
+	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
 		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);	
 	}

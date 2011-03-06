@@ -21,8 +21,18 @@ public interface ITaskStateOperations extends Serializable {
 	 * to which the task belongs to
 	 */
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException;
-
+	/**
+	 * 
+	 * @throws ForbiddenStateException
+	 */
 	public void finish() throws ForbiddenStateException;
+	/**
+	 * 
+	 * @param finishDate
+	 * @throws ForbiddenStateException
+	 */
+	public void finish(Date finishDate) throws ForbiddenStateException;
+	
 	/**
 	 * PRECONDITION: isFinished() == true
 	 * @return date when the task has been finished.

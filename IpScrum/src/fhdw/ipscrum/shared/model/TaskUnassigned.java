@@ -51,6 +51,10 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 	}
 
 	@Override
+	public void finish(Date finishDate) throws ForbiddenStateException {
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
 		this.getMyTask().doAddPBI(pbi);
 		

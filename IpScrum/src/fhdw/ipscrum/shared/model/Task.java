@@ -114,6 +114,12 @@ public class Task extends Observable implements ITask {
 	}
 
 	@Override
+	public void finish(Date finishDate) throws ForbiddenStateException {
+		this.state.finish(finishDate);
+		this.notifyObservers();
+		
+	}
+	@Override
 	public String getDescription() {
 		return this.description;
 	}
@@ -343,7 +349,12 @@ public class Task extends Observable implements ITask {
 		final TaskFinished newState = new TaskFinished(this,
 				this.getResponsiblePerson());
 		this.setState(newState);
-
+	}
+	
+	protected void doSetTaskFinished(Date finishDate) throws ForbiddenStateException {
+		this.setPlanEffort(0);
+		TaskFinished newState = new TaskFinished(this, this.getResponsiblePerson(), finishDate);
+		this.setState(newState);
 	}
 	
 	/**
