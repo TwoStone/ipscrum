@@ -15,16 +15,20 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.SystemArgs;
 import fhdw.ipscrum.client.view.interfaces.ISelectSystemView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.System;
+import fhdw.ipscrum.shared.model.Systemgroup;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
@@ -36,7 +40,11 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	private Tree tree;
 	private final Event<SystemArgs> removeSelectedSystem = new Event<SystemArgs>();
 	private final Event<SystemArgs> addSelectedSystem = new Event<SystemArgs>();
+	private final Event<EventArgs> save = new Event<EventArgs>();
+	private final Event<EventArgs> abort = new Event<EventArgs>();
 	private MultiSelectionModel<System> selModelSystemTable;
+	private final Button btnOk;
+	private final Button btnAbbrechen;
 
 	public SelectSystemView() {
 
@@ -116,11 +124,23 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		horizontalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanelVerfuegbareSysteme.add(horizontalPanel_1);
 
-		Button btnOk = new Button("OK");
+		btnOk = new Button("OK");
+		this.btnOk.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				SelectSystemView.this.save.fire(SelectSystemView.this, new EventArgs());
+			}
+		});
 		horizontalPanel_1.add(btnOk);
 		btnOk.setSize("100px", "28px");
 
-		Button btnAbbrechen = new Button("Abbrechen");
+		btnAbbrechen = new Button("Abbrechen");
+		this.btnAbbrechen.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				SelectSystemView.this.abort.fire(SelectSystemView.this, new EventArgs());
+			}
+		});
 		horizontalPanel_1.add(btnAbbrechen);
 		btnAbbrechen.setSize("100px", "28px");
 		this.selModelSystemTable = new MultiSelectionModel<System>();
@@ -138,6 +158,16 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	}
 
 	@Override
+	public IEvent<EventArgs> getAborted() {
+		return this.abort;
+	}
+
+	@Override
+	public IEvent<EventArgs> getSave() {
+		return this.save;
+	}
+
+	@Override
 	public void updateSelectedSystemData(Collection<System> selectedSystems) {
 		this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(selectedSystems));
 	}
@@ -146,6 +176,27 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	public void updateAvailableSystemData(Collection<System> availableSystems) {
 		this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(availableSystems));
 		// TODO Christin: bereits selektierte ausblenden
+		this.tree.clear();
+		this.fillTree(availableSystems, null);
+	}
+
+	private void fillTree(Collection<System> systems, TreeItem parent) {
+		for (System system : systems) {
+			TreeItem tItem = new TreeItem(system.toString());
+			tItem.setUserObject(system);
+			if (parent == null) {
+				this.tree.addItem(tItem);
+			} else {
+				parent.addItem(tItem);
+			}
+			tItem.setState(true);
+
+			if (system instanceof Systemgroup) {
+				fillTree(((Systemgroup) system).getChilds(), tItem);
+			} else {
+				tItem.setStyleName("TreeItem-leaf");
+			}
+		}
 	}
 
 	@Override

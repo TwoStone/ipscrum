@@ -2,7 +2,9 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.Collection;
 
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.SystemArgs;
 import fhdw.ipscrum.shared.model.System;
 
@@ -10,6 +12,20 @@ import fhdw.ipscrum.shared.model.System;
  * interface of the view class for systems. this view is used to select systems of an amount of available systems.
  */
 public interface ISelectSystemView extends IView {
+
+	/**
+	 * Returns the event fired when the workflow shell be aborted.
+	 * 
+	 * @return
+	 */
+	IEvent<EventArgs> getAborted();
+
+	/**
+	 * Returns the event fired when the object shell be saved.
+	 * 
+	 * @return
+	 */
+	IEvent<EventArgs> getSave();
 
 	/**
 	 * @return the currently selected System of the available Systems

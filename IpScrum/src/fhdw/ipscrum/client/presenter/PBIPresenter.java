@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.DialogBox;
@@ -30,7 +31,9 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.System;
+import fhdw.ipscrum.shared.model.Systemgroup;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
@@ -100,9 +103,16 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	 */
 	private void changeSystems() {
 		final DialogBox box = GwtUtils.createDialog("Systemzuornung ändern");
-
+		Collection<System> systems = new ArrayList<System>();
+		try {
+			systems.add(new Systemgroup("Name der SysGrp", new Rootsystem()));
+			systems.add(new Systemgroup("Name des konkreten Systems", new Rootsystem()));
+		} catch (UserException e1) {
+			// TODO Christin
+			GwtUtils.displayError(e1.getMessage());
+		}
 		List<System> availableSystems = PBIPresenter.this.pbi.getBacklog().getProject().getPossibleSystems();
-		final SelectSystemPresenter presenter = new SelectSystemPresenter(box, this, new ArrayList<System>(), availableSystems);
+		final SelectSystemPresenter presenter = new SelectSystemPresenter(box, this, systems, availableSystems);
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
@@ -119,7 +129,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 					GwtUtils.displayError(e.getMessage());
 				} catch (UserException e) {
 					// TODO Christin Auto-generated catch block
-					e.printStackTrace();
+					GwtUtils.displayError(e.getMessage());
 				}
 
 			}

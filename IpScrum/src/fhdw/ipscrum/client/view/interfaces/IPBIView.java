@@ -11,6 +11,7 @@ import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public interface IPBIView extends IView {
@@ -58,6 +59,13 @@ public interface IPBIView extends IView {
 	String getDescription();
 
 	/**
+	 * Returns the selected PBI-type.
+	 * 
+	 * @return
+	 */
+	String getSelectedPBITyp();
+
+	/**
 	 * Returns the text entered in the name field.
 	 * 
 	 * @return
@@ -101,6 +109,14 @@ public interface IPBIView extends IView {
 	ISprint getSelectedSprint() throws NothingSelectedException;
 
 	/**
+	 * Returns the currently selected {@link IRelease} object.
+	 * 
+	 * @return
+	 * @throws NothingSelectedException Is thrown if nothing is selected.
+	 */
+	IRelease getSelectedVersion() throws NothingSelectedException;
+
+	/**
 	 * Displays a list of {@link AcceptanceCriterion} objects in the gui.
 	 * 
 	 * @param criterions
@@ -142,5 +158,18 @@ public interface IPBIView extends IView {
 	 * @param selected {@link ISprint} object to preselect. Object <b>must</b> be included in the sprints list, otherwise it will be added.
 	 */
 	void setSprints(List<ISprint> sprints, ISprint selected);
+
+	/**
+	 * Displays a list of {@link IRelease} objects in the gui and selects the defined {@link IRelease} object.
+	 * 
+	 * @param release {@link IRelease} objects to display.
+	 * @param selected {@link IRelease} object to preselect. Object <b>must</b> be included in the sprints list, otherwise it will be added.
+	 */
+	void setVersion(List<IRelease> releases, IRelease selected);
+
+	/**
+	 * Displays a list of {@link PBI}-Types in the gui and selects the defined {@link PBI}-type.
+	 */
+	void setPBITyp();
 
 }

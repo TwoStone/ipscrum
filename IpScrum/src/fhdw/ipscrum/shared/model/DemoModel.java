@@ -4,6 +4,7 @@ import java.util.Date;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 public class DemoModel {
 
@@ -11,6 +12,27 @@ public class DemoModel {
 	public static void populateModel(Root model) throws UserException {
 
 		final Root root = model;
+
+		// Initial Systems
+		IHasChildren rootSystem = root.getSysManager().getSystems();
+		final Systemgroup betriebssysteme = new Systemgroup("Betriebssysteme", rootSystem);
+		final Systemgroup browser = new Systemgroup("Browser", rootSystem);
+		final Systemgroup applicationServer = new Systemgroup("ApplicationServer", rootSystem);
+		final Systemgroup anwendungen = new Systemgroup("Anwendungen", rootSystem);
+
+		final ConcreteSystem firefox = new ConcreteSystem("Firefox", browser);
+		final ConcreteSystem iexplorer = new ConcreteSystem("InternetExplorer", browser);
+
+		final Systemgroup windows = new Systemgroup("Windows", betriebssysteme);
+
+		final ConcreteSystem winxp = new ConcreteSystem("XP", windows);
+		final ConcreteSystem winvista = new ConcreteSystem("Vista", windows);
+		final ConcreteSystem win7 = new ConcreteSystem("7", windows);
+
+		final Systemgroup sap = new Systemgroup("SAP", anwendungen);
+
+		final ConcreteSystem saphr = new ConcreteSystem("HR", sap);
+		final ConcreteSystem sapbw = new ConcreteSystem("BW", sap);
 
 		// Initial Roles
 		Role roleTSUser;
@@ -87,100 +109,71 @@ public class DemoModel {
 		final Project ipScrum = new Project("IP-Scrum");
 
 		// Initial Releases
-		final Release rel10 = new Release("1.0",
-				CalendarUtils.getRandomReleaseDate(), projekt1);
-		final Release rel13 = new Release("1.3",
-				CalendarUtils.getRandomReleaseDate(), projekt1);
-		final Release rel20 = new Release("2.0",
-				CalendarUtils.getRandomReleaseDate(), projekt2);
-		final Release phase3 = new Release("Phase III", new Date(2011 - 1900,
-				3 - 1, 9), ipScrum);
+		final Release rel10 = new Release("1.0", CalendarUtils.getRandomReleaseDate(), projekt1);
+		final Release rel13 = new Release("1.3", CalendarUtils.getRandomReleaseDate(), projekt1);
+		final Release rel20 = new Release("2.0", CalendarUtils.getRandomReleaseDate(), projekt2);
+		final Release phase3 = new Release("Phase III", new Date(2011 - 1900, 3 - 1, 9), ipScrum);
 
 		// Initial Sprints
 		final Date sprint1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint1EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint1BeginDate, rel10.getReleaseDate());
-		final Sprint sprint1rel10 = new Sprint("Sprint1",
-				"Beschreibung Sprint 1", sprint1BeginDate, sprint1EndDate,
-				team1);
+		final Date sprint1EndDate = CalendarUtils.getRandomSprintEnddate(sprint1BeginDate, rel10.getReleaseDate());
+		final Sprint sprint1rel10 = new Sprint("Sprint1", "Beschreibung Sprint 1", sprint1BeginDate, sprint1EndDate, team1);
 
 		final Date sprint2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint2EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint2BeginDate, rel10.getReleaseDate());
-		final Sprint sprint2rel10 = new Sprint("Sprint2",
-				"Beschreibung Sprint 2", sprint2BeginDate, sprint2EndDate,
-				team2);
+		final Date sprint2EndDate = CalendarUtils.getRandomSprintEnddate(sprint2BeginDate, rel10.getReleaseDate());
+		final Sprint sprint2rel10 = new Sprint("Sprint2", "Beschreibung Sprint 2", sprint2BeginDate, sprint2EndDate, team2);
 
 		final Date sprint3BeginDate = new Date();
 		final Date sprint3EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(sprint3BeginDate, 6);
 		CalendarUtils.removeDaysFromDate(sprint3EndDate, 4);
-		final Sprint sprint3rel10 = new Sprint("Sprint3",
-				"Beschreibung Sprint 3", sprint3BeginDate, sprint3EndDate,
-				team1);
+		final Sprint sprint3rel10 = new Sprint("Sprint3", "Beschreibung Sprint 3", sprint3BeginDate, sprint3EndDate, team1);
 
 		final Date sprint4BeginDate = new Date();
 		final Date sprint4EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(sprint4BeginDate, 8);
 		CalendarUtils.removeDaysFromDate(sprint4EndDate, 1);
-		final Sprint sprint4rel10 = new Sprint("Sprint4",
-				"Beschreibung Sprint 4", sprint4BeginDate, sprint4EndDate,
-				team1);
+		final Sprint sprint4rel10 = new Sprint("Sprint4", "Beschreibung Sprint 4", sprint4BeginDate, sprint4EndDate, team1);
 
 		final Date sprint5BeginDate = new Date();
 		final Date sprint5EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(sprint5BeginDate, 9);
 		CalendarUtils.removeDaysFromDate(sprint5EndDate, 4);
-		final Sprint sprint5rel10 = new Sprint("Sprint5",
-				"Beschreibung Sprint 5", sprint5BeginDate, sprint5EndDate,
-				team2);
+		final Sprint sprint5rel10 = new Sprint("Sprint5", "Beschreibung Sprint 5", sprint5BeginDate, sprint5EndDate, team2);
 
 		final Date sprint6BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint6EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint6BeginDate, rel13.getReleaseDate());
-		final Sprint sprint6rel13 = new Sprint("Sprint6",
-				"Beschreibung Sprint 6", sprint6BeginDate, sprint6EndDate,
-				team2);
+		final Date sprint6EndDate = CalendarUtils.getRandomSprintEnddate(sprint6BeginDate, rel13.getReleaseDate());
+		final Sprint sprint6rel13 = new Sprint("Sprint6", "Beschreibung Sprint 6", sprint6BeginDate, sprint6EndDate, team2);
 
 		final Date sprint7BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint7EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint7BeginDate, rel20.getReleaseDate());
-		final Sprint sprint7rel20 = new Sprint("Sprint7",
-				"Beschreibung Sprint 7", sprint7BeginDate, sprint7EndDate,
-				team2);
+		final Date sprint7EndDate = CalendarUtils.getRandomSprintEnddate(sprint7BeginDate, rel20.getReleaseDate());
+		final Sprint sprint7rel20 = new Sprint("Sprint7", "Beschreibung Sprint 7", sprint7BeginDate, sprint7EndDate, team2);
 
 		final Date sprint8BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint8EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint8BeginDate, rel20.getReleaseDate());
-		final Sprint sprint8rel20 = new Sprint("Sprint8",
-				"Beschreibung Sprint 8", sprint8BeginDate, sprint8EndDate,
-				team2);
+		final Date sprint8EndDate = CalendarUtils.getRandomSprintEnddate(sprint8BeginDate, rel20.getReleaseDate());
+		final Sprint sprint8rel20 = new Sprint("Sprint8", "Beschreibung Sprint 8", sprint8BeginDate, sprint8EndDate, team2);
 
 		final Date sprint9BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint9EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint9BeginDate, rel20.getReleaseDate());
-		final Sprint sprint9rel20 = new Sprint("Sprint9",
-				"Beschreibung Sprint 9", sprint9BeginDate, sprint9EndDate,
-				team2);
+		final Date sprint9EndDate = CalendarUtils.getRandomSprintEnddate(sprint9BeginDate, rel20.getReleaseDate());
+		final Sprint sprint9rel20 = new Sprint("Sprint9", "Beschreibung Sprint 9", sprint9BeginDate, sprint9EndDate, team2);
 
 		final Date sprint10BeginDate = CalendarUtils.getRandomDateOfThisMonth();
-		final Date sprint10EndDate = CalendarUtils.getRandomSprintEnddate(
-				sprint10BeginDate, rel20.getReleaseDate());
-		final Sprint sprint10rel20 = new Sprint("Sprint10",
-				"Beschreibung Sprint 10", sprint10BeginDate, sprint10EndDate,
-				team2);
+		final Date sprint10EndDate = CalendarUtils.getRandomSprintEnddate(sprint10BeginDate, rel20.getReleaseDate());
+		final Sprint sprint10rel20 = new Sprint("Sprint10", "Beschreibung Sprint 10", sprint10BeginDate, sprint10EndDate, team2);
 
-		final Sprint taskboardRelPhase3 = new Sprint("Taskboard",
-				"Bereitstellung von Task-Funktionalitäten", new Date(
-						2011 - 1900, 2 - 1, 14),
-						new Date(2011 - 1900, 3 - 1, 9), team1);
-		final Sprint reportingRelPhase3 = new Sprint("Reporting I",
-				"Bereitstellung von Statistikelementen", new Date(2011 - 1900,
-						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team3);
-		final Sprint ticketsRelPhase3 = new Sprint("Tickets II",
-				"Bereitstellung von Bugtracking-Funktionen", new Date(
-						2011 - 1900, 2 - 1, 14),
-						new Date(2011 - 1900, 3 - 1, 9), team2);
+		final Sprint taskboardRelPhase3 = new Sprint("Taskboard", "Bereitstellung von Task-Funktionalitäten", new Date(2011 - 1900, 2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team1);
+		final Sprint reportingRelPhase3 = new Sprint("Reporting I", "Bereitstellung von Statistikelementen", new Date(2011 - 1900, 2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team3);
+		final Sprint ticketsRelPhase3 = new Sprint("Tickets II", "Bereitstellung von Bugtracking-Funktionen", new Date(2011 - 1900, 2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team2);
+
+		// add possible Systems
+		projekt1.addPossibleSystem(anwendungen);
+
+		projekt2.addPossibleSystem(betriebssysteme);
+		projekt2.addPossibleSystem(browser);
+		projekt2.addPossibleSystem(applicationServer);
+
+		ipScrum.addPossibleSystem(betriebssysteme);
+		ipScrum.addPossibleSystem(browser);
 
 		// assigning sprints to projects
 		projekt1.addSprint(sprint1rel10);
@@ -221,59 +214,48 @@ public class DemoModel {
 		root.addProject(ipScrum);
 
 		// Initial Features
-		final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1",
-				projekt1.getBacklog());
+		final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		f1.setLastEditor(pNils);
 		f1.setManDayCosts(6);
 		f1.setSprint(sprint1rel10);
 		f1.close();
 
-		final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2",
-				projekt1.getBacklog());
+		final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		f2.setLastEditor(pNils);
 		f2.setManDayCosts(4);
 		f2.setSprint(sprint4rel10);
 		f2.close();
 
-		final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3",
-				projekt1.getBacklog());
+		final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		f3.setLastEditor(pNils);
 		f3.setManDayCosts(4);
 		f3.setSprint(sprint4rel10);
 		f3.close();
 
-		final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4",
-				projekt1.getBacklog());
+		final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		f4.setLastEditor(pNils);
 		f4.setManDayCosts(12);
 		f4.setSprint(sprint3rel10);
 		f4.close();
 
-
-		final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5",
-				projekt1.getBacklog());
+		final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		f5.setLastEditor(pNils);
 		f5.setManDayCosts(10);
 		f5.setSprint(sprint5rel10);
 		f5.close();
 
-
-		final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6",
-				projekt1.getBacklog());
+		final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6", projekt1.getBacklog());
 		f6.setLastEditor(pNils);
 		f6.setManDayCosts(5);
 		f6.setSprint(sprint2rel10);
 		f6.close();
 
-
-		final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7",
-				projekt2.getBacklog());
+		final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7", projekt2.getBacklog());
 		f7.setLastEditor(pNils);
 		f7.setManDayCosts(7);
 		f7.setSprint(sprint7rel20);
 
-		final Feature f8 = new Feature("Feature 8", "Beschreibung Feature 8",
-				projekt2.getBacklog());
+		final Feature f8 = new Feature("Feature 8", "Beschreibung Feature 8", projekt2.getBacklog());
 		f8.setLastEditor(pNils);
 		f8.setManDayCosts(9);
 		f8.setSprint(sprint7rel20);

@@ -14,6 +14,8 @@ public abstract class ExceptionConstants {
 	public static final String PERSON_ALREADY_ASSIGNED_ERROR = "Diese Person wurde dem Team bereits zugeordnet.";
 	public static final String ROLE_STILL_IN_USE_ERROR = "Diese Rolle ist noch einer oder mehreren Personen zugeordnet und kann nicht gelöscht werden.";
 	public static final String NO_SPRINT_SELECTED = "Kein Sprint ausgewählt.";
+	public static final String NO_VERSION_SELECTED = "Keine Version ausgewählt.";
+	public static final String NO_PBITYP_SELECTED = "Kein Typ ausgewählt.";
 	public static final String NO_TEAM_SELECTED_ERROR = "Es muss ein Team zugeordnet werden.";
 	public static final String NO_VALID_DATE_ERROR = "Es wurde ein ungültiges Datum angegeben.";
 	public static final String END_BEFORE_BEGIN_ERROR = "Das Enddatum darf nicht vor dem Beginndatum liegen.";
