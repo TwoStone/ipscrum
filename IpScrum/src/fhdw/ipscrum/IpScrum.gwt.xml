@@ -2,6 +2,7 @@
 <module rename-to='ipscrum'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.logging.Logging' />
   
   <!--  Inherit GWT chart library 								  -->
   <inherits name='com.googlecode.gchart.GChart'/>
@@ -21,6 +22,9 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
+  <inherits name="com.google.gwt.logging.LogImpl"/>
+  <inherits name="com.google.gwt.logging.LogImpl"/>
+  <inherits name="com.google.gwt.logging.LogImpl"/>
   <inherits name="fhdw.ipscrum.IpScrum"/>
 
 </module>
