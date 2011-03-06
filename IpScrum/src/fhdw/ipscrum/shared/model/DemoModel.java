@@ -15,24 +15,24 @@ public class DemoModel {
 
 		// Initial Systems
 		IHasChildren rootSystem = root.getSysManager().getSystems();
-		final Systemgroup betriebssysteme = new Systemgroup("Betriebssysteme", rootSystem);
-		final Systemgroup browser = new Systemgroup("Browser", rootSystem);
-		final Systemgroup applicationServer = new Systemgroup("ApplicationServer", rootSystem);
-		final Systemgroup anwendungen = new Systemgroup("Anwendungen", rootSystem);
+		final System betriebssysteme = new System("Betriebssysteme", rootSystem);
+		final System browser = new System("Browser", rootSystem);
+		final System applicationServer = new System("ApplicationServer", rootSystem);
+		final System anwendungen = new System("Anwendungen", rootSystem);
 
-		final ConcreteSystem firefox = new ConcreteSystem("Firefox", browser);
-		final ConcreteSystem iexplorer = new ConcreteSystem("InternetExplorer", browser);
+		final System firefox = new System("Firefox", browser);
+		final System iexplorer = new System("InternetExplorer", browser);
 
-		final Systemgroup windows = new Systemgroup("Windows", betriebssysteme);
+		final System windows = new System("Windows", betriebssysteme);
 
-		final ConcreteSystem winxp = new ConcreteSystem("XP", windows);
-		final ConcreteSystem winvista = new ConcreteSystem("Vista", windows);
-		final ConcreteSystem win7 = new ConcreteSystem("7", windows);
+		final System winxp = new System("XP", windows);
+		final System winvista = new System("Vista", windows);
+		final System win7 = new System("7", windows);
 
-		final Systemgroup sap = new Systemgroup("SAP", anwendungen);
+		final System sap = new System("SAP", anwendungen);
 
-		final ConcreteSystem saphr = new ConcreteSystem("HR", sap);
-		final ConcreteSystem sapbw = new ConcreteSystem("BW", sap);
+		final System saphr = new System("HR", sap);
+		final System sapbw = new System("BW", sap);
 
 		// Initial Roles
 		Role roleTSUser;
@@ -304,58 +304,56 @@ public class DemoModel {
 		taskSBDCurve.addPBI(f9);
 		taskSBDCurve.setPlanEffort(5);
 		taskSBDCurve.setResponsibility(pWilken);
-		taskSBDCurve.finish(new Date(2011-1900, 3-1, 1));
+		taskSBDCurve.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		Task taskSIdealCurve = new Task("Sprint Ideal-Curve", "Darstellung Ideal-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSIdealCurve);
 		taskSIdealCurve.addPBI(f9);
 		taskSIdealCurve.setPlanEffort(5);
 		taskSIdealCurve.setResponsibility(pWilken);
-		taskSIdealCurve.finish(new Date(2011-1900, 3-1, 1));
+		taskSIdealCurve.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		Task taskSTrendCurve = new Task("Sprint Trend-Curve", "Darstellung Trend");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSTrendCurve);
 		taskSTrendCurve.addPBI(f9);
 		taskSTrendCurve.setPlanEffort(10);
 		taskSTrendCurve.setResponsibility(pWilken);
-		taskSTrendCurve.finish(new Date(2011-1900, 3-1, 5));
-
+		taskSTrendCurve.finish(new Date(2011 - 1900, 3 - 1, 5));
 
 		Task taskRBDCurve = new Task("Release Burndown-Curve", "Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRBDCurve);
 		taskRBDCurve.addPBI(f10);
 		taskRBDCurve.setPlanEffort(5);
 		taskRBDCurve.setResponsibility(pSarah);
-		taskRBDCurve.finish(new Date(2011-1900, 2-1, 18));
-
+		taskRBDCurve.finish(new Date(2011 - 1900, 2 - 1, 18));
 
 		Task taskRIdealCurve = new Task("Release Ideal-Curve", "Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRIdealCurve);
 		taskRIdealCurve.addPBI(f10);
 		taskRIdealCurve.setPlanEffort(5);
 		taskRIdealCurve.setResponsibility(pSarah);
-		taskRIdealCurve.finish(new Date(2011-1900, 2-1, 19));
+		taskRIdealCurve.finish(new Date(2011 - 1900, 2 - 1, 19));
 
 		Task taskRTrendCurve = new Task("Release Trend-Curve", "Darstellung Release");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRTrendCurve);
 		taskRTrendCurve.addPBI(f10);
 		taskRTrendCurve.setPlanEffort(5);
 		taskRTrendCurve.setResponsibility(pSarah);
-		taskRTrendCurve.finish(new Date(2011-1900, 2-1, 19));
+		taskRTrendCurve.finish(new Date(2011 - 1900, 2 - 1, 19));
 
 		Task taskReportView = new Task("Report View", "Report View-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportView);
 		taskReportView.addPBI(f11);
 		taskReportView.setPlanEffort(4);
 		taskReportView.setResponsibility(pChris);
-		taskReportView.finish(new Date(2011-1900, 2-1, 17));
+		taskReportView.finish(new Date(2011 - 1900, 2 - 1, 17));
 
 		Task taskReportPresenter = new Task("Report Presenter", "Report Presenter-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportPresenter);
 		taskReportPresenter.addPBI(f11);
 		taskReportPresenter.setPlanEffort(1);
 		taskReportPresenter.setResponsibility(pChris);
-		taskReportPresenter.finish(new Date(2011-1900, 2-1, 17));
+		taskReportPresenter.finish(new Date(2011 - 1900, 2 - 1, 17));
 
 	}
 }
