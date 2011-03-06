@@ -142,6 +142,14 @@ public final class TextConstants {
 	public static final String INSERT_NAME_DESCRIPTION = "Bitte Namen und Beschreibung eingeben.";
 	public static final String NOT_ALLOWED = "Operation ist nicht erlaubt.";
 	public static final String EDIT_TASK = "Task Details";
+	public static final String ASSIGNED_PERSON = "Zuständige Person";
+	public static final String EFFORT = "Aufwand [in Personenstunden]:";
+	public static final String TASK_FINISHED = "Task abgeschlossen:";
+	public static final String PBIS = "ProductBacklog Einträge";
+	public static final String NEW_ITEMS = "Einträge hinzufügen";
+	public static final String DELETE_ITEMS = "Einträge entfernen";
+	public static final String FINISHED_TASK = "Task abgeschlossen!";
+	
 
 	/* [END SECTION] */
 
