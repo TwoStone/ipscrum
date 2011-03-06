@@ -149,6 +149,8 @@ public final class TextConstants {
 	public static final String NEW_ITEMS = "Einträge hinzufügen";
 	public static final String DELETE_ITEMS = "Einträge entfernen";
 	public static final String FINISHED_TASK = "Task abgeschlossen!";
+	public static final String SPRINT_ITEMS = "Sprint Einträge";
+	public static final String ADD = "Hinzufügen";
 	
 
 	/* [END SECTION] */
