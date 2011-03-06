@@ -30,6 +30,7 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * This class is used to represent generally details of {@link Task}
@@ -72,7 +73,7 @@ public abstract class TaskDetailView extends Composite implements
 		// Creates concrete TaskDetailPanel
 		AbsolutePanel concreteTaskDetailPanel = new AbsolutePanel();
 		initWidget(concreteTaskDetailPanel);
-		concreteTaskDetailPanel.setSize("430px", "430px");
+		concreteTaskDetailPanel.setSize("430px", "462px");
 
 		// Creates label for the name
 		Label lblName = new Label("Name:");
@@ -87,44 +88,28 @@ public abstract class TaskDetailView extends Composite implements
 
 		// Creates label for the description
 		Label lblDescription = new Label("Beschreibung");
-		concreteTaskDetailPanel.add(lblDescription, 10, 40);
+		concreteTaskDetailPanel.add(lblDescription, 10, 50);
 
 		// Creates a text area for the description
 		txtAreaDescription = new TextArea();
-		concreteTaskDetailPanel.add(txtAreaDescription, 10, 62);
+		concreteTaskDetailPanel.add(txtAreaDescription, 10, 70);
 		txtAreaDescription.setSize("187px", "125px");
 
 		// creates a label for the person
-		Label lblPerson = new Label("Person");
-		concreteTaskDetailPanel.add(lblPerson, 10, 231);
+		Label lblPerson = new Label("Zuständige Person");
+		concreteTaskDetailPanel.add(lblPerson, 10, 242);
 
 		// creates a label for the effort
 		Label lblAufwand = new Label("Aufwand:");
-		concreteTaskDetailPanel.add(lblAufwand, 10, 201);
+		concreteTaskDetailPanel.add(lblAufwand, 10, 213);
 
 		// creates a label for task finish
 		lblTaskAbgeschlossen = new Label("Task abgeschlossen:");
-		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 10, 363);
+		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 10, 400);
 
 		// creates a checkbox to finish a task
 		simpleCheckBox = new SimpleCheckBox();
-		concreteTaskDetailPanel.add(simpleCheckBox, 146, 363);
-
-		// creates a cell list for all related pbis
-		// with multiselectionmodel
-		cellListPBI = new CellList<ProductBacklogItem>(
-				new AbstractCell<ProductBacklogItem>() {
-					@Override
-					public void render(Context context,
-							ProductBacklogItem value, SafeHtmlBuilder sb) {
-						sb.appendEscaped(value.getName());
-					}
-				});
-		cellListPBI.setStyleName("box");
-		concreteTaskDetailPanel.add(cellListPBI, 226, 36);
-		cellListPBI.setSize("182px", "173px");
-		cellListPBI
-				.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
+		concreteTaskDetailPanel.add(simpleCheckBox, 144, 400);
 
 		// create label for pbis
 		lblPBIs = new Label("ProductBacklog Einträge");
@@ -132,7 +117,7 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button for add pbis
 		btnAddPBIs = new Button("Einträge hinzufügen");
-		concreteTaskDetailPanel.add(btnAddPBIs, 277, 223);
+		concreteTaskDetailPanel.add(btnAddPBIs, 277, 242);
 		btnAddPBIs.setSize("141px", "28px");
 		btnAddPBIs.addClickHandler(new ClickHandler() {
 
@@ -145,7 +130,7 @@ public abstract class TaskDetailView extends Composite implements
 		});
 		// create button okay
 		btnOkay = new Button("Okay");
-		concreteTaskDetailPanel.add(btnOkay, 10, 392);
+		concreteTaskDetailPanel.add(btnOkay, 10, 424);
 		btnOkay.setSize("100px", "28px");
 		btnOkay.addClickHandler(new ClickHandler() {
 
@@ -159,7 +144,7 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button for cancel
 		btnCancel = new Button("Abbrechen");
-		concreteTaskDetailPanel.add(btnCancel, 318, 392);
+		concreteTaskDetailPanel.add(btnCancel, 318, 424);
 		btnCancel.setSize("100px", "28px");
 		btnCancel.addClickHandler(new ClickHandler() {
 
@@ -173,7 +158,7 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button delete pbis
 		btnDeletePBIs = new Button("Einträge entfernen");
-		concreteTaskDetailPanel.add(btnDeletePBIs, 277, 257);
+		concreteTaskDetailPanel.add(btnDeletePBIs, 277, 276);
 		btnDeletePBIs.setSize("142px", "28px");
 		btnDeletePBIs.addClickHandler(new ClickHandler() {
 
@@ -185,25 +170,49 @@ public abstract class TaskDetailView extends Composite implements
 			}
 		});
 
-		// creates a cell list for all persons of the sprint of the task
-		// with single selection modell
-		cellListPerson = new CellList<IPerson>(new AbstractCell<IPerson>() {
-			@Override
-			public void render(Context context, IPerson value,
-					SafeHtmlBuilder sb) {
-				sb.appendEscaped(value.getFirstname() + " "
-						+ value.getLastname());
-			}
-		});
-		cellListPerson.setStyleName("box");
-		concreteTaskDetailPanel.add(cellListPerson, 10, 253);
-		cellListPerson.setSize("193px", "102px");
-		cellListPerson.setSelectionModel(new SingleSelectionModel<IPerson>());
-
 		// creates integerBox for effort
 		iBoxEffort = new IntegerBox();
-		concreteTaskDetailPanel.add(iBoxEffort, 76, 201);
+		concreteTaskDetailPanel.add(iBoxEffort, 76, 214);
 		iBoxEffort.setSize("123px", "16px");
+		
+		VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setStyleName("smallborder");
+		concreteTaskDetailPanel.add(verticalPanel, 10, 264);
+		verticalPanel.setSize("195px", "130px");
+		
+				// creates a cell list for all persons of the sprint of the task
+				// with single selection modell
+				cellListPerson = new CellList<IPerson>(new AbstractCell<IPerson>() {
+					@Override
+					public void render(Context context, IPerson value,
+							SafeHtmlBuilder sb) {
+						sb.appendEscaped(value.getFirstname() + " "
+								+ value.getLastname());
+					}
+				});
+				verticalPanel.add(cellListPerson);
+				cellListPerson.setSize("100%", "100%");
+				cellListPerson.setSelectionModel(new SingleSelectionModel<IPerson>());
+				
+				VerticalPanel verticalPanel_1 = new VerticalPanel();
+				verticalPanel_1.setStyleName("smallborder");
+				concreteTaskDetailPanel.add(verticalPanel_1, 226, 30);
+				verticalPanel_1.setSize("192px", "199px");
+				
+						// creates a cell list for all related pbis
+						// with multiselectionmodel
+						cellListPBI = new CellList<ProductBacklogItem>(
+								new AbstractCell<ProductBacklogItem>() {
+									@Override
+									public void render(Context context,
+											ProductBacklogItem value, SafeHtmlBuilder sb) {
+										sb.appendEscaped(value.getName());
+									}
+								});
+						verticalPanel_1.add(cellListPBI);
+						cellListPBI.setSize("100%", "100%");
+						cellListPBI
+								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 	}
 
 	// ################## SETTER / GETTER for view elements
@@ -402,6 +411,4 @@ public abstract class TaskDetailView extends Composite implements
 	public void addRemovePBIsEventHandler(EventHandler<MultiplePBIArgs> arg) {
 		this.removePBIsEvent.add(arg);
 	}
-	// ######################## THIS METHODS ARE USED BY THE PRESENTATORS #####################
-
 }
