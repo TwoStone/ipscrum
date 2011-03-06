@@ -63,7 +63,8 @@ public class Task extends Observable implements ITask {
 		this.sprintBacklogAssoc = new ManyToOne<OneToMany, ITask>(this);
 		try {
 			this.setName(name);
-			this.description = description;
+			this.setDescription(description);
+			this.setPlanEffort(0);
 		} catch (final ForbiddenStateException e) {
 			/*
 			 * INTERNAL ERROR should never happen, make sure that the initial
@@ -75,7 +76,7 @@ public class Task extends Observable implements ITask {
 					.print(ExceptionConstants.TASK_INITIAL_STATE_ERROR);
 		}
 		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
-		this.planEffort = 0;
+		
 	}
 	/**
 	 * for serialization
@@ -105,44 +106,7 @@ public class Task extends Observable implements ITask {
 		this.state.addPBI(pbi);
 	}
 	
-	protected void doAddPBI(ProductBacklogItem pbi) {
-		this.assignedPBIs.add(pbi);
-	}
-
-	protected void doRemovePBI(ProductBacklogItem pbi) {
-		this.assignedPBIs.remove(pbi);
-	}
-
-	protected void doSetDescription(String description)
-			throws NoValidValueException {
-		if (description.equals(TextConstants.EMPTY_TEXT)) {
-			throw new NoValidValueException(
-					ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
-		} else {
-			this.description = description;
-		}
-	}
-
-	protected void doSetName(String name) throws NoValidValueException {
-		if (name.equals(TextConstants.EMPTY_TEXT)) {
-			throw new NoValidValueException(ExceptionConstants.EMPTY_NAME_ERROR);
-		} else {
-			this.name = name;
-		}
-	}
-
-	/**
-	 * changes state to TaskFinished and passes actual responsiblePerson
-	 * @throws ForbiddenStateException 
-	 */
-	protected void doSetTaskFinished() throws ForbiddenStateException {
-		this.setPlanEffort(0);
-		final TaskFinished newState = new TaskFinished(this,
-				this.getResponsiblePerson());
-		this.setState(newState);
-
-	}
-
+	
 	@Override
 	public void finish() throws ForbiddenStateException {
 		this.state.finish();
@@ -226,18 +190,6 @@ public class Task extends Observable implements ITask {
 		}
 	}
 
-	protected void setState(ITaskState state) {
-		this.state = state;
-	}
-
-	/**
-	 * changes state to TaskAssigned and passes responsiblePerson
-	 * 
-	 * @param responsiblePerson
-	 */
-	protected void setTaskAssigned(IPerson responsiblePerson) {
-		this.state = new TaskInProgress(this, responsiblePerson);
-	}
 
 	@Override
 	public void setPlanEffort(Integer planEffort)
@@ -245,10 +197,6 @@ public class Task extends Observable implements ITask {
 		this.state.setPlanEffort(planEffort);
 		this.notifyObservers();
 		
-	}
-
-	protected void doSetPlanEffort(Integer planEffort) {
-		this.planEffort = planEffort;
 	}
 
 	@Override
@@ -331,6 +279,96 @@ public class Task extends Observable implements ITask {
 	public int hashCode() {
 		return this.indirectHashCode();
 	}
+
+	@Override
+	public boolean hasPBI(ProductBacklogItem pbi) {
+		boolean result = false;
+		Iterator<ProductBacklogItem> pbiIterator = this.getPBIIterator();
+		while (pbiIterator.hasNext()){
+			ProductBacklogItem current = pbiIterator.next();
+			if (current.equals(pbi)){
+				result = true; break;
+			}
+		}
+		return result;
+	}
+	/**
+	 * adds a new ProductBacklogItem to the task.
+	 * PRECONDITION: consistency has been checked.
+	 * That means: pbi.sprint.sprintbacklog contains this task
+	 * @param pbi 
+	 */
+	protected void doAddPBI(ProductBacklogItem pbi) {
+		this.assignedPBIs.add(pbi);
+	}
+
+	protected void doRemovePBI(ProductBacklogItem pbi) {
+		this.assignedPBIs.remove(pbi);
+	}
+	/**
+	 * Replaces the actual description with the new one.
+	 * @param description new description
+	 * @throws NoValidValueException will be raised if the description is empty.
+	 */
+	protected void doSetDescription(String description)
+			throws NoValidValueException {
+		if (description.equals(TextConstants.EMPTY_TEXT)) {
+			throw new NoValidValueException(
+					ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
+		} else {
+			this.description = description;
+		}
+	}
+	
+	/**
+	 * replaces the actual name with the new one.
+	 * @param name new name
+	 * @throws NoValidValueException will be raised if the name is empty
+	 */
+	protected void doSetName(String name) throws NoValidValueException {
+		if (name.equals(TextConstants.EMPTY_TEXT)) {
+			throw new NoValidValueException(ExceptionConstants.EMPTY_NAME_ERROR);
+		} else {
+			this.name = name;
+		}
+	}
+
+	/**
+	 * changes state to TaskFinished and passes actual responsiblePerson
+	 * @throws ForbiddenStateException 
+	 */
+	protected void doSetTaskFinished() throws ForbiddenStateException {
+		this.setPlanEffort(0);
+		final TaskFinished newState = new TaskFinished(this,
+				this.getResponsiblePerson());
+		this.setState(newState);
+
+	}
+	
+	/**
+	 * sets a new state to the task. this operation shall be called only by the owner of the state.
+	 * @param state
+	 */
+	protected void setState(ITaskState state) {
+		this.state = state;
+	}
+
+	/**
+	 * changes state to TaskAssigned and passes responsiblePerson
+	 * 
+	 * @param responsiblePerson
+	 */
+	protected void setTaskAssigned(IPerson responsiblePerson) {
+		this.state = new TaskInProgress(this, responsiblePerson);
+	}
+	/**
+	 * replaces the actual planEffort with the new.
+	 * @param planEffort
+	 */
+	protected void doSetPlanEffort(Integer planEffort) {
+		this.planEffort = planEffort;
+	}
+	
 	/**
 	 * Checks if a person may obtain responsibility for a task.
 	 * 
@@ -356,18 +394,6 @@ public class Task extends Observable implements ITask {
 		return isPersonValid;
 	}
 
-	@Override
-	public boolean hasPBI(ProductBacklogItem pbi) {
-		boolean result = false;
-		Iterator<ProductBacklogItem> pbiIterator = this.getPBIIterator();
-		while (pbiIterator.hasNext()){
-			ProductBacklogItem current = pbiIterator.next();
-			if (current.equals(pbi)){
-				result = true; break;
-			}
-		}
-		return result;
-	}
 
 	
 	
