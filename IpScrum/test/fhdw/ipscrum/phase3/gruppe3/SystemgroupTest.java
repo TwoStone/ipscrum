@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.junit.After;
@@ -57,53 +58,6 @@ public class SystemgroupTest {
 	}
 
 	/**
-	 * Run the void accept(HasChildVisitor) method test.
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testAccept_1() throws Exception {
-		// TODO Klären wie Visitoren zu testen sind!
-		// final Systemgroup fixture = new Systemgroup("", new Rootsystem());
-		// final HasChildVisitor visitor = null;
-		//
-		// fixture.accept(visitor);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at fhdw.ipscrum.shared.model.System.setParent(System.java:55)
-		// at fhdw.ipscrum.shared.model.System.<init>(System.java:20)
-		// at fhdw.ipscrum.shared.model.Systemgroup.<init>(Systemgroup.java:23)
-		fail();
-	}
-
-	/**
-	 * Run the void accept(ISystemVisitor) method test.
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	public void testAccept_2() throws Exception {
-		// TODO erst SystemTree klären
-		// final Systemgroup fixture = new Systemgroup("", new Rootsystem());
-		// final ISystemVisitor visitor = new SystemTreeItem(new ConcreteSystem(
-		// "", new Rootsystem()));
-		//
-		// fixture.accept(visitor);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at fhdw.ipscrum.shared.model.System.setParent(System.java:55)
-		// at fhdw.ipscrum.shared.model.System.<init>(System.java:20)
-		// at fhdw.ipscrum.shared.model.Systemgroup.<init>(Systemgroup.java:23)
-		fail();
-	}
-
-	/**
 	 * Run the void addChild(System) method test.
 	 * 
 	 * @throws Exception
@@ -113,9 +67,6 @@ public class SystemgroupTest {
 		final Systemgroup fixture = new Systemgroup("G1", new Rootsystem());
 		final System child = new ConcreteSystem("MySystem", fixture);
 
-		// TODO Hinterfragen ob add überhaupt benötigt wird?!?!
-		// Elemente werden schon bei Erzeugung hinzugefügt
-		// Nochmaliges Add führt zu DoubleDefinedFehler
 		fixture.addChild(child);
 
 		assertTrue(fixture.getChilds().size() == 1);
@@ -137,11 +88,6 @@ public class SystemgroupTest {
 		final Systemgroup child3 = new Systemgroup("G2", fixture);
 		final System child4 = new ConcreteSystem("MySystem3", child3);
 
-		// TODO Hinterfragen ob add überhaupt benötigt wird?!?!
-		// Siehe vorherigen Testfall
-		// fixture.addChild(child);
-		// fixture.addChild(child2);
-		// fixture.addChild(child3);
 		fixture.addChild(child4);// Bewirkt einen Wechsel
 
 		assertEquals(4, fixture.getChilds().size());
@@ -212,10 +158,10 @@ public class SystemgroupTest {
 	public void testGetChilds_2() throws Exception {
 		final Rootsystem root = new Rootsystem();
 		final Systemgroup fixture = new Systemgroup("G1", root);
-		final System child = new ConcreteSystem("MySystem", fixture);
-		final System child2 = new ConcreteSystem("MySystem", fixture);// DoubleDefined!!!
-		final System child3 = new Systemgroup("G2", fixture);
-		final System child4 = new ConcreteSystem("MySystem3", fixture);
+		new ConcreteSystem("MySystem", fixture);
+		new ConcreteSystem("MySystem", fixture);// DoubleDefined!!!
+		new Systemgroup("G2", fixture);
+		new ConcreteSystem("MySystem3", fixture);
 	}
 
 	/**
@@ -225,22 +171,14 @@ public class SystemgroupTest {
 	 */
 	@Test
 	public void testGetGroups_1() throws Exception {
-		// TODO Erst klären
-		// final Systemgroup fixture = new Systemgroup("", new Rootsystem());
-		//
-		// final List<Systemgroup> result = fixture.getGroups();
-		//
-		// // add additional test code here
-		// // An unexpected exception was thrown in user code while executing
-		// this
-		// // test:
-		// // java.lang.NullPointerException
-		// // at fhdw.ipscrum.shared.model.System.setParent(System.java:55)
-		// // at fhdw.ipscrum.shared.model.System.<init>(System.java:20)
-		// // at
-		// fhdw.ipscrum.shared.model.Systemgroup.<init>(Systemgroup.java:23)
-		// assertNotNull(result);
-		fail();
+		final Systemgroup fixture = new Systemgroup("G1", new Rootsystem());
+		new ConcreteSystem("C1", fixture);
+		new ConcreteSystem("C2", fixture);
+		new ConcreteSystem("C3", fixture);
+
+		final List<Systemgroup> result = fixture.getGroups();
+
+		assertTrue(result.size() == 0);
 	}
 
 	/**
@@ -250,22 +188,17 @@ public class SystemgroupTest {
 	 */
 	@Test
 	public void testGetGroups_2() throws Exception {
-		// TODO Erst klären
-		// final Systemgroup fixture = new Systemgroup("", new Rootsystem());
-		//
-		// final List<Systemgroup> result = fixture.getGroups();
-		//
-		// // add additional test code here
-		// // An unexpected exception was thrown in user code while executing
-		// this
-		// // test:
-		// // java.lang.NullPointerException
-		// // at fhdw.ipscrum.shared.model.System.setParent(System.java:55)
-		// // at fhdw.ipscrum.shared.model.System.<init>(System.java:20)
-		// // at
-		// fhdw.ipscrum.shared.model.Systemgroup.<init>(Systemgroup.java:23)
-		// assertNotNull(result);
-		fail();
+		final Systemgroup fixture = new Systemgroup("G1", new Rootsystem());
+		final Systemgroup g1 = new Systemgroup("G1", fixture);
+		final Systemgroup g2 = new Systemgroup("G2", fixture);
+		final ConcreteSystem c3 = new ConcreteSystem("C3", fixture);
+
+		final List<Systemgroup> result = fixture.getGroups();
+
+		assertTrue(result.size() == 2);
+		assertTrue(result.contains(g1));
+		assertTrue(result.contains(g2));
+		assertFalse(result.contains(c3));
 	}
 
 	/**

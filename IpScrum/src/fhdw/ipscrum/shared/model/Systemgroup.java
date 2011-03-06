@@ -26,7 +26,7 @@ public class Systemgroup extends System implements IHasChildren {
 	}
 
 	private Systemgroup() {
-
+		super();
 	}
 
 	@Override
