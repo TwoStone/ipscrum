@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.TreeMap;
 
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -76,10 +77,10 @@ public class ReleaseChartData {
 	class ReleaseChartDataDetails {
 		private final ArrayList<ISprint> sprints;
 
-		private int actualBurndownValue;
+		private Integer actualBurndownValue;
 		private double idealBurndownValue;
 
-		public ReleaseChartDataDetails(ArrayList<ISprint> sprints, int actualBurndownValue) {
+		public ReleaseChartDataDetails(ArrayList<ISprint> sprints, Integer actualBurndownValue) {
 			this.sprints = sprints;
 			this.actualBurndownValue = actualBurndownValue;
 		}
@@ -88,11 +89,11 @@ public class ReleaseChartData {
 			return this.sprints;
 		}
 
-		public int getActualBurndownValue() {
+		public Integer getActualBurndownValue() {
 			return this.actualBurndownValue;
 		}
 
-		void setActualBurndownValue(int value) {
+		void setActualBurndownValue(Integer value) {
 			this.actualBurndownValue = value;
 		}
 
@@ -103,5 +104,14 @@ public class ReleaseChartData {
 		public void setIdealBurndownValue(double idealBurndownValue) {
 			this.idealBurndownValue = idealBurndownValue;
 		}
+	}
+
+
+	public List<Double> getConsiderabeDatapoints() {
+		ArrayList<Double> result = new ArrayList<Double>();
+		for (int i = 0; i < this.data.keySet().size(); i++) {
+			result.add((double) i);
+		}
+		return result;
 	}
 }

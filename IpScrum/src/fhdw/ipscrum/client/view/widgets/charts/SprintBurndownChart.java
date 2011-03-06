@@ -76,11 +76,11 @@ public class SprintBurndownChart extends BurndownChart {
 		getYAxis().setHasGridlines(true);
 
 		this.populateChart();
-		this.generateTrendcurve();
+		this.generateTrendcurve(this.data.getConsiderableDatapoints());
 
 		// set x-axis ticks
 		if (this.width > 400) {
-			getXAxis().setTickCount((burndownCurve.getNPoints()<26) ? burndownCurve.getNPoints() : 25);
+			getXAxis().setTickCount((this.data.getConsiderableDatapoints().size()<26) ? this.data.getConsiderableDatapoints().size() : 25);
 		}
 
 		this.update();
@@ -89,8 +89,10 @@ public class SprintBurndownChart extends BurndownChart {
 	private void populateChart() {
 		for (Date date : this.data.getData().keySet()) {
 			SprintChartDataDetails currentData = data.getData().get(date);
-			burndownCurve.addPoint(date.getTime(), currentData.getActualBurndownValue());
 			idealCurve.addPoint(date.getTime(), currentData.getIdealBurndownValue());
+			if (currentData.getActualBurndownValue() != null) {
+				burndownCurve.addPoint(date.getTime(), currentData.getActualBurndownValue());
+			}
 		}
 	}
 }

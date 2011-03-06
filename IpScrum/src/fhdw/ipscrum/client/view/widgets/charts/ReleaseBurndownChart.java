@@ -93,7 +93,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 
 
 		this.populateChart();
-		this.generateTrendcurve();
+		this.generateTrendcurve(this.data.getConsiderabeDatapoints());
 
 		getXAxis().clearTicks();
 		int counter = 0;
@@ -113,12 +113,14 @@ public class ReleaseBurndownChart extends BurndownChart {
 		int counter = 0;
 		for (Date endDate : this.getData().getData().keySet()) {
 			ReleaseChartDataDetails currentData = getData().getData().get(endDate);
-			burndownCurve.addPoint(counter, currentData.getActualBurndownValue());
 			idealCurve.addPoint(counter, currentData.getIdealBurndownValue());
+			if (currentData.getActualBurndownValue() != null) {
+				burndownCurve.addPoint(counter, currentData.getActualBurndownValue());
 
-			String annotationText = currentData.getActualBurndownValue() + " ausstehende Aufwände<br />nach " + currentData.getSprints().toString();
-			burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
-			burndownCurve.getPoint().setAnnotationVisible(false);
+				String annotationText = currentData.getActualBurndownValue() + " ausstehende Aufwände<br />nach " + currentData.getSprints().toString();
+				burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
+				burndownCurve.getPoint().setAnnotationVisible(false);
+			}
 			counter++;
 		}
 	}

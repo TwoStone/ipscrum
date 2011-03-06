@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.view.widgets.charts;
 
+import java.util.List;
+
 import com.googlecode.gchart.client.GChart;
 
 public abstract class BurndownChart extends GChart {
@@ -12,7 +14,7 @@ public abstract class BurndownChart extends GChart {
 	/**
 	 * This is to analyze the chart-data an draw the trend-line.
 	 */
-	void generateTrendcurve() {
+	void generateTrendcurve(List<Double> considerableDatapoints) {
 		/* calculate averages */
 		double xAvg = 0d; double yAvg = 0d;
 		for (int i = 0; i < burndownCurve.getNPoints(); i++) {
@@ -34,10 +36,10 @@ public abstract class BurndownChart extends GChart {
 		double q = yAvg - m * xAvg;
 
 		/* draw trend curve */
-		for (int i = 0; i < burndownCurve.getNPoints(); i++) {
+		for (int i = 0; i < considerableDatapoints.size(); i++) {
 			double value = m * i + q;
 			if (value>=0) {
-				trendCurve.addPoint(burndownCurve.getPoint(i).getX(), value);
+				trendCurve.addPoint(considerableDatapoints.get(i), value);
 			}
 		}
 	}

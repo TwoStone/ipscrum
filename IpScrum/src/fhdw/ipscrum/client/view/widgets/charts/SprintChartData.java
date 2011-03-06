@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.view.widgets.charts;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TreeMap;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
@@ -31,12 +32,12 @@ public class SprintChartData {
 
 		int counter = 0;
 		for (Date date : daysInvolved) {
-			int ideal = taskCount / (dayCount-1) * (dayCount-1 - counter);
+			double ideal = taskCount / (dayCount-1) * (dayCount-1 - counter);
 			double deviation = Math.random() * 0.4 + 0.8;
 			if (date.before(today)) {
 				this.data.put(date, new SprintChartDataDetails(ideal*deviation, ideal));
 			} else {
-				this.data.put(date, new SprintChartDataDetails(Double.NaN, ideal));
+				this.data.put(date, new SprintChartDataDetails(ideal));
 			}
 			counter++;
 		}
@@ -51,28 +52,41 @@ public class SprintChartData {
 	}
 
 	class SprintChartDataDetails {
-		private double actualBurndownValue;
-		private double idealBurndownValue;
+		private Double actualBurndownValue;
+		private Double idealBurndownValue;
 
-		public SprintChartDataDetails(double actualBurndownValue, double idealBurndownValue) {
+		public SprintChartDataDetails(Double idealBurndownValue) {
+			this(null,idealBurndownValue);
+		}
+
+		public SprintChartDataDetails(Double actualBurndownValue, Double idealBurndownValue) {
 			this.actualBurndownValue = actualBurndownValue;
 			this.idealBurndownValue = idealBurndownValue;
 		}
 
-		public double getActualBurndownValue() {
+		public Double getActualBurndownValue() {
 			return this.actualBurndownValue;
 		}
 
-		public void setActualBurndownValue(double actualBurndownValue) {
+		public void setActualBurndownValue(Double actualBurndownValue) {
 			this.actualBurndownValue = actualBurndownValue;
 		}
 
-		public double getIdealBurndownValue() {
+		public Double getIdealBurndownValue() {
 			return this.idealBurndownValue;
 		}
 
-		public void setIdealBurndownValue(double idealBurndownValue) {
+		public void setIdealBurndownValue(Double idealBurndownValue) {
 			this.idealBurndownValue = idealBurndownValue;
 		}
+	}
+
+	public List<Double> getConsiderableDatapoints() {
+		ArrayList<Date> daysInvolved = CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
+		ArrayList<Double> result = new ArrayList<Double>();
+		for (Date date : daysInvolved) {
+			result.add((double) date.getTime());
+		}
+		return result;
 	}
 }
