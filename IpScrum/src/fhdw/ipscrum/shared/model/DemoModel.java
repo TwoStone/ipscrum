@@ -355,13 +355,13 @@ public class DemoModel {
 		taskRTrendCurve.setResponsibility(pSarah);
 
 
-		Task taskReportView = new Task("Report View", "Report: View-Komponente");
+		Task taskReportView = new Task("Report View", "Report View-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportView);
 		taskReportView.addPBI(f11);
 		taskReportView.setPlanEffort(4);
 		taskReportView.setResponsibility(pChris);
 
-		Task taskReportPresenter = new Task("Report Presenter", "Report: Presenter-Komponente");
+		Task taskReportPresenter = new Task("Report Presenter", "Report Presenter-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportPresenter);
 		taskReportPresenter.addPBI(f11);
 		taskReportPresenter.setPlanEffort(1);
