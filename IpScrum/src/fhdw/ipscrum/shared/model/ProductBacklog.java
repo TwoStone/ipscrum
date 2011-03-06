@@ -13,7 +13,6 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
