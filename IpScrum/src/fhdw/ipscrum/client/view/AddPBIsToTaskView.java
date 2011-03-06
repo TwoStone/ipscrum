@@ -21,8 +21,8 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.view.interfaces.IAddPBIsToTaskView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
@@ -51,9 +51,9 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 		addSprintPBIsPanel.setSpacing(5);
 		addSprintPBIsPanel.setSize("215px", "345px");
 		
-		CaptionPanel cptSprintEntries = new CaptionPanel("Sprint Einträge");
+		CaptionPanel cptSprintEntries = new CaptionPanel(TextConstants.SPRINT_ITEMS);
 		addSprintPBIsPanel.add(cptSprintEntries);
-		cptSprintEntries.setCaptionHTML("Sprint Einträge");
+		cptSprintEntries.setCaptionHTML(TextConstants.SPRINT_ITEMS);
 		cptSprintEntries.setSize("200px", "300px");
 		
 		sprintPBIsCellList = new CellList<ProductBacklogItem>(new AbstractCell<ProductBacklogItem>(){
@@ -65,7 +65,7 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 		cptSprintEntries.setContentWidget(sprintPBIsCellList);
 		sprintPBIsCellList.setSize("100%", "100%");
 		
-		btnAddPBIs = new Button("Hinzufügen");
+		btnAddPBIs = new Button(TextConstants.ADD);
 		addSprintPBIsPanel.add(btnAddPBIs);
 		
 		VerticalPanel taskPanel = new VerticalPanel();
