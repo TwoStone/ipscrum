@@ -20,7 +20,6 @@ public class ReleaseChartData {
 	public ReleaseChartData(IRelease release) {
 		this.release = release;
 		this.data = new TreeMap<Date,ReleaseChartDataDetails>();
-		//		this.calculateDemoData();
 		this.calculateData();
 	}
 
@@ -32,27 +31,8 @@ public class ReleaseChartData {
 		return this.data;
 	}
 
-	@SuppressWarnings("unused")
-	private void calculateDemoData() {
-		for (ISprint sprint : this.release.getSprints()) {
-
-			int value = (int) (Math.random() * 10 + 20);
-
-			if (this.data.containsKey(sprint.getEnd())) {
-				ReleaseChartDataDetails details = this.data.get(sprint.getEnd());
-				details.getSprints().add(sprint);
-				details.setValue(value);
-				this.data.put(sprint.getEnd(), details);
-			} else {
-				ReleaseChartDataDetails details = new ReleaseChartDataDetails(new ArrayList<ISprint>(), value);
-				details.getSprints().add(sprint);
-				this.data.put(sprint.getEnd(), details);
-			}
-		}
-	}
-
 	private void calculateData() {
-		// obtaining a sorted list of sprints associated with the release
+		// obtain a sorted list of sprints associated with the release
 		ArrayList<ISprint> sortedSprints = new ArrayList<ISprint>(this.getRelease().getSprints());
 		Collections.sort(sortedSprints, new Comparator<ISprint>() {
 			@Override
@@ -62,46 +42,66 @@ public class ReleaseChartData {
 		});
 
 
+		// calculate actual burndown-data
 		int overallEfforts = this.getRelease().getOverallEfforts();
-		int runningValue = overallEfforts;
+		int runningBDValue = overallEfforts;
 
 		for (ISprint sprint : sortedSprints) {
 
-			runningValue -= sprint.getCumulatedManDayCostsOfClosedPbis();
+			runningBDValue -= sprint.getCumulatedManDayCostsOfClosedPbis();
 
 			if (this.data.containsKey(sprint.getEnd())) {
 				ReleaseChartDataDetails details = this.data.get(sprint.getEnd());
 				details.getSprints().add(sprint);
-				details.setValue(runningValue);
+				details.setActualBurndownValue(runningBDValue);
 				this.data.put(sprint.getEnd(), details);
 			} else {
-				ReleaseChartDataDetails details = new ReleaseChartDataDetails(new ArrayList<ISprint>(), runningValue);
+				ReleaseChartDataDetails details = new ReleaseChartDataDetails(new ArrayList<ISprint>(), runningBDValue);
 				details.getSprints().add(sprint);
 				this.data.put(sprint.getEnd(), details);
 			}
+		}
 
+		// calculate ideal values
+		double idealBurndown = (double) overallEfforts / (double) this.getData().size();
+		double runningIdealValue = overallEfforts;
+		for (Date endDate : this.getData().keySet()) {
+			ReleaseChartDataDetails currentData = getData().get(endDate);
+			runningIdealValue -= idealBurndown;
+			currentData.setIdealBurndownValue(runningIdealValue);
 		}
 	}
 
+
 	class ReleaseChartDataDetails {
 		private final ArrayList<ISprint> sprints;
-		private int value;
 
-		public ReleaseChartDataDetails(ArrayList<ISprint> sprints, int value) {
+		private int actualBurndownValue;
+		private double idealBurndownValue;
+
+		public ReleaseChartDataDetails(ArrayList<ISprint> sprints, int actualBurndownValue) {
 			this.sprints = sprints;
-			this.value = value;
+			this.actualBurndownValue = actualBurndownValue;
 		}
 
 		public ArrayList<ISprint> getSprints() {
 			return this.sprints;
 		}
 
-		public int getValue() {
-			return this.value;
+		public int getActualBurndownValue() {
+			return this.actualBurndownValue;
 		}
 
-		void setValue(int value) {
-			this.value = value;
+		void setActualBurndownValue(int value) {
+			this.actualBurndownValue = value;
+		}
+
+		public double getIdealBurndownValue() {
+			return this.idealBurndownValue;
+		}
+
+		public void setIdealBurndownValue(double idealBurndownValue) {
+			this.idealBurndownValue = idealBurndownValue;
 		}
 	}
 }
