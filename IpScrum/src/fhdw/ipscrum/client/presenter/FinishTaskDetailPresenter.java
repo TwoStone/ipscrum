@@ -35,6 +35,7 @@ public class FinishTaskDetailPresenter extends TaskDetailPresenter {
 		v.add(task.getResponsiblePerson());
 		this.getView().refreshPersons(v);
 		this.getView().setPerson(task.getResponsiblePerson());
+		this.getView().setEffort(task.getPlanEffort());
 	}
 
 	@Override

@@ -55,9 +55,11 @@ public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
 			
 				
 				try {
+					// person will be only changed if a person is selected
+					if(getView().getPerson() != null){
 					//set reponsible person
 					InProgressTaskDetailPresenter.this.task.setResponsibility(getView().getPerson());
-					
+					}
 					// set effort
 					InProgressTaskDetailPresenter.this.task.setPlanEffort(getView().getEffort());
 						
