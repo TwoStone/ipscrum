@@ -29,4 +29,10 @@ public class BugClosedState extends PBIClosedState implements IBugState {
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
+	@Override
+	public void removeSystem(System system) throws ForbiddenStateException {
+		throw new ForbiddenStateException(
+				ExceptionConstants.FORBIDDEN_STATE_ERROR);
+	}
+
 }

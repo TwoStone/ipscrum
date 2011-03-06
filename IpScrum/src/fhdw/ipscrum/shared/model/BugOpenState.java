@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
@@ -43,6 +44,11 @@ public class BugOpenState extends PBIOpenState implements IBugState {
 	@Override
 	public void setVersion(final IRelease version) throws WrongReleaseException {
 		this.owner.doSetVersion(version);
+	}
+
+	@Override
+	public void removeSystem(System system) throws ForbiddenStateException {
+		this.owner.doRemoveSystem(system);
 	}
 
 }

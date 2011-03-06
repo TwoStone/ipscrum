@@ -11,4 +11,6 @@ public interface IBugState extends IProductBacklogItemState {
 
 	void setVersion(IRelease release) throws ForbiddenStateException,
 			WrongReleaseException;
+
+	void removeSystem(System system) throws ForbiddenStateException;
 }

@@ -59,6 +59,10 @@ public class Bug extends ProductBacklogItem {
 		this.getState().addSystem(system);
 	}
 
+	public void removeSystem(System system) throws UserException {
+		this.getState().removeSystem(system);
+	}
+
 	public void doAddSystem(final System system) throws WrongSystemException {
 		if (this.getBacklog().getProject().isPossibleSystem(system)) {
 			this.systems.add(system);
@@ -108,6 +112,10 @@ public class Bug extends ProductBacklogItem {
 
 	public void setVersion(final IRelease version) throws UserException {
 		this.state.setVersion(version);
+	}
+
+	public void doRemoveSystem(System system) {
+		this.systems.remove(system);
 	}
 
 }
