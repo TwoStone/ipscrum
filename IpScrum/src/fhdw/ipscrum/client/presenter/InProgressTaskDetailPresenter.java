@@ -30,10 +30,10 @@ public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
 	 * 
 	 * Gives the team-members of the sprint to the view-class and select the responsible person
 	 * 
-	 * @param parent
-	 * @param parentPresenter
-	 * @param task
-	 * @param sprint
+	 * @param Panel parent
+	 * @param Presenter parentPresenter
+	 * @param ITask task
+	 * @param ISprint sprint
 	 */
 	public InProgressTaskDetailPresenter(Panel parent,
 			Presenter<?> parentPresenter, ITask task, ISprint sprint) {

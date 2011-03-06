@@ -17,26 +17,33 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
+
 /**
- * Presenter for view-class {@link CreateTaskView} where a user can create new tasks
+ * Presenter for view-class {@link CreateTaskView} where a user can create new
+ * tasks
  * 
  * @author Phase III / Group I
- *
+ * 
  */
 public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 
-	//Variable for the backlog of the selected sprint
+	// Variable for the backlog of the selected sprint
 	private final SprintBacklog sprintBacklog;
 	// Variable for alle selected pbis in the taskboard
 	private final Set<ProductBacklogItem> selectedPBIs;
 
 	/**
-	 * Creates a new instance of {@link CreateTaskPresenter}
-	 * Sets the given variables and calls the addHandler() method
-	 * @param Panel parent
-	 * @param SprintBacklog sprintBacklog
-	 * @param Set<ProductBacklogItem> selectedPBIs
-	 * @param Presenter parentPresenter
+	 * Creates a new instance of {@link CreateTaskPresenter} Sets the given
+	 * variables and calls the addHandler() method
+	 * 
+	 * @param Panel
+	 *            parent
+	 * @param SprintBacklog
+	 *            sprintBacklog
+	 * @param Set
+	 *            <ProductBacklogItem> selectedPBIs
+	 * @param Presenter
+	 *            parentPresenter
 	 */
 	public CreateTaskPresenter(final Panel parent,
 			final SprintBacklog sprintBacklog,
@@ -49,10 +56,11 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 	}
 
 	/**
-	 * In this method are the concrete handlers for the events of {@link CreateTaskView} implementet
+	 * In this method are the concrete handlers for the events of
+	 * {@link CreateTaskView} implementet
 	 */
 	private void addHandler() {
-		
+
 		// handler for the saveNewTaskEvent
 		CreateTaskPresenter.this.getView().addSaveNewTaskEventHandler(
 				new EventHandler<EventArgs>() {
@@ -62,19 +70,21 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 							final EventArgs eventArgs) {
 
 						try {
-							// creating a new task adding name and description from the view-class
+							// creating a new task adding name and description
+							// from the view-class
 							ITask newTask = new Task(CreateTaskPresenter.this
 									.getView().getName(),
 									CreateTaskPresenter.this.getView()
 											.getDescription());
-							
 
-							//adds the task to the sprintBacklog...
-							CreateTaskPresenter.this.sprintBacklog.addTask(newTask);
-						
-							
-							// sets the given plan effort from the view-class, that could be 0
-							newTask.setPlanEffort(CreateTaskPresenter.this.getView().getEffort());
+							// adds the task to the sprintBacklog...
+							CreateTaskPresenter.this.sprintBacklog
+									.addTask(newTask);
+
+							// sets the given plan effort from the view-class,
+							// that could be 0
+							newTask.setPlanEffort(CreateTaskPresenter.this
+									.getView().getEffort());
 
 							// adding all selected pbis to the new task
 							Iterator<ProductBacklogItem> pbiIterator = selectedPBIs
@@ -86,7 +96,8 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 								} catch (ForbiddenStateException e) {
 									GwtUtils.displayError(e.getMessage());
 								} catch (SprintAssociationException e) {
-									// displays an error if the pbi is not contained in the sprint
+									// displays an error if the pbi is not
+									// contained in the sprint
 									GwtUtils.displayError(e.getMessage());
 								}
 							}
@@ -97,7 +108,7 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 						} catch (ForbiddenStateException e) {
 							GwtUtils.displayError(e.getMessage());
 						}
-						//... and fires a finish event
+						// ... and fires a finish event
 						CreateTaskPresenter.this.finish();
 					}
 				});

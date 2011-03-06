@@ -23,10 +23,10 @@ import fhdw.ipscrum.shared.model.TaskUnassigned;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 
-
 /**
- * Presenter for {@link Task} with the state {@link TaskUnassigned} 
- * @author Phase III / Group I
+ * Presenter for {@link Task} with the state {@link TaskUnassigned}
+ * 
+ * @author Phase III / Group I 
  * This Class is a specialization of {@link TaskDetailPresenter}
  */
 public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
@@ -39,10 +39,10 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 	 * 
 	 * Gives the team-members of the sprint to the view-class
 	 * 
-	 * @param parent
-	 * @param parentPresenter
-	 * @param task
-	 * @param sprint
+	 * @param Panel parent
+	 * @param Presentere parentPresenter
+	 * @param ITask task
+	 * @param ISprint sprint
 	 */
 	public ToDoTaskDetailPresenter(Panel parent, Presenter<?> parentPresenter,
 			ITask task, ISprint sprint) {
@@ -51,95 +51,102 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 		this.getView().refreshPersons(sprint.getTeam().getMembers());
 	}
 
-	//adding specific handlers
+	// adding specific handlers
 	@Override
 	protected void addSpecificHandler() {
 
-		//Handler for the okayEvent
-		//Refreshs the Task with the given informations from the view-class
-		this.getView().addOkayEventHandler(
-				new EventHandler<EventArgs>() {
+		// Handler for the okayEvent
+		// Refreshs the Task with the given informations from the view-class
+		this.getView().addOkayEventHandler(new EventHandler<EventArgs>() {
 
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-					
-						try {
-							// Sets the attributes of the task
-							//Name
-							ToDoTaskDetailPresenter.this.task.setName(getView()
-									.getName());
-							//Description
-							ToDoTaskDetailPresenter.this.task
-									.setDescription(getView().getDescription());
-							//Effort
-							ToDoTaskDetailPresenter.this.task.setPlanEffort(getView().getEffort());
-							//Check if selected Person is null
-							if (getView().getPerson() != null) {
-								//Add a responsible person for the task
-								ToDoTaskDetailPresenter.this.task
-										.setResponsibility(getView()
-												.getPerson());
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
 
-							}
-							
-						} catch (ForbiddenStateException e) {
-							// Displays an error if action not allowed cause of the state
-							GwtUtils.displayError(e.getMessage());
-						} catch (NoValidValueException e) {
-							// Displays an error if the given informations from the view-class are not valid
-							GwtUtils.displayError(e.getMessage());
-						} catch (SprintAssociationException e) {
-							// consistency error: displays an error if the person is not in the team of the sprint
-							GwtUtils.displayError(e.getMessage());
-						}
-						// fire finish event for this presenter
-						ToDoTaskDetailPresenter.this.finish();
+				try {
+					// Sets the attributes of the task
+					// Name
+					ToDoTaskDetailPresenter.this.task.setName(getView()
+							.getName());
+					// Description
+					ToDoTaskDetailPresenter.this.task.setDescription(getView()
+							.getDescription());
+					// Effort
+					ToDoTaskDetailPresenter.this.task.setPlanEffort(getView()
+							.getEffort());
+					// Check if selected Person is null
+					if (getView().getPerson() != null) {
+						// Add a responsible person for the task
+						ToDoTaskDetailPresenter.this.task
+								.setResponsibility(getView().getPerson());
+
 					}
-				});
-		
+
+				} catch (ForbiddenStateException e) {
+					// Displays an error if action not allowed cause of the
+					// state
+					GwtUtils.displayError(e.getMessage());
+				} catch (NoValidValueException e) {
+					// Displays an error if the given informations from the
+					// view-class are not valid
+					GwtUtils.displayError(e.getMessage());
+				} catch (SprintAssociationException e) {
+					// consistency error: displays an error if the person is not
+					// in the team of the sprint
+					GwtUtils.displayError(e.getMessage());
+				}
+				// fire finish event for this presenter
+				ToDoTaskDetailPresenter.this.finish();
+			}
+		});
+
 		this.getView().addAddPBIsEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				
+
 				final DialogBox diaBox = new DialogBox();
 				diaBox.setText(TextConstants.EDIT_TASK);
-				
-				AddPBIsToTaskPresenter addPresenter = new AddPBIsToTaskPresenter(diaBox, ToDoTaskDetailPresenter.this, ToDoTaskDetailPresenter.this.task);
-			
+
+				AddPBIsToTaskPresenter addPresenter = new AddPBIsToTaskPresenter(
+						diaBox, ToDoTaskDetailPresenter.this,
+						ToDoTaskDetailPresenter.this.task);
+
 				diaBox.center();
-				
+
 				addPresenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
 					public void onUpdate(Object sender, EventArgs eventArgs) {
-					diaBox.clear();
-					diaBox.hide();
-					
-					refreshPBIs();
+						diaBox.clear();
+						diaBox.hide();
+
+						refreshPBIs();
 					}
 
 				});
 			}
 		});
-		
-		this.getView().addRemovePBIsEventHandler(new EventHandler<MultiplePBIArgs>() {
 
-			@Override
-			public void onUpdate(Object sender, MultiplePBIArgs eventArgs) {
-				Iterator<ProductBacklogItem> pbisIt = eventArgs.getPbis().iterator();
-				
-				while(pbisIt.hasNext()){
-				try {
-					task.removePBI(pbisIt.next());
-				} catch (ForbiddenStateException e) {
-					GwtUtils.displayError(e.getMessage());
-				}	
-				}
-				refreshPBIs();
-				
-			}
-		});
+		this.getView().addRemovePBIsEventHandler(
+				new EventHandler<MultiplePBIArgs>() {
+
+					@Override
+					public void onUpdate(Object sender,
+							MultiplePBIArgs eventArgs) {
+						Iterator<ProductBacklogItem> pbisIt = eventArgs
+								.getPbis().iterator();
+
+						while (pbisIt.hasNext()) {
+							try {
+								task.removePBI(pbisIt.next());
+							} catch (ForbiddenStateException e) {
+								GwtUtils.displayError(e.getMessage());
+							}
+						}
+						refreshPBIs();
+
+					}
+				});
 	}
 
 	@Override
@@ -149,20 +156,19 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 		return view;
 	}
 
-	
 	/**
 	 * This method refreshs the pbis on the view
 	 */
 	private void refreshPBIs() {
 		Iterator<ProductBacklogItem> pbisIt = task.getPBIIterator();
-		
+
 		Vector<ProductBacklogItem> pbis = new Vector<ProductBacklogItem>();
-		
-		while(pbisIt.hasNext()){
+
+		while (pbisIt.hasNext()) {
 			pbis.add(pbisIt.next());
 		}
-	
+
 		this.getView().refreshPBIs(pbis);
 	}
-	
+
 }

@@ -24,9 +24,9 @@ public class FinishTaskDetailPresenter extends TaskDetailPresenter {
 	 * 
 	 * Gives the responsible person of the task for the view class
 	 * 
-	 * @param parent
-	 * @param parentPresenter
-	 * @param task
+	 * @param Panel parent
+	 * @param Presenter parentPresenter
+	 * @param ITask task
 	 */
 	public FinishTaskDetailPresenter(Panel parent,
 			Presenter<?> parentPresenter, ITask task) {
