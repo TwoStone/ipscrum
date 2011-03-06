@@ -6,6 +6,7 @@ package fhdw.ipscrum.client.view;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,10 +25,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.client.utils.SystemTreeItem;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.Systemgroup;
 
 /**
  * @author Niklas
@@ -36,7 +35,7 @@ import fhdw.ipscrum.shared.model.Systemgroup;
 public class SystemManagementView extends Composite implements
 		ISystemManagementView {
 	private final Event<NewSystemEventArgs> createSystemEvent = new Event<NewSystemEventArgs>();
-	private List<Systemgroup> possibleParents;
+	private List<System> possibleParents;
 	final Tree systemTree;
 	final RadioButton rdbtnSystem;
 	final RadioButton rdbtnGruppe;
@@ -97,9 +96,9 @@ public class SystemManagementView extends Composite implements
 		final Button btnNewSystem = new Button("Neues System hinzufügen");
 		btnNewSystem.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				final String name = nameTextBox.getText();
-				Systemgroup parent = null;
+				System parent = null;
 				if (SystemManagementView.this.parentComboBox.getSelectedIndex() > 0) {
 					parent = SystemManagementView.this.possibleParents
 							.get(SystemManagementView.this.parentComboBox
@@ -134,32 +133,32 @@ public class SystemManagementView extends Composite implements
 	 * (fhdw.ipscrum.shared.model.interfaces.IHasChildren)
 	 */
 	@Override
-	public void setRootSystemGroup(List<System> systems) {
+	public void setRootSystemGroup(final List<System> systems) {
 		Collections.sort(systems, new Comparator<System>() {
 			@Override
-			public int compare(System o1, System o2) {
+			public int compare(final System o1, final System o2) {
 				return o1.getName().compareToIgnoreCase(o2.getName());
 			}
 		});
 		this.systemTree.clear();
 		for (final System system : systems) {
-			this.systemTree.addItem(new SystemTreeItem(system));
+			this.systemTree.addItem(system.toString());
 		}
 	}
 
 	@Override
-	public void setPossibleParents(List<Systemgroup> parents) {
-		Collections.sort(parents, new Comparator<Systemgroup>() {
+	public void setPossibleParents(final Vector<System> parents) {
+		Collections.sort(parents, new Comparator<System>() {
 
 			@Override
-			public int compare(Systemgroup o1, Systemgroup o2) {
+			public int compare(final System o1, final System o2) {
 				return o1.getName().compareToIgnoreCase(o2.getName());
 			}
 		});
 		this.possibleParents = parents;
 		this.parentComboBox.clear();
 		this.parentComboBox.addItem("");
-		for (final Systemgroup systemgroup : parents) {
+		for (final System systemgroup : parents) {
 			this.parentComboBox.addItem(systemgroup.getName());
 		}
 	}

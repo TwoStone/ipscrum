@@ -3,14 +3,11 @@
  */
 package fhdw.ipscrum.shared.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -41,22 +38,23 @@ public class Rootsystem extends Observable implements IHasChildren {
 		return this.toSystemAssoc;
 	}
 
-	/**
-	 * adds a Child to the systemgroup
-	 * 
-	 * @param child
-	 * @throws DoubleDefinitionException
-	 */
-	@Override
-	public void addChild(final System child) throws DoubleDefinitionException {
-		if (this.contains(child)) {
-			throw new DoubleDefinitionException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-		} else {
-			this.getToSystemAssoc().add(child.getToIHasChildAssoc());
-			this.notifyObservers();
-		}
-	}
+	// /**
+	// * adds a Child to the systemgroup
+	// *
+	// * @param child
+	// * @throws DoubleDefinitionException
+	// */
+	// @Override
+	// public void addChild(final System child) throws DoubleDefinitionException
+	// {
+	// if (this.contains(child)) {
+	// throw new DoubleDefinitionException(
+	// fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+	// } else {
+	// this.getToSystemAssoc().add(child.getToIHasChildAssoc());
+	// this.notifyObservers();
+	// }
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -66,17 +64,28 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * .Component)
 	 */
 	public boolean contains(final System child) {
-		if (this.equals(child)) {
-			return true;
+		return this.containsAction(child);
+	}
+
+	@Override
+	public boolean containsAction(final System system) {
+		for (final System current : this.getSystems()) {
+			if (current.equals(system)) {
+				return true;
+			} else {
+				if (current.containsAction(system)) {
+					return true;
+				}
+			}
 		}
-		return this.getChilds().contains(child);
+		return false;
 	}
 
 	/**
 	 * @return the childs
 	 */
 	@Override
-	public Vector<System> getChilds() {
+	public Vector<System> getSystems() {
 		final Vector<System> ret = new Vector<System>();
 		for (final BDACompare current : this.getToSystemAssoc()
 				.getAssociations()) {
@@ -95,6 +104,11 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 */
 	private void setName(final String name) {
 		this.name = name;
+	}
+
+	@Override
+	public IHasChildren getRoot() {
+		return this;
 	}
 
 	@Override
@@ -158,14 +172,4 @@ public class Rootsystem extends Observable implements IHasChildren {
 	public void accept(final HasChildVisitor visitor) {
 		visitor.handleRoot(this);
 	}
-
-	@Override
-	public List<Systemgroup> getGroups() {
-		final List<Systemgroup> result = new ArrayList<Systemgroup>();
-		for (final System system : this.getChilds()) {
-			result.addAll(system.getGroups());
-		}
-		return result;
-	}
-
 }

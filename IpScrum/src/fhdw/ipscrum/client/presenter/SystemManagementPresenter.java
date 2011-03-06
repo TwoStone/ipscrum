@@ -1,7 +1,5 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.List;
-
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventHandler;
@@ -10,8 +8,6 @@ import fhdw.ipscrum.client.view.SystemManagementView;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView.NewSystemEventArgs;
 import fhdw.ipscrum.shared.exceptions.UserException;
-import fhdw.ipscrum.shared.model.ConcreteSystem;
-import fhdw.ipscrum.shared.model.Systemgroup;
 import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 
 public class SystemManagementPresenter extends Presenter<ISystemManagementView> {
@@ -26,9 +22,8 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 	private void updateView() {
 		final IHasChildren root = this.getSessionManager().getModel()
 				.getSysManager().getSystems();
-		this.getView().setRootSystemGroup(root.getChilds());
-		final List<Systemgroup> groups = root.getGroups();
-		this.getView().setPossibleParents(groups);
+		this.getView().setRootSystemGroup(root.getSystems());
+		this.getView().setPossibleParents(root.getSystems());
 	}
 
 	@Override
@@ -60,11 +55,7 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 		}
 
 		try {
-			if (eventArgs.AsGroup) {
-				new Systemgroup(eventArgs.Name, parent);
-			} else {
-				new ConcreteSystem(eventArgs.Name, parent);
-			}
+			new fhdw.ipscrum.shared.model.System(eventArgs.Name, parent);
 			this.updateView();
 		} catch (final UserException e) {
 			GwtUtils.displayError(e.getMessage());
