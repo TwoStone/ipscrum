@@ -20,18 +20,43 @@ import fhdw.ipscrum.shared.observer.Observable;
 
 public class Task extends Observable implements ITask {
 	private static final long serialVersionUID = -7493025129803401507L;
+	/**
+	 * a short name for the task.
+	 */
 	private String name;
+	/**
+	 * the description describes the task in more detail.
+	 */
 	private String description;
+	/**
+	 * the state of a task describes allowed actions and the workflow context.
+	 */
 	private ITaskState state;
+	/**
+	 * this task shall realize the matters of the assigned product backlog items
+	 */
 	private List<ProductBacklogItem> assignedPBIs;
+	/**
+	 * the plan effort is the estimated effort for executing the task.
+	 * the plan effort may be changed during the lifecycle of a task.
+	 * at the end of the lifecycle, the planEffort is 0.
+	 * You can also call it "estimated rest effort".
+	 */
 	private Integer planEffort;
+	/**
+	 * 1:1 relation to the sprint backlog
+	 */
+	@SuppressWarnings("rawtypes")
 	private ManyToOne<OneToMany, ITask> sprintBacklogAssoc;
-
-	@SuppressWarnings("unused")
-	private Task() {
-		super();
-	}
-
+	
+	/**
+	 * Creates a Task instance with initial state >>unassigned<<.
+	 *  
+	 * @param name pass a short name to the task
+	 * @param description pass a more detailed description
+	 * @throws NoValidValueException is thrown if name or description is empty.
+	 */
+	@SuppressWarnings("rawtypes")
 	public Task(String name, String description) throws NoValidValueException {
 		super();
 		this.state = new TaskUnassigned(this);
@@ -52,6 +77,14 @@ public class Task extends Observable implements ITask {
 		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
 		this.planEffort = 0;
 	}
+	/**
+	 * for serialization
+	 */
+	@SuppressWarnings("unused")
+	private Task() {
+		super();
+	}
+	@SuppressWarnings("rawtypes")
 	@Override
 	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc(){
 		return this.sprintBacklogAssoc;
@@ -71,7 +104,7 @@ public class Task extends Observable implements ITask {
 		}
 		this.state.addPBI(pbi);
 	}
-
+	
 	protected void doAddPBI(ProductBacklogItem pbi) {
 		this.assignedPBIs.add(pbi);
 	}
