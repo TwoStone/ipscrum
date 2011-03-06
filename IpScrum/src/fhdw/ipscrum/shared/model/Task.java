@@ -12,6 +12,7 @@ import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
@@ -61,20 +62,17 @@ public class Task extends Observable implements ITask {
 	}
 
 	@Override
-	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
+	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException {
+		if (pbi.getSprint()==null){
+			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
+		} 
+		if (!pbi.getSprint().getSprintBacklog().hasTask(this)){
+			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
+		}
 		this.state.addPBI(pbi);
 	}
 
 	protected void doAddPBI(ProductBacklogItem pbi) {
-		if (pbi.getSprint()==null){
-			// Inkonsistent
-			//TODO: Exception
-		} 
-		if (!pbi.getSprint().getSprintBacklog().hasTask(this)){
-			// Inkonsistent
-			//TODO: Exception
-		}
-		
 		this.assignedPBIs.add(pbi);
 	}
 
@@ -186,10 +184,13 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson)
-			throws ForbiddenStateException {
-		this.state.setResponsibility(responsiblePerson);
-		this.notifyObservers();
-
+			throws ForbiddenStateException, SprintAssociationException {
+		if (this.isPersonValid(responsiblePerson)){
+			this.state.setResponsibility(responsiblePerson);
+			this.notifyObservers();
+		} else {
+			throw new SprintAssociationException(ExceptionConstants.PERSON_NOT_IN_SPRINT_TEAM_ERROR);
+		}
 	}
 
 	protected void setState(ITaskState state) {
@@ -202,24 +203,6 @@ public class Task extends Observable implements ITask {
 	 * @param responsiblePerson
 	 */
 	protected void setTaskAssigned(IPerson responsiblePerson) {
-		Vector<IPerson> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
-		if (sprintTeamMembers==null){
-			//Inkonsistent
-			//TODO: Exception
-		}
-		Iterator<IPerson> memberIterator = sprintTeamMembers.iterator();
-		boolean isPersonValid = false;
-		while (memberIterator.hasNext()){
-			IPerson current = memberIterator.next();
-			if (current.equals(responsiblePerson)){
-				isPersonValid = true; break;
-			}
-		}
-		if (!isPersonValid){
-			//Inkonsistent
-			//TODO: Exception;
-		}
-		
 		this.state = new TaskInProgress(this, responsiblePerson);
 	}
 
@@ -315,7 +298,30 @@ public class Task extends Observable implements ITask {
 	public int hashCode() {
 		return this.indirectHashCode();
 	}
-
+	/**
+	 * Checks if a person may obtain responsibility for a task.
+	 * 
+	 * @param responsiblePerson Person to check
+	 * @return
+	 * - true, if the person is a member of the sprint team. 
+	 * - false, if the person is not a member of the sprint team or
+	 *          if the person isn't in a team at all
+	 */
+	private boolean isPersonValid(IPerson responsiblePerson){
+		Vector<IPerson> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
+		if (sprintTeamMembers==null){
+			return false;
+		}
+		Iterator<IPerson> memberIterator = sprintTeamMembers.iterator();
+		boolean isPersonValid = false;
+		while (memberIterator.hasNext()){
+			IPerson current = memberIterator.next();
+			if (current.equals(responsiblePerson)){
+				isPersonValid = true; break;
+			}
+		}
+		return isPersonValid;
+	}
 
 	
 	

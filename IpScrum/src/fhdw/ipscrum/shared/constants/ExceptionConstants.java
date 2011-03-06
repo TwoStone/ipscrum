@@ -26,6 +26,8 @@ public abstract class ExceptionConstants {
 	public static final String GUI_SYSTEMIEW_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Systemzuordnung ein System aus den verfügbaren Systemen aus.";
 
 	public static final String TASK_INITIAL_STATE_ERROR = "INTERNAL ERROR! - The initial State does not allow initializing attributes";
+	public static final String PERSON_NOT_IN_SPRINT_TEAM_ERROR = "Diese Person ist nicht Teil des Teams für diesen Sprint";
+	public static final String PBI_NOT_IN_SPRINT_ERROR = "Dieses PBI wird in diesem Sprint nicht in das Produktinkrement eingehen";
 	public static final String SYSTEM_IS_NOT_POSSIBLE = "System ist nicht als mögliches System im Projekt definiert.";
 	public static final String RELEASE_NOT_IN_PROJECT = "Release gehört nicht zum übergeordneten Projekt!";
 }

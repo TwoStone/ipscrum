@@ -1,0 +1,19 @@
+package fhdw.ipscrum.shared.exceptions;
+/**
+ * Major Taskboard consistency exception.
+ * This exception will be thrown if the context of a sprint 
+ * does not allow assignments with tasks, 
+ * for example assign a person which is not contained in the sprint team
+ */
+public class SprintAssociationException extends UserException{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8444006756078567113L;
+
+	public SprintAssociationException(String message) {
+		super(message);
+	}
+
+}

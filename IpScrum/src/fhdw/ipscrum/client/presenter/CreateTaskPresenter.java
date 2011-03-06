@@ -12,6 +12,7 @@ import fhdw.ipscrum.client.view.CreateTaskView;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.Task;
@@ -53,6 +54,9 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 								try {
 									newTask.addPBI(pbiIterator.next());
 								} catch (ForbiddenStateException e) {
+									GwtUtils.displayError(e.getMessage());
+								} catch (SprintAssociationException e) {
+									// displays an error if the pbi is not contained in the sprint
 									GwtUtils.displayError(e.getMessage());
 								}
 							}

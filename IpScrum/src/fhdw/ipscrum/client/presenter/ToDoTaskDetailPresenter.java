@@ -10,6 +10,7 @@ import fhdw.ipscrum.client.view.interfaces.ITaskDetailView;
 import fhdw.ipscrum.client.view.interfaces.ITodoTaskDetailView;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.TaskUnassigned;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -78,6 +79,9 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 							GwtUtils.displayError(e.getMessage());
 						} catch (NoValidValueException e) {
 							// Displays an error if the given informations from the view-class are not valid
+							GwtUtils.displayError(e.getMessage());
+						} catch (SprintAssociationException e) {
+							// consistency error: displays an error if the person is not in the team of the sprint
 							GwtUtils.displayError(e.getMessage());
 						}
 						// fire finish event for this presenter
