@@ -311,7 +311,7 @@ public class DemoModel {
 		taskSIdealCurve.addPBI(f9);
 		taskSIdealCurve.setPlanEffort(5);
 		taskSIdealCurve.setResponsibility(pWilken);
-		taskSIdealCurve.finish(new Date(2011-1900, 3-1, 5));
+		taskSIdealCurve.finish(new Date(2011-1900, 3-1, 1));
 
 		Task taskSTrendCurve = new Task("Sprint Trend-Curve", "Darstellung Trend");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSTrendCurve);
