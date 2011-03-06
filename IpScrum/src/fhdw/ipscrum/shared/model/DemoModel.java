@@ -317,51 +317,51 @@ public class DemoModel {
 		RelationType.create("Siehe auch");
 
 		// Initial Tasks
-		Task taskSBDCurve = new Task("Sprint: Burndown-Curve", "Darstellung Sprint-Fortschritt");
+		Task taskSBDCurve = new Task("Sprint Burndown-Curve", "Darstellung Sprint-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSBDCurve);
 		taskSBDCurve.addPBI(f9);
 		taskSBDCurve.setPlanEffort(5);
 		taskSBDCurve.setResponsibility(pWilken);
 
-		Task taskSIdealCurve = new Task("Sprint: Ideal-Curve", "Darstellung Ideal-Fortschritt");
+		Task taskSIdealCurve = new Task("Sprint Ideal-Curve", "Darstellung Ideal-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSIdealCurve);
 		taskSIdealCurve.addPBI(f9);
 		taskSIdealCurve.setPlanEffort(5);
 		taskSIdealCurve.setResponsibility(pWilken);
 
-		Task taskSTrendCurve = new Task("Sprint: Trend-Curve", "Darstellung Trend");
+		Task taskSTrendCurve = new Task("Sprint Trend-Curve", "Darstellung Trend");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSTrendCurve);
 		taskSTrendCurve.addPBI(f9);
 		taskSTrendCurve.setPlanEffort(10);
 		taskSTrendCurve.setResponsibility(pWilken);
 
 
-		Task taskRBDCurve = new Task("Release: Burndown-Curve", "Darstellung Release-Fortschritt");
+		Task taskRBDCurve = new Task("Release Burndown-Curve", "Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRBDCurve);
 		taskRBDCurve.addPBI(f10);
 		taskRBDCurve.setPlanEffort(5);
 		taskRBDCurve.setResponsibility(pSarah);
 
-		Task taskRIdealCurve = new Task("Release: Ideal-Curve", "Darstellung Release-Fortschritt");
+		Task taskRIdealCurve = new Task("Release Ideal-Curve", "Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRIdealCurve);
 		taskRIdealCurve.addPBI(f10);
 		taskRIdealCurve.setPlanEffort(5);
 		taskRIdealCurve.setResponsibility(pSarah);
 
-		Task taskRTrendCurve = new Task("Release: Trend-Curve", "Darstellung Release");
+		Task taskRTrendCurve = new Task("Release Trend-Curve", "Darstellung Release");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRTrendCurve);
 		taskRTrendCurve.addPBI(f10);
 		taskRTrendCurve.setPlanEffort(5);
 		taskRTrendCurve.setResponsibility(pSarah);
 
 
-		Task taskReportView = new Task("Report: View", "Report: View-Komponente");
+		Task taskReportView = new Task("Report View", "Report: View-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportView);
 		taskReportView.addPBI(f11);
 		taskReportView.setPlanEffort(4);
 		taskReportView.setResponsibility(pChris);
 
-		Task taskReportPresenter = new Task("Report: Presenter", "Report: Presenter-Komponente");
+		Task taskReportPresenter = new Task("Report Presenter", "Report: Presenter-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportPresenter);
 		taskReportPresenter.addPBI(f11);
 		taskReportPresenter.setPlanEffort(1);
