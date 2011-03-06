@@ -222,8 +222,7 @@ public abstract class TaskDetailView extends Composite implements
 						concreteTaskDetailPanel.add(lblTaskFinished, 226, 399);
 	}
 
-	// ################## SETTER / GETTER for view elements
-	// #############################
+	// ################## SETTER / GETTER for view elements #############################
 	// proteced cause only use in view classes
 
 	/**
@@ -325,7 +324,7 @@ public abstract class TaskDetailView extends Composite implements
 
 	// ################## Ende #############################
 
-	// ######################## THIS METHODS ARE USED BY THE PRESENTATORS	// #####################
+	// ######################## THIS METHODS ARE USED BY THE PRESENTATORS #####################
 	@Override
 	public String getName() {
 		return this.getTxtBoxName().getValue();

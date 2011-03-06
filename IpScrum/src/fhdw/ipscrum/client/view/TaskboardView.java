@@ -61,10 +61,12 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	private CellList<ITask> inProgressCellList;
 	private Button btnDeleteTodoTask;
 	private AbsolutePanel concreteTaskboardPanel;
+
 	// ####### Ende View Elements ###############
 
 	/**
-	 * Constructor for {@link TaskboardView}. Creates all View-Elements for the taskboard and calls the initTreeSelectionModel().
+	 * Constructor for {@link TaskboardView}. Creates all View-Elements for the
+	 * taskboard and calls the initTreeSelectionModel().
 	 */
 	public TaskboardView() {
 
@@ -93,150 +95,150 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		concreteTaskboardPanel = new AbsolutePanel();
 		contentPanel.add(concreteTaskboardPanel);
 		concreteTaskboardPanel.setSize("775px", "600px");
-		
+
 		VerticalPanel newTasklPanel = new VerticalPanel();
 		newTasklPanel.setSpacing(3);
 		concreteTaskboardPanel.add(newTasklPanel, 25, 25);
 		newTasklPanel.setSize("170px", "300px");
-		
-				Label lblPBI = new Label("ProductBacklog Einträge");
-				newTasklPanel.add(lblPBI);
-				lblPBI.setWidth("100%");
-				lblPBI.setStyleName("bold");
-				
-						pbiCellList = new CellList<ProductBacklogItem>(
-								new AbstractCell<ProductBacklogItem>() {
-									@Override
-									public void render(Context context,
-											ProductBacklogItem value, SafeHtmlBuilder sb) {
-										sb.appendEscaped(value.getName());
-									}
-								});
-						pbiCellList.setStyleName("smallborder");
-						newTasklPanel.add(pbiCellList);
-						pbiCellList.setSize("130px", "250px");
-						pbiCellList
-								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
-						
-								btnNewTask = new Button("New button");
-								newTasklPanel.add(btnNewTask);
-								btnNewTask.setText("Neuer Task");
-								btnNewTask.setSize("140px", "28px");
-								
-								VerticalPanel toDoTaskPanel = new VerticalPanel();
-								toDoTaskPanel.setSpacing(3);
-								concreteTaskboardPanel.add(toDoTaskPanel, 242, 25);
-								toDoTaskPanel.setSize("140px", "300px");
-								
-										Label lblZuErledigen = new Label("Zu erledigen");
-										toDoTaskPanel.add(lblZuErledigen);
-										lblZuErledigen.setStyleName("bold");
-										
-												this.todoCellList = new CellList<ITask>(new AbstractCell<ITask>() {
-													@Override
-													public void render(Context context, ITask value, SafeHtmlBuilder sb) {
-														sb.appendEscaped(value.getName());
-													}
-												});
-												toDoTaskPanel.add(todoCellList);
-												todoCellList.setStyleName("smallborder");
-												todoCellList.setSize("130px", "250px");
-												
-														btnEditTodoTask = new Button("Task bearbeiten");
-														toDoTaskPanel.add(btnEditTodoTask);
-														btnEditTodoTask.setText("Task bearbeiten");
-														btnEditTodoTask.setSize("100%", "28px");
-														
-																btnDeleteTodoTask = new Button("Task löschen");
-																toDoTaskPanel.add(btnDeleteTodoTask);
-																btnDeleteTodoTask.setSize("100%", "28px");
-																
-																VerticalPanel inProgressTaskPanel = new VerticalPanel();
-																inProgressTaskPanel.setSpacing(3);
-																concreteTaskboardPanel.add(inProgressTaskPanel, 408, 25);
-																inProgressTaskPanel.setSize("140px", "300px");
-																
-																		Label lblInArbeit = new Label("In Arbeit");
-																		inProgressTaskPanel.add(lblInArbeit);
-																		lblInArbeit.setStyleName("bold");
-																		
-																				inProgressCellList = new CellList<ITask>(new AbstractCell<ITask>() {
-																					@Override
-																					public void render(Context context, ITask value, SafeHtmlBuilder sb) {
-																						sb.appendEscaped(value.getName());
-																					}
-																				});
-																				inProgressTaskPanel.add(inProgressCellList);
-																				inProgressCellList.setStyleName("smallborder");
-																				inProgressCellList.setSize("130px", "250px");
-																				
-																						btnEditInProgressTask = new Button("Task bearbeiten");
-																						inProgressTaskPanel.add(btnEditInProgressTask);
-																						btnEditInProgressTask.setText("Task bearbeiten");
-																						btnEditInProgressTask.setSize("100%", "28px");
-																						btnEditInProgressTask.addClickHandler(new ClickHandler() {
 
-																							@Override
-																							public void onClick(ClickEvent event) {
-																								editInProgressTaskEvent.fire(TaskboardView.this, new TaskArgs(
-																										getSelectedInProgressTask()));
-																							}
-																						});
-																
-																VerticalPanel finishTaskPanel = new VerticalPanel();
-																finishTaskPanel.setSpacing(3);
-																concreteTaskboardPanel.add(finishTaskPanel, 574, 25);
-																finishTaskPanel.setSize("140px", "300px");
-																
-																		Label lblErledigt = new Label("Erledigt");
-																		finishTaskPanel.add(lblErledigt);
-																		lblErledigt.setStyleName("bold");
-																		
-																				doneCellList = new CellList<ITask>(new AbstractCell<ITask>() {
-																					@Override
-																					public void render(Context context, ITask value, SafeHtmlBuilder sb) {
-																						sb.appendEscaped(value.getName());
-																					}
-																				});
-																				finishTaskPanel.add(doneCellList);
-																				doneCellList.setStyleName("smallborder");
-																				doneCellList.setSize("130px", "250px");
-																				
-																						btnEditDoneTask = new Button("Details");
-																						finishTaskPanel.add(btnEditDoneTask);
-																						btnEditDoneTask.setSize("100%", "28px");
-																						btnEditDoneTask.addClickHandler(new ClickHandler() {
+		Label lblPBI = new Label("ProductBacklog Einträge");
+		newTasklPanel.add(lblPBI);
+		lblPBI.setWidth("100%");
+		lblPBI.setStyleName("bold");
 
-																							@Override
-																							public void onClick(ClickEvent event) {
-																								detailsFinishTaskEvent.fire(TaskboardView.this, new TaskArgs(
-																										getSelectedDoneTask()));
-																							}
-																						});
-																btnDeleteTodoTask.addClickHandler(new ClickHandler() {
+		pbiCellList = new CellList<ProductBacklogItem>(
+				new AbstractCell<ProductBacklogItem>() {
+					@Override
+					public void render(Context context,
+							ProductBacklogItem value, SafeHtmlBuilder sb) {
+						sb.appendEscaped(value.getName());
+					}
+				});
+		pbiCellList.setStyleName("smallborder");
+		newTasklPanel.add(pbiCellList);
+		pbiCellList.setSize("130px", "250px");
+		pbiCellList
+				.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 
-																	@Override
-																	public void onClick(ClickEvent event) {
-																		deleteTaskEvent.fire(TaskboardView.this, new TaskArgs(
-																				getSelectedTodoTask()));
-																	}
-																});
-														btnEditTodoTask.addClickHandler(new ClickHandler() {
+		btnNewTask = new Button("New button");
+		newTasklPanel.add(btnNewTask);
+		btnNewTask.setText("Neuer Task");
+		btnNewTask.setSize("140px", "28px");
 
-															@Override
-															public void onClick(ClickEvent event) {
-																editToDoTaskEvent.fire(TaskboardView.this, new TaskArgs(
-																		getSelectedTodoTask()));
-															}
-														});
-								btnNewTask.addClickHandler(new ClickHandler() {
+		VerticalPanel toDoTaskPanel = new VerticalPanel();
+		toDoTaskPanel.setSpacing(3);
+		concreteTaskboardPanel.add(toDoTaskPanel, 242, 25);
+		toDoTaskPanel.setSize("140px", "300px");
 
-									@Override
-									public void onClick(ClickEvent event) {
-										TaskboardView.this.newTaskEvent.fire(TaskboardView.this,
-												new MultiplePBIArgs(getSelectedPBIs()));
-									}
-								});
+		Label lblZuErledigen = new Label("Zu erledigen");
+		toDoTaskPanel.add(lblZuErledigen);
+		lblZuErledigen.setStyleName("bold");
+
+		this.todoCellList = new CellList<ITask>(new AbstractCell<ITask>() {
+			@Override
+			public void render(Context context, ITask value, SafeHtmlBuilder sb) {
+				sb.appendEscaped(value.getName());
+			}
+		});
+		toDoTaskPanel.add(todoCellList);
+		todoCellList.setStyleName("smallborder");
+		todoCellList.setSize("130px", "250px");
+
+		btnEditTodoTask = new Button("Task bearbeiten");
+		toDoTaskPanel.add(btnEditTodoTask);
+		btnEditTodoTask.setText("Task bearbeiten");
+		btnEditTodoTask.setSize("100%", "28px");
+
+		btnDeleteTodoTask = new Button("Task löschen");
+		toDoTaskPanel.add(btnDeleteTodoTask);
+		btnDeleteTodoTask.setSize("100%", "28px");
+
+		VerticalPanel inProgressTaskPanel = new VerticalPanel();
+		inProgressTaskPanel.setSpacing(3);
+		concreteTaskboardPanel.add(inProgressTaskPanel, 408, 25);
+		inProgressTaskPanel.setSize("140px", "300px");
+
+		Label lblInArbeit = new Label("In Arbeit");
+		inProgressTaskPanel.add(lblInArbeit);
+		lblInArbeit.setStyleName("bold");
+
+		inProgressCellList = new CellList<ITask>(new AbstractCell<ITask>() {
+			@Override
+			public void render(Context context, ITask value, SafeHtmlBuilder sb) {
+				sb.appendEscaped(value.getName());
+			}
+		});
+		inProgressTaskPanel.add(inProgressCellList);
+		inProgressCellList.setStyleName("smallborder");
+		inProgressCellList.setSize("130px", "250px");
+
+		btnEditInProgressTask = new Button("Task bearbeiten");
+		inProgressTaskPanel.add(btnEditInProgressTask);
+		btnEditInProgressTask.setText("Task bearbeiten");
+		btnEditInProgressTask.setSize("100%", "28px");
+		btnEditInProgressTask.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				editInProgressTaskEvent.fire(TaskboardView.this, new TaskArgs(
+						getSelectedInProgressTask()));
+			}
+		});
+
+		VerticalPanel finishTaskPanel = new VerticalPanel();
+		finishTaskPanel.setSpacing(3);
+		concreteTaskboardPanel.add(finishTaskPanel, 574, 25);
+		finishTaskPanel.setSize("140px", "300px");
+
+		Label lblErledigt = new Label("Erledigt");
+		finishTaskPanel.add(lblErledigt);
+		lblErledigt.setStyleName("bold");
+
+		doneCellList = new CellList<ITask>(new AbstractCell<ITask>() {
+			@Override
+			public void render(Context context, ITask value, SafeHtmlBuilder sb) {
+				sb.appendEscaped(value.getName());
+			}
+		});
+		finishTaskPanel.add(doneCellList);
+		doneCellList.setStyleName("smallborder");
+		doneCellList.setSize("130px", "250px");
+
+		btnEditDoneTask = new Button("Details");
+		finishTaskPanel.add(btnEditDoneTask);
+		btnEditDoneTask.setSize("100%", "28px");
+		btnEditDoneTask.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				detailsFinishTaskEvent.fire(TaskboardView.this, new TaskArgs(
+						getSelectedDoneTask()));
+			}
+		});
+		btnDeleteTodoTask.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				deleteTaskEvent.fire(TaskboardView.this, new TaskArgs(
+						getSelectedTodoTask()));
+			}
+		});
+		btnEditTodoTask.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				editToDoTaskEvent.fire(TaskboardView.this, new TaskArgs(
+						getSelectedTodoTask()));
+			}
+		});
+		btnNewTask.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				TaskboardView.this.newTaskEvent.fire(TaskboardView.this,
+						new MultiplePBIArgs(getSelectedPBIs()));
+			}
+		});
 
 		concreteTaskboardPanel.setVisible(false);
 	}
@@ -256,9 +258,11 @@ public class TaskboardView extends Composite implements ITaskboardView {
 								new SprintArgs(
 										TaskboardView.this.sprintSelectionModel
 												.getSelectedObject()));
-					}});}
+					}
+				});
+	}
 
-	// Methods for registrate EventHandler
+	// Methods to register EventHandler
 
 	@Override
 	public void addSelectSprintEventHandler(EventHandler<SprintArgs> arg) {
@@ -290,7 +294,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		detailsFinishTaskEvent.add(arg);
 	}
 
-	// Methods for refreshin / filling the cell-Lists
+	// Methods for refreshing / filling the cell-Lists
 
 	@Override
 	public void refreshPBIs(Vector<ProductBacklogItem> pbis) {
@@ -372,7 +376,6 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	}
 
 	// Makes the taskboard visible or not
-
 	@Override
 	public void setTaskboardVisibility(Boolean visible) {
 		this.getConcreteTaskboardPanel().setVisible(visible);
