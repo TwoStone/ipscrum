@@ -15,6 +15,11 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
 import com.google.gwt.user.client.ui.IntegerBox;
 
+/**
+ * This class represents a view for creating a new task
+ * @author Phase III / Group I
+ *
+ */
 public class CreateTaskView extends Composite implements ICreateTaskView {
 	
 	//####### Events ###############
@@ -22,6 +27,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	private final Event<EventArgs> cancelNewTaskEvent = new Event<EventArgs>();
 	//##### Ende ##################
 	
+	//########### View Elements ############
 	private Button btnOK;
 	private AbsolutePanel contentPanel;
 	private Button btnAbort;
@@ -29,6 +35,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	private TextArea textArea;
 	private IntegerBox iBoxEffort;
 	public CreateTaskView() {
+	//########## Ende View Elements ############
 		
 		contentPanel = new AbsolutePanel();
 		initWidget(contentPanel);
@@ -37,6 +44,8 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		btnOK = new Button("Anlegen");
 		contentPanel.add(btnOK, 10, 295);
 		btnOK.setSize("100px", "28px");
+		
+		// fireing saveNewTaskEvent
 		btnOK.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -48,6 +57,8 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		btnAbort = new Button("Abbrechen");
 		contentPanel.add(btnAbort, 141, 295);
 		btnAbort.setSize("100px", "28px");
+		
+		// fireing cancelNewTaskEvent
 		btnAbort.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -77,10 +88,22 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		contentPanel.add(iBoxEffort, 10, 260);
 	}
 
+	//### SETTER / GETTER methods ####
+	// Private cause only using in this class
+	// Presenters are using the methods from interface ITaskboardView
 	private TextBox getTextBox() {
 		return textBox;
 	}
 	
+	private IntegerBox getIBoxEffort() {
+		return iBoxEffort;
+	}
+	
+	private TextArea getTextArea() {
+		return textArea;
+	}
+	
+	// ####### Here are coming the methods from ITaskboardView
 	@Override
 	public void addSaveNewTaskEventHandler(EventHandler<EventArgs> arg) {
 		saveNewTaskEvent.add(arg);
@@ -89,9 +112,6 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	@Override
 	public void addCancelNewTaskEventHandler(EventHandler<EventArgs> arg) {
 		cancelNewTaskEvent.add(arg);
-	}
-	private TextArea getTextArea() {
-		return textArea;
 	}
 	
 	@Override
@@ -107,7 +127,5 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	public Integer getEffort() {
 		return this.getIBoxEffort().getValue();
 	}
-	protected IntegerBox getIBoxEffort() {
-		return iBoxEffort;
-	}
+
 }

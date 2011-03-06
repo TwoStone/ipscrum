@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.Iterator;
+import java.util.Vector;
 
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Panel;
@@ -114,8 +115,10 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 					public void onUpdate(Object sender, EventArgs eventArgs) {
 					diaBox.clear();
 					diaBox.hide();
-					ToDoTaskDetailPresenter.this.getView().initTaskView(task);
+					
+					refreshPBIs();
 					}
+
 				});
 			}
 		});
@@ -133,7 +136,7 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 					GwtUtils.displayError(e.getMessage());
 				}	
 				}
-				ToDoTaskDetailPresenter.this.getView().initTaskView(task);
+				refreshPBIs();
 				
 			}
 		});
@@ -146,4 +149,20 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 		return view;
 	}
 
+	
+	/**
+	 * This method refreshs the pbis on the view
+	 */
+	private void refreshPBIs() {
+		Iterator<ProductBacklogItem> pbisIt = task.getPBIIterator();
+		
+		Vector<ProductBacklogItem> pbis = new Vector<ProductBacklogItem>();
+		
+		while(pbisIt.hasNext()){
+			pbis.add(pbisIt.next());
+		}
+	
+		this.getView().refreshPBIs(pbis);
+	}
+	
 }

@@ -33,7 +33,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
 /**
  * This class is used to represent taskboards.
  * 
- * @author Phase III / Gruppe I
+ * @author Phase III / Group I
  * 
  */
 public class TaskboardView extends Composite implements ITaskboardView {
