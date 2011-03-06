@@ -101,7 +101,7 @@ public abstract class TaskDetailView extends Composite implements
 		concreteTaskDetailPanel.add(lblPerson, 10, 287);
 
 		// creates a label for the effort
-		Label lblAufwand = new Label("Aufwand [in Personsnstunden]:");
+		Label lblAufwand = new Label("Aufwand [in Personenstunden]:");
 		concreteTaskDetailPanel.add(lblAufwand, 10, 226);
 
 		// creates a label for task finish
