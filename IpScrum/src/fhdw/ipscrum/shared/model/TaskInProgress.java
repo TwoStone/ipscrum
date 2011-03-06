@@ -5,6 +5,7 @@ import java.util.Date;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
@@ -16,8 +17,9 @@ public class TaskInProgress extends TaskAssigned {
 	 * Creates a new TaskInProgress instance
 	 * @param task A task has to be passed to represent the 1:1 relation between the task and its state.
 	 * @param responsiblePerson person which is responsible for the task.
+	 * @throws SprintAssociationException 
 	 */
-	public TaskInProgress(Task task, IPerson responsiblePerson) {
+	public TaskInProgress(Task task, IPerson responsiblePerson) throws SprintAssociationException {
 		super(task, responsiblePerson);
 	}
 	/**
@@ -29,7 +31,7 @@ public class TaskInProgress extends TaskAssigned {
 	}
 
 	@Override
-	public void setResponsibility(IPerson responsiblePerson){
+	public void setResponsibility(IPerson responsiblePerson) throws SprintAssociationException{
 		this.setResponsiblePerson(responsiblePerson);
 	}
 

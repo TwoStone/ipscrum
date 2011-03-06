@@ -34,16 +34,21 @@ public interface ITask extends ITaskStateOperations, BDACompare {
 	 */
 	public ITaskState getState();
 	/**
+	 * @return the sprint backlog which is associated with the task
+	 */
+	public SprintBacklog getSprintBacklog();
+	/**
+	 * @return the association object which is owner of the sprint backlog object.
+	 */
+	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc();
+	/**
+	 * Checks if the PBI is contained in this.assignedPBIs
+	 */
+	public boolean hasPBI(ProductBacklogItem pbi);
+	/**
 	 * Provides Access to the PBIs, which the task is assigned to.
 	 * @return iterator for PBIs
 	 */
 	public Iterator<ProductBacklogItem> getPBIIterator();
-	/**
-	 * 
-	 * @return the sprint backlog which is associated with the task
-	 */
-	public SprintBacklog getSprintBacklog();
-	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc();
-	public boolean hasPBI(ProductBacklogItem pbi);
 
 }

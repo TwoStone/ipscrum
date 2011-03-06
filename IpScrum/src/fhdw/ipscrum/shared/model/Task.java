@@ -336,6 +336,7 @@ public class Task extends Observable implements ITask {
 	/**
 	 * changes state to TaskFinished and passes actual responsiblePerson
 	 * @throws ForbiddenStateException 
+	 * @throws SprintAssociationException 
 	 */
 	protected void doSetTaskFinished() throws ForbiddenStateException {
 		this.setPlanEffort(0);
@@ -357,8 +358,9 @@ public class Task extends Observable implements ITask {
 	 * changes state to TaskAssigned and passes responsiblePerson
 	 * 
 	 * @param responsiblePerson
+	 * @throws SprintAssociationException 
 	 */
-	protected void setTaskAssigned(IPerson responsiblePerson) {
+	protected void setTaskAssigned(IPerson responsiblePerson) throws SprintAssociationException {
 		this.state = new TaskInProgress(this, responsiblePerson);
 	}
 	/**
@@ -378,7 +380,7 @@ public class Task extends Observable implements ITask {
 	 * - false, if the person is not a member of the sprint team or
 	 *          if the person isn't in a team at all
 	 */
-	private boolean isPersonValid(IPerson responsiblePerson){
+	protected boolean isPersonValid(IPerson responsiblePerson){
 		Vector<IPerson> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
 		if (sprintTeamMembers==null){
 			return false;

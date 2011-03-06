@@ -5,6 +5,7 @@ import java.util.Date;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
 import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
@@ -40,7 +41,7 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson)
-			throws ForbiddenStateException {
+			throws ForbiddenStateException, SprintAssociationException {
 		this.getMyTask().setTaskAssigned(responsiblePerson);
 	}
 

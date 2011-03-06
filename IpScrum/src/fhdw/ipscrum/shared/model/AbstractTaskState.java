@@ -43,8 +43,13 @@ public abstract class AbstractTaskState implements ITaskState {
 		result = prime * result;
 		return result;
 	}
-	
-	
+	/**
+	 * Only for use in the constructor methods in the subclasses.
+	 * @param task
+	 */
+	protected void setMyTask(Task task){
+		this.myTask = task;
+	}
 	
 	
 

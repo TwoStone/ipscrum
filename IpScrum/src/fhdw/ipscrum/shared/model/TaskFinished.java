@@ -4,6 +4,7 @@ import java.util.Date;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
@@ -27,10 +28,11 @@ public class TaskFinished extends TaskAssigned {
 	 * @param task  A task has to be passed to represent the 1:1 relation between the task and its state.
 	 * @param responsiblePerson 
 	 * responsible person which has to be the same as the one in the preceding state.
+	 * @throws SprintAssociationException 
 	 */
 	public TaskFinished(Task task, IPerson responsiblePerson) {
-		super(task, responsiblePerson);
-		this.setResponsiblePerson(responsiblePerson);
+		this.setMyTask(task);
+		this.doSetResponsiblePerson(responsiblePerson);
 		this.finishDate = new Date();
 	}
 
