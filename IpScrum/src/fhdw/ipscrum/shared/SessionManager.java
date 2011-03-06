@@ -76,7 +76,7 @@ public class SessionManager {
 
 					@Override
 					public void onFailure(final Throwable caught) {
-						GwtUtils.displayError(caught.getMessage());
+						GwtUtils.displayError(caught);
 					}
 
 					@Override

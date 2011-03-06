@@ -1,7 +1,12 @@
 package fhdw.ipscrum.client.utils;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.logging.client.ConsoleLogHandler;
+import com.google.gwt.logging.client.DevelopmentModeLogHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -13,6 +18,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.shared.constants.TextConstants;
 
 public final class GwtUtils {
+
+	private static Logger logger = Logger.getLogger("ErrorLogger");
+
+	static {
+		logger.addHandler(new DevelopmentModeLogHandler());
+		logger.addHandler(new ConsoleLogHandler());
+	}
 
 	/**
 	 * Creates a new modal dialog box. Lays a dark transparent layer over the
@@ -32,11 +44,21 @@ public final class GwtUtils {
 	}
 
 	/**
-	 * Displays an error in an dialog box with close button.
+	 * <b>Use void <i>displayError(Throwable error)</i> instead.</b> Displays an
+	 * error in an dialog box with close button.
 	 * 
 	 * @param error
 	 */
+	@Deprecated
 	public static void displayError(final String error) {
+		logger.log(Level.WARNING, error);
+		showErrorBox(error);
+	}
+
+	/**
+	 * @param error
+	 */
+	public static void showErrorBox(final String error) {
 		final DialogBox dialog = createDialog(TextConstants.ERROR);
 		final VerticalPanel panel = new VerticalPanel();
 		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -44,9 +66,10 @@ public final class GwtUtils {
 		panel.setSpacing(5);
 		dialog.add(panel);
 
-		final Label errorText = new Label(escapeString(error));
-		panel.add(errorText);
-
+		if (error != null) {
+			final Label errorText = new Label(escapeString(error));
+			panel.add(errorText);
+		}
 		final Button okayButton = new Button(TextConstants.CLOSE);
 		okayButton.addClickHandler(new ClickHandler() {
 
@@ -58,6 +81,16 @@ public final class GwtUtils {
 		panel.add(okayButton);
 
 		dialog.center();
+	}
+
+	/**
+	 * Displays an error in an dialog box with close button.
+	 * 
+	 * @param error
+	 */
+	public static void displayError(Throwable error) {
+		logger.log(Level.WARNING, TextConstants.ERROR, error);
+		showErrorBox(error.getMessage());
 	}
 
 	public static String escapeString(final String input) {
