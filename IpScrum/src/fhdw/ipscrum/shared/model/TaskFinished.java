@@ -9,17 +9,25 @@ import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 
 public class TaskFinished extends TaskAssigned {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1803966279393362821L;
+	/**
+	 * the finishDate is the date when the state of the task switched to Finished.
+	 */
 	private Date finishDate;
-
+	/**
+	 * for serialization
+	 */
 	@SuppressWarnings("unused")
 	private TaskFinished() {
 		super();
 	}
-
+	/**
+	 * Creates a new TaskFinished instance.
+	 * 
+	 * @param task  A task has to be passed to represent the 1:1 relation between the task and its state.
+	 * @param responsiblePerson 
+	 * responsible person which has to be the same as the one in the preceding state.
+	 */
 	public TaskFinished(Task task, IPerson responsiblePerson) {
 		super(task, responsiblePerson);
 		this.setResponsiblePerson(responsiblePerson);

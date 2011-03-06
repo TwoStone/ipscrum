@@ -12,10 +12,17 @@ import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 public class TaskInProgress extends TaskAssigned {
 
 	private static final long serialVersionUID = 1765965731350458463L;
-
+	/**
+	 * Creates a new TaskInProgress instance
+	 * @param task A task has to be passed to represent the 1:1 relation between the task and its state.
+	 * @param responsiblePerson person which is responsible for the task.
+	 */
 	public TaskInProgress(Task task, IPerson responsiblePerson) {
 		super(task, responsiblePerson);
 	}
+	/**
+	 * for serialization
+	 */
 	@SuppressWarnings("unused")
 	private TaskInProgress(){
 		super();

@@ -6,10 +6,15 @@ public abstract class AbstractTaskState implements ITaskState {
 
 	private static final long serialVersionUID = 191308404327461283L;
 	private Task myTask; // Konkrete Referenz, da Zugriff auf protected-Methoden
-
+	
+	/**
+	 * for serialization
+	 */
 	protected AbstractTaskState() {
 	}
-
+	/**
+	 * @param task A task has to be passed to represent the 1:1 relation between the task and its state.
+	 */
 	public AbstractTaskState(Task task) {
 		super();
 		this.myTask = task;
@@ -19,19 +24,17 @@ public abstract class AbstractTaskState implements ITaskState {
 	public Task getMyTask() {
 		return this.myTask;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/*
+	 * simple identity check, no further attributes needed, 
+	 * because a task always has one state.	
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		// simple identity check, no further attributes needed, because
-		// a task always has one state.	
 		return this == (AbstractTaskState)obj;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
+	/*
+	 *  no attributes to generate hashcode, state already checked in 
+     *  indirectHashCode of class Task.
 	 */
 	@Override
 	public int hashCode() {
@@ -39,8 +42,6 @@ public abstract class AbstractTaskState implements ITaskState {
 		int result = super.hashCode();
 		result = prime * result;
 		return result;
-		// no attributes to generate hashcode, state already checked in 
-		// indirectHashCode of class Task
 	}
 	
 	

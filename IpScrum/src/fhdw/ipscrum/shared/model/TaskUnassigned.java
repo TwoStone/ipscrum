@@ -12,6 +12,11 @@ import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 
 	private static final long serialVersionUID = 5247155222378946754L;
+	/**
+	 * Creates a new TaskUnassigned instance.
+	 * 
+	 * @param task A task has to be passed to represent the 1:1 relation between the task and its state.
+	 */
 	public TaskUnassigned(Task task) {
 		super(task);
 	}
