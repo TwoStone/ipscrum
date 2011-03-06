@@ -12,12 +12,13 @@ import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
 import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
+@SuppressWarnings("rawtypes")
 public class System extends Observable implements BDACompare, IHasChildren {
 
 	private static final long serialVersionUID = -5808437328511791688L;
 	private String name;
+
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
-	private Vector<System> childs;
 	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
 	public System(final String name, final IHasChildren parent)
