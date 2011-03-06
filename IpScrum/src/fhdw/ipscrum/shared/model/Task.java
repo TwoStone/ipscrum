@@ -345,14 +345,14 @@ public class Task extends Observable implements ITask {
 	 * @throws SprintAssociationException 
 	 */
 	protected void doSetTaskFinished() throws ForbiddenStateException {
-		this.setPlanEffort(0);
+		//this.setPlanEffort(0);
 		final TaskFinished newState = new TaskFinished(this,
 				this.getResponsiblePerson());
 		this.setState(newState);
 	}
 	
 	protected void doSetTaskFinished(Date finishDate) throws ForbiddenStateException {
-		this.setPlanEffort(0);
+		//this.setPlanEffort(0);
 		TaskFinished newState = new TaskFinished(this, this.getResponsiblePerson(), finishDate);
 		this.setState(newState);
 	}
