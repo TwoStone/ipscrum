@@ -89,6 +89,15 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 			}
 		});
 
+		view.addEditProjectEvent(new EventHandler<ProjectEventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
+				// TODO Nik: Projekt editieren.
+
+			}
+		});
+
 		// Add a handler for a event which opens the sprintoverview,
 		// releaseoverview and productbacklog for a project
 		view.addProjectSelectionHandler(new EventHandler<ProjectEventArgs>() {
