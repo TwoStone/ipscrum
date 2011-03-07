@@ -78,7 +78,7 @@ public class Bug extends ProductBacklogItem {
 		}
 	}
 
-	public IRelease getRelease() {
+	public IRelease getVersion() {
 		return this.version;
 	}
 

@@ -12,8 +12,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
+import fhdw.ipscrum.shared.exceptions.WrongSystemException;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
@@ -21,7 +23,6 @@ import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.interfaces.IBugState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
@@ -82,7 +83,7 @@ public class BugTest {
 		assertEquals("", bug.getDescription());
 		assertEquals(backlog, bug.getBacklog());
 		assertEquals(pro, bug.getBacklog().getProject());
-		assertEquals(version, bug.getRelease());
+		assertEquals(version, bug.getVersion());
 	}
 
 	/**
@@ -150,45 +151,101 @@ public class BugTest {
 	 * Run the void addSystem(System) method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
-	@Test
+	@Test(expected = WrongSystemException.class)
 	public void testAddSystem_2() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-		final System system = new System("", new Rootsystem());
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		fixture.addSystem(system);
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
+		final Rootsystem root = new Rootsystem();
+		final System sys1 = new System("S1", root);
+		final System sys2 = new System("S2", root);
+
+		pro.addPossibleSystem(sys1);
+
+		bug.addSystem(sys1);
+		bug.addSystem(sys2);
 	}
 
 	/**
-	 * Run the IRelease getRelease() method test.
+	 * Run the void addSystem(System) method test.
 	 * 
 	 * @throws Exception
+	 */
+	@Test(expected = WrongSystemException.class)
+	public void testAddSystem_3() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final Project pro2 = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final Rootsystem root = new Rootsystem();
+		final System sys1 = new System("S1", root);
+		final System sys2 = new System("S2", root);
+
+		pro.addPossibleSystem(sys1);
+
+		pro2.addPossibleSystem(sys2);
+
+		bug.addSystem(sys1);
+		bug.addSystem(sys2);
+	}
+
+	/**
+	 * Run the void addSystem(System) method test.
 	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
+	 * @throws Exception
+	 */
+	@Test(expected = ForbiddenStateException.class)
+	public void testAddSystem_4() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final Project pro2 = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final Rootsystem root = new Rootsystem();
+		final System sys1 = new System("S1", root);
+		final System sys2 = new System("S2", root);
+
+		pro.addPossibleSystem(sys1);
+		pro.addPossibleSystem(sys2);
+
+		bug.close();
+
+		bug.addSystem(sys1);
+		bug.addSystem(sys2);
+	}
+
+	/**
+	 * Run the IRelease getVersion() method test.
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testGetRelease_1() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
+	public void testGetVersion_1() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
 
-		final IRelease result = fixture.getRelease();
+		final ProductBacklog backlog = pro.getBacklog();
 
-		assertNotNull(result);
+		final Bug expected = new Bug(name, description, version, backlog);
+
+		assertEquals(version, expected.getVersion());
 	}
 
 	/**
@@ -200,22 +257,7 @@ public class BugTest {
 	 */
 	@Test
 	public void testGetState_1() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-
-		final IBugState result = fixture.getState();
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
-		assertNotNull(result);
+		fail();
 	}
 
 	/**
