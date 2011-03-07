@@ -71,10 +71,7 @@ public class Test_Task {
 		sprintbl.addTask(t1);
 		sprintbl.addTask(t2);
 		sprintbl.addTask(t3);
-		
-		
-		
-	}
+		}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {

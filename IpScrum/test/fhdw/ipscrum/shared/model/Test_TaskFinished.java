@@ -10,8 +10,7 @@ import java.util.Date;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
+import fhdw.ipscrum.shared.exceptions.*;
 
 
 public class Test_TaskFinished {
@@ -19,6 +18,7 @@ public class Test_TaskFinished {
 	private static Person per1 = null;
 	private static Person per2 = null;
 	private static Feature pbi1 = null;
+	private static Feature pbi2 = null;
 	private static Task t1 = null;
 	private static Sprint sprint = null;
 	private static Team team1 = null;
@@ -34,15 +34,18 @@ public class Test_TaskFinished {
 		test = new Project("Test");
 		pbltest = test.getBacklog();
 		pbi1 = new Feature("A", "Test1", pbltest);
+		pbi2 = new Feature("B", "Test2", pbltest);
 		team1 = new Team("Team");
 		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
 		sprintbl = new SprintBacklog(sprint);
 		t1.setResponsibility(per1);
 		
 		pbltest.addItem(pbi1);
+		pbltest.addItem(pbi2);
 		team1.addMember(per1);
 		team1.addMember(per2);
 		pbi1.setSprint(sprint);
+		pbi2.setSprint(sprint);
 		
 		sprintbl.addTask(t1);
 		
@@ -96,11 +99,13 @@ public class Test_TaskFinished {
 	// ----------------------------- Test of Exceptions ---------------------------------------
 	// ----------------------------------------------------------------------------------------
 	
-	// @Rule
-	// TODO: Warum kann org.junit.rules.ExpectedException.class nicht in den Sourcen gefunden werden? 
-	// public ExpectedException ee = new ExpectedException();
+	@Test(expected = ForbiddenStateException.class)
+	/**
+	 * Test on adding a PBI
+	 */
+	public void testAddPBI() throws Exception{
+		 t1.addPBI(pbi2);
+	}
 	
-	
-
-
+	// TODO: Addition of Testcases for all Exceptions
 }
