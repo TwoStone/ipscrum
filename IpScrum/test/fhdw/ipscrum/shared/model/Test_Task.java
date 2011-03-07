@@ -2,8 +2,10 @@ package fhdw.ipscrum.shared.model;
 
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -27,6 +29,9 @@ public class Test_Task {
 	private static List<ProductBacklogItem> apbis3;
 	private static Integer zero = null;
 	private static Integer three = null;
+	private static Sprint sprint = null;
+	private static Team team1 = null;
+	private static SprintBacklog sprintbl = null;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -46,6 +51,29 @@ public class Test_Task {
 		apbis3 = new ArrayList<ProductBacklogItem>();
 		zero = 0;
 		three = 3;
+		team1 = new Team("Team");
+		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
+		sprintbl = new SprintBacklog(sprint);
+		
+		pbltest.addItem(pbi1);
+		pbltest.addItem(pbi2);
+		pbltest.addItem(pbi3);
+		pbltest.addItem(pbi4);
+		test.addSprint(sprint);
+		
+		team1.addMember(per1);
+		team1.addMember(per2);
+		pbi1.setSprint(sprint);
+		pbi2.setSprint(sprint);
+		pbi3.setSprint(sprint);
+		pbi4.setSprint(sprint);
+		
+		sprintbl.addTask(t1);
+		sprintbl.addTask(t2);
+		sprintbl.addTask(t3);
+		
+		
+		
 	}
 
 	@AfterClass
@@ -139,6 +167,7 @@ public class Test_Task {
 	 * Closing of a task
 	 */
 	public void testFinish() throws Exception {
+		t1.setResponsibility(per1);
 		t1.finish();
 		assertEquals(true, t1.isFinished());
 	}
@@ -204,7 +233,7 @@ public class Test_Task {
 	 */
 	public void testRemovePBI() throws Exception {
 		t1.removePBI(pbi1);
-		assertEquals(apbis.remove(pbi1), t1.getPBIIterator());
+		assertEquals(apbis, t1.getPBIIterator());
 	}
 
 	// ----------------------------------------------------------------------------------
