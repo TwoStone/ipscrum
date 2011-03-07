@@ -20,6 +20,7 @@ public class System extends Observable implements BDACompare, IHasChildren {
 
 	@SuppressWarnings("rawtypes")
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
+
 	@SuppressWarnings("rawtypes")
 	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
