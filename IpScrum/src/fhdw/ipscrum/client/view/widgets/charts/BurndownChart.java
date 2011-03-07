@@ -9,8 +9,8 @@ public abstract class BurndownChart extends GChart {
 	Curve burndownCurve;
 	Curve idealCurve;
 	Curve trendCurve;
-	protected int width;
-	protected int height;
+	private int chartWidth;
+	private int chartHeight;
 
 	protected abstract void createChart();
 	protected abstract void populateChart();
@@ -46,5 +46,21 @@ public abstract class BurndownChart extends GChart {
 				trendCurve.addPoint(considerableDatapoints.get(i), value);
 			}
 		}
+	}
+
+	public int getChartWidth() {
+		return this.chartWidth;
+	}
+
+	public void setChartWidth(int chartWidth) {
+		this.chartWidth = chartWidth;
+	}
+
+	public int getChartHeight() {
+		return this.chartHeight;
+	}
+
+	public void setChartHeight(int chartHeight) {
+		this.chartHeight = chartHeight;
 	}
 }

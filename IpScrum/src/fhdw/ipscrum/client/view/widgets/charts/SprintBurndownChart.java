@@ -22,8 +22,8 @@ public class SprintBurndownChart extends BurndownChart {
 
 	public SprintBurndownChart(ISprint sprint, int width, int height) {
 		this.data = new SprintChartData(sprint);
-		this.width = width;
-		this.height = height;
+		setChartWidth(width);
+		setChartHeight(height);
 		this.createChart();
 	}
 
@@ -31,7 +31,7 @@ public class SprintBurndownChart extends BurndownChart {
 	protected void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>" + this.data.getSprint().getName() + "</h2>");
-		setChartSize(this.width, this.height);
+		setChartSize(getChartWidth(), getChartWidth());
 
 
 		// SETUP ACTUAL BURNDOWN CURVE
@@ -78,7 +78,7 @@ public class SprintBurndownChart extends BurndownChart {
 		this.generateTrendcurve(this.data.getConsiderableDatapoints());
 
 		// set x-axis ticks
-		if (this.width > 400) {
+		if (getChartWidth() > 400) {
 			getXAxis().setTickCount((this.data.getConsiderableDatapoints().size()<26) ? this.data.getConsiderableDatapoints().size() : 25);
 		}
 

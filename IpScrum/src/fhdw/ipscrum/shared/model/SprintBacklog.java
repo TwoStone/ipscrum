@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -38,7 +39,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 	@SuppressWarnings("unused")
 	private SprintBacklog() {
 	}
-	
+
 
 	@Override
 	public int hashCode(){
@@ -63,7 +64,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 		// no base attributes
 		return obj == this;
 	}
-	
+
 	/**
 	 * This method provides access to all tasks contained in the sprint backlog
 	 * by an iterator.
@@ -73,7 +74,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 	public Iterator<ITask> taskIterator() {
 		Iterator<ITask> result = null;
 		final Iterator<BDACompare> i = this.getTaskAssoc().getAssociations()
-				.iterator();
+		.iterator();
 		final Vector<ITask> taskVector = new Vector<ITask>();
 		while (i.hasNext()) {
 			taskVector.add((ITask) i.next());
@@ -86,11 +87,11 @@ public class SprintBacklog implements BDACompare, Serializable {
 	public OneToMany<ManyToOne, SprintBacklog> getTaskAssoc() {
 		return this.taskAssoc;
 	}
-	
+
 	public ISprint getSprint() {
 		return (ISprint) this.getSprintAssoc().get();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public OneToOne<OneToOne, SprintBacklog> getSprintAssoc() {
 		return this.sprintAssoc;
@@ -131,7 +132,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 	public void removeTask(final ITask task) {
 		this.getTaskAssoc().remove(task.getSprintBacklogAssoc());
 	}
-	
+
 	/**
 	 * Checks whether a task is associated with the pbi.
 	 * @param pbi
@@ -148,7 +149,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * This method deletes the PBI from all contained tasks, if the task is not finished.
 	 * @param pbi ProductBacklogItem to be deleted
@@ -167,5 +168,37 @@ public class SprintBacklog implements BDACompare, Serializable {
 			}
 		}
 	}
-	
+
+
+	/**
+	 * This is used to calculate the individual data-points per day.
+	 * @param date the day to calculate the data-point for
+	 * @return the amount of effort that is left for this day.
+	 */
+	public int getEffortByDay(Date date) {
+		int result = this.calculateOverallTaskEffort();
+		Iterator<ITask> i = this.taskIterator();
+		while (i.hasNext()) {
+			ITask current = i.next();
+			if (current.isFinished() && (current.getFinishDate().before(date) || current.getFinishDate().equals(date))) {
+				result -= current.getPlanEffort();
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * This is to obtain a sum of all efforts of tasks that are connected to the sprint.
+	 * @return sum of task-efforts.
+	 */
+	public int calculateOverallTaskEffort() {
+		int result = 0;
+		Iterator<ITask> i = this.taskIterator();
+		while (i.hasNext()) {
+			ITask current = i.next();
+			result += current.getPlanEffort();
+		}
+		return result;
+	}
+
 }

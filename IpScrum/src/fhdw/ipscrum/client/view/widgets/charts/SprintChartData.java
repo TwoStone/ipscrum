@@ -2,13 +2,11 @@ package fhdw.ipscrum.client.view.widgets.charts;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import fhdw.ipscrum.shared.model.interfaces.ITask;
 
 
 /**
@@ -37,50 +35,19 @@ public class SprintChartData implements ChartData {
 	public void calculateData() {
 		int dayCount = daysInvolved.size();
 		Date today = new Date();
-		double taskCount = this.calculateOverallTaskEffort();
+		double taskCount = this.sprint.getSprintBacklog().calculateOverallTaskEffort();
 
 		int counter = 0;
 		for (Date date : daysInvolved) {
 			double ideal = taskCount / (dayCount-1) * (dayCount-1 - counter);
 			if (date.before(today)) {
-				this.data.put(date, new SprintChartDataDetails((double) this.getEffortByDay(date), ideal));
+				this.data.put(date, new SprintChartDataDetails((double) this.sprint.getSprintBacklog().getEffortByDay(date), ideal));
 			} else {
 				this.data.put(date, new SprintChartDataDetails(ideal));
 			}
 			counter++;
 		}
 
-	}
-
-	/**
-	 * This is used to calculate the individual data-points per day.
-	 * @param date the day to calculate the data-point for
-	 * @return the amount of effort that is left for this day.
-	 */
-	private int getEffortByDay(Date date) {
-		int result = this.calculateOverallTaskEffort();
-		Iterator<ITask> i = this.sprint.getSprintBacklog().taskIterator();
-		while (i.hasNext()) {
-			ITask current = i.next();
-			if (current.isFinished() && (current.getFinishDate().before(date) || current.getFinishDate().equals(date))) {
-				result -= current.getPlanEffort();
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * This is to obtain a sum of all efforts of tasks that are connected to the sprint.
-	 * @return sum of task-efforts.
-	 */
-	private int calculateOverallTaskEffort() {
-		int result = 0;
-		Iterator<ITask> i = this.sprint.getSprintBacklog().taskIterator();
-		while (i.hasNext()) {
-			ITask current = i.next();
-			result += current.getPlanEffort();
-		}
-		return result;
 	}
 
 	/**

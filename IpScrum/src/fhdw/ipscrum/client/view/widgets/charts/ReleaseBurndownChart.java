@@ -36,8 +36,8 @@ public class ReleaseBurndownChart extends BurndownChart {
 	 */
 	public ReleaseBurndownChart(IRelease release, int width, int height) {
 		this.data = new ReleaseChartData(release);
-		this.width = width;
-		this.height = height;
+		setChartWidth(width);
+		setChartHeight(height);
 		this.createChart();
 	}
 
@@ -49,7 +49,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 	protected void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>Release " + this.getData().getRelease().getVersion() + "</h2>");
-		setChartSize(this.width, this.height);
+		setChartSize(getChartWidth(), getChartHeight());
 
 		// SETUP ACTUAL BURNDOWN CURVE
 		addCurve();
