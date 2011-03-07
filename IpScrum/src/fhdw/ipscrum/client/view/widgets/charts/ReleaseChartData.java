@@ -45,7 +45,7 @@ public class ReleaseChartData implements ChartData {
 
 		// calculate actual burndown-data
 		int overallEfforts = this.getRelease().getOverallEfforts();
-		int runningBDValue = overallEfforts;
+		Double runningBDValue = (double) overallEfforts;
 		Date today = new Date();
 
 		for (ISprint sprint : sortedSprints) {
@@ -78,10 +78,10 @@ public class ReleaseChartData implements ChartData {
 	class ReleaseChartDataDetails {
 		private final ArrayList<ISprint> sprints;
 
-		private Integer actualBurndownValue;
-		private double idealBurndownValue;
+		private Double actualBurndownValue;
+		private Double idealBurndownValue;
 
-		public ReleaseChartDataDetails(ArrayList<ISprint> sprints, Integer actualBurndownValue) {
+		public ReleaseChartDataDetails(ArrayList<ISprint> sprints, Double actualBurndownValue) {
 			this.sprints = sprints;
 			this.actualBurndownValue = actualBurndownValue;
 		}
@@ -90,19 +90,19 @@ public class ReleaseChartData implements ChartData {
 			return this.sprints;
 		}
 
-		public Integer getActualBurndownValue() {
+		public Double getActualBurndownValue() {
 			return this.actualBurndownValue;
 		}
 
-		void setActualBurndownValue(Integer value) {
+		void setActualBurndownValue(Double value) {
 			this.actualBurndownValue = value;
 		}
 
-		public double getIdealBurndownValue() {
+		public Double getIdealBurndownValue() {
 			return this.idealBurndownValue;
 		}
 
-		public void setIdealBurndownValue(double idealBurndownValue) {
+		public void setIdealBurndownValue(Double idealBurndownValue) {
 			this.idealBurndownValue = idealBurndownValue;
 		}
 	}
