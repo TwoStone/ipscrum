@@ -19,7 +19,6 @@ import fhdw.ipscrum.shared.observer.Observable;
 public class Rootsystem extends Observable implements ISystem {
 
 	private static final long serialVersionUID = 3375902891368480223L;
-	private String name;
 	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
 
 	private void setToSystemAssoc(
@@ -28,9 +27,13 @@ public class Rootsystem extends Observable implements ISystem {
 	}
 
 	public Rootsystem() {
-		// Root has no name;
-		this.setName("");
 		this.setToSystemAssoc(new OneToMany<ManyToOne, ISystem>(this));
+	}
+
+	@Override
+	public String getName() {
+		// RootSystem has no name
+		return "";
 	}
 
 	@Override
@@ -71,19 +74,6 @@ public class Rootsystem extends Observable implements ISystem {
 	}
 
 	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	private void setName(final String name) {
-		this.name = name;
-	}
-
-	@Override
 	public ISystem getRoot() {
 		return this;
 	}
@@ -115,14 +105,6 @@ public class Rootsystem extends Observable implements ISystem {
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		final Rootsystem other = (Rootsystem) obj;
-		if (this.name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!this.name.equals(other.name)) {
-			return false;
-		}
 		return true;
 	}
 
@@ -139,9 +121,7 @@ public class Rootsystem extends Observable implements ISystem {
 	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
+		final int result = super.hashCode();
 		return result;
 	}
 

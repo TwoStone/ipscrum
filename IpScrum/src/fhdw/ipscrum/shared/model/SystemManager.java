@@ -7,7 +7,6 @@ import fhdw.ipscrum.shared.model.interfaces.ISystem;
 public class SystemManager implements Serializable {
 
 	public SystemManager() {
-		// TODO Auto-generated constructor stub
 	}
 
 	private Rootsystem rootsystem;
