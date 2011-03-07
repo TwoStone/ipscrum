@@ -6,6 +6,8 @@ import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 public class SystemManager implements Serializable {
 
+	private static final long serialVersionUID = 3665490796731314075L;
+
 	public SystemManager() {
 	}
 

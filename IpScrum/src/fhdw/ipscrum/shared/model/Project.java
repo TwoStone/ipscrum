@@ -24,6 +24,7 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Represents a Scrum Project.
  */
+@SuppressWarnings("rawtypes")
 public class Project extends Observable implements BDACompare, Serializable,
 		ITreeVisitorRelevantElement {
 

@@ -16,9 +16,11 @@ import fhdw.ipscrum.shared.observer.Observable;
  * @author Administrator
  * 
  */
+@SuppressWarnings("rawtypes")
 public class Rootsystem extends Observable implements ISystem {
 
 	private static final long serialVersionUID = 3375902891368480223L;
+
 	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
 
 	private void setToSystemAssoc(
@@ -120,7 +122,6 @@ public class Rootsystem extends Observable implements ISystem {
 
 	@Override
 	public int indirectHashCode() {
-		final int prime = 31;
 		final int result = super.hashCode();
 		return result;
 	}
