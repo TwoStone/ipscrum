@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import com.google.gwt.user.client.ui.DialogBox;
@@ -14,6 +16,7 @@ import fhdw.ipscrum.client.view.interfaces.IProjectView;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.System;
 
 /**
  * Presenter for {@link Project}
@@ -92,9 +95,33 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 		view.addEditProjectEvent(new EventHandler<ProjectEventArgs>() {
 
 			@Override
-			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
-				// TODO Nik: Projekt editieren.
+			public void onUpdate(final Object sender,
+					final ProjectEventArgs eventArgs) {
+				final Project project = eventArgs.getProject();
+				final DialogBox box = GwtUtils.createDialog("Systeme von "
+						+ project.getName());
+				final List<System> list = new ArrayList<System>();
+				list.addAll(project.getPossibleSystems());
+				final Presenter<?> presenter = new SelectSystemPresenter(box,
+						ProjectPresenter.this, list, ProjectPresenter.this
+								.getSessionManager().getModel().getSysManager()
+								.getSystems().getSystems());
+				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
+					@Override
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						for (final System system : list) {
+							if (!project.getPossibleSystems().contains(system)) {
+								project.addPossibleSystem(system);
+							}
+						}
+					}
+				});
+
+				// TODO dialog wieder schließen bei abbrechen
+
+				box.center();
 			}
 		});
 
