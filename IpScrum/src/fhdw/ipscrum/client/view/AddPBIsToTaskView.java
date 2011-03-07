@@ -74,9 +74,9 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 		taskPanel.setSpacing(5);
 		taskPanel.setSize("215px", "345px");
 		
-		CaptionPanel cptnTaskEntries = new CaptionPanel("Task Einträge");
+		CaptionPanel cptnTaskEntries = new CaptionPanel(TextConstants.TASK_ITEMS);
 		taskPanel.add(cptnTaskEntries);
-		cptnTaskEntries.setCaptionHTML("Task Einträge");
+		cptnTaskEntries.setCaptionHTML(TextConstants.TASK_ITEMS);
 		cptnTaskEntries.setSize("200px", "300px");
 		
 		taskPBIsCellList = new CellList<ProductBacklogItem>(new AbstractCell<ProductBacklogItem>(){
@@ -88,7 +88,7 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 		cptnTaskEntries.setContentWidget(taskPBIsCellList);
 		taskPBIsCellList.setSize("100%", "100%");
 		
-		btnClose = new Button("Schließen");
+		btnClose = new Button(TextConstants.CLOSE);
 		taskPanel.add(btnClose);
 		btnClose.addClickHandler(new ClickHandler() {
 			
