@@ -171,8 +171,8 @@ public final class TextConstants {
 	public static final String IN_PROGRESS = "In Arbeit";
 	public static final String COMPLETED = "Erledigt";
 	public static final String DETAILS = "Details";
-
-
+	public static final String TASKBOARD_HELP = "Zum Anlegen eines Task können mehrere ProductBacklog Einträge über multi selection ausgewählt werden. \n Tasks die noch zu erledigen sind, können vollständig editiert und gelöscht werden. \n Wurde einem Task eine Person zugewiesen, bekommt der Task den Status 'In Arbeit'. \n Bei Tasks 'In Arbeit' kann der Aufwand, die Beschreibung und die zuständige Person editiert werden. \n Nach dem Markieren der zuständigen Check-Box bekommt der Task den Status 'Erledigt'.";
+	public static final String HELP = "Hilfe - Taskboard";
 	/* [END SECTION] */
 
 }

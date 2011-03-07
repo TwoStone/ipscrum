@@ -15,7 +15,6 @@ public class InProgressTaskDetailView extends TaskDetailView implements
 		this.getBtnAddPBIs().setVisible(false);
 		this.getBtnDeletePBI().setVisible(false);
 		this.getTxtBoxName().setReadOnly(true);
-		this.getTxtAreaDescription().setReadOnly(true);
 	}
 
 }

@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.view.InProgressTaskDetailView;
 import fhdw.ipscrum.client.view.interfaces.IInProgressTaskDeailView;
 import fhdw.ipscrum.client.view.interfaces.ITaskDetailView;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.TaskAssigned;
@@ -63,7 +64,10 @@ public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
 					}
 					// set effort
 					InProgressTaskDetailPresenter.this.task.setPlanEffort(getView().getEffort());
-						
+					
+					// set description 
+					InProgressTaskDetailPresenter.this.task.setDescription(getView().getDescription());
+					
 					// check if the task is finished
 					if(getView().isFinished()){
 						// set the task to finish
@@ -72,10 +76,13 @@ public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
 				
 				} catch (ForbiddenStateException e) {
 					// Displays an error if the action is not allowed cause of the Task-State
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				} catch (SprintAssociationException e) {
 					// consistency error: displays an error if the person is not in the team of the sprint
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
+				} catch (NoValidValueException e) {
+					// Displays an error if the give description is not valid
+					GwtUtils.displayError(e);
 				}
 				//Finishs the presenter
 				InProgressTaskDetailPresenter.this.finish();

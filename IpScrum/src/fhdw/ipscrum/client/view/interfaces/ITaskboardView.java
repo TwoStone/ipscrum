@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.Vector;
 
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.events.args.SprintArgs;
@@ -98,5 +99,13 @@ public interface ITaskboardView extends IView {
 	 *            <TaskArgs> arg
 	 */
 	void addDetailsFinishTaskEventHandler(EventHandler<TaskArgs> arg);
+	
+	/**
+	 * Use this method to add a handler for the taskboardHelpEvent
+	 * 
+	 * @param EventHandler
+	 *            <EventArgs> arg
+	 */
+	void addTaskboardHelpEventHandler(EventHandler<EventArgs> arg);
 
 }

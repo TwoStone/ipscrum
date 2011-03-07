@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 import fhdw.ipscrum.client.events.EventArgs;
@@ -255,6 +256,20 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 					GwtUtils.displayError(TextConstants.NO_TASK_SELECTED);
 				}
 				
+			}
+		});
+		
+		this.getView().addTaskboardHelpEventHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+			
+			DialogBox helpBox =	GwtUtils.createDialog(TextConstants.HELP);
+			helpBox.setWidget(new Label(TextConstants.TASKBOARD_HELP));
+			helpBox.setAutoHideEnabled(true);
+			helpBox.setAnimationEnabled(true);
+			helpBox.center();
+		
 			}
 		});
 		

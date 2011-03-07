@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -22,10 +23,12 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.events.args.TaskArgs;
+import fhdw.ipscrum.client.utils.ToolTipListener;
 import fhdw.ipscrum.client.view.interfaces.ITaskboardView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -47,6 +50,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	private final Event<TaskArgs> editToDoTaskEvent = new Event<TaskArgs>();
 	private final Event<TaskArgs> editInProgressTaskEvent = new Event<TaskArgs>();
 	private final Event<TaskArgs> detailsFinishTaskEvent = new Event<TaskArgs>();
+	private final Event<EventArgs> taskboardHelp = new Event<EventArgs>();
 	// ##### Ende ##################
 
 	// ####### View Elements ###############
@@ -106,7 +110,13 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		newTasklPanel.add(lblPBI);
 		lblPBI.setWidth("100%");
 		lblPBI.setStyleName("bold");
+		
+		ScrollPanel newTaskScrollPanel = new ScrollPanel();
+		newTaskScrollPanel.setStyleName("smallborder");
+		newTasklPanel.add(newTaskScrollPanel);
+		newTaskScrollPanel.setSize("160px", "250px");
 
+		
 		pbiCellList = new CellList<ProductBacklogItem>(
 				new AbstractCell<ProductBacklogItem>() {
 					@Override
@@ -115,17 +125,16 @@ public class TaskboardView extends Composite implements ITaskboardView {
 						sb.appendEscaped(value.getName());
 					}
 				});
-		pbiCellList.setStyleName("smallborder");
-		newTasklPanel.add(pbiCellList);
-		pbiCellList.setSize("130px", "250px");
+		newTaskScrollPanel.setWidget(pbiCellList);
+		pbiCellList.setSize("100%", "100%");
 		pbiCellList
 				.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 
 		btnNewTask = new Button(TextConstants.NEW_BUTTON);
 		newTasklPanel.add(btnNewTask);
 		btnNewTask.setText(TextConstants.NEW_TASK);
-		btnNewTask.setSize("140px", "28px");
-
+		btnNewTask.setSize("100%", "30px");
+		
 		VerticalPanel toDoTaskPanel = new VerticalPanel();
 		toDoTaskPanel.setSpacing(3);
 		concreteTaskboardPanel.add(toDoTaskPanel, 242, 25);
@@ -134,6 +143,11 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		Label lblZuErledigen = new Label(TextConstants.TO_FINISH);
 		toDoTaskPanel.add(lblZuErledigen);
 		lblZuErledigen.setStyleName("bold");
+		
+		ScrollPanel toDoTaskScrollPanel = new ScrollPanel();
+		toDoTaskScrollPanel.setStyleName("smallborder");
+		toDoTaskPanel.add(toDoTaskScrollPanel);
+		toDoTaskScrollPanel.setSize("130px", "250px");
 
 		this.todoCellList = new CellList<ITask>(new AbstractCell<ITask>() {
 			@Override
@@ -141,9 +155,8 @@ public class TaskboardView extends Composite implements ITaskboardView {
 				sb.appendEscaped(value.getName());
 			}
 		});
-		toDoTaskPanel.add(todoCellList);
-		todoCellList.setStyleName("smallborder");
-		todoCellList.setSize("130px", "250px");
+		toDoTaskScrollPanel.setWidget(todoCellList);
+		todoCellList.setSize("100%", "100%");
 
 		btnEditTodoTask = new Button(TextConstants.TASK_EDIT);
 		toDoTaskPanel.add(btnEditTodoTask);
@@ -162,6 +175,11 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		Label lblInArbeit = new Label(TextConstants.IN_PROGRESS);
 		inProgressTaskPanel.add(lblInArbeit);
 		lblInArbeit.setStyleName("bold");
+		
+		ScrollPanel inProgressScrollPanel = new ScrollPanel();
+		inProgressScrollPanel.setStyleName("smallborder");
+		inProgressTaskPanel.add(inProgressScrollPanel);
+		inProgressScrollPanel.setSize("130px", "250px");
 
 		inProgressCellList = new CellList<ITask>(new AbstractCell<ITask>() {
 			@Override
@@ -169,9 +187,8 @@ public class TaskboardView extends Composite implements ITaskboardView {
 				sb.appendEscaped(value.getName());
 			}
 		});
-		inProgressTaskPanel.add(inProgressCellList);
-		inProgressCellList.setStyleName("smallborder");
-		inProgressCellList.setSize("130px", "250px");
+		inProgressScrollPanel.setWidget(inProgressCellList);
+		inProgressCellList.setSize("100%", "100%");
 
 		btnEditInProgressTask = new Button(TextConstants.TASK_EDIT);
 		inProgressTaskPanel.add(btnEditInProgressTask);
@@ -194,6 +211,11 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		Label lblErledigt = new Label(TextConstants.COMPLETED);
 		finishTaskPanel.add(lblErledigt);
 		lblErledigt.setStyleName("bold");
+		
+		ScrollPanel finishScrollPanel = new ScrollPanel();
+		finishScrollPanel.setStyleName("smallborder");
+		finishTaskPanel.add(finishScrollPanel);
+		finishScrollPanel.setSize("130px", "250px");
 
 		doneCellList = new CellList<ITask>(new AbstractCell<ITask>() {
 			@Override
@@ -201,13 +223,26 @@ public class TaskboardView extends Composite implements ITaskboardView {
 				sb.appendEscaped(value.getName());
 			}
 		});
-		finishTaskPanel.add(doneCellList);
-		doneCellList.setStyleName("smallborder");
-		doneCellList.setSize("130px", "250px");
+		finishScrollPanel.setWidget(doneCellList);
+		doneCellList.setSize("100%", "100%");
 
 		btnEditDoneTask = new Button(TextConstants.DETAILS);
 		finishTaskPanel.add(btnEditDoneTask);
 		btnEditDoneTask.setSize("100%", "28px");
+		
+		Image imgHelp = new Image("images/icon_hilfe.gif");
+		concreteTaskboardPanel.add(imgHelp, 25, 548);
+		
+		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP, 0));
+		
+		imgHelp.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+			taskboardHelp.fire(TaskboardView.this, new EventArgs());	
+			}
+		});
+		
 		btnEditDoneTask.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -293,6 +328,13 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	@Override
 	public void addDetailsFinishTaskEventHandler(EventHandler<TaskArgs> arg) {
 		detailsFinishTaskEvent.add(arg);
+	}
+	
+
+	@Override
+	public void addTaskboardHelpEventHandler(EventHandler<EventArgs> arg) {
+		taskboardHelp.add(arg);
+		
 	}
 
 	// Methods for refreshing / filling the cell-Lists
@@ -381,4 +423,5 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	public void setTaskboardVisibility(Boolean visible) {
 		this.getConcreteTaskboardPanel().setVisible(visible);
 	}
+
 }
