@@ -27,6 +27,7 @@ import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.events.args.SprintArgs;
 import fhdw.ipscrum.client.events.args.TaskArgs;
 import fhdw.ipscrum.client.view.interfaces.ITaskboardView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
@@ -89,7 +90,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 				new SprintSelectionTreeViewModel(sprintSelectionModel), null);
 		projectCellTree.setAnimationEnabled(true);
 
-		stackPanel.add(projectCellTree, "Sprintauswahl", false);
+		stackPanel.add(projectCellTree, TextConstants.CHART_SPRINTSTACK_TITLE, false);
 		projectCellTree.setSize("100%", "100%");
 
 		concreteTaskboardPanel = new AbsolutePanel();
@@ -101,7 +102,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		concreteTaskboardPanel.add(newTasklPanel, 25, 25);
 		newTasklPanel.setSize("170px", "300px");
 
-		Label lblPBI = new Label("ProductBacklog Einträge");
+		Label lblPBI = new Label(TextConstants.PBIS);
 		newTasklPanel.add(lblPBI);
 		lblPBI.setWidth("100%");
 		lblPBI.setStyleName("bold");
@@ -120,9 +121,9 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		pbiCellList
 				.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 
-		btnNewTask = new Button("New button");
+		btnNewTask = new Button(TextConstants.NEW_BUTTON);
 		newTasklPanel.add(btnNewTask);
-		btnNewTask.setText("Neuer Task");
+		btnNewTask.setText(TextConstants.NEW_TASK);
 		btnNewTask.setSize("140px", "28px");
 
 		VerticalPanel toDoTaskPanel = new VerticalPanel();
@@ -130,7 +131,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		concreteTaskboardPanel.add(toDoTaskPanel, 242, 25);
 		toDoTaskPanel.setSize("140px", "300px");
 
-		Label lblZuErledigen = new Label("Zu erledigen");
+		Label lblZuErledigen = new Label(TextConstants.TO_FINISH);
 		toDoTaskPanel.add(lblZuErledigen);
 		lblZuErledigen.setStyleName("bold");
 
@@ -144,12 +145,12 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		todoCellList.setStyleName("smallborder");
 		todoCellList.setSize("130px", "250px");
 
-		btnEditTodoTask = new Button("Task bearbeiten");
+		btnEditTodoTask = new Button(TextConstants.TASK_EDIT);
 		toDoTaskPanel.add(btnEditTodoTask);
-		btnEditTodoTask.setText("Task bearbeiten");
+		btnEditTodoTask.setText(TextConstants.TASK_EDIT);
 		btnEditTodoTask.setSize("100%", "28px");
 
-		btnDeleteTodoTask = new Button("Task löschen");
+		btnDeleteTodoTask = new Button(TextConstants.DELETE_TASK);
 		toDoTaskPanel.add(btnDeleteTodoTask);
 		btnDeleteTodoTask.setSize("100%", "28px");
 
@@ -158,7 +159,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		concreteTaskboardPanel.add(inProgressTaskPanel, 408, 25);
 		inProgressTaskPanel.setSize("140px", "300px");
 
-		Label lblInArbeit = new Label("In Arbeit");
+		Label lblInArbeit = new Label(TextConstants.IN_PROGRESS);
 		inProgressTaskPanel.add(lblInArbeit);
 		lblInArbeit.setStyleName("bold");
 
@@ -172,7 +173,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		inProgressCellList.setStyleName("smallborder");
 		inProgressCellList.setSize("130px", "250px");
 
-		btnEditInProgressTask = new Button("Task bearbeiten");
+		btnEditInProgressTask = new Button(TextConstants.TASK_EDIT);
 		inProgressTaskPanel.add(btnEditInProgressTask);
 		btnEditInProgressTask.setText("Task bearbeiten");
 		btnEditInProgressTask.setSize("100%", "28px");
@@ -190,7 +191,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		concreteTaskboardPanel.add(finishTaskPanel, 574, 25);
 		finishTaskPanel.setSize("140px", "300px");
 
-		Label lblErledigt = new Label("Erledigt");
+		Label lblErledigt = new Label(TextConstants.COMPLETED);
 		finishTaskPanel.add(lblErledigt);
 		lblErledigt.setStyleName("bold");
 
@@ -204,7 +205,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		doneCellList.setStyleName("smallborder");
 		doneCellList.setSize("130px", "250px");
 
-		btnEditDoneTask = new Button("Details");
+		btnEditDoneTask = new Button(TextConstants.DETAILS);
 		finishTaskPanel.add(btnEditDoneTask);
 		btnEditDoneTask.setSize("100%", "28px");
 		btnEditDoneTask.addClickHandler(new ClickHandler() {
