@@ -9,12 +9,16 @@ public abstract class BurndownChart extends GChart {
 	Curve burndownCurve;
 	Curve idealCurve;
 	Curve trendCurve;
+	protected int width;
+	protected int height;
 
+	protected abstract void createChart();
+	protected abstract void populateChart();
 
 	/**
 	 * This is to analyze the chart-data an draw the trend-line.
 	 */
-	void generateTrendcurve(List<Double> considerableDatapoints) {
+	protected void generateTrendcurve(List<Double> considerableDatapoints) {
 		/* calculate averages */
 		double xAvg = 0d; double yAvg = 0d;
 		for (int i = 0; i < burndownCurve.getNPoints(); i++) {

@@ -15,8 +15,6 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 public class SprintBurndownChart extends BurndownChart {
 
 	private final SprintChartData data;
-	private final int width;
-	private final int height;
 
 	public SprintBurndownChart(ISprint sprint) {
 		this(sprint, 500, 500);
@@ -29,7 +27,8 @@ public class SprintBurndownChart extends BurndownChart {
 		this.createChart();
 	}
 
-	private void createChart() {
+	@Override
+	protected void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>" + this.data.getSprint().getName() + "</h2>");
 		setChartSize(this.width, this.height);
@@ -86,7 +85,8 @@ public class SprintBurndownChart extends BurndownChart {
 		this.update();
 	}
 
-	private void populateChart() {
+	@Override
+	protected void populateChart() {
 		for (Date date : this.data.getData().keySet()) {
 			SprintChartDataDetails currentData = data.getData().get(date);
 			idealCurve.addPoint(date.getTime(), currentData.getIdealBurndownValue());

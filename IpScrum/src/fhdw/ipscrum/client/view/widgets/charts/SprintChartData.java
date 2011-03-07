@@ -15,7 +15,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
  * This class represents a data container for Sprint Burndown-Charts.
  * It also contains calculation-algorithms to generate chart-data.
  */
-public class SprintChartData {
+public class SprintChartData implements ChartData {
 
 	private final ISprint sprint;
 	private final ArrayList<Date> daysInvolved;
@@ -33,7 +33,8 @@ public class SprintChartData {
 	/**
 	 * This is the main chart-generation-algorithm.
 	 */
-	private void calculateData() {
+	@Override
+	public void calculateData() {
 		int dayCount = daysInvolved.size();
 		Date today = new Date();
 		double taskCount = this.calculateOverallTaskEffort();
@@ -149,6 +150,7 @@ public class SprintChartData {
 	 * This is to obtain a list of data-points for the trend-calculation.
 	 * @return a list of data-points.
 	 */
+	@Override
 	public List<Double> getConsiderableDatapoints() {
 		ArrayList<Double> result = new ArrayList<Double>();
 		for (Date date : daysInvolved) {

@@ -19,8 +19,6 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 public class ReleaseBurndownChart extends BurndownChart {
 
 	private final ReleaseChartData data;
-	private final int width;
-	private final int height;
 
 	/**
 	 * Simple constructor. This used the default chart-size of 500px x 250px.
@@ -47,7 +45,8 @@ public class ReleaseBurndownChart extends BurndownChart {
 	 * This is to generate and display the chart-display.
 	 * @return chart
 	 */
-	private void createChart() {
+	@Override
+	protected void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>Release " + this.getData().getRelease().getVersion() + "</h2>");
 		setChartSize(this.width, this.height);
@@ -93,7 +92,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 
 
 		this.populateChart();
-		this.generateTrendcurve(this.data.getConsiderabeDatapoints());
+		this.generateTrendcurve(this.data.getConsiderableDatapoints());
 
 		getXAxis().clearTicks();
 		int counter = 0;
@@ -109,7 +108,8 @@ public class ReleaseBurndownChart extends BurndownChart {
 	/**
 	 * This is to populate the chart with release-data.
 	 */
-	private void populateChart() {
+	@Override
+	protected void populateChart() {
 		int counter = 0;
 		for (Date endDate : this.getData().getData().keySet()) {
 			ReleaseChartDataDetails currentData = getData().getData().get(endDate);

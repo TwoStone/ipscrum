@@ -13,7 +13,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 /**
  * This class represents a data container for Release Burndown-Charts.
  */
-public class ReleaseChartData {
+public class ReleaseChartData implements ChartData {
 
 	private final IRelease release;
 	private final TreeMap<Date,ReleaseChartDataDetails> data;
@@ -32,7 +32,8 @@ public class ReleaseChartData {
 		return this.data;
 	}
 
-	private void calculateData() {
+	@Override
+	public void calculateData() {
 		// obtain a sorted list of sprints associated with the release
 		ArrayList<ISprint> sortedSprints = new ArrayList<ISprint>(this.getRelease().getSprints());
 		Collections.sort(sortedSprints, new Comparator<ISprint>() {
@@ -46,6 +47,7 @@ public class ReleaseChartData {
 		// calculate actual burndown-data
 		int overallEfforts = this.getRelease().getOverallEfforts();
 		int runningBDValue = overallEfforts;
+		Date today = new Date();
 
 		for (ISprint sprint : sortedSprints) {
 
@@ -54,10 +56,10 @@ public class ReleaseChartData {
 			if (this.data.containsKey(sprint.getEnd())) {
 				ReleaseChartDataDetails details = this.data.get(sprint.getEnd());
 				details.getSprints().add(sprint);
-				details.setActualBurndownValue(runningBDValue);
+				details.setActualBurndownValue((sprint.getEnd().before(today)) ? runningBDValue: null);
 				this.data.put(sprint.getEnd(), details);
 			} else {
-				ReleaseChartDataDetails details = new ReleaseChartDataDetails(new ArrayList<ISprint>(), runningBDValue);
+				ReleaseChartDataDetails details = new ReleaseChartDataDetails(new ArrayList<ISprint>(), (sprint.getEnd().before(today)) ? runningBDValue: null);
 				details.getSprints().add(sprint);
 				this.data.put(sprint.getEnd(), details);
 			}
@@ -107,10 +109,15 @@ public class ReleaseChartData {
 	}
 
 
-	public List<Double> getConsiderabeDatapoints() {
+	@Override
+	public List<Double> getConsiderableDatapoints() {
 		ArrayList<Double> result = new ArrayList<Double>();
-		for (int i = 0; i < this.data.keySet().size(); i++) {
-			result.add((double) i);
+		double counter = 0;
+		for (Date date : this.data.keySet()) {
+			if (date.before(new Date())) {
+				result.add(counter);
+			}
+			counter++;
 		}
 		return result;
 	}
