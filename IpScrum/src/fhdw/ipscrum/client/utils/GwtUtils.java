@@ -44,22 +44,25 @@ public final class GwtUtils {
 	}
 
 	/**
-	 * <b>Use void <i>displayError(Throwable error)</i> instead.</b> Displays an
-	 * error in an dialog box with close button.
+	 * <b>Use void <i>displayError(Throwable error)</i> instead. If you want to
+	 * display own text use <i>displayWarning(String warning)</i> or
+	 * <i>showErrorBox(String caption,String error)</i> for box with custom
+	 * caption. </b> <br/>
+	 * Displays an error in an dialog box with close button.
 	 * 
 	 * @param error
 	 */
 	@Deprecated
 	public static void displayError(final String error) {
 		logger.log(Level.WARNING, error);
-		showErrorBox(error);
+		showErrorBox(TextConstants.ERROR, error);
 	}
 
 	/**
 	 * @param error
 	 */
-	public static void showErrorBox(final String error) {
-		final DialogBox dialog = createDialog(TextConstants.ERROR);
+	private static void showErrorBox(String caption, final String error) {
+		final DialogBox dialog = createDialog(caption);
 		final VerticalPanel panel = new VerticalPanel();
 		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -90,7 +93,16 @@ public final class GwtUtils {
 	 */
 	public static void displayError(Throwable error) {
 		logger.log(Level.WARNING, TextConstants.ERROR, error);
-		showErrorBox(error.getMessage());
+		showErrorBox(TextConstants.ERROR, error.getMessage());
+	}
+
+	/**
+	 * Displays a warning in an dialog box with close button.
+	 * 
+	 * @param error
+	 */
+	public static void displayWarning(String warning) {
+		showErrorBox(TextConstants.WARNING, warning);
 	}
 
 	public static String escapeString(final String input) {
