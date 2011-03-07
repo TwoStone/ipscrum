@@ -8,28 +8,23 @@ import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 @SuppressWarnings("rawtypes")
-public class System extends Observable implements BDACompare, IHasChildren {
+public class System extends Observable implements BDACompare, ISystem {
 
 	private static final long serialVersionUID = -5808437328511791688L;
 	private String name;
 
-	@SuppressWarnings("rawtypes")
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
+	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
 
-	@SuppressWarnings("rawtypes")
-	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
-
-	@SuppressWarnings("rawtypes")
-	public System(final String name, final IHasChildren parent)
-			throws UserException {
+	public System(final String name, final ISystem parent) throws UserException {
 		this.setName(name);
 		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
-		this.toSystemAssoc = new OneToMany<ManyToOne, IHasChildren>(this);
+		this.toSystemAssoc = new OneToMany<ManyToOne, ISystem>(this);
 		this.setParent(parent);
 	}
 
@@ -66,6 +61,7 @@ public class System extends Observable implements BDACompare, IHasChildren {
 	/**
 	 * @return the name
 	 */
+	@Override
 	public String getName() {
 		return this.name;
 	}
@@ -73,11 +69,11 @@ public class System extends Observable implements BDACompare, IHasChildren {
 	/**
 	 * @return the parent
 	 */
-	public IHasChildren getParent() {
-		return (IHasChildren) this.toIHasChildAssoc.get();
+	public ISystem getParent() {
+		return (ISystem) this.toIHasChildAssoc.get();
 	}
 
-	private void setParent(final IHasChildren parent)
+	private void setParent(final ISystem parent)
 			throws DoubleDefinitionException {
 		if (parent.contains(this)) {
 			// TODO Textkonstante bauen
@@ -168,7 +164,7 @@ public class System extends Observable implements BDACompare, IHasChildren {
 	}
 
 	@Override
-	public IHasChildren getRoot() {
+	public ISystem getRoot() {
 		if (this.getParent() != null) {
 			return this.getParent().getRoot();
 		} else {
@@ -182,7 +178,31 @@ public class System extends Observable implements BDACompare, IHasChildren {
 	}
 
 	@Override
-	public OneToMany<ManyToOne, IHasChildren> getToSystemAssoc() {
+	public OneToMany<ManyToOne, ISystem> getToSystemAssoc() {
 		return this.toSystemAssoc;
+	}
+
+	public String toDisplayWithParent() {
+		class IsRootVisitor implements HasChildVisitor {
+
+			Boolean result;
+
+			@Override
+			public void handleSystem(final System system) {
+				this.result = false;
+			}
+
+			@Override
+			public void handleRoot(final Rootsystem rootsystem) {
+				this.result = true;
+			}
+		}
+		final IsRootVisitor visitor = new IsRootVisitor();
+		this.getParent().accept(visitor);
+		if (!visitor.result) {
+			return this.getParent().getName() + ">" + this.getName();
+		}
+		return this.getName();
+
 	}
 }

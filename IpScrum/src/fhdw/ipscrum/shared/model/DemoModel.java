@@ -4,7 +4,7 @@ import java.util.Date;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.exceptions.UserException;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 public class DemoModel {
 
@@ -15,7 +15,7 @@ public class DemoModel {
 
 		// Initial Systems
 
-		final IHasChildren rootSystem = root.getSysManager().getSystems();
+		final ISystem rootSystem = root.getSysManager().getSystems();
 		final System betriebssysteme = new System("Betriebssysteme", rootSystem);
 		final System browser = new System("Browser", rootSystem);
 		final System applicationServer = new System("ApplicationServer",

@@ -2,7 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
 
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 public class SystemManager implements Serializable {
 
@@ -12,7 +12,7 @@ public class SystemManager implements Serializable {
 
 	private Rootsystem rootsystem;
 
-	public IHasChildren getSystems() {
+	public ISystem getSystems() {
 		if (this.rootsystem == null) {
 			this.rootsystem = new Rootsystem();
 		}

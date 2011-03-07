@@ -3,10 +3,10 @@
  */
 package fhdw.ipscrum.client.view;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Vector;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -17,7 +17,6 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Tree;
@@ -25,6 +24,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.IEvent;
+import fhdw.ipscrum.client.utils.SystemTreeItem;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView;
 import fhdw.ipscrum.shared.model.System;
 
@@ -37,8 +37,6 @@ public class SystemManagementView extends Composite implements
 	private final Event<NewSystemEventArgs> createSystemEvent = new Event<NewSystemEventArgs>();
 	private List<System> possibleParents;
 	final Tree systemTree;
-	final RadioButton rdbtnSystem;
-	final RadioButton rdbtnGruppe;
 	final ListBox parentComboBox;
 
 	public SystemManagementView() {
@@ -67,7 +65,7 @@ public class SystemManagementView extends Composite implements
 		verticalPanel.add(createSystemPanel);
 		createSystemPanel.setWidth("100%");
 
-		final Grid grid = new Grid(4, 2);
+		final Grid grid = new Grid(3, 2);
 		grid.setStyleName("lightBackground");
 		createSystemPanel.setContent(grid);
 		grid.setSize("100%", "");
@@ -86,13 +84,6 @@ public class SystemManagementView extends Composite implements
 		this.parentComboBox = new ListBox();
 		grid.setWidget(1, 1, this.parentComboBox);
 
-		this.rdbtnSystem = new RadioButton("new name", "System");
-		this.rdbtnSystem.setValue(true);
-		grid.setWidget(2, 0, this.rdbtnSystem);
-
-		this.rdbtnGruppe = new RadioButton("new name", "Gruppe");
-		grid.setWidget(2, 1, this.rdbtnGruppe);
-
 		final Button btnNewSystem = new Button("Neues System hinzufügen");
 		btnNewSystem.addClickHandler(new ClickHandler() {
 			@Override
@@ -104,14 +95,12 @@ public class SystemManagementView extends Composite implements
 							.get(SystemManagementView.this.parentComboBox
 									.getSelectedIndex() - 1);
 				}
-				final Boolean asGroup = SystemManagementView.this.rdbtnGruppe
-						.getValue();
 				SystemManagementView.this.createSystemEvent.fire(
 						SystemManagementView.this, new NewSystemEventArgs(name,
-								parent, asGroup));
+								parent));
 			}
 		});
-		grid.setWidget(3, 1, btnNewSystem);
+		grid.setWidget(2, 1, btnNewSystem);
 	}
 
 	/*
@@ -142,12 +131,12 @@ public class SystemManagementView extends Composite implements
 		});
 		this.systemTree.clear();
 		for (final System system : systems) {
-			this.systemTree.addItem(system.toString());
+			this.systemTree.addItem(new SystemTreeItem(system));
 		}
 	}
 
 	@Override
-	public void setPossibleParents(final Vector<System> parents) {
+	public void setPossibleParents(final List<System> parents) {
 		Collections.sort(parents, new Comparator<System>() {
 
 			@Override
@@ -158,8 +147,19 @@ public class SystemManagementView extends Composite implements
 		this.possibleParents = parents;
 		this.parentComboBox.clear();
 		this.parentComboBox.addItem("");
-		for (final System systemgroup : parents) {
-			this.parentComboBox.addItem(systemgroup.getName());
+		final List<String> items = new ArrayList<String>();
+		for (final System system : parents) {
+			items.add(system.toDisplayWithParent());
+		}
+		Collections.sort(items, new Comparator<String>() {
+
+			@Override
+			public int compare(final String arg0, final String arg1) {
+				return arg0.compareToIgnoreCase(arg1);
+			}
+		});
+		for (final String string : items) {
+			this.parentComboBox.addItem(string);
 		}
 	}
 }

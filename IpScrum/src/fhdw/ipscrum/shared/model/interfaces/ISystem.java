@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model.interfaces;
 
-import java.util.Vector;
+import java.util.List;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
@@ -11,17 +11,24 @@ import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 /**
  * Represents an system-element which has children elements.
  */
-public interface IHasChildren extends BDACompare {
+public interface ISystem extends BDACompare {
 
 	/**
 	 * Returns all Children-Systems
 	 */
-	Vector<System> getSystems();
+	List<System> getSystems();
 
 	/**
 	 * Returns all Children-Systems recursively
 	 */
-	Vector<System> getSystemsRecursiv();
+	List<System> getSystemsRecursiv();
+
+	/**
+	 * Returns the name of the system.
+	 * 
+	 * @return
+	 */
+	String getName();
 
 	/**
 	 * Visitor Jump-In-Point
@@ -33,13 +40,13 @@ public interface IHasChildren extends BDACompare {
 	 * Don't use this Getter out of the model.
 	 */
 	@SuppressWarnings("rawtypes")
-	OneToMany<ManyToOne, IHasChildren> getToSystemAssoc();
+	OneToMany<ManyToOne, ISystem> getToSystemAssoc();
 
 	/**
 	 * Returns the root parent of this element. This is the parent on the top of
 	 * the tree.
 	 */
-	abstract IHasChildren getRoot();
+	abstract ISystem getRoot();
 
 	/**
 	 * Returns true if the given element is in the tree else false.

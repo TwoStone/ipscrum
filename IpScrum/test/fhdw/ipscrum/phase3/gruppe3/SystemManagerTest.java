@@ -2,7 +2,7 @@ package fhdw.ipscrum.phase3.gruppe3;
 
 import org.junit.*;
 import fhdw.ipscrum.shared.model.SystemManager;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 import static org.junit.Assert.*;
 
 /**
@@ -42,7 +42,7 @@ public class SystemManagerTest {
 		throws Exception {
 		SystemManager fixture = new SystemManager();
 
-		IHasChildren result = fixture.getSystems();
+		ISystem result = fixture.getSystems();
 
 		// add additional test code here
 		assertNotNull(result);
@@ -61,7 +61,7 @@ public class SystemManagerTest {
 		throws Exception {
 		SystemManager fixture = new SystemManager();
 
-		IHasChildren result = fixture.getSystems();
+		ISystem result = fixture.getSystems();
 
 		// add additional test code here
 		assertNotNull(result);

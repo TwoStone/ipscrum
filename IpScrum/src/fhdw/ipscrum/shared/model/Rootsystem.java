@@ -8,7 +8,7 @@ import java.util.Vector;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
@@ -16,25 +16,25 @@ import fhdw.ipscrum.shared.observer.Observable;
  * @author Administrator
  * 
  */
-public class Rootsystem extends Observable implements IHasChildren {
+public class Rootsystem extends Observable implements ISystem {
 
 	private static final long serialVersionUID = 3375902891368480223L;
 	private String name;
-	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
+	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
 
 	private void setToSystemAssoc(
-			final OneToMany<ManyToOne, IHasChildren> toSystemAssoc) {
+			final OneToMany<ManyToOne, ISystem> toSystemAssoc) {
 		this.toSystemAssoc = toSystemAssoc;
 	}
 
 	public Rootsystem() {
-		// TODO: textkonstante
-		this.setName("Systemübersicht");
-		this.setToSystemAssoc(new OneToMany<ManyToOne, IHasChildren>(this));
+		// Root has no name;
+		this.setName("");
+		this.setToSystemAssoc(new OneToMany<ManyToOne, ISystem>(this));
 	}
 
 	@Override
-	public OneToMany<ManyToOne, IHasChildren> getToSystemAssoc() {
+	public OneToMany<ManyToOne, ISystem> getToSystemAssoc() {
 		return this.toSystemAssoc;
 	}
 
@@ -63,6 +63,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	 * fhdw.ipscrum.shared.model.Component#contains(fhdw.ipscrum.shared.model
 	 * .Component)
 	 */
+	@Override
 	public boolean contains(final System child) {
 		return this.containsAction(child);
 	}
@@ -94,6 +95,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 		return ret;
 	}
 
+	@Override
 	public String getName() {
 		return this.name;
 	}
@@ -107,7 +109,7 @@ public class Rootsystem extends Observable implements IHasChildren {
 	}
 
 	@Override
-	public IHasChildren getRoot() {
+	public ISystem getRoot() {
 		return this;
 	}
 

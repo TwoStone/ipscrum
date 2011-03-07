@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 /**
  * The class <code>SystemgroupTest</code> contains tests for the class
@@ -32,7 +32,7 @@ public class SystemTest {
 	@Test(expected = NoValidValueException.class)
 	public void testSystem_1() throws Exception {
 		final String name = "";
-		final IHasChildren parent = new Rootsystem();
+		final ISystem parent = new Rootsystem();
 
 		new System(name, parent);
 	}
@@ -46,7 +46,7 @@ public class SystemTest {
 	@Test(expected = DoubleDefinitionException.class)
 	public void testSystem_2() throws Exception {
 		final String name = "G1";
-		final IHasChildren parent = new Rootsystem();
+		final ISystem parent = new Rootsystem();
 
 		new System(name, parent);
 		new System(name, parent);

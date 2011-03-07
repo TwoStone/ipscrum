@@ -8,7 +8,7 @@ import fhdw.ipscrum.client.view.SystemManagementView;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView.NewSystemEventArgs;
 import fhdw.ipscrum.shared.exceptions.UserException;
-import fhdw.ipscrum.shared.model.interfaces.IHasChildren;
+import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 public class SystemManagementPresenter extends Presenter<ISystemManagementView> {
 
@@ -20,10 +20,10 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 	}
 
 	private void updateView() {
-		final IHasChildren root = this.getSessionManager().getModel()
+		final ISystem root = this.getSessionManager().getModel()
 				.getSysManager().getSystems();
 		this.getView().setRootSystemGroup(root.getSystems());
-		this.getView().setPossibleParents(root.getSystems());
+		this.getView().setPossibleParents(root.getSystemsRecursiv());
 	}
 
 	@Override
@@ -34,8 +34,9 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 	}
 
 	private void registerEvents() {
-		this.getView().getCreateSystemEvent().add(
-				new EventHandler<ISystemManagementView.NewSystemEventArgs>() {
+		this.getView()
+				.getCreateSystemEvent()
+				.add(new EventHandler<ISystemManagementView.NewSystemEventArgs>() {
 
 					@Override
 					public void onUpdate(final Object sender,
@@ -46,7 +47,7 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 	}
 
 	private void createSystem(final NewSystemEventArgs eventArgs) {
-		final IHasChildren parent;
+		final ISystem parent;
 		if (eventArgs.Parent == null) {
 			parent = this.getSessionManager().getModel().getSysManager()
 					.getSystems();
@@ -58,7 +59,7 @@ public class SystemManagementPresenter extends Presenter<ISystemManagementView> 
 			new fhdw.ipscrum.shared.model.System(eventArgs.Name, parent);
 			this.updateView();
 		} catch (final UserException e) {
-			GwtUtils.displayError(e.getMessage());
+			GwtUtils.displayError(e);
 		}
 
 	}

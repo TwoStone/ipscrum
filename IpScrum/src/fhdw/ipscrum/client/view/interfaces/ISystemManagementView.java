@@ -1,7 +1,6 @@
 package fhdw.ipscrum.client.view.interfaces;
 
 import java.util.List;
-import java.util.Vector;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
@@ -13,14 +12,11 @@ public interface ISystemManagementView extends IView {
 
 		public final String Name;
 		public final System Parent;
-		public final Boolean AsGroup;
 
-		public NewSystemEventArgs(final String name, final System parent,
-				final Boolean asGroup) {
+		public NewSystemEventArgs(final String name, final System parent) {
 			super();
 			Name = name;
 			Parent = parent;
-			AsGroup = asGroup;
 		}
 
 	}
@@ -29,5 +25,5 @@ public interface ISystemManagementView extends IView {
 
 	void setRootSystemGroup(List<System> group);
 
-	void setPossibleParents(Vector<System> parents);
+	void setPossibleParents(List<System> parents);
 }
