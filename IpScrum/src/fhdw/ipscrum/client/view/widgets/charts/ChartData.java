@@ -4,6 +4,5 @@ import java.util.List;
 
 public interface ChartData {
 
-	abstract void calculateData();
 	abstract List<Double> getConsiderableDatapoints();
 }

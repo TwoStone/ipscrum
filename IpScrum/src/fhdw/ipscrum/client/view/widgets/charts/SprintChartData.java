@@ -31,8 +31,7 @@ public class SprintChartData implements ChartData {
 	/**
 	 * This is the main chart-generation-algorithm.
 	 */
-	@Override
-	public void calculateData() {
+	private void calculateData() {
 		int dayCount = daysInvolved.size();
 		Date today = new Date();
 		double taskCount = this.sprint.getSprintBacklog().calculateOverallTaskEffort();

@@ -32,8 +32,7 @@ public class ReleaseChartData implements ChartData {
 		return this.data;
 	}
 
-	@Override
-	public void calculateData() {
+	private void calculateData() {
 		// obtain a sorted list of sprints associated with the release
 		ArrayList<ISprint> sortedSprints = new ArrayList<ISprint>(this.getRelease().getSprints());
 		Collections.sort(sortedSprints, new Comparator<ISprint>() {
