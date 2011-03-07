@@ -152,6 +152,9 @@ public final class TextConstants {
 	public static final String SPRINT_ITEMS = "Sprint Einträge";
 	public static final String ADD = "Hinzufügen";
 	public static final String TASK_ITEMS = "Task Einträge";
+	public static final String CREATE = "Anlegen";
+	public static final String TASK_NAME = "Task-Name:";
+	public static final String TIME_AND_EFFORT = "Aufwand [in Personenstunden]";
 	
 
 	/* [END SECTION] */
