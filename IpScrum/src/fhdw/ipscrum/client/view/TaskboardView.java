@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -112,6 +113,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		newTasklPanel.add(lblPBI);
 		lblPBI.setSize("", "");
 		lblPBI.setStyleName("taskboardLabel");
+		lblPBI.addMouseListener(new ToolTipListener(TextConstants.PBI_MOUSEOVER, 9999999, "taskboardLabel"));
 		
 		ScrollPanel newTaskScrollPanel = new ScrollPanel();
 		newTaskScrollPanel.setStyleName("smallborder");
@@ -357,11 +359,23 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	@Override
 	public void refreshPBIs(Vector<ProductBacklogItem> pbis) {
 		this.getPbiCellList().setRowData(pbis);
+		int counter = 0;
+		for (ProductBacklogItem pbi : pbis) {
+		Element current = this.getPbiCellList().getRowElement(counter);
+		current.setTitle(pbi.getDescription());
+		counter++;
+		}
 	}
 
 	@Override
 	public void refreshTodoTasks(Vector<ITask> tasks) {
 		this.getTodoCellList().setRowData(tasks);
+		int counter = 0;
+		for (ITask task : tasks) {
+		Element current = this.getTodoCellList().getRowElement(counter);
+		current.setTitle(task.getDescription());
+		counter++;
+		}
 		this.getTodoCellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
 	}
@@ -369,13 +383,29 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	@Override
 	public void refreshInProgressTasks(Vector<ITask> tasks) {
 		this.getInProgresscellList().setRowData(tasks);
+		
+		int counter = 0;
+		for (ITask task : tasks) {
+		Element current = this.getInProgresscellList().getRowElement(counter);
+		current.setTitle(task.getDescription());
+		counter++;
+		
 		this.getInProgresscellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
+		}
 	}
 
 	@Override
 	public void refreshDoneTasks(Vector<ITask> tasks) {
 		this.getDoneCellList().setRowData(tasks);
+	
+		int counter = 0;
+		for (ITask task : tasks) {
+		Element current = this.getDoneCellList().getRowElement(counter);
+		current.setTitle(task.getDescription());
+		counter++;
+		}
+		
 		this.getDoneCellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
 	}

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -265,9 +266,12 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 			
 			DialogBox helpBox =	GwtUtils.createDialog(TextConstants.HELP);
-			helpBox.setWidget(new Label(TextConstants.TASKBOARD_HELP));
 			helpBox.setAutoHideEnabled(true);
 			helpBox.setAnimationEnabled(true);
+			Label helpLabel = new Label();
+			helpLabel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+			helpLabel.setText(TextConstants.TASKBOARD_HELP);
+			helpBox.add(helpLabel);
 			helpBox.center();
 		
 			}
