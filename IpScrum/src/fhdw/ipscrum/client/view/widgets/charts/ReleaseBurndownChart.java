@@ -9,6 +9,7 @@ import com.googlecode.gchart.client.GChart.Curve.Point;
 import com.googlecode.gchart.client.HoverUpdateable;
 
 import fhdw.ipscrum.client.view.widgets.charts.ReleaseChartData.ReleaseChartDataDetails;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 /**
@@ -81,8 +82,8 @@ public class ReleaseBurndownChart extends BurndownChart {
 		trendCurve.getSymbol().setBorderColor("grey");
 		trendCurve.getSymbol().setBackgroundColor("grey");
 
-		getXAxis().setAxisLabel("<i>E n d t e r m i n e&nbsp;&nbsp;&nbsp;d e r&nbsp;&nbsp;&nbsp;S p r i n t s</i>");
-		getYAxis().setAxisLabel("<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>");
+		getXAxis().setAxisLabel(TextConstants.CHART_RELEASE_XAXIS_LABEL);
+		getYAxis().setAxisLabel(TextConstants.CHART_RELEASE_YAXIS_LABEL);
 		getYAxis().getAxisLabel().setStyleName("rotated");
 		getYAxis().setAxisLabelThickness(20);
 		getYAxis().setHasGridlines(true);

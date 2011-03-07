@@ -5,6 +5,7 @@ import java.util.Date;
 import com.googlecode.gchart.client.GChart;
 
 import fhdw.ipscrum.client.view.widgets.charts.SprintChartData.SprintChartDataDetails;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 
@@ -65,9 +66,9 @@ public class SprintBurndownChart extends BurndownChart {
 		trendCurve.getSymbol().setBorderColor("grey");
 		trendCurve.getSymbol().setBackgroundColor("grey");
 
-		getXAxis().setAxisLabel("<i>A r b e i t s t a g e</i>");
 		getXAxis().setTickLabelFormat("=(Date)dd.");
-		getYAxis().setAxisLabel("<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>");
+		getXAxis().setAxisLabel(TextConstants.CHART_SPRINT_XAXIS_LABEL);
+		getYAxis().setAxisLabel(TextConstants.CHART_SPRINT_YAXIS_LABEL);
 		getYAxis().setTickLabelFormat("#");
 		getYAxis().setTickLength(25);
 		getYAxis().getAxisLabel().setStyleName("rotated");
