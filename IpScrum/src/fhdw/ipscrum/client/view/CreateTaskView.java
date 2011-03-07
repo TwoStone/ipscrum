@@ -13,6 +13,8 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
+import fhdw.ipscrum.shared.constants.TextConstants;
+
 import com.google.gwt.user.client.ui.IntegerBox;
 
 /**
@@ -44,7 +46,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		initWidget(contentPanel);
 		contentPanel.setSize("251px", "333px");
 
-		btnOK = new Button("Anlegen");
+		btnOK = new Button(TextConstants.CREATE);
 		contentPanel.add(btnOK, 10, 295);
 		btnOK.setSize("100px", "28px");
 
@@ -58,7 +60,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 			}
 		});
 
-		btnAbort = new Button("Abbrechen");
+		btnAbort = new Button(TextConstants.ABORT);
 		contentPanel.add(btnAbort, 141, 295);
 		btnAbort.setSize("100px", "28px");
 
@@ -72,14 +74,14 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 			}
 		});
 
-		Label lblTaskname = new Label("Task-Name:");
+		Label lblTaskname = new Label(TextConstants.TASK_NAME);
 		contentPanel.add(lblTaskname, 10, 10);
 
 		textBox = new TextBox();
 		contentPanel.add(textBox, 86, 10);
 		textBox.setSize("147px", "16px");
 
-		Label lblDescription = new Label("Beschreibung");
+		Label lblDescription = new Label(TextConstants.DESCRIPTION);
 		contentPanel.add(lblDescription, 10, 51);
 
 		textArea = new TextArea();
@@ -87,7 +89,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		textArea.setSize("223px", "143px");
 
 		Label lblAufwandpersonenstunden = new Label(
-				"Aufwand [in Personenstunden]");
+				TextConstants.TIME_AND_EFFORT);
 		contentPanel.add(lblAufwandpersonenstunden, 10, 238);
 
 		iBoxEffort = new IntegerBox();
