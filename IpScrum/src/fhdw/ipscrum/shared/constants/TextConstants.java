@@ -151,6 +151,7 @@ public final class TextConstants {
 	public static final String FINISHED_TASK = "Task abgeschlossen!";
 	public static final String SPRINT_ITEMS = "Sprint Einträge";
 	public static final String ADD = "Hinzufügen";
+	public static final String TASK_ITEMS = "Task Einträge";
 	
 
 	/* [END SECTION] */
