@@ -11,17 +11,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
 import fhdw.ipscrum.shared.exceptions.WrongSystemException;
+import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.Sprint;
@@ -745,6 +750,269 @@ public class BugTest {
 		bug.close();
 
 		bug.setSprint(sprint);
+	}
+
+	/*
+	 * ein Akzeptanzkriterium zu einem Bug hinzufügen
+	 */
+	@Test
+	public void addAcceptanceCriterion() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
+				"TestAcceptanceCriterion");
+		assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
+		bug.addAcceptanceCriterion(acceptanceCriterion);
+		assertTrue(bug.getAcceptanceCriteria().listIterator().hasNext());
+		assertEquals(acceptanceCriterion, bug.getAcceptanceCriteria()
+				.listIterator().next());
+	}
+
+	/*
+	 * zwei gleiche Akzeptanzkriterien zu einem Bug hinzufügen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
+	public void addAcceptanceCriterionDoubleContent_DiffenretObjects()
+			throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final AcceptanceCriterion acceptanceCriterion1 = new AcceptanceCriterion(
+				"TestAcceptanceCriterion");
+		final AcceptanceCriterion acceptanceCriterion2 = new AcceptanceCriterion(
+				"TestAcceptanceCriterion");
+		assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
+		bug.addAcceptanceCriterion(acceptanceCriterion1);
+		bug.addAcceptanceCriterion(acceptanceCriterion2);
+	}
+
+	/*
+	 * das selbe Akzeptanzkriterium 2x zu einem Bug hinzufügen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
+	public void addAcceptanceCriterionDoubleContent_DoubleAdd()
+			throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
+				"TestAcceptanceCriterion");
+		assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
+		bug.addAcceptanceCriterion(acceptanceCriterion);
+		bug.addAcceptanceCriterion(acceptanceCriterion);
+	}
+
+	/*
+	 * ein Akzeptanzkriterium zu einem geschlossenen Bug hinzufügen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	public void addAcceptanceCriterionToClosedFeature() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		assertTrue(bug.getState() instanceof PBIClosedState);
+
+		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
+				"TestAcceptanceCriterion");
+
+		bug.addAcceptanceCriterion(acceptanceCriterion);
+	}
+
+	/*
+	 * einen Hinweis zu einem Bug hinzufügen
+	 */
+	@Test
+	public void addHint() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final String content = "TestHint";
+		final Hint hint = new Hint(content);
+		assertFalse(bug.getHints().listIterator().hasNext());
+		bug.addHint(hint);
+		assertTrue(bug.getHints().listIterator().hasNext());
+		assertEquals(hint, bug.getHints().listIterator().next());
+		assertEquals(content, bug.getHints().listIterator().next().getContent());
+	}
+
+	/*
+	 * zwei gleiche Hinweise zu einem Bug hinzufügen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
+	public void addHintDoubleContent_DiffenretObjects() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final Hint hint1 = new Hint("TestHint");
+		final Hint hint2 = new Hint("TestHint");
+		assertFalse(bug.getHints().listIterator().hasNext());
+		bug.addHint(hint1);
+		bug.addHint(hint2);
+	}
+
+	/*
+	 * den selben Hinweis 2x zu einem Bug hinzufügen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
+	public void addHintDoubleContent_DoubleAdd() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final Hint hint = new Hint("TestHint");
+		assertFalse(bug.getHints().listIterator().hasNext());
+		bug.addHint(hint);
+		bug.addHint(hint);
+	}
+
+	/*
+	 * einen Hinweis zu einem geschlossenen Bug hinzufgüen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	public void addHintToClosedFeature() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		assertTrue(bug.getState() instanceof PBIClosedState);
+
+		final Hint hint = new Hint("TestHint");
+
+		bug.addHint(hint);
+	}
+
+	/*
+	 * eine Relation zu einem geschlossenen Bug hinzufügen
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
+	public void addRelationToClosedFeature() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+		assertTrue(bug.getState() instanceof PBIClosedState);
+
+		if (SessionManager.getInstance().getModel().getRelationTypeManager()
+				.getRelationTypes().iterator().hasNext() == false) {
+			RelationType.create("TestRelationType");
+		}
+
+		final RelationType relationType = SessionManager.getInstance()
+				.getModel().getRelationTypeManager().getRelationTypes()
+				.iterator().next();
+		final Relation relation = new Relation(relationType, bug);
+
+		assertFalse(bug.getRelations().iterator().hasNext());
+		bug.addRelation(relation);
+	}
+
+	/*
+	 * eine Relation zu einem anderen Bug hinzufügen und dabei einen vorhandenen
+	 * Relations-Typ auswählen
+	 */
+	@Test
+	public void addRelationToOtherFeatureWithoutNewRelationType()
+			throws Exception {
+		if (SessionManager.getInstance().getModel().getRelationTypeManager()
+				.getRelationTypes().iterator().hasNext() == false) {
+			RelationType.create("TestRelationType");
+		}
+
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+		final Bug bug2 = new Bug(name + "Test", description, version, backlog);
+
+		final RelationType relationType = SessionManager.getInstance()
+				.getModel().getRelationTypeManager().getRelationTypes()
+				.iterator().next();
+		final Relation relation = new Relation(relationType, bug2);
+
+		assertFalse(bug.getRelations().iterator().hasNext());
+		bug.addRelation(relation);
+		assertTrue(bug.getRelations().iterator().hasNext());
+		assertEquals(relation, bug.getRelations().iterator().next());
+		assertEquals(relationType, bug.getRelations().iterator().next()
+				.getType());
+
+	}
+
+	/*
+	 * eine Relation auf den eigenen Bug hinzufügen und dabei einen neuen
+	 * Relations-Typ angeben
+	 */
+	@Test
+	public void addRelationToOwnFeatureWithNewRelationType() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		final RelationType relationType = RelationType
+				.create("TestRelationType2");
+		final Relation relation = new Relation(relationType, bug);
+
+		assertFalse(bug.getRelations().iterator().hasNext());
+		bug.addRelation(relation);
+		assertTrue(bug.getRelations().iterator().hasNext());
+		assertEquals(relation, bug.getRelations().iterator().next());
+		assertEquals(relationType, bug.getRelations().iterator().next()
+				.getType());
 	}
 
 	/**
