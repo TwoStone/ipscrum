@@ -76,11 +76,11 @@ public class SprintBurndownChart extends BurndownChart {
 		getYAxis().setHasGridlines(true);
 
 		this.populateChart();
-		this.generateTrendcurve(this.data.getConsiderableDatapoints());
+		this.generateTrendcurve(this.data.getTickData());
 
 		// set x-axis ticks
 		if (getChartWidth() > 400) {
-			getXAxis().setTickCount((this.data.getConsiderableDatapoints().size()<26) ? this.data.getConsiderableDatapoints().size() : 25);
+			getXAxis().setTickCount((this.data.getTickData().size()<26) ? this.data.getTickData().size() : 25);
 		}
 
 		this.update();

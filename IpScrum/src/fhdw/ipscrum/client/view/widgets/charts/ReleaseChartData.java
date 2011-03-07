@@ -109,7 +109,7 @@ public class ReleaseChartData implements ChartData {
 
 
 	@Override
-	public List<Double> getConsiderableDatapoints() {
+	public List<Double> getTickData() {
 		ArrayList<Double> result = new ArrayList<Double>();
 		double counter = 0;
 		for (Date date : this.data.keySet()) {

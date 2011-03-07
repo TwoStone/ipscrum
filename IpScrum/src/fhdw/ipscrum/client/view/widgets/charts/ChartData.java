@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ChartData {
 
-	abstract List<Double> getConsiderableDatapoints();
+	abstract List<Double> getTickData();
 }

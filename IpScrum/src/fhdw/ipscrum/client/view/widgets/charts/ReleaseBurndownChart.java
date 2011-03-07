@@ -93,7 +93,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 
 
 		this.populateChart();
-		this.generateTrendcurve(this.data.getConsiderableDatapoints());
+		this.generateTrendcurve(this.data.getTickData());
 
 		getXAxis().clearTicks();
 		int counter = 0;

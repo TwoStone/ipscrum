@@ -18,7 +18,7 @@ public abstract class BurndownChart extends GChart {
 	/**
 	 * This is to analyze the chart-data an draw the trend-line.
 	 */
-	protected void generateTrendcurve(List<Double> considerableDatapoints) {
+	protected void generateTrendcurve(List<Double> tickData) {
 		/* calculate averages */
 		double xAvg = 0d; double yAvg = 0d;
 		for (int i = 0; i < burndownCurve.getNPoints(); i++) {
@@ -40,10 +40,10 @@ public abstract class BurndownChart extends GChart {
 		double q = yAvg - m * xAvg;
 
 		/* draw trend curve */
-		for (int i = 0; i < considerableDatapoints.size(); i++) {
+		for (int i = 0; i < tickData.size(); i++) {
 			double value = m * i + q;
 			if (value>=0) {
-				trendCurve.addPoint(considerableDatapoints.get(i), value);
+				trendCurve.addPoint(tickData.get(i), value);
 			}
 		}
 	}
