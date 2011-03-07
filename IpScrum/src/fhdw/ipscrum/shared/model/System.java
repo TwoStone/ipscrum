@@ -37,6 +37,12 @@ public class System extends Observable implements BDACompare, IHasChildren {
 		return this.toIHasChildAssoc;
 	}
 
+	@Override
+	public Vector<System> getSystemsRecursiv() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * @param name
 	 *            the name to set

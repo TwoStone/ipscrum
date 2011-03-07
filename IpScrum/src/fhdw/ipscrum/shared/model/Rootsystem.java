@@ -160,6 +160,12 @@ public class Rootsystem extends Observable implements IHasChildren {
 	}
 
 	@Override
+	public Vector<System> getSystemsRecursiv() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
