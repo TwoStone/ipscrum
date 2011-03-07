@@ -87,7 +87,7 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 							.removeProject(eventArgs.getProject());
 					ProjectPresenter.this.initialize();
 				} else {
-					GwtUtils.displayError(TextConstants.NO_PROJECT_SELECTED);
+					GwtUtils.displayWarning(TextConstants.NO_PROJECT_SELECTED);
 				}
 			}
 		});
@@ -116,11 +116,18 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 								project.addPossibleSystem(system);
 							}
 						}
+						box.hide();
 					}
 				});
 
-				// TODO dialog wieder schließen bei abbrechen
+				presenter.getAborted().add(new EventHandler<EventArgs>() {
 
+					@Override
+					public void onUpdate(Object sender, EventArgs eventArgs) {
+						box.hide();
+					}
+
+				});
 				box.center();
 			}
 		});

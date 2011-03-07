@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -81,7 +82,15 @@ public class Project extends Observable implements BDACompare, Serializable,
 	}
 
 	public void addPossibleSystem(final System system) {
-		if (!this.possibleSystems.contains(system)) {
+		if (!this.isPossibleSystem(system)) {
+
+			final Iterator<System> i = this.possibleSystems.iterator();
+			while (i.hasNext()) {
+				final System current = i.next();
+				if (system.containsAction(current)) {
+					i.remove();
+				}
+			}
 			this.possibleSystems.add(system);
 		}
 	}
