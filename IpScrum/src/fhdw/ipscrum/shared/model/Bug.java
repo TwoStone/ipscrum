@@ -16,14 +16,11 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
- * @author Niklas
+ * Represents a Bug as special type of a PBI.
  * 
  */
 public class Bug extends ProductBacklogItem {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3237023915419793623L;
 
 	private IRelease version;
@@ -36,20 +33,14 @@ public class Bug extends ProductBacklogItem {
 	private Bug() {
 	}
 
-	public Bug(final String name, final String description, IRelease version,
-			final ProductBacklog backlog) throws UserException {
+	public Bug(final String name, final String description,
+			final IRelease version, final ProductBacklog backlog)
+			throws UserException {
 		super(name, description, backlog);
 		this.setVersion(version);
 		this.systems = new ArrayList<System>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.ProductBacklogItem#accept(fhdw.ipscrum.shared
-	 * .model.visitor.IProductBacklogItemVisitor)
-	 */
 	@Override
 	public void accept(final IProductBacklogItemVisitor visitor) {
 		visitor.handleBug(this);
@@ -59,7 +50,7 @@ public class Bug extends ProductBacklogItem {
 		this.getState().addSystem(system);
 	}
 
-	public void removeSystem(System system) throws UserException {
+	public void removeSystem(final System system) throws UserException {
 		this.getState().removeSystem(system);
 	}
 
@@ -100,11 +91,6 @@ public class Bug extends ProductBacklogItem {
 		return Collections.unmodifiableCollection(this.systems);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fhdw.ipscrum.shared.model.ProductBacklogItem#initialize()
-	 */
 	@Override
 	protected void initializeState() {
 		this.state = new BugOpenState(this);
@@ -114,8 +100,7 @@ public class Bug extends ProductBacklogItem {
 		this.state.setVersion(version);
 	}
 
-	public void doRemoveSystem(System system) {
+	public void doRemoveSystem(final System system) {
 		this.systems.remove(system);
 	}
-
 }

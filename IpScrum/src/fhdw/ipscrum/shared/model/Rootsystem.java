@@ -38,31 +38,6 @@ public class Rootsystem extends Observable implements ISystem {
 		return this.toSystemAssoc;
 	}
 
-	// /**
-	// * adds a Child to the systemgroup
-	// *
-	// * @param child
-	// * @throws DoubleDefinitionException
-	// */
-	// @Override
-	// public void addChild(final System child) throws DoubleDefinitionException
-	// {
-	// if (this.contains(child)) {
-	// throw new DoubleDefinitionException(
-	// fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
-	// } else {
-	// this.getToSystemAssoc().add(child.getToIHasChildAssoc());
-	// this.notifyObservers();
-	// }
-	// }
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.Component#contains(fhdw.ipscrum.shared.model
-	 * .Component)
-	 */
 	@Override
 	public boolean contains(final System child) {
 		return this.containsAction(child);
@@ -118,22 +93,12 @@ public class Rootsystem extends Observable implements ISystem {
 		return this.getName();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int result = this.indirectHashCode();
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(final Object obj) {
 		return this.indirectEquals(obj);

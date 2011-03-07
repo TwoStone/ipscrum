@@ -75,12 +75,11 @@ public class Project extends Observable implements BDACompare, Serializable,
 	}
 
 	@Override
-	public void accept(ITreeConstructionVisitor treeVisitor) {
+	public void accept(final ITreeConstructionVisitor treeVisitor) {
 		treeVisitor.handleProject(this);
 	}
 
-	public void addPossibleSystem(System system) {
-
+	public void addPossibleSystem(final System system) {
 		if (!this.possibleSystems.contains(system)) {
 			this.possibleSystems.add(system);
 		}
@@ -249,11 +248,16 @@ public class Project extends Observable implements BDACompare, Serializable,
 		return result;
 	}
 
-	public Boolean isPossibleSystem(System system) {
+	public Boolean isPossibleSystem(final System system) {
 		final Boolean result = false;
 		for (final System current : this.possibleSystems) {
-			// TODO Nik: implemenent when contains is implemeneted
-			// result = result || current.contains(system);
+			if (current.equals(system)) {
+				return true;
+			} else {
+				if (current.containsAction(system)) {
+					return true;
+				}
+			}
 		}
 		return result;
 	}
