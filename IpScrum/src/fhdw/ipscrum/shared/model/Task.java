@@ -47,7 +47,7 @@ public class Task extends Observable implements ITask {
 	 * 1:1 relation to the sprint backlog
 	 */
 	@SuppressWarnings("rawtypes")
-	private ManyToOne<OneToMany, ITask> sprintBacklogAssoc;
+	private ManyToOne<OneToMany, Task> sprintBacklogAssoc;
 	
 	/**
 	 * Creates a Task instance with initial state >>unassigned<<.
@@ -60,7 +60,7 @@ public class Task extends Observable implements ITask {
 	public Task(String name, String description) throws NoValidValueException {
 		super();
 		this.state = new TaskUnassigned(this);
-		this.sprintBacklogAssoc = new ManyToOne<OneToMany, ITask>(this);
+		this.sprintBacklogAssoc = new ManyToOne<OneToMany, Task>(this);
 		try {
 			this.setName(name);
 			this.setDescription(description);
@@ -87,7 +87,7 @@ public class Task extends Observable implements ITask {
 	}
 	@SuppressWarnings("rawtypes")
 	@Override
-	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc(){
+	public ManyToOne<OneToMany, Task> getSprintBacklogAssoc(){
 		return this.sprintBacklogAssoc;
 	}
 	@Override 

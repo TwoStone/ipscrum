@@ -7,6 +7,7 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
+import fhdw.ipscrum.shared.model.Task;
 
 
 /**
@@ -40,7 +41,7 @@ public interface ITask extends ITaskStateOperations, BDACompare {
 	/**
 	 * @return the association object which is owner of the sprint backlog object.
 	 */
-	public ManyToOne<OneToMany, ITask> getSprintBacklogAssoc();
+	public ManyToOne<OneToMany, Task> getSprintBacklogAssoc();
 	/**
 	 * Checks if the PBI is contained in this.assignedPBIs
 	 */
