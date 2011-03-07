@@ -34,6 +34,7 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
  * This class is used to represent taskboards.
@@ -104,12 +105,13 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		VerticalPanel newTasklPanel = new VerticalPanel();
 		newTasklPanel.setSpacing(3);
 		concreteTaskboardPanel.add(newTasklPanel, 25, 25);
-		newTasklPanel.setSize("170px", "300px");
+		newTasklPanel.setSize("160px", "300px");
 
 		Label lblPBI = new Label(TextConstants.PBIS);
+		lblPBI.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		newTasklPanel.add(lblPBI);
-		lblPBI.setWidth("100%");
-		lblPBI.setStyleName("bold");
+		lblPBI.setSize("", "");
+		lblPBI.setStyleName("taskboardLabel");
 		
 		ScrollPanel newTaskScrollPanel = new ScrollPanel();
 		newTaskScrollPanel.setStyleName("smallborder");
@@ -131,6 +133,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 				.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 
 		btnNewTask = new Button(TextConstants.NEW_BUTTON);
+		btnNewTask.setStyleName("taskboardButton");
 		newTasklPanel.add(btnNewTask);
 		btnNewTask.setText(TextConstants.NEW_TASK);
 		btnNewTask.setSize("100%", "30px");
@@ -141,8 +144,9 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		toDoTaskPanel.setSize("140px", "300px");
 
 		Label lblZuErledigen = new Label(TextConstants.TO_FINISH);
+		lblZuErledigen.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		toDoTaskPanel.add(lblZuErledigen);
-		lblZuErledigen.setStyleName("bold");
+		lblZuErledigen.setStyleName("taskboardLabel");
 		
 		ScrollPanel toDoTaskScrollPanel = new ScrollPanel();
 		toDoTaskScrollPanel.setStyleName("smallborder");
@@ -159,11 +163,13 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		todoCellList.setSize("100%", "100%");
 
 		btnEditTodoTask = new Button(TextConstants.TASK_EDIT);
+		btnEditTodoTask.setStyleName("taskboardButton");
 		toDoTaskPanel.add(btnEditTodoTask);
 		btnEditTodoTask.setText(TextConstants.TASK_EDIT);
 		btnEditTodoTask.setSize("100%", "28px");
 
 		btnDeleteTodoTask = new Button(TextConstants.DELETE_TASK);
+		btnDeleteTodoTask.setStyleName("taskboardButton");
 		toDoTaskPanel.add(btnDeleteTodoTask);
 		btnDeleteTodoTask.setSize("100%", "28px");
 
@@ -173,8 +179,9 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		inProgressTaskPanel.setSize("140px", "300px");
 
 		Label lblInArbeit = new Label(TextConstants.IN_PROGRESS);
+		lblInArbeit.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		inProgressTaskPanel.add(lblInArbeit);
-		lblInArbeit.setStyleName("bold");
+		lblInArbeit.setStyleName("taskboardLabel");
 		
 		ScrollPanel inProgressScrollPanel = new ScrollPanel();
 		inProgressScrollPanel.setStyleName("smallborder");
@@ -191,6 +198,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		inProgressCellList.setSize("100%", "100%");
 
 		btnEditInProgressTask = new Button(TextConstants.TASK_EDIT);
+		btnEditInProgressTask.setStyleName("taskboardButton");
 		inProgressTaskPanel.add(btnEditInProgressTask);
 		btnEditInProgressTask.setText("Task bearbeiten");
 		btnEditInProgressTask.setSize("100%", "28px");
@@ -209,8 +217,9 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		finishTaskPanel.setSize("140px", "300px");
 
 		Label lblErledigt = new Label(TextConstants.COMPLETED);
+		lblErledigt.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		finishTaskPanel.add(lblErledigt);
-		lblErledigt.setStyleName("bold");
+		lblErledigt.setStyleName("taskboardLabel");
 		
 		ScrollPanel finishScrollPanel = new ScrollPanel();
 		finishScrollPanel.setStyleName("smallborder");
@@ -227,11 +236,17 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		doneCellList.setSize("100%", "100%");
 
 		btnEditDoneTask = new Button(TextConstants.DETAILS);
+		btnEditDoneTask.setStyleName("taskboardButton");
 		finishTaskPanel.add(btnEditDoneTask);
 		btnEditDoneTask.setSize("100%", "28px");
 		
 		Image imgHelp = new Image("images/icon_hilfe.gif");
-		concreteTaskboardPanel.add(imgHelp, 25, 548);
+		concreteTaskboardPanel.add(imgHelp, 682, 548);
+		
+		AbsolutePanel absolutePanel = new AbsolutePanel();
+		absolutePanel.setStyleName("taskboardLabel");
+		concreteTaskboardPanel.add(absolutePanel, 220, 25);
+		absolutePanel.setSize("1px", "350px");
 		
 		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP, 0));
 		
@@ -423,5 +438,4 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	public void setTaskboardVisibility(Boolean visible) {
 		this.getConcreteTaskboardPanel().setVisible(visible);
 	}
-
 }

@@ -129,3 +129,17 @@ margin: 0 auto;
 .lightBackground {
 	background-color: #DDD;
 }
+.taskboardLabel {
+   font-weight: bold;
+   	background-color: ghostwhite;	
+   	border: silver 1px solid;
+	padding: 3px;
+}
+.taskboardButton {
+
+   font-weight: bold;
+   	background-color: ivory;	
+   	border: silver 1px solid;
+	padding: 3px;
+
+}

@@ -32,6 +32,7 @@ import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 /**
  * This class is used to represent generally details of {@link Task}
@@ -67,6 +68,8 @@ public abstract class TaskDetailView extends Composite implements
 	private Label lblTaskAbgeschlossen;
 	private Label lblPBIs;
 	private Label lblTaskFinished;
+	private ScrollPanel pbiScrollPanel;
+	private ScrollPanel personsScrollPanel;
 
 	// ########## Ende ###################
 
@@ -75,52 +78,61 @@ public abstract class TaskDetailView extends Composite implements
 		// Creates concrete TaskDetailPanel
 		AbsolutePanel concreteTaskDetailPanel = new AbsolutePanel();
 		initWidget(concreteTaskDetailPanel);
-		concreteTaskDetailPanel.setSize("430px", "482px");
+		concreteTaskDetailPanel.setSize("470px", "500px");
 
 		// Creates label for the name
 		Label lblName = new Label(TextConstants.NAME);
+		lblName.setStyleName("taskboardLabel");
 		lblName.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		concreteTaskDetailPanel.add(lblName, 10, 10);
 		lblName.setSize("41px", "16px");
 
 		// Creates textBo for the name
 		txtBoxName = new TextBox();
-		concreteTaskDetailPanel.add(txtBoxName, 60, 10);
-		txtBoxName.setSize("137px", "16px");
+		concreteTaskDetailPanel.add(txtBoxName, 65, 10);
+		txtBoxName.setSize("157px", "16px");
 
 		// Creates label for the description
 		Label lblDescription = new Label(TextConstants.DESCRIPTION);
+		lblDescription.setStyleName("taskboardLabel");
 		concreteTaskDetailPanel.add(lblDescription, 10, 50);
 
 		// Creates a text area for the description
 		txtAreaDescription = new TextArea();
-		concreteTaskDetailPanel.add(txtAreaDescription, 10, 70);
-		txtAreaDescription.setSize("187px", "125px");
+		concreteTaskDetailPanel.add(txtAreaDescription, 10, 80);
+		txtAreaDescription.setSize("212px", "125px");
 
 		// creates a label for the person
 		Label lblPerson = new Label(TextConstants.ASSIGNED_PERSON);
-		concreteTaskDetailPanel.add(lblPerson, 10, 287);
+		lblPerson.setStyleName("taskboardLabel");
+		concreteTaskDetailPanel.add(lblPerson, 10, 293);
 
 		// creates a label for the effort
 		Label lblAufwand = new Label(TextConstants.EFFORT);
+		lblAufwand.setStyleName("taskboardLabel");
 		concreteTaskDetailPanel.add(lblAufwand, 10, 226);
 
 		// creates a label for task finish
 		lblTaskAbgeschlossen = new Label(TextConstants.TASK_FINISHED);
-		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 226, 365);
+		lblTaskAbgeschlossen.setStyleName("taskboardLabel");
+		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 231, 372);
 
 		// creates a checkbox to finish a task
 		simpleCheckBox = new SimpleCheckBox();
-		concreteTaskDetailPanel.add(simpleCheckBox, 366, 365);
+		concreteTaskDetailPanel.add(simpleCheckBox, 375, 372);
 
 		// create label for pbis
 		lblPBIs = new Label(TextConstants.PBIS);
-		concreteTaskDetailPanel.add(lblPBIs, 226, 10);
+		lblPBIs.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		lblPBIs.setStyleName("taskboardLabel");
+		concreteTaskDetailPanel.add(lblPBIs, 280, 20);
+		lblPBIs.setSize("172px", "16px");
 
 		// create button for add pbis
 		btnAddPBIs = new Button(TextConstants.NEW_ITEMS);
-		concreteTaskDetailPanel.add(btnAddPBIs, 265, 273);
-		btnAddPBIs.setSize("141px", "28px");
+		btnAddPBIs.setStyleName("taskboardButton");
+		concreteTaskDetailPanel.add(btnAddPBIs, 280, 293);
+		btnAddPBIs.setSize("180px", "28px");
 		btnAddPBIs.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -132,7 +144,8 @@ public abstract class TaskDetailView extends Composite implements
 		});
 		// create button okay
 		btnOkay = new Button(TextConstants.OKAY);
-		concreteTaskDetailPanel.add(btnOkay, 10, 446);
+		btnOkay.setStyleName("taskboardButton");
+		concreteTaskDetailPanel.add(btnOkay, 10, 462);
 		btnOkay.setSize("100px", "28px");
 		btnOkay.addClickHandler(new ClickHandler() {
 
@@ -146,7 +159,8 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button for cancel
 		btnCancel = new Button(TextConstants.DIALOGBOX_CANCEL);
-		concreteTaskDetailPanel.add(btnCancel, 320, 446);
+		btnCancel.setStyleName("taskboardButton");
+		concreteTaskDetailPanel.add(btnCancel, 360, 462);
 		btnCancel.setSize("100px", "28px");
 		btnCancel.addClickHandler(new ClickHandler() {
 
@@ -160,8 +174,9 @@ public abstract class TaskDetailView extends Composite implements
 
 		// create button delete pbis
 		btnDeletePBIs = new Button(TextConstants.DELETE_ITEMS);
-		concreteTaskDetailPanel.add(btnDeletePBIs, 265, 308);
-		btnDeletePBIs.setSize("142px", "28px");
+		btnDeletePBIs.setStyleName("taskboardButton");
+		concreteTaskDetailPanel.add(btnDeletePBIs, 280, 327);
+		btnDeletePBIs.setSize("180px", "28px");
 		btnDeletePBIs.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -174,13 +189,17 @@ public abstract class TaskDetailView extends Composite implements
 
 		// creates integerBox for effort
 		iBoxEffort = new IntegerBox();
-		concreteTaskDetailPanel.add(iBoxEffort, 10, 248);
+		concreteTaskDetailPanel.add(iBoxEffort, 10, 256);
 		iBoxEffort.setSize("123px", "16px");
 		
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setStyleName("smallborder");
-		concreteTaskDetailPanel.add(verticalPanel, 10, 311);
-		verticalPanel.setSize("171px", "129px");
+		VerticalPanel personsPanel = new VerticalPanel();
+		personsPanel.setStyleName("smallborder");
+		concreteTaskDetailPanel.add(personsPanel, 10, 323);
+		personsPanel.setSize("171px", "129px");
+				
+				personsScrollPanel = new ScrollPanel();
+				personsPanel.add(personsScrollPanel);
+				personsScrollPanel.setSize("100%", "100%");
 		
 				// creates a cell list for all persons of the sprint of the task
 				// with single selection modell
@@ -192,14 +211,19 @@ public abstract class TaskDetailView extends Composite implements
 								+ value.getLastname());
 					}
 				});
-				verticalPanel.add(cellListPerson);
+				personsScrollPanel.setWidget(cellListPerson);
 				cellListPerson.setSize("100%", "100%");
 				cellListPerson.setSelectionModel(new SingleSelectionModel<IPerson>());
 				
-				VerticalPanel verticalPanel_1 = new VerticalPanel();
-				verticalPanel_1.setStyleName("smallborder");
-				concreteTaskDetailPanel.add(verticalPanel_1, 226, 30);
-				verticalPanel_1.setSize("180px", "237px");
+				VerticalPanel pbisPanel = new VerticalPanel();
+				pbisPanel.setSpacing(3);
+				pbisPanel.setStyleName("smallborder");
+				concreteTaskDetailPanel.add(pbisPanel, 280, 50);
+				pbisPanel.setSize("180px", "237px");
+						
+						pbiScrollPanel = new ScrollPanel();
+						pbisPanel.add(pbiScrollPanel);
+						pbiScrollPanel.setSize("100%", "100%");
 				
 						// creates a cell list for all related pbis
 						// with multiselectionmodel
@@ -211,15 +235,15 @@ public abstract class TaskDetailView extends Composite implements
 										sb.appendEscaped(value.getName());
 									}
 								});
-						verticalPanel_1.add(cellListPBI);
+						pbiScrollPanel.setWidget(cellListPBI);
 						cellListPBI.setSize("100%", "100%");
 						cellListPBI
 								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 						
 						lblTaskFinished = new Label(TextConstants.FINISHED_TASK);
-						lblTaskFinished.setStyleName("LabelElement");
+						lblTaskFinished.setStyleName("taskboardLabel");
 						lblTaskFinished.setVisible(false);
-						concreteTaskDetailPanel.add(lblTaskFinished, 226, 399);
+						concreteTaskDetailPanel.add(lblTaskFinished, 322, 420);
 	}
 
 	// ################## SETTER / GETTER for view elements #############################

@@ -16,6 +16,7 @@ import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 
 import com.google.gwt.user.client.ui.IntegerBox;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
  * This class represents a view for creating a new task
@@ -44,10 +45,11 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 
 		contentPanel = new AbsolutePanel();
 		initWidget(contentPanel);
-		contentPanel.setSize("251px", "333px");
+		contentPanel.setSize("271px", "320px");
 
 		btnOK = new Button(TextConstants.CREATE);
-		contentPanel.add(btnOK, 10, 295);
+		btnOK.setStyleName("taskboardButton");
+		contentPanel.add(btnOK, 10, 285);
 		btnOK.setSize("100px", "28px");
 
 		// fireing saveNewTaskEvent
@@ -61,7 +63,8 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		});
 
 		btnAbort = new Button(TextConstants.ABORT);
-		contentPanel.add(btnAbort, 141, 295);
+		btnAbort.setStyleName("taskboardButton");
+		contentPanel.add(btnAbort, 161, 285);
 		btnAbort.setSize("100px", "28px");
 
 		// fireing cancelNewTaskEvent
@@ -75,25 +78,30 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		});
 
 		Label lblTaskname = new Label(TextConstants.TASK_NAME);
+		lblTaskname.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		lblTaskname.setStyleName("taskboardLabel");
 		contentPanel.add(lblTaskname, 10, 10);
+		lblTaskname.setSize("76px", "16px");
 
 		textBox = new TextBox();
-		contentPanel.add(textBox, 86, 10);
-		textBox.setSize("147px", "16px");
+		contentPanel.add(textBox, 100, 10);
+		textBox.setSize("153px", "16px");
 
 		Label lblDescription = new Label(TextConstants.DESCRIPTION);
-		contentPanel.add(lblDescription, 10, 51);
+		lblDescription.setStyleName("taskboardLabel");
+		contentPanel.add(lblDescription, 10, 40);
 
 		textArea = new TextArea();
-		contentPanel.add(textArea, 10, 73);
-		textArea.setSize("223px", "143px");
+		contentPanel.add(textArea, 10, 70);
+		textArea.setSize("243px", "143px");
 
 		Label lblAufwandpersonenstunden = new Label(
 				TextConstants.TIME_AND_EFFORT);
-		contentPanel.add(lblAufwandpersonenstunden, 10, 238);
+		lblAufwandpersonenstunden.setStyleName("taskboardLabel");
+		contentPanel.add(lblAufwandpersonenstunden, 10, 227);
 
 		iBoxEffort = new IntegerBox();
-		contentPanel.add(iBoxEffort, 10, 260);
+		contentPanel.add(iBoxEffort, 10, 257);
 	}
 
 	// ### SETTER / GETTER methods ####

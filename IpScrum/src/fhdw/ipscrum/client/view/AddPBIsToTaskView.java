@@ -24,6 +24,7 @@ import fhdw.ipscrum.client.view.interfaces.IAddPBIsToTaskView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 
@@ -52,9 +53,14 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 		addSprintPBIsPanel.setSize("215px", "345px");
 		
 		CaptionPanel cptSprintEntries = new CaptionPanel(TextConstants.SPRINT_ITEMS);
+		cptSprintEntries.setStyleName("taskboardLabel");
 		addSprintPBIsPanel.add(cptSprintEntries);
 		cptSprintEntries.setCaptionHTML(TextConstants.SPRINT_ITEMS);
 		cptSprintEntries.setSize("200px", "300px");
+		
+		ScrollPanel sprintPBIsScrollPanel = new ScrollPanel();
+		cptSprintEntries.setContentWidget(sprintPBIsScrollPanel);
+		sprintPBIsScrollPanel.setSize("100%", "100%");
 		
 		sprintPBIsCellList = new CellList<ProductBacklogItem>(new AbstractCell<ProductBacklogItem>(){
 			@Override
@@ -62,10 +68,11 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 				sb.appendEscaped(value.getName());
 			}
 		});
-		cptSprintEntries.setContentWidget(sprintPBIsCellList);
+		sprintPBIsScrollPanel.setWidget(sprintPBIsCellList);
 		sprintPBIsCellList.setSize("100%", "100%");
 		
 		btnAddPBIs = new Button(TextConstants.ADD);
+		btnAddPBIs.setStyleName("taskboardButton");
 		addSprintPBIsPanel.add(btnAddPBIs);
 		
 		VerticalPanel taskPanel = new VerticalPanel();
@@ -75,9 +82,14 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 		taskPanel.setSize("215px", "345px");
 		
 		CaptionPanel cptnTaskEntries = new CaptionPanel(TextConstants.TASK_ITEMS);
+		cptnTaskEntries.setStyleName("taskboardLabel");
 		taskPanel.add(cptnTaskEntries);
 		cptnTaskEntries.setCaptionHTML(TextConstants.TASK_ITEMS);
 		cptnTaskEntries.setSize("200px", "300px");
+		
+		ScrollPanel taskPBIsScrollPanel = new ScrollPanel();
+		cptnTaskEntries.setContentWidget(taskPBIsScrollPanel);
+		taskPBIsScrollPanel.setSize("100%", "100%");
 		
 		taskPBIsCellList = new CellList<ProductBacklogItem>(new AbstractCell<ProductBacklogItem>(){
 			@Override
@@ -85,10 +97,11 @@ public class AddPBIsToTaskView extends Composite implements IAddPBIsToTaskView{
 			sb.appendEscaped(value.getName());
 			}
 		});
-		cptnTaskEntries.setContentWidget(taskPBIsCellList);
+		taskPBIsScrollPanel.setWidget(taskPBIsCellList);
 		taskPBIsCellList.setSize("100%", "100%");
 		
 		btnClose = new Button(TextConstants.CLOSE);
+		btnClose.setStyleName("taskboardButton");
 		taskPanel.add(btnClose);
 		btnClose.addClickHandler(new ClickHandler() {
 			
