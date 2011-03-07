@@ -18,9 +18,12 @@ public class System extends Observable implements BDACompare, IHasChildren {
 	private static final long serialVersionUID = -5808437328511791688L;
 	private String name;
 
+	@SuppressWarnings("rawtypes")
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
+	@SuppressWarnings("rawtypes")
 	private OneToMany<ManyToOne, IHasChildren> toSystemAssoc;
 
+	@SuppressWarnings("rawtypes")
 	public System(final String name, final IHasChildren parent)
 			throws UserException {
 		this.setName(name);
@@ -39,8 +42,12 @@ public class System extends Observable implements BDACompare, IHasChildren {
 
 	@Override
 	public Vector<System> getSystemsRecursiv() {
-		// TODO Auto-generated method stub
-		return null;
+		final Vector<System> ret = new Vector<System>();
+		for (final System current : this.getSystems()) {
+			ret.add(current);
+			ret.addAll(current.getSystemsRecursiv());
+		}
+		return ret;
 	}
 
 	/**

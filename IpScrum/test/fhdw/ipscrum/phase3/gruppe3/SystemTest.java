@@ -111,6 +111,29 @@ public class SystemTest {
 	}
 
 	/**
+	 * Run the Vector<System> getSystemsRecursiv() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetSystemsRecursiv_1() throws Exception {
+		final Rootsystem root = new Rootsystem();
+		final System fixture = new System("G1", root);
+		final System fixture1 = new System("MySystem", fixture);
+		final System fixture2 = new System("MySystem2", fixture);// DoubleDefined!!!
+		final System fixture3 = new System("G2", fixture2);
+		final System fixture4 = new System("MySystem3", fixture2);
+
+		final Vector<System> result = root.getSystemsRecursiv();
+
+		assertTrue(result.contains(fixture));
+		assertTrue(result.contains(fixture1));
+		assertTrue(result.contains(fixture2));
+		assertTrue(result.contains(fixture3));
+		assertTrue(result.contains(fixture4));
+	}
+
+	/**
 	 * Run the String toString() method test.
 	 * 
 	 * @throws Exception

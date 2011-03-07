@@ -19,7 +19,7 @@ public interface IHasChildren extends BDACompare {
 	Vector<System> getSystems();
 
 	/**
-	 * Returns all Children-Systems
+	 * Returns all Children-Systems recursively
 	 */
 	Vector<System> getSystemsRecursiv();
 

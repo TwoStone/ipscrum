@@ -161,8 +161,12 @@ public class Rootsystem extends Observable implements IHasChildren {
 
 	@Override
 	public Vector<System> getSystemsRecursiv() {
-		// TODO Auto-generated method stub
-		return null;
+		final Vector<System> ret = new Vector<System>();
+		for (final System current : this.getSystems()) {
+			ret.add(current);
+			ret.addAll(current.getSystemsRecursiv());
+		}
+		return ret;
 	}
 
 	@Override
