@@ -1,11 +1,10 @@
 package fhdw.ipscrum.phase3.gruppe3;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Collection;
 import java.util.Date;
 
 import org.junit.After;
@@ -18,12 +17,18 @@ import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
 import fhdw.ipscrum.shared.exceptions.WrongSystemException;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.PBIClosedState;
+import fhdw.ipscrum.shared.model.PBIOpenState;
+import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Rootsystem;
+import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.System;
+import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -210,7 +215,6 @@ public class BugTest {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project("Pro2");
-		final Project pro2 = new Project("Pro");
 		final IRelease version = new Release("R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
@@ -252,120 +256,193 @@ public class BugTest {
 	 * Run the IBugState getState() method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	@Test
 	public void testGetState_1() throws Exception {
-		fail();
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug expected = new Bug(name, description, version, backlog);
+
+		final IPBIStateVisitor visitor = new IPBIStateVisitor() {
+
+			@Override
+			public void handleOpen(final PBIOpenState open) {
+				assertTrue(true);
+			}
+
+			@Override
+			public void handleClosed(final PBIClosedState closed) {
+				fail();
+			}
+		};
+
+		expected.getState().accept(visitor);
+	}
+
+	/**
+	 * Run the IBugState getState() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetState_2() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro2");
+		final IRelease version = new Release("R1", new Date(), pro);
+
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug expected = new Bug(name, description, version, backlog);
+
+		expected.close();
+
+		final IPBIStateVisitor visitor = new IPBIStateVisitor() {
+
+			@Override
+			public void handleOpen(final PBIOpenState open) {
+				fail();
+			}
+
+			@Override
+			public void handleClosed(final PBIClosedState closed) {
+				assertTrue(true);
+			}
+		};
+
+		expected.getState().accept(visitor);
 	}
 
 	/**
 	 * Run the Collection<System> getSystems() method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	@Test
 	public void testGetSystems_1() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		final Collection<System> result = fixture.getSystems();
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
-		assertNotNull(result);
+		final Rootsystem root = new Rootsystem();
+		final System sys1 = new System("S1", root);
+		final System sys2 = new System("S2", root);
+
+		pro.addPossibleSystem(sys1);
+		pro.addPossibleSystem(sys2);
+
+		bug.addSystem(sys1);
+		bug.addSystem(sys2);
+
+		assertEquals(2, bug.getSystems().size());
+		assertTrue(bug.getSystems().contains(sys1));
+		assertTrue(bug.getSystems().contains(sys2));
 	}
 
 	/**
 	 * Run the void removeSystem(System) method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	@Test
 	public void testRemoveSystem_1() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-		final System system = new System("", new Rootsystem());
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		fixture.removeSystem(system);
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
+		final Rootsystem root = new Rootsystem();
+		final System sys1 = new System("S1", root);
+		final System sys2 = new System("S2", root);
+
+		pro.addPossibleSystem(sys1);
+		pro.addPossibleSystem(sys2);
+
+		bug.addSystem(sys1);
+		bug.addSystem(sys2);
+
+		bug.removeSystem(sys2);
+
+		assertEquals(1, bug.getSystems().size());
+		assertTrue(bug.getSystems().contains(sys1));
+		assertFalse(bug.getSystems().contains(sys2));
+
+		bug.removeSystem(sys1);
+
+		assertEquals(0, bug.getSystems().size());
+		assertFalse(bug.getSystems().contains(sys1));
+		assertFalse(bug.getSystems().contains(sys2));
 	}
 
 	/**
 	 * Run the void removeSystem(System) method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
-	@Test
+	@Test(expected = ForbiddenStateException.class)
 	public void testRemoveSystem_2() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-		final System system = new System("", new Rootsystem());
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		fixture.removeSystem(system);
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
+		final Rootsystem root = new Rootsystem();
+		final System sys1 = new System("S1", root);
+		final System sys2 = new System("S2", root);
+
+		pro.addPossibleSystem(sys1);
+		pro.addPossibleSystem(sys2);
+
+		bug.addSystem(sys1);
+		bug.addSystem(sys2);
+
+		bug.removeSystem(sys2);
+
+		assertEquals(1, bug.getSystems().size());
+		assertTrue(bug.getSystems().contains(sys1));
+		assertFalse(bug.getSystems().contains(sys2));
+
+		bug.close();
+
+		bug.removeSystem(sys1);
+
+		fail();
 	}
 
 	/**
 	 * Run the void setVersion(IRelease) method test.
 	 * 
 	 * @throws Exception
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	@Test
 	public void testSetVersion_1() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-		final IRelease version = new Release("", new Date(), new Project(""));
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final IRelease version2 = new Release("R2", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		fixture.setVersion(version);
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
+		bug.setVersion(version2);
+
+		assertEquals(version2, bug.getVersion());
 	}
 
 	/**
@@ -375,24 +452,22 @@ public class BugTest {
 	 * 
 	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
-	@Test
+	@Test(expected = ForbiddenStateException.class)
 	public void testSetVersion_2() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-		final IRelease version = new Release("", new Date(), new Project(""));
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final IRelease version2 = new Release("R2", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		fixture.setVersion(version);
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
+		bug.close();
+
+		bug.setVersion(version2);
+
+		fail();
 	}
 
 	/**
@@ -402,24 +477,274 @@ public class BugTest {
 	 * 
 	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
-	@Test
+	@Test(expected = WrongReleaseException.class)
 	public void testSetVersion_3() throws Exception {
-		final Bug fixture = new Bug("", "", new Release("", new Date(),
-				new Project("")), (ProductBacklog) null);
-		fixture.doAddSystem(new System("", new Rootsystem()));
-		final IRelease version = new Release("", new Date(), new Project(""));
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
 
-		fixture.setVersion(version);
+		final Bug bug = new Bug(name, description, version, backlog);
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this
-		// test:
-		// java.lang.NullPointerException
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.setBacklog(ProductBacklogItem.java:546)
-		// at
-		// fhdw.ipscrum.shared.model.ProductBacklogItem.<init>(ProductBacklogItem.java:103)
-		// at fhdw.ipscrum.shared.model.Bug.<init>(Bug.java:39)
+		bug.setVersion(null);
+		fail();
+	}
+
+	/**
+	 * Run the void setName() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetName_1() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setName("Hallo Welt Bug");
+
+		assertEquals("Hallo Welt Bug", bug.getName());
+	}
+
+	/**
+	 * Run the void setName() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = ForbiddenStateException.class)
+	public void testSetName_2() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		bug.setName("Hallo Welt Bug");
+	}
+
+	/**
+	 * Run the void setName() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = NoValidValueException.class)
+	public void testSetName_3() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setName("  		");
+
+		fail();
+	}
+
+	/**
+	 * Run the void setDescription() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetDescription_1() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setDescription("Test");
+
+		assertEquals("Test", bug.getDescription());
+	}
+
+	/**
+	 * Run the void setDescription() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = ForbiddenStateException.class)
+	public void testSetDescription_2() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		bug.setDescription("Test");
+
+		fail();
+	}
+
+	/**
+	 * Run the void setLastEditor() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetLastEditor_1() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setLastEditor(new Person("Test", "Test2"));
+
+		assertEquals(new Person("Test", "Test2"), bug.getLastEditor());
+	}
+
+	/**
+	 * Run the void setLastEditor() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = ForbiddenStateException.class)
+	public void testSetLastEditor_2() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		bug.setLastEditor(new Person("Test", "Test2"));
+
+		fail();
+	}
+
+	/**
+	 * Run the void setManDayCosts() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetManDayCosts_1() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setManDayCosts(4);
+
+		assertEquals(new Integer(4), bug.getManDayCosts());
+	}
+
+	/**
+	 * Run the void setManDayCosts() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = ForbiddenStateException.class)
+	public void testSetManDayCosts_2() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		bug.setManDayCosts(4);
+	}
+
+	/**
+	 * Run the void setSprint() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetSprint_1() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final Sprint sprint = new Sprint("Sprint", "Test", new Date(),
+				new Date(), new Team("Testteam"));
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+		pro.addSprint(sprint);
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setSprint(sprint);
+
+		assertEquals(sprint, bug.getSprint());
+		assertTrue(sprint.getPBIs().contains(bug));
+	}
+
+	/**
+	 * Run the void setSprint() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSetSprint_2() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final Sprint sprint = new Sprint("Sprint", "Test", new Date(),
+				new Date(), new Team("Testteam"));
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+		pro.addSprint(sprint);
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.setSprint(sprint);
+		bug.setSprint(null);
+
+		assertTrue(bug.getSprint() == null);
+		assertFalse(sprint.getPBIs().contains(bug));
+	}
+
+	/**
+	 * Run the void setSprint() method test.
+	 * 
+	 * @throws Exception
+	 */
+	@Test(expected = ForbiddenStateException.class)
+	public void testSetSprint_3() throws Exception {
+		final String name = "Bug";
+		final String description = "";
+		final Project pro = new Project("Pro");
+		final Sprint sprint = new Sprint("Sprint", "Test", new Date(),
+				new Date(), new Team("Testteam"));
+		final IRelease version = new Release("R1", new Date(), pro);
+		final ProductBacklog backlog = pro.getBacklog();
+		pro.addSprint(sprint);
+
+		final Bug bug = new Bug(name, description, version, backlog);
+
+		bug.close();
+
+		bug.setSprint(sprint);
 	}
 
 	/**
@@ -427,8 +752,6 @@ public class BugTest {
 	 * 
 	 * @throws Exception
 	 *             if the initialization fails for some reason
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -440,8 +763,6 @@ public class BugTest {
 	 * 
 	 * @throws Exception
 	 *             if the clean-up fails for some reason
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	@After
 	public void tearDown() throws Exception {
@@ -453,8 +774,6 @@ public class BugTest {
 	 * 
 	 * @param args
 	 *            the command line arguments
-	 * 
-	 * @generatedBy CodePro at 07.03.11 11:54
 	 */
 	public static void main(final String[] args) {
 		new org.junit.runner.JUnitCore().run(BugTest.class);
