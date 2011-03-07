@@ -11,6 +11,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.view.interfaces.ISprintTableView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
@@ -47,7 +48,7 @@ public class SprintTableView extends Composite implements ISprintTableView {
 				return sprint.getName();
 			}
 		};
-		tableSprint.addColumn(descriptionColumn, "Kurzbeschreibung"); // TODO constants
+		tableSprint.addColumn(descriptionColumn, TextConstants.SPRINTTABLE_DESCRIPTIONHEADER); // TODO constants
 
 		TextColumn<ISprint> teamColumn = new TextColumn<ISprint>() {
 			@Override
@@ -55,7 +56,7 @@ public class SprintTableView extends Composite implements ISprintTableView {
 				return sprint.getTeam().getDescription();
 			}
 		};
-		tableSprint.addColumn(teamColumn, "Team");
+		tableSprint.addColumn(teamColumn, TextConstants.SPRINTTABLE_TEAMHEADER);
 
 		TextColumn<ISprint> beginColumn = new TextColumn<ISprint>() {
 			@Override
@@ -64,7 +65,7 @@ public class SprintTableView extends Composite implements ISprintTableView {
 				return fmt.format(sprint.getBegin());
 			}
 		};
-		tableSprint.addColumn(beginColumn, "Beginn");
+		tableSprint.addColumn(beginColumn, TextConstants.SPRINTTABLE_BEGINDATEHEADER);
 
 		TextColumn<ISprint> endColumn = new TextColumn<ISprint>() {
 			@Override
@@ -73,7 +74,7 @@ public class SprintTableView extends Composite implements ISprintTableView {
 				return fmt.format(sprint.getEnd());
 			}
 		};
-		tableSprint.addColumn(endColumn, "Ende");
+		tableSprint.addColumn(endColumn, TextConstants.SPRINTTABLE_ENDDATEHEADER);
 		scrollPanel.setWidget(tableSprint);
 		tableSprint.setSize("100%", "100%");
 	}

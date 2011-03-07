@@ -133,6 +133,11 @@ public final class TextConstants {
 	public static final String CHART_USAGETIP = "<h1>Bitte treffen Sie eine Auswahl.</h1>";
 	public static final String CHARTPOPUP_TITLE = "Burndown-Chart";
 	public static final String CHARTPOPUP_CLOSEBUTTON = "Schließen";
+
+	public static final String SPRINTTABLE_DESCRIPTIONHEADER = "Kurzbeschreibung";
+	public static final String SPRINTTABLE_TEAMHEADER = "Team";
+	public static final String SPRINTTABLE_BEGINDATEHEADER = "Beginn";
+	public static final String SPRINTTABLE_ENDDATEHEADER = "Ende";
 	/* [END SECTION] */
 
 	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
@@ -162,7 +167,7 @@ public final class TextConstants {
 	public static final String IN_PROGRESS = "In Arbeit";
 	public static final String COMPLETED = "Erledigt";
 	public static final String DETAILS = "Details";
-	
+
 
 	/* [END SECTION] */
 
