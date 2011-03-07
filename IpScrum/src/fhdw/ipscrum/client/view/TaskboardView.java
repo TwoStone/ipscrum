@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratedStackPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -34,7 +35,6 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
  * This class is used to represent taskboards.
@@ -248,7 +248,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		concreteTaskboardPanel.add(absolutePanel, 220, 25);
 		absolutePanel.setSize("1px", "350px");
 		
-		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP, 0));
+		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP, 99999999, "taskboardLabel"));
 		
 		imgHelp.addClickHandler(new ClickHandler() {
 			
