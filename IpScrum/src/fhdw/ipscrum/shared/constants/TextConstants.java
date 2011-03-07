@@ -155,6 +155,13 @@ public final class TextConstants {
 	public static final String CREATE = "Anlegen";
 	public static final String TASK_NAME = "Task-Name:";
 	public static final String TIME_AND_EFFORT = "Aufwand [in Personenstunden]";
+	public static final String NEW_TASK = "Neuer Task";
+	public static final String TO_FINISH = "Zu erledigen";
+	public static final String TASK_EDIT = "Task bearbeiten";
+	public static final String DELETE_TASK = "Task löschen";
+	public static final String IN_PROGRESS = "In Arbeit";
+	public static final String COMPLETED = "Erledigt";
+	public static final String DETAILS = "Details";
 	
 
 	/* [END SECTION] */
