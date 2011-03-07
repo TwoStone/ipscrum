@@ -39,7 +39,6 @@ public class Task extends Observable implements ITask {
 	/**
 	 * the plan effort is the estimated effort for executing the task.
 	 * the plan effort may be changed during the lifecycle of a task.
-	 * at the end of the lifecycle, the planEffort is 0.
 	 * You can also call it "estimated rest effort".
 	 */
 	private Integer planEffort;
@@ -48,10 +47,10 @@ public class Task extends Observable implements ITask {
 	 */
 	@SuppressWarnings("rawtypes")
 	private ManyToOne<OneToMany, Task> sprintBacklogAssoc;
-	
+
 	/**
 	 * Creates a Task instance with initial state >>unassigned<<.
-	 *  
+	 * 
 	 * @param name pass a short name to the task
 	 * @param description pass a more detailed description
 	 * @throws NoValidValueException is thrown if name or description is empty.
@@ -73,10 +72,10 @@ public class Task extends Observable implements ITask {
 			 * for debugging
 			 */
 			java.lang.System.out
-					.print(ExceptionConstants.TASK_INITIAL_STATE_ERROR);
+			.print(ExceptionConstants.TASK_INITIAL_STATE_ERROR);
 		}
 		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
-		
+
 	}
 	/**
 	 * for serialization
@@ -90,7 +89,7 @@ public class Task extends Observable implements ITask {
 	public ManyToOne<OneToMany, Task> getSprintBacklogAssoc(){
 		return this.sprintBacklogAssoc;
 	}
-	@Override 
+	@Override
 	public SprintBacklog getSprintBacklog(){
 		return (SprintBacklog)this.getSprintBacklogAssoc().get();
 	}
@@ -99,14 +98,14 @@ public class Task extends Observable implements ITask {
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException {
 		if (pbi.getSprint()==null){
 			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
-		} 
+		}
 		if (!pbi.getSprint().getSprintBacklog().hasTask(this)){
 			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}
 		this.state.addPBI(pbi);
 	}
-	
-	
+
+
 	@Override
 	public void finish() throws ForbiddenStateException {
 		this.state.finish();
@@ -117,7 +116,7 @@ public class Task extends Observable implements ITask {
 	public void finish(Date finishDate) throws ForbiddenStateException {
 		this.state.finish(finishDate);
 		this.notifyObservers();
-		
+
 	}
 	@Override
 	public String getDescription() {
@@ -166,28 +165,28 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.state.removePBI(pbi);
 
 	}
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException, NoValidValueException {
+	throws ForbiddenStateException, NoValidValueException {
 		this.state.setDescription(description);
 
 	}
 
 	@Override
 	public void setName(String name) throws ForbiddenStateException,
-			NoValidValueException {
+	NoValidValueException {
 		this.state.setName(name);
 
 	}
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson)
-			throws ForbiddenStateException, SprintAssociationException {
+	throws ForbiddenStateException, SprintAssociationException {
 		if (this.isPersonValid(responsiblePerson)){
 			this.state.setResponsibility(responsiblePerson);
 			this.notifyObservers();
@@ -199,10 +198,10 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void setPlanEffort(Integer planEffort)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.state.setPlanEffort(planEffort);
 		this.notifyObservers();
-		
+
 	}
 
 	@Override
@@ -210,12 +209,12 @@ public class Task extends Observable implements ITask {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((assignedPBIs == null) ? 0 : assignedPBIs.hashCode());
+		+ ((assignedPBIs == null) ? 0 : assignedPBIs.hashCode());
 		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
+		+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-				+ ((planEffort == null) ? 0 : planEffort.hashCode());
+		+ ((planEffort == null) ? 0 : planEffort.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
@@ -302,7 +301,7 @@ public class Task extends Observable implements ITask {
 	 * adds a new ProductBacklogItem to the task.
 	 * PRECONDITION: consistency has been checked.
 	 * That means: pbi.sprint.sprintbacklog contains this task
-	 * @param pbi 
+	 * @param pbi
 	 */
 	protected void doAddPBI(ProductBacklogItem pbi) {
 		this.assignedPBIs.add(pbi);
@@ -317,7 +316,7 @@ public class Task extends Observable implements ITask {
 	 * @throws NoValidValueException will be raised if the description is empty.
 	 */
 	protected void doSetDescription(String description)
-			throws NoValidValueException {
+	throws NoValidValueException {
 		if (description.equals(TextConstants.EMPTY_TEXT)) {
 			throw new NoValidValueException(
 					ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
@@ -325,7 +324,7 @@ public class Task extends Observable implements ITask {
 			this.description = description;
 		}
 	}
-	
+
 	/**
 	 * replaces the actual name with the new one.
 	 * @param name new name
@@ -341,8 +340,8 @@ public class Task extends Observable implements ITask {
 
 	/**
 	 * changes state to TaskFinished and passes actual responsiblePerson
-	 * @throws ForbiddenStateException 
-	 * @throws SprintAssociationException 
+	 * @throws ForbiddenStateException
+	 * @throws SprintAssociationException
 	 */
 	protected void doSetTaskFinished() throws ForbiddenStateException {
 		//this.setPlanEffort(0);
@@ -350,13 +349,13 @@ public class Task extends Observable implements ITask {
 				this.getResponsiblePerson());
 		this.setState(newState);
 	}
-	
+
 	protected void doSetTaskFinished(Date finishDate) throws ForbiddenStateException {
 		//this.setPlanEffort(0);
 		TaskFinished newState = new TaskFinished(this, this.getResponsiblePerson(), finishDate);
 		this.setState(newState);
 	}
-	
+
 	/**
 	 * sets a new state to the task. this operation shall be called only by the owner of the state.
 	 * @param state
@@ -369,7 +368,7 @@ public class Task extends Observable implements ITask {
 	 * changes state to TaskAssigned and passes responsiblePerson
 	 * 
 	 * @param responsiblePerson
-	 * @throws SprintAssociationException 
+	 * @throws SprintAssociationException
 	 */
 	protected void setTaskAssigned(IPerson responsiblePerson) throws SprintAssociationException {
 		this.state = new TaskInProgress(this, responsiblePerson);
@@ -381,13 +380,13 @@ public class Task extends Observable implements ITask {
 	protected void doSetPlanEffort(Integer planEffort) {
 		this.planEffort = planEffort;
 	}
-	
+
 	/**
 	 * Checks if a person may obtain responsibility for a task.
 	 * 
 	 * @param responsiblePerson Person to check
 	 * @return
-	 * - true, if the person is a member of the sprint team. 
+	 * - true, if the person is a member of the sprint team.
 	 * - false, if the person is not a member of the sprint team or
 	 *          if the person isn't in a team at all
 	 */
@@ -408,7 +407,7 @@ public class Task extends Observable implements ITask {
 	}
 
 
-	
-	
+
+
 
 }

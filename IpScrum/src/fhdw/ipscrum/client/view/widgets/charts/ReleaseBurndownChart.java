@@ -118,7 +118,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 			if (currentData.getActualBurndownValue() != null) {
 				burndownCurve.addPoint(counter, currentData.getActualBurndownValue());
 
-				String annotationText = currentData.getActualBurndownValue() + " ausstehende Aufwände<br />nach " + currentData.getSprints().toString();
+				String annotationText = currentData.getActualBurndownValue().intValue() + " ausstehende Aufwände<br />nach " + currentData.getSprints().toString();
 				burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
 				burndownCurve.getPoint().setAnnotationVisible(false);
 			}
