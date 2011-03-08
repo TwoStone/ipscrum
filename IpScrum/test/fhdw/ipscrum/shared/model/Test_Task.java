@@ -305,15 +305,6 @@ public class Test_Task {
 
 	@Test
 	/**
-	 * Testing on HashCode
-	 * Test also of indirectHashCode() as task.HashCode() only calls on indirectHashCode()
-	 */
-	public void testHashCode() {
-		// java.lang.object.this.hashcode();
-	}
-
-	@Test
-	/**
 	 * Test on having a PBI
 	 */
 	public void testHasPBI1() throws Exception {
