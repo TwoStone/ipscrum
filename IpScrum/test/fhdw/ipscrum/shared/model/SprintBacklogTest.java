@@ -2,10 +2,15 @@ package fhdw.ipscrum.shared.model;
 
 import org.junit.Test;
 
-public class SprintBacklogTest {
+public class SprintBacklogTest extends SetUpTestData {
+
+	public void setUp() throws Exception {
+		super.setUp();
+	}
 
 	@Test
 	public void testGetEffortByDay() {
+
 	}
 
 	@Test

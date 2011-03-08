@@ -2,7 +2,8 @@ package fhdw.ipscrum.shared.model;
 
 import org.junit.Test;
 
-public class SprintTest {
+
+public class SprintTest extends SetUpTestData {
 
 	@Test
 	public void testGetCumulatedManDayCosts() {
