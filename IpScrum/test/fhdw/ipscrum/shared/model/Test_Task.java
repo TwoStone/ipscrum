@@ -31,6 +31,7 @@ public class Test_Task {
 	private static Task t3 = null;
 	private static Task t4 = null;
 	private static Task t5 = null;
+	private static Task t6 = null;
 	private static Integer zero = null;
 	private static Integer three = null;
 	private static Sprint sprint = null;
@@ -55,6 +56,7 @@ public class Test_Task {
 		t3 = new Task("Task 3", "Beschreibung 3");
 		t4 = new Task("Task 4", "Add and Remove");
 		t5 = new Task("Task 5", "HasPBI()");
+		t6 = new Task("Task 6", "Assigend");
 		zero = 0;
 		three = 3;
 		team1 = new Team("Team");
@@ -83,6 +85,10 @@ public class Test_Task {
 		sprintbl.addTask(t3);
 		sprintbl.addTask(t4);
 		sprintbl.addTask(t5);
+		sprintbl.addTask(t6);
+		
+		t6.setResponsibility(per1);
+		
 	}
 
 	@AfterClass
@@ -210,14 +216,6 @@ public class Test_Task {
 
 	@Test
 	/**
-	 * Getting the state of a task
-	 */
-	public void testgetState() throws Exception {
-		// TODO: assertEquals(,t1.getState());
-	}
-
-	@Test
-	/**
 	 * Test of having a responsible person on a task having a responsible Person
 	 */
 	public void testHasResponsiblePerson1() throws Exception {
@@ -325,7 +323,7 @@ public class Test_Task {
 	 * Getting the state of a PBI
 	 */
 	public void testGetState1() throws Exception {
-		// TODO: Test, use task t3(unassigend)
+		assertEquals("fhdw.ipscrum.shared.model.TaskUnassigned",t3.getState().getClass().getName());
 	}
 
 	@Test
@@ -333,7 +331,7 @@ public class Test_Task {
 	 * Getting the state of a PBI
 	 */
 	public void testGetState2() throws Exception {
-		// TODO: Test, use task t4(assigned), assign a person before doing so
+		assertEquals("fhdw.ipscrum.shared.model.TaskInProgress",t6.getState().getClass().getName());
 	}
 
 	@Test
@@ -341,7 +339,7 @@ public class Test_Task {
 	 * Getting the state of a PBI
 	 */
 	public void testGetState3() throws Exception {
-		// TODO: Test, use task t1(finished)
+		assertEquals("fhdw.ipscrum.shared.model.TaskFinished",t1.getState().getClass().getName());
 	}
 
 	// ----------------------------------------------------------------------------------
