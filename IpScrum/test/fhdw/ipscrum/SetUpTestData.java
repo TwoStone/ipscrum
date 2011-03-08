@@ -8,10 +8,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-public abstract class setUpTestData {
+public abstract class SetUpTestData {
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void SetUpBeforeClass() throws Exception {
 	}
 
 
