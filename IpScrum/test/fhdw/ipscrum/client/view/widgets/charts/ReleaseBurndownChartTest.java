@@ -186,32 +186,4 @@ public class ReleaseBurndownChartTest extends SetUpTestData{
 		//    java.lang.NoClassDefFoundError: Could not initialize class fhdw.ipscrum.client.view.widgets.charts.ReleaseBurndownChart
 	}
 
-	/**
-	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 08.03.11 08:52
-	 */
-	@Before
-	public void setUp()
-		throws Exception {
-		// add additional set up code here
-	}
-
-	/**
-	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 08.03.11 08:52
-	 */
-	@After
-	public void tearDown()
-		throws Exception {
-		// Add additional tear down code here
-	}
-
 }

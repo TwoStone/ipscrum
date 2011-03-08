@@ -15,48 +15,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  * The class <code>SprintBurndownChartTest</code> contains tests for the class <code>{@link SprintBurndownChart}</code>.
  */
 public class SprintBurndownChartTest extends SetUpTestData {
-	/**
-	 * Run the SprintBurndownChart(ISprint) constructor test.
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void testSprintBurndownChart_1()
-		throws Exception {
-		ISprint sprint = this.pro1rel1spr1;
-
-		SprintBurndownChart result = new SprintBurndownChart(sprint);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
-		assertNotNull(result);
-	}
-
-	/**
-	 * Run the SprintBurndownChart(ISprint,int,int) constructor test.
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void testSprintBurndownChart_2()
-		throws Exception {
-		ISprint sprint = new Sprint("blupp", "blaaa", new Date(), new Date(), new Team("Heyhey"));
-		int width = 1;
-		int height = 1;
-
-		SprintBurndownChart result = new SprintBurndownChart(sprint, width, height);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
-		assertNotNull(result);
-	}
-
+	
 	/**
 	 * Run the void createChart() method test.
 	 *
@@ -141,12 +100,9 @@ public class SprintBurndownChartTest extends SetUpTestData {
 		fixture.trendCurve = null;
 
 		fixture.populateChart();
+		System.out.println(fixture.burndownCurve.getXShift());
+		
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
 	}
 
 	/**

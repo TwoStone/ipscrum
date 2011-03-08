@@ -11,29 +11,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.model.SetUpTestData;
 import fhdw.ipscrum.shared.model.Sprint;
 
-public class BurndownChartTest {
+public class BurndownChartTest extends SetUpTestData {
 
 	private static SprintBurndownChart sbdc;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		Sprint sprint = new Sprint("n","d",new Date(),new Date(), null); // TODO null
-		sbdc = new SprintBurndownChart(sprint);
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
 
 	@Test
 	public void testGenerateTrendcurve() {

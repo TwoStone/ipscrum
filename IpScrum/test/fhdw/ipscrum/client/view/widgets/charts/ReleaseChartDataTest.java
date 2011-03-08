@@ -38,7 +38,9 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetData_1()
 		throws Exception {
-		ReleaseChartData fixture = new ReleaseChartData(new Release("", new Date(), new Project("")));
+		System.out.println(this.pro1rel1);
+		
+		ReleaseChartData fixture = new ReleaseChartData(this.pro1rel1);
 
 		TreeMap<Date, ReleaseChartData.ReleaseChartDataDetails> result = fixture.getData();
 
@@ -47,25 +49,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 		assertEquals(0, result.size());
 	}
 
-	/**
-	 * Run the IRelease getRelease() method test.
-	 *
-	 * @throws Exception
-	 */
-	@Test
-	public void testGetRelease_1()
-		throws Exception {
-		ReleaseChartData fixture = new ReleaseChartData(new Release("", new Date(), new Project("")));
 
-		IRelease result = fixture.getRelease();
-
-		// add additional test code here
-		assertNotNull(result);
-		assertEquals(0, result.getOverallEfforts());
-		assertEquals(new Integer(0), result.countSprints());
-		assertEquals("", result.getVersion());
-		assertEquals(-72928471, result.indirectHashCode());
-	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
@@ -81,7 +65,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 
 		// add additional test code here
 		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(5, result.size());
 	}
 
 	/**
@@ -118,30 +102,5 @@ public class ReleaseChartDataTest extends SetUpTestData{
 		assertEquals(0, result.size());
 	}
 
-	/**
-	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 */
-	@Before
-	public void setUp()
-		throws Exception {
-		// add additional set up code here
-	}
-
-	/**
-	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 08.03.11 09:07
-	 */
-	@After
-	public void tearDown()
-		throws Exception {
-		// Add additional tear down code here
-	}
 
 }
