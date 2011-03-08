@@ -512,13 +512,13 @@ public abstract class SetUpTestData {
 		pro1rel1spr1fea3.setLastEditor(pBjoern);
 		pro1rel1spr1fea3.setManDayCosts(5);
 		pro1rel1spr1fea3.setSprint(pro1rel1spr1);
-		pro1rel1spr1fea3.close();
+		//pro1rel1spr1fea3.close();
 
 		pro1rel1spr1fea4 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr1fea4.setLastEditor(pBjoern);
 		pro1rel1spr1fea4.setManDayCosts(4);
 		pro1rel1spr1fea4.setSprint(pro1rel1spr1);
-		pro1rel1spr1fea4.close();
+		//pro1rel1spr1fea4.close();
 
 		pro1rel1spr1fea5 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr1fea5.setLastEditor(pBjoern);
@@ -529,100 +529,100 @@ public abstract class SetUpTestData {
 		// für Projekt 1, Release 1, Sprint 2
 		pro1rel1spr2fea1 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr2fea1.setLastEditor(pBjoern);
-		pro1rel1spr2fea1.setManDayCosts(3);
+		pro1rel1spr2fea1.setManDayCosts(2);
 		pro1rel1spr2fea1.setSprint(pro1rel1spr2);
 		pro1rel1spr2fea1.close();
 
 		pro1rel1spr2fea2 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr2fea2.setLastEditor(pBjoern);
-		pro1rel1spr2fea2.setManDayCosts(4);
+		pro1rel1spr2fea2.setManDayCosts(10);
 		pro1rel1spr2fea2.setSprint(pro1rel1spr2);
-		pro1rel1spr2fea2.close();
+		//pro1rel1spr2fea2.close();
 
 		pro1rel1spr2fea3 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr2fea3.setLastEditor(pBjoern);
-		pro1rel1spr2fea3.setManDayCosts(5);
+		pro1rel1spr2fea3.setManDayCosts(15);
 		pro1rel1spr2fea3.setSprint(pro1rel1spr2);
 		pro1rel1spr2fea3.close();
 
 		pro1rel1spr2fea4 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr2fea4.setLastEditor(pBjoern);
-		pro1rel1spr2fea4.setManDayCosts(4);
+		pro1rel1spr2fea4.setManDayCosts(3);
 		pro1rel1spr2fea4.setSprint(pro1rel1spr2);
 		pro1rel1spr2fea4.close();
 
 		pro1rel1spr2fea5 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr2fea5.setLastEditor(pBjoern);
-		pro1rel1spr2fea5.setManDayCosts(3);
+		pro1rel1spr2fea5.setManDayCosts(6);
 		pro1rel1spr2fea5.setSprint(pro1rel1spr2);
-		pro1rel1spr2fea5.close();
+		//pro1rel1spr2fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 3
 		pro1rel1spr3fea1 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr3fea1.setLastEditor(pBjoern);
-		pro1rel1spr3fea1.setManDayCosts(3);
+		pro1rel1spr3fea1.setManDayCosts(20);
 		pro1rel1spr3fea1.setSprint(pro1rel1spr3);
-		pro1rel1spr3fea1.close();
+		//pro1rel1spr3fea1.close();
 
 		pro1rel1spr3fea2 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr3fea2.setLastEditor(pBjoern);
-		pro1rel1spr3fea2.setManDayCosts(4);
+		pro1rel1spr3fea2.setManDayCosts(6);
 		pro1rel1spr3fea2.setSprint(pro1rel1spr3);
-		pro1rel1spr3fea2.close();
+		//pro1rel1spr3fea2.close();
 
 		pro1rel1spr3fea3 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr3fea3.setLastEditor(pBjoern);
-		pro1rel1spr3fea3.setManDayCosts(5);
+		pro1rel1spr3fea3.setManDayCosts(48);
 		pro1rel1spr3fea3.setSprint(pro1rel1spr3);
 		pro1rel1spr3fea3.close();
 
 		pro1rel1spr3fea4 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr3fea4.setLastEditor(pBjoern);
-		pro1rel1spr3fea4.setManDayCosts(4);
+		pro1rel1spr3fea4.setManDayCosts(2);
 		pro1rel1spr3fea4.setSprint(pro1rel1spr3);
 		pro1rel1spr3fea4.close();
 
 		pro1rel1spr3fea5 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr3fea5.setLastEditor(pBjoern);
-		pro1rel1spr3fea5.setManDayCosts(3);
+		pro1rel1spr3fea5.setManDayCosts(1);
 		pro1rel1spr3fea5.setSprint(pro1rel1spr3);
-		pro1rel1spr3fea5.close();
+		//pro1rel1spr3fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 4
 		pro1rel1spr4fea1 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr4fea1.setLastEditor(pBjoern);
-		pro1rel1spr4fea1.setManDayCosts(3);
+		pro1rel1spr4fea1.setManDayCosts(4);
 		pro1rel1spr4fea1.setSprint(pro1rel1spr4);
-		pro1rel1spr4fea1.close();
+		//pro1rel1spr4fea1.close();
 
 		pro1rel1spr4fea2 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr4fea2.setLastEditor(pBjoern);
-		pro1rel1spr4fea2.setManDayCosts(4);
+		pro1rel1spr4fea2.setManDayCosts(10);
 		pro1rel1spr4fea2.setSprint(pro1rel1spr4);
-		pro1rel1spr4fea2.close();
+		//pro1rel1spr4fea2.close();
 
 		pro1rel1spr4fea3 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr4fea3.setLastEditor(pBjoern);
 		pro1rel1spr4fea3.setManDayCosts(5);
 		pro1rel1spr4fea3.setSprint(pro1rel1spr4);
-		pro1rel1spr4fea3.close();
+		//pro1rel1spr4fea3.close();
 
 		pro1rel1spr4fea4 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr4fea4.setLastEditor(pBjoern);
-		pro1rel1spr4fea4.setManDayCosts(4);
+		pro1rel1spr4fea4.setManDayCosts(9);
 		pro1rel1spr4fea4.setSprint(pro1rel1spr4);
-		pro1rel1spr4fea4.close();
+		//pro1rel1spr4fea4.close();
 
 		pro1rel1spr4fea5 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr4fea5.setLastEditor(pBjoern);
 		pro1rel1spr4fea5.setManDayCosts(3);
 		pro1rel1spr4fea5.setSprint(pro1rel1spr4);
-		pro1rel1spr4fea5.close();
+		//pro1rel1spr4fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 5
 		pro1rel1spr5fea1 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr5fea1.setLastEditor(pBjoern);
-		pro1rel1spr5fea1.setManDayCosts(3);
+		pro1rel1spr5fea1.setManDayCosts(16);
 		pro1rel1spr5fea1.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea1.close();
 
@@ -640,7 +640,7 @@ public abstract class SetUpTestData {
 
 		pro1rel1spr5fea4 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr5fea4.setLastEditor(pBjoern);
-		pro1rel1spr5fea4.setManDayCosts(4);
+		pro1rel1spr5fea4.setManDayCosts(35);
 		pro1rel1spr5fea4.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea4.close();
 
@@ -649,18 +649,19 @@ public abstract class SetUpTestData {
 		pro1rel1spr5fea5.setManDayCosts(3);
 		pro1rel1spr5fea5.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea5.close();
-
+		
+		// für Projekt 1, Release 2, Sprint 1
 		pro1rel2spr1fea1 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr1fea1.setLastEditor(pBjoern);
-		pro1rel2spr1fea1.setManDayCosts(3);
+		pro1rel2spr1fea1.setManDayCosts(80);
 		pro1rel2spr1fea1.setSprint(pro1rel2spr1);
 		pro1rel2spr1fea1.close();
 
 		pro1rel2spr1fea2 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr1fea2.setLastEditor(pBjoern);
-		pro1rel2spr1fea2.setManDayCosts(4);
+		pro1rel2spr1fea2.setManDayCosts(20);
 		pro1rel2spr1fea2.setSprint(pro1rel2spr1);
-		pro1rel2spr1fea2.close();
+		//pro1rel2spr1fea2.close();
 
 		pro1rel2spr1fea3 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr1fea3.setLastEditor(pBjoern);
@@ -683,56 +684,56 @@ public abstract class SetUpTestData {
 		// für Projekt 1, Release 2, Sprint 2
 		pro1rel2spr2fea1 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr2fea1.setLastEditor(pBjoern);
-		pro1rel2spr2fea1.setManDayCosts(3);
+		pro1rel2spr2fea1.setManDayCosts(5);
 		pro1rel2spr2fea1.setSprint(pro1rel2spr2);
-		pro1rel2spr2fea1.close();
+		//pro1rel2spr2fea1.close();
 
 		pro1rel2spr2fea2 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr2fea2.setLastEditor(pBjoern);
-		pro1rel2spr2fea2.setManDayCosts(4);
+		pro1rel2spr2fea2.setManDayCosts(20);
 		pro1rel2spr2fea2.setSprint(pro1rel2spr2);
-		pro1rel2spr2fea2.close();
+		//pro1rel2spr2fea2.close();
 
 		pro1rel2spr2fea3 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr2fea3.setLastEditor(pBjoern);
 		pro1rel2spr2fea3.setManDayCosts(5);
 		pro1rel2spr2fea3.setSprint(pro1rel2spr2);
-		pro1rel2spr2fea3.close();
+		//pro1rel2spr2fea3.close();
 
 		pro1rel2spr2fea4 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr2fea4.setLastEditor(pBjoern);
-		pro1rel2spr2fea4.setManDayCosts(4);
+		pro1rel2spr2fea4.setManDayCosts(6);
 		pro1rel2spr2fea4.setSprint(pro1rel2spr2);
 		pro1rel2spr2fea4.close();
 
 		pro1rel2spr2fea5 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr2fea5.setLastEditor(pBjoern);
-		pro1rel2spr2fea5.setManDayCosts(3);
+		pro1rel2spr2fea5.setManDayCosts(35);
 		pro1rel2spr2fea5.setSprint(pro1rel2spr2);
 		pro1rel2spr2fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 3
 		pro1rel2spr3fea1 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr3fea1.setLastEditor(pBjoern);
-		pro1rel2spr3fea1.setManDayCosts(3);
+		pro1rel2spr3fea1.setManDayCosts(13);
 		pro1rel2spr3fea1.setSprint(pro1rel2spr3);
 		pro1rel2spr3fea1.close();
 
 		pro1rel2spr3fea2 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr3fea2.setLastEditor(pBjoern);
-		pro1rel2spr3fea2.setManDayCosts(4);
+		pro1rel2spr3fea2.setManDayCosts(7);
 		pro1rel2spr3fea2.setSprint(pro1rel2spr3);
 		pro1rel2spr3fea2.close();
 
 		pro1rel2spr3fea3 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr3fea3.setLastEditor(pBjoern);
-		pro1rel2spr3fea3.setManDayCosts(5);
+		pro1rel2spr3fea3.setManDayCosts(100);
 		pro1rel2spr3fea3.setSprint(pro1rel2spr3);
-		pro1rel2spr3fea3.close();
+		//pro1rel2spr3fea3.close();
 
 		pro1rel2spr3fea4 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr3fea4.setLastEditor(pBjoern);
-		pro1rel2spr3fea4.setManDayCosts(4);
+		pro1rel2spr3fea4.setManDayCosts(83);
 		pro1rel2spr3fea4.setSprint(pro1rel2spr3);
 		pro1rel2spr3fea4.close();
 
@@ -740,49 +741,49 @@ public abstract class SetUpTestData {
 		pro1rel2spr3fea5.setLastEditor(pBjoern);
 		pro1rel2spr3fea5.setManDayCosts(3);
 		pro1rel2spr3fea5.setSprint(pro1rel2spr3);
-		pro1rel2spr3fea5.close();
+		//pro1rel2spr3fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 4
 		pro1rel2spr4fea1 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr4fea1.setLastEditor(pBjoern);
-		pro1rel2spr4fea1.setManDayCosts(3);
+		pro1rel2spr4fea1.setManDayCosts(20);
 		pro1rel2spr4fea1.setSprint(pro1rel2spr4);
 		pro1rel2spr4fea1.close();
 
 		pro1rel2spr4fea2 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr4fea2.setLastEditor(pBjoern);
-		pro1rel2spr4fea2.setManDayCosts(4);
+		pro1rel2spr4fea2.setManDayCosts(14);
 		pro1rel2spr4fea2.setSprint(pro1rel2spr4);
-		pro1rel2spr4fea2.close();
+		//pro1rel2spr4fea2.close();
 
 		pro1rel2spr4fea3 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr4fea3.setLastEditor(pBjoern);
-		pro1rel2spr4fea3.setManDayCosts(5);
+		pro1rel2spr4fea3.setManDayCosts(80);
 		pro1rel2spr4fea3.setSprint(pro1rel2spr4);
 		pro1rel2spr4fea3.close();
 
 		pro1rel2spr4fea4 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr4fea4.setLastEditor(pBjoern);
-		pro1rel2spr4fea4.setManDayCosts(4);
+		pro1rel2spr4fea4.setManDayCosts(12);
 		pro1rel2spr4fea4.setSprint(pro1rel2spr4);
-		pro1rel2spr4fea4.close();
+		//pro1rel2spr4fea4.close();
 
 		pro1rel2spr4fea5 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr4fea5.setLastEditor(pBjoern);
-		pro1rel2spr4fea5.setManDayCosts(3);
+		pro1rel2spr4fea5.setManDayCosts(16);
 		pro1rel2spr4fea5.setSprint(pro1rel2spr4);
 		pro1rel2spr4fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 5
 		pro1rel2spr5fea1 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr5fea1.setLastEditor(pBjoern);
-		pro1rel2spr5fea1.setManDayCosts(3);
+		pro1rel2spr5fea1.setManDayCosts(13);
 		pro1rel2spr5fea1.setSprint(pro1rel2spr5);
-		pro1rel2spr5fea1.close();
+		//pro1rel2spr5fea1.close();
 
 		pro1rel2spr5fea2 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr5fea2.setLastEditor(pBjoern);
-		pro1rel2spr5fea2.setManDayCosts(4);
+		pro1rel2spr5fea2.setManDayCosts(14);
 		pro1rel2spr5fea2.setSprint(pro1rel2spr5);
 		pro1rel2spr5fea2.close();
 
@@ -796,7 +797,7 @@ public abstract class SetUpTestData {
 		pro1rel2spr5fea4.setLastEditor(pBjoern);
 		pro1rel2spr5fea4.setManDayCosts(4);
 		pro1rel2spr5fea4.setSprint(pro1rel2spr5);
-		pro1rel2spr5fea4.close();
+		//pro1rel2spr5fea4.close();
 
 		pro1rel2spr5fea5 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr5fea5.setLastEditor(pBjoern);
@@ -809,7 +810,7 @@ public abstract class SetUpTestData {
 		pro2rel1spr1fea1.setLastEditor(pBjoern);
 		pro2rel1spr1fea1.setManDayCosts(3);
 		pro2rel1spr1fea1.setSprint(pro2rel1spr1);
-		pro2rel1spr1fea1.close();
+		//pro2rel1spr1fea1.close();
 
 		pro2rel1spr1fea2 = new Feature("Projekt 2, Release 1, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr1fea2.setLastEditor(pBjoern);
@@ -840,13 +841,13 @@ public abstract class SetUpTestData {
 		pro2rel1spr2fea1.setLastEditor(pBjoern);
 		pro2rel1spr2fea1.setManDayCosts(3);
 		pro2rel1spr2fea1.setSprint(pro2rel1spr2);
-		pro2rel1spr2fea1.close();
+		//pro2rel1spr2fea1.close();
 
 		pro2rel1spr2fea2 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr2fea2.setLastEditor(pBjoern);
 		pro2rel1spr2fea2.setManDayCosts(4);
 		pro2rel1spr2fea2.setSprint(pro2rel1spr2);
-		pro2rel1spr2fea2.close();
+		//pro2rel1spr2fea2.close();
 
 		pro2rel1spr2fea3 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr2fea3.setLastEditor(pBjoern);
@@ -871,19 +872,19 @@ public abstract class SetUpTestData {
 		pro2rel1spr3fea1.setLastEditor(pBjoern);
 		pro2rel1spr3fea1.setManDayCosts(3);
 		pro2rel1spr3fea1.setSprint(pro2rel1spr3);
-		pro2rel1spr3fea1.close();
+		//pro2rel1spr3fea1.close();
 
 		pro2rel1spr3fea2 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr3fea2.setLastEditor(pBjoern);
 		pro2rel1spr3fea2.setManDayCosts(4);
 		pro2rel1spr3fea2.setSprint(pro2rel1spr3);
-		pro2rel1spr3fea2.close();
+		//pro2rel1spr3fea2.close();
 
 		pro2rel1spr3fea3 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr3fea3.setLastEditor(pBjoern);
 		pro2rel1spr3fea3.setManDayCosts(5);
 		pro2rel1spr3fea3.setSprint(pro2rel1spr3);
-		pro2rel1spr3fea3.close();
+		//pro2rel1spr3fea3.close();
 
 		pro2rel1spr3fea4 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr3fea4.setLastEditor(pBjoern);
@@ -902,25 +903,25 @@ public abstract class SetUpTestData {
 		pro2rel1spr4fea1.setLastEditor(pBjoern);
 		pro2rel1spr4fea1.setManDayCosts(3);
 		pro2rel1spr4fea1.setSprint(pro2rel1spr4);
-		pro2rel1spr4fea1.close();
+		//pro2rel1spr4fea1.close();
 
 		pro2rel1spr4fea2 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr4fea2.setLastEditor(pBjoern);
 		pro2rel1spr4fea2.setManDayCosts(4);
 		pro2rel1spr4fea2.setSprint(pro2rel1spr4);
-		pro2rel1spr4fea2.close();
+		//pro2rel1spr4fea2.close();
 
 		pro2rel1spr4fea3 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr4fea3.setLastEditor(pBjoern);
 		pro2rel1spr4fea3.setManDayCosts(5);
 		pro2rel1spr4fea3.setSprint(pro2rel1spr4);
-		pro2rel1spr4fea3.close();
+		//pro2rel1spr4fea3.close();
 
 		pro2rel1spr4fea4 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr4fea4.setLastEditor(pBjoern);
 		pro2rel1spr4fea4.setManDayCosts(4);
 		pro2rel1spr4fea4.setSprint(pro2rel1spr4);
-		pro2rel1spr4fea4.close();
+		//pro2rel1spr4fea4.close();
 
 		pro2rel1spr4fea5 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr4fea5.setLastEditor(pBjoern);
@@ -933,54 +934,54 @@ public abstract class SetUpTestData {
 		pro2rel1spr5fea1.setLastEditor(pBjoern);
 		pro2rel1spr5fea1.setManDayCosts(3);
 		pro2rel1spr5fea1.setSprint(pro2rel1spr5);
-		pro2rel1spr5fea1.close();
+		//pro2rel1spr5fea1.close();
 
 		pro2rel1spr5fea2 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr5fea2.setLastEditor(pBjoern);
 		pro2rel1spr5fea2.setManDayCosts(4);
 		pro2rel1spr5fea2.setSprint(pro2rel1spr5);
-		pro2rel1spr5fea2.close();
+		//pro2rel1spr5fea2.close();
 
 		pro2rel1spr5fea3 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr5fea3.setLastEditor(pBjoern);
 		pro2rel1spr5fea3.setManDayCosts(5);
 		pro2rel1spr5fea3.setSprint(pro2rel1spr5);
-		pro2rel1spr5fea3.close();
+		//pro2rel1spr5fea3.close();
 
 		pro2rel1spr5fea4 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr5fea4.setLastEditor(pBjoern);
 		pro2rel1spr5fea4.setManDayCosts(4);
 		pro2rel1spr5fea4.setSprint(pro2rel1spr5);
-		pro2rel1spr5fea4.close();
+		//pro2rel1spr5fea4.close();
 
 		pro2rel1spr5fea5 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr5fea5.setLastEditor(pBjoern);
 		pro2rel1spr5fea5.setManDayCosts(3);
 		pro2rel1spr5fea5.setSprint(pro2rel1spr5);
-		pro2rel1spr5fea5.close();
+		//pro2rel1spr5fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 1
 		pro2rel2spr1fea1 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr1fea1.setLastEditor(pBjoern);
-		pro2rel2spr1fea1.setManDayCosts(3);
+		pro2rel2spr1fea1.setManDayCosts(20);
 		pro2rel2spr1fea1.setSprint(pro2rel2spr1);
 		pro2rel2spr1fea1.close();
 
 		pro2rel2spr1fea2 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr1fea2.setLastEditor(pBjoern);
-		pro2rel2spr1fea2.setManDayCosts(4);
+		pro2rel2spr1fea2.setManDayCosts(41);
 		pro2rel2spr1fea2.setSprint(pro2rel2spr1);
-		pro2rel2spr1fea2.close();
+		//pro2rel2spr1fea2.close();
 
 		pro2rel2spr1fea3 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr1fea3.setLastEditor(pBjoern);
-		pro2rel2spr1fea3.setManDayCosts(5);
+		pro2rel2spr1fea3.setManDayCosts(57);
 		pro2rel2spr1fea3.setSprint(pro2rel2spr1);
-		pro2rel2spr1fea3.close();
+		//pro2rel2spr1fea3.close();
 
 		pro2rel2spr1fea4 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr1fea4.setLastEditor(pBjoern);
-		pro2rel2spr1fea4.setManDayCosts(4);
+		pro2rel2spr1fea4.setManDayCosts(48);
 		pro2rel2spr1fea4.setSprint(pro2rel2spr1);
 		pro2rel2spr1fea4.close();
 
@@ -995,11 +996,11 @@ public abstract class SetUpTestData {
 		pro2rel2spr2fea1.setLastEditor(pBjoern);
 		pro2rel2spr2fea1.setManDayCosts(3);
 		pro2rel2spr2fea1.setSprint(pro2rel2spr2);
-		pro2rel2spr2fea1.close();
+		//pro2rel2spr2fea1.close();
 
 		pro2rel2spr2fea2 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr2fea2.setLastEditor(pBjoern);
-		pro2rel2spr2fea2.setManDayCosts(4);
+		pro2rel2spr2fea2.setManDayCosts(18);
 		pro2rel2spr2fea2.setSprint(pro2rel2spr2);
 		pro2rel2spr2fea2.close();
 
@@ -1011,63 +1012,63 @@ public abstract class SetUpTestData {
 
 		pro2rel2spr2fea4 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr2fea4.setLastEditor(pBjoern);
-		pro2rel2spr2fea4.setManDayCosts(4);
+		pro2rel2spr2fea4.setManDayCosts(13);
 		pro2rel2spr2fea4.setSprint(pro2rel2spr2);
-		pro2rel2spr2fea4.close();
+		//pro2rel2spr2fea4.close();
 
 		pro2rel2spr2fea5 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr2fea5.setLastEditor(pBjoern);
-		pro2rel2spr2fea5.setManDayCosts(3);
+		pro2rel2spr2fea5.setManDayCosts(8);
 		pro2rel2spr2fea5.setSprint(pro2rel2spr2);
 		pro2rel2spr2fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 3
 		pro2rel2spr3fea1 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr3fea1.setLastEditor(pBjoern);
-		pro2rel2spr3fea1.setManDayCosts(3);
+		pro2rel2spr3fea1.setManDayCosts(18);
 		pro2rel2spr3fea1.setSprint(pro2rel2spr3);
 		pro2rel2spr3fea1.close();
 
 		pro2rel2spr3fea2 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr3fea2.setLastEditor(pBjoern);
-		pro2rel2spr3fea2.setManDayCosts(4);
+		pro2rel2spr3fea2.setManDayCosts(19);
 		pro2rel2spr3fea2.setSprint(pro2rel2spr3);
 		pro2rel2spr3fea2.close();
 
 		pro2rel2spr3fea3 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr3fea3.setLastEditor(pBjoern);
-		pro2rel2spr3fea3.setManDayCosts(5);
+		pro2rel2spr3fea3.setManDayCosts(15);
 		pro2rel2spr3fea3.setSprint(pro2rel2spr3);
-		pro2rel2spr3fea3.close();
+		//pro2rel2spr3fea3.close();
 
 		pro2rel2spr3fea4 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr3fea4.setLastEditor(pBjoern);
-		pro2rel2spr3fea4.setManDayCosts(4);
+		pro2rel2spr3fea4.setManDayCosts(2);
 		pro2rel2spr3fea4.setSprint(pro2rel2spr3);
-		pro2rel2spr3fea4.close();
+		//pro2rel2spr3fea4.close();
 
 		pro2rel2spr3fea5 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr3fea5.setLastEditor(pBjoern);
-		pro2rel2spr3fea5.setManDayCosts(3);
+		pro2rel2spr3fea5.setManDayCosts(6);
 		pro2rel2spr3fea5.setSprint(pro2rel2spr3);
 		pro2rel2spr3fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 4
 		pro2rel2spr4fea1 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr4fea1.setLastEditor(pBjoern);
-		pro2rel2spr4fea1.setManDayCosts(3);
+		pro2rel2spr4fea1.setManDayCosts(13);
 		pro2rel2spr4fea1.setSprint(pro2rel2spr4);
 		pro2rel2spr4fea1.close();
 
 		pro2rel2spr4fea2 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr4fea2.setLastEditor(pBjoern);
-		pro2rel2spr4fea2.setManDayCosts(4);
+		pro2rel2spr4fea2.setManDayCosts(15);
 		pro2rel2spr4fea2.setSprint(pro2rel2spr4);
-		pro2rel2spr4fea2.close();
+		//pro2rel2spr4fea2.close();
 
 		pro2rel2spr4fea3 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr4fea3.setLastEditor(pBjoern);
-		pro2rel2spr4fea3.setManDayCosts(5);
+		pro2rel2spr4fea3.setManDayCosts(7);
 		pro2rel2spr4fea3.setSprint(pro2rel2spr4);
 		pro2rel2spr4fea3.close();
 
@@ -1079,32 +1080,32 @@ public abstract class SetUpTestData {
 
 		pro2rel2spr4fea5 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr4fea5.setLastEditor(pBjoern);
-		pro2rel2spr4fea5.setManDayCosts(3);
+		pro2rel2spr4fea5.setManDayCosts(6);
 		pro2rel2spr4fea5.setSprint(pro2rel2spr4);
-		pro2rel2spr4fea5.close();
+		//pro2rel2spr4fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 5
 		pro2rel2spr5fea1 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr5fea1.setLastEditor(pBjoern);
-		pro2rel2spr5fea1.setManDayCosts(3);
+		pro2rel2spr5fea1.setManDayCosts(7);
 		pro2rel2spr5fea1.setSprint(pro2rel2spr5);
 		pro2rel2spr5fea1.close();
 
 		pro2rel2spr5fea2 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr5fea2.setLastEditor(pBjoern);
-		pro2rel2spr5fea2.setManDayCosts(4);
+		pro2rel2spr5fea2.setManDayCosts(8);
 		pro2rel2spr5fea2.setSprint(pro2rel2spr5);
-		pro2rel2spr5fea2.close();
+		//pro2rel2spr5fea2.close();
 
 		pro2rel2spr5fea3 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr5fea3.setLastEditor(pBjoern);
 		pro2rel2spr5fea3.setManDayCosts(5);
 		pro2rel2spr5fea3.setSprint(pro2rel2spr5);
-		pro2rel2spr5fea3.close();
+		//pro2rel2spr5fea3.close();
 
 		pro2rel2spr5fea4 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr5fea4.setLastEditor(pBjoern);
-		pro2rel2spr5fea4.setManDayCosts(4);
+		pro2rel2spr5fea4.setManDayCosts(2);
 		pro2rel2spr5fea4.setSprint(pro2rel2spr5);
 		pro2rel2spr5fea4.close();
 
@@ -1240,145 +1241,145 @@ public abstract class SetUpTestData {
 		pro1rel1spr1tas1 = new Task("Projekt 1, Release 1, Sprint 1, Task 1", "Beschreibung von Task 1");
 		pro1rel1spr1.getSprintBacklog().addTask(pro1rel1spr1tas1);
 		pro1rel1spr1tas1.addPBI(pro1rel1spr1fea1);
-		pro1rel1spr1tas1.setPlanEffort(5);
+		pro1rel1spr1tas1.setPlanEffort(1);
 		pro1rel1spr1tas1.setResponsibility(pBjoern);
-		pro1rel1spr1tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr1tas1.finish(new Date(2011 - 1900, 2 -1, 3));
 
 		pro1rel1spr1tas2 = new Task("Projekt 1, Release 1, Sprint 1, Task 2", "Beschreibung von Task 2");
 		pro1rel1spr1.getSprintBacklog().addTask(pro1rel1spr1tas2);
 		pro1rel1spr1tas2.addPBI(pro1rel1spr1fea2);
-		pro1rel1spr1tas2.setPlanEffort(5);
+		pro1rel1spr1tas2.setPlanEffort(2);
 		pro1rel1spr1tas2.setResponsibility(pBjoern);
-		pro1rel1spr1tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr1tas2.finish(new Date(2011 - 1900, 2 - 1, 3));
 
 		pro1rel1spr1tas3 = new Task("Projekt 1, Release 1, Sprint 1, Task 3", "Beschreibung von Task 3");
 		pro1rel1spr1.getSprintBacklog().addTask(pro1rel1spr1tas3);
 		pro1rel1spr1tas3.addPBI(pro1rel1spr1fea3);
-		pro1rel1spr1tas3.setPlanEffort(5);
+		pro1rel1spr1tas3.setPlanEffort(3);
 		pro1rel1spr1tas3.setResponsibility(pBjoern);
-		pro1rel1spr1tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr1tas3.finish(new Date(2011 - 1900, 2 - 1, 1));
 
 		pro1rel1spr1tas4 = new Task("Projekt 1, Release 1, Sprint 1, Task 4", "Beschreibung von Task 4");
 		pro1rel1spr1.getSprintBacklog().addTask(pro1rel1spr1tas4);
 		pro1rel1spr1tas4.addPBI(pro1rel1spr1fea4);
-		pro1rel1spr1tas4.setPlanEffort(5);
+		pro1rel1spr1tas4.setPlanEffort(4);
 		pro1rel1spr1tas4.setResponsibility(pBjoern);
-		pro1rel1spr1tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr1tas4.finish(new Date(2011 - 1900, 2 - 1, 2));
 
 		pro1rel1spr1tas5 = new Task("Projekt 1, Release 1, Sprint 1, Task 5", "Beschreibung von Task 5");
 		pro1rel1spr1.getSprintBacklog().addTask(pro1rel1spr1tas5);
 		pro1rel1spr1tas5.addPBI(pro1rel1spr1fea5);
 		pro1rel1spr1tas5.setPlanEffort(5);
 		pro1rel1spr1tas5.setResponsibility(pBjoern);
-		pro1rel1spr1tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr1tas5.finish(new Date(2011 - 1900, 2 - 1, 4));
 
 		// für Projekt 1, Release 1, Sprint 2
 		pro1rel1spr2tas1 = new Task("Projekt 1, Release 1, Sprint 2, Task 1", "Beschreibung von Task 1");
 		pro1rel1spr2.getSprintBacklog().addTask(pro1rel1spr2tas1);
 		pro1rel1spr2tas1.addPBI(pro1rel1spr2fea1);
-		pro1rel1spr2tas1.setPlanEffort(5);
+		pro1rel1spr2tas1.setPlanEffort(6);
 		pro1rel1spr2tas1.setResponsibility(pBjoern);
-		pro1rel1spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 13));
 
 		pro1rel1spr2tas2 = new Task("Projekt 1, Release 1, Sprint 2, Task 2", "Beschreibung von Task 2");
 		pro1rel1spr2.getSprintBacklog().addTask(pro1rel1spr2tas2);
 		pro1rel1spr2tas2.addPBI(pro1rel1spr2fea2);
-		pro1rel1spr2tas2.setPlanEffort(5);
+		pro1rel1spr2tas2.setPlanEffort(7);
 		pro1rel1spr2tas2.setResponsibility(pBjoern);
-		pro1rel1spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 14));
 
 		pro1rel1spr2tas3 = new Task("Projekt 1, Release 1, Sprint 2, Task 3", "Beschreibung von Task 3");
 		pro1rel1spr2.getSprintBacklog().addTask(pro1rel1spr2tas3);
 		pro1rel1spr2tas3.addPBI(pro1rel1spr2fea3);
-		pro1rel1spr2tas3.setPlanEffort(5);
+		pro1rel1spr2tas3.setPlanEffort(8);
 		pro1rel1spr2tas3.setResponsibility(pBjoern);
-		pro1rel1spr2tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr2tas3.finish(new Date(2011 - 1900, 3 - 1, 14));
 
 		pro1rel1spr2tas4 = new Task("Projekt 1, Release 1, Sprint 2, Task 4", "Beschreibung von Task 4");
 		pro1rel1spr2.getSprintBacklog().addTask(pro1rel1spr2tas4);
 		pro1rel1spr2tas4.addPBI(pro1rel1spr2fea4);
-		pro1rel1spr2tas4.setPlanEffort(5);
+		pro1rel1spr2tas4.setPlanEffort(1);
 		pro1rel1spr2tas4.setResponsibility(pBjoern);
-		pro1rel1spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 13));
 
 		pro1rel1spr2tas5 = new Task("Projekt 1, Release 1, Sprint 2, Task 5", "Beschreibung von Task 5");
 		pro1rel1spr2.getSprintBacklog().addTask(pro1rel1spr2tas5);
 		pro1rel1spr2tas5.addPBI(pro1rel1spr2fea5);
-		pro1rel1spr2tas5.setPlanEffort(5);
+		pro1rel1spr2tas5.setPlanEffort(2);
 		pro1rel1spr2tas5.setResponsibility(pBjoern);
-		pro1rel1spr2tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr2tas5.finish(new Date(2011 - 1900, 3 - 1, 12));
 
 		// für Projekt 1, Release 1, Sprint 3
 		pro1rel1spr3tas1 = new Task("Projekt 1, Release 1, Sprint 3, Task 1", "Beschreibung von Task 1");
 		pro1rel1spr3.getSprintBacklog().addTask(pro1rel1spr3tas1);
 		pro1rel1spr3tas1.addPBI(pro1rel1spr3fea1);
-		pro1rel1spr3tas1.setPlanEffort(5);
+		pro1rel1spr3tas1.setPlanEffort(7);
 		pro1rel1spr3tas1.setResponsibility(pBjoern);
-		pro1rel1spr3tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr3tas1.finish(new Date(2011 - 1900, 1 - 1, 4));
 
 		pro1rel1spr3tas2 = new Task("Projekt 1, Release 1, Sprint 3, Task 2", "Beschreibung von Task 2");
 		pro1rel1spr3.getSprintBacklog().addTask(pro1rel1spr3tas2);
 		pro1rel1spr3tas2.addPBI(pro1rel1spr3fea2);
-		pro1rel1spr3tas2.setPlanEffort(5);
+		pro1rel1spr3tas2.setPlanEffort(7);
 		pro1rel1spr3tas2.setResponsibility(pBjoern);
-		pro1rel1spr3tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr3tas2.finish(new Date(2011 - 1900, 1 - 1, 4));
 
 		pro1rel1spr3tas3 = new Task("Projekt 1, Release 1, Sprint 3, Task 3", "Beschreibung von Task 3");
 		pro1rel1spr3.getSprintBacklog().addTask(pro1rel1spr3tas3);
 		pro1rel1spr3tas3.addPBI(pro1rel1spr3fea3);
-		pro1rel1spr3tas3.setPlanEffort(5);
+		pro1rel1spr3tas3.setPlanEffort(7);
 		pro1rel1spr3tas3.setResponsibility(pBjoern);
-		pro1rel1spr3tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr3tas3.finish(new Date(2011 - 1900, 1 - 1, 3));
 
 		pro1rel1spr3tas4 = new Task("Projekt 1, Release 1, Sprint 3, Task 4", "Beschreibung von Task 4");
 		pro1rel1spr3.getSprintBacklog().addTask(pro1rel1spr3tas4);
 		pro1rel1spr3tas4.addPBI(pro1rel1spr3fea4);
-		pro1rel1spr3tas4.setPlanEffort(5);
+		pro1rel1spr3tas4.setPlanEffort(7);
 		pro1rel1spr3tas4.setResponsibility(pBjoern);
-		pro1rel1spr3tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr3tas4.finish(new Date(2011 - 1900, 1 - 1, 3));
 
 		pro1rel1spr3tas5 = new Task("Projekt 1, Release 1, Sprint 3, Task 5", "Beschreibung von Task 5");
 		pro1rel1spr3.getSprintBacklog().addTask(pro1rel1spr3tas5);
 		pro1rel1spr3tas5.addPBI(pro1rel1spr3fea5);
-		pro1rel1spr3tas5.setPlanEffort(5);
+		pro1rel1spr3tas5.setPlanEffort(7);
 		pro1rel1spr3tas5.setResponsibility(pBjoern);
-		pro1rel1spr3tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr3tas5.finish(new Date(2011 - 1900, 1 - 1, 4));
 
 		// für Projekt 1, Release 1, Sprint 4
 		pro1rel1spr4tas1 = new Task("Projekt 1, Release 1, Sprint 4, Task 1", "Beschreibung von Task 1");
 		pro1rel1spr4.getSprintBacklog().addTask(pro1rel1spr4tas1);
 		pro1rel1spr4tas1.addPBI(pro1rel1spr4fea1);
-		pro1rel1spr4tas1.setPlanEffort(5);
+		pro1rel1spr4tas1.setPlanEffort(2);
 		pro1rel1spr4tas1.setResponsibility(pBjoern);
 		pro1rel1spr4tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel1spr4tas2 = new Task("Projekt 1, Release 1, Sprint 4, Task 2", "Beschreibung von Task 2");
 		pro1rel1spr4.getSprintBacklog().addTask(pro1rel1spr4tas2);
 		pro1rel1spr4tas2.addPBI(pro1rel1spr4fea2);
-		pro1rel1spr4tas2.setPlanEffort(5);
+		pro1rel1spr4tas2.setPlanEffort(2);
 		pro1rel1spr4tas2.setResponsibility(pBjoern);
 		pro1rel1spr4tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel1spr4tas3 = new Task("Projekt 1, Release 1, Sprint 4, Task 3", "Beschreibung von Task 3");
 		pro1rel1spr4.getSprintBacklog().addTask(pro1rel1spr4tas3);
 		pro1rel1spr4tas3.addPBI(pro1rel1spr4fea3);
-		pro1rel1spr4tas3.setPlanEffort(5);
+		pro1rel1spr4tas3.setPlanEffort(2);
 		pro1rel1spr4tas3.setResponsibility(pBjoern);
-		pro1rel1spr4tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr4tas3.finish(new Date(2011 - 1900, 2 - 1, 28));
 
 		pro1rel1spr4tas4 = new Task("Projekt 1, Release 1, Sprint 4, Task 4", "Beschreibung von Task 4");
 		pro1rel1spr4.getSprintBacklog().addTask(pro1rel1spr4tas4);
 		pro1rel1spr4tas4.addPBI(pro1rel1spr4fea4);
-		pro1rel1spr4tas4.setPlanEffort(5);
+		pro1rel1spr4tas4.setPlanEffort(3);
 		pro1rel1spr4tas4.setResponsibility(pBjoern);
-		pro1rel1spr4tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr4tas4.finish(new Date(2011 - 1900, 2 - 1, 28));
 
 		pro1rel1spr4tas5 = new Task("Projekt 1, Release 1, Sprint 4, Task 5", "Beschreibung von Task 5");
 		pro1rel1spr4.getSprintBacklog().addTask(pro1rel1spr4tas5);
 		pro1rel1spr4tas5.addPBI(pro1rel1spr4fea5);
-		pro1rel1spr4tas5.setPlanEffort(5);
+		pro1rel1spr4tas5.setPlanEffort(8);
 		pro1rel1spr4tas5.setResponsibility(pBjoern);
-		pro1rel1spr4tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr4tas5.finish(new Date(2011 - 1900, 3 - 1, 2));
 
 		// für Projekt 1, Release 1, Sprint 5
 		pro1rel1spr5tas1 = new Task("Projekt 1, Release 1, Sprint 5, Task 1", "Beschreibung von Task 1");
@@ -1391,64 +1392,64 @@ public abstract class SetUpTestData {
 		pro1rel1spr5tas2 = new Task("Projekt 1, Release 1, Sprint 5, Task 2", "Beschreibung von Task 2");
 		pro1rel1spr5.getSprintBacklog().addTask(pro1rel1spr5tas2);
 		pro1rel1spr5tas2.addPBI(pro1rel1spr5fea2);
-		pro1rel1spr5tas2.setPlanEffort(5);
+		pro1rel1spr5tas2.setPlanEffort(3);
 		pro1rel1spr5tas2.setResponsibility(pBjoern);
-		pro1rel1spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 2));
 
 		pro1rel1spr5tas3 = new Task("Projekt 1, Release 1, Sprint 5, Task 3", "Beschreibung von Task 3");
 		pro1rel1spr5.getSprintBacklog().addTask(pro1rel1spr5tas3);
 		pro1rel1spr5tas3.addPBI(pro1rel1spr5fea3);
-		pro1rel1spr5tas3.setPlanEffort(5);
+		pro1rel1spr5tas3.setPlanEffort(4);
 		pro1rel1spr5tas3.setResponsibility(pBjoern);
-		pro1rel1spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 3));
 
 		pro1rel1spr5tas4 = new Task("Projekt 1, Release 1, Sprint 5, Task 4", "Beschreibung von Task 4");
 		pro1rel1spr5.getSprintBacklog().addTask(pro1rel1spr5tas4);
 		pro1rel1spr5tas4.addPBI(pro1rel1spr5fea4);
-		pro1rel1spr5tas4.setPlanEffort(5);
+		pro1rel1spr5tas4.setPlanEffort(7);
 		pro1rel1spr5tas4.setResponsibility(pBjoern);
-		pro1rel1spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 4));
 
 		pro1rel1spr5tas5 = new Task("Projekt 1, Release 1, Sprint 5, Task 5", "Beschreibung von Task 5");
 		pro1rel1spr5.getSprintBacklog().addTask(pro1rel1spr5tas5);
 		pro1rel1spr5tas5.addPBI(pro1rel1spr5fea5);
-		pro1rel1spr5tas5.setPlanEffort(5);
+		pro1rel1spr5tas5.setPlanEffort(2);
 		pro1rel1spr5tas5.setResponsibility(pBjoern);
-		pro1rel1spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel1spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 10));
 
 		// für Projekt 1, Release 2, Sprint 1
 		pro1rel2spr1tas1 = new Task("Projekt 1, Release 2, Sprint 1, Task 1", "Beschreibung von Task 1");
 		pro1rel2spr1.getSprintBacklog().addTask(pro1rel2spr1tas1);
 		pro1rel2spr1tas1.addPBI(pro1rel2spr1fea1);
-		pro1rel2spr1tas1.setPlanEffort(5);
+		pro1rel2spr1tas1.setPlanEffort(8);
 		pro1rel2spr1tas1.setResponsibility(pBjoern);
-		pro1rel2spr1tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr1tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr1tas2 = new Task("Projekt 1, Release 2, Sprint 1, Task 2", "Beschreibung von Task 2");
 		pro1rel2spr1.getSprintBacklog().addTask(pro1rel2spr1tas2);
 		pro1rel2spr1tas2.addPBI(pro1rel2spr1fea2);
-		pro1rel2spr1tas2.setPlanEffort(5);
+		pro1rel2spr1tas2.setPlanEffort(6);
 		pro1rel2spr1tas2.setResponsibility(pBjoern);
-		pro1rel2spr1tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr1tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr1tas3 = new Task("Projekt 1, Release 2, Sprint 1, Task 3", "Beschreibung von Task 3");
 		pro1rel2spr1.getSprintBacklog().addTask(pro1rel2spr1tas3);
 		pro1rel2spr1tas3.addPBI(pro1rel2spr1fea3);
-		pro1rel2spr1tas3.setPlanEffort(5);
+		pro1rel2spr1tas3.setPlanEffort(4);
 		pro1rel2spr1tas3.setResponsibility(pBjoern);
-		pro1rel2spr1tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr1tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr1tas4 = new Task("Projekt 1, Release 2, Sprint 1, Task 4", "Beschreibung von Task 4");
 		pro1rel2spr1.getSprintBacklog().addTask(pro1rel2spr1tas4);
 		pro1rel2spr1tas4.addPBI(pro1rel2spr1fea4);
-		pro1rel2spr1tas4.setPlanEffort(5);
+		pro1rel2spr1tas4.setPlanEffort(6);
 		pro1rel2spr1tas4.setResponsibility(pBjoern);
-		pro1rel2spr1tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr1tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr1tas5 = new Task("Projekt 1, Release 2, Sprint 1, Task 5", "Beschreibung von Task 5");
 		pro1rel2spr1.getSprintBacklog().addTask(pro1rel2spr1tas5);
 		pro1rel2spr1tas5.addPBI(pro1rel2spr1fea5);
-		pro1rel2spr1tas5.setPlanEffort(5);
+		pro1rel2spr1tas5.setPlanEffort(8);
 		pro1rel2spr1tas5.setResponsibility(pBjoern);
 		pro1rel2spr1tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
 
@@ -1456,37 +1457,37 @@ public abstract class SetUpTestData {
 		pro1rel2spr2tas1 = new Task("Projekt 1, Release 2, Sprint 2, Task 1", "Beschreibung von Task 1");
 		pro1rel2spr2.getSprintBacklog().addTask(pro1rel2spr2tas1);
 		pro1rel2spr2tas1.addPBI(pro1rel2spr2fea1);
-		pro1rel2spr2tas1.setPlanEffort(5);
+		pro1rel2spr2tas1.setPlanEffort(7);
 		pro1rel2spr2tas1.setResponsibility(pBjoern);
-		pro1rel2spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr2tas2 = new Task("Projekt 1, Release 2, Sprint 2, Task 2", "Beschreibung von Task 2");
 		pro1rel2spr2.getSprintBacklog().addTask(pro1rel2spr2tas2);
 		pro1rel2spr2tas2.addPBI(pro1rel2spr2fea2);
-		pro1rel2spr2tas2.setPlanEffort(5);
+		pro1rel2spr2tas2.setPlanEffort(8);
 		pro1rel2spr2tas2.setResponsibility(pBjoern);
-		pro1rel2spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr2tas3 = new Task("Projekt 1, Release 2, Sprint 2, Task 3", "Beschreibung von Task 3");
 		pro1rel2spr2.getSprintBacklog().addTask(pro1rel2spr2tas3);
 		pro1rel2spr2tas3.addPBI(pro1rel2spr2fea3);
-		pro1rel2spr2tas3.setPlanEffort(5);
+		pro1rel2spr2tas3.setPlanEffort(2);
 		pro1rel2spr2tas3.setResponsibility(pBjoern);
-		pro1rel2spr2tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr2tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr2tas4 = new Task("Projekt 1, Release 2, Sprint 2, Task 4", "Beschreibung von Task 4");
 		pro1rel2spr2.getSprintBacklog().addTask(pro1rel2spr2tas4);
 		pro1rel2spr2tas4.addPBI(pro1rel2spr2fea4);
-		pro1rel2spr2tas4.setPlanEffort(5);
+		pro1rel2spr2tas4.setPlanEffort(3);
 		pro1rel2spr2tas4.setResponsibility(pBjoern);
-		pro1rel2spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel2spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 5));
 
 		pro1rel2spr2tas5 = new Task("Projekt 1, Release 2, Sprint 2, Task 5", "Beschreibung von Task 5");
 		pro1rel2spr2.getSprintBacklog().addTask(pro1rel2spr2tas5);
 		pro1rel2spr2tas5.addPBI(pro1rel2spr2fea5);
-		pro1rel2spr2tas5.setPlanEffort(5);
+		pro1rel2spr2tas5.setPlanEffort(3);
 		pro1rel2spr2tas5.setResponsibility(pBjoern);
-		pro1rel2spr2tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel2spr2tas5.finish(new Date(2011 - 1900, 2 - 1, 1));
 
 		// für Projekt 1, Release 2, Sprint 3
 		pro1rel2spr3tas1 = new Task("Projekt 1, Release 2, Sprint 3, Task 1", "Beschreibung von Task 1");
@@ -1494,33 +1495,33 @@ public abstract class SetUpTestData {
 		pro1rel2spr3tas1.addPBI(pro1rel2spr3fea1);
 		pro1rel2spr3tas1.setPlanEffort(5);
 		pro1rel2spr3tas1.setResponsibility(pBjoern);
-		pro1rel2spr3tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr3tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr3tas2 = new Task("Projekt 1, Release 2, Sprint 3, Task 2", "Beschreibung von Task 2");
 		pro1rel2spr3.getSprintBacklog().addTask(pro1rel2spr3tas2);
 		pro1rel2spr3tas2.addPBI(pro1rel2spr3fea2);
 		pro1rel2spr3tas2.setPlanEffort(5);
 		pro1rel2spr3tas2.setResponsibility(pBjoern);
-		pro1rel2spr3tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr3tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr3tas3 = new Task("Projekt 1, Release 2, Sprint 3, Task 3", "Beschreibung von Task 3");
 		pro1rel2spr3.getSprintBacklog().addTask(pro1rel2spr3tas3);
 		pro1rel2spr3tas3.addPBI(pro1rel2spr3fea3);
-		pro1rel2spr3tas3.setPlanEffort(5);
+		pro1rel2spr3tas3.setPlanEffort(8);
 		pro1rel2spr3tas3.setResponsibility(pBjoern);
-		pro1rel2spr3tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel2spr3tas3.finish(new Date(2011 - 1900, 3 - 1, 19));
 
 		pro1rel2spr3tas4 = new Task("Projekt 1, Release 2, Sprint 3, Task 4", "Beschreibung von Task 4");
 		pro1rel2spr3.getSprintBacklog().addTask(pro1rel2spr3tas4);
 		pro1rel2spr3tas4.addPBI(pro1rel2spr3fea4);
-		pro1rel2spr3tas4.setPlanEffort(5);
+		pro1rel2spr3tas4.setPlanEffort(8);
 		pro1rel2spr3tas4.setResponsibility(pBjoern);
 		pro1rel2spr3tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr3tas5 = new Task("Projekt 1, Release 2, Sprint 3, Task 5", "Beschreibung von Task 5");
 		pro1rel2spr3.getSprintBacklog().addTask(pro1rel2spr3tas5);
 		pro1rel2spr3tas5.addPBI(pro1rel2spr3fea5);
-		pro1rel2spr3tas5.setPlanEffort(5);
+		pro1rel2spr3tas5.setPlanEffort(9);
 		pro1rel2spr3tas5.setResponsibility(pBjoern);
 		pro1rel2spr3tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
 
@@ -1528,253 +1529,253 @@ public abstract class SetUpTestData {
 		pro1rel2spr4tas1 = new Task("Projekt 1, Release 2, Sprint 4, Task 1", "Beschreibung von Task 1");
 		pro1rel2spr4.getSprintBacklog().addTask(pro1rel2spr4tas1);
 		pro1rel2spr4tas1.addPBI(pro1rel2spr4fea1);
-		pro1rel2spr4tas1.setPlanEffort(5);
+		pro1rel2spr4tas1.setPlanEffort(1);
 		pro1rel2spr4tas1.setResponsibility(pBjoern);
-		pro1rel2spr4tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr4tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr4tas2 = new Task("Projekt 1, Release 2, Sprint 4, Task 2", "Beschreibung von Task 2");
 		pro1rel2spr4.getSprintBacklog().addTask(pro1rel2spr4tas2);
 		pro1rel2spr4tas2.addPBI(pro1rel2spr4fea2);
-		pro1rel2spr4tas2.setPlanEffort(5);
+		pro1rel2spr4tas2.setPlanEffort(2);
 		pro1rel2spr4tas2.setResponsibility(pBjoern);
 		pro1rel2spr4tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr4tas3 = new Task("Projekt 1, Release 2, Sprint 4, Task 3", "Beschreibung von Task 3");
 		pro1rel2spr4.getSprintBacklog().addTask(pro1rel2spr4tas3);
 		pro1rel2spr4tas3.addPBI(pro1rel2spr4fea3);
-		pro1rel2spr4tas3.setPlanEffort(5);
+		pro1rel2spr4tas3.setPlanEffort(6);
 		pro1rel2spr4tas3.setResponsibility(pBjoern);
-		pro1rel2spr4tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel2spr4tas3.finish(new Date(2011 - 1900, 3 - 1, 2));
 
 		pro1rel2spr4tas4 = new Task("Projekt 1, Release 2, Sprint 4, Task 4", "Beschreibung von Task 4");
 		pro1rel2spr4.getSprintBacklog().addTask(pro1rel2spr4tas4);
 		pro1rel2spr4tas4.addPBI(pro1rel2spr4fea4);
-		pro1rel2spr4tas4.setPlanEffort(5);
+		pro1rel2spr4tas4.setPlanEffort(1);
 		pro1rel2spr4tas4.setResponsibility(pBjoern);
-		pro1rel2spr4tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel2spr4tas4.finish(new Date(2011 - 1900, 3 - 1, 3));
 
 		pro1rel2spr4tas5 = new Task("Projekt 1, Release 2, Sprint 4, Task 5", "Beschreibung von Task 5");
 		pro1rel2spr4.getSprintBacklog().addTask(pro1rel2spr4tas5);
 		pro1rel2spr4tas5.addPBI(pro1rel2spr4fea5);
-		pro1rel2spr4tas5.setPlanEffort(5);
+		pro1rel2spr4tas5.setPlanEffort(3);
 		pro1rel2spr4tas5.setResponsibility(pBjoern);
-		pro1rel2spr4tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro1rel2spr4tas5.finish(new Date(2011 - 1900, 3 - 1, 2));
 
 		// für Projekt 1, Release 2, Sprint 5
 		pro1rel2spr5tas1 = new Task("Projekt 1, Release 2, Sprint 5, Task 1", "Beschreibung von Task 1");
 		pro1rel2spr5.getSprintBacklog().addTask(pro1rel2spr5tas1);
 		pro1rel2spr5tas1.addPBI(pro1rel2spr5fea1);
-		pro1rel2spr5tas1.setPlanEffort(5);
+		pro1rel2spr5tas1.setPlanEffort(8);
 		pro1rel2spr5tas1.setResponsibility(pBjoern);
-		pro1rel2spr5tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr5tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr5tas2 = new Task("Projekt 1, Release 2, Sprint 5, Task 2", "Beschreibung von Task 2");
 		pro1rel2spr5.getSprintBacklog().addTask(pro1rel2spr5tas2);
 		pro1rel2spr5tas2.addPBI(pro1rel2spr5fea2);
-		pro1rel2spr5tas2.setPlanEffort(5);
+		pro1rel2spr5tas2.setPlanEffort(8);
 		pro1rel2spr5tas2.setResponsibility(pBjoern);
-		pro1rel2spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr5tas3 = new Task("Projekt 1, Release 2, Sprint 5, Task 3", "Beschreibung von Task 3");
 		pro1rel2spr5.getSprintBacklog().addTask(pro1rel2spr5tas3);
 		pro1rel2spr5tas3.addPBI(pro1rel2spr5fea3);
-		pro1rel2spr5tas3.setPlanEffort(5);
+		pro1rel2spr5tas3.setPlanEffort(8);
 		pro1rel2spr5tas3.setResponsibility(pBjoern);
-		pro1rel2spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr5tas4 = new Task("Projekt 1, Release 2, Sprint 5, Task 4", "Beschreibung von Task 4");
 		pro1rel2spr5.getSprintBacklog().addTask(pro1rel2spr5tas4);
 		pro1rel2spr5tas4.addPBI(pro1rel2spr5fea4);
-		pro1rel2spr5tas4.setPlanEffort(5);
+		pro1rel2spr5tas4.setPlanEffort(8);
 		pro1rel2spr5tas4.setResponsibility(pBjoern);
-		pro1rel2spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro1rel2spr5tas5 = new Task("Projekt 1, Release 2, Sprint 5, Task 5", "Beschreibung von Task 5");
 		pro1rel2spr5.getSprintBacklog().addTask(pro1rel2spr5tas5);
 		pro1rel2spr5tas5.addPBI(pro1rel2spr5fea5);
-		pro1rel2spr5tas5.setPlanEffort(5);
+		pro1rel2spr5tas5.setPlanEffort(8);
 		pro1rel2spr5tas5.setResponsibility(pBjoern);
-		pro1rel2spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro1rel2spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		// für Projekt 2, Release 1, Sprint 1
 		pro2rel1spr1tas1 = new Task("Projekt 2, Release 1, Sprint 1, Task 1", "Beschreibung von Task 1");
 		pro2rel1spr1.getSprintBacklog().addTask(pro2rel1spr1tas1);
 		pro2rel1spr1tas1.addPBI(pro2rel1spr1fea1);
-		pro2rel1spr1tas1.setPlanEffort(5);
+		pro2rel1spr1tas1.setPlanEffort(7);
 		pro2rel1spr1tas1.setResponsibility(pBjoern);
-		pro2rel1spr1tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr1tas1.finish(new Date(2011 - 1900, 2 - 1, 1));
 
 		pro2rel1spr1tas2 = new Task("Projekt 2, Release 1, Sprint 1, Task 2", "Beschreibung von Task 2");
 		pro2rel1spr1.getSprintBacklog().addTask(pro2rel1spr1tas2);
 		pro2rel1spr1tas2.addPBI(pro2rel1spr1fea2);
-		pro2rel1spr1tas2.setPlanEffort(5);
+		pro2rel1spr1tas2.setPlanEffort(3);
 		pro2rel1spr1tas2.setResponsibility(pBjoern);
-		pro2rel1spr1tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr1tas2.finish(new Date(2011 - 1900, 4 - 1, 1));
 
 		pro2rel1spr1tas3 = new Task("Projekt 2, Release 1, Sprint 1, Task 3", "Beschreibung von Task 3");
 		pro2rel1spr1.getSprintBacklog().addTask(pro2rel1spr1tas3);
 		pro2rel1spr1tas3.addPBI(pro2rel1spr1fea3);
-		pro2rel1spr1tas3.setPlanEffort(5);
+		pro2rel1spr1tas3.setPlanEffort(3);
 		pro2rel1spr1tas3.setResponsibility(pBjoern);
-		pro2rel1spr1tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr1tas3.finish(new Date(2011 - 1900, 4 - 1, 1));
 
 		pro2rel1spr1tas4 = new Task("Projekt 2, Release 1, Sprint 1, Task 4", "Beschreibung von Task 4");
 		pro2rel1spr1.getSprintBacklog().addTask(pro2rel1spr1tas4);
 		pro2rel1spr1tas4.addPBI(pro2rel1spr1fea4);
 		pro2rel1spr1tas4.setPlanEffort(5);
 		pro2rel1spr1tas4.setResponsibility(pBjoern);
-		pro2rel1spr1tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr1tas4.finish(new Date(2011 - 1900, 4 - 1, 1));
 
 		pro2rel1spr1tas5 = new Task("Projekt 2, Release 1, Sprint 1, Task 5", "Beschreibung von Task 5");
 		pro2rel1spr1.getSprintBacklog().addTask(pro2rel1spr1tas5);
 		pro2rel1spr1tas5.addPBI(pro2rel1spr1fea5);
-		pro2rel1spr1tas5.setPlanEffort(5);
+		pro2rel1spr1tas5.setPlanEffort(4);
 		pro2rel1spr1tas5.setResponsibility(pBjoern);
-		pro2rel1spr1tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr1tas5.finish(new Date(2011 - 1900, 2 - 1, 1));
 
 		// für Projekt 2, Release 1, Sprint 2
 		pro2rel1spr2tas1 = new Task("Projekt 2, Release 1, Sprint 2, Task 1", "Beschreibung von Task 1");
 		pro2rel1spr2.getSprintBacklog().addTask(pro2rel1spr2tas1);
 		pro2rel1spr2tas1.addPBI(pro2rel1spr2fea1);
-		pro2rel1spr2tas1.setPlanEffort(5);
+		pro2rel1spr2tas1.setPlanEffort(3);
 		pro2rel1spr2tas1.setResponsibility(pBjoern);
-		pro2rel1spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr2tas2 = new Task("Projekt 2, Release 1, Sprint 2, Task 2", "Beschreibung von Task 2");
 		pro2rel1spr2.getSprintBacklog().addTask(pro2rel1spr2tas2);
 		pro2rel1spr2tas2.addPBI(pro2rel1spr2fea2);
-		pro2rel1spr2tas2.setPlanEffort(5);
+		pro2rel1spr2tas2.setPlanEffort(3);
 		pro2rel1spr2tas2.setResponsibility(pBjoern);
-		pro2rel1spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr2tas3 = new Task("Projekt 2, Release 1, Sprint 2, Task 3", "Beschreibung von Task 3");
 		pro2rel1spr2.getSprintBacklog().addTask(pro2rel1spr2tas3);
 		pro2rel1spr2tas3.addPBI(pro2rel1spr2fea3);
-		pro2rel1spr2tas3.setPlanEffort(5);
+		pro2rel1spr2tas3.setPlanEffort(3);
 		pro2rel1spr2tas3.setResponsibility(pBjoern);
 		pro2rel1spr2tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr2tas4 = new Task("Projekt 2, Release 1, Sprint 2, Task 4", "Beschreibung von Task 4");
 		pro2rel1spr2.getSprintBacklog().addTask(pro2rel1spr2tas4);
 		pro2rel1spr2tas4.addPBI(pro2rel1spr2fea4);
-		pro2rel1spr2tas4.setPlanEffort(5);
+		pro2rel1spr2tas4.setPlanEffort(3);
 		pro2rel1spr2tas4.setResponsibility(pBjoern);
-		pro2rel1spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 15));
 
 		pro2rel1spr2tas5 = new Task("Projekt 2, Release 1, Sprint 2, Task 5", "Beschreibung von Task 5");
 		pro2rel1spr2.getSprintBacklog().addTask(pro2rel1spr2tas5);
 		pro2rel1spr2tas5.addPBI(pro2rel1spr2fea5);
-		pro2rel1spr2tas5.setPlanEffort(5);
+		pro2rel1spr2tas5.setPlanEffort(3);
 		pro2rel1spr2tas5.setResponsibility(pBjoern);
-		pro2rel1spr2tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr2tas5.finish(new Date(2011 - 1900, 3 - 1, 30));
 
 		// für Projekt 2, Release 1, Sprint 3
 		pro2rel1spr3tas1 = new Task("Projekt 2, Release 1, Sprint 3, Task 1", "Beschreibung von Task 1");
 		pro2rel1spr3.getSprintBacklog().addTask(pro2rel1spr3tas1);
 		pro2rel1spr3tas1.addPBI(pro2rel1spr3fea1);
-		pro2rel1spr3tas1.setPlanEffort(5);
+		pro2rel1spr3tas1.setPlanEffort(3);
 		pro2rel1spr3tas1.setResponsibility(pBjoern);
 		pro2rel1spr3tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr3tas2 = new Task("Projekt 2, Release 1, Sprint 3, Task 2", "Beschreibung von Task 2");
 		pro2rel1spr3.getSprintBacklog().addTask(pro2rel1spr3tas2);
 		pro2rel1spr3tas2.addPBI(pro2rel1spr3fea2);
-		pro2rel1spr3tas2.setPlanEffort(5);
+		pro2rel1spr3tas2.setPlanEffort(6);
 		pro2rel1spr3tas2.setResponsibility(pBjoern);
-		pro2rel1spr3tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr3tas2.finish(new Date(2011 - 1900, 4 - 1, 1));
 
 		pro2rel1spr3tas3 = new Task("Projekt 2, Release 1, Sprint 3, Task 3", "Beschreibung von Task 3");
 		pro2rel1spr3.getSprintBacklog().addTask(pro2rel1spr3tas3);
 		pro2rel1spr3tas3.addPBI(pro2rel1spr3fea3);
-		pro2rel1spr3tas3.setPlanEffort(5);
+		pro2rel1spr3tas3.setPlanEffort(2);
 		pro2rel1spr3tas3.setResponsibility(pBjoern);
-		pro2rel1spr3tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr3tas3.finish(new Date(2011 - 1900, 4 - 1, 1));
 
 		pro2rel1spr3tas4 = new Task("Projekt 2, Release 1, Sprint 3, Task 4", "Beschreibung von Task 4");
 		pro2rel1spr3.getSprintBacklog().addTask(pro2rel1spr3tas4);
 		pro2rel1spr3tas4.addPBI(pro2rel1spr3fea4);
-		pro2rel1spr3tas4.setPlanEffort(5);
+		pro2rel1spr3tas4.setPlanEffort(3);
 		pro2rel1spr3tas4.setResponsibility(pBjoern);
-		pro2rel1spr3tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr3tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr3tas5 = new Task("Projekt 2, Release 1, Sprint 3, Task 5", "Beschreibung von Task 5");
 		pro2rel1spr3.getSprintBacklog().addTask(pro2rel1spr3tas5);
 		pro2rel1spr3tas5.addPBI(pro2rel1spr3fea5);
-		pro2rel1spr3tas5.setPlanEffort(5);
+		pro2rel1spr3tas5.setPlanEffort(6);
 		pro2rel1spr3tas5.setResponsibility(pBjoern);
-		pro2rel1spr3tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr3tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		// für Projekt 2, Release 1, Sprint 4
 		pro2rel1spr4tas1 = new Task("Projekt 2, Release 1, Sprint 4, Task 1", "Beschreibung von Task 1");
 		pro2rel1spr4.getSprintBacklog().addTask(pro2rel1spr4tas1);
 		pro2rel1spr4tas1.addPBI(pro2rel1spr4fea1);
-		pro2rel1spr4tas1.setPlanEffort(5);
+		pro2rel1spr4tas1.setPlanEffort(4);
 		pro2rel1spr4tas1.setResponsibility(pBjoern);
-		pro2rel1spr4tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr4tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr4tas2 = new Task("Projekt 2, Release 1, Sprint 4, Task 2", "Beschreibung von Task 2");
 		pro2rel1spr4.getSprintBacklog().addTask(pro2rel1spr4tas2);
 		pro2rel1spr4tas2.addPBI(pro2rel1spr4fea2);
-		pro2rel1spr4tas2.setPlanEffort(5);
+		pro2rel1spr4tas2.setPlanEffort(6);
 		pro2rel1spr4tas2.setResponsibility(pBjoern);
-		pro2rel1spr4tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr4tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr4tas3 = new Task("Projekt 2, Release 1, Sprint 4, Task 3", "Beschreibung von Task 3");
 		pro2rel1spr4.getSprintBacklog().addTask(pro2rel1spr4tas3);
 		pro2rel1spr4tas3.addPBI(pro2rel1spr4fea3);
-		pro2rel1spr4tas3.setPlanEffort(5);
+		pro2rel1spr4tas3.setPlanEffort(7);
 		pro2rel1spr4tas3.setResponsibility(pBjoern);
-		pro2rel1spr4tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr4tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr4tas4 = new Task("Projekt 2, Release 1, Sprint 4, Task 4", "Beschreibung von Task 4");
 		pro2rel1spr4.getSprintBacklog().addTask(pro2rel1spr4tas4);
 		pro2rel1spr4tas4.addPBI(pro2rel1spr4fea4);
-		pro2rel1spr4tas4.setPlanEffort(5);
+		pro2rel1spr4tas4.setPlanEffort(8);
 		pro2rel1spr4tas4.setResponsibility(pBjoern);
-		pro2rel1spr4tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr4tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr4tas5 = new Task("Projekt 2, Release 1, Sprint 4, Task 5", "Beschreibung von Task 5");
 		pro2rel1spr4.getSprintBacklog().addTask(pro2rel1spr4tas5);
 		pro2rel1spr4tas5.addPBI(pro2rel1spr4fea5);
-		pro2rel1spr4tas5.setPlanEffort(5);
+		pro2rel1spr4tas5.setPlanEffort(1);
 		pro2rel1spr4tas5.setResponsibility(pBjoern);
-		pro2rel1spr4tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr4tas5.finish(new Date(2011 - 1900, 3 - 1, 17));
 
 		// für Projekt 2, Release 1, Sprint 5
 		pro2rel1spr5tas1 = new Task("Projekt 2, Release 1, Sprint 5, Task 1", "Beschreibung von Task 1");
 		pro2rel1spr5.getSprintBacklog().addTask(pro2rel1spr5tas1);
 		pro2rel1spr5tas1.addPBI(pro2rel1spr5fea1);
-		pro2rel1spr5tas1.setPlanEffort(5);
+		pro2rel1spr5tas1.setPlanEffort(2);
 		pro2rel1spr5tas1.setResponsibility(pBjoern);
-		pro2rel1spr5tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr5tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr5tas2 = new Task("Projekt 2, Release 1, Sprint 5, Task 2", "Beschreibung von Task 2");
 		pro2rel1spr5.getSprintBacklog().addTask(pro2rel1spr5tas2);
 		pro2rel1spr5tas2.addPBI(pro2rel1spr5fea2);
-		pro2rel1spr5tas2.setPlanEffort(5);
+		pro2rel1spr5tas2.setPlanEffort(8);
 		pro2rel1spr5tas2.setResponsibility(pBjoern);
-		pro2rel1spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 14));
 
 		pro2rel1spr5tas3 = new Task("Projekt 2, Release 1, Sprint 5, Task 3", "Beschreibung von Task 3");
 		pro2rel1spr5.getSprintBacklog().addTask(pro2rel1spr5tas3);
 		pro2rel1spr5tas3.addPBI(pro2rel1spr5fea3);
-		pro2rel1spr5tas3.setPlanEffort(5);
+		pro2rel1spr5tas3.setPlanEffort(3);
 		pro2rel1spr5tas3.setResponsibility(pBjoern);
-		pro2rel1spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel1spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel1spr5tas4 = new Task("Projekt 2, Release 1, Sprint 5, Task 4", "Beschreibung von Task 4");
 		pro2rel1spr5.getSprintBacklog().addTask(pro2rel1spr5tas4);
 		pro2rel1spr5tas4.addPBI(pro2rel1spr5fea4);
 		pro2rel1spr5tas4.setPlanEffort(5);
 		pro2rel1spr5tas4.setResponsibility(pBjoern);
-		pro2rel1spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 14));
 
 		pro2rel1spr5tas5 = new Task("Projekt 2, Release 1, Sprint 5, Task 5", "Beschreibung von Task 5");
 		pro2rel1spr5.getSprintBacklog().addTask(pro2rel1spr5tas5);
 		pro2rel1spr5tas5.addPBI(pro2rel1spr5fea5);
-		pro2rel1spr5tas5.setPlanEffort(5);
+		pro2rel1spr5tas5.setPlanEffort(3);
 		pro2rel1spr5tas5.setResponsibility(pBjoern);
-		pro2rel1spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel1spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 7));
 
 		// für Projekt 2, Release 2, Sprint 1
 		pro2rel2spr1tas1 = new Task("Projekt 2, Release 2, Sprint 1, Task 1", "Beschreibung von Task 1");
@@ -1782,35 +1783,35 @@ public abstract class SetUpTestData {
 		pro2rel2spr1tas1.addPBI(pro2rel2spr1fea1);
 		pro2rel2spr1tas1.setPlanEffort(5);
 		pro2rel2spr1tas1.setResponsibility(pBjoern);
-		pro2rel2spr1tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr1tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel2spr1tas2 = new Task("Projekt 2, Release 2, Sprint 1, Task 2", "Beschreibung von Task 2");
 		pro2rel2spr1.getSprintBacklog().addTask(pro2rel2spr1tas2);
 		pro2rel2spr1tas2.addPBI(pro2rel2spr1fea2);
 		pro2rel2spr1tas2.setPlanEffort(5);
 		pro2rel2spr1tas2.setResponsibility(pBjoern);
-		pro2rel2spr1tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr1tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel2spr1tas3 = new Task("Projekt 2, Release 2, Sprint 1, Task 3", "Beschreibung von Task 3");
 		pro2rel2spr1.getSprintBacklog().addTask(pro2rel2spr1tas3);
 		pro2rel2spr1tas3.addPBI(pro2rel2spr1fea3);
 		pro2rel2spr1tas3.setPlanEffort(5);
 		pro2rel2spr1tas3.setResponsibility(pBjoern);
-		pro2rel2spr1tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr1tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel2spr1tas4 = new Task("Projekt 2, Release 2, Sprint 1, Task 4", "Beschreibung von Task 4");
 		pro2rel2spr1.getSprintBacklog().addTask(pro2rel2spr1tas4);
 		pro2rel2spr1tas4.addPBI(pro2rel2spr1fea4);
 		pro2rel2spr1tas4.setPlanEffort(5);
 		pro2rel2spr1tas4.setResponsibility(pBjoern);
-		pro2rel2spr1tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr1tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel2spr1tas5 = new Task("Projekt 2, Release 2, Sprint 1, Task 5", "Beschreibung von Task 5");
 		pro2rel2spr1.getSprintBacklog().addTask(pro2rel2spr1tas5);
 		pro2rel2spr1tas5.addPBI(pro2rel2spr1fea5);
 		pro2rel2spr1tas5.setPlanEffort(5);
 		pro2rel2spr1tas5.setResponsibility(pBjoern);
-		pro2rel2spr1tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr1tas5.finish(new Date(2011 - 1900, 6 - 1, 13));
 
 		// für Projekt 2, Release 2, Sprint 2
 		pro2rel2spr2tas1 = new Task("Projekt 2, Release 2, Sprint 2, Task 1", "Beschreibung von Task 1");
@@ -1818,28 +1819,28 @@ public abstract class SetUpTestData {
 		pro2rel2spr2tas1.addPBI(pro2rel2spr2fea1);
 		pro2rel2spr2tas1.setPlanEffort(5);
 		pro2rel2spr2tas1.setResponsibility(pBjoern);
-		pro2rel2spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr2tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel2spr2tas2 = new Task("Projekt 2, Release 2, Sprint 2, Task 2", "Beschreibung von Task 2");
 		pro2rel2spr2.getSprintBacklog().addTask(pro2rel2spr2tas2);
 		pro2rel2spr2tas2.addPBI(pro2rel2spr2fea2);
 		pro2rel2spr2tas2.setPlanEffort(5);
 		pro2rel2spr2tas2.setResponsibility(pBjoern);
-		pro2rel2spr2tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr2tas2.finish(new Date(2011 - 1900, 2 - 1, 11));
 
 		pro2rel2spr2tas3 = new Task("Projekt 2, Release 2, Sprint 2, Task 3", "Beschreibung von Task 3");
 		pro2rel2spr2.getSprintBacklog().addTask(pro2rel2spr2tas3);
 		pro2rel2spr2tas3.addPBI(pro2rel2spr2fea3);
 		pro2rel2spr2tas3.setPlanEffort(5);
 		pro2rel2spr2tas3.setResponsibility(pBjoern);
-		pro2rel2spr2tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr2tas3.finish(new Date(2011 - 1900, 2 - 1, 12));
 
 		pro2rel2spr2tas4 = new Task("Projekt 2, Release 2, Sprint 2, Task 4", "Beschreibung von Task 4");
 		pro2rel2spr2.getSprintBacklog().addTask(pro2rel2spr2tas4);
 		pro2rel2spr2tas4.addPBI(pro2rel2spr2fea4);
 		pro2rel2spr2tas4.setPlanEffort(5);
 		pro2rel2spr2tas4.setResponsibility(pBjoern);
-		pro2rel2spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr2tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		pro2rel2spr2tas5 = new Task("Projekt 2, Release 2, Sprint 2, Task 5", "Beschreibung von Task 5");
 		pro2rel2spr2.getSprintBacklog().addTask(pro2rel2spr2tas5);
@@ -1854,35 +1855,35 @@ public abstract class SetUpTestData {
 		pro2rel2spr3tas1.addPBI(pro2rel2spr3fea1);
 		pro2rel2spr3tas1.setPlanEffort(5);
 		pro2rel2spr3tas1.setResponsibility(pBjoern);
-		pro2rel2spr3tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr3tas1.finish(new Date(2011 - 1900, 1 - 1, 1));
 
 		pro2rel2spr3tas2 = new Task("Projekt 2, Release 2, Sprint 3, Task 2", "Beschreibung von Task 2");
 		pro2rel2spr3.getSprintBacklog().addTask(pro2rel2spr3tas2);
 		pro2rel2spr3tas2.addPBI(pro2rel2spr3fea2);
 		pro2rel2spr3tas2.setPlanEffort(5);
 		pro2rel2spr3tas2.setResponsibility(pBjoern);
-		pro2rel2spr3tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr3tas2.finish(new Date(2011 - 1900, 1 - 1, 2));
 
 		pro2rel2spr3tas3 = new Task("Projekt 2, Release 2, Sprint 3, Task 3", "Beschreibung von Task 3");
 		pro2rel2spr3.getSprintBacklog().addTask(pro2rel2spr3tas3);
 		pro2rel2spr3tas3.addPBI(pro2rel2spr3fea3);
 		pro2rel2spr3tas3.setPlanEffort(5);
 		pro2rel2spr3tas3.setResponsibility(pBjoern);
-		pro2rel2spr3tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr3tas3.finish(new Date(2011 - 1900, 1 - 1, 11));
 
 		pro2rel2spr3tas4 = new Task("Projekt 2, Release 2, Sprint 3, Task 4", "Beschreibung von Task 4");
 		pro2rel2spr3.getSprintBacklog().addTask(pro2rel2spr3tas4);
 		pro2rel2spr3tas4.addPBI(pro2rel2spr3fea4);
 		pro2rel2spr3tas4.setPlanEffort(5);
 		pro2rel2spr3tas4.setResponsibility(pBjoern);
-		pro2rel2spr3tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr3tas4.finish(new Date(2011 - 1900, 1 - 1, 1));
 
 		pro2rel2spr3tas5 = new Task("Projekt 2, Release 2, Sprint 3, Task 5", "Beschreibung von Task 5");
 		pro2rel2spr3.getSprintBacklog().addTask(pro2rel2spr3tas5);
 		pro2rel2spr3tas5.addPBI(pro2rel2spr3fea5);
 		pro2rel2spr3tas5.setPlanEffort(5);
 		pro2rel2spr3tas5.setResponsibility(pBjoern);
-		pro2rel2spr3tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		//pro2rel2spr3tas5.finish(new Date(2011 - 1900, 1 - 1, 1));
 
 		// für Projekt 2, Release 2, Sprint 4
 		pro2rel2spr4tas1 = new Task("Projekt 2, Release 2, Sprint 4, Task 1", "Beschreibung von Task 1");
@@ -1926,35 +1927,35 @@ public abstract class SetUpTestData {
 		pro2rel2spr5tas1.addPBI(pro2rel2spr5fea1);
 		pro2rel2spr5tas1.setPlanEffort(5);
 		pro2rel2spr5tas1.setResponsibility(pBjoern);
-		pro2rel2spr5tas1.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr5tas1.finish(new Date(2011 - 1900, 2 - 1, 27));
 
 		pro2rel2spr5tas2 = new Task("Projekt 2, Release 2, Sprint 5, Task 2", "Beschreibung von Task 2");
 		pro2rel2spr5.getSprintBacklog().addTask(pro2rel2spr5tas2);
 		pro2rel2spr5tas2.addPBI(pro2rel2spr5fea2);
 		pro2rel2spr5tas2.setPlanEffort(5);
 		pro2rel2spr5tas2.setResponsibility(pBjoern);
-		pro2rel2spr5tas2.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr5tas2.finish(new Date(2011 - 1900, 2 - 1, 27));
 
 		pro2rel2spr5tas3 = new Task("Projekt 2, Release 2, Sprint 5, Task 3", "Beschreibung von Task 3");
 		pro2rel2spr5.getSprintBacklog().addTask(pro2rel2spr5tas3);
 		pro2rel2spr5tas3.addPBI(pro2rel2spr5fea3);
 		pro2rel2spr5tas3.setPlanEffort(5);
 		pro2rel2spr5tas3.setResponsibility(pBjoern);
-		pro2rel2spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr5tas3.finish(new Date(2011 - 1900, 3 - 1, 2));
 
 		pro2rel2spr5tas4 = new Task("Projekt 2, Release 2, Sprint 5, Task 4", "Beschreibung von Task 4");
 		pro2rel2spr5.getSprintBacklog().addTask(pro2rel2spr5tas4);
 		pro2rel2spr5tas4.addPBI(pro2rel2spr5fea4);
 		pro2rel2spr5tas4.setPlanEffort(5);
 		pro2rel2spr5tas4.setResponsibility(pBjoern);
-		pro2rel2spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr5tas4.finish(new Date(2011 - 1900, 3 - 1, 3));
 
 		pro2rel2spr5tas5 = new Task("Projekt 2, Release 2, Sprint 5, Task 5", "Beschreibung von Task 5");
 		pro2rel2spr5.getSprintBacklog().addTask(pro2rel2spr5tas5);
 		pro2rel2spr5tas5.addPBI(pro2rel2spr5fea5);
 		pro2rel2spr5tas5.setPlanEffort(5);
 		pro2rel2spr5tas5.setResponsibility(pBjoern);
-		pro2rel2spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 1));
+		pro2rel2spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 7));
 
 	}
 

@@ -23,7 +23,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testSprintBurndownChart_1()
 		throws Exception {
-		ISprint sprint = new Sprint("", "", new Date(), new Date(), new Team(""));
+		ISprint sprint = this.pro1rel1spr1;
 
 		SprintBurndownChart result = new SprintBurndownChart(sprint);
 
@@ -43,7 +43,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testSprintBurndownChart_2()
 		throws Exception {
-		ISprint sprint = new Sprint("", "", new Date(), new Date(), new Team(""));
+		ISprint sprint = new Sprint("blupp", "blaaa", new Date(), new Date(), new Team("Heyhey"));
 		int width = 1;
 		int height = 1;
 
@@ -65,7 +65,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testCreateChart_1()
 		throws Exception {
-		SprintBurndownChart fixture = new SprintBurndownChart(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintBurndownChart fixture = new SprintBurndownChart(this.pro2rel1spr1);
 		fixture.burndownCurve = null;
 		fixture.idealCurve = null;
 		fixture.trendCurve = null;
@@ -87,7 +87,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testCreateChart_2()
 		throws Exception {
-		SprintBurndownChart fixture = new SprintBurndownChart(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintBurndownChart fixture = new SprintBurndownChart(this.pro2rel1spr2);
 		fixture.burndownCurve = null;
 		fixture.idealCurve = null;
 		fixture.trendCurve = null;
@@ -109,12 +109,16 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testCreateChart_3()
 		throws Exception {
-		SprintBurndownChart fixture = new SprintBurndownChart(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintBurndownChart fixture = new SprintBurndownChart(this.pro2rel1spr3);
 		fixture.burndownCurve = null;
 		fixture.idealCurve = null;
 		fixture.trendCurve = null;
 
 		fixture.createChart();
+		
+		assertNotNull(fixture.burndownCurve);
+		assertNotNull(fixture.idealCurve);
+		assertNotNull(fixture.trendCurve);
 
 		// add additional test code here
 		// An unexpected exception was thrown in user code while executing this test:
@@ -131,7 +135,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testPopulateChart_1()
 		throws Exception {
-		SprintBurndownChart fixture = new SprintBurndownChart(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintBurndownChart fixture = new SprintBurndownChart(this.pro1rel1spr1);
 		fixture.burndownCurve = null;
 		fixture.idealCurve = null;
 		fixture.trendCurve = null;
@@ -153,7 +157,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testPopulateChart_2()
 		throws Exception {
-		SprintBurndownChart fixture = new SprintBurndownChart(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintBurndownChart fixture = new SprintBurndownChart(this.pro1rel1spr2);
 		fixture.burndownCurve = null;
 		fixture.idealCurve = null;
 		fixture.trendCurve = null;
@@ -175,7 +179,7 @@ public class SprintBurndownChartTest extends SetUpTestData {
 	@Test
 	public void testPopulateChart_3()
 		throws Exception {
-		SprintBurndownChart fixture = new SprintBurndownChart(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintBurndownChart fixture = new SprintBurndownChart(this.pro1rel1spr3);
 		fixture.burndownCurve = null;
 		fixture.idealCurve = null;
 		fixture.trendCurve = null;
