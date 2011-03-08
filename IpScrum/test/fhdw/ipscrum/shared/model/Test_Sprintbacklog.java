@@ -2,17 +2,21 @@ package fhdw.ipscrum.shared.model;
 
 
 import java.util.Date;
+import java.util.Iterator;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
+
 import org.junit.Test;
+import fhdw.ipscrum.shared.exceptions.*;
 
 public class Test_Sprintbacklog {
 	private static Person per1 = null;
 	private static Person per2 = null;
 	private static Feature pbi1 = null;
 	private static Feature pbi2 = null;
+	private static Feature pbi3 = null;
 	private static ProductBacklogItem pbix = null;
 	private static Project test = null;
 	private static ProductBacklog pbltest = null;
@@ -25,6 +29,8 @@ public class Test_Sprintbacklog {
 	private static Integer eight = null;
 	private static Integer five = null;
 	private static Integer platzhalter = null;
+	private static Iterator<ProductBacklogItem> pbiIt = null;
+	private static boolean pl1;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -34,6 +40,7 @@ public class Test_Sprintbacklog {
 		per2 = new Person("Karin", "Katze");
 		pbi1 = new Feature("A", "Test1", pbltest);
 		pbi2 = new Feature("B", "Test2", pbltest);
+		pbi3 = new Feature("c", "Test3", pbltest);
 		t1 = new Task("Task 1", "Beschreibung");
 		t2 = new Task("Task 2", "Beschreibung 2");
 		t3 = new Task("Task 3", "Beschreibung 3");
@@ -45,18 +52,21 @@ public class Test_Sprintbacklog {
 		
 		pbltest.addItem(pbi1);
 		pbltest.addItem(pbi2);
+		pbltest.addItem(pbi3);
 		test.addSprint(sprint);
 		
 		team1.addMember(per1);
 		team1.addMember(per2);
 		pbi1.setSprint(sprint);
 		pbi2.setSprint(sprint);
+		pbi3.setSprint(sprint);
 		
 		sprintbl.addTask(t1);
 		sprintbl.addTask(t2);
 		
 		t1.setPlanEffort(3);
 		t2.doSetPlanEffort(5);
+		t2.addPBI(pbi3);
 		
 		t1.addPBI(pbi1);
 		t1.setResponsibility(per1);
@@ -134,11 +144,48 @@ public class Test_Sprintbacklog {
 	/**
 	 * Removing a BPI from a sprint
 	 */
-	public void testRemovePBIFromTasks() throws Exception{
+	public void testRemovePBIFromTasks1() throws Exception{
 		t2.addPBI(pbi2);
 		sprintbl.removePBIFromTasks(pbi2);
-		assertEquals(false, sprintbl.hasPBI(pbi2));
+		pl1= true;
+		
+		pbiIt = t2.getPBIIterator();
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi2){ pl1 =false;}
+        assertEquals(true,pl1);
 	}
+	
+	@Test
+	/**
+	 * Removing a BPI from a sprint
+	 */
+	public void testRemovePBIFromTasks2() throws Exception{
+		sprintbl.removePBIFromTasks(pbi1);
+		pl1= true;
+		
+		pbiIt = t1.getPBIIterator();
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi1){ pl1 =false;}
+        assertEquals(true,pl1);
+	}
+	
+	@Test(expected = ForbiddenStateException.class)
+	/**
+	 * Removing a BPI from a sprint
+	 */
+	public void testRemovePBIFromTasks3() throws Exception{
+		t2.finish();
+		sprintbl.removePBIFromTasks(pbi3);
+		pl1= false;
+		
+		pbiIt = t2.getPBIIterator();
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi3){ pl1 =true;}
+        assertEquals(true,pl1);
+		}
 	
 	@Test
 	/**
