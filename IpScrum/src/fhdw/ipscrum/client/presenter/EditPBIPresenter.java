@@ -5,12 +5,12 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.EditPBIView;
 import fhdw.ipscrum.client.view.interfaces.IEditPBIView;
+import fhdw.ipscrum.client.view.interfaces.IPBIView;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
-import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
+import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.Feature;
@@ -21,7 +21,7 @@ import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 /**
  * Presenter to edit a feature.
  */
-public class EditPBIPresenter extends PBIPresenter<IEditPBIView> {
+public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 
 	/**
 	 * Constructor for EditFeaturePresenter.
@@ -29,26 +29,16 @@ public class EditPBIPresenter extends PBIPresenter<IEditPBIView> {
 	 * @param parent Panel
 	 * @param feature Feature
 	 * @param parentPresenter
-	 * @throws NoFeatureSelectedException
+	 * @throws NoPBISelectedException
 	 */
-	public EditPBIPresenter(final Panel parent, final Feature feature, final Presenter<?> parentPresenter) throws NoFeatureSelectedException {
+	public EditPBIPresenter(final Panel parent, final Feature feature, final Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, feature, parentPresenter);
-	}
-
-	/**
-	 * Method createView.
-	 * 
-	 * @return IEditFeatureView
-	 */
-	@Override
-	protected IEditPBIView createView() {
-		return new EditPBIView();
 	}
 
 	@Override
 	protected void registerViewEvents() {
 		super.registerViewEvents();
-		this.getView().toggleFeatureState().add(new EventHandler<EventArgs>() {
+		((IEditPBIView) this.getView()).toggleFeatureState().add(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -57,14 +47,8 @@ public class EditPBIPresenter extends PBIPresenter<IEditPBIView> {
 		});
 	}
 
-	@Override
-	protected void setupView() {
-		super.setupView();
-		this.getView().setComplexity(this.getPbi().getManDayCosts());
-	}
-
 	/**
-	 * Closes the feature if its open. If feature is closed, nothing will be done.
+	 * Closes the pbi if its open. If pbi is closed, nothing will be done.
 	 */
 	private void toggleFeatureState() {
 		this.getPbi().getState().accept(new IPBIStateVisitor() {
@@ -86,15 +70,21 @@ public class EditPBIPresenter extends PBIPresenter<IEditPBIView> {
 	}
 
 	@Override
+	protected void setupView() {
+		super.setupView();
+		((IEditPBIView) this.getView()).setComplexity(this.getPbi().getManDayCosts());
+	}
+
+	@Override
 	protected void updateFeature() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
 		super.updateFeature();
-		this.getPbi().setManDayCosts(this.getView().getComplexity());
+		this.getPbi().setManDayCosts(((IEditPBIView) this.getView()).getComplexity());
 	}
 
 	@Override
 	protected void updateView() {
 		super.updateView();
-		this.getView().setLastEditor(this.getPbi().getLastEditor());
-		this.getView().setState(this.getPbi().getState());
+		((IEditPBIView) this.getView()).setLastEditor(this.getPbi().getLastEditor());
+		((IEditPBIView) this.getView()).setState(this.getPbi().getState());
 	}
 }

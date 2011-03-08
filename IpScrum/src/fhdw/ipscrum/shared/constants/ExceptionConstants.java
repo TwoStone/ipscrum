@@ -25,7 +25,7 @@ public abstract class ExceptionConstants {
 
 	public static final String GUI_PERSROLEMNGMT_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Zuordnung von Rollen zu einer Person eine (oder mehrere) Rollen aus der rechten Liste, sowie eine Person aus der linken Tabelle aus.";
 	public static final String GUI_TEAMVIEW_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Teamzuordnung eine (oder mehrere) Personen aus der rechten Tabelle, sowie ein Team aus der linken Liste aus.";
-	public static final String GUI_SYSTEMIEW_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Systemzuordnung ein System aus den verfügbaren Systemen aus.";
+	public static final String GUI_SYSTEMVIEW_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Systemzuordnung ein System aus den verfügbaren Systemen aus.";
 
 	public static final String TASK_INITIAL_STATE_ERROR = "INTERNAL ERROR! - The initial State does not allow initializing attributes";
 	public static final String PERSON_NOT_IN_SPRINT_TEAM_ERROR = "Diese Person ist nicht Teil des Teams für diesen Sprint";

@@ -5,7 +5,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 
-public interface IEditPBIView extends IPBIView {
+public interface IEditPBIView {
 
 	/**
 	 * Returns the currently entered complexity.
@@ -36,8 +36,7 @@ public interface IEditPBIView extends IPBIView {
 	void setState(IProductBacklogItemState state);
 
 	/**
-	 * Returns the event, that is fired, when the feature state should be
-	 * toggled.
+	 * Returns the event, that is fired, when the feature state should be toggled.
 	 * 
 	 * @return
 	 */

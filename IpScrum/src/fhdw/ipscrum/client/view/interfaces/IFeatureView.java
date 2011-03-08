@@ -1,4 +1,5 @@
 package fhdw.ipscrum.client.view.interfaces;
 
-public interface ICreatePBIView {
+public interface IFeatureView {
+
 }

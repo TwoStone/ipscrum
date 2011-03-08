@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
@@ -28,7 +29,6 @@ import fhdw.ipscrum.client.view.interfaces.ISelectSystemView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
  * view class for systems. this view is used to select systems of an amount of available systems.
@@ -79,24 +79,26 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
 		horizontalPanel.add(verticalPanelAllocationButtons);
 
-		Button btnRemoveSystem = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_REMOVE);
+		Button btnRemoveSystem = new Button(TextConstants.BUTTONLABEL_REMOVE);
 		btnRemoveSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (SelectSystemView.this.getSelectedOfAvailableSystems() != null) {
-					SelectSystemView.this.removeSelectedSystem.fire(SelectSystemView.this, new SystemArgs(SelectSystemView.this.getSelectedOfAvailableSystems()));
+				if (SelectSystemView.this.selModelSystemTable.getSelectedSet().size() > 0 && SelectSystemView.this.getSelectedOfSelectedSystems() != null) {
+					SelectSystemView.this.removeSelectedSystem.fire(SelectSystemView.this, new SystemArgs(SelectSystemView.this.getSelectedOfSelectedSystems()));
 				}
 			}
 		});
 
-		Button btnAddSystem = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_ASSIGN);
+		Button btnAddSystem = new Button(TextConstants.BUTTONLABEL_ASSIGN);
 		btnAddSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (SelectSystemView.this.selModelSystemTable.getSelectedSet().size() > 0 && SelectSystemView.this.getSelectedOfAvailableSystems() != null) {
+				Window.alert("Neue Meldung"); // TODO Christin
+
+				if (SelectSystemView.this.getSelectedOfAvailableSystems() != null) {
 					SelectSystemView.this.addSelectedSystem.fire(SelectSystemView.this, new SystemArgs(SelectSystemView.this.getSelectedOfAvailableSystems()));
 				} else {
-					Window.alert(ExceptionConstants.GUI_SYSTEMIEW_ASSIGNERROR);
+					Window.alert(ExceptionConstants.GUI_SYSTEMVIEW_ASSIGNERROR);
 				}
 			}
 		});
@@ -109,13 +111,13 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		Label lblVerfgbareSysteme = new Label("Verfügbare Systeme");
 		verticalPanelVerfuegbareSysteme.add(lblVerfgbareSysteme);
 
-		ScrollPanel scrollPanelTeamTree = new ScrollPanel();
-		verticalPanelVerfuegbareSysteme.add(scrollPanelTeamTree);
-		scrollPanelTeamTree.setStyleName("tableBorder");
-		scrollPanelTeamTree.setSize("350px", "425px");
+		ScrollPanel scrollPanelSystemTree = new ScrollPanel();
+		verticalPanelVerfuegbareSysteme.add(scrollPanelSystemTree);
+		scrollPanelSystemTree.setStyleName("tableBorder");
+		scrollPanelSystemTree.setSize("350px", "425px");
 
 		this.tree = new Tree();
-		scrollPanelTeamTree.setWidget(this.tree);
+		scrollPanelSystemTree.setWidget(this.tree);
 		this.tree.setAnimationEnabled(true);
 		this.tree.setSize("100%", "100%");
 
@@ -149,11 +151,20 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	public System getSelectedOfAvailableSystems() {
 		if (this.tree.getSelectedItem() != null) {
 			Object selItem = this.tree.getSelectedItem().getUserObject();
-			if (selItem instanceof IPerson) {
+			if (selItem instanceof System) {
 				return (System) selItem;
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public System getSelectedOfSelectedSystems() {
+		@SuppressWarnings("unchecked")
+		// TODO Christin: geht das nicht schöner?
+		SingleSelectionModel<System> selSysModel = (SingleSelectionModel<System>) this.cellTableAusgewaehlteSysteme.getSelectionModel();
+		System selectedSystem = selSysModel.getSelectedObject();
+		return selectedSystem;
 	}
 
 	@Override
@@ -168,12 +179,15 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public void updateSelectedSystemData(Collection<System> selectedSystems) {
+		Window.alert("View updateSelectedSystemData");// TODO Christin
 		this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(selectedSystems));
 	}
 
 	@Override
 	public void updateAvailableSystemData(Collection<System> availableSystems) {
-		this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(availableSystems));
+		Window.alert("View updateAvailableSystemData");// TODO Christin
+
+		// this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(availableSystems));
 		// TODO Christin: bereits selektierte ausblenden
 		this.tree.clear();
 		this.fillTree(availableSystems, null);
@@ -196,12 +210,18 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public void defineRemoveSelectedSystemEvent(EventHandler<SystemArgs> args) {
+
 		this.removeSelectedSystem.add(args);
 	}
 
 	@Override
 	public void defineAddSelectedSystemEvent(EventHandler<SystemArgs> args) {
 		this.addSelectedSystem.add(args);
+	}
+
+	public void meldung(String m) {
+		// TODO Christin rauswerfen
+		Window.alert(m);
 	}
 
 }

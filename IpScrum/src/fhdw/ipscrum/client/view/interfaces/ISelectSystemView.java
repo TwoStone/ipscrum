@@ -33,6 +33,13 @@ public interface ISelectSystemView extends IView {
 	public abstract System getSelectedOfAvailableSystems();
 
 	/**
+	 * This method is used to obtain the selected System of the selected Systems-table.
+	 * 
+	 * @return System the selected System
+	 */
+	public abstract System getSelectedOfSelectedSystems();
+
+	/**
 	 * This method is used to update or fill the entries of the team display.
 	 * 
 	 * @param selectedSystems a collection of the selected systems to be displayed.
@@ -59,4 +66,6 @@ public interface ISelectSystemView extends IView {
 	 * @param args empty arguments
 	 */
 	public abstract void defineAddSelectedSystemEvent(EventHandler<SystemArgs> args);
+
+	public void meldung(String m);
 }

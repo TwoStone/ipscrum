@@ -11,8 +11,9 @@ import fhdw.ipscrum.client.view.ProductBacklogView;
 import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
+import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -47,7 +48,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 		final IProductBacklogView view = new ProductBacklogView();
 
 		// Add a handler for a event which creates a new ProductBacklogItem
-		view.addNewPBIEventHandler(new EventHandler<EventArgs>() {
+		view.addNewFeatureEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
@@ -55,7 +56,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 				final DialogBox newBox = GwtUtils.createDialog(TextConstants.CREATE_FEATURE);
 				final CreatePBIPresenter presenter;
 				try {
-					presenter = new CreatePBIPresenter(newBox, ProductBacklogPresenter.this.project.getBacklog(), ProductBacklogPresenter.this);
+					presenter = new CreateFeaturePresenter(newBox, ProductBacklogPresenter.this.project.getBacklog(), ProductBacklogPresenter.this);
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
@@ -64,7 +65,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 							try {
 								ProductBacklogPresenter.this.project.getBacklog().addItem(presenter.getPbi());
 							} catch (final ConsistencyException e) {
-								GwtUtils.displayError(e.getMessage());
+								GwtUtils.displayError(e);
 							}
 							view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 							newBox.hide();
@@ -81,24 +82,72 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 					});
 
 					newBox.center();
-				} catch (final NoFeatureSelectedException e1) {
-					GwtUtils.displayError(e1.getMessage());
+				} catch (final NoPBISelectedException e1) {
+					GwtUtils.displayError(e1);
 				}
 			}
 		});
+		view.addNewBugEventHandler(new EventHandler<EventArgs>() {
 
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+
+				final DialogBox newBox = GwtUtils.createDialog(TextConstants.CREATE_BUG);
+				final CreatePBIPresenter presenter;
+				try {
+					presenter = new CreateBugPresenter(newBox, ProductBacklogPresenter.this.project.getBacklog(), ProductBacklogPresenter.this);
+
+					presenter.getFinished().add(new EventHandler<EventArgs>() {
+
+						@Override
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
+							try {
+								ProductBacklogPresenter.this.project.getBacklog().addItem(presenter.getPbi());
+							} catch (final ConsistencyException e) {
+								GwtUtils.displayError(e);
+							}
+							view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
+							newBox.hide();
+						}
+
+					});
+
+					presenter.getAborted().add(new EventHandler<EventArgs>() {
+
+						@Override
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
+							newBox.hide();
+						}
+					});
+
+					newBox.center();
+				} catch (final NoPBISelectedException e1) {
+					GwtUtils.displayError(e1);
+				}
+			}
+		});
 		// Add a handler for a event which opens the details of a
 		// ProductBacklogItem
 		view.addPBIDetailsEventHandler(new EventHandler<PBIArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-				final DialogBox newBox = GwtUtils.createDialog(TextConstants.FEATURE_DETAILS);
+				final DialogBox newBox;
 				// TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst
 				// der Typ SICHERGESTELLT WERDEN
 				EditPBIPresenter presenter;
 				try {
-					presenter = new EditPBIPresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
+
+					if (eventArgs.getPbi() instanceof Feature) {
+						newBox = GwtUtils.createDialog(TextConstants.FEATURE_DETAILS);
+						presenter = new EditFeaturePresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
+					} else if (eventArgs.getPbi() instanceof Bug) {
+						newBox = GwtUtils.createDialog(TextConstants.BUG_DETAILS);
+						presenter = new EditBugPresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
+					} else {
+						newBox = null;// TODO Christin: das muß auch schöner gehen
+						presenter = null;
+					}
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {
 
@@ -119,8 +168,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 					});
 
 					newBox.center();
-				} catch (final NoFeatureSelectedException e) {
-					GwtUtils.displayError(e.getMessage());
+				} catch (final NoPBISelectedException e) {
+					GwtUtils.displayError(e);
 				}
 			}
 		});
@@ -135,7 +184,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 						ProductBacklogPresenter.this.project.getBacklog().removeItem(eventArgs.getPbi());
 						view.refreshProductBacklog(ProductBacklogPresenter.this.project.getBacklog().getItems());
 					} catch (final UserException e) {
-						GwtUtils.displayError(e.getMessage());
+						GwtUtils.displayError(e);
 					}
 				}
 			}

@@ -1,7 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.DialogBox;
@@ -20,7 +19,7 @@ import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
-import fhdw.ipscrum.shared.exceptions.NoFeatureSelectedException;
+import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
@@ -31,7 +30,6 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
-import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
@@ -51,14 +49,15 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	 * @param parent Panel
 	 * @param feature Feature
 	 * @param parentPresenter
-	 * @throws NoFeatureSelectedException
+	 * @throws NoPBISelectedException
 	 */
-	public PBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoFeatureSelectedException {
+	public PBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, parentPresenter);
+
 		// TODO Christin sollte das nicht in den Edit-Konsturktor?
 		if (pbi == null) {
 			this.abort();
-			throw new NoFeatureSelectedException("Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
+			throw new NoPBISelectedException("Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
 		}
 		this.pbi = pbi;
 		this.pbi.addObserver(this);
@@ -102,16 +101,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	 */
 	private void changeSystems() {
 		final DialogBox box = GwtUtils.createDialog("Systemzuornung ändern");
-		Collection<System> systems = new ArrayList<System>();
-		try {
-			systems.add(new System("Name der SysGrp", new Rootsystem()));
-			systems.add(new System("Name des konkreten Systems", new Rootsystem()));
-		} catch (UserException e1) {
-			// TODO Christin
-			GwtUtils.displayError(e1.getMessage());
-		}
 		List<System> availableSystems = PBIPresenter.this.pbi.getBacklog().getProject().getPossibleSystems();
-		final SelectSystemPresenter presenter = new SelectSystemPresenter(box, this, systems, availableSystems);
+		final SelectSystemPresenter presenter = new SelectSystemPresenter(box, this, ((Bug) PBIPresenter.this.pbi).getSystems(), availableSystems);
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
@@ -270,14 +261,6 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 			}
 		});
 
-		this.getView().getChangeSystems().add(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				PBIPresenter.this.changeSystems();
-			}
-		});
-
 		this.getView().getCreateHint().add(new EventHandler<EventArgs>() {
 
 			@Override
@@ -350,7 +333,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 		try {
 			this.pbi.removeRelation(relation);
 		} catch (final ForbiddenStateException e) {
-			GwtUtils.displayError(e.getMessage());
+			GwtUtils.displayError(e);
 		}
 	}
 

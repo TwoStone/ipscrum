@@ -34,7 +34,6 @@ import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.Relation;
-import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 public abstract class PBIView extends Composite implements IPBIView {
@@ -45,7 +44,6 @@ public abstract class PBIView extends Composite implements IPBIView {
 	private final Button btnAddRelation;
 	private final Button btnAddHint;
 	private final Button btnAddCriterion;
-	private final Button btnChangeSystems;
 	private final Button btnSave;
 	private final Button btnAbort = new Button(TextConstants.ABORT);
 	private final CellTable<Relation> relationTable;
@@ -62,14 +60,10 @@ public abstract class PBIView extends Composite implements IPBIView {
 	private final Event<EventArgs> createRelation = new Event<EventArgs>();
 	private final Event<EventArgs> createHint = new Event<EventArgs>();
 	private final Event<EventArgs> createCriterion = new Event<EventArgs>();
-	private final Event<EventArgs> changeSystems = new Event<EventArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 	private final FlexTable detailTable;
 	private List<ISprint> sprints;
-	private List<IRelease> releases;
-	private final ListBox listBoxPBITyp = new ListBox();
-	private final Label lblPBITyp;
-	private final ListBox listBoxVersion = new ListBox();
+	private final VerticalPanel verticalPanel;
 
 	public PBIView() {
 
@@ -80,7 +74,7 @@ public abstract class PBIView extends Composite implements IPBIView {
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel_2.add(horizontalPanel);
 
-		final VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		horizontalPanel.add(verticalPanel);
 		verticalPanel.setWidth("");
@@ -89,24 +83,16 @@ public abstract class PBIView extends Composite implements IPBIView {
 		verticalPanel.add(this.detailTable);
 		this.detailTable.setWidth("300px");
 
-		lblPBITyp = new Label("Typ:");
-		detailTable.setWidget(0, 0, lblPBITyp);
-		detailTable.setWidget(0, 1, listBoxPBITyp);
-
 		final Label lblName = new Label(TextConstants.NAME);
-		this.detailTable.setWidget(1, 0, lblName);
+		this.detailTable.setWidget(0, 0, lblName);
 
 		this.txtBxName = new TextBox();
-		this.detailTable.setWidget(1, 1, this.txtBxName);
+		this.detailTable.setWidget(0, 1, this.txtBxName);
 
 		final Label lblSprint = new Label(TextConstants.SPRINT);
-		this.detailTable.setWidget(2, 0, lblSprint);
+		this.detailTable.setWidget(1, 0, lblSprint);
 
-		this.detailTable.setWidget(2, 1, this.sprintComboBox);
-
-		Label lblVersion = new Label("Version:");
-		detailTable.setWidget(3, 0, lblVersion);
-		detailTable.setWidget(3, 1, listBoxVersion);
+		this.detailTable.setWidget(1, 1, this.sprintComboBox);
 
 		final Label lblDescription = new Label(TextConstants.DESCRIPTION);
 		verticalPanel.add(lblDescription);
@@ -201,6 +187,7 @@ public abstract class PBIView extends Composite implements IPBIView {
 				return "X";
 			}
 		};
+
 		removeHintCol.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		removeHintCol.setFieldUpdater(new FieldUpdater<Hint, String>() {
 
@@ -267,15 +254,6 @@ public abstract class PBIView extends Composite implements IPBIView {
 		});
 		verticalPanel_1.add(this.btnAddCriterion);
 
-		this.btnChangeSystems = new Button(TextConstants.CHANGE_SYSTEM);
-		this.btnChangeSystems.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(final ClickEvent event) {
-				PBIView.this.changeSystems.fire(PBIView.this, new EventArgs());
-			}
-		});
-		verticalPanel_1.add(btnChangeSystems);
-
 		final HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setSpacing(5);
 		buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -288,6 +266,7 @@ public abstract class PBIView extends Composite implements IPBIView {
 				PBIView.this.save.fire(PBIView.this, new EventArgs());
 			}
 		});
+
 		buttonPanel.add(this.btnSave);
 		this.btnAbort.addClickHandler(new ClickHandler() {
 			@Override
@@ -297,8 +276,6 @@ public abstract class PBIView extends Composite implements IPBIView {
 		});
 
 		buttonPanel.add(this.btnAbort);
-
-		// Set focus in name text box
 	}
 
 	@Override
@@ -314,10 +291,6 @@ public abstract class PBIView extends Composite implements IPBIView {
 		return this.btnAddCriterion;
 	}
 
-	protected Button getBtnChangeSystems() {
-		return this.btnChangeSystems;
-	}
-
 	protected Button getBtnAddHint() {
 		return this.btnAddHint;
 	}
@@ -329,11 +302,6 @@ public abstract class PBIView extends Composite implements IPBIView {
 	@Override
 	public IEvent<EventArgs> getCreateCriterion() {
 		return this.createCriterion;
-	}
-
-	@Override
-	public IEvent<EventArgs> getChangeSystems() {
-		return this.changeSystems;
 	}
 
 	@Override
@@ -353,6 +321,10 @@ public abstract class PBIView extends Composite implements IPBIView {
 
 	protected FlexTable getGrid() {
 		return this.detailTable;
+	}
+
+	protected VerticalPanel getVerticalPanel() {
+		return this.verticalPanel;
 	}
 
 	@Override
@@ -395,55 +367,12 @@ public abstract class PBIView extends Composite implements IPBIView {
 		return this.sprintComboBox;
 	}
 
-	protected ListBox getPBITypComboBox() {
-		return this.listBoxPBITyp;
-	}
-
 	protected TextArea getTextArea() {
 		return this.textArea;
 	}
 
 	protected TextBox getTxtBxName() {
 		return this.txtBxName;
-	}
-
-	@Override
-	public String getSelectedPBITyp() {
-		final Integer index = this.listBoxPBITyp.getSelectedIndex();
-		return "TODO"; // TODO Christin
-	}
-
-	@Override
-	public IRelease getSelectedVersion() throws NothingSelectedException {
-		final Integer index = this.listBoxVersion.getSelectedIndex();
-		if (index.equals(0) || index.equals(-1)) {
-			throw new NothingSelectedException(ExceptionConstants.NO_VERSION_SELECTED);
-		} else {
-			return this.releases.get(index - 1);
-		}
-	}
-
-	@Override
-	public void setVersion(List<IRelease> releases, IRelease selected) {
-		this.releases = releases;
-
-		if (!this.releases.contains(selected) && selected != null) {
-			this.releases.add(selected);
-		}
-
-		this.listBoxVersion.clear();
-		this.listBoxVersion.addItem(""); // Adding an empty item!
-		for (final IRelease iRelease : releases) {
-			final String text = iRelease.toString();
-			this.listBoxVersion.addItem(text);
-		}
-		if (selected != null) {
-			final int index = sprints.indexOf(selected);
-			this.sprintComboBox.setSelectedIndex(index + 1);
-		} else {
-			this.sprintComboBox.setSelectedIndex(0);
-		}
-
 	}
 
 	@Override
@@ -509,15 +438,17 @@ public abstract class PBIView extends Composite implements IPBIView {
 	}
 
 	@Override
-	public void setPBITyp() {
-		// TODO Christin auslagern und selected setzen
-		listBoxPBITyp.addItem("Feature");
-		listBoxPBITyp.addItem("Bug");
-	}
-
-	@Override
 	public void setVisible(final boolean visible) {
 		super.setVisible(visible);
 		this.txtBxName.setFocus(true);
+	}
+
+	public void setVisibleForEdit(boolean b) {
+		this.getBtnAddCriterion().setEnabled(b);
+		this.getBtnAddHint().setEnabled(b);
+		this.getBtnAddRelation().setEnabled(b);
+		this.getTxtBxName().setEnabled(b);
+		this.getTextArea().setEnabled(b);
+		this.getSprintComboBox().setEnabled(b);
 	}
 }

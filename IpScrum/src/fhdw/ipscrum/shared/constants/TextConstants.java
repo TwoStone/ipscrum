@@ -51,8 +51,8 @@ public final class TextConstants {
 	public static final String TEAMVIEW_FIRSTNAMEHEADER = "Vorname";
 	public static final String TEAMVIEW_LASTNAMEHEADER = "Nachname";
 	public static final String TEAMVIEW_ROLESHEADER = "Rolle(n)";
-	public static final String TEAMVIEW_BUTTONLABEL_REMOVE = "->";
-	public static final String TEAMVIEW_BUTTONLABEL_ASSIGN = "<-";
+	public static final String BUTTONLABEL_REMOVE = "->";
+	public static final String BUTTONLABEL_ASSIGN = "<-";
 
 	public static final String DIALOGBOX_OK = "OK";
 	public static final String DIALOGBOX_CANCEL = "Abbrechen";
@@ -112,7 +112,9 @@ public final class TextConstants {
 	public static final String PRODUCT_BACKLOG = "ProductBacklog";
 	public static final String MISSING_TEXT_ERROR = "Es muss eine Bezeichnung angegeben werden!";
 	public static final String CREATE_FEATURE = "Feature erstellen";
+	public static final String CREATE_BUG = "Bug erstellen";
 	public static final String FEATURE_DETAILS = "Feature Details";
+	public static final String BUG_DETAILS = "Bug Details";
 	public static final String MISSING_PROJECT_NAME = "Es muss ein Projektname angegeben werden!";
 	public static final String SPRINT_ERROR = "Der angegebene Sprint ist nicht im Projekt definiert!";
 	public static final String RELEASE_ERROR = "Release existiert bereits und kann nicht hinzugef�gt werden!";
