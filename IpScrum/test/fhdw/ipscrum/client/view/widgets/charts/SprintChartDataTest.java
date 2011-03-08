@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.view.widgets.charts;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
@@ -31,15 +32,9 @@ public class SprintChartDataTest extends SetUpTestData{
 	@Test
 	public void testSprintChartData_1()
 		throws Exception {
-		ISprint sprint = new Sprint("", "", new Date(), new Date(), new Team(""));
+		ISprint sprint = this.pro1rel1spr1;
 
 		SprintChartData result = new SprintChartData(sprint);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
 		assertNotNull(result);
 	}
 
@@ -51,15 +46,10 @@ public class SprintChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetData_1()
 		throws Exception {
-		SprintChartData fixture = new SprintChartData(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
 
 		TreeMap<Date, SprintChartData.SprintChartDataDetails> result = fixture.getData();
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
 		assertNotNull(result);
 	}
 
@@ -69,15 +59,10 @@ public class SprintChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetSprint_1()
 		throws Exception {
-		SprintChartData fixture = new SprintChartData(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
 
 		ISprint result = fixture.getSprint();
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
 		assertNotNull(result);
 	}
 
@@ -89,16 +74,12 @@ public class SprintChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetTickData_1()
 		throws Exception {
-		SprintChartData fixture = new SprintChartData(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr1);
 
 		List<Double> result = fixture.getTickData();
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
 		assertNotNull(result);
+		assertEquals(28, result.size());
 	}
 
 	/**
@@ -109,17 +90,299 @@ public class SprintChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetTickData_2()
 		throws Exception {
-		SprintChartData fixture = new SprintChartData(new Sprint("", "", new Date(), new Date(), new Team("")));
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
 
 		List<Double> result = fixture.getTickData();
 
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    fhdw.ipscrum.shared.exceptions.NoValidValueException: Es muss ein Beschreibung angegeben werden.
-		//       at fhdw.ipscrum.shared.model.Team.setDescription(Team.java:157)
-		//       at fhdw.ipscrum.shared.model.Team.<init>(Team.java:35)
 		assertNotNull(result);
+		assertEquals(31, result.size());
 	}
 
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_3()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
 	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_4()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr4);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(59, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_5()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel1spr5);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_6()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel2spr1);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_7()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel2spr2);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(59, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_8()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel2spr3);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_9()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel2spr4);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_10()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro1rel2spr5);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(30, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_11()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel1spr1);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(89, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_12()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel1spr2);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_13()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel1spr3);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(61, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_14()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel1spr4);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_15()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel1spr5);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_16()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel2spr1);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(30, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_17()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel2spr2);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(59, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_18()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel2spr3);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_19()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel2spr4);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(31, result.size());
+	}
+	
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_20()
+		throws Exception {
+		SprintChartData fixture = new SprintChartData(this.pro2rel2spr5);
+
+		List<Double> result = fixture.getTickData();
+
+		assertNotNull(result);
+		assertEquals(59, result.size());
+	}
 }

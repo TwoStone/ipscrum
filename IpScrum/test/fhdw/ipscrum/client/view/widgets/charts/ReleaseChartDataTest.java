@@ -26,7 +26,6 @@ public class ReleaseChartDataTest extends SetUpTestData{
 
 		ReleaseChartData result = new ReleaseChartData(release);
 
-		// add additional test code here
 		assertNotNull(result);
 	}
 
@@ -46,7 +45,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 
 		// add additional test code here
 		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(3, result.size());
 	}
 
 
@@ -65,7 +64,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 
 		// add additional test code here
 		assertNotNull(result);
-		assertEquals(5, result.size());
+		assertEquals(0, result.size());
 	}
 
 	/**
@@ -76,13 +75,13 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetTickData_2()
 		throws Exception {
-		ReleaseChartData fixture = new ReleaseChartData(new Release("", new Date(), new Project("")));
+		ReleaseChartData fixture = new ReleaseChartData(this.pro1rel2);
 
 		List<Double> result = fixture.getTickData();
 
 		// add additional test code here
 		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(2, result.size());
 	}
 
 	/**
@@ -93,14 +92,30 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	@Test
 	public void testGetTickData_3()
 		throws Exception {
-		ReleaseChartData fixture = new ReleaseChartData(new Release("", new Date(), new Project("")));
+		ReleaseChartData fixture = new ReleaseChartData(this.pro2rel1);
 
 		List<Double> result = fixture.getTickData();
 
 		// add additional test code here
 		assertNotNull(result);
-		assertEquals(0, result.size());
+		assertEquals(2, result.size());
 	}
 
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void testGetTickData_4()
+		throws Exception {
+		ReleaseChartData fixture = new ReleaseChartData(this.pro2rel2);
+
+		List<Double> result = fixture.getTickData();
+
+		// add additional test code here
+		assertNotNull(result);
+		assertEquals(3, result.size());
+	}
 
 }

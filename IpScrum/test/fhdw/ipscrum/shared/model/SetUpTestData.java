@@ -351,98 +351,98 @@ public abstract class SetUpTestData {
 		// Für Projekt 1, Release 1
 		Date pro1rel1spr1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel1spr1EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel1spr1BeginDate, pro1rel1.getReleaseDate());
-		pro1rel1spr1 = new Sprint("Pro1Rel1Sprint1", "Beschreibung Sprint 1", pro1rel1spr1BeginDate, pro1rel1spr1EndDate, team1);
+		pro1rel1spr1 = new Sprint("Pro1Rel1Sprint1", "Beschreibung Sprint 1", new Date(2011-1900,2-1,1), new Date(2011-1900,2-1,28), team1);
 
 		Date pro1rel1spr2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel1spr2EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel1spr2BeginDate, pro1rel1.getReleaseDate());
-		pro1rel1spr2 = new Sprint("Pro1Rel1Sprint2", "Beschreibung Sprint 2", pro1rel1spr2BeginDate, pro1rel1spr2EndDate, team1);
+		pro1rel1spr2 = new Sprint("Pro1Rel1Sprint2", "Beschreibung Sprint 2", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro1rel1spr3BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel1spr3EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel1spr3BeginDate, pro1rel1.getReleaseDate());
-		pro1rel1spr3 = new Sprint("Pro1Rel1Sprint3", "Beschreibung Sprint 3", pro1rel1spr3BeginDate, pro1rel1spr3EndDate, team1);
+		pro1rel1spr3 = new Sprint("Pro1Rel1Sprint3", "Beschreibung Sprint 3", new Date(2011-1900,1-1,1), new Date(2011-1900,1-1,31), team1);
 
 		Date pro1rel1spr4BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel1spr4EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel1spr4BeginDate, pro1rel1.getReleaseDate());
-		pro1rel1spr4 = new Sprint("Pro1Rel1Sprint4", "Beschreibung Sprint 4", pro1rel1spr4BeginDate, pro1rel1spr4EndDate, team1);
+		pro1rel1spr4 = new Sprint("Pro1Rel1Sprint4", "Beschreibung Sprint 4", new Date(2011-1900,2-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro1rel1spr5BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel1spr5EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel1spr5BeginDate, pro1rel1.getReleaseDate());
-		pro1rel1spr5 = new Sprint("Pro1Rel1Sprint5", "Beschreibung Sprint 5", pro1rel1spr5BeginDate, pro1rel1spr5EndDate, team1);
+		pro1rel1spr5 = new Sprint("Pro1Rel1Sprint5", "Beschreibung Sprint 5", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		// Für Projekt 1, Release 2
 		Date pro1rel2spr1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel2spr1EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel2spr1BeginDate, pro1rel2.getReleaseDate());
-		pro1rel2spr1 = new Sprint("Pro1Rel2Sprint1", "Beschreibung Sprint 1", pro1rel2spr1BeginDate, pro1rel2spr1EndDate, team1);
+		pro1rel2spr1 = new Sprint("Pro1Rel2Sprint1", "Beschreibung Sprint 1", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro1rel2spr2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro1rel2spr2EndDate = CalendarUtils.getRandomSprintEnddate(pro1rel2spr2BeginDate, pro1rel2.getReleaseDate());
-		pro1rel2spr2 = new Sprint("Pro1Rel2Sprint2", "Beschreibung Sprint 2", pro1rel2spr2BeginDate, pro1rel2spr2EndDate, team1);
+		pro1rel2spr2 = new Sprint("Pro1Rel2Sprint2", "Beschreibung Sprint 2", new Date(2011-1900,2-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro1rel2spr3BeginDate = new Date();
 		Date pro1rel2spr3EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(pro1rel2spr3BeginDate, 6);
 		CalendarUtils.removeDaysFromDate(pro1rel2spr3EndDate, 4);
-		pro1rel2spr3 = new Sprint("Pro1Rel2Sprint3", "Beschreibung Sprint 3", pro1rel2spr3BeginDate, pro1rel2spr3EndDate, team1);
+		pro1rel2spr3 = new Sprint("Pro1Rel2Sprint3", "Beschreibung Sprint 3", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro1rel2spr4BeginDate = new Date();
 		Date pro1rel2spr4EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(pro1rel2spr4BeginDate, 8);
 		CalendarUtils.removeDaysFromDate(pro1rel2spr4EndDate, 1);
-		pro1rel2spr4 = new Sprint("Pro1Rel2Sprint4", "Beschreibung Sprint 4", pro1rel2spr4BeginDate, pro1rel2spr4EndDate, team1);
+		pro1rel2spr4 = new Sprint("Pro1Rel2Sprint4", "Beschreibung Sprint 4", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro1rel2spr5BeginDate = new Date();
 		Date pro1rel2spr5EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(pro1rel2spr5BeginDate, 9);
 		CalendarUtils.removeDaysFromDate(pro1rel2spr5EndDate, 4);
-		pro1rel2spr5 = new Sprint("Pro1Rel2Sprint5", "Beschreibung Sprint 5", pro1rel2spr5BeginDate, pro1rel2spr5EndDate, team1);
+		pro1rel2spr5 = new Sprint("Pro1Rel2Sprint5", "Beschreibung Sprint 5", new Date(2011-1900,4-1,1), new Date(2011-1900,4-1,30), team1);
 
 		// Für Projekt 2, Release 1
 		Date pro2rel1spr1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro2rel1spr1EndDate = CalendarUtils.getRandomSprintEnddate(pro2rel1spr1BeginDate, pro2rel1.getReleaseDate());
-		pro2rel1spr1 = new Sprint("Pro2Rel1Sprint1", "Beschreibung Sprint 1", pro2rel1spr1BeginDate, pro2rel1spr1EndDate, team1);
+		pro2rel1spr1 = new Sprint("Pro2Rel1Sprint1", "Beschreibung Sprint 1", new Date(2011-1900,2-1,1), new Date(2011-1900,4-1,30), team1);
 
 		Date pro2rel1spr2BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date pro2rel1spr2EndDate = CalendarUtils.getRandomSprintEnddate(pro2rel1spr2BeginDate, pro2rel1.getReleaseDate());
-		pro2rel1spr2 = new Sprint("Pro2Rel1Sprint2", "Beschreibung Sprint 2", pro2rel1spr2BeginDate, pro2rel1spr2EndDate, team1);
+		pro2rel1spr2 = new Sprint("Pro2Rel1Sprint2", "Beschreibung Sprint 2", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro2rel1spr3BeginDate = new Date();
 		Date pro2rel1spr3EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(pro2rel1spr3BeginDate, 6);
 		CalendarUtils.removeDaysFromDate(pro2rel1spr3EndDate, 4);
-		pro2rel1spr3 = new Sprint("Pro2Rel1Sprint3", "Beschreibung Sprint 3", pro2rel1spr3BeginDate, pro2rel1spr3EndDate, team1);
+		pro2rel1spr3 = new Sprint("Pro2Rel1Sprint3", "Beschreibung Sprint 3", new Date(2011-1900,3-1,1), new Date(2011-1900,4-1,30), team1);
 
 		Date pro2rel1spr4BeginDate = new Date();
 		Date pro2rel1spr4EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(pro2rel1spr4BeginDate, 8);
 		CalendarUtils.removeDaysFromDate(pro2rel1spr4EndDate, 1);
-		pro2rel1spr4 = new Sprint("Pro2Rel1Sprint4", "Beschreibung Sprint 4", pro2rel1spr4BeginDate, pro2rel1spr4EndDate, team1);
+		pro2rel1spr4 = new Sprint("Pro2Rel1Sprint4", "Beschreibung Sprint 4", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date pro2rel1spr5BeginDate = new Date();
 		Date pro2rel1spr5EndDate = new Date();
 		CalendarUtils.removeDaysFromDate(pro2rel1spr5BeginDate, 9);
 		CalendarUtils.removeDaysFromDate(pro2rel1spr5EndDate, 4);
-		pro2rel1spr5 = new Sprint("Pro2Rel1Sprint5", "Beschreibung Sprint 5", pro2rel1spr5BeginDate, pro2rel1spr5EndDate, team1);
+		pro2rel1spr5 = new Sprint("Pro2Rel1Sprint5", "Beschreibung Sprint 5", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		// Für Projekt 2, Release 2
 		Date sprint6BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date sprint6EndDate = CalendarUtils.getRandomSprintEnddate(sprint6BeginDate, pro2rel2.getReleaseDate());
-		pro2rel2spr1 = new Sprint("Pro2Rel2Sprint1", "Beschreibung Sprint 1", sprint6BeginDate, sprint6EndDate, team1);
+		pro2rel2spr1 = new Sprint("Pro2Rel2Sprint1", "Beschreibung Sprint 1", new Date(2011-1900,6-1,1), new Date(2011-1900,6-1,30), team1);
 
 		Date sprint7BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date sprint7EndDate = CalendarUtils.getRandomSprintEnddate(sprint7BeginDate, pro2rel2.getReleaseDate());
-		pro2rel2spr2 = new Sprint("Pro2Rel2Sprint2", "Beschreibung Sprint 2", sprint7BeginDate, sprint7EndDate, team1);
+		pro2rel2spr2 = new Sprint("Pro2Rel2Sprint2", "Beschreibung Sprint 2", new Date(2011-1900,2-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date sprint8BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date sprint8EndDate = CalendarUtils.getRandomSprintEnddate(sprint8BeginDate, pro2rel2.getReleaseDate());
-		pro2rel2spr3 = new Sprint("Pro2Rel2Sprint3", "Beschreibung Sprint 3", sprint8BeginDate, sprint8EndDate, team1);
+		pro2rel2spr3 = new Sprint("Pro2Rel2Sprint3", "Beschreibung Sprint 3", new Date(2011-1900,1-1,1), new Date(2011-1900,1-1,31), team1);
 
 		Date sprint9BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date sprint9EndDate = CalendarUtils.getRandomSprintEnddate(sprint9BeginDate, pro2rel2.getReleaseDate());
-		pro2rel2spr4 = new Sprint("Pro2Rel2Sprint4", "Beschreibung Sprint 4", sprint9BeginDate, sprint9EndDate, team1);
+		pro2rel2spr4 = new Sprint("Pro2Rel2Sprint4", "Beschreibung Sprint 4", new Date(2011-1900,3-1,1), new Date(2011-1900,3-1,31), team1);
 
 		Date sprint10BeginDate = CalendarUtils.getRandomDateOfThisMonth();
 		Date sprint10EndDate = CalendarUtils.getRandomSprintEnddate(sprint10BeginDate, pro2rel2.getReleaseDate());
-		pro2rel2spr5 = new Sprint("Pro2Rel2Sprint5", "Beschreibung Sprint 5", sprint10BeginDate, sprint10EndDate, team1);
+		pro2rel2spr5 = new Sprint("Pro2Rel2Sprint5", "Beschreibung Sprint 5", new Date(2011-1900,2-1,1), new Date(2011-1900,3-1,31), team1);
 
 		// assigning sprints to projects
 		projekt1.addSprint(pro1rel1spr1);
