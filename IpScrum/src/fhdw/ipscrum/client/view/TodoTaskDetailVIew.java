@@ -20,6 +20,7 @@ public class TodoTaskDetailVIew extends TaskDetailView implements ITodoTaskDetai
 			this.setEffort(task.getPlanEffort());
 		}
 		
+		this.getBtnCancel().setVisible(false);
 		this.getLblTaskAbgeschlossen().setVisible(false);
 		this.getSimpleCheckBox().setVisible(false);
 	}

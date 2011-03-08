@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.view;
 
 import fhdw.ipscrum.client.view.interfaces.IFinishTaskDetailView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 
 public class FinishTaskDetailView extends TaskDetailView implements
@@ -22,5 +23,6 @@ public class FinishTaskDetailView extends TaskDetailView implements
 		this.getSimpleCheckBox().setVisible(false);
 		this.getBtnOkay().setVisible(false);
 		this.getLblTaskFinished().setVisible(true);
+		this.getLblTaskFinished().setText(TextConstants.FINISHED_TASK + " " + task.getFinishDate().toString());
 	}
 }

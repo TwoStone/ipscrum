@@ -78,18 +78,20 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 		});
 
 		Label lblTaskname = new Label(TextConstants.TASK_NAME);
-		lblTaskname.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		lblTaskname.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		lblTaskname.setStyleName("taskboardLabel");
 		contentPanel.add(lblTaskname, 10, 10);
-		lblTaskname.setSize("76px", "16px");
+		lblTaskname.setSize("90px", "16px");
 
 		textBox = new TextBox();
-		contentPanel.add(textBox, 100, 10);
-		textBox.setSize("153px", "16px");
+		contentPanel.add(textBox, 116, 10);
+		textBox.setSize("137px", "16px");
 
 		Label lblDescription = new Label(TextConstants.DESCRIPTION);
+		lblDescription.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		lblDescription.setStyleName("taskboardLabel");
 		contentPanel.add(lblDescription, 10, 40);
+		lblDescription.setSize("90px", "16px");
 
 		textArea = new TextArea();
 		contentPanel.add(textArea, 10, 70);

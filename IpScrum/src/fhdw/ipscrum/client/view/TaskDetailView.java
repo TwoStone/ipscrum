@@ -115,11 +115,11 @@ public abstract class TaskDetailView extends Composite implements
 		// creates a label for task finish
 		lblTaskAbgeschlossen = new Label(TextConstants.TASK_FINISHED);
 		lblTaskAbgeschlossen.setStyleName("taskboardLabel");
-		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 231, 372);
+		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 280, 372);
 
 		// creates a checkbox to finish a task
 		simpleCheckBox = new SimpleCheckBox();
-		concreteTaskDetailPanel.add(simpleCheckBox, 375, 372);
+		concreteTaskDetailPanel.add(simpleCheckBox, 424, 374);
 
 		// create label for pbis
 		lblPBIs = new Label(TextConstants.PBIS);
@@ -195,11 +195,11 @@ public abstract class TaskDetailView extends Composite implements
 		VerticalPanel personsPanel = new VerticalPanel();
 		personsPanel.setStyleName("smallborder");
 		concreteTaskDetailPanel.add(personsPanel, 10, 323);
-		personsPanel.setSize("171px", "129px");
+		personsPanel.setSize("190px", "130px");
 				
 				personsScrollPanel = new ScrollPanel();
 				personsPanel.add(personsScrollPanel);
-				personsScrollPanel.setSize("100%", "100%");
+				personsScrollPanel.setSize("170px", "110px");
 		
 				// creates a cell list for all persons of the sprint of the task
 				// with single selection modell
@@ -219,11 +219,11 @@ public abstract class TaskDetailView extends Composite implements
 				pbisPanel.setSpacing(3);
 				pbisPanel.setStyleName("smallborder");
 				concreteTaskDetailPanel.add(pbisPanel, 280, 50);
-				pbisPanel.setSize("180px", "237px");
+				pbisPanel.setSize("180px", "235px");
 						
 						pbiScrollPanel = new ScrollPanel();
 						pbisPanel.add(pbiScrollPanel);
-						pbiScrollPanel.setSize("100%", "100%");
+						pbiScrollPanel.setSize("160px", "215px");
 				
 						// creates a cell list for all related pbis
 						// with multiselectionmodel
@@ -240,10 +240,12 @@ public abstract class TaskDetailView extends Composite implements
 						cellListPBI
 								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 						
-						lblTaskFinished = new Label(TextConstants.FINISHED_TASK);
+						lblTaskFinished = new Label("");
+						lblTaskFinished.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 						lblTaskFinished.setStyleName("taskboardLabel");
 						lblTaskFinished.setVisible(false);
-						concreteTaskDetailPanel.add(lblTaskFinished, 322, 420);
+						concreteTaskDetailPanel.add(lblTaskFinished, 280, 402);
+						lblTaskFinished.setSize("172px", "46px");
 	}
 
 	// ################## SETTER / GETTER for view elements #############################
