@@ -600,19 +600,26 @@ public class AllInOneTests {
 		
 	}
 	
-	@Test(expected = ForbiddenStateException.class)
+	@Test
 	/**
 	 * Removal of a PBI in PBL, which is connected with an assigned task
 	 */
 	public void testRemovePBI2() throws Exception{
-		final int entriesInList = pbltest.getItems().size();
 		pbltest.addItem(t);
+		final int entriesInList = pbltest.getItems().size();
 		t1.setResponsibility(per1);
 		pbltest.removeItem(t);
 		
 		// Has e been removed from PBL?
 		assertEquals(entriesInList - 1, pbltest.getItems().size());
-		// Removal of PBI from task t1 is not allowed.
+		// Removal of PBI from task t1 is enforced.
+		pbiIt = t1.getPBIIterator();
+        pl1 = true;
+        while(pbiIt.hasNext()){
+            pbix = pbiIt.next();
+            if(pbix == t) pl1 = false;
+            }
+        assertEquals(true,pl1);
 		
 	}
 	
@@ -621,8 +628,8 @@ public class AllInOneTests {
 	 * Removal of a PBI in PBL, which is connected with an assigned task
 	 */
 	public void testRemovePBI3() throws Exception{
-		final int entriesInList = pbltest.getItems().size();
 		pbltest.addItem(t);
+		final int entriesInList = pbltest.getItems().size();
 		t1.finish();
 		pbltest.removeItem(t);
 		
