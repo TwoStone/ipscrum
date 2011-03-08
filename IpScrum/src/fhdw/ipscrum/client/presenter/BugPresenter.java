@@ -17,12 +17,12 @@ import fhdw.ipscrum.shared.model.System;
 public class BugPresenter implements IBugPresenter {
 	private final IBugView view;
 	private final PBIPresenter<?> presenter;
-	private final Bug bug;
 
 	public BugPresenter(IBugView view, PBIPresenter<?> presenter) {
 		this.view = view;
 		this.presenter = presenter;
-		this.bug = (Bug) presenter.getPbi();
+
+		// TODO Christin: null verhindern
 	}
 
 	@Override
@@ -33,9 +33,16 @@ public class BugPresenter implements IBugPresenter {
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				BugPresenter.this.view.getChangeSystems();
 				final List<System> list1 = new ArrayList<System>();
-				list1.addAll(BugPresenter.this.bug.getSystems());
 				final List<System> list2 = new ArrayList<System>();
-				list2.addAll(BugPresenter.this.presenter.getPbi().getBacklog().getProject().getPossibleSystems());
+
+				if (((Bug) BugPresenter.this.presenter.getPbi()).getSystems() != null) {
+					list1.addAll(((Bug) BugPresenter.this.presenter.getPbi()).getSystems());
+				}
+
+				if (BugPresenter.this.presenter.getPbi().getBacklog().getProject().getPossibleSystems() != null) {
+					list2.addAll(BugPresenter.this.presenter.getPbi().getBacklog().getProject().getPossibleSystems());
+				}
+
 				final DialogBox box = GwtUtils.createDialog("Systeme zuordnen");
 				final Presenter<?> presenter = new SelectSystemPresenter(box, BugPresenter.this.presenter, list1, list2);
 
@@ -44,9 +51,9 @@ public class BugPresenter implements IBugPresenter {
 					@Override
 					public void onUpdate(final Object sender, final EventArgs eventArgs) {
 						for (final System system : list1) {
-							if (!BugPresenter.this.bug.getSystems().contains(system)) {
+							if (!((Bug) BugPresenter.this.presenter.getPbi()).getSystems().contains(system)) {
 								try {
-									BugPresenter.this.bug.addSystem(system);
+									((Bug) BugPresenter.this.presenter.getPbi()).addSystem(system);
 								} catch (UserException e) {
 									GwtUtils.displayError(e);
 								}
