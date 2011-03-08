@@ -120,12 +120,8 @@ public class ReleaseChartData implements ChartData {
 	@Override
 	public List<Double> getTickData() {
 		ArrayList<Double> result = new ArrayList<Double>();
-		double counter = 0;
-		for (Date date : this.data.keySet()) {
-			if (date.before(new Date())) {
-				result.add(counter);
-			}
-			counter++;
+		for (double i = 0; i < this.data.keySet().size(); i++) {
+			result.add(i);
 		}
 		return result;
 	}
