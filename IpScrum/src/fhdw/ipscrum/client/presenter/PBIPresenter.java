@@ -11,6 +11,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.RemoveCriterionEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveHintEventArgs;
 import fhdw.ipscrum.client.events.args.RemoveRelationEventArgs;
+import fhdw.ipscrum.client.presenter.interfaces.IPBIPresenter;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.IPBIView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
@@ -38,7 +39,7 @@ import fhdw.ipscrum.shared.observer.Observer;
 /**
  * Base class for presenting {@link Feature}s.
  */
-public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> implements Observer {
+public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> implements Observer, IPBIPresenter {
 	protected static final String NEWPBINAME = "###empty###";
 
 	private final ProductBacklogItem pbi;
@@ -107,27 +108,26 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				try {
-					if (pbi instanceof Bug) {
-						// TODO Christin: add für mehrere Systeme!
-						((Bug) PBIPresenter.this.pbi).addSystem(presenter.getSelectedSystems().iterator().next());
+				if (pbi instanceof Bug) {
+					// TODO Christin: funktioniert das?
+					Bug bug = (Bug) pbi;
+					for (final System system : presenter.getSelectedSystems()) {
+						if (!bug.getSystems().contains(system)) {
+							try {
+								bug.addSystem(system);
+							} catch (UserException e) {
+								// TODO Christin Auto-generated catch block
+								GwtUtils.displayError(e);
+							}
+						}
 					}
-					box.hide();
-				} catch (final DoubleDefinitionException e) {
-					GwtUtils.displayError(e.getMessage());
-				} catch (final ForbiddenStateException e) {
-					GwtUtils.displayError(e.getMessage());
-				} catch (UserException e) {
-					// TODO Christin Auto-generated catch block
-					GwtUtils.displayError(e.getMessage());
 				}
-
+				box.hide();
 			}
 		});
 		presenter.getAborted().add(new EventHandler<EventArgs>() {
-
 			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+			public void onUpdate(Object sender, EventArgs eventArgs) {
 				box.hide();
 			}
 		});
@@ -213,7 +213,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	@Override
 	protected boolean onFinish() {
 		try {
-			PBIPresenter.this.updateFeature();
+			PBIPresenter.this.updatePBI();
 		} catch (final ForbiddenStateException e) {
 			// Wenn das Feature nicht bearbeitbar ist, speichern wir an dieser
 			// Stelle auch nichts.
@@ -226,10 +226,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 
 	}
 
-	/**
-	 * Registers the presenter to all events of the view.
-	 */
-	protected void registerViewEvents() {
+	@Override
+	public void registerViewEvents() {
 
 		this.getView().getSave().add(new EventHandler<EventArgs>() {
 
@@ -370,7 +368,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	 * @throws DoubleDefinitionException
 	 * @throws ForbiddenStateException
 	 */
-	protected void updateFeature() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
+	protected void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
 		this.pbi.setName(this.getView().getName());
 		this.pbi.setDescription(this.getView().getDescription());
 		this.pbi.setLastEditor(SessionManager.getInstance().getLoginUser());

@@ -21,7 +21,7 @@ public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresen
 	@Override
 	protected ICreateBugView createView() {
 		ICreateBugView view = new CreateBugView();
-		bugPresenter = new BugPresenter(view);
+		bugPresenter = new BugPresenter(view, this);
 		return view;
 	}
 

@@ -1,6 +1,9 @@
 package fhdw.ipscrum.client.presenter.interfaces;
 
+
 public interface IPBIPresenter {
-	// TODO CHristin: Kommentar
+	/**
+	 * Registers the presenter to all events of the view.
+	 */
 	void registerViewEvents();
 }

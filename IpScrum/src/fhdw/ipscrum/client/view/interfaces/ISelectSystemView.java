@@ -51,7 +51,7 @@ public interface ISelectSystemView extends IView {
 	 * 
 	 * @param availableSystems a collection of the available systems to be displayed.
 	 */
-	public abstract void updateAvailableSystemData(Collection<System> availableSystems);
+	public abstract void updateAvailableSystemData(Collection<System> availableSystems, Collection<System> selectedSystems);
 
 	/**
 	 * use this method to define the action of the remove-system-from-selected-systems-button.

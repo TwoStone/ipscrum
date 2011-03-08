@@ -135,5 +135,4 @@ public interface IPBIView extends IView {
 	 * @param selected {@link ISprint} object to preselect. Object <b>must</b> be included in the sprints list, otherwise it will be added.
 	 */
 	void setSprints(List<ISprint> sprints, ISprint selected);
-
 }

@@ -13,9 +13,9 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 
 /**
@@ -27,16 +27,16 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	 * Constructor for EditFeaturePresenter.
 	 * 
 	 * @param parent Panel
-	 * @param feature Feature
+	 * @param pbi Feature
 	 * @param parentPresenter
 	 * @throws NoPBISelectedException
 	 */
-	public EditPBIPresenter(final Panel parent, final Feature feature, final Presenter<?> parentPresenter) throws NoPBISelectedException {
-		super(parent, feature, parentPresenter);
+	public EditPBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoPBISelectedException {
+		super(parent, pbi, parentPresenter);
 	}
 
 	@Override
-	protected void registerViewEvents() {
+	public void registerViewEvents() {
 		super.registerViewEvents();
 		((IEditPBIView) this.getView()).toggleFeatureState().add(new EventHandler<EventArgs>() {
 
@@ -76,8 +76,8 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	}
 
 	@Override
-	protected void updateFeature() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
-		super.updateFeature();
+	protected void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
+		super.updatePBI();
 		this.getPbi().setManDayCosts(((IEditPBIView) this.getView()).getComplexity());
 	}
 

@@ -36,7 +36,6 @@ public class SelectSystemPresenter extends Presenter<ISelectSystemView> {
 		this.selectedSystems = selectedSystems;
 		this.updateGuiData();
 		this.setupEventHandlers();
-		SelectSystemPresenter.this.concreteView.meldung("Konstruktor SelectSystemPresenter");
 	}
 
 	/**
@@ -100,7 +99,7 @@ public class SelectSystemPresenter extends Presenter<ISelectSystemView> {
 	 * this is called to update or fill the entries in the gui-tables/tree-display.
 	 */
 	private void updateGuiData() {
-		this.concreteView.updateAvailableSystemData(this.availableSystems);
+		this.concreteView.updateAvailableSystemData(this.availableSystems, this.selectedSystems);
 		this.concreteView.updateSelectedSystemData(this.selectedSystems);
 	}
 

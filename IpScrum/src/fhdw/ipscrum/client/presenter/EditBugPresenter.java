@@ -6,19 +6,20 @@ import fhdw.ipscrum.client.presenter.interfaces.IBugPresenter;
 import fhdw.ipscrum.client.view.EditBugView;
 import fhdw.ipscrum.client.view.interfaces.IEditBugView;
 import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
-import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.Bug;
 
 public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter {
-	private final IBugPresenter bugPresenter;
+	private IBugPresenter bugPresenter;
 
-	public EditBugPresenter(Panel parent, Feature feature, Presenter<?> parentPresenter) throws NoPBISelectedException {
-		super(parent, feature, parentPresenter);
-		bugPresenter = null;// new BugPresenter(this.getView());
+	public EditBugPresenter(Panel parent, Bug bug, Presenter<?> parentPresenter) throws NoPBISelectedException {
+		super(parent, bug, parentPresenter);
 	}
 
 	@Override
-	protected EditBugView createView() {
-		return new EditBugView();
+	protected IEditBugView createView() {
+		IEditBugView view = new EditBugView();
+		bugPresenter = new BugPresenter(view, this);
+		return view;
 	}
 
 	@Override

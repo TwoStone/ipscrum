@@ -179,18 +179,32 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public void updateSelectedSystemData(Collection<System> selectedSystems) {
-		Window.alert("View updateSelectedSystemData");// TODO Christin
 		this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(selectedSystems));
 	}
 
 	@Override
-	public void updateAvailableSystemData(Collection<System> availableSystems) {
-		Window.alert("View updateAvailableSystemData");// TODO Christin
-
-		// this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(availableSystems));
+	public void updateAvailableSystemData(Collection<System> availableSystems, Collection<System> selectedSystems) {
 		// TODO Christin: bereits selektierte ausblenden
 		this.tree.clear();
+		Collection<System> displayedSystems = new ArrayList<System>();
+		for (System system : availableSystems) {
+			if (!isSelectedSystem(system, selectedSystems)) {
+
+			}
+		}
+
 		this.fillTree(availableSystems, null);
+	}
+
+	private boolean isSelectedSystem(System system, Collection<System> selectedSystems) {
+		for (System system2 : selectedSystems) {
+			if (selectedSystems.contains(system2)) {
+				return true;
+			} else {
+				// TODO Christin: bereits selektierte ausblenden
+			}
+		}
+		return false;
 	}
 
 	private void fillTree(Collection<System> systems, TreeItem parent) {
@@ -219,6 +233,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		this.addSelectedSystem.add(args);
 	}
 
+	@Override
 	public void meldung(String m) {
 		// TODO Christin rauswerfen
 		Window.alert(m);

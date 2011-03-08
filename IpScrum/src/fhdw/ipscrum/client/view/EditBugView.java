@@ -2,8 +2,6 @@ package fhdw.ipscrum.client.view;
 
 import java.util.List;
 
-import com.google.gwt.user.client.Window;
-
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.IEditBugView;
@@ -24,7 +22,6 @@ public class EditBugView extends PBIView implements IEditBugView {
 
 	public EditBugView() {
 		super();
-		Window.alert("Konstruktor EditBugView"); // TODO Christin
 		this.getBtnAbort().setVisible(false);
 		editPBI = new EditPBIWidget(getGrid(), this);
 		bug = new BugWidget(getGrid(), getVerticalPanel(), this);

@@ -143,7 +143,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 						presenter = new EditFeaturePresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
 					} else if (eventArgs.getPbi() instanceof Bug) {
 						newBox = GwtUtils.createDialog(TextConstants.BUG_DETAILS);
-						presenter = new EditBugPresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
+						presenter = new EditBugPresenter(newBox, (Bug) eventArgs.getPbi(), ProductBacklogPresenter.this);
 					} else {
 						newBox = null;// TODO Christin: das muß auch schöner gehen
 						presenter = null;
