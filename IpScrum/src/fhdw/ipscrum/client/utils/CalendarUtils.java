@@ -72,4 +72,22 @@ public class CalendarUtils extends CalendarUtil {
 	public static void removeDaysFromDate(Date date, int days) {
 		date.setDate(date.getDate() - days);
 	}
+
+	/**
+	 * Resets the date to have no time modifiers.
+	 * 
+	 * @param date the date
+	 */
+	@SuppressWarnings("deprecation") // Unfortunately GWT requires Date
+	public static void resetTime(Date date) {
+		long msec = date.getTime();
+		msec = (msec / 1000) * 1000;
+		date.setTime(msec);
+
+		// Daylight savings time occurs at midnight in some time zones, so we reset
+		// the time to noon instead.
+		date.setHours(12);
+		date.setMinutes(0);
+		date.setSeconds(0);
+	}
 }

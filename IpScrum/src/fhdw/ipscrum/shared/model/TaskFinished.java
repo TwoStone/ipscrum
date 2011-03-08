@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Date;
 
+import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
@@ -26,20 +27,22 @@ public class TaskFinished extends TaskAssigned {
 	 * Creates a new TaskFinished instance.
 	 * 
 	 * @param task  A task has to be passed to represent the 1:1 relation between the task and its state.
-	 * @param responsiblePerson 
+	 * @param responsiblePerson
 	 * responsible person which has to be the same as the one in the preceding state.
-	 * @throws SprintAssociationException 
+	 * @throws SprintAssociationException
 	 */
 	public TaskFinished(Task task, IPerson responsiblePerson) {
 		this.setMyTask(task);
 		this.doSetResponsiblePerson(responsiblePerson);
 		this.finishDate = new Date();
+		CalendarUtils.resetTime(this.finishDate);
 	}
 
 	public TaskFinished(Task task, IPerson responsiblePerson, Date finishDate) {
 		this.setMyTask(task);
 		this.doSetResponsiblePerson(responsiblePerson);
 		this.finishDate = finishDate;
+		CalendarUtils.resetTime(this.finishDate);
 	}
 	@Override
 	public void accept(ITaskStateVisitor iTaskStateVisitor) {
@@ -58,7 +61,7 @@ public class TaskFinished extends TaskAssigned {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
-	
+
 
 	@Override
 	public void finish(Date finishDate) throws ForbiddenStateException {
@@ -87,14 +90,14 @@ public class TaskFinished extends TaskAssigned {
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 
@@ -108,14 +111,14 @@ public class TaskFinished extends TaskAssigned {
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void setPlanEffort(Integer planEffort)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
