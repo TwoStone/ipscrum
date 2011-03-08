@@ -11,6 +11,7 @@ import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.AddPBIsToTaskView;
 import fhdw.ipscrum.client.view.interfaces.IAddPBIsToTaskView;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -61,6 +62,8 @@ public class AddPBIsToTaskPresenter extends Presenter<IAddPBIsToTaskView> {
 				} catch (ForbiddenStateException e) {
 					GwtUtils.displayError(e.getMessage());
 				} catch (SprintAssociationException e) {
+					GwtUtils.displayError(e.getMessage());
+				} catch (DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				}
 			}

@@ -10,6 +10,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.CreateTaskView;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
@@ -98,6 +99,8 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 								} catch (SprintAssociationException e) {
 									// displays an error if the pbi is not
 									// contained in the sprint
+									GwtUtils.displayError(e.getMessage());
+								} catch (DoubleDefinitionException e) {
 									GwtUtils.displayError(e.getMessage());
 								}
 							}

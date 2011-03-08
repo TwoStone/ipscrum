@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
@@ -96,7 +97,15 @@ public class Task extends Observable implements ITask {
 	}
 
 	@Override
-	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException {
+	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException, DoubleDefinitionException {
+		Iterator<ProductBacklogItem> i = this.getPBIIterator();
+		while (i.hasNext()){
+			ProductBacklogItem current = i.next();
+			if (current.equals(pbi)){
+				throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			}
+		}
+		
 		if (pbi.getSprint()==null){
 			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}

@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.interfaces;
 import java.io.Serializable;
 import java.util.Date;
 
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
@@ -19,8 +20,9 @@ public interface ITaskStateOperations extends Serializable {
 	 * @throws ForbiddenStateException will be raised if the task is already finished.
 	 * @throws SprintAssociationException will be raised if the PBI doesn't match to the sprint, 
 	 * to which the task belongs to
+	 * @throws DoubleDefinitionException 
 	 */
-	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException;
+	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException, DoubleDefinitionException;
 	/**
 	 * 
 	 * @throws ForbiddenStateException
