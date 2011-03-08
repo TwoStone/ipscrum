@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Iterator;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,12 +18,18 @@ public class Test_TaskUnassigned {
 
 	private static Person per1 = null;
 	private static Feature pbi1 = null;
+	private static ProductBacklogItem pbix = null;
 	private static Project test = null;
 	private static ProductBacklog pbltest = null;
 	private static Task t1 = null;
-	private static List<ProductBacklogItem> apbis;
 	private static Date finishedDate = null;
 	private static Integer three = null;
+	private static Team team1 = null;
+	private static Sprint sprint = null;
+	private static SprintBacklog sprintbl = null;
+	private static Boolean pl1 = null;
+	private static Iterator<ProductBacklogItem> pbiIt = null;
+	
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -32,6 +39,17 @@ public class Test_TaskUnassigned {
 		pbi1 = new Feature("A", "Test1", pbltest);
 		t1 = new Task("Task 1", "Beschreibung");
 		three = 3;
+		team1 = new Team("Team");
+		team1.addMember(per1);
+		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
+		sprintbl = sprint.getSprintBacklog();
+		pl1 = false;
+		test.addSprint(sprint);
+		
+		pbltest.addItem(pbi1);
+		sprintbl.addTask(t1);
+		pbi1.setSprint(sprint);
+		
 
 	}
 
@@ -97,6 +115,36 @@ public class Test_TaskUnassigned {
 
 	@Test
 	/**
+	 * Adding a pbi
+	 */
+	public void testAddPBI() throws Exception{
+		t1.addPBI(pbi1);
+        pbiIt = t1.getPBIIterator();
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi1){ pl1 =true;}
+
+        assertEquals(true,pl1);
+    } 
+
+	@Test
+	/**
+	 * Removing a pbi
+	 */
+	public void testRemovePBI()  throws Exception{
+        t1.removePBI(pbi1);
+        pl1 = true;
+        pbiIt = t1.getPBIIterator();
+        pl1 = true;
+        while(pbiIt.hasNext()){
+            pbix = pbiIt.next();
+            if(pbix == pbi1) pl1 = false;
+            }
+        assertEquals(true,pl1);
+	}
+
+	@Test
+	/**
 	 * Setting the Responsibility
 	 */
 	public void testSetResponsibility() throws Exception{
@@ -104,23 +152,6 @@ public class Test_TaskUnassigned {
 		assertEquals(per1,t1.getResponsiblePerson());
 	}
 
-	@Test
-	/**
-	 * Adding a pbi
-	 */
-	public void testAddPBI() throws Exception{
-		t1.addPBI(pbi1);
-		assertEquals(apbis.add(pbi1),t1.getPBIIterator());
-	}
-
-	@Test
-	/**
-	 * Removing a pbi
-	 */
-	public void testRemovePBI()  throws Exception{
-		t1.removePBI(pbi1);
-		assertEquals(apbis.remove(pbi1),t1.getPBIIterator());
-	}
 
 	@Test
 	/**
