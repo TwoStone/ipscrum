@@ -146,15 +146,7 @@ public class Test_TaskInProgress {
 		assertEquals(false, t3.isFinished());
 	}
 	
-	@Test
-	/**
-	 * Changing of the name
-	 */
-	public void testSetName() throws Exception{
-		t3.setResponsibility(per2);
-		assertEquals(per2,t3.getResponsiblePerson());
-	}
-	
+
 	@Test
 	/**
 	 * Setting the planned effort
@@ -184,4 +176,12 @@ public class Test_TaskInProgress {
 	public void testRemovePBI() throws Exception{
 		t3.removePBI(pbi1);
 	}
+	
+	@Test(expected = ForbiddenStateException.class)
+	/**
+	 * Changing of the name
+	 */
+	public void testSetName() throws Exception{
+		t3.setName("Name geändert");
+		}
 }
