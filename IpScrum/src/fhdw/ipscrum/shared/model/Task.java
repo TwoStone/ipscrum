@@ -425,8 +425,7 @@ public class Task extends Observable implements ITask {
 			
 			@Override
 			public void handleTaskFinished(TaskFinished taskFinished) {
-				// TODO Auto-generated method stub
-				
+				//do nothing
 			}
 		});
 	}
