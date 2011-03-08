@@ -68,9 +68,9 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 							final MultiplePBIArgs eventArgs) {
 
 						//Creating DialogBox
-						final DialogBox diaBox = new DialogBox();
+						final DialogBox diaBox = GwtUtils.createDialog(TextConstants.CREATE_TASK);
+						
 						diaBox.setAnimationEnabled(true);
-						diaBox.setText(TextConstants.CREATE_TASK);
 
 						//Creating CreateTaskPresenter
 						final CreateTaskPresenter tPresenter = new CreateTaskPresenter(
@@ -115,15 +115,13 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 				if (eventArgs.getTask() != null) {
 
 					// Creates a new Dialog
-					final DialogBox diaBox = new DialogBox();
+					final DialogBox diaBox = GwtUtils.createDialog(TextConstants.EDIT_TASK);
 					
 					//Creates a TodoTaskDetailPresenter
 					ToDoTaskDetailPresenter tPresenter = new ToDoTaskDetailPresenter(diaBox, TaskBoardPresenter.this, eventArgs.getTask(), TaskBoardPresenter.this.sprint);
 
 					// Shows the Dialog
 					diaBox.center();
-					
-					diaBox.setText(TextConstants.EDIT_TASK);
 					
 					// Handler for abort Event of the TodoTaskDetailPresenter
 					tPresenter.getAborted().add(new EventHandler<EventArgs>() {
@@ -183,8 +181,7 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 				if(eventArgs.getTask() != null){
 					
 					// Creates a DialogBox
-					final DialogBox diaBox = new DialogBox();
-					diaBox.setText(TextConstants.EDIT_TASK);
+					final DialogBox diaBox = GwtUtils.createDialog(TextConstants.EDIT_TASK);
 					
 					//Creates a InProgressTaskDetailPresenter
 					InProgressTaskDetailPresenter presenter = new InProgressTaskDetailPresenter(diaBox, TaskBoardPresenter.this, eventArgs.getTask(), sprint);
@@ -233,8 +230,8 @@ public class TaskBoardPresenter extends Presenter<ITaskboardView> {
 				if(eventArgs.getTask() != null){
 					
 					//Creates a dialogBox
-					final DialogBox diaBox = new DialogBox();
-					diaBox.setText(TextConstants.EDIT_TASK);
+					final DialogBox diaBox = GwtUtils.createDialog(TextConstants.EDIT_TASK);
+					
 					
 					// Creates a FinishTaskDetailPresenter
 					FinishTaskDetailPresenter presenter = new FinishTaskDetailPresenter(diaBox, TaskBoardPresenter.this, eventArgs.getTask());
