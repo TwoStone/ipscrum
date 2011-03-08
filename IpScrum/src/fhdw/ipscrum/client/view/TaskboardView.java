@@ -390,9 +390,10 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		current.setTitle(task.getDescription());
 		counter++;
 		
+		}
+		
 		this.getInProgresscellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
-		}
 	}
 
 	@Override

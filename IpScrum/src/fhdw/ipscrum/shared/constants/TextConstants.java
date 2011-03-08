@@ -153,11 +153,11 @@ public final class TextConstants {
 	public static final String EDIT_TASK = "Task Details";
 	public static final String ASSIGNED_PERSON = "Zuständige Person";
 	public static final String EFFORT = "Aufwand [in Personenstunden]";
-	public static final String TASK_FINISHED = "Task abgeschlossen:";
+	public static final String TASK_FINISHED = "Task abschließen:";
 	public static final String PBIS = "ProductBacklog Einträge";
 	public static final String NEW_ITEMS = "Einträge hinzufügen";
 	public static final String DELETE_ITEMS = "Einträge entfernen";
-	public static final String FINISHED_TASK = "Task abgeschlossen! \n Am: ";
+	public static final String FINISHED_TASK = "Task abgeschlossen! \n";
 	public static final String SPRINT_ITEMS = "Sprint Einträge";
 	public static final String ADD = "Hinzufügen";
 	public static final String TASK_ITEMS = "Task Einträge";

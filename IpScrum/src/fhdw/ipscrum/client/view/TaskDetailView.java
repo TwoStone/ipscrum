@@ -116,6 +116,7 @@ public abstract class TaskDetailView extends Composite implements
 		lblTaskAbgeschlossen = new Label(TextConstants.TASK_FINISHED);
 		lblTaskAbgeschlossen.setStyleName("taskboardLabel");
 		concreteTaskDetailPanel.add(lblTaskAbgeschlossen, 280, 372);
+		lblTaskAbgeschlossen.setSize("117px", "16px");
 
 		// creates a checkbox to finish a task
 		simpleCheckBox = new SimpleCheckBox();
@@ -241,11 +242,11 @@ public abstract class TaskDetailView extends Composite implements
 								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
 						
 						lblTaskFinished = new Label("");
-						lblTaskFinished.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+						lblTaskFinished.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 						lblTaskFinished.setStyleName("taskboardLabel");
 						lblTaskFinished.setVisible(false);
-						concreteTaskDetailPanel.add(lblTaskFinished, 280, 402);
-						lblTaskFinished.setSize("172px", "46px");
+						concreteTaskDetailPanel.add(lblTaskFinished, 280, 418);
+						lblTaskFinished.setSize("172px", "30px");
 	}
 
 	// ################## SETTER / GETTER for view elements #############################
