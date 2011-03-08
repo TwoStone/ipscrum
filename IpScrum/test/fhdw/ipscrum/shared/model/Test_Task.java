@@ -1,12 +1,13 @@
 package fhdw.ipscrum.shared.model;
 
-
 import static org.junit.Assert.*;
-
+import fhdw.ipscrum.shared.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+
+import java.lang.*;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -38,7 +39,6 @@ public class Test_Task {
 	private static Integer platzhalter = null;
 	private static boolean pl1;
 	private static Iterator<ProductBacklogItem> pbiIt = null;
-	
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -58,38 +58,40 @@ public class Test_Task {
 		zero = 0;
 		three = 3;
 		team1 = new Team("Team");
-		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
+		sprint = new Sprint("Sprint", "Beschreibung", new Date(), new Date(),
+				team1);
 		sprintbl = sprint.getSprintBacklog();
 		platzhalter = 0;
 		pl1 = false;
-		
+
 		pbltest.addItem(pbi1);
 		pbltest.addItem(pbi2);
 		pbltest.addItem(pbi3);
 		pbltest.addItem(pbi4);
 		pbltest.addItem(pbix);
 		test.addSprint(sprint);
-		
+
 		team1.addMember(per1);
 		team1.addMember(per2);
 		pbi1.setSprint(sprint);
 		pbi2.setSprint(sprint);
 		pbi3.setSprint(sprint);
 		pbi4.setSprint(sprint);
-				
+
 		sprintbl.addTask(t1);
 		sprintbl.addTask(t2);
 		sprintbl.addTask(t3);
 		sprintbl.addTask(t4);
 		sprintbl.addTask(t5);
-		}
+	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
 	// ---------------------------------------------------------------------------
-	// ------------------------- Test of basic functions -------------------------
+	// ------------------------- Test of basic functions
+	// -------------------------
 	// ---------------------------------------------------------------------------
 
 	@Test
@@ -131,26 +133,39 @@ public class Test_Task {
 	 * Getting pbi's of a task
 	 */
 	public void testGetPBI() throws Exception {
-		while(t1.getPBIIterator().hasNext()){
-				pbix = t1.getPBIIterator().next();
-				if(pbix == null) assertTrue(pbix == null);
+		pbiIt = t1.getPBIIterator();
+		while (pbiIt.hasNext()) {
+			pbix = pbiIt.next();
+			if (pbix == null)
+				assertTrue(pbix == null);
 		}
 	}
 
 	@Test
-    /**
-     * Addition of a pbi
-     */
-    public void testAddPBI() throws Exception {
-        t4.addPBI(pbi1);
-        pbiIt = t4.getPBIIterator();
-        while(pbiIt.hasNext())
-            pbix = pbiIt.next();
-            if(pbix == pbi1){ pl1 =true;}
+	/**
+	 * Addition of a pbi
+	 */
+	public void testAddPBI1() throws Exception {
+		t4.addPBI(pbi1);
+		pbiIt = t4.getPBIIterator();
+		while (pbiIt.hasNext()){
+			pbix = pbiIt.next();
+		if (pbix == pbi1) {
+			pl1 = true;
+			}
+		}
 
-        assertEquals(true,pl1);
-    } 
+		assertEquals(true, pl1);
+	}
 
+	@Test(expected = DoubleDefinitionException.class)
+	/**
+	 * Addition of a pbi
+	 */
+	public void testAddPBI2() throws Exception {
+		t4.addPBI(pbi1);
+	}
+	
 	@Test
 	/**
 	 * Getting the description
@@ -166,8 +181,6 @@ public class Test_Task {
 	public void testgetFinishDate() throws Exception {
 		assertEquals(null, t1.getFinishDate());
 	}
-
-
 
 	@Test
 	/**
@@ -210,7 +223,7 @@ public class Test_Task {
 	public void testHasResponsiblePerson1() throws Exception {
 		assertEquals(true, t1.hasResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Test of having a responsible person on a task without a responsible Person
@@ -227,31 +240,32 @@ public class Test_Task {
 		t1.setDescription("Beschreibung geändert");
 		assertEquals("Beschreibung geändert", t1.getDescription());
 	}
-	
-	@Test
-    /**
-     * Removing a PBI
-     */
-    public void testRemovePBI() throws Exception {
-        t4.removePBI(pbi1);
-        pbiIt = t4.getPBIIterator();
-        pl1 = true;
-        while(pbiIt.hasNext()){
-            pbix = pbiIt.next();
-            if(pbix == pbi1) pl1 = false;
-            }
-        assertEquals(true,pl1);
 
-    } 
-	
+	@Test
+	/**
+	 * Removing a PBI
+	 */
+	public void testRemovePBI() throws Exception {
+		t4.removePBI(pbi1);
+		pbiIt = t4.getPBIIterator();
+		pl1 = true;
+		while (pbiIt.hasNext()) {
+			pbix = pbiIt.next();
+			if (pbix == pbi1)
+				pl1 = false;
+		}
+		assertEquals(true, pl1);
+
+	}
+
 	@Test
 	/**
 	 * Testing on False on isFinished() on an unfinished Task
 	 */
-	public void testIsFinished() throws Exception{
+	public void testIsFinished() throws Exception {
 		assertEquals(false, t4.isFinished());
 	}
-	
+
 	@Test
 	/**
 	 * Closing of a task
@@ -261,7 +275,7 @@ public class Test_Task {
 		t1.finish();
 		assertEquals(true, t1.isFinished());
 	}
-	
+
 	@Test
 	/**
 	 * Closing of a task
@@ -271,21 +285,13 @@ public class Test_Task {
 		t4.finish(new Date());
 		assertEquals(true, t1.isFinished());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the SprintBacklog
 	 */
-	public void testGetSprintbacklog() throws Exception{
+	public void testGetSprintbacklog() throws Exception {
 		assertEquals(sprintbl, t1.getSprintBacklog());
-	}
-	
-	@Test
-	/**
-	 * Getting the State of a task
-	 */
-	public void testGetState() throws Exception{
-		// TODO: Test on getState()
 	}
 
 	@Test
@@ -293,62 +299,63 @@ public class Test_Task {
 	 * Testing on Equality
 	 * Test also of indirectEquals, as task.Equals() only calls on indirectEquals()
 	 */
-	public void testEquals() throws Exception{
+	public void testEquals() throws Exception {
 		assertEquals(true, t1.equals(t1));
 	}
-	
+
 	@Test
 	/**
 	 * Testing on HashCode
 	 * Test also of indirectHashCode() as task.HashCode() only calls on indirectHashCode()
 	 */
-	public void testHashCode(){
-		// TODO: How to test that?		
+	public void testHashCode() {
+		// java.lang.object.this.hashcode();
 	}
-	
+
 	@Test
 	/**
 	 * Test on having a PBI
 	 */
-	public void testHasPBI1() throws Exception{
+	public void testHasPBI1() throws Exception {
 		t5.addPBI(pbi1);
 		assertEquals(true, t5.hasPBI(pbi1));
 	}
-	
+
 	@Test
 	/**
 	 * Test on not having a PBI
 	 */
-	public void testHasPBI2() throws Exception{
+	public void testHasPBI2() throws Exception {
 		assertEquals(false, t4.hasPBI(pbi3));
 	}
-	
+
 	@Test
 	/**
 	 * Getting the state of a PBI
 	 */
-	public void testGetState1() throws Exception{
+	public void testGetState1() throws Exception {
 		// TODO: Test, use task t3(unassigend)
 	}
-	
+
 	@Test
 	/**
 	 * Getting the state of a PBI
 	 */
-	public void testGetState2() throws Exception{
+	public void testGetState2() throws Exception {
 		// TODO: Test, use task t4(assigned), assign a person before doing so
 	}
-	
+
 	@Test
 	/**
 	 * Getting the state of a PBI
 	 */
-	public void testGetState3() throws Exception{
+	public void testGetState3() throws Exception {
 		// TODO: Test, use task t1(finished)
 	}
 
 	// ----------------------------------------------------------------------------------
-	// -------------------------------------- Test of cases -----------------------------
+	// -------------------------------------- Test of cases
+	// -----------------------------
 	// ----------------------------------------------------------------------------------
 
 	@Test
@@ -368,14 +375,17 @@ public class Test_Task {
 
 		// Finish task
 		t2.finish();
-		
+
 		pbiIt = t2.getPBIIterator();
-        while(pbiIt.hasNext())
-            pbix = pbiIt.next();
-            if(pbix == pbi1){ pl1 =true;}
-            
-        // Test on having done everthing
-        assertEquals(true,pl1); 
+		while (pbiIt.hasNext()){
+			pbix = pbiIt.next();
+		if (pbix == pbi1) {
+			pl1 = true;
+			}
+		}
+
+		// Test on having done everthing
+		assertEquals(true, pl1);
 		assertEquals(true, t2.isFinished());
 		assertEquals("Task", t2.getName());
 		assertEquals(three, t2.getPlanEffort());
@@ -398,13 +408,13 @@ public class Test_Task {
 		// adding two pbi's
 		t3.addPBI(pbi3);
 		t3.addPBI(pbi4);
-		
+
 		// remove a pbi
 		t3.removePBI(pbi3);
 
 		// adding a pbi
 		t3.addPBI(pbi1);
-		
+
 		// assigning a person
 		t3.setResponsibility(per1);
 
@@ -415,32 +425,38 @@ public class Test_Task {
 		t3.finish();
 
 		// Test on having done everthing
-        pbiIt = t3.getPBIIterator();
-        // Checking on PBI's
+		pbiIt = t3.getPBIIterator();
+		// Checking on PBI's
 
-        pl1 = false;
-        while(pbiIt.hasNext())
-            pbix = pbiIt.next();
-            if(pbix == pbi1){ pl1 =true;}
-        assertEquals(true,pl1);
+		pl1 = false;
+		while (pbiIt.hasNext()){
+			pbix = pbiIt.next();
+		
+		if (pbix == pbi1) {
+			pl1 = true;
+		}}
+		assertEquals(true, pl1);
+		pbiIt = t3.getPBIIterator();
+		pl1 = false;
+		while (pbiIt.hasNext()) {
+			pbix = pbiIt.next();
+			if (pbix == pbi4) pl1 = true;	
+		}
+		assertEquals(true, pl1);
 
-        pl1 = false;
-        while(pbiIt.hasNext())
-            pbix = pbiIt.next();
-            if(pbix == pbi4){ pl1 =true;}
-        assertEquals(true,pl1);
-        
-        pl1 = true;
-        while(pbiIt.hasNext())
-            pbix = pbiIt.next();
-            if(pbix == pbi3){ pl1 =true;}
-        assertEquals(false,pl1);
- 
+		pl1 = true;
+		while (pbiIt.hasNext()){
+			pbix = pbiIt.next();
+		if (pbix == pbi3) {
+			pl1 = false;
+			}
+		}
+		assertEquals(true, pl1);
+
 		assertEquals(true, t3.isFinished());
 		assertEquals("Task", t3.getName());
 		assertEquals(three, t3.getPlanEffort());
 		assertEquals(per2, t3.getResponsiblePerson());
-		 
 
 	}
 }
