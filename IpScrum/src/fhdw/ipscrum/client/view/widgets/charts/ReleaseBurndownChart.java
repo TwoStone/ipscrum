@@ -15,7 +15,6 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 /**
  * This is to display a detailed burndown-chart for releases.
  * While presenting actual burndown-data this also includes an ideal-line and a trend-estimation.
- *
  */
 public class ReleaseBurndownChart extends BurndownChart {
 

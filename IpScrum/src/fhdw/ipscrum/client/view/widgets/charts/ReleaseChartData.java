@@ -12,6 +12,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 /**
  * This class represents a data container for Release Burndown-Charts.
+ * It also contains calculation-algorithms to generate chart-data.
  */
 public class ReleaseChartData implements ChartData {
 
@@ -32,6 +33,9 @@ public class ReleaseChartData implements ChartData {
 		return this.data;
 	}
 
+	/**
+	 * This is the main chart-generation-algorithm.
+	 */
 	private void calculateData() {
 		// obtain a sorted list of sprints associated with the release
 		ArrayList<ISprint> sortedSprints = new ArrayList<ISprint>(this.getRelease().getSprints());
@@ -74,7 +78,9 @@ public class ReleaseChartData implements ChartData {
 		}
 	}
 
-
+	/**
+	 *	This class is used to hold the chart-values for one sprint-endDate.
+	 */
 	class ReleaseChartDataDetails {
 		private final ArrayList<ISprint> sprints;
 
@@ -107,7 +113,10 @@ public class ReleaseChartData implements ChartData {
 		}
 	}
 
-
+	/**
+	 * This is to obtain a list of data-points for the trend-calculation.
+	 * @return a list of data-points.
+	 */
 	@Override
 	public List<Double> getTickData() {
 		ArrayList<Double> result = new ArrayList<Double>();

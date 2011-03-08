@@ -13,8 +13,7 @@ public class ReportPresenter extends Presenter<IReportView> {
 
 	private IReportView concreteView;
 
-	public ReportPresenter(final Panel parent,
-			final Presenter<?> parentPresenter) {
+	public ReportPresenter(final Panel parent, final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 	}
 

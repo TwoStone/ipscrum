@@ -10,8 +10,8 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
 
 /**
- * This is a widget. It shows statistical data about the progress of a sprint.
- *
+ * This is to display a detailed burndown-chart for releases.
+ * While presenting actual burndown-data this also includes an ideal-line and a trend-estimation.
  */
 public class SprintBurndownChart extends BurndownChart {
 
