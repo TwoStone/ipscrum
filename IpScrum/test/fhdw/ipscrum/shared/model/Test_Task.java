@@ -12,7 +12,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.gwt.dev.js.rhino.ObjToIntMap.Iterator;
+import java.util.Iterator;
 
 public class Test_Task {
 
@@ -29,6 +29,7 @@ public class Test_Task {
 	private static Task t2 = null;
 	private static Task t3 = null;
 	private static Task t4 = null;
+	private static Task t5 = null;
 	private static Integer zero = null;
 	private static Integer three = null;
 	private static Sprint sprint = null;
@@ -36,6 +37,7 @@ public class Test_Task {
 	private static SprintBacklog sprintbl = null;
 	private static Integer platzhalter = null;
 	private static boolean pl1;
+	private static Iterator<ProductBacklogItem> pbiIt = null;
 	
 
 	@BeforeClass
@@ -52,6 +54,7 @@ public class Test_Task {
 		t2 = new Task("Task 2", "Beschreibung 2");
 		t3 = new Task("Task 3", "Beschreibung 3");
 		t4 = new Task("Task 4", "Add and Remove");
+		t5 = new Task("Task 5", "HasPBI()");
 		zero = 0;
 		three = 3;
 		team1 = new Team("Team");
@@ -78,6 +81,7 @@ public class Test_Task {
 		sprintbl.addTask(t2);
 		sprintbl.addTask(t3);
 		sprintbl.addTask(t4);
+		sprintbl.addTask(t5);
 		}
 
 	@AfterClass
@@ -134,17 +138,18 @@ public class Test_Task {
 	}
 
 	@Test
-	/**
-	 * Addition of a pbi
-	 */
-	public void testAddPBI() throws Exception {
-		t4.addPBI(pbi1);
-		while(t4.getPBIIterator().hasNext())
-			pbix = t4.getPBIIterator().next();
-			if(pbix == pbi1){ pl1 =true;}
-			
-		assertEquals(true,pl1);
-	}
+    /**
+     * Addition of a pbi
+     */
+    public void testAddPBI() throws Exception {
+        t4.addPBI(pbi1);
+        pbiIt = t4.getPBIIterator();
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi1){ pl1 =true;}
+
+        assertEquals(true,pl1);
+    } 
 
 	@Test
 	/**
@@ -224,16 +229,20 @@ public class Test_Task {
 	}
 	
 	@Test
-	/**
-	 * Removing a PBI
-	 */
-	public void testRemovePBI() throws Exception {
-		t4.removePBI(pbi1);
-		while(t4.getPBIIterator().hasNext())
-				pbix = t4.getPBIIterator().next();
-				assertNotSame(pbi1, pbix);
-				
-	}
+    /**
+     * Removing a PBI
+     */
+    public void testRemovePBI() throws Exception {
+        t4.removePBI(pbi1);
+        pbiIt = t4.getPBIIterator();
+        pl1 = true;
+        while(pbiIt.hasNext()){
+            pbix = pbiIt.next();
+            if(pbix == pbi1) pl1 = false;
+            }
+        assertEquals(true,pl1);
+
+    } 
 	
 	@Test
 	/**
@@ -302,7 +311,8 @@ public class Test_Task {
 	 * Test on having a PBI
 	 */
 	public void testHasPBI1() throws Exception{
-		assertEquals(true, t4.hasPBI(pbi1));
+		t5.addPBI(pbi1);
+		assertEquals(true, t5.hasPBI(pbi1));
 	}
 	
 	@Test
@@ -358,11 +368,17 @@ public class Test_Task {
 
 		// Finish task
 		t2.finish();
-
+		
+		pbiIt = t2.getPBIIterator();
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi1){ pl1 =true;}
+            
+        // Test on having done everthing
+        assertEquals(true,pl1); 
 		assertEquals(true, t2.isFinished());
 		assertEquals("Task", t2.getName());
 		assertEquals(three, t2.getPlanEffort());
-		// assertEquals(apbis2.add(pbi2), t2.getPBIIterator());
 		assertEquals(per2, t2.getResponsiblePerson());
 
 	}
@@ -379,7 +395,7 @@ public class Test_Task {
 		t3.setName("Task");
 		t3.setPlanEffort(3);
 
-		// adding 2 pbi's
+		// adding two pbi's
 		t3.addPBI(pbi3);
 		t3.addPBI(pbi4);
 		
@@ -398,11 +414,33 @@ public class Test_Task {
 		// finish task
 		t3.finish();
 
+		// Test on having done everthing
+        pbiIt = t3.getPBIIterator();
+        // Checking on PBI's
+
+        pl1 = false;
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi1){ pl1 =true;}
+        assertEquals(true,pl1);
+
+        pl1 = false;
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi4){ pl1 =true;}
+        assertEquals(true,pl1);
+        
+        pl1 = true;
+        while(pbiIt.hasNext())
+            pbix = pbiIt.next();
+            if(pbix == pbi3){ pl1 =true;}
+        assertEquals(false,pl1);
+ 
 		assertEquals(true, t3.isFinished());
 		assertEquals("Task", t3.getName());
 		assertEquals(three, t3.getPlanEffort());
-		//assertEquals(apbis3, t3.getPBIIterator());
 		assertEquals(per2, t3.getResponsiblePerson());
+		 
 
 	}
 }
