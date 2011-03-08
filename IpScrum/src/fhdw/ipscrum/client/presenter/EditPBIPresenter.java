@@ -63,16 +63,10 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 					EditPBIPresenter.this.getPbi().close();
 					EditPBIPresenter.this.finish();
 				} catch (final ForbiddenStateException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				}
 			}
 		});
-	}
-
-	@Override
-	protected void setupView() {
-		super.setupView();
-		((IEditPBIView) this.getView()).setComplexity(this.getPbi().getManDayCosts());
 	}
 
 	@Override
@@ -85,6 +79,7 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	protected void updateView() {
 		super.updateView();
 		((IEditPBIView) this.getView()).setLastEditor(this.getPbi().getLastEditor());
+		((IEditPBIView) this.getView()).setComplexity(this.getPbi().getManDayCosts());
 		((IEditPBIView) this.getView()).setState(this.getPbi().getState());
 	}
 }

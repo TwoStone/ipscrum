@@ -335,10 +335,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 		}
 	}
 
-	/**
-	 * Sets the values of the loaded feature in the view.
-	 */
-	protected void setupView() {
+	@Override
+	public void setupView() {
 		this.getView().setName(this.pbi.getName().replaceAll(NEWPBINAME, ""));
 		this.getView().setDescription(this.pbi.getDescription());
 		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.pbi.getBacklog().getProject().getSprints());

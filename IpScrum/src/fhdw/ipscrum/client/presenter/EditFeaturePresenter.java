@@ -17,5 +17,4 @@ public class EditFeaturePresenter extends EditPBIPresenter {
 	protected IEditFeatureView createView() {
 		return new EditFeatureView();
 	}
-
 }

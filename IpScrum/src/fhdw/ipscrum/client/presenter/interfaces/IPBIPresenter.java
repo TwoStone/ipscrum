@@ -1,9 +1,13 @@
 package fhdw.ipscrum.client.presenter.interfaces;
 
-
 public interface IPBIPresenter {
 	/**
 	 * Registers the presenter to all events of the view.
 	 */
 	void registerViewEvents();
+
+	/**
+	 * /** Sets the values of the loaded feature in the view.
+	 */
+	void setupView();
 }

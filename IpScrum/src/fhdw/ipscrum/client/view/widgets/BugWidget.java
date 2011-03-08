@@ -24,7 +24,7 @@ import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 public class BugWidget extends Composite implements IBugView {
-	PBIView pbiView;
+	private final PBIView pbiView;
 	private final ListBox listBoxVersion = new ListBox();
 	private List<IRelease> releases;
 	private final Button btnChangeSystems;
@@ -33,11 +33,11 @@ public class BugWidget extends Composite implements IBugView {
 	public BugWidget(FlexTable grid, VerticalPanel verticalPanel, PBIView pbiView) {
 		this.pbiView = pbiView;
 		Label lblVersion = new Label("Version:");
+		int rowCount = grid.getRowCount();
+		grid.setWidget(rowCount, 0, lblVersion);
+		grid.setWidget(rowCount, 1, listBoxVersion);
 
-		grid.setWidget(2, 0, lblVersion);
-		grid.setWidget(2, 1, listBoxVersion);
-
-		Label label = new Label("Akzptanzkriterien:");
+		Label label = new Label("Systemzuordnung:");
 		verticalPanel.add(label);
 		label.setWidth("300px");
 
@@ -46,7 +46,7 @@ public class BugWidget extends Composite implements IBugView {
 		verticalPanel.add(scrollPanel);
 		scrollPanel.setSize("300px", "150px");
 
-		CellTable<IRelease> cellTable = new CellTable();
+		CellTable<IRelease> cellTable = new CellTable<IRelease>();
 		scrollPanel.setWidget(cellTable);
 		cellTable.setSize("100%", "100%");
 		this.btnChangeSystems = new Button(TextConstants.CHANGE_SYSTEM);
@@ -80,7 +80,7 @@ public class BugWidget extends Composite implements IBugView {
 		this.listBoxVersion.clear();
 		this.listBoxVersion.addItem(""); // Adding an empty item!
 		for (final IRelease iRelease : releases) {
-			final String text = iRelease.toString();
+			final String text = iRelease.getVersion();
 			this.listBoxVersion.addItem(text);
 		}
 		if (selected != null) {
@@ -89,7 +89,6 @@ public class BugWidget extends Composite implements IBugView {
 		} else {
 			this.listBoxVersion.setSelectedIndex(0);
 		}
-
 	}
 
 	protected Button getBtnChangeSystems() {
@@ -99,5 +98,8 @@ public class BugWidget extends Composite implements IBugView {
 	@Override
 	public IEvent<EventArgs> getChangeSystems() {
 		return this.changeSystems;
+	}
+
+	public void setSprints(final List<IRelease> releases, final IRelease selected) {
 	}
 }

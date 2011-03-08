@@ -45,4 +45,10 @@ public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresen
 		}
 		return null;
 	}
+
+	@Override
+	public void setupView() {
+		super.setupView();
+		this.bugPresenter.setupView();
+	}
 }

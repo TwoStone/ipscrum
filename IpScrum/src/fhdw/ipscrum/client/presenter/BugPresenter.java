@@ -22,7 +22,6 @@ public class BugPresenter implements IBugPresenter {
 		this.view = view;
 		this.presenter = presenter;
 
-		// TODO Christin: null verhindern
 	}
 
 	@Override
@@ -76,4 +75,10 @@ public class BugPresenter implements IBugPresenter {
 		});
 
 	}
+
+	@Override
+	public void setupView() {
+		this.view.setVersion(this.presenter.getPbi().getBacklog().getProject().getReleasePlan(), ((Bug) this.presenter.getPbi()).getVersion());
+	}
+
 }
