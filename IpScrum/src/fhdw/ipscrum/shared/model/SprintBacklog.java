@@ -159,12 +159,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 		while (taskIterator.hasNext()){
 			ITask current = taskIterator.next();
 			if (current.hasPBI(pbi)){
-				try {
-					current.removePBI(pbi);
-				} catch (ForbiddenStateException e) {
-					// finished Tasks cannot be changed
-					return;
-				}
+				((Task) current).enforceRemovePBI(pbi);
 			}
 		}
 	}

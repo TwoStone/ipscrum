@@ -16,6 +16,7 @@ import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
+import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 public class Task extends Observable implements ITask {
@@ -405,9 +406,28 @@ public class Task extends Observable implements ITask {
 		}
 		return isPersonValid;
 	}
-
-
-
-
-
+	/**
+	 * This operation enforces a PBI to be removed, even if it is in the state InProgress
+	 * To keep revision safety, it won't be removed from a finsished Task
+	 */
+	protected void enforceRemovePBI(final ProductBacklogItem pbi){
+		this.state.accept(new ITaskStateVisitor() {
+			
+			@Override
+			public void handleTaskUnassigned(TaskUnassigned taskUnassigned) {
+				Task.this.doRemovePBI(pbi);	
+			}
+			
+			@Override
+			public void handleTaskInProgress(TaskInProgress taskInProgress) {
+				Task.this.doRemovePBI(pbi);	
+			}
+			
+			@Override
+			public void handleTaskFinished(TaskFinished taskFinished) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
 }

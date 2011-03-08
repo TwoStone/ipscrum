@@ -86,7 +86,7 @@ public class TaskInProgress extends TaskAssigned {
 
 	@Override
 	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
-		this.getMyTask().doSetName(name);		
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);	
 	}
 
 	@Override
