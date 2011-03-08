@@ -262,6 +262,7 @@ public abstract class SetUpTestData {
 		RelationType.create("Siehe auch");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp() throws Exception {
 
