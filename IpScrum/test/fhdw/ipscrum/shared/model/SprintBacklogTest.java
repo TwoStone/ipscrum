@@ -10,6 +10,8 @@ public class SprintBacklogTest extends SetUpTestData {
 
 	@Test
 	public void testGetEffortByDay() {
+		// System.out.println((pro1rel1spr1.getSprintBacklog().getEffortByDay(new
+		// Date())));
 
 	}
 
