@@ -29,7 +29,8 @@ public final class TextConstants {
 	public static final String OKAY = "Okay";
 	public static final String ABORT_QUESTION = "Abbrechen?";
 	public static final String ABORT_QUESTION_LONG = "Wollen sie den Vorgang wirklich abbrechen?";
-	public static final String ERROR = "Fehler";
+	public static final String UTILS_ERROR = "Fehler";
+	public static final String UTILS_WARNING = "Warnung";
 	public static final String CLOSE = "Schließen";
 	public static final String TYPENAME = "Neuer Typ:";
 	public static final String CHANGE_SYSTEM = "Systemzuordnung bearbeiten";
@@ -173,7 +174,6 @@ public final class TextConstants {
 	public static final String IN_PROGRESS = "In Arbeit";
 	public static final String COMPLETED = "Erledigt";
 	public static final String DETAILS = "Details";
-	public static final String WARNING = "Warnung";
 	public static final String TASKBOARD_HELP = "Zum Anlegen eines Task können mehrere ProductBacklog Einträge über 'multi selection' ausgewählt werden. \n Es kann aber auch Tasks ohne ProductBacklog Eintrag geben. \n Tasks die noch zu erledigen sind, können vollständig editiert und gelöscht werden. \n Wurde einem Task eine Person zugewiesen, bekommt der Task den Status 'In Arbeit'. \n Bei Tasks 'In Arbeit' kann der Aufwand, die Beschreibung und die zuständige Person editiert werden. \n Nach dem Markieren der zuständigen Check-Box bekommt der Task den Status 'Erledigt'.";
 	public static final String HELP = "Hilfe - Taskboard";
 	public static final String PBI_MOUSEOVER = "Zum Selektieren mehrerer PBIs Strg + Klick";

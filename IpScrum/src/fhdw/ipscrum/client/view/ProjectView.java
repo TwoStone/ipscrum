@@ -2,9 +2,11 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Vector;
 
+import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Composite;
@@ -126,6 +128,16 @@ public class ProjectView extends Composite implements IProjectView {
 					}
 				});
 		this.tableProject.setSize("100%", "100%");
+
+		final Column<Project, Number> column = new Column<Project, Number>(
+				new NumberCell()) {
+			@Override
+			public Number getValue(Project object) {
+				return object.getBacklog().countItems();
+			}
+		};
+		this.tableProject.addColumn(column, "#Tickets");
+		this.tableProject.setColumnWidth(column, "30px");
 
 		final FlowPanel projectMenuPanel = new FlowPanel();
 		concreteProjectPanel.add(projectMenuPanel, 10, 34);

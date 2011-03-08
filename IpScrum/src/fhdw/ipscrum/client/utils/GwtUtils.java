@@ -55,7 +55,7 @@ public final class GwtUtils {
 	@Deprecated
 	public static void displayError(final String error) {
 		logger.log(Level.WARNING, error);
-		showErrorBox(TextConstants.ERROR, error);
+		showErrorBox(TextConstants.UTILS_ERROR, error);
 	}
 
 	/**
@@ -92,8 +92,8 @@ public final class GwtUtils {
 	 * @param error
 	 */
 	public static void displayError(Throwable error) {
-		logger.log(Level.WARNING, TextConstants.ERROR, error);
-		showErrorBox(TextConstants.ERROR, error.getMessage());
+		logger.log(Level.WARNING, TextConstants.UTILS_ERROR, error);
+		showErrorBox(TextConstants.UTILS_ERROR, error.getMessage());
 	}
 
 	/**
@@ -102,7 +102,7 @@ public final class GwtUtils {
 	 * @param error
 	 */
 	public static void displayWarning(String warning) {
-		showErrorBox(TextConstants.WARNING, warning);
+		showErrorBox(TextConstants.UTILS_WARNING, warning);
 	}
 
 	public static String escapeString(final String input) {
