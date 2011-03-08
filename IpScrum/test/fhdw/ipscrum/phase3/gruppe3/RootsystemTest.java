@@ -14,7 +14,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.Rootsystem;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
-import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
+import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 
 /**
  * The class <code>RootsystemTest</code> contains tests for the class
@@ -50,7 +50,7 @@ public class RootsystemTest {
 	@Test
 	public void testAccept_1() throws Exception {
 		final Rootsystem fixture = new Rootsystem();
-		final HasChildVisitor visitor = new HasChildVisitor() {
+		final ISystemVisitor visitor = new ISystemVisitor() {
 
 			@Override
 			public void handleSystem(final System system) {

@@ -2,7 +2,7 @@ package fhdw.ipscrum.shared.model.visitor;
 
 import fhdw.ipscrum.shared.model.Rootsystem;
 
-public interface HasChildVisitor {
+public interface ISystemVisitor {
 
 	void handleRoot(Rootsystem rootsystem);
 

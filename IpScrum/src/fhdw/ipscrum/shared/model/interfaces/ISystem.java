@@ -6,7 +6,7 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
+import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 
 /**
  * Represents an system-element which has children elements.
@@ -33,7 +33,7 @@ public interface ISystem extends BDACompare {
 	/**
 	 * Visitor Jump-In-Point
 	 */
-	void accept(HasChildVisitor visitor);
+	void accept(ISystemVisitor visitor);
 
 	/**
 	 * Return the bidirectional association between IHasChildren Classes.<br />

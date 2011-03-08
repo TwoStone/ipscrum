@@ -9,7 +9,7 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
-import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
+import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 @SuppressWarnings("rawtypes")
@@ -127,7 +127,7 @@ public class System extends Observable implements BDACompare, ISystem {
 	}
 
 	@Override
-	public void accept(final HasChildVisitor visitor) {
+	public void accept(final ISystemVisitor visitor) {
 		visitor.handleSystem(this);
 	}
 
@@ -183,7 +183,7 @@ public class System extends Observable implements BDACompare, ISystem {
 	}
 
 	public String toDisplayWithParent() {
-		class IsRootVisitor implements HasChildVisitor {
+		class IsRootVisitor implements ISystemVisitor {
 
 			Boolean result;
 

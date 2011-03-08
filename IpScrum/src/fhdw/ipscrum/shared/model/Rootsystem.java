@@ -9,7 +9,7 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
-import fhdw.ipscrum.shared.model.visitor.HasChildVisitor;
+import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
@@ -127,7 +127,7 @@ public class Rootsystem extends Observable implements ISystem {
 	}
 
 	@Override
-	public void accept(final HasChildVisitor visitor) {
+	public void accept(final ISystemVisitor visitor) {
 		visitor.handleRoot(this);
 	}
 }
