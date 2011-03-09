@@ -3,6 +3,8 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Vector;
 
+import com.google.gwt.dev.Link;
+
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -250,7 +252,9 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	}
 
 	/**
-	 * @return the sysManager
+	 * Method getSysManager
+	 * 
+	 * @return {@link SystemManager}
 	 */
 	public SystemManager getSysManager() {
 		if (this.sysManager == null) {

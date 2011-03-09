@@ -13,10 +13,10 @@ import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
 /**
- * @author Administrator
+ * Class Rootsystem.
  * 
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings("unchecked")
 public class Rootsystem extends Observable implements ISystem {
 
 	private static final long serialVersionUID = 3375902891368480223L;
@@ -28,6 +28,9 @@ public class Rootsystem extends Observable implements ISystem {
 		this.toSystemAssoc = toSystemAssoc;
 	}
 
+	/**
+	 * Constructor for Rootsystem
+	 */
 	public Rootsystem() {
 		this.setToSystemAssoc(new OneToMany<ManyToOne, ISystem>(this));
 	}
@@ -80,22 +83,46 @@ public class Rootsystem extends Observable implements ISystem {
 		return this;
 	}
 
+	/**
+	 * Return the name as String
+	 * @return name
+	 */
 	@Override
 	public String toString() {
 		return this.getName();
 	}
 
+	/**
+	 * Method hashCode.
+	 * 
+	 * @return int
+	 */
 	@Override
 	public int hashCode() {
 		final int result = this.indirectHashCode();
 		return result;
 	}
 
+	/**
+	 * Method equals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(final Object obj) {
 		return this.indirectEquals(obj);
 	}
 
+	/**
+	 * Method indirectEquals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
+	 */
 	@Override
 	public boolean indirectEquals(final Object obj) {
 		if (this == obj) {
@@ -120,6 +147,12 @@ public class Rootsystem extends Observable implements ISystem {
 		return ret;
 	}
 
+	/**
+	 * Method indirectHashCode.
+	 * 
+	 * @return int
+	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectHashCode()
+	 */
 	@Override
 	public int indirectHashCode() {
 		final int result = super.hashCode();

@@ -16,12 +16,18 @@ public class BugClosedState extends PBIClosedState implements IBugState {
 		super();
 	}
 
+	/**
+	 * throw Exception because the bug is closed
+	 */
 	@Override
 	public void addSystem(final System system) throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
+	/**
+	 * throw Exception because the bug is closed
+	 */
 	@Override
 	public void setVersion(final IRelease version)
 			throws ForbiddenStateException {
@@ -29,6 +35,9 @@ public class BugClosedState extends PBIClosedState implements IBugState {
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
+	/**
+	 * throw Exception because the bug is closed
+	 */
 	@Override
 	public void removeSystem(System system) throws ForbiddenStateException {
 		throw new ForbiddenStateException(

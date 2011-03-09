@@ -20,6 +20,10 @@ public class BugOpenState extends PBIOpenState implements IBugState {
 	private BugOpenState() {
 	}
 
+	/**
+	 * Constructor BugOpenState
+	 * @param owner {@link Bug}
+	 */
 	public BugOpenState(final Bug owner) {
 		super();
 		this.owner = owner;

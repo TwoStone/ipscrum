@@ -15,6 +15,10 @@ public class FeatureOpenState extends PBIOpenState implements IFeatureState {
 	private FeatureOpenState() {
 	}
 
+	/**
+	 * Constructor FeatureOpenState.
+	 * @param owner {@link Feature}
+	 */
 	public FeatureOpenState(final Feature owner) {
 		super();
 		this.owner = owner;

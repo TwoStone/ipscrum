@@ -2,9 +2,12 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
+import com.google.gwt.dev.asm.commons.Method;
+
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
@@ -12,7 +15,10 @@ import fhdw.ipscrum.shared.model.interfaces.ISystem;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
-@SuppressWarnings("rawtypes")
+/**
+ * Class System.
+ */
+@SuppressWarnings("unchecked")
 public class System extends Observable implements BDACompare, ISystem {
 
 	private static final long serialVersionUID = -5808437328511791688L;
@@ -21,17 +27,31 @@ public class System extends Observable implements BDACompare, ISystem {
 	private ManyToOne<OneToMany, System> toIHasChildAssoc;
 	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
 
+	/**
+	 * Constructor for System, automatically establish a bidirectional association
+	 * 
+	 * @param name
+	 * 			String
+	 * @param parent
+	 * 			ISystem
+	 * @throws UserException
+	 */
 	public System(final String name, final ISystem parent) throws UserException {
 		this.setName(name);
 		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
 		this.toSystemAssoc = new OneToMany<ManyToOne, ISystem>(this);
 		this.setParent(parent);
 	}
-
+	
+	
 	protected System() {
-
 	}
 
+	/**
+	 * Provides the object of the ManyToOne relation
+	 * 
+	 * @return ManyToOne association
+	 */
 	protected ManyToOne<OneToMany, System> getToIHasChildAssoc() {
 		return this.toIHasChildAssoc;
 	}
@@ -53,7 +73,7 @@ public class System extends Observable implements BDACompare, ISystem {
 	public void setName(final String name) throws UserException {
 		if (name == null || name.trim().length() <= 0) {
 			throw new NoValidValueException(
-					"Es muss eine Bezeichnung angegeben werden");
+					ExceptionConstants.NO_VALID_NAME);
 		}
 		this.name = name;
 	}
@@ -73,28 +93,52 @@ public class System extends Observable implements BDACompare, ISystem {
 		return (ISystem) this.toIHasChildAssoc.get();
 	}
 
+	/**
+	 * private to set / change the referenced parent
+	 * @param parent
+	 * @throws DoubleDefinitionException
+	 */
 	private void setParent(final ISystem parent)
 			throws DoubleDefinitionException {
 		if (parent.contains(this)) {
-			// TODO Textkonstante bauen
-			throw new DoubleDefinitionException("System bereits vorhanden");
+			throw new DoubleDefinitionException(ExceptionConstants.SYSTEM_ALREADY_KNOWN);
 		} else {
 			this.toIHasChildAssoc.set(parent.getToSystemAssoc());
 
 		}
 	}
 
+	/**
+	 * Method equals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 */
 	@Override
 	public boolean equals(final Object obj) {
 		return this.indirectEquals(obj);
 	}
 
+	/**
+	 * Method hashCode.
+	 * 
+	 * @return int
+	 */
 	@Override
 	public int hashCode() {
 		final int result = this.indirectHashCode();
 		return result;
 	}
 
+	/**
+	 * Method indirectEquals.
+	 * 
+	 * @param obj
+	 *            Object
+	 * @return boolean
+	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectEquals(Object)
+	 */
 	@Override
 	public boolean indirectEquals(final Object obj) {
 		if (this == obj) {
@@ -117,6 +161,12 @@ public class System extends Observable implements BDACompare, ISystem {
 		return true;
 	}
 
+	/**
+	 * Method indirectHashCode.
+	 * 
+	 * @return int
+	 * @see fhdw.ipscrum.shared.bdas.BDACompare#indirectHashCode()
+	 */
 	@Override
 	public int indirectHashCode() {
 		final int prime = 31;
@@ -172,6 +222,9 @@ public class System extends Observable implements BDACompare, ISystem {
 		}
 	}
 
+	/**
+	 * Returns the name of the System
+	 */
 	@Override
 	public String toString() {
 		return this.name;
@@ -182,6 +235,10 @@ public class System extends Observable implements BDACompare, ISystem {
 		return this.toSystemAssoc;
 	}
 
+	/**
+	 * return the name with the parent as a prefix
+	 * @return
+	 */
 	public String toDisplayWithParent() {
 		class IsRootVisitor implements ISystemVisitor {
 

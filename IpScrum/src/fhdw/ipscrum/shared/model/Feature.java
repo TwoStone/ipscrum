@@ -19,6 +19,13 @@ public class Feature extends ProductBacklogItem {
 	private Feature() {
 	}
 
+	/**
+	 * Constructor Feature.
+	 * @param name String
+	 * @param description String
+	 * @param backlog {@link ProductBacklog}
+	 * @throws UserException
+	 */
 	public Feature(final String name, final String description,
 			final ProductBacklog backlog) throws UserException {
 		super(name, description, backlog);
@@ -29,6 +36,9 @@ public class Feature extends ProductBacklogItem {
 		visitor.handleFeature(this);
 	}
 
+	/**
+	 * close the Feature to end his modifiability 
+	 */
 	@Override
 	protected void doClose() {
 		this.state = new FeatureClosedState();

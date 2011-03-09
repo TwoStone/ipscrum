@@ -72,7 +72,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * @param name
 	 *            Name of the PBI.
-	 * @param description
+	 * @param description String
 	 * @param backlog
 	 *            Backlog of the PBI.
 	 * @throws ForbiddenStateException
