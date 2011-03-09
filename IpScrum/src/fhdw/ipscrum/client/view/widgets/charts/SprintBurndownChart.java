@@ -28,8 +28,7 @@ public class SprintBurndownChart extends BurndownChart {
 		this.createChart();
 	}
 
-	@Override
-	protected void createChart() {
+	private void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>" + this.data.getSprint().getName() + "</h2>");
 		setChartSize(getChartWidth(), getChartWidth());
@@ -86,8 +85,7 @@ public class SprintBurndownChart extends BurndownChart {
 		this.update();
 	}
 
-	@Override
-	protected void populateChart() {
+	private void populateChart() {
 		for (Date date : this.data.getData().keySet()) {
 			SprintChartDataDetails currentData = data.getData().get(date);
 			idealCurve.addPoint(date.getTime(), currentData.getIdealBurndownValue());

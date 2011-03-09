@@ -45,8 +45,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 	 * This is to generate and display the chart-display.
 	 * @return chart
 	 */
-	@Override
-	protected void createChart() {
+	private void createChart() {
 		// GENERAL SETUP
 		setChartTitle("<h2>Release " + this.getData().getRelease().getVersion() + "</h2>");
 		setChartSize(getChartWidth(), getChartHeight());
@@ -108,8 +107,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 	/**
 	 * This is to populate the chart with release-data.
 	 */
-	@Override
-	protected void populateChart() {
+	private void populateChart() {
 		int counter = 0;
 		for (Date endDate : this.getData().getData().keySet()) {
 			ReleaseChartDataDetails currentData = getData().getData().get(endDate);

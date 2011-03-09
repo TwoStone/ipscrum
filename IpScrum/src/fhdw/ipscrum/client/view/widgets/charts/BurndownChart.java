@@ -16,9 +16,6 @@ public abstract class BurndownChart extends GChart {
 	private int chartWidth;
 	private int chartHeight;
 
-	protected abstract void createChart();
-	protected abstract void populateChart();
-
 	/**
 	 * This is to analyze the chart-data an draw the trend-line.
 	 */
