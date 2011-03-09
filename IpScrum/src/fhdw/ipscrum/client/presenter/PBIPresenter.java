@@ -36,7 +36,8 @@ import fhdw.ipscrum.shared.observer.Observer;
 /**
  * Base class for presenting {@link Feature}s.
  */
-public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> implements Observer, IPBIPresenter {
+public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
+		implements Observer, IPBIPresenter {
 	protected static final String NEWPBINAME = "###empty###";
 
 	private final ProductBacklogItem pbi;
@@ -44,18 +45,22 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	/**
 	 * Constructor for PBIPresenter.
 	 * 
-	 * @param parent Panel
-	 * @param feature Feature
+	 * @param parent
+	 *            Panel
+	 * @param feature
+	 *            Feature
 	 * @param parentPresenter
 	 * @throws NoPBISelectedException
 	 */
-	public PBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoPBISelectedException {
+	public PBIPresenter(final Panel parent, final ProductBacklogItem pbi,
+			final Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, parentPresenter);
 
 		// TODO Christin sollte das nicht in den Edit-Konsturktor?
 		if (pbi == null) {
 			this.abort();
-			throw new NoPBISelectedException("Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
+			throw new NoPBISelectedException(
+					"Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
 		}
 		this.pbi = pbi;
 		this.pbi.addObserver(this);
@@ -69,13 +74,15 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	private void createCriterion() {
 		final DialogBox box = GwtUtils.createDialog("Kriterium erstellen");
 
-		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(box, this);
+		final AcceptanceCriterionPresenter presenter = new AcceptanceCriterionPresenter(
+				box, this);
 		box.center();
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					PBIPresenter.this.pbi.addAcceptanceCriterion(presenter.getCriterion());
+					PBIPresenter.this.pbi.addAcceptanceCriterion(presenter
+							.getCriterion());
 					box.hide();
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
@@ -127,22 +134,26 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	/**
 	 * Creates a presenter to create a new {@link Relation}
 	 * 
-	 * @param createDialog DialogBox
+	 * @param createDialog
+	 *            DialogBox
 	 */
 	private void createRelation() {
 		final DialogBox box = GwtUtils.createDialog("Beziehung anlegen");
 		box.center();
-		final CreateRelationPresenter presenter = new CreateRelationPresenter(box, this.getView().getName(), this.pbi.getBacklog(), this);
+		final CreateRelationPresenter presenter = new CreateRelationPresenter(
+				box, this.getView().getName(), this.getPbi(),
+				this.pbi.getBacklog(), this);
 
 		presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					PBIPresenter.this.getPbi().addRelation(presenter.getRelation());
+					PBIPresenter.this.getPbi().addRelation(
+							presenter.getRelation());
 					box.hide();
 				} catch (final UserException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				}
 			}
 		});
@@ -235,32 +246,41 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 			}
 		});
 
-		this.getView().getRemoveCriterion().add(new EventHandler<RemoveCriterionEventArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final RemoveCriterionEventArgs eventArgs) {
-				PBIPresenter.this.removeCriterion(eventArgs.getCriterion());
-			}
-		});
+		this.getView().getRemoveCriterion()
+				.add(new EventHandler<RemoveCriterionEventArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final RemoveCriterionEventArgs eventArgs) {
+						PBIPresenter.this.removeCriterion(eventArgs
+								.getCriterion());
+					}
+				});
 
-		this.getView().getRemoveHint().add(new EventHandler<RemoveHintEventArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final RemoveHintEventArgs eventArgs) {
-				PBIPresenter.this.removeHint(eventArgs.getHint());
-			}
-		});
+		this.getView().getRemoveHint()
+				.add(new EventHandler<RemoveHintEventArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final RemoveHintEventArgs eventArgs) {
+						PBIPresenter.this.removeHint(eventArgs.getHint());
+					}
+				});
 
-		this.getView().getRemoveRelation().add(new EventHandler<RemoveRelationEventArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final RemoveRelationEventArgs eventArgs) {
-				PBIPresenter.this.removeRelation(eventArgs.getRelation());
-			}
-		});
+		this.getView().getRemoveRelation()
+				.add(new EventHandler<RemoveRelationEventArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final RemoveRelationEventArgs eventArgs) {
+						PBIPresenter.this.removeRelation(eventArgs
+								.getRelation());
+					}
+				});
 	}
 
 	/**
 	 * Removes the {@link AcceptanceCriterion} from the {@link Feature}.
 	 * 
-	 * @param criterion AcceptanceCriterion
+	 * @param criterion
+	 *            AcceptanceCriterion
 	 */
 	private void removeCriterion(final AcceptanceCriterion criterion) {
 		try {
@@ -273,7 +293,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	/**
 	 * Removes the {@link Hint} from the {@link Feature}.
 	 * 
-	 * @param hint Hint
+	 * @param hint
+	 *            Hint
 	 */
 	private void removeHint(final Hint hint) {
 		try {
@@ -286,7 +307,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	/**
 	 * Removes the {@link Relation} from the {@link Feature}.
 	 * 
-	 * @param relation Relation
+	 * @param relation
+	 *            Relation
 	 */
 	private void removeRelation(final Relation relation) {
 		try {
@@ -300,7 +322,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	public void setupView() {
 		this.getView().setName(this.pbi.getName().replaceAll(NEWPBINAME, ""));
 		this.getView().setDescription(this.pbi.getDescription());
-		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.pbi.getBacklog().getProject().getSprints());
+		final ArrayList<ISprint> sprints = new ArrayList<ISprint>(this.pbi
+				.getBacklog().getProject().getSprints());
 		this.getView().setSprints(sprints, this.getPbi().getSprint());
 		this.updateView();
 	}
@@ -308,8 +331,10 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	/**
 	 * Method update.
 	 * 
-	 * @param observable Observable
-	 * @param argument Object
+	 * @param observable
+	 *            Observable
+	 * @param argument
+	 *            Object
 	 * @see fhdw.ipscrum.shared.observer.Observer#update(Observable, Object)
 	 */
 	@Override
@@ -319,7 +344,9 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 	}
 
 	@Override
-	public void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException, UserException {
+	public void updatePBI() throws NoValidValueException,
+			NoSprintDefinedException, ConsistencyException,
+			DoubleDefinitionException, ForbiddenStateException, UserException {
 		this.pbi.setName(this.getView().getName());
 		this.pbi.setDescription(this.getView().getDescription());
 		this.pbi.setLastEditor(SessionManager.getInstance().getLoginUser());

@@ -106,11 +106,19 @@ public class ProjectPresenter extends Presenter<IProjectView> {
 						ProjectPresenter.this, list, ProjectPresenter.this
 								.getSessionManager().getModel().getSysManager()
 								.getSystems().getSystems());
+
 				presenter.getFinished().add(new EventHandler<EventArgs>() {
 
 					@Override
 					public void onUpdate(final Object sender,
 							final EventArgs eventArgs) {
+
+						for (final System system : project.getPossibleSystems()) {
+							if (!list.contains(system)) {
+								project.removeSystem(system);
+							}
+						}
+
 						for (final System system : list) {
 							if (!project.getPossibleSystems().contains(system)) {
 								project.addPossibleSystem(system);

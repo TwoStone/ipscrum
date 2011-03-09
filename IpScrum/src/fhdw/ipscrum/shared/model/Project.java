@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import com.google.gwt.dev.Link;
-
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
@@ -32,7 +30,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 		ITreeVisitorRelevantElement {
 
 	private static final long serialVersionUID = 6337710256829006568L;
-	
+
 	/**
 	 * All defined {@link System}s for the project
 	 */
@@ -90,7 +88,8 @@ public class Project extends Observable implements BDACompare, Serializable,
 	/**
 	 * Adds a {@link System} to the local list of possible systems
 	 * 
-	 * @param system {@link System} 
+	 * @param system
+	 *            {@link System}
 	 */
 	public void addPossibleSystem(final System system) {
 		if (!this.isPossibleSystem(system)) {
@@ -274,9 +273,9 @@ public class Project extends Observable implements BDACompare, Serializable,
 		return result;
 	}
 
-	
 	/**
-	 * Returns true, is the referenced {@link system} is in the local list of possible systems 
+	 * Returns true, is the referenced {@link system} is in the local list of
+	 * possible systems
 	 * 
 	 * @param system
 	 * @return boolean
@@ -344,5 +343,9 @@ public class Project extends Observable implements BDACompare, Serializable,
 	@Override
 	public String toString() {
 		return "Project [name=" + this.name + "]";
+	}
+
+	public void removeSystem(System system) {
+		this.possibleSystems.remove(system);
 	}
 }

@@ -16,13 +16,10 @@ import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
-import fhdw.ipscrum.shared.model.Bug;
-import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
-import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
 
@@ -33,6 +30,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	private Relation relation;
 	private final String sourceName;
 	private final ProductBacklog backlog;
+	private final ProductBacklogItem owningPbi;
 
 	/**
 	 * Constructor for RelationPresenter.
@@ -44,11 +42,13 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 	 * @param parentPresenter
 	 */
 	public CreateRelationPresenter(final Panel parent, final String sourceName,
-			final ProductBacklog backlog, final Presenter<?> parentPresenter) {
+			ProductBacklogItem owning, final ProductBacklog backlog,
+			final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 
 		this.sourceName = sourceName;
 		this.backlog = backlog;
+		this.owningPbi = owning;
 		this.setupView();
 		this.registerViewEvents();
 	}
@@ -97,34 +97,12 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 		return new CreateRelationView();
 	}
 
-	private List<Feature> getFeatures(
-			final List<ProductBacklogItem> backlogItems) {
-		final List<Feature> result = new Vector<Feature>();
-		for (final ProductBacklogItem productBacklogItem : backlogItems) {
-			productBacklogItem.accept(new IProductBacklogItemVisitor() {
-
-				@Override
-				public void handleBug(final Bug bug) {
-					// TODO Sollten Features und Bugs untereinander in Beziehung
-					// stehen?
-				}
-
-				@Override
-				public void handleFeature(final Feature feature) {
-					result.add(feature);
-				}
-			});
-		}
-		return result;
-	}
-
 	public Relation getRelation() {
 		return this.relation;
 	}
 
 	@Override
 	protected boolean onAbort() {
-		this.getView().asWidget().removeFromParent();
 		return super.onAbort();
 	}
 
@@ -173,7 +151,10 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 								.getInstance().getModel()
 								.getRelationTypeManager().getRelationTypes()));
 		this.getView().setOwningFeatureName(this.sourceName);
-		this.getView().setTargetFeatures(this.backlog.getItems());
+		final List<ProductBacklogItem> targets = new Vector<ProductBacklogItem>(
+				this.backlog.getItems());
+		targets.remove(this.owningPbi);
+		this.getView().setTargetFeatures(targets);
 	}
 
 	@Override

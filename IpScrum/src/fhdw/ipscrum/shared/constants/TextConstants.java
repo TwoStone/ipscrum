@@ -19,7 +19,7 @@ public final class TextConstants {
 	public static final String SPRINT = "Sprint:";
 	public static final String NAME = "Name:";
 	public static final String ABORT = "Abbrechen";
-	public static final String CLOSE_FEATURE = "Feature schließen";
+	public static final String CLOSE_PBI = "Schließen";
 	public static final String OPEN = "Offen";
 	public static final String OPEN_FEATURE = "Feature oeffnen";
 	public static final String CLOSED = "Geschlossen";

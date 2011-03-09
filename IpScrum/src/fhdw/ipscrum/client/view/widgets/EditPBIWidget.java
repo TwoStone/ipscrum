@@ -117,7 +117,7 @@ public class EditPBIWidget extends Composite implements IEditPBIView {
 			@Override
 			public void handleOpen(final PBIOpenState open) {
 				EditPBIWidget.this.currentStateLbl.setText(TextConstants.OPEN);
-				EditPBIWidget.this.toggleStateBtn.setText(TextConstants.CLOSE_FEATURE);
+				EditPBIWidget.this.toggleStateBtn.setText(TextConstants.CLOSE_PBI);
 				// Wenn Features wieder geöffnet werden können, hier
 				// ändern.
 				EditPBIWidget.this.toggleStateBtn.setVisible(true);
