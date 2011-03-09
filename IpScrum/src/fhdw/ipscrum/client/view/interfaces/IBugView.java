@@ -5,6 +5,7 @@ import java.util.List;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
+import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 public interface IBugView {
@@ -24,6 +25,13 @@ public interface IBugView {
 	 * @param selected {@link IRelease} object to preselect. Object <b>must</b> be included in the sprints list, otherwise it will be added.
 	 */
 	void setVersion(List<IRelease> releases, IRelease selected);
+
+	/**
+	 * Displays a list of selected {@link System} objects in the gui.
+	 * 
+	 * @param systems {@link System} objects to display.
+	 */
+	void setSystems(List<System> systems);
 
 	/**
 	 * Returns the event that is fired, when the selected systems should be change.

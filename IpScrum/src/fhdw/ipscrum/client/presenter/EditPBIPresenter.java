@@ -76,7 +76,7 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	}
 
 	@Override
-	protected void updateView() {
+	public void updateView() {
 		super.updateView();
 		((IEditPBIView) this.getView()).setLastEditor(this.getPbi().getLastEditor());
 		((IEditPBIView) this.getView()).setComplexity(this.getPbi().getManDayCosts());

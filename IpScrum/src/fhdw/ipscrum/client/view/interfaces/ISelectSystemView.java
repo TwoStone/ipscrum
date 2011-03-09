@@ -66,6 +66,4 @@ public interface ISelectSystemView extends IView {
 	 * @param args empty arguments
 	 */
 	public abstract void defineAddSelectedSystemEvent(EventHandler<SystemArgs> args);
-
-	public void meldung(String m);
 }

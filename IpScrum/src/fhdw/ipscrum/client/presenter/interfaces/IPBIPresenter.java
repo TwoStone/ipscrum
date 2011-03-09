@@ -10,4 +10,9 @@ public interface IPBIPresenter {
 	 * /** Sets the values of the loaded feature in the view.
 	 */
 	void setupView();
+
+	/**
+	 * Updates the view with the values of the feature. Does not set name and description. Call setupView to set them.
+	 */
+	void updateView();
 }

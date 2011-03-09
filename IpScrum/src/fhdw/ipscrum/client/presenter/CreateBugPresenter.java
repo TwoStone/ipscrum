@@ -31,6 +31,12 @@ public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresen
 		bugPresenter.registerViewEvents();
 	}
 
+	@Override
+	public void updateView() {
+		super.updateView();
+		this.bugPresenter.updateView();
+	}
+
 	/**
 	 * Creates a new feature. Only for internal use because catching exceptions in constructor does not work.
 	 * 

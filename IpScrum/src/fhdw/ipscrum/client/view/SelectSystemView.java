@@ -93,8 +93,6 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		btnAddSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.alert("Neue Meldung"); // TODO Christin
-
 				if (SelectSystemView.this.getSelectedOfAvailableSystems() != null) {
 					SelectSystemView.this.addSelectedSystem.fire(SelectSystemView.this, new SystemArgs(SelectSystemView.this.getSelectedOfAvailableSystems()));
 				} else {
@@ -184,11 +182,11 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public void updateAvailableSystemData(Collection<System> availableSystems, Collection<System> selectedSystems) {
-		// TODO Christin: bereits selektierte ausblenden
 		this.tree.clear();
 		Collection<System> displayedSystems = new ArrayList<System>();
 		for (System system : availableSystems) {
 			if (!isSelectedSystem(system, selectedSystems)) {
+				// TODO Christin: bereits selektierte ausblenden
 
 			}
 		}
@@ -232,11 +230,4 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	public void defineAddSelectedSystemEvent(EventHandler<SystemArgs> args) {
 		this.addSelectedSystem.add(args);
 	}
-
-	@Override
-	public void meldung(String m) {
-		// TODO Christin rauswerfen
-		Window.alert(m);
-	}
-
 }

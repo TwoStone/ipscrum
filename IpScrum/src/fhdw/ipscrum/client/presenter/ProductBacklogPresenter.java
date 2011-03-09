@@ -133,8 +133,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 			@Override
 			public void onUpdate(final Object sender, final PBIArgs eventArgs) {
 				final DialogBox newBox;
-				// TODO !!!! WENN ES NEBEN FEATURES NOCH BUGS GIBT, MUSS erst
-				// der Typ SICHERGESTELLT WERDEN
+
 				EditPBIPresenter presenter;
 				try {
 

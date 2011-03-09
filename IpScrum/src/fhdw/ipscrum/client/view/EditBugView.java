@@ -8,6 +8,7 @@ import fhdw.ipscrum.client.view.interfaces.IEditBugView;
 import fhdw.ipscrum.client.view.widgets.BugWidget;
 import fhdw.ipscrum.client.view.widgets.EditPBIWidget;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
+import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -65,5 +66,10 @@ public class EditBugView extends PBIView implements IEditBugView {
 	@Override
 	public IEvent<EventArgs> getChangeSystems() {
 		return bug.getChangeSystems();
+	}
+
+	@Override
+	public void setSystems(List<System> systems) {
+		bug.setSystems(systems);
 	}
 }

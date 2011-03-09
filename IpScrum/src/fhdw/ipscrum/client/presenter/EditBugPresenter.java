@@ -33,4 +33,10 @@ public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter 
 		super.setupView();
 		this.bugPresenter.setupView();
 	}
+
+	@Override
+	public void updateView() {
+		super.updateView();
+		this.bugPresenter.updateView();
+	}
 }

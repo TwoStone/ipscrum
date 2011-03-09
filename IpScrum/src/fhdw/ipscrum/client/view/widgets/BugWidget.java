@@ -21,17 +21,19 @@ import fhdw.ipscrum.client.view.interfaces.IBugView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
+import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 public class BugWidget extends Composite implements IBugView {
-	private final PBIView pbiView;
+	// private final PBIView pbiView;
 	private final ListBox listBoxVersion = new ListBox();
+	private final CellTable<System> cellTableSystems;
 	private List<IRelease> releases;
 	private final Button btnChangeSystems;
 	private final Event<EventArgs> changeSystems = new Event<EventArgs>();
 
 	public BugWidget(FlexTable grid, VerticalPanel verticalPanel, PBIView pbiView) {
-		this.pbiView = pbiView;
+		// this.pbiView = pbiView;
 		Label lblVersion = new Label("Version:");
 		int rowCount = grid.getRowCount();
 		grid.setWidget(rowCount, 0, lblVersion);
@@ -46,9 +48,9 @@ public class BugWidget extends Composite implements IBugView {
 		verticalPanel.add(scrollPanel);
 		scrollPanel.setSize("300px", "150px");
 
-		CellTable<IRelease> cellTable = new CellTable<IRelease>();
-		scrollPanel.setWidget(cellTable);
-		cellTable.setSize("100%", "100%");
+		cellTableSystems = new CellTable<System>();
+		scrollPanel.setWidget(cellTableSystems);
+		cellTableSystems.setSize("100%", "100%");
 		this.btnChangeSystems = new Button(TextConstants.CHANGE_SYSTEM);
 		this.btnChangeSystems.addClickHandler(new ClickHandler() {
 			@Override
@@ -100,6 +102,9 @@ public class BugWidget extends Composite implements IBugView {
 		return this.changeSystems;
 	}
 
-	public void setSprints(final List<IRelease> releases, final IRelease selected) {
+	@Override
+	public void setSystems(List<System> systems) {
+		this.cellTableSystems.setVisible(true);
+		this.cellTableSystems.setRowData(systems);
 	}
 }

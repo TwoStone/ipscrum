@@ -57,7 +57,6 @@ public class SelectSystemPresenter extends Presenter<ISelectSystemView> {
 		this.concreteView.defineRemoveSelectedSystemEvent(new EventHandler<SystemArgs>() {
 			@Override
 			public void onUpdate(Object sender, SystemArgs eventArgs) {
-				SelectSystemPresenter.this.concreteView.meldung("Presenter: defineRemoveSelectedSystemEvent onUpdate");
 				SelectSystemPresenter.this.selectedSystems.remove(eventArgs.getSystem());
 				SelectSystemPresenter.this.updateGuiData();
 			}

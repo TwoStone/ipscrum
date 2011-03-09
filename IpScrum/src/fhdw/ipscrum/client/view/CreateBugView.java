@@ -7,6 +7,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.ICreateBugView;
 import fhdw.ipscrum.client.view.widgets.BugWidget;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
+import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 
 public class CreateBugView extends PBIView implements ICreateBugView {
@@ -35,5 +36,10 @@ public class CreateBugView extends PBIView implements ICreateBugView {
 	@Override
 	public IEvent<EventArgs> getChangeSystems() {
 		return bug.getChangeSystems();
+	}
+
+	@Override
+	public void setSystems(List<System> systems) {
+		bug.setSystems(systems);
 	}
 }
