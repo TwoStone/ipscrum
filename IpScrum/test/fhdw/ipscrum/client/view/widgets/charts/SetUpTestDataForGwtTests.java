@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.model;
+package fhdw.ipscrum.client.view.widgets.charts;
 
 import java.util.Date;
 
@@ -6,9 +6,21 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
-import fhdw.ipscrum.client.utils.CalendarUtils;
+import com.google.gwt.junit.client.GWTTestCase;
 
-public abstract class SetUpTestData {
+import fhdw.ipscrum.client.utils.CalendarUtils;
+import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.Person;
+import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.Release;
+import fhdw.ipscrum.shared.model.Role;
+import fhdw.ipscrum.shared.model.Root;
+import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.Task;
+import fhdw.ipscrum.shared.model.Team;
+
+public abstract class SetUpTestDataForGwtTests extends GWTTestCase {
 
 	protected Feature pro1rel2spr1fea1;
 	protected Feature pro1rel1spr5fea5;
@@ -253,6 +265,11 @@ public abstract class SetUpTestData {
 	protected Task pro2rel2spr5tas5;
 	private Task pro2rel1spr5tas1;
 
+	@Override
+	public String getModuleName() {
+		return "fhdw.ipscrum.IpScrum";
+	}
+
 	@BeforeClass
 	public static void SetUpBeforeClass() throws Exception {
 
@@ -261,9 +278,10 @@ public abstract class SetUpTestData {
 		RelationType.create("Siehe auch");
 	}
 
+	@Override
 	@SuppressWarnings("deprecation")
 	@Before
-	public void setUp() throws Exception {
+	public void gwtSetUp() throws Exception {
 
 		root = new Root();
 
