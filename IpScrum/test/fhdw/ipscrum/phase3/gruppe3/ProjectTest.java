@@ -56,12 +56,12 @@ public class ProjectTest {
 
 		final List<System> result = fixture.getPossibleSystems();
 
-		assertEquals(6, result.size());
+		assertEquals(4, result.size());
 		assertTrue(result.contains(system));
 		assertTrue(result.contains(system2));
-		assertTrue(result.contains(system3));
+		assertFalse(result.contains(system3));
 		assertTrue(result.contains(system4));
-		assertTrue(result.contains(system5));
+		assertFalse(result.contains(system5));
 		assertTrue(result.contains(system6));
 	}
 
@@ -85,10 +85,10 @@ public class ProjectTest {
 
 		final List<System> result = fixture.getPossibleSystems();
 
-		assertEquals(3, result.size());
+		assertEquals(2, result.size());
 		assertTrue(result.contains(system));
 		assertTrue(result.contains(system2));
-		assertTrue(result.contains(system3));
+		assertFalse(result.contains(system3));
 	}
 
 	/**
