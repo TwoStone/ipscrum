@@ -177,7 +177,11 @@ public final class TextConstants {
 	public static final String TASKBOARD_HELP = "Zum Anlegen eines Task können mehrere ProductBacklog Einträge über 'multi selection' ausgewählt werden. \n Es kann aber auch Tasks ohne ProductBacklog Eintrag geben. \n Tasks die noch zu erledigen sind, können vollständig editiert und gelöscht werden. \n Wurde einem Task eine Person zugewiesen, bekommt der Task den Status 'In Arbeit'. \n Bei Tasks 'In Arbeit' kann der Aufwand, die Beschreibung und die zuständige Person editiert werden. \n Nach dem Markieren der zuständigen Check-Box bekommt der Task den Status 'Erledigt'.";
 	public static final String HELP = "Hilfe - Taskboard";
 	public static final String PBI_MOUSEOVER = "Zum Selektieren mehrerer PBIs Strg + Klick";
-	
+	public static final String NEUES_SYSTEM_ANLEGEN = "Neues System anlegen";
+	public static final String SYSTEMEVERWALTUNG = "Systemeverwaltung";
+	public static final String ÜBERGEORDNET = "Übergeordnet";
+	public static final String NEUES_SYSTEM_HINZUFÜGEN = "Neues System hinzufügen";
+
 	/* [END SECTION] */
 
 }

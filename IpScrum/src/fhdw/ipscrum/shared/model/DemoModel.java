@@ -9,7 +9,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISystem;
 public class DemoModel {
 
 	@SuppressWarnings("deprecation")
-	public static void populateModel(Root model) throws UserException {
+	public static void populateModel(final Root model) throws UserException {
 
 		final Root root = model;
 
@@ -109,6 +109,11 @@ public class DemoModel {
 		final Project projekt1 = new Project("Projekt 1");
 		final Project projekt2 = new Project("Projekt 2");
 		final Project ipScrum = new Project("IP-Scrum");
+
+		ipScrum.addPossibleSystem(browser);
+		projekt1.addPossibleSystem(win7);
+		projekt1.addPossibleSystem(winxp);
+		projekt2.addPossibleSystem(sapbw);
 
 		// Initial Releases
 		final Release rel10 = new Release("1.0",

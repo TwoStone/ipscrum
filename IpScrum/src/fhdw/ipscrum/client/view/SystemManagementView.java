@@ -26,6 +26,7 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.utils.SystemTreeItem;
 import fhdw.ipscrum.client.view.interfaces.ISystemManagementView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.System;
 
 /**
@@ -46,7 +47,8 @@ public class SystemManagementView extends Composite implements
 		this.initWidget(verticalPanel);
 		verticalPanel.setSize("50%", "");
 
-		final HTML htmlNewHtml = new HTML("<h1>Systemeverwaltung</h1>", true);
+		final HTML htmlNewHtml = new HTML("<h1>" + TextConstants.SYSTEMEVERWALTUNG + "</h1>",
+				true);
 		verticalPanel.add(htmlNewHtml);
 
 		final ScrollPanel scrollPanel = new ScrollPanel();
@@ -60,7 +62,7 @@ public class SystemManagementView extends Composite implements
 		this.systemTree.setSize("100%", "");
 
 		final DisclosurePanel createSystemPanel = new DisclosurePanel(
-				"Neues System anlegen");
+				TextConstants.NEUES_SYSTEM_ANLEGEN);
 		createSystemPanel.setAnimationEnabled(true);
 		verticalPanel.add(createSystemPanel);
 		createSystemPanel.setWidth("100%");
@@ -70,21 +72,21 @@ public class SystemManagementView extends Composite implements
 		createSystemPanel.setContent(grid);
 		grid.setSize("100%", "");
 
-		final Label lblName = new Label("Name:");
+		final Label lblName = new Label(TextConstants.NAME);
 		lblName.setWordWrap(false);
 		grid.setWidget(0, 0, lblName);
 
 		final TextBox nameTextBox = new TextBox();
 		grid.setWidget(0, 1, nameTextBox);
 
-		final Label lblbergeordnet = new Label("Übergeordnet");
+		final Label lblbergeordnet = new Label(TextConstants.ÜBERGEORDNET);
 		lblbergeordnet.setWordWrap(false);
 		grid.setWidget(1, 0, lblbergeordnet);
 
 		this.parentComboBox = new ListBox();
 		grid.setWidget(1, 1, this.parentComboBox);
 
-		final Button btnNewSystem = new Button("Neues System hinzufügen");
+		final Button btnNewSystem = new Button(TextConstants.NEUES_SYSTEM_HINZUFÜGEN);
 		btnNewSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -138,10 +140,17 @@ public class SystemManagementView extends Composite implements
 	@Override
 	public void setPossibleParents(final List<System> parents) {
 		Collections.sort(parents, new Comparator<System>() {
-
 			@Override
 			public int compare(final System o1, final System o2) {
-				return o1.getName().compareToIgnoreCase(o2.getName());
+				final String o1Comp = this.getCompString(o1);
+				final String o2Comp = this.getCompString(o2);
+
+				return o1Comp.compareToIgnoreCase(o2Comp);
+			}
+
+			private String getCompString(final System system) {
+				return (system.getParent() == system.getRoot()) ? system
+						.getName() : system.getParent().getName();
 			}
 		});
 		this.possibleParents = parents;
@@ -151,13 +160,6 @@ public class SystemManagementView extends Composite implements
 		for (final System system : parents) {
 			items.add(system.toDisplayWithParent());
 		}
-		Collections.sort(items, new Comparator<String>() {
-
-			@Override
-			public int compare(final String arg0, final String arg1) {
-				return arg0.compareToIgnoreCase(arg1);
-			}
-		});
 		for (final String string : items) {
 			this.parentComboBox.addItem(string);
 		}
