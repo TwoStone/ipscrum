@@ -6,6 +6,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.RelationType;
 
 public interface ICreateRelationView extends IView {
@@ -38,7 +39,7 @@ public interface ICreateRelationView extends IView {
 	 * @throws NothingSelectedException
 	 *             Is thrown if nothing is selected.
 	 */
-	Feature getSelectedTarget() throws NothingSelectedException;
+	ProductBacklogItem getSelectedTarget() throws NothingSelectedException;
 
 	/**
 	 * Returns the currently selected type.
@@ -69,5 +70,5 @@ public interface ICreateRelationView extends IView {
 	 * 
 	 * @param features
 	 */
-	void setTargetFeatures(List<Feature> features);
+	void setTargetFeatures(List<ProductBacklogItem> pbi);
 }

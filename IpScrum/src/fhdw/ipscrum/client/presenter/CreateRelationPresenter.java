@@ -173,8 +173,7 @@ public class CreateRelationPresenter extends Presenter<ICreateRelationView>
 								.getInstance().getModel()
 								.getRelationTypeManager().getRelationTypes()));
 		this.getView().setOwningFeatureName(this.sourceName);
-		this.getView().setTargetFeatures(
-				this.getFeatures(this.backlog.getItems()));
+		this.getView().setTargetFeatures(this.backlog.getItems());
 	}
 
 	@Override

@@ -19,7 +19,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.ICreateRelationView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
-import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.RelationType;
 
 public class CreateRelationView extends Composite implements
@@ -32,7 +32,7 @@ public class CreateRelationView extends Composite implements
 
 	private final Event<EventArgs> createNewTypeEvent = new Event<EventArgs>();
 	private final Event<EventArgs> saveEvent = new Event<EventArgs>();
-	private List<Feature> targets;
+	private List<ProductBacklogItem> targets;
 	private final ListBox typeComboBox;
 	private List<RelationType> types;
 
@@ -124,7 +124,8 @@ public class CreateRelationView extends Composite implements
 	}
 
 	@Override
-	public Feature getSelectedTarget() throws NothingSelectedException {
+	public ProductBacklogItem getSelectedTarget()
+			throws NothingSelectedException {
 		if (this.featureList.getSelectedIndex() == -1) {
 			throw new NothingSelectedException(TextConstants.EMPTY_TEXT);
 		}
@@ -154,10 +155,10 @@ public class CreateRelationView extends Composite implements
 	}
 
 	@Override
-	public void setTargetFeatures(final List<Feature> vector) {
+	public void setTargetFeatures(final List<ProductBacklogItem> vector) {
 		this.targets = vector;
 		this.featureList.clear();
-		for (final Feature current : vector) {
+		for (final ProductBacklogItem current : vector) {
 			this.featureList.addItem(current.getName());
 		}
 	}
