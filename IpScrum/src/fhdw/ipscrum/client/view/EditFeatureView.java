@@ -12,7 +12,6 @@ public class EditFeatureView extends PBIView implements IEditFeatureView {
 
 	public EditFeatureView() {
 		super();
-		this.getBtnAbort().setVisible(false);
 		editPBI = new EditPBIWidget(getGrid(), this);
 	}
 

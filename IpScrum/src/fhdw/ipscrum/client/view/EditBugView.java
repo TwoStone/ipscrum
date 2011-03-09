@@ -23,7 +23,6 @@ public class EditBugView extends PBIView implements IEditBugView {
 
 	public EditBugView() {
 		super();
-		this.getBtnAbort().setVisible(false);
 		editPBI = new EditPBIWidget(getGrid(), this);
 		bug = new BugWidget(getGrid(), getVerticalPanel(), this);
 	}

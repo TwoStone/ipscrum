@@ -15,7 +15,6 @@ public class CreateBugView extends PBIView implements ICreateBugView {
 
 	public CreateBugView() {
 		super();
-		this.getBtnAbort().setVisible(false);
 		bug = new BugWidget(getGrid(), getVerticalPanel(), this);
 	}
 

@@ -11,7 +11,6 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.presenter.interfaces.IBugPresenter;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.IBugView;
-import fhdw.ipscrum.client.view.interfaces.IEditBugView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
@@ -31,7 +30,7 @@ public class BugPresenter implements Observer, IBugPresenter {
 
 	@Override
 	public void registerViewEvents() {
-		((IEditBugView) presenter.getView()).getChangeSystems().add(new EventHandler<EventArgs>() {
+		((IBugView) presenter.getView()).getChangeSystems().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				final List<System> list1 = new ArrayList<System>();
