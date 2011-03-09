@@ -126,13 +126,13 @@ public abstract class TaskDetailView extends Composite implements
 		lblPBIs = new Label(TextConstants.PBIS);
 		lblPBIs.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		lblPBIs.setStyleName("taskboardLabel");
-		concreteTaskDetailPanel.add(lblPBIs, 280, 20);
+		concreteTaskDetailPanel.add(lblPBIs, 280, 10);
 		lblPBIs.setSize("172px", "16px");
 
 		// create button for add pbis
 		btnAddPBIs = new Button(TextConstants.NEW_ITEMS);
 		btnAddPBIs.setStyleName("taskboardButton");
-		concreteTaskDetailPanel.add(btnAddPBIs, 280, 293);
+		concreteTaskDetailPanel.add(btnAddPBIs, 280, 281);
 		btnAddPBIs.setSize("180px", "28px");
 		btnAddPBIs.addClickHandler(new ClickHandler() {
 
@@ -176,7 +176,7 @@ public abstract class TaskDetailView extends Composite implements
 		// create button delete pbis
 		btnDeletePBIs = new Button(TextConstants.DELETE_ITEMS);
 		btnDeletePBIs.setStyleName("taskboardButton");
-		concreteTaskDetailPanel.add(btnDeletePBIs, 280, 327);
+		concreteTaskDetailPanel.add(btnDeletePBIs, 280, 315);
 		btnDeletePBIs.setSize("180px", "28px");
 		btnDeletePBIs.addClickHandler(new ClickHandler() {
 
@@ -219,7 +219,7 @@ public abstract class TaskDetailView extends Composite implements
 				VerticalPanel pbisPanel = new VerticalPanel();
 				pbisPanel.setSpacing(3);
 				pbisPanel.setStyleName("smallborder");
-				concreteTaskDetailPanel.add(pbisPanel, 280, 50);
+				concreteTaskDetailPanel.add(pbisPanel, 280, 40);
 				pbisPanel.setSize("180px", "235px");
 						
 						pbiScrollPanel = new ScrollPanel();
