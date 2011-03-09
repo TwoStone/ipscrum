@@ -33,9 +33,7 @@ public class Bug extends ProductBacklogItem {
 	private Bug() {
 	}
 
-	public Bug(final String name, final String description,
-			final IRelease version, final ProductBacklog backlog)
-			throws UserException {
+	public Bug(final String name, final String description, final IRelease version, final ProductBacklog backlog) throws UserException {
 		super(name, description, backlog);
 		this.setVersion(version);
 		this.systems = new ArrayList<System>();
@@ -58,24 +56,24 @@ public class Bug extends ProductBacklogItem {
 		if (this.getBacklog().getProject().isPossibleSystem(system)) {
 			this.systems.add(system);
 		} else {
-			throw new WrongSystemException(
-					ExceptionConstants.SYSTEM_IS_NOT_POSSIBLE);
+			throw new WrongSystemException(ExceptionConstants.SYSTEM_IS_NOT_POSSIBLE);
 		}
+		this.notifyObservers();
 	}
 
 	@Override
 	protected void doClose() {
 		this.state = new BugClosedState();
+		this.notifyObservers();
 	}
 
-	public void doSetVersion(final IRelease version)
-			throws WrongReleaseException {
+	public void doSetVersion(final IRelease version) throws WrongReleaseException {
 		if (this.getBacklog().getProject().getReleasePlan().contains(version)) {
 			this.version = version;
 		} else {
-			throw new WrongReleaseException(
-					ExceptionConstants.RELEASE_NOT_IN_PROJECT);
+			throw new WrongReleaseException(ExceptionConstants.RELEASE_NOT_IN_PROJECT);
 		}
+		this.notifyObservers();
 	}
 
 	public IRelease getVersion() {
@@ -102,5 +100,6 @@ public class Bug extends ProductBacklogItem {
 
 	public void doRemoveSystem(final System system) {
 		this.systems.remove(system);
+		this.notifyObservers();
 	}
 }

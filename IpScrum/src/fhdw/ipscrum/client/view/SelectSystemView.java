@@ -65,7 +65,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		this.cellTableAusgewaehlteSysteme = new CellTable<System>();
 		scrollPanel.setWidget(this.cellTableAusgewaehlteSysteme);
 		this.cellTableAusgewaehlteSysteme.setSize("100%", "100%");
-		this.cellTableAusgewaehlteSysteme.setSelectionModel(this.selModelSystemTable);
+		this.cellTableAusgewaehlteSysteme.setSelectionModel(new SingleSelectionModel<System>());
 
 		TextColumn<System> colSystemName = new TextColumn<System>() {
 			@Override
@@ -83,7 +83,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		btnRemoveSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (SelectSystemView.this.selModelSystemTable.getSelectedSet().size() > 0 && SelectSystemView.this.getSelectedOfSelectedSystems() != null) {
+				if (SelectSystemView.this.getSelectedOfSelectedSystems() != null) {
 					SelectSystemView.this.removeSelectedSystem.fire(SelectSystemView.this, new SystemArgs(SelectSystemView.this.getSelectedOfSelectedSystems()));
 				}
 			}
@@ -142,7 +142,6 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		});
 		horizontalPanel_1.add(btnAbbrechen);
 		btnAbbrechen.setSize("100px", "28px");
-		this.selModelSystemTable = new MultiSelectionModel<System>();
 	}
 
 	@Override
@@ -222,7 +221,6 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public void defineRemoveSelectedSystemEvent(EventHandler<SystemArgs> args) {
-
 		this.removeSelectedSystem.add(args);
 	}
 

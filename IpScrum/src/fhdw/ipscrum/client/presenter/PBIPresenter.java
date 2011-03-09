@@ -318,16 +318,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T> impl
 
 	}
 
-	/**
-	 * Updates the loaded feature with the values set in the view.
-	 * 
-	 * @throws NoValidValueException
-	 * @throws NoSprintDefinedException
-	 * @throws ConsistencyException
-	 * @throws DoubleDefinitionException
-	 * @throws ForbiddenStateException
-	 */
-	protected void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException {
+	@Override
+	public void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException, UserException {
 		this.pbi.setName(this.getView().getName());
 		this.pbi.setDescription(this.getView().getDescription());
 		this.pbi.setLastEditor(SessionManager.getInstance().getLoginUser());

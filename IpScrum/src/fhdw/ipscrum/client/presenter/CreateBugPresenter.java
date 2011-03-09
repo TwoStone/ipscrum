@@ -57,4 +57,10 @@ public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresen
 		super.setupView();
 		this.bugPresenter.setupView();
 	}
+
+	@Override
+	public void updatePBI() throws UserException {
+		super.updatePBI();
+		this.bugPresenter.updatePBI();
+	}
 }

@@ -6,6 +6,7 @@ import fhdw.ipscrum.client.presenter.interfaces.IBugPresenter;
 import fhdw.ipscrum.client.view.EditBugView;
 import fhdw.ipscrum.client.view.interfaces.IEditBugView;
 import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Bug;
 
 public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter {
@@ -38,5 +39,11 @@ public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter 
 	public void updateView() {
 		super.updateView();
 		this.bugPresenter.updateView();
+	}
+
+	@Override
+	public void updatePBI() throws UserException {
+		super.updatePBI();
+		this.bugPresenter.updatePBI();
 	}
 }

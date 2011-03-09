@@ -136,7 +136,6 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 
 				EditPBIPresenter presenter;
 				try {
-
 					if (eventArgs.getPbi() instanceof Feature) {
 						newBox = GwtUtils.createDialog(TextConstants.FEATURE_DETAILS);
 						presenter = new EditFeaturePresenter(newBox, (Feature) eventArgs.getPbi(), ProductBacklogPresenter.this);
@@ -144,8 +143,7 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 						newBox = GwtUtils.createDialog(TextConstants.BUG_DETAILS);
 						presenter = new EditBugPresenter(newBox, (Bug) eventArgs.getPbi(), ProductBacklogPresenter.this);
 					} else {
-						newBox = null;// TODO Christin: das muß auch schöner gehen
-						presenter = null;
+						throw new NoPBISelectedException("Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
 					}
 
 					presenter.getFinished().add(new EventHandler<EventArgs>() {

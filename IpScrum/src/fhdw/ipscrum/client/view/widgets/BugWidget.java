@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -51,6 +52,14 @@ public class BugWidget extends Composite implements IBugView {
 		cellTableSystems = new CellTable<System>();
 		scrollPanel.setWidget(cellTableSystems);
 		cellTableSystems.setSize("100%", "100%");
+		final TextColumn<System> sysTextCol = new TextColumn<System>() {
+			@Override
+			public String getValue(System object) {
+				return object.getName();
+			}
+		};
+		this.cellTableSystems.addColumn(sysTextCol);
+
 		this.btnChangeSystems = new Button(TextConstants.CHANGE_SYSTEM);
 		this.btnChangeSystems.addClickHandler(new ClickHandler() {
 			@Override
@@ -104,6 +113,7 @@ public class BugWidget extends Composite implements IBugView {
 
 	@Override
 	public void setSystems(List<System> systems) {
+
 		this.cellTableSystems.setVisible(true);
 		this.cellTableSystems.setRowData(systems);
 	}

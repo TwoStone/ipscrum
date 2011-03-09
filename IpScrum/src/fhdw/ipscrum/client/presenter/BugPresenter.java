@@ -1,6 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.DialogBox;
@@ -10,7 +11,9 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.presenter.interfaces.IBugPresenter;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.IBugView;
+import fhdw.ipscrum.client.view.interfaces.IEditBugView;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.System;
@@ -28,10 +31,9 @@ public class BugPresenter implements Observer, IBugPresenter {
 
 	@Override
 	public void registerViewEvents() {
-		view.getChangeSystems().add(new EventHandler<EventArgs>() {
+		((IEditBugView) presenter.getView()).getChangeSystems().add(new EventHandler<EventArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				BugPresenter.this.view.getChangeSystems();
 				final List<System> list1 = new ArrayList<System>();
 				final List<System> list2 = new ArrayList<System>();
 				list1.addAll(((Bug) BugPresenter.this.presenter.getPbi()).getSystems());
@@ -45,17 +47,23 @@ public class BugPresenter implements Observer, IBugPresenter {
 					@Override
 					public void onUpdate(final Object sender, final EventArgs eventArgs) {
 						Bug bug = (Bug) BugPresenter.this.presenter.getPbi();
+						Collection<System> s = new ArrayList<System>(bug.getSystems());
+						for (final System system : s) {
+							try {
+								bug.removeSystem(system);
+							} catch (UserException e) {
+								GwtUtils.displayError(e);
+							}
+						}
+
 						for (final System system : presenter.getSelectedSystems()) {
-							if (!bug.getSystems().contains(system)) {
-								try {
-									bug.addSystem(system);
-								} catch (UserException e) {
-									GwtUtils.displayError(e);
-								}
+							try {
+								bug.addSystem(system);
+							} catch (UserException e) {
+								GwtUtils.displayError(e);
 							}
 						}
 						box.hide();
-
 					}
 				});
 
@@ -87,6 +95,12 @@ public class BugPresenter implements Observer, IBugPresenter {
 	@Override
 	public void update(final Observable observable, final Object argument) {
 		this.updateView();
-
 	}
+
+	@Override
+	public void updatePBI() throws NothingSelectedException, UserException {
+		Bug bug = (Bug) this.presenter.getPbi();
+		bug.setVersion(this.view.getSelectedVersion());
+	}
+
 }
