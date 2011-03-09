@@ -2,14 +2,15 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Date;
 
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import com.google.gwt.junit.client.GWTTestCase;
+
 import fhdw.ipscrum.client.utils.CalendarUtils;
 
-public abstract class SetUpTestData {
+public abstract class SetUpTestData extends GWTTestCase {
 
 	protected Feature pro1rel2spr1fea1;
 	protected Feature pro1rel1spr5fea5;
@@ -254,6 +255,12 @@ public abstract class SetUpTestData {
 	protected Task pro2rel2spr5tas5;
 	private Task pro2rel1spr5tas1;
 
+
+	@Override
+	public String getModuleName() {
+		return "fhdw.ipscrum.IpScrum";
+	}
+
 	@BeforeClass
 	public static void SetUpBeforeClass() throws Exception {
 
@@ -262,9 +269,10 @@ public abstract class SetUpTestData {
 		RelationType.create("Siehe auch");
 	}
 
+	@Override
 	@SuppressWarnings("deprecation")
 	@Before
-	public void setUp() throws Exception {
+	public void gwtSetUp() throws Exception {
 
 		root = new Root();
 
@@ -649,7 +657,7 @@ public abstract class SetUpTestData {
 		pro1rel1spr5fea5.setManDayCosts(3);
 		pro1rel1spr5fea5.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea5.close();
-		
+
 		// für Projekt 1, Release 2, Sprint 1
 		pro1rel2spr1fea1 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr1fea1.setLastEditor(pBjoern);
@@ -1957,10 +1965,6 @@ public abstract class SetUpTestData {
 		pro2rel2spr5tas5.setResponsibility(pBjoern);
 		pro2rel2spr5tas5.finish(new Date(2011 - 1900, 3 - 1, 7));
 
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@AfterClass

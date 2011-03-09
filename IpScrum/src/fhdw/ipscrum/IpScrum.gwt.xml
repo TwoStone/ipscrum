@@ -24,5 +24,6 @@
   <source path='shared'/>
   <inherits name="com.google.gwt.logging.LogImpl"/>
   <inherits name="fhdw.ipscrum.IpScrum"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
 
 </module>

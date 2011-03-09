@@ -3,12 +3,13 @@ package fhdw.ipscrum.client.view.widgets.charts;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
+
+import org.junit.Test;
+
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.SetUpTestData;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import org.junit.*;
-import fhdw.ipscrum.shared.model.Release;
-import static org.junit.Assert.*;
 
 /**
  * The class <code>ReleaseChartDataTest</code> contains tests for the class <code>{@link ReleaseChartData}</code>.
@@ -21,7 +22,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	 */
 	@Test
 	public void testReleaseChartData_1()
-		throws Exception {
+	throws Exception {
 		IRelease release = new Release("", new Date(), new Project(""));
 
 		ReleaseChartData result = new ReleaseChartData(release);
@@ -36,9 +37,9 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	 */
 	@Test
 	public void testGetData_1()
-		throws Exception {
+	throws Exception {
 		System.out.println(this.pro1rel1);
-		
+
 		ReleaseChartData fixture = new ReleaseChartData(this.pro1rel1);
 
 		TreeMap<Date, ReleaseChartData.ReleaseChartDataDetails> result = fixture.getData();
@@ -57,7 +58,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	 */
 	@Test
 	public void testGetTickData_1()
-		throws Exception {
+	throws Exception {
 		ReleaseChartData fixture = new ReleaseChartData(new Release("", new Date(), new Project("")));
 
 		List<Double> result = fixture.getTickData();
@@ -74,7 +75,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	 */
 	@Test
 	public void testGetTickData_2()
-		throws Exception {
+	throws Exception {
 		ReleaseChartData fixture = new ReleaseChartData(this.pro1rel2);
 
 		List<Double> result = fixture.getTickData();
@@ -91,7 +92,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	 */
 	@Test
 	public void testGetTickData_3()
-		throws Exception {
+	throws Exception {
 		ReleaseChartData fixture = new ReleaseChartData(this.pro2rel1);
 
 		List<Double> result = fixture.getTickData();
@@ -108,7 +109,7 @@ public class ReleaseChartDataTest extends SetUpTestData{
 	 */
 	@Test
 	public void testGetTickData_4()
-		throws Exception {
+	throws Exception {
 		ReleaseChartData fixture = new ReleaseChartData(this.pro2rel2);
 
 		List<Double> result = fixture.getTickData();
