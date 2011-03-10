@@ -3,6 +3,9 @@ package fhdw.ipscrum.shared.model.interfaces;
 import java.io.Serializable;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToOne;
+import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
@@ -10,7 +13,7 @@ import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 /**
  * Interface for Teams in Scrum. Teams represent an amount of persons.
  */
-public interface ITeam extends Serializable, ITreeVisitorRelevantElement {
+public interface ITeam extends BDACompare, Serializable, ITreeVisitorRelevantElement {
 	/**
 	 * Method getDescription.
 	 * 
@@ -48,5 +51,9 @@ public interface ITeam extends Serializable, ITreeVisitorRelevantElement {
 	 * @throws ConsistencyException thrown, if this.member does not contain member
 	 */
 	public void removeMember(IPerson member) throws ConsistencyException;
+
+	public Vector<ISprint> getSprints();
+	@SuppressWarnings("rawtypes")
+	public OneToMany<ManyToOne, ITeam> getToSprintAssoc();
 
 }

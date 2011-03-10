@@ -23,7 +23,7 @@ public abstract class ExceptionConstants {
 	public static final String EMPTY_NAME_ERROR = "Es muss ein vollständiger Name angegeben werden.";
 	public static final String SPRINT_NAME_ERROR = "Der Name des Sprints muß eine Länge zwischen 1 und 20 besitzen.";
 	public static final String CONCISTENCY_BASE = "Konsistenzverletzung:\n";
-	public static final String SYSTEM_ALREADY_KNOWN = "System bereits vorhanden"; 
+	public static final String SYSTEM_ALREADY_KNOWN = "System bereits vorhanden";
 
 	public static final String GUI_PERSROLEMNGMT_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Zuordnung von Rollen zu einer Person eine (oder mehrere) Rollen aus der rechten Liste, sowie eine Person aus der linken Tabelle aus.";
 	public static final String GUI_TEAMVIEW_ASSIGNERROR = "Keine Zuordnung durchgeführt.\nBitte wählen Sie zur Teamzuordnung eine (oder mehrere) Personen aus der rechten Tabelle, sowie ein Team aus der linken Liste aus.";
@@ -34,4 +34,5 @@ public abstract class ExceptionConstants {
 	public static final String PBI_NOT_IN_SPRINT_ERROR = "Dieses PBI wird in diesem Sprint nicht in das Produktinkrement eingehen";
 	public static final String SYSTEM_IS_NOT_POSSIBLE = "System ist nicht als mögliches System im Projekt definiert.";
 	public static final String RELEASE_NOT_IN_PROJECT = "Release gehört nicht zum übergeordneten Projekt!";
+	public static final String EFFORT_MIN_VALUE = "Aufwand darf nicht weniger als 0 betragen!";
 }

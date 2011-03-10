@@ -19,15 +19,19 @@ import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
  * Class Sprint.
  */
 public class Sprint implements ISprint {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1843033574769316851L;
 	private String name;
 	private String description;
 	private Date begin;
 	private Date end;
-	private ITeam team;
 
 	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
 	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
 	private OneToOne<OneToOne, Sprint> sprintBacklogAssoc;
+	private ManyToOne<OneToMany, ISprint> toTeamAssoc;
 	private int result;
 
 	@SuppressWarnings("unused")
@@ -56,11 +60,16 @@ public class Sprint implements ISprint {
 		this.setName(name);
 		this.setDescription(description);
 		this.setTimeFrame(begin, end);
-		this.setTeam(team);
 		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
 		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
 		this.sprintBacklogAssoc = new OneToOne<OneToOne, Sprint>(this);
 		this.sprintBacklogAssoc.set(new SprintBacklog(this).getSprintAssoc());
+		this.toTeamAssoc = new ManyToOne<OneToMany, ISprint>(this);
+		this.setTeam(team);
+	}
+
+	protected ManyToOne<OneToMany, ISprint> getToTeamAssoc() {
+		return this.toTeamAssoc;
 	}
 
 	@Override
@@ -207,7 +216,7 @@ public class Sprint implements ISprint {
 	 */
 	@Override
 	public ITeam getTeam() {
-		return this.team;
+		return (ITeam) this.getToTeamAssoc().get();
 	}
 
 	/**
@@ -328,10 +337,9 @@ public class Sprint implements ISprint {
 	@Override
 	public void setTeam(final ITeam team) throws NoValidValueException {
 		if (team == null) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
 		} else {
-			this.team = team;
+			this.getToTeamAssoc().set(team.getToSprintAssoc());
 		}
 	}
 

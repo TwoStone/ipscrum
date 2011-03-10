@@ -17,7 +17,7 @@ import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
  * a fixed time frame. The name is used to identify a sprint.
  */
 public interface ISprint extends BDACompare, Serializable,
-		ITreeVisitorRelevantElement {
+ITreeVisitorRelevantElement {
 	/**
 	 * Method getBegin.
 	 * 
@@ -133,13 +133,13 @@ public interface ISprint extends BDACompare, Serializable,
 	 * @return cumulated Efforts
 	 */
 	public abstract int getCumulatedManDayCosts();
-	
+
 	/**
 	 * Method getCumulatedManDayCostsOfClosedPbis
 	 * @return cumulated Efforts of Closed PBIs
 	 */
 	public abstract int getCumulatedManDayCostsOfClosedPbis();
-	
+
 	/**
 	 * @param item PBI to check
 	 * @return true, if the item is associated with the sprint
@@ -147,7 +147,7 @@ public interface ISprint extends BDACompare, Serializable,
 	public boolean hasPBI(ProductBacklogItem item);
 
 
-	
-	
+
+
 
 }

@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.constants;
 
+
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -142,6 +143,8 @@ public final class TextConstants {
 	public static final String CHART_SPRINT_YAXIS_LABEL = "<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>";
 	public static final String CHART_RELEASE_XAXIS_LABEL = "<i>E n d t e r m i n e&nbsp;&nbsp;&nbsp;d e r&nbsp;&nbsp;&nbsp;S p r i n t s</i>";
 	public static final String CHART_RELEASE_YAXIS_LABEL = "<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>";
+	public static final String CHART_VELOCITY_XAXIS_LABEL = "<i>E n d t e r m i n e&nbsp;&nbsp;&nbsp;d e r&nbsp;&nbsp;&nbsp;S p r i n t s</i>";
+	public static final String CHART_VELOCITY_YAXIS_LABEL = "<i>g e l e i s t e t e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>";
 
 	public static final String SPRINTTABLE_DESCRIPTIONHEADER = "Kurzbeschreibung";
 	public static final String SPRINTTABLE_TEAMHEADER = "Team";

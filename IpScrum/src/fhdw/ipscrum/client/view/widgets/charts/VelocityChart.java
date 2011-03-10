@@ -1,124 +1,117 @@
 package fhdw.ipscrum.client.view.widgets.charts;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.googlecode.gchart.client.GChart;
 
+import com.google.gwt.user.client.ui.Label;
+import com.googlecode.gchart.client.GChart;
+import com.googlecode.gchart.client.GChart.Curve.Point;
+import com.googlecode.gchart.client.HoverUpdateable;
+
+import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
- *
- * This chart allows the user to delete points by clicking
- * on them, and to add points at the mouse location, by
- * clicking on empty space.  <p>
- *
- * New points are inserted at the current curve's insertion
- * index which begins at the end of the curve and is
- * maintained at the position of the last deleted, or just
- * after the last inserted, point.  <p>
- *
- * Initially, six 1-point "starter curves" are placed along
- * the y axis. By deleting and immediately recreating
- * those points, the user can switch to adding points
- * to a different curve. The screen shot shows what the
- * chart looks like after the user has extended the
- * bottom two curves across the chart, with the other
- * four curves in their initial, "starter curve"
- * configuration.
- * 
+ * This is to display a velocity-chart for a specified team.
  */
-public class VelocityChart extends GChart implements ClickHandler {
+public class VelocityChart extends GChart {
 
+	private final VelocityChartData data;
+	private Curve averageCurve;
+	private Curve velocityCurve;
+	private Curve worstAverageCurve;
 
-	public VelocityChart(ITeam selectedObject) {
-		this(); // is just demo
+	/**
+	 * This is the default constructor.
+	 * @param team ITeam to analyze
+	 */
+	public VelocityChart(ITeam team) {
+		this.data = new VelocityChartData(team);
+		this.createChart();
+	}
+
+	/**
+	 * This is to generate and display the chart-display.
+	 * @return chart
+	 */
+	private void createChart() {
+		// GENERAL SETUP
+		setChartTitle("<h2>Team " + this.data.getTeam().getDescription() + "</h2>");
+		setChartSize(500, 500);
+
+		// SETUP VELOCITY CURVE
+		addCurve();
+		velocityCurve = getCurve();
+		velocityCurve.setYAxis(GChart.Y_AXIS);
+		velocityCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		velocityCurve.getSymbol().setHoverWidget(new VelocityChartHoverWidget());
+		velocityCurve.getSymbol().setBackgroundColor("Purple");
+		velocityCurve.getSymbol().setBorderColor("Pink");
+		velocityCurve.getSymbol().setBorderWidth(1);
+
+		// SETUP AVERAGE CURVE
+		addCurve();
+		averageCurve = getCurve();
+		averageCurve.setYAxis(GChart.Y_AXIS);
+		averageCurve.getSymbol().setSymbolType(SymbolType.LINE);
+		averageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt aller Sprints: ${y}"));
+		averageCurve.getSymbol().setBorderColor("Firebrick");
+		averageCurve.getSymbol().setBackgroundColor("White");
+
+		// SETUP WORST AVERAGE CURVE
+		addCurve();
+		worstAverageCurve = getCurve();
+		worstAverageCurve.setYAxis(GChart.Y_AXIS);
+		worstAverageCurve.getSymbol().setSymbolType(SymbolType.LINE);
+		worstAverageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt der unteren drei: ${y}"));
+		worstAverageCurve.getSymbol().setBorderColor("Firebrick");
+		worstAverageCurve.getSymbol().setBackgroundColor("White");
+
+		getYAxis().setAxisLabel(TextConstants.CHART_VELOCITY_YAXIS_LABEL);
+		getYAxis().getAxisLabel().setStyleName("rotated");
+		getYAxis().setAxisLabelThickness(20);
+		getYAxis().setHasGridlines(true);
+		getYAxis().setTickLabelFormat("##.#"); // TODO solve this
+		getYAxis().setTickLength(25);
+		getYAxis().setAxisMin(0);
+
+		this.populateChart();
+
+		getXAxis().clearTicks();
+		for (int i = 0; i < this.data.getTickData().size(); i++) { // TODO tickdata is useless right now
+			ISprint currentSprint = this.data.getSprints().get(i);
+			getXAxis().addTick(i, currentSprint.getName());
+		}
+
 		this.update();
 	}
 
+	/**
+	 * This is to populate the chart with release-data.
+	 */
+	private void populateChart() {
+		for (int i = 0; i < this.data.getSprints().size(); i++) {
+			ISprint currentSprint = this.data.getSprints().get(i);
+			averageCurve.addPoint(i, this.data.getAverageVelocity());
+			worstAverageCurve.addPoint(i, this.data.getWorstAverageVelocity());
+			velocityCurve.addPoint(i, currentSprint.getCumulatedManDayCostsOfClosedPbis());
+			String annotationText = "Sprint " + currentSprint.getName() + ":<br />" + currentSprint.getCumulatedManDayCostsOfClosedPbis() + " geleistete Aufwände";
+			velocityCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
+			velocityCurve.getPoint().setAnnotationVisible(false);
+		}
+	}
+}
 
-	final int MAX_CURVES = 6;
-	int[] insertionPoint = new int[MAX_CURVES];
-	int insertionCurve = 0;
+/**
+ *	This is to control the annotation-behaviour.
+ */
+class VelocityChartHoverWidget extends Label implements HoverUpdateable {
+	@Override
+	public void hoverCleanup(Point hoveredAwayFrom) {
+		hoveredAwayFrom.setAnnotationVisible(false);
+	}
 
 	@Override
-	public void onClick(ClickEvent event) {
-		if (null == getTouchedPoint()) {
-			// add point at mouse position
-			getCurve(insertionCurve).addPoint(
-					insertionPoint[insertionCurve]++,
-					getXAxis().getMouseCoordinate(),
-					getYAxis().getMouseCoordinate());
-		}
-		else { // delete the clicked on point
-			insertionCurve = getCurveIndex(getTouchedCurve());
-			insertionPoint[insertionCurve] = getTouchedCurve().getPointIndex(
-					getTouchedPoint());
-			getTouchedCurve().removePoint(getTouchedPoint());
-		}
-		update();
+	public void hoverUpdate(Point hoveredOver) {
+		hoveredOver.setAnnotationVisible(true);
 	}
-	VelocityChart() {
-		setChartSize(500, 400);
-		setBorderStyle("none");
-		/*
-		 * Switch to OpenOffice color sequence (it looks
-		 * better).  Though the legal situation for colors
-		 * is a bit murky, since it is part of
-		 * <a href="http://www.openoffice.org/license.html">LGPL
-		 * licensed OpenOffice</a>, this color sequence, if
-		 * used for the specific purpose of a default chart
-		 * color sequence, and hence this
-		 * example code line, is likely itself also copy
-		 * protected under the LGPL
-		 * Use only as directed.
-		 * <p>
-		 *
-		 * Note that the GChart library itself (gchart.jar)
-		 * contains only Apache 2.0 licensed code.
-		 * 
-		 * 
-		 * This page provides a nice picture of the <a href=
-		 * "http://ui.openoffice.org/VisualDesign/
-		 * OOoChart_colors_drafts.html#02"> OpenOffice color
-		 * sequence</a>, and details on the voting process used
-		 * to select it.  <p>
-		 *
-		 */
-		GChart.setDefaultSymbolBorderColors(new String[] {
-				"#004586", "#ff420e", "#ffd320",
-				"#579d1c", "#7e0021", "#83caff",
-				"#314004", "#aecf00", "#4b1f6f",
-				"#ff950e", "#c5000b", "#0084d1"});
-		setChartTitle("<h2>World's Simplest Line Chart Editor</h2>");
-		setChartFootnotesLeftJustified(true);
-		setChartFootnotes(
-				"<ol>" +
-				"<li>Click on empty space to add a new point there." +
-				"<li>Click on any point to delete it." +
-				"<li>Points are added after the last inserted or deleted point." +
-		"</ol>");
-		// chart listens to its own click events:
-		addClickHandler(this);
-		// add the 1-point "starter curves" along the y-axis.
-		for (int i = 0; i < MAX_CURVES; i++) {
-			addCurve();
-			getCurve().getSymbol().setHeight(10);
-			getCurve().getSymbol().setWidth(10);
-			getCurve().getSymbol().setBorderWidth(3);
-			getCurve().getSymbol().setSymbolType(SymbolType.LINE);
-			getCurve().addPoint(0, 100*i/(MAX_CURVES-1.0));
-			insertionPoint[i]++;
-		}
-		// lock in a simple 0..100 range on each axis
-		getXAxis().setAxisMin(0);
-		getXAxis().setAxisMax(100);
-		getXAxis().setTickCount(11);
-		getXAxis().setHasGridlines(true);
-		getYAxis().setAxisMin(0);
-		getYAxis().setAxisMax(100);
-		getYAxis().setTickCount(11);
-		getYAxis().setHasGridlines(true);
-		// switch back to GChart's built-in default colors
-		GChart.setDefaultSymbolBorderColors(GChart.DEFAULT_SYMBOL_BORDER_COLORS);
 
-	}
 }
