@@ -130,9 +130,11 @@ public final class TextConstants {
 	public static final String NO_PROJECT_SELECTED = "Kein Projekt ausgewählt";
 	/* [END SECTION] */
 
-	/* [BEGIN SECTION] : VIEW CONSTANTS FOR REPORTING I GROUP */
-	public static final String CHART_RELEASESTACK_TITLE = "Releaseauswahl";
-	public static final String CHART_SPRINTSTACK_TITLE = "Sprintauswahl";
+	/* [BEGIN SECTION] : VIEW CONSTANTS FOR REPORTING I GROUP + REPORTING II GROUP */
+	public static final String CHART_PROJECTSTACK_TITLE = "Projekthistorie";
+	public static final String CHART_RELEASESTACK_TITLE = "Release-Burndown";
+	public static final String CHART_SPRINTSTACK_TITLE = "Sprint-Burndown";
+	public static final String CHART_TEAMSTACK_TITLE = "Velocity-Analyse";
 	public static final String CHART_USAGETIP = "<h1>Bitte treffen Sie eine Auswahl.</h1>";
 	public static final String CHARTPOPUP_TITLE = "Burndown-Chart";
 	public static final String CHARTPOPUP_CLOSEBUTTON = "Schließen";
