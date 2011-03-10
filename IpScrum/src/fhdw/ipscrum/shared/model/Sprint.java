@@ -89,6 +89,7 @@ public class Sprint implements ISprint {
 		return this.indirectEquals(obj);
 	}
 
+
 	/**
 	 * Method getBegin.
 	 * 
