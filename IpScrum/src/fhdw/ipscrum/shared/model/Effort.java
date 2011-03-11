@@ -13,7 +13,7 @@ public class Effort implements Serializable {
 
 	private static final long serialVersionUID = -8810450021746994455L;
 
-	private Integer value;
+	private Integer value = 0;
 
 	@SuppressWarnings("unused")
 	private Effort() {}
