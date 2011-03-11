@@ -15,6 +15,7 @@ import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.PBIView;
 import fhdw.ipscrum.client.view.interfaces.IEditPBIView;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -76,8 +77,8 @@ public class EditPBIWidget extends Composite implements IEditPBIView {
 	}
 
 	@Override
-	public void setComplexity(final Integer complexity) {
-		this.complexityBox.setValue(complexity);
+	public void setComplexity(final Effort complexity) {
+		this.complexityBox.setValue(complexity.getValue());
 	}
 
 	/**

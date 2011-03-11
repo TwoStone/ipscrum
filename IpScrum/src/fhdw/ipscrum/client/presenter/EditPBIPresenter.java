@@ -14,6 +14,7 @@ import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -73,7 +74,7 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	@Override
 	public void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException, UserException {
 		super.updatePBI();
-		this.getPbi().setManDayCosts(((IEditPBIView) this.getView()).getComplexity());
+		this.getPbi().setManDayCosts(new Effort(((IEditPBIView) this.getView()).getComplexity()));
 	}
 
 	@Override

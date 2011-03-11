@@ -4,6 +4,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.view.interfaces.IEditFeatureView;
 import fhdw.ipscrum.client.view.widgets.EditPBIWidget;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 
@@ -21,7 +22,7 @@ public class EditFeatureView extends PBIView implements IEditFeatureView {
 	}
 
 	@Override
-	public void setComplexity(final Integer complexity) {
+	public void setComplexity(final Effort complexity) {
 		editPBI.setComplexity(complexity);
 	}
 

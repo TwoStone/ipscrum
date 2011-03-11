@@ -18,6 +18,7 @@ import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
 import fhdw.ipscrum.shared.exceptions.WrongSystemException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Bug;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.PBIClosedState;
@@ -655,9 +656,9 @@ public class BugTest {
 
 		final Bug bug = new Bug(name, description, version, backlog);
 
-		bug.setManDayCosts(4);
+		bug.setManDayCosts(new Effort(4));
 
-		assertEquals(new Integer(4), bug.getManDayCosts());
+		assertEquals(new Integer(4), bug.getManDayCosts().getValue());
 	}
 
 	/**
@@ -677,7 +678,7 @@ public class BugTest {
 
 		bug.close();
 
-		bug.setManDayCosts(4);
+		bug.setManDayCosts(new Effort(4));
 	}
 
 	/**
@@ -766,7 +767,7 @@ public class BugTest {
 		final Bug bug = new Bug(name, description, version, backlog);
 
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
 		bug.addAcceptanceCriterion(acceptanceCriterion);
 		assertTrue(bug.getAcceptanceCriteria().listIterator().hasNext());
@@ -779,7 +780,7 @@ public class BugTest {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addAcceptanceCriterionDoubleContent_DiffenretObjects()
-			throws Exception {
+	throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project("Pro2");
@@ -789,9 +790,9 @@ public class BugTest {
 		final Bug bug = new Bug(name, description, version, backlog);
 
 		final AcceptanceCriterion acceptanceCriterion1 = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		final AcceptanceCriterion acceptanceCriterion2 = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
 		bug.addAcceptanceCriterion(acceptanceCriterion1);
 		bug.addAcceptanceCriterion(acceptanceCriterion2);
@@ -802,7 +803,7 @@ public class BugTest {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addAcceptanceCriterionDoubleContent_DoubleAdd()
-			throws Exception {
+	throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project("Pro2");
@@ -812,7 +813,7 @@ public class BugTest {
 		final Bug bug = new Bug(name, description, version, backlog);
 
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
 		bug.addAcceptanceCriterion(acceptanceCriterion);
 		bug.addAcceptanceCriterion(acceptanceCriterion);
@@ -836,7 +837,7 @@ public class BugTest {
 		assertTrue(bug.getState() instanceof PBIClosedState);
 
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 
 		bug.addAcceptanceCriterion(acceptanceCriterion);
 	}
@@ -946,8 +947,8 @@ public class BugTest {
 		}
 
 		final RelationType relationType = SessionManager.getInstance()
-				.getModel().getRelationTypeManager().getRelationTypes()
-				.iterator().next();
+		.getModel().getRelationTypeManager().getRelationTypes()
+		.iterator().next();
 		final Relation relation = new Relation(relationType, bug);
 
 		assertFalse(bug.getRelations().iterator().hasNext());
@@ -960,7 +961,7 @@ public class BugTest {
 	 */
 	@Test
 	public void addRelationToOtherFeatureWithoutNewRelationType()
-			throws Exception {
+	throws Exception {
 		if (SessionManager.getInstance().getModel().getRelationTypeManager()
 				.getRelationTypes().iterator().hasNext() == false) {
 			RelationType.create("TestRelationType");
@@ -976,8 +977,8 @@ public class BugTest {
 		final Bug bug2 = new Bug(name + "Test", description, version, backlog);
 
 		final RelationType relationType = SessionManager.getInstance()
-				.getModel().getRelationTypeManager().getRelationTypes()
-				.iterator().next();
+		.getModel().getRelationTypeManager().getRelationTypes()
+		.iterator().next();
 		final Relation relation = new Relation(relationType, bug2);
 
 		assertFalse(bug.getRelations().iterator().hasNext());
@@ -1004,7 +1005,7 @@ public class BugTest {
 		final Bug bug = new Bug(name, description, version, backlog);
 
 		final RelationType relationType = RelationType
-				.create("TestRelationType2");
+		.create("TestRelationType2");
 		final Relation relation = new Relation(relationType, bug);
 
 		assertFalse(bug.getRelations().iterator().hasNext());

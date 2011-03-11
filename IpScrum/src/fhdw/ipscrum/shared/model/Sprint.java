@@ -112,7 +112,7 @@ public class Sprint implements ISprint {
 	public int getCumulatedManDayCosts() {
 		int result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
-			result += pbi.getManDayCosts();
+			result += pbi.getManDayCosts().getValue();
 		}
 		return result;
 	}
@@ -132,7 +132,7 @@ public class Sprint implements ISprint {
 
 				@Override
 				public void handleClosed(PBIClosedState closed) {
-					Sprint.this.result += pbi.getManDayCosts();
+					Sprint.this.result += pbi.getManDayCosts().getValue();
 					// TODO: Muss für "result" wirklich eine Klassenvariable erstellt werden?
 				}
 

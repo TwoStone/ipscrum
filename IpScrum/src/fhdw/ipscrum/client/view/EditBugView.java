@@ -8,6 +8,7 @@ import fhdw.ipscrum.client.view.interfaces.IEditBugView;
 import fhdw.ipscrum.client.view.widgets.BugWidget;
 import fhdw.ipscrum.client.view.widgets.EditPBIWidget;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
@@ -33,7 +34,7 @@ public class EditBugView extends PBIView implements IEditBugView {
 	}
 
 	@Override
-	public void setComplexity(final Integer complexity) {
+	public void setComplexity(final Effort complexity) {
 		editPBI.setComplexity(complexity);
 	}
 

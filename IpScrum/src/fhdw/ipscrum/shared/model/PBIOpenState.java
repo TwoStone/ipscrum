@@ -27,21 +27,21 @@ public abstract class PBIOpenState implements IProductBacklogItemState {
 	@Override
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws DoubleDefinitionException, ForbiddenStateException {
+	throws DoubleDefinitionException, ForbiddenStateException {
 		this.getOwner().doAddAcceptanceCriterion(acceptanceCriterion);
 
 	}
 
 	@Override
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
-			ForbiddenStateException {
+	ForbiddenStateException {
 		this.getOwner().doAddHint(hint);
 
 	}
 
 	@Override
 	public void addRelation(final Relation relation)
-			throws DoubleDefinitionException, ForbiddenStateException {
+	throws DoubleDefinitionException, ForbiddenStateException {
 		this.getOwner().doAddRelation(relation);
 
 	}
@@ -81,14 +81,14 @@ public abstract class PBIOpenState implements IProductBacklogItemState {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((this.getOwner() == null) ? 0 : this.getOwner().hashCode());
+		+ ((this.getOwner() == null) ? 0 : this.getOwner().hashCode());
 		return result;
 	}
 
 	@Override
 	public void removeAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getOwner().doRemoveAcceptanceCriterion(acceptanceCriterion);
 
 	}
@@ -100,7 +100,7 @@ public abstract class PBIOpenState implements IProductBacklogItemState {
 
 	@Override
 	public void removeRelation(final Relation relation)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getOwner().doRemoveRelation(relation);
 	}
 
@@ -111,26 +111,26 @@ public abstract class PBIOpenState implements IProductBacklogItemState {
 
 	@Override
 	public void setLastEditor(final IPerson lastEditor)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getOwner().doSetLastEditor(lastEditor);
 	}
 
 	@Override
-	public void setManDayCosts(final Integer manDayCosts)
-			throws ForbiddenStateException, NoValidValueException {
+	public void setManDayCosts(final Effort manDayCosts)
+	throws ForbiddenStateException, NoValidValueException {
 		this.getOwner().doSetManDayCosts(manDayCosts);
 	}
 
 	@Override
 	public void setName(final String name) throws ForbiddenStateException,
-			NoValidValueException, DoubleDefinitionException,
-			ConsistencyException {
+	NoValidValueException, DoubleDefinitionException,
+	ConsistencyException {
 		this.getOwner().doSetName(name);
 	}
 
 	@Override
 	public void setSprint(final ISprint sprint) throws ForbiddenStateException,
-			NoSprintDefinedException, ConsistencyException {
+	NoSprintDefinedException, ConsistencyException {
 		this.getOwner().doSetSprint(sprint);
 	}
 

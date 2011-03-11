@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.PBIClosedState;
@@ -55,7 +56,7 @@ public class Tests_Tickets1 {
 	@Test
 	public void addAcceptanceCriterion() throws Exception {
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator()
 				.hasNext());
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
@@ -70,11 +71,11 @@ public class Tests_Tickets1 {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addAcceptanceCriterionDoubleContent_DiffenretObjects()
-			throws Exception {
+	throws Exception {
 		final AcceptanceCriterion acceptanceCriterion1 = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		final AcceptanceCriterion acceptanceCriterion2 = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator()
 				.hasNext());
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion1);
@@ -86,9 +87,9 @@ public class Tests_Tickets1 {
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.DoubleDefinitionException.class)
 	public void addAcceptanceCriterionDoubleContent_DoubleAdd()
-			throws Exception {
+	throws Exception {
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator()
 				.hasNext());
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
@@ -104,7 +105,7 @@ public class Tests_Tickets1 {
 		assertTrue(this.feature1.getState() instanceof PBIClosedState);
 
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
 	}
@@ -174,8 +175,8 @@ public class Tests_Tickets1 {
 		}
 
 		final RelationType relationType = SessionManager.getInstance()
-				.getModel().getRelationTypeManager().getRelationTypes()
-				.iterator().next();
+		.getModel().getRelationTypeManager().getRelationTypes()
+		.iterator().next();
 		final Relation relation = new Relation(relationType, this.feature2);
 
 		assertFalse(this.feature1.getRelations().iterator().hasNext());
@@ -189,7 +190,7 @@ public class Tests_Tickets1 {
 	@Test
 	public void addRelationToOtherFeatureWithNewRelationType() throws Exception {
 		final RelationType relationType = RelationType
-				.create("TestRelationType");
+		.create("TestRelationType");
 		final Relation relation = new Relation(relationType, this.feature2);
 
 		assertFalse(this.feature1.getRelations().iterator().hasNext());
@@ -206,15 +207,15 @@ public class Tests_Tickets1 {
 	 */
 	@Test
 	public void addRelationToOtherFeatureWithoutNewRelationType()
-			throws Exception {
+	throws Exception {
 		if (SessionManager.getInstance().getModel().getRelationTypeManager()
 				.getRelationTypes().iterator().hasNext() == false) {
 			RelationType.create("TestRelationType");
 		}
 
 		final RelationType relationType = SessionManager.getInstance()
-				.getModel().getRelationTypeManager().getRelationTypes()
-				.iterator().next();
+		.getModel().getRelationTypeManager().getRelationTypes()
+		.iterator().next();
 		final Relation relation = new Relation(relationType, this.feature2);
 
 		assertFalse(this.feature1.getRelations().iterator().hasNext());
@@ -233,7 +234,7 @@ public class Tests_Tickets1 {
 	@Test
 	public void addRelationToOwnFeatureWithNewRelationType() throws Exception {
 		final RelationType relationType = RelationType
-				.create("TestRelationType2");
+		.create("TestRelationType2");
 		final Relation relation = new Relation(relationType, this.feature1);
 
 		assertFalse(this.feature1.getRelations().iterator().hasNext());
@@ -293,7 +294,7 @@ public class Tests_Tickets1 {
 	@Test
 	public void removeAcceptanceCriterion() throws Exception {
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 		assertFalse(this.feature1.getAcceptanceCriteria().listIterator()
 				.hasNext());
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
@@ -312,7 +313,7 @@ public class Tests_Tickets1 {
 	@Test(expected = fhdw.ipscrum.shared.exceptions.ForbiddenStateException.class)
 	public void removeAcceptanceCriterionToClosedFeature() throws Exception {
 		final AcceptanceCriterion acceptanceCriterion = new AcceptanceCriterion(
-				"TestAcceptanceCriterion");
+		"TestAcceptanceCriterion");
 
 		this.feature1.addAcceptanceCriterion(acceptanceCriterion);
 
@@ -364,8 +365,8 @@ public class Tests_Tickets1 {
 		}
 
 		final RelationType relationType = SessionManager.getInstance()
-				.getModel().getRelationTypeManager().getRelationTypes()
-				.iterator().next();
+		.getModel().getRelationTypeManager().getRelationTypes()
+		.iterator().next();
 		final Relation relation = new Relation(relationType, this.feature2);
 
 		assertFalse(this.feature1.getRelations().iterator().hasNext());
@@ -382,15 +383,15 @@ public class Tests_Tickets1 {
 	 */
 	@Test
 	public void removeRelationToOtherFeatureWithoutNewRelationType()
-			throws Exception {
+	throws Exception {
 		if (SessionManager.getInstance().getModel().getRelationTypeManager()
 				.getRelationTypes().iterator().hasNext() == false) {
 			RelationType.create("TestRelationType");
 		}
 
 		final RelationType relationType = SessionManager.getInstance()
-				.getModel().getRelationTypeManager().getRelationTypes()
-				.iterator().next();
+		.getModel().getRelationTypeManager().getRelationTypes()
+		.iterator().next();
 		final Relation relation = new Relation(relationType, this.feature2);
 
 		assertFalse(this.feature1.getRelations().iterator().hasNext());
@@ -451,7 +452,7 @@ public class Tests_Tickets1 {
 	public void setManDayCostsToClosedFeature() throws Exception {
 		final Integer manDayCosts = 5;
 		this.feature1.close();
-		this.feature1.setManDayCosts(manDayCosts);
+		this.feature1.setManDayCosts(new Effort(manDayCosts));
 	}
 
 	/*
@@ -460,8 +461,8 @@ public class Tests_Tickets1 {
 	@Test
 	public void setManDayCostsToOpenFeature() throws Exception {
 		final Integer manDayCosts = 5;
-		this.feature1.setManDayCosts(manDayCosts);
-		assertEquals(manDayCosts, this.feature1.getManDayCosts());
+		this.feature1.setManDayCosts(new Effort(manDayCosts));
+		assertEquals(manDayCosts, this.feature1.getManDayCosts().getValue());
 	}
 
 	/*

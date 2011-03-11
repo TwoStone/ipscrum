@@ -2,6 +2,7 @@ package fhdw.ipscrum.client.view.interfaces;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 
@@ -17,9 +18,9 @@ public interface IEditPBIView {
 	/**
 	 * Displays the complexity in the user interface.
 	 * 
-	 * @param complexity
+	 * @param effort
 	 */
-	void setComplexity(Integer complexity);
+	void setComplexity(Effort effort);
 
 	/**
 	 * Displays the last editor in the user interface.

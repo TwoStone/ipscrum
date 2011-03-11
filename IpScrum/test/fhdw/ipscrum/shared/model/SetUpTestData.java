@@ -497,620 +497,620 @@ public abstract class SetUpTestData {
 		// für Projekt 1, Release 1, Sprint 1
 		pro1rel1spr1fea1 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr1fea1.setLastEditor(pBjoern);
-		pro1rel1spr1fea1.setManDayCosts(3);
+		pro1rel1spr1fea1.setManDayCosts(new Effort(3));
 		pro1rel1spr1fea1.setSprint(pro1rel1spr1);
 		pro1rel1spr1fea1.close();
 
 		pro1rel1spr1fea2 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr1fea2.setLastEditor(pBjoern);
-		pro1rel1spr1fea2.setManDayCosts(4);
+		pro1rel1spr1fea2.setManDayCosts(new Effort(4));
 		pro1rel1spr1fea2.setSprint(pro1rel1spr1);
 		pro1rel1spr1fea2.close();
 
 		pro1rel1spr1fea3 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr1fea3.setLastEditor(pBjoern);
-		pro1rel1spr1fea3.setManDayCosts(5);
+		pro1rel1spr1fea3.setManDayCosts(new Effort(5));
 		pro1rel1spr1fea3.setSprint(pro1rel1spr1);
 		// pro1rel1spr1fea3.close();
 
 		pro1rel1spr1fea4 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr1fea4.setLastEditor(pBjoern);
-		pro1rel1spr1fea4.setManDayCosts(4);
+		pro1rel1spr1fea4.setManDayCosts(new Effort(4));
 		pro1rel1spr1fea4.setSprint(pro1rel1spr1);
 		// pro1rel1spr1fea4.close();
 
 		pro1rel1spr1fea5 = new Feature("Projekt 1, Release 1, Sprint 1, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr1fea5.setLastEditor(pBjoern);
-		pro1rel1spr1fea5.setManDayCosts(3);
+		pro1rel1spr1fea5.setManDayCosts(new Effort(3));
 		pro1rel1spr1fea5.setSprint(pro1rel1spr1);
 		pro1rel1spr1fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 2
 		pro1rel1spr2fea1 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr2fea1.setLastEditor(pBjoern);
-		pro1rel1spr2fea1.setManDayCosts(2);
+		pro1rel1spr2fea1.setManDayCosts(new Effort(2));
 		pro1rel1spr2fea1.setSprint(pro1rel1spr2);
 		pro1rel1spr2fea1.close();
 
 		pro1rel1spr2fea2 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr2fea2.setLastEditor(pBjoern);
-		pro1rel1spr2fea2.setManDayCosts(10);
+		pro1rel1spr2fea2.setManDayCosts(new Effort(10));
 		pro1rel1spr2fea2.setSprint(pro1rel1spr2);
 		// pro1rel1spr2fea2.close();
 
 		pro1rel1spr2fea3 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr2fea3.setLastEditor(pBjoern);
-		pro1rel1spr2fea3.setManDayCosts(15);
+		pro1rel1spr2fea3.setManDayCosts(new Effort(15));
 		pro1rel1spr2fea3.setSprint(pro1rel1spr2);
 		pro1rel1spr2fea3.close();
 
 		pro1rel1spr2fea4 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr2fea4.setLastEditor(pBjoern);
-		pro1rel1spr2fea4.setManDayCosts(3);
+		pro1rel1spr2fea4.setManDayCosts(new Effort(3));
 		pro1rel1spr2fea4.setSprint(pro1rel1spr2);
 		pro1rel1spr2fea4.close();
 
 		pro1rel1spr2fea5 = new Feature("Projekt 1, Release 1, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr2fea5.setLastEditor(pBjoern);
-		pro1rel1spr2fea5.setManDayCosts(6);
+		pro1rel1spr2fea5.setManDayCosts(new Effort(6));
 		pro1rel1spr2fea5.setSprint(pro1rel1spr2);
 		// pro1rel1spr2fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 3
 		pro1rel1spr3fea1 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr3fea1.setLastEditor(pBjoern);
-		pro1rel1spr3fea1.setManDayCosts(20);
+		pro1rel1spr3fea1.setManDayCosts(new Effort(20));
 		pro1rel1spr3fea1.setSprint(pro1rel1spr3);
 		// pro1rel1spr3fea1.close();
 
 		pro1rel1spr3fea2 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr3fea2.setLastEditor(pBjoern);
-		pro1rel1spr3fea2.setManDayCosts(6);
+		pro1rel1spr3fea2.setManDayCosts(new Effort(6));
 		pro1rel1spr3fea2.setSprint(pro1rel1spr3);
 		// pro1rel1spr3fea2.close();
 
 		pro1rel1spr3fea3 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr3fea3.setLastEditor(pBjoern);
-		pro1rel1spr3fea3.setManDayCosts(48);
+		pro1rel1spr3fea3.setManDayCosts(new Effort(48));
 		pro1rel1spr3fea3.setSprint(pro1rel1spr3);
 		pro1rel1spr3fea3.close();
 
 		pro1rel1spr3fea4 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr3fea4.setLastEditor(pBjoern);
-		pro1rel1spr3fea4.setManDayCosts(2);
+		pro1rel1spr3fea4.setManDayCosts(new Effort(2));
 		pro1rel1spr3fea4.setSprint(pro1rel1spr3);
 		pro1rel1spr3fea4.close();
 
 		pro1rel1spr3fea5 = new Feature("Projekt 1, Release 1, Sprint 3, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr3fea5.setLastEditor(pBjoern);
-		pro1rel1spr3fea5.setManDayCosts(1);
+		pro1rel1spr3fea5.setManDayCosts(new Effort(1));
 		pro1rel1spr3fea5.setSprint(pro1rel1spr3);
 		// pro1rel1spr3fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 4
 		pro1rel1spr4fea1 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr4fea1.setLastEditor(pBjoern);
-		pro1rel1spr4fea1.setManDayCosts(4);
+		pro1rel1spr4fea1.setManDayCosts(new Effort(4));
 		pro1rel1spr4fea1.setSprint(pro1rel1spr4);
 		// pro1rel1spr4fea1.close();
 
 		pro1rel1spr4fea2 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr4fea2.setLastEditor(pBjoern);
-		pro1rel1spr4fea2.setManDayCosts(10);
+		pro1rel1spr4fea2.setManDayCosts(new Effort(10));
 		pro1rel1spr4fea2.setSprint(pro1rel1spr4);
 		// pro1rel1spr4fea2.close();
 
 		pro1rel1spr4fea3 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr4fea3.setLastEditor(pBjoern);
-		pro1rel1spr4fea3.setManDayCosts(5);
+		pro1rel1spr4fea3.setManDayCosts(new Effort(5));
 		pro1rel1spr4fea3.setSprint(pro1rel1spr4);
 		// pro1rel1spr4fea3.close();
 
 		pro1rel1spr4fea4 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr4fea4.setLastEditor(pBjoern);
-		pro1rel1spr4fea4.setManDayCosts(9);
+		pro1rel1spr4fea4.setManDayCosts(new Effort(9));
 		pro1rel1spr4fea4.setSprint(pro1rel1spr4);
 		// pro1rel1spr4fea4.close();
 
 		pro1rel1spr4fea5 = new Feature("Projekt 1, Release 1, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr4fea5.setLastEditor(pBjoern);
-		pro1rel1spr4fea5.setManDayCosts(3);
+		pro1rel1spr4fea5.setManDayCosts(new Effort(3));
 		pro1rel1spr4fea5.setSprint(pro1rel1spr4);
 		// pro1rel1spr4fea5.close();
 
 		// für Projekt 1, Release 1, Sprint 5
 		pro1rel1spr5fea1 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel1spr5fea1.setLastEditor(pBjoern);
-		pro1rel1spr5fea1.setManDayCosts(16);
+		pro1rel1spr5fea1.setManDayCosts(new Effort(16));
 		pro1rel1spr5fea1.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea1.close();
 
 		pro1rel1spr5fea2 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel1spr5fea2.setLastEditor(pBjoern);
-		pro1rel1spr5fea2.setManDayCosts(4);
+		pro1rel1spr5fea2.setManDayCosts(new Effort(4));
 		pro1rel1spr5fea2.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea2.close();
 
 		pro1rel1spr5fea3 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel1spr5fea3.setLastEditor(pBjoern);
-		pro1rel1spr5fea3.setManDayCosts(5);
+		pro1rel1spr5fea3.setManDayCosts(new Effort(5));
 		pro1rel1spr5fea3.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea3.close();
 
 		pro1rel1spr5fea4 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel1spr5fea4.setLastEditor(pBjoern);
-		pro1rel1spr5fea4.setManDayCosts(35);
+		pro1rel1spr5fea4.setManDayCosts(new Effort(35));
 		pro1rel1spr5fea4.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea4.close();
 
 		pro1rel1spr5fea5 = new Feature("Projekt 1, Release 1, Sprint 5, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel1spr5fea5.setLastEditor(pBjoern);
-		pro1rel1spr5fea5.setManDayCosts(3);
+		pro1rel1spr5fea5.setManDayCosts(new Effort(3));
 		pro1rel1spr5fea5.setSprint(pro1rel1spr5);
 		pro1rel1spr5fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 1
 		pro1rel2spr1fea1 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr1fea1.setLastEditor(pBjoern);
-		pro1rel2spr1fea1.setManDayCosts(80);
+		pro1rel2spr1fea1.setManDayCosts(new Effort(80));
 		pro1rel2spr1fea1.setSprint(pro1rel2spr1);
 		pro1rel2spr1fea1.close();
 
 		pro1rel2spr1fea2 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr1fea2.setLastEditor(pBjoern);
-		pro1rel2spr1fea2.setManDayCosts(20);
+		pro1rel2spr1fea2.setManDayCosts(new Effort(20));
 		pro1rel2spr1fea2.setSprint(pro1rel2spr1);
 		// pro1rel2spr1fea2.close();
 
 		pro1rel2spr1fea3 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr1fea3.setLastEditor(pBjoern);
-		pro1rel2spr1fea3.setManDayCosts(5);
+		pro1rel2spr1fea3.setManDayCosts(new Effort(5));
 		pro1rel2spr1fea3.setSprint(pro1rel2spr1);
 		pro1rel2spr1fea3.close();
 
 		pro1rel2spr1fea4 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr1fea4.setLastEditor(pBjoern);
-		pro1rel2spr1fea4.setManDayCosts(4);
+		pro1rel2spr1fea4.setManDayCosts(new Effort(4));
 		pro1rel2spr1fea4.setSprint(pro1rel2spr1);
 		pro1rel2spr1fea4.close();
 
 		pro1rel2spr1fea5 = new Feature("Projekt 1, Release 2, Sprint 1, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr1fea5.setLastEditor(pBjoern);
-		pro1rel2spr1fea5.setManDayCosts(3);
+		pro1rel2spr1fea5.setManDayCosts(new Effort(3));
 		pro1rel2spr1fea5.setSprint(pro1rel2spr1);
 		pro1rel2spr1fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 2
 		pro1rel2spr2fea1 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr2fea1.setLastEditor(pBjoern);
-		pro1rel2spr2fea1.setManDayCosts(5);
+		pro1rel2spr2fea1.setManDayCosts(new Effort(5));
 		pro1rel2spr2fea1.setSprint(pro1rel2spr2);
 		// pro1rel2spr2fea1.close();
 
 		pro1rel2spr2fea2 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr2fea2.setLastEditor(pBjoern);
-		pro1rel2spr2fea2.setManDayCosts(20);
+		pro1rel2spr2fea2.setManDayCosts(new Effort(20));
 		pro1rel2spr2fea2.setSprint(pro1rel2spr2);
 		// pro1rel2spr2fea2.close();
 
 		pro1rel2spr2fea3 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr2fea3.setLastEditor(pBjoern);
-		pro1rel2spr2fea3.setManDayCosts(5);
+		pro1rel2spr2fea3.setManDayCosts(new Effort(5));
 		pro1rel2spr2fea3.setSprint(pro1rel2spr2);
 		// pro1rel2spr2fea3.close();
 
 		pro1rel2spr2fea4 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr2fea4.setLastEditor(pBjoern);
-		pro1rel2spr2fea4.setManDayCosts(6);
+		pro1rel2spr2fea4.setManDayCosts(new Effort(6));
 		pro1rel2spr2fea4.setSprint(pro1rel2spr2);
 		pro1rel2spr2fea4.close();
 
 		pro1rel2spr2fea5 = new Feature("Projekt 1, Release 2, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr2fea5.setLastEditor(pBjoern);
-		pro1rel2spr2fea5.setManDayCosts(35);
+		pro1rel2spr2fea5.setManDayCosts(new Effort(35));
 		pro1rel2spr2fea5.setSprint(pro1rel2spr2);
 		pro1rel2spr2fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 3
 		pro1rel2spr3fea1 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr3fea1.setLastEditor(pBjoern);
-		pro1rel2spr3fea1.setManDayCosts(13);
+		pro1rel2spr3fea1.setManDayCosts(new Effort(13));
 		pro1rel2spr3fea1.setSprint(pro1rel2spr3);
 		pro1rel2spr3fea1.close();
 
 		pro1rel2spr3fea2 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr3fea2.setLastEditor(pBjoern);
-		pro1rel2spr3fea2.setManDayCosts(7);
+		pro1rel2spr3fea2.setManDayCosts(new Effort(7));
 		pro1rel2spr3fea2.setSprint(pro1rel2spr3);
 		pro1rel2spr3fea2.close();
 
 		pro1rel2spr3fea3 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr3fea3.setLastEditor(pBjoern);
-		pro1rel2spr3fea3.setManDayCosts(100);
+		pro1rel2spr3fea3.setManDayCosts(new Effort(100));
 		pro1rel2spr3fea3.setSprint(pro1rel2spr3);
 		// pro1rel2spr3fea3.close();
 
 		pro1rel2spr3fea4 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr3fea4.setLastEditor(pBjoern);
-		pro1rel2spr3fea4.setManDayCosts(83);
+		pro1rel2spr3fea4.setManDayCosts(new Effort(83));
 		pro1rel2spr3fea4.setSprint(pro1rel2spr3);
 		pro1rel2spr3fea4.close();
 
 		pro1rel2spr3fea5 = new Feature("Projekt 1, Release 2, Sprint 3, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr3fea5.setLastEditor(pBjoern);
-		pro1rel2spr3fea5.setManDayCosts(3);
+		pro1rel2spr3fea5.setManDayCosts(new Effort(3));
 		pro1rel2spr3fea5.setSprint(pro1rel2spr3);
 		// pro1rel2spr3fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 4
 		pro1rel2spr4fea1 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr4fea1.setLastEditor(pBjoern);
-		pro1rel2spr4fea1.setManDayCosts(20);
+		pro1rel2spr4fea1.setManDayCosts(new Effort(20));
 		pro1rel2spr4fea1.setSprint(pro1rel2spr4);
 		pro1rel2spr4fea1.close();
 
 		pro1rel2spr4fea2 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr4fea2.setLastEditor(pBjoern);
-		pro1rel2spr4fea2.setManDayCosts(14);
+		pro1rel2spr4fea2.setManDayCosts(new Effort(14));
 		pro1rel2spr4fea2.setSprint(pro1rel2spr4);
 		// pro1rel2spr4fea2.close();
 
 		pro1rel2spr4fea3 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr4fea3.setLastEditor(pBjoern);
-		pro1rel2spr4fea3.setManDayCosts(80);
+		pro1rel2spr4fea3.setManDayCosts(new Effort(80));
 		pro1rel2spr4fea3.setSprint(pro1rel2spr4);
 		pro1rel2spr4fea3.close();
 
 		pro1rel2spr4fea4 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr4fea4.setLastEditor(pBjoern);
-		pro1rel2spr4fea4.setManDayCosts(12);
+		pro1rel2spr4fea4.setManDayCosts(new Effort(12));
 		pro1rel2spr4fea4.setSprint(pro1rel2spr4);
 		// pro1rel2spr4fea4.close();
 
 		pro1rel2spr4fea5 = new Feature("Projekt 1, Release 2, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr4fea5.setLastEditor(pBjoern);
-		pro1rel2spr4fea5.setManDayCosts(16);
+		pro1rel2spr4fea5.setManDayCosts(new Effort(16));
 		pro1rel2spr4fea5.setSprint(pro1rel2spr4);
 		pro1rel2spr4fea5.close();
 
 		// für Projekt 1, Release 2, Sprint 5
 		pro1rel2spr5fea1 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt1.getBacklog());
 		pro1rel2spr5fea1.setLastEditor(pBjoern);
-		pro1rel2spr5fea1.setManDayCosts(13);
+		pro1rel2spr5fea1.setManDayCosts(new Effort(13));
 		pro1rel2spr5fea1.setSprint(pro1rel2spr5);
 		// pro1rel2spr5fea1.close();
 
 		pro1rel2spr5fea2 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt1.getBacklog());
 		pro1rel2spr5fea2.setLastEditor(pBjoern);
-		pro1rel2spr5fea2.setManDayCosts(14);
+		pro1rel2spr5fea2.setManDayCosts(new Effort(14));
 		pro1rel2spr5fea2.setSprint(pro1rel2spr5);
 		pro1rel2spr5fea2.close();
 
 		pro1rel2spr5fea3 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 3", "Beschreibung Feature 3", projekt1.getBacklog());
 		pro1rel2spr5fea3.setLastEditor(pBjoern);
-		pro1rel2spr5fea3.setManDayCosts(5);
+		pro1rel2spr5fea3.setManDayCosts(new Effort(5));
 		pro1rel2spr5fea3.setSprint(pro1rel2spr5);
 		pro1rel2spr5fea3.close();
 
 		pro1rel2spr5fea4 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt1.getBacklog());
 		pro1rel2spr5fea4.setLastEditor(pBjoern);
-		pro1rel2spr5fea4.setManDayCosts(4);
+		pro1rel2spr5fea4.setManDayCosts(new Effort(4));
 		pro1rel2spr5fea4.setSprint(pro1rel2spr5);
 		// pro1rel2spr5fea4.close();
 
 		pro1rel2spr5fea5 = new Feature("Projekt 1, Release 2, Sprint 5, Feature 5", "Beschreibung Feature 5", projekt1.getBacklog());
 		pro1rel2spr5fea5.setLastEditor(pBjoern);
-		pro1rel2spr5fea5.setManDayCosts(3);
+		pro1rel2spr5fea5.setManDayCosts(new Effort(3));
 		pro1rel2spr5fea5.setSprint(pro1rel2spr5);
 		pro1rel2spr5fea5.close();
 
 		// für Projekt 2, Release 1, Sprint 1
 		pro2rel1spr1fea1 = new Feature("Projekt 2, Release 1, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel1spr1fea1.setLastEditor(pBjoern);
-		pro2rel1spr1fea1.setManDayCosts(3);
+		pro2rel1spr1fea1.setManDayCosts(new Effort(3));
 		pro2rel1spr1fea1.setSprint(pro2rel1spr1);
 		// pro2rel1spr1fea1.close();
 
 		pro2rel1spr1fea2 = new Feature("Projekt 2, Release 1, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr1fea2.setLastEditor(pBjoern);
-		pro2rel1spr1fea2.setManDayCosts(4);
+		pro2rel1spr1fea2.setManDayCosts(new Effort(4));
 		pro2rel1spr1fea2.setSprint(pro2rel1spr1);
 		pro2rel1spr1fea2.close();
 
 		pro2rel1spr1fea3 = new Feature("Projekt 2, Release 1, Sprint 1, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr1fea3.setLastEditor(pBjoern);
-		pro2rel1spr1fea3.setManDayCosts(5);
+		pro2rel1spr1fea3.setManDayCosts(new Effort(5));
 		pro2rel1spr1fea3.setSprint(pro2rel1spr1);
 		pro2rel1spr1fea3.close();
 
 		pro2rel1spr1fea4 = new Feature("Projekt 2, Release 1, Sprint 1, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr1fea4.setLastEditor(pBjoern);
-		pro2rel1spr1fea4.setManDayCosts(4);
+		pro2rel1spr1fea4.setManDayCosts(new Effort(4));
 		pro2rel1spr1fea4.setSprint(pro2rel1spr1);
 		pro2rel1spr1fea4.close();
 
 		pro2rel1spr1fea5 = new Feature("Projekt 2, Release 1, Sprint 1, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr1fea5.setLastEditor(pBjoern);
-		pro2rel1spr1fea5.setManDayCosts(3);
+		pro2rel1spr1fea5.setManDayCosts(new Effort(3));
 		pro2rel1spr1fea5.setSprint(pro2rel1spr1);
 		pro2rel1spr1fea5.close();
 
 		// für Projekt 2, Release 1, Sprint 2
 		pro2rel1spr2fea1 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel1spr2fea1.setLastEditor(pBjoern);
-		pro2rel1spr2fea1.setManDayCosts(3);
+		pro2rel1spr2fea1.setManDayCosts(new Effort(3));
 		pro2rel1spr2fea1.setSprint(pro2rel1spr2);
 		// pro2rel1spr2fea1.close();
 
 		pro2rel1spr2fea2 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr2fea2.setLastEditor(pBjoern);
-		pro2rel1spr2fea2.setManDayCosts(4);
+		pro2rel1spr2fea2.setManDayCosts(new Effort(4));
 		pro2rel1spr2fea2.setSprint(pro2rel1spr2);
 		// pro2rel1spr2fea2.close();
 
 		pro2rel1spr2fea3 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr2fea3.setLastEditor(pBjoern);
-		pro2rel1spr2fea3.setManDayCosts(5);
+		pro2rel1spr2fea3.setManDayCosts(new Effort(5));
 		pro2rel1spr2fea3.setSprint(pro2rel1spr2);
 		pro2rel1spr2fea3.close();
 
 		pro2rel1spr2fea4 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr2fea4.setLastEditor(pBjoern);
-		pro2rel1spr2fea4.setManDayCosts(4);
+		pro2rel1spr2fea4.setManDayCosts(new Effort(4));
 		pro2rel1spr2fea4.setSprint(pro2rel1spr2);
 		pro2rel1spr2fea4.close();
 
 		pro2rel1spr2fea5 = new Feature("Projekt 2, Release 1, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr2fea5.setLastEditor(pBjoern);
-		pro2rel1spr2fea5.setManDayCosts(3);
+		pro2rel1spr2fea5.setManDayCosts(new Effort(3));
 		pro2rel1spr2fea5.setSprint(pro2rel1spr2);
 		pro2rel1spr2fea5.close();
 
 		// für Projekt 2, Release 1, Sprint 3
 		pro2rel1spr3fea1 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel1spr3fea1.setLastEditor(pBjoern);
-		pro2rel1spr3fea1.setManDayCosts(3);
+		pro2rel1spr3fea1.setManDayCosts(new Effort(3));
 		pro2rel1spr3fea1.setSprint(pro2rel1spr3);
 		// pro2rel1spr3fea1.close();
 
 		pro2rel1spr3fea2 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr3fea2.setLastEditor(pBjoern);
-		pro2rel1spr3fea2.setManDayCosts(4);
+		pro2rel1spr3fea2.setManDayCosts(new Effort(4));
 		pro2rel1spr3fea2.setSprint(pro2rel1spr3);
 		// pro2rel1spr3fea2.close();
 
 		pro2rel1spr3fea3 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr3fea3.setLastEditor(pBjoern);
-		pro2rel1spr3fea3.setManDayCosts(5);
+		pro2rel1spr3fea3.setManDayCosts(new Effort(5));
 		pro2rel1spr3fea3.setSprint(pro2rel1spr3);
 		// pro2rel1spr3fea3.close();
 
 		pro2rel1spr3fea4 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr3fea4.setLastEditor(pBjoern);
-		pro2rel1spr3fea4.setManDayCosts(4);
+		pro2rel1spr3fea4.setManDayCosts(new Effort(4));
 		pro2rel1spr3fea4.setSprint(pro2rel1spr3);
 		pro2rel1spr3fea4.close();
 
 		pro2rel1spr3fea5 = new Feature("Projekt 2, Release 1, Sprint 3, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr3fea5.setLastEditor(pBjoern);
-		pro2rel1spr3fea5.setManDayCosts(3);
+		pro2rel1spr3fea5.setManDayCosts(new Effort(3));
 		pro2rel1spr3fea5.setSprint(pro2rel1spr3);
 		pro2rel1spr3fea5.close();
 
 		// für Projekt 2, Release 1, Sprint 4
 		pro2rel1spr4fea1 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel1spr4fea1.setLastEditor(pBjoern);
-		pro2rel1spr4fea1.setManDayCosts(3);
+		pro2rel1spr4fea1.setManDayCosts(new Effort(3));
 		pro2rel1spr4fea1.setSprint(pro2rel1spr4);
 		// pro2rel1spr4fea1.close();
 
 		pro2rel1spr4fea2 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr4fea2.setLastEditor(pBjoern);
-		pro2rel1spr4fea2.setManDayCosts(4);
+		pro2rel1spr4fea2.setManDayCosts(new Effort(4));
 		pro2rel1spr4fea2.setSprint(pro2rel1spr4);
 		// pro2rel1spr4fea2.close();
 
 		pro2rel1spr4fea3 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr4fea3.setLastEditor(pBjoern);
-		pro2rel1spr4fea3.setManDayCosts(5);
+		pro2rel1spr4fea3.setManDayCosts(new Effort(5));
 		pro2rel1spr4fea3.setSprint(pro2rel1spr4);
 		// pro2rel1spr4fea3.close();
 
 		pro2rel1spr4fea4 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr4fea4.setLastEditor(pBjoern);
-		pro2rel1spr4fea4.setManDayCosts(4);
+		pro2rel1spr4fea4.setManDayCosts(new Effort(4));
 		pro2rel1spr4fea4.setSprint(pro2rel1spr4);
 		// pro2rel1spr4fea4.close();
 
 		pro2rel1spr4fea5 = new Feature("Projekt 2, Release 1, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr4fea5.setLastEditor(pBjoern);
-		pro2rel1spr4fea5.setManDayCosts(3);
+		pro2rel1spr4fea5.setManDayCosts(new Effort(3));
 		pro2rel1spr4fea5.setSprint(pro2rel1spr4);
 		pro2rel1spr4fea5.close();
 
 		// für Projekt 2, Release 1, Sprint 5
 		pro2rel1spr5fea1 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel1spr5fea1.setLastEditor(pBjoern);
-		pro2rel1spr5fea1.setManDayCosts(3);
+		pro2rel1spr5fea1.setManDayCosts(new Effort(3));
 		pro2rel1spr5fea1.setSprint(pro2rel1spr5);
 		// pro2rel1spr5fea1.close();
 
 		pro2rel1spr5fea2 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel1spr5fea2.setLastEditor(pBjoern);
-		pro2rel1spr5fea2.setManDayCosts(4);
+		pro2rel1spr5fea2.setManDayCosts(new Effort(4));
 		pro2rel1spr5fea2.setSprint(pro2rel1spr5);
 		// pro2rel1spr5fea2.close();
 
 		pro2rel1spr5fea3 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel1spr5fea3.setLastEditor(pBjoern);
-		pro2rel1spr5fea3.setManDayCosts(5);
+		pro2rel1spr5fea3.setManDayCosts(new Effort(5));
 		pro2rel1spr5fea3.setSprint(pro2rel1spr5);
 		// pro2rel1spr5fea3.close();
 
 		pro2rel1spr5fea4 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel1spr5fea4.setLastEditor(pBjoern);
-		pro2rel1spr5fea4.setManDayCosts(4);
+		pro2rel1spr5fea4.setManDayCosts(new Effort(4));
 		pro2rel1spr5fea4.setSprint(pro2rel1spr5);
 		// pro2rel1spr5fea4.close();
 
 		pro2rel1spr5fea5 = new Feature("Projekt 2, Release 1, Sprint 5, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel1spr5fea5.setLastEditor(pBjoern);
-		pro2rel1spr5fea5.setManDayCosts(3);
+		pro2rel1spr5fea5.setManDayCosts(new Effort(3));
 		pro2rel1spr5fea5.setSprint(pro2rel1spr5);
 		// pro2rel1spr5fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 1
 		pro2rel2spr1fea1 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr1fea1.setLastEditor(pBjoern);
-		pro2rel2spr1fea1.setManDayCosts(20);
+		pro2rel2spr1fea1.setManDayCosts(new Effort(20));
 		pro2rel2spr1fea1.setSprint(pro2rel2spr1);
 		pro2rel2spr1fea1.close();
 
 		pro2rel2spr1fea2 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr1fea2.setLastEditor(pBjoern);
-		pro2rel2spr1fea2.setManDayCosts(41);
+		pro2rel2spr1fea2.setManDayCosts(new Effort(41));
 		pro2rel2spr1fea2.setSprint(pro2rel2spr1);
 		// pro2rel2spr1fea2.close();
 
 		pro2rel2spr1fea3 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr1fea3.setLastEditor(pBjoern);
-		pro2rel2spr1fea3.setManDayCosts(57);
+		pro2rel2spr1fea3.setManDayCosts(new Effort(57));
 		pro2rel2spr1fea3.setSprint(pro2rel2spr1);
 		// pro2rel2spr1fea3.close();
 
 		pro2rel2spr1fea4 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr1fea4.setLastEditor(pBjoern);
-		pro2rel2spr1fea4.setManDayCosts(48);
+		pro2rel2spr1fea4.setManDayCosts(new Effort(48));
 		pro2rel2spr1fea4.setSprint(pro2rel2spr1);
 		pro2rel2spr1fea4.close();
 
 		pro2rel2spr1fea5 = new Feature("Projekt 2, Release 2, Sprint 1, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr1fea5.setLastEditor(pBjoern);
-		pro2rel2spr1fea5.setManDayCosts(3);
+		pro2rel2spr1fea5.setManDayCosts(new Effort(3));
 		pro2rel2spr1fea5.setSprint(pro2rel2spr1);
 		pro2rel2spr1fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 2
 		pro2rel2spr2fea1 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr2fea1.setLastEditor(pBjoern);
-		pro2rel2spr2fea1.setManDayCosts(3);
+		pro2rel2spr2fea1.setManDayCosts(new Effort(3));
 		pro2rel2spr2fea1.setSprint(pro2rel2spr2);
 		// pro2rel2spr2fea1.close();
 
 		pro2rel2spr2fea2 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr2fea2.setLastEditor(pBjoern);
-		pro2rel2spr2fea2.setManDayCosts(18);
+		pro2rel2spr2fea2.setManDayCosts(new Effort(18));
 		pro2rel2spr2fea2.setSprint(pro2rel2spr2);
 		pro2rel2spr2fea2.close();
 
 		pro2rel2spr2fea3 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr2fea3.setLastEditor(pBjoern);
-		pro2rel2spr2fea3.setManDayCosts(5);
+		pro2rel2spr2fea3.setManDayCosts(new Effort(5));
 		pro2rel2spr2fea3.setSprint(pro2rel2spr2);
 		pro2rel2spr2fea3.close();
 
 		pro2rel2spr2fea4 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr2fea4.setLastEditor(pBjoern);
-		pro2rel2spr2fea4.setManDayCosts(13);
+		pro2rel2spr2fea4.setManDayCosts(new Effort(13));
 		pro2rel2spr2fea4.setSprint(pro2rel2spr2);
 		// pro2rel2spr2fea4.close();
 
 		pro2rel2spr2fea5 = new Feature("Projekt 2, Release 2, Sprint 2, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr2fea5.setLastEditor(pBjoern);
-		pro2rel2spr2fea5.setManDayCosts(8);
+		pro2rel2spr2fea5.setManDayCosts(new Effort(8));
 		pro2rel2spr2fea5.setSprint(pro2rel2spr2);
 		pro2rel2spr2fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 3
 		pro2rel2spr3fea1 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr3fea1.setLastEditor(pBjoern);
-		pro2rel2spr3fea1.setManDayCosts(18);
+		pro2rel2spr3fea1.setManDayCosts(new Effort(18));
 		pro2rel2spr3fea1.setSprint(pro2rel2spr3);
 		pro2rel2spr3fea1.close();
 
 		pro2rel2spr3fea2 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr3fea2.setLastEditor(pBjoern);
-		pro2rel2spr3fea2.setManDayCosts(19);
+		pro2rel2spr3fea2.setManDayCosts(new Effort(19));
 		pro2rel2spr3fea2.setSprint(pro2rel2spr3);
 		pro2rel2spr3fea2.close();
 
 		pro2rel2spr3fea3 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr3fea3.setLastEditor(pBjoern);
-		pro2rel2spr3fea3.setManDayCosts(15);
+		pro2rel2spr3fea3.setManDayCosts(new Effort(15));
 		pro2rel2spr3fea3.setSprint(pro2rel2spr3);
 		// pro2rel2spr3fea3.close();
 
 		pro2rel2spr3fea4 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr3fea4.setLastEditor(pBjoern);
-		pro2rel2spr3fea4.setManDayCosts(2);
+		pro2rel2spr3fea4.setManDayCosts(new Effort(2));
 		pro2rel2spr3fea4.setSprint(pro2rel2spr3);
 		// pro2rel2spr3fea4.close();
 
 		pro2rel2spr3fea5 = new Feature("Projekt 2, Release 2, Sprint 3, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr3fea5.setLastEditor(pBjoern);
-		pro2rel2spr3fea5.setManDayCosts(6);
+		pro2rel2spr3fea5.setManDayCosts(new Effort(6));
 		pro2rel2spr3fea5.setSprint(pro2rel2spr3);
 		pro2rel2spr3fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 4
 		pro2rel2spr4fea1 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr4fea1.setLastEditor(pBjoern);
-		pro2rel2spr4fea1.setManDayCosts(13);
+		pro2rel2spr4fea1.setManDayCosts(new Effort(13));
 		pro2rel2spr4fea1.setSprint(pro2rel2spr4);
 		pro2rel2spr4fea1.close();
 
 		pro2rel2spr4fea2 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr4fea2.setLastEditor(pBjoern);
-		pro2rel2spr4fea2.setManDayCosts(15);
+		pro2rel2spr4fea2.setManDayCosts(new Effort(15));
 		pro2rel2spr4fea2.setSprint(pro2rel2spr4);
 		// pro2rel2spr4fea2.close();
 
 		pro2rel2spr4fea3 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr4fea3.setLastEditor(pBjoern);
-		pro2rel2spr4fea3.setManDayCosts(7);
+		pro2rel2spr4fea3.setManDayCosts(new Effort(7));
 		pro2rel2spr4fea3.setSprint(pro2rel2spr4);
 		pro2rel2spr4fea3.close();
 
 		pro2rel2spr4fea4 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr4fea4.setLastEditor(pBjoern);
-		pro2rel2spr4fea4.setManDayCosts(4);
+		pro2rel2spr4fea4.setManDayCosts(new Effort(4));
 		pro2rel2spr4fea4.setSprint(pro2rel2spr4);
 		pro2rel2spr4fea4.close();
 
 		pro2rel2spr4fea5 = new Feature("Projekt 2, Release 2, Sprint 4, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr4fea5.setLastEditor(pBjoern);
-		pro2rel2spr4fea5.setManDayCosts(6);
+		pro2rel2spr4fea5.setManDayCosts(new Effort(6));
 		pro2rel2spr4fea5.setSprint(pro2rel2spr4);
 		// pro2rel2spr4fea5.close();
 
 		// für Projekt 2, Release 2, Sprint 5
 		pro2rel2spr5fea1 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 1", "Beschreibung Feature 1", projekt2.getBacklog());
 		pro2rel2spr5fea1.setLastEditor(pBjoern);
-		pro2rel2spr5fea1.setManDayCosts(7);
+		pro2rel2spr5fea1.setManDayCosts(new Effort(7));
 		pro2rel2spr5fea1.setSprint(pro2rel2spr5);
 		pro2rel2spr5fea1.close();
 
 		pro2rel2spr5fea2 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 2", "Beschreibung Feature 2", projekt2.getBacklog());
 		pro2rel2spr5fea2.setLastEditor(pBjoern);
-		pro2rel2spr5fea2.setManDayCosts(8);
+		pro2rel2spr5fea2.setManDayCosts(new Effort(8));
 		pro2rel2spr5fea2.setSprint(pro2rel2spr5);
 		// pro2rel2spr5fea2.close();
 
 		pro2rel2spr5fea3 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 3", "Beschreibung Feature 3", projekt2.getBacklog());
 		pro2rel2spr5fea3.setLastEditor(pBjoern);
-		pro2rel2spr5fea3.setManDayCosts(5);
+		pro2rel2spr5fea3.setManDayCosts(new Effort(5));
 		pro2rel2spr5fea3.setSprint(pro2rel2spr5);
 		// pro2rel2spr5fea3.close();
 
 		pro2rel2spr5fea4 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 4", "Beschreibung Feature 4", projekt2.getBacklog());
 		pro2rel2spr5fea4.setLastEditor(pBjoern);
-		pro2rel2spr5fea4.setManDayCosts(2);
+		pro2rel2spr5fea4.setManDayCosts(new Effort(2));
 		pro2rel2spr5fea4.setSprint(pro2rel2spr5);
 		pro2rel2spr5fea4.close();
 
 		pro2rel2spr5fea5 = new Feature("Projekt 2, Release 2, Sprint 5, Feature 5", "Beschreibung Feature 5", projekt2.getBacklog());
 		pro2rel2spr5fea5.setLastEditor(pBjoern);
-		pro2rel2spr5fea5.setManDayCosts(3);
+		pro2rel2spr5fea5.setManDayCosts(new Effort(3));
 		pro2rel2spr5fea5.setSprint(pro2rel2spr5);
 		pro2rel2spr5fea5.close();
 

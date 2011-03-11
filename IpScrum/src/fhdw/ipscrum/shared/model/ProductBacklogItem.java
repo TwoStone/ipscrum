@@ -26,7 +26,7 @@ import fhdw.ipscrum.shared.observer.Observable;
  */
 @SuppressWarnings("rawtypes")
 public abstract class ProductBacklogItem extends Observable implements
-		BDACompare, Serializable {
+BDACompare, Serializable {
 
 	private static final long serialVersionUID = 1599696800942615676L;
 
@@ -38,7 +38,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Complexity of the PBI.
 	 */
-	private Integer manDayCosts;
+	private Effort manDayCosts;
 
 	/**
 	 * Last Editor of the PBI.
@@ -97,7 +97,7 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.sprintAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
 
 		this.description = description;
-		this.manDayCosts = 0;
+		this.manDayCosts = new Effort(0);
 		this.initializeState();
 
 		this.setBacklog(backlog);
@@ -120,7 +120,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws DoubleDefinitionException, ForbiddenStateException {
+	throws DoubleDefinitionException, ForbiddenStateException {
 		this.getState().addAcceptanceCriterion(acceptanceCriterion);
 	}
 
@@ -134,7 +134,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * 
 	 */
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
-			ForbiddenStateException {
+	ForbiddenStateException {
 		this.getState().addHint(hint);
 	}
 
@@ -147,7 +147,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             will be thrown if the relation already exists
 	 */
 	public void addRelation(final Relation relation)
-			throws DoubleDefinitionException, ForbiddenStateException {
+	throws DoubleDefinitionException, ForbiddenStateException {
 		this.getState().addRelation(relation);
 	}
 
@@ -163,9 +163,9 @@ public abstract class ProductBacklogItem extends Observable implements
 
 	protected void doAddAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws DoubleDefinitionException {
+	throws DoubleDefinitionException {
 		final Iterator<AcceptanceCriterion> iterator = this.acceptanceCriteria
-				.iterator();
+		.iterator();
 		while (iterator.hasNext()) {
 			final AcceptanceCriterion current = iterator.next();
 			if (current.equals(acceptanceCriterion)) {
@@ -221,7 +221,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	// }
 
 	protected void doAddRelation(final Relation relation)
-			throws DoubleDefinitionException {
+	throws DoubleDefinitionException {
 		final Iterator<Relation> iterator = this.relations.iterator();
 		while (iterator.hasNext()) {
 			final Relation current = iterator.next();
@@ -258,15 +258,15 @@ public abstract class ProductBacklogItem extends Observable implements
 	}
 
 	protected void doSetLastEditor(final IPerson lastEditor)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.lastEditor = lastEditor;
 		this.notifyObservers();
 	}
 
-	protected void doSetManDayCosts(final Integer manDayCosts)
-			throws NoValidValueException, ForbiddenStateException {
-		if (manDayCosts != null && manDayCosts >= 0) {
-			this.manDayCosts = manDayCosts;
+	protected void doSetManDayCosts(final Effort manDayCosts)
+	throws NoValidValueException, ForbiddenStateException {
+		if (manDayCosts != null && manDayCosts.getValue() >= 0) {
+			this.manDayCosts.setValue(manDayCosts.getValue());
 			this.notifyObservers();
 		} else {
 			throw new NoValidValueException(TextConstants.MANDAYS_ERROR);
@@ -274,8 +274,8 @@ public abstract class ProductBacklogItem extends Observable implements
 	}
 
 	protected void doSetName(final String name) throws NoValidValueException,
-			DoubleDefinitionException, ConsistencyException,
-			ForbiddenStateException {
+	DoubleDefinitionException, ConsistencyException,
+	ForbiddenStateException {
 		if (this.getBacklog() != null) {
 			if (name != null && name.trim().length() > 0) {
 				if (this.getBacklog() != null) {
@@ -298,8 +298,8 @@ public abstract class ProductBacklogItem extends Observable implements
 	}
 
 	protected void doSetSprint(final ISprint sprint)
-			throws NoSprintDefinedException, ConsistencyException,
-			ForbiddenStateException {
+	throws NoSprintDefinedException, ConsistencyException,
+	ForbiddenStateException {
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
@@ -401,7 +401,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the complexity of the pbi.
 	 */
-	public Integer getManDayCosts() {
+	public Effort getManDayCosts() {
 		return this.manDayCosts;
 	}
 
@@ -440,14 +440,14 @@ public abstract class ProductBacklogItem extends Observable implements
 		final int prime = 31;
 		int result = this.indirectHashCode();
 		result = prime
-				* result
-				+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
-						.hashCode());
+		* result
+		+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
+				.hashCode());
 		result = prime * result
-				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
+		+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
 		result = prime
-				* result
-				+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
+		* result
+		+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
 		return result;
 	}
 
@@ -492,10 +492,10 @@ public abstract class ProductBacklogItem extends Observable implements
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime
-				* result
-				+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
+		* result
+		+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
 		result = prime * result
-				+ ((this.name == null) ? 0 : this.name.hashCode());
+		+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -513,7 +513,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             will be thrown if the state does not allow this action
 	 */
 	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getState().removeAcceptanceCriterion(criterion);
 		this.notifyObservers();
 
@@ -537,7 +537,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             will be thrown if the state does not allow this action
 	 */
 	public void removeRelation(final Relation relation)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getState().removeRelation(relation);
 		this.notifyObservers();
 	}
@@ -553,12 +553,12 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * @throws ForbiddenStateException
 	 */
 	public void setDescription(final String description)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getState().setDescription(description);
 	}
 
 	public void setLastEditor(final IPerson lastEditor)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getState().setLastEditor(lastEditor);
 	}
 
@@ -566,14 +566,14 @@ public abstract class ProductBacklogItem extends Observable implements
 	 * Changes the Complexity of the pbi.
 	 * 
 	 * @param manDayCosts
-	 *            Values smaller 0 are not allow. 0 means not defined.
+	 *            Values smaller 0 are not allowed. 0 means not defined.
 	 * @throws NoValidValueException
 	 *             If the value is smaller 0!
 	 * @throws ForbiddenStateException
 	 *             If the pbi was closed.
 	 */
-	public void setManDayCosts(final Integer manDayCosts)
-			throws NoValidValueException, ForbiddenStateException {
+	public void setManDayCosts(final Effort manDayCosts)
+	throws NoValidValueException, ForbiddenStateException {
 		this.getState().setManDayCosts(manDayCosts);
 	}
 
@@ -591,8 +591,8 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             backlog
 	 */
 	public void setName(final String name) throws NoValidValueException,
-			DoubleDefinitionException, ConsistencyException,
-			ForbiddenStateException {
+	DoubleDefinitionException, ConsistencyException,
+	ForbiddenStateException {
 		this.getState().setName(name);
 	}
 
@@ -609,14 +609,14 @@ public abstract class ProductBacklogItem extends Observable implements
 	 *             The pbi was closed.
 	 */
 	public void setSprint(final ISprint sprint)
-			throws NoSprintDefinedException, ConsistencyException,
-			ForbiddenStateException {
+	throws NoSprintDefinedException, ConsistencyException,
+	ForbiddenStateException {
 		this.getState().setSprint(sprint);
 	}
 
 	@Override
 	public String toString() {
 		return "ProductBacklogItem [aufwand=" + this.manDayCosts + ", name="
-				+ this.name + "]";
+		+ this.name + "]";
 	}
 }

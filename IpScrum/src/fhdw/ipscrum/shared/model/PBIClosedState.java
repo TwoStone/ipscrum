@@ -35,7 +35,7 @@ public abstract class PBIClosedState implements IProductBacklogItemState {
 	@Override
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws DoubleDefinitionException, ForbiddenStateException {
+	throws DoubleDefinitionException, ForbiddenStateException {
 		throw new ForbiddenStateException(
 				fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 
@@ -43,7 +43,7 @@ public abstract class PBIClosedState implements IProductBacklogItemState {
 
 	@Override
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
-			ForbiddenStateException {
+	ForbiddenStateException {
 		throw new ForbiddenStateException(
 				fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 
@@ -51,7 +51,7 @@ public abstract class PBIClosedState implements IProductBacklogItemState {
 
 	@Override
 	public void addRelation(final Relation relation)
-			throws DoubleDefinitionException, ForbiddenStateException {
+	throws DoubleDefinitionException, ForbiddenStateException {
 		throw new ForbiddenStateException(
 				fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 
@@ -67,7 +67,7 @@ public abstract class PBIClosedState implements IProductBacklogItemState {
 	@Override
 	public void removeAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
@@ -80,43 +80,43 @@ public abstract class PBIClosedState implements IProductBacklogItemState {
 
 	@Override
 	public void removeRelation(final Relation relation)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				fhdw.ipscrum.shared.constants.ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void setDescription(final String description)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void setLastEditor(final IPerson lastEditor)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
-	public void setManDayCosts(final Integer manDayCosts)
-			throws ForbiddenStateException, NoValidValueException {
+	public void setManDayCosts(final Effort manDayCosts)
+	throws ForbiddenStateException, NoValidValueException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void setName(final String name) throws ForbiddenStateException,
-			NoValidValueException, DoubleDefinitionException,
-			ConsistencyException {
+	NoValidValueException, DoubleDefinitionException,
+	ConsistencyException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void setSprint(final ISprint sprint) throws ForbiddenStateException,
-			NoSprintDefinedException, ConsistencyException {
+	NoSprintDefinedException, ConsistencyException {
 		throw new ForbiddenStateException(
 				ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}

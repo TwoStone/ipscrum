@@ -263,76 +263,76 @@ public class DemoModel {
 		final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1",
 				projekt1.getBacklog());
 		f1.setLastEditor(pNils);
-		f1.setManDayCosts(6);
+		f1.setManDayCosts(new Effort(6));
 		f1.setSprint(sprint1rel10);
 		f1.close();
 
 		final Feature f2 = new Feature("Feature 2", "Beschreibung Feature 2",
 				projekt1.getBacklog());
 		f2.setLastEditor(pNils);
-		f2.setManDayCosts(4);
+		f2.setManDayCosts(new Effort(4));
 		f2.setSprint(sprint4rel10);
 		f2.close();
 
 		final Feature f3 = new Feature("Feature 3", "Beschreibung Feature 3",
 				projekt1.getBacklog());
 		f3.setLastEditor(pNils);
-		f3.setManDayCosts(4);
+		f3.setManDayCosts(new Effort(4));
 		f3.setSprint(sprint4rel10);
 		f3.close();
 
 		final Feature f4 = new Feature("Feature 4", "Beschreibung Feature 4",
 				projekt1.getBacklog());
 		f4.setLastEditor(pNils);
-		f4.setManDayCosts(12);
+		f4.setManDayCosts(new Effort(12));
 		f4.setSprint(sprint3rel10);
 		f4.close();
 
 		final Feature f5 = new Feature("Feature 5", "Beschreibung Feature 5",
 				projekt1.getBacklog());
 		f5.setLastEditor(pNils);
-		f5.setManDayCosts(10);
+		f5.setManDayCosts(new Effort(10));
 		f5.setSprint(sprint5rel10);
 		f5.close();
 
 		final Feature f6 = new Feature("Feature 6", "Beschreibung Feature 6",
 				projekt1.getBacklog());
 		f6.setLastEditor(pNils);
-		f6.setManDayCosts(5);
+		f6.setManDayCosts(new Effort(5));
 		f6.setSprint(sprint2rel10);
 		f6.close();
 
 		final Feature f7 = new Feature("Feature 7", "Beschreibung Feature 7",
 				projekt2.getBacklog());
 		f7.setLastEditor(pNils);
-		f7.setManDayCosts(7);
+		f7.setManDayCosts(new Effort(7));
 		f7.setSprint(sprint7rel20);
 
 		final Feature f8 = new Feature("Feature 8", "Beschreibung Feature 8",
 				projekt2.getBacklog());
 		f8.setLastEditor(pNils);
-		f8.setManDayCosts(9);
+		f8.setManDayCosts(new Effort(9));
 		f8.setSprint(sprint7rel20);
 		f8.close();
 
 		final Feature f9 = new Feature("Sprint-BDChart", "Burndown-Auswertung",
 				ipScrum.getBacklog());
 		f9.setLastEditor(pWilken);
-		f9.setManDayCosts(20);
+		f9.setManDayCosts(new Effort(20));
 		f9.setSprint(reportingRelPhase3);
 		f9.close();
 
 		final Feature f10 = new Feature("Release-BDChart",
 				"Burndown-Auswertung", ipScrum.getBacklog());
 		f10.setLastEditor(pWilken);
-		f10.setManDayCosts(15);
+		f10.setManDayCosts(new Effort(15));
 		f10.setSprint(reportingRelPhase3);
 		f10.close();
 
 		final Feature f11 = new Feature("Reporting-Page", "Statistik-Bereich",
 				ipScrum.getBacklog());
 		f11.setLastEditor(pWilken);
-		f11.setManDayCosts(5);
+		f11.setManDayCosts(new Effort(5));
 		f11.setSprint(reportingRelPhase3);
 		f11.close();
 

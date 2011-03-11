@@ -8,6 +8,7 @@ import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -31,19 +32,19 @@ public interface IProductBacklogItemState extends Serializable {
 	 */
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws DoubleDefinitionException, ForbiddenStateException;
+	throws DoubleDefinitionException, ForbiddenStateException;
 
 	/**
 	 * See the documentation of addHint() in class {@link Feature}
 	 */
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
-			ForbiddenStateException;
+	ForbiddenStateException;
 
 	/**
 	 * See the documentation of addRelation() in class {@link Feature}
 	 */
 	public void addRelation(final Relation relation)
-			throws DoubleDefinitionException, ForbiddenStateException;
+	throws DoubleDefinitionException, ForbiddenStateException;
 
 	/**
 	 * See the documentation of close() in class {@link Feature}
@@ -56,7 +57,7 @@ public interface IProductBacklogItemState extends Serializable {
 	 */
 	public void removeAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-			throws ForbiddenStateException;
+	throws ForbiddenStateException;
 
 	/**
 	 * See the documentation of removeHint() in class {@link Feature}
@@ -67,7 +68,7 @@ public interface IProductBacklogItemState extends Serializable {
 	 * See the documentation of removeRelation() in class {@link Feature}
 	 */
 	public void removeRelation(final Relation relation)
-			throws ForbiddenStateException;
+	throws ForbiddenStateException;
 
 	/**
 	 * See the documentation of setDescription() in class {@link Feature}
@@ -75,28 +76,28 @@ public interface IProductBacklogItemState extends Serializable {
 	 * @throws ForbiddenStateException
 	 */
 	public void setDescription(String description)
-			throws ForbiddenStateException;
+	throws ForbiddenStateException;
 
 	public void setLastEditor(IPerson lastEditor)
-			throws ForbiddenStateException;
+	throws ForbiddenStateException;
 
 	/**
 	 * See the documentation of setManDayCosts() in class
 	 * {@link ProductBacklogItem}
 	 */
-	public void setManDayCosts(Integer manDayCosts)
-			throws ForbiddenStateException, NoValidValueException;
+	public void setManDayCosts(Effort manDayCosts)
+	throws ForbiddenStateException, NoValidValueException;
 
 	/**
 	 * See the documentation of setName() in class {@link ProductBacklogItem}
 	 */
 	public void setName(String name) throws ForbiddenStateException,
-			NoValidValueException, DoubleDefinitionException,
-			ConsistencyException;
+	NoValidValueException, DoubleDefinitionException,
+	ConsistencyException;
 
 	/**
 	 * See the documentation of setSprint() in class {@link ProductBacklogItem}
 	 */
 	public void setSprint(ISprint sprint) throws ForbiddenStateException,
-			NoSprintDefinedException, ConsistencyException;
+	NoSprintDefinedException, ConsistencyException;
 }

@@ -243,7 +243,7 @@ public class Release extends Observable implements IRelease {
 
 		for (ISprint sprint : this.getSprints()) {
 			for (ProductBacklogItem pbi : sprint.getPBIs()) {
-				overallEfforts += pbi.getManDayCosts();
+				overallEfforts += pbi.getManDayCosts().getValue();
 			}
 		}
 		return overallEfforts;
