@@ -4,7 +4,6 @@ package fhdw.ipscrum.shared.model;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Iterator;
 
 import org.junit.After;
@@ -29,7 +28,7 @@ public class Test_TaskUnassigned {
 	private static SprintBacklog sprintbl = null;
 	private static Boolean pl1 = null;
 	private static Iterator<ProductBacklogItem> pbiIt = null;
-	
+
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -45,11 +44,11 @@ public class Test_TaskUnassigned {
 		sprintbl = sprint.getSprintBacklog();
 		pl1 = false;
 		test.addSprint(sprint);
-		
+
 		pbltest.addItem(pbi1);
 		sprintbl.addTask(t1);
 		pbi1.setSprint(sprint);
-		
+
 
 	}
 
@@ -119,28 +118,28 @@ public class Test_TaskUnassigned {
 	 */
 	public void testAddPBI() throws Exception{
 		t1.addPBI(pbi1);
-        pbiIt = t1.getPBIIterator();
-        while(pbiIt.hasNext())
-            pbix = pbiIt.next();
-            if(pbix == pbi1){ pl1 =true;}
+		pbiIt = t1.getPBIIterator();
+		while(pbiIt.hasNext())
+			pbix = pbiIt.next();
+		if(pbix == pbi1){ pl1 =true;}
 
-        assertEquals(true,pl1);
-    } 
+		assertEquals(true,pl1);
+	}
 
 	@Test
 	/**
 	 * Removing a pbi
 	 */
 	public void testRemovePBI()  throws Exception{
-        t1.removePBI(pbi1);
-        pl1 = true;
-        pbiIt = t1.getPBIIterator();
-        pl1 = true;
-        while(pbiIt.hasNext()){
-            pbix = pbiIt.next();
-            if(pbix == pbi1) pl1 = false;
-            }
-        assertEquals(true,pl1);
+		t1.removePBI(pbi1);
+		pl1 = true;
+		pbiIt = t1.getPBIIterator();
+		pl1 = true;
+		while(pbiIt.hasNext()){
+			pbix = pbiIt.next();
+			if(pbix == pbi1) pl1 = false;
+		}
+		assertEquals(true,pl1);
 	}
 
 	@Test
@@ -174,8 +173,8 @@ public class Test_TaskUnassigned {
 	 * Setting of planned effort
 	 */
 	public void testSetPlanEffort() throws Exception{
-		t1.setPlanEffort(3);
-		assertEquals(three, t1.getPlanEffort());
+		t1.setPlanEffort(new Effort(3));
+		assertEquals(new Effort(three), t1.getPlanEffort());
 	}
 
 	// ----------------------------------------------------------------------------

@@ -13,21 +13,21 @@ public class Effort implements Serializable {
 
 	private static final long serialVersionUID = -8810450021746994455L;
 
-	private Double value;
+	private Integer value;
 
 	@SuppressWarnings("unused")
 	private Effort() {}
 
-	public Effort(Double value) throws NoValidValueException {
+	public Effort(Integer value) throws NoValidValueException {
 		if (value < 0) throw new NoValidValueException(ExceptionConstants.EFFORT_MIN_VALUE);
 		this.value = value;
 	}
 
-	public Double getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
-	public void setValue(Double value) throws NoValidValueException {
+	public void setValue(Integer value) throws NoValidValueException {
 		if (value < 0) throw new NoValidValueException(ExceptionConstants.EFFORT_MIN_VALUE);
 		this.value = value;
 	}

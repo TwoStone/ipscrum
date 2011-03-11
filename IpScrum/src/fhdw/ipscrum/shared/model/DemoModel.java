@@ -202,14 +202,14 @@ public class DemoModel {
 		final Sprint taskboardRelPhase3 = new Sprint("Taskboard",
 				"Bereitstellung von Task-Funktionalitäten", new Date(
 						2011 - 1900, 2 - 1, 14),
-				new Date(2011 - 1900, 3 - 1, 9), team1);
+						new Date(2011 - 1900, 3 - 1, 9), team1);
 		final Sprint reportingRelPhase3 = new Sprint("Reporting I",
 				"Bereitstellung von Statistikelementen", new Date(2011 - 1900,
 						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), team3);
 		final Sprint ticketsRelPhase3 = new Sprint("Tickets II",
 				"Bereitstellung von Bugtracking-Funktionen", new Date(
 						2011 - 1900, 2 - 1, 14),
-				new Date(2011 - 1900, 3 - 1, 9), team2);
+						new Date(2011 - 1900, 3 - 1, 9), team2);
 
 		// add possible Systems
 		projekt1.addPossibleSystem(anwendungen);
@@ -357,66 +357,66 @@ public class DemoModel {
 
 		// Initial Tasks
 		final Task taskSBDCurve = new Task("Sprint Burndown-Curve",
-				"Darstellung Sprint-Fortschritt");
+		"Darstellung Sprint-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSBDCurve);
 		taskSBDCurve.addPBI(f9);
-		taskSBDCurve.setPlanEffort(5);
+		taskSBDCurve.setPlanEffort(new Effort(5));
 		taskSBDCurve.setResponsibility(pWilken);
 		taskSBDCurve.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		final Task taskSIdealCurve = new Task("Sprint Ideal-Curve",
-				"Darstellung Ideal-Fortschritt");
+		"Darstellung Ideal-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSIdealCurve);
 		taskSIdealCurve.addPBI(f9);
-		taskSIdealCurve.setPlanEffort(5);
+		taskSIdealCurve.setPlanEffort(new Effort(5));
 		taskSIdealCurve.setResponsibility(pWilken);
 		taskSIdealCurve.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		final Task taskSTrendCurve = new Task("Sprint Trend-Curve",
-				"Darstellung Trend");
+		"Darstellung Trend");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSTrendCurve);
 		taskSTrendCurve.addPBI(f9);
-		taskSTrendCurve.setPlanEffort(10);
+		taskSTrendCurve.setPlanEffort(new Effort(10));
 		taskSTrendCurve.setResponsibility(pWilken);
 		taskSTrendCurve.finish(new Date(2011 - 1900, 3 - 1, 5));
 
 		final Task taskRBDCurve = new Task("Release Burndown-Curve",
-				"Darstellung Release-Fortschritt");
+		"Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRBDCurve);
 		taskRBDCurve.addPBI(f10);
-		taskRBDCurve.setPlanEffort(5);
+		taskRBDCurve.setPlanEffort(new Effort(5));
 		taskRBDCurve.setResponsibility(pSarah);
 
 		taskRBDCurve.finish(new Date(2011 - 1900, 2 - 1, 18));
 		final Task taskRIdealCurve = new Task("Release Ideal-Curve",
-				"Darstellung Release-Fortschritt");
+		"Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRIdealCurve);
 		taskRIdealCurve.addPBI(f10);
-		taskRIdealCurve.setPlanEffort(5);
+		taskRIdealCurve.setPlanEffort(new Effort(5));
 		taskRIdealCurve.setResponsibility(pSarah);
 		taskRIdealCurve.finish(new Date(2011 - 1900, 2 - 1, 19));
 
 		final Task taskRTrendCurve = new Task("Release Trend-Curve",
-				"Darstellung Release");
+		"Darstellung Release");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRTrendCurve);
 		taskRTrendCurve.addPBI(f10);
-		taskRTrendCurve.setPlanEffort(5);
+		taskRTrendCurve.setPlanEffort(new Effort(5));
 		taskRTrendCurve.setResponsibility(pSarah);
 		taskRTrendCurve.finish(new Date(2011 - 1900, 2 - 1, 19));
 
 		final Task taskReportView = new Task("Report View",
-				"Report View-Komponente");
+		"Report View-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportView);
 		taskReportView.addPBI(f11);
-		taskReportView.setPlanEffort(4);
+		taskReportView.setPlanEffort(new Effort(4));
 		taskReportView.setResponsibility(pChris);
 		taskReportView.finish(new Date(2011 - 1900, 2 - 1, 17));
 
 		final Task taskReportPresenter = new Task("Report Presenter",
-				"Report Presenter-Komponente");
+		"Report Presenter-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportPresenter);
 		taskReportPresenter.addPBI(f11);
-		taskReportPresenter.setPlanEffort(1);
+		taskReportPresenter.setPlanEffort(new Effort(1));
 		taskReportPresenter.setResponsibility(pChris);
 		taskReportPresenter.finish(new Date(2011 - 1900, 2 - 1, 17));
 

@@ -14,6 +14,7 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.Task;
@@ -76,20 +77,19 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 							ITask newTask = new Task(CreateTaskPresenter.this
 									.getView().getName(),
 									CreateTaskPresenter.this.getView()
-											.getDescription());
+									.getDescription());
 
 							// adds the task to the sprintBacklog...
 							CreateTaskPresenter.this.sprintBacklog
-									.addTask(newTask);
+							.addTask(newTask);
 
 							// sets the given plan effort from the view-class,
 							// that could be 0
-							newTask.setPlanEffort(CreateTaskPresenter.this
-									.getView().getEffort());
+							newTask.setPlanEffort(new Effort(CreateTaskPresenter.this.getView().getEffortInput()));
 
 							// adding all selected pbis to the new task
 							Iterator<ProductBacklogItem> pbiIterator = selectedPBIs
-									.iterator();
+							.iterator();
 
 							while (pbiIterator.hasNext()) {
 								try {

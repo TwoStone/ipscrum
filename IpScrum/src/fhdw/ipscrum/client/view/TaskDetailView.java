@@ -15,9 +15,11 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimpleCheckBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
@@ -27,12 +29,11 @@ import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
 import fhdw.ipscrum.client.view.interfaces.ITaskDetailView;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 
 /**
  * This class is used to represent generally details of {@link Task}
@@ -45,7 +46,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
  *         view-classes
  */
 public abstract class TaskDetailView extends Composite implements
-		ITaskDetailView {
+ITaskDetailView {
 
 	// ####### Events ###############
 	private final Event<EventArgs> okayEvent = new Event<EventArgs>();
@@ -55,21 +56,21 @@ public abstract class TaskDetailView extends Composite implements
 	// ##### Ende ##################
 
 	// ########### View Elements ##########
-	private Button btnAddPBIs;
-	private CellList<ProductBacklogItem> cellListPBI;
-	private TextBox txtBoxName;
-	private Button btnCancel;
-	private SimpleCheckBox simpleCheckBox;
-	private TextArea txtAreaDescription;
-	private Button btnOkay;
-	private Button btnDeletePBIs;
-	private CellList<IPerson> cellListPerson;
-	private IntegerBox iBoxEffort;
-	private Label lblTaskAbgeschlossen;
-	private Label lblPBIs;
-	private Label lblTaskFinished;
-	private ScrollPanel pbiScrollPanel;
-	private ScrollPanel personsScrollPanel;
+	private final Button btnAddPBIs;
+	private final CellList<ProductBacklogItem> cellListPBI;
+	private final TextBox txtBoxName;
+	private final Button btnCancel;
+	private final SimpleCheckBox simpleCheckBox;
+	private final TextArea txtAreaDescription;
+	private final Button btnOkay;
+	private final Button btnDeletePBIs;
+	private final CellList<IPerson> cellListPerson;
+	private final IntegerBox iBoxEffort;
+	private final Label lblTaskAbgeschlossen;
+	private final Label lblPBIs;
+	private final Label lblTaskFinished;
+	private final ScrollPanel pbiScrollPanel;
+	private final ScrollPanel personsScrollPanel;
 
 	// ########## Ende ###################
 
@@ -192,61 +193,61 @@ public abstract class TaskDetailView extends Composite implements
 		iBoxEffort = new IntegerBox();
 		concreteTaskDetailPanel.add(iBoxEffort, 10, 256);
 		iBoxEffort.setSize("123px", "16px");
-		
+
 		VerticalPanel personsPanel = new VerticalPanel();
 		personsPanel.setStyleName("smallborder");
 		concreteTaskDetailPanel.add(personsPanel, 10, 323);
 		personsPanel.setSize("190px", "130px");
-				
-				personsScrollPanel = new ScrollPanel();
-				personsPanel.add(personsScrollPanel);
-				personsScrollPanel.setSize("170px", "110px");
-		
-				// creates a cell list for all persons of the sprint of the task
-				// with single selection modell
-				cellListPerson = new CellList<IPerson>(new AbstractCell<IPerson>() {
+
+		personsScrollPanel = new ScrollPanel();
+		personsPanel.add(personsScrollPanel);
+		personsScrollPanel.setSize("170px", "110px");
+
+		// creates a cell list for all persons of the sprint of the task
+		// with single selection modell
+		cellListPerson = new CellList<IPerson>(new AbstractCell<IPerson>() {
+			@Override
+			public void render(Context context, IPerson value,
+					SafeHtmlBuilder sb) {
+				sb.appendEscaped(value.getFirstname() + " "
+						+ value.getLastname());
+			}
+		});
+		personsScrollPanel.setWidget(cellListPerson);
+		cellListPerson.setSize("100%", "100%");
+		cellListPerson.setSelectionModel(new SingleSelectionModel<IPerson>());
+
+		VerticalPanel pbisPanel = new VerticalPanel();
+		pbisPanel.setSpacing(3);
+		pbisPanel.setStyleName("smallborder");
+		concreteTaskDetailPanel.add(pbisPanel, 280, 40);
+		pbisPanel.setSize("180px", "235px");
+
+		pbiScrollPanel = new ScrollPanel();
+		pbisPanel.add(pbiScrollPanel);
+		pbiScrollPanel.setSize("160px", "215px");
+
+		// creates a cell list for all related pbis
+		// with multiselectionmodel
+		cellListPBI = new CellList<ProductBacklogItem>(
+				new AbstractCell<ProductBacklogItem>() {
 					@Override
-					public void render(Context context, IPerson value,
-							SafeHtmlBuilder sb) {
-						sb.appendEscaped(value.getFirstname() + " "
-								+ value.getLastname());
+					public void render(Context context,
+							ProductBacklogItem value, SafeHtmlBuilder sb) {
+						sb.appendEscaped(value.getName());
 					}
 				});
-				personsScrollPanel.setWidget(cellListPerson);
-				cellListPerson.setSize("100%", "100%");
-				cellListPerson.setSelectionModel(new SingleSelectionModel<IPerson>());
-				
-				VerticalPanel pbisPanel = new VerticalPanel();
-				pbisPanel.setSpacing(3);
-				pbisPanel.setStyleName("smallborder");
-				concreteTaskDetailPanel.add(pbisPanel, 280, 40);
-				pbisPanel.setSize("180px", "235px");
-						
-						pbiScrollPanel = new ScrollPanel();
-						pbisPanel.add(pbiScrollPanel);
-						pbiScrollPanel.setSize("160px", "215px");
-				
-						// creates a cell list for all related pbis
-						// with multiselectionmodel
-						cellListPBI = new CellList<ProductBacklogItem>(
-								new AbstractCell<ProductBacklogItem>() {
-									@Override
-									public void render(Context context,
-											ProductBacklogItem value, SafeHtmlBuilder sb) {
-										sb.appendEscaped(value.getName());
-									}
-								});
-						pbiScrollPanel.setWidget(cellListPBI);
-						cellListPBI.setSize("100%", "100%");
-						cellListPBI
-								.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
-						
-						lblTaskFinished = new Label("");
-						lblTaskFinished.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-						lblTaskFinished.setStyleName("taskboardLabel");
-						lblTaskFinished.setVisible(false);
-						concreteTaskDetailPanel.add(lblTaskFinished, 280, 418);
-						lblTaskFinished.setSize("172px", "30px");
+		pbiScrollPanel.setWidget(cellListPBI);
+		cellListPBI.setSize("100%", "100%");
+		cellListPBI
+		.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
+
+		lblTaskFinished = new Label("");
+		lblTaskFinished.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		lblTaskFinished.setStyleName("taskboardLabel");
+		lblTaskFinished.setVisible(false);
+		concreteTaskDetailPanel.add(lblTaskFinished, 280, 418);
+		lblTaskFinished.setSize("172px", "30px");
 	}
 
 	// ################## SETTER / GETTER for view elements #############################
@@ -335,7 +336,7 @@ public abstract class TaskDetailView extends Composite implements
 	protected Label getLblPBIs() {
 		return lblPBIs;
 	}
-	
+
 	/**
 	 * 
 	 * @return Label for for a 'Task is finished' text
@@ -346,7 +347,7 @@ public abstract class TaskDetailView extends Composite implements
 
 	@SuppressWarnings("unchecked")
 	protected Set<ProductBacklogItem> getSelectedPBIs() {
-	return ((MultiSelectionModel<ProductBacklogItem>)this.getCellListPBI().getSelectionModel()).getSelectedSet();
+		return ((MultiSelectionModel<ProductBacklogItem>)this.getCellListPBI().getSelectionModel()).getSelectedSet();
 	}
 
 	// ################## Ende #############################
@@ -370,7 +371,7 @@ public abstract class TaskDetailView extends Composite implements
 	}
 
 	@Override
-	public Integer getEffort() {
+	public Integer getEffortInput() {
 		return this.getIBoxEffort().getValue();
 	}
 
@@ -408,8 +409,8 @@ public abstract class TaskDetailView extends Composite implements
 	}
 
 	@Override
-	public void setEffort(Integer effort) {
-		this.getIBoxEffort().setValue(effort);
+	public void setEffort(Effort effort) {
+		this.getIBoxEffort().setValue(effort.getValue());
 	}
 
 	@Override
@@ -453,5 +454,5 @@ public abstract class TaskDetailView extends Composite implements
 	public void addRemovePBIsEventHandler(EventHandler<MultiplePBIArgs> arg) {
 		this.removePBIsEvent.add(arg);
 	}
-	
+
 }

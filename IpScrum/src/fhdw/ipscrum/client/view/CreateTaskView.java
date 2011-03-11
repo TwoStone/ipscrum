@@ -5,6 +5,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
@@ -14,9 +16,6 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateTaskView;
 import fhdw.ipscrum.shared.constants.TextConstants;
-
-import com.google.gwt.user.client.ui.IntegerBox;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
  * This class represents a view for creating a new task
@@ -32,15 +31,15 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	// ##### Ende ##################
 
 	// ########### View Elements ############
-	private Button btnOK;
-	private AbsolutePanel contentPanel;
-	private Button btnAbort;
-	private TextBox textBox;
-	private TextArea textArea;
-	private IntegerBox iBoxEffort;
+	private final Button btnOK;
+	private final AbsolutePanel contentPanel;
+	private final Button btnAbort;
+	private final TextBox textBox;
+	private final TextArea textArea;
+	private final IntegerBox iBoxEffort;
 	// ########## Ende View Elements ############
 
-	
+
 	public CreateTaskView() {
 
 		contentPanel = new AbsolutePanel();
@@ -143,7 +142,7 @@ public class CreateTaskView extends Composite implements ICreateTaskView {
 	}
 
 	@Override
-	public Integer getEffort() {
+	public Integer getEffortInput() {
 		return this.getIBoxEffort().getValue();
 	}
 

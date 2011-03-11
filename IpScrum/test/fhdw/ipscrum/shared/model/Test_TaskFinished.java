@@ -3,18 +3,17 @@ package fhdw.ipscrum.shared.model;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import fhdw.ipscrum.shared.exceptions.*;
+
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 
 
 public class Test_TaskFinished {
-	
+
 	private static Person per1 = null;
 	private static Person per2 = null;
 	private static Feature pbi1 = null;
@@ -40,7 +39,7 @@ public class Test_TaskFinished {
 		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
 		sprintbl = sprint.getSprintBacklog();
 		ende = new Date(2011-03-03);
-				
+
 		pbltest.addItem(pbi1);
 		pbltest.addItem(pbi2);
 		test.addSprint(sprint);
@@ -48,9 +47,9 @@ public class Test_TaskFinished {
 		team1.addMember(per2);
 		pbi1.setSprint(sprint);
 		pbi2.setSprint(sprint);
-		
+
 		sprintbl.addTask(t1);
-		
+
 		t1.setResponsibility(per1);
 		t1.finish(new Date(2011-03-03));
 	}
@@ -62,7 +61,7 @@ public class Test_TaskFinished {
 	// --------------------------------------------------------------------------------------
 	// ------------------------------- Test of Functions ------------------------------------
 	// --------------------------------------------------------------------------------------
-	
+
 	@Test
 	/**
 	 * Getting Finished Date
@@ -70,7 +69,7 @@ public class Test_TaskFinished {
 	public void testGetFinishDate() throws Exception{
 		assertEquals(ende, t1.getFinishDate());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the responsible Person
@@ -78,7 +77,7 @@ public class Test_TaskFinished {
 	public void testGetResponsiblePerson() throws Exception{
 		assertEquals(per1,t1.getResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Test on having a responsible Person
@@ -86,7 +85,7 @@ public class Test_TaskFinished {
 	public void testHasResponsiblePerson() throws Exception{
 		assertEquals(true,t1.hasResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Test on being finished
@@ -95,12 +94,12 @@ public class Test_TaskFinished {
 		assertEquals(true,t1.isFinished());
 	}
 
-	
-	
+
+
 	// ----------------------------------------------------------------------------------------
 	// ----------------------------- Test of Exceptions ---------------------------------------
 	// ----------------------------------------------------------------------------------------
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on adding a PBI
@@ -108,7 +107,7 @@ public class Test_TaskFinished {
 	public void testAddPBI() throws Exception{
 		t1.addPBI(pbi2);
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on finishing a Task
@@ -116,7 +115,7 @@ public class Test_TaskFinished {
 	public void testFinish1() throws Exception{
 		t1.finish();
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on finishing a Task
@@ -124,7 +123,7 @@ public class Test_TaskFinished {
 	public void testFinish2() throws Exception{
 		t1.finish(new Date());
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on removing a PBI
@@ -132,7 +131,7 @@ public class Test_TaskFinished {
 	public void testRemovePBI() throws Exception{
 		t1.removePBI(pbi1);
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on setting the description
@@ -140,7 +139,7 @@ public class Test_TaskFinished {
 	public void testSetDescription() throws Exception{
 		t1.setDescription("Beschreibung ändern");
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on setting the name
@@ -148,7 +147,7 @@ public class Test_TaskFinished {
 	public void testSetName() throws Exception{
 		t1.setName("Task");
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on setting the responsibility
@@ -156,12 +155,12 @@ public class Test_TaskFinished {
 	public void testSetResponsibility() throws Exception{
 		t1.setResponsibility(per2);
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Test on setting the planned effort
 	 */
 	public void testSetPlanEffort() throws Exception{
-		t1.setPlanEffort(5);
+		t1.setPlanEffort(new Effort(5));
 	}
 }

@@ -1,19 +1,18 @@
 package fhdw.ipscrum.shared.model;
 
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Date;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-
-import fhdw.ipscrum.shared.exceptions.*;
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 
 public class Test_TaskInProgress {
-	
+
 	private static Person per1 = null;
 	private static Person per2 = null;
 	private static Feature pbi1 = null;
@@ -28,7 +27,7 @@ public class Test_TaskInProgress {
 	private static Team team1 = null;
 	private static SprintBacklog sprintbl = null;
 	private static Integer five = null;
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		test = new Project("Test");
@@ -44,24 +43,24 @@ public class Test_TaskInProgress {
 		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
 		sprintbl = sprint.getSprintBacklog();
 		five = 5;
-		
+
 		pbltest.addItem(pbi1);
 		pbltest.addItem(pbi2);
 		test.addSprint(sprint);
-		
+
 		team1.addMember(per1);
 		team1.addMember(per2);
 		pbi1.setSprint(sprint);
 		pbi2.setSprint(sprint);
-		
+
 		sprintbl.addTask(t1);
 		sprintbl.addTask(t2);
 		sprintbl.addTask(t3);
-		
+
 		t1.addPBI(pbi1);
 		t2.addPBI(pbi2);
 		t3.addPBI(pbi2);
-		
+
 		t1.setResponsibility(per1);
 		t2.setResponsibility(per2);
 		t3.setResponsibility(per1);
@@ -73,11 +72,11 @@ public class Test_TaskInProgress {
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
-	
+
 	// -----------------------------------------------------------------------------------------
 	// ----------------------------- Test of Functions -----------------------------------------
 	// -----------------------------------------------------------------------------------------
-	
+
 	@Test
 	/**
 	 * Changing the Responsibility of a Task
@@ -86,7 +85,7 @@ public class Test_TaskInProgress {
 		t1.setResponsibility(per2);
 		assertEquals(per2, t1.getResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Changing of the Description
@@ -95,7 +94,7 @@ public class Test_TaskInProgress {
 		t1.setDescription("Beschreibung geändert");
 		assertEquals("Beschreibung geändert", t1.getDescription());
 	}
-		
+
 	@Test
 	/**
 	 * Finishing a Task
@@ -104,7 +103,7 @@ public class Test_TaskInProgress {
 		t1.finish();
 		assertEquals(true,t1.isFinished());
 	}
-	
+
 	@Test
 	/**
 	 * Finishing a Task
@@ -113,7 +112,7 @@ public class Test_TaskInProgress {
 		t2.finish(new Date());
 		assertEquals(true,t2.isFinished());
 	}
-	
+
 	@Test
 	/**
 	 * Test on having a Responsible Person
@@ -121,7 +120,7 @@ public class Test_TaskInProgress {
 	public void testHasResponsiblePerson() throws Exception{
 		assertEquals(true, t3.hasResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the responsible Person
@@ -129,7 +128,7 @@ public class Test_TaskInProgress {
 	public void testGetResponsiblePerson() throws Exception{
 		assertEquals(per1,t3.getResponsiblePerson());
 	}
-	
+
 	@Test
 	/**
 	 * Getting the finish Date
@@ -137,7 +136,7 @@ public class Test_TaskInProgress {
 	public void testGetFinishDate() throws Exception{
 		assertEquals(null, t3.getFinishDate());
 	}
-	
+
 	@Test
 	/**
 	 * Checking, if a Task is finished
@@ -145,18 +144,18 @@ public class Test_TaskInProgress {
 	public void testIsFinished() throws Exception{
 		assertEquals(false, t3.isFinished());
 	}
-	
+
 
 	@Test
 	/**
 	 * Setting the planned effort
 	 */
 	public void testSetPlanEffort() throws Exception{
-		t3.setPlanEffort(5);
-		assertEquals(five,t3.getPlanEffort());
+		t3.setPlanEffort(new Effort(5));
+		assertEquals(new Effort(five),t3.getPlanEffort());
 	}
-	
-	
+
+
 	// -----------------------------------------------------------------------------------------
 	// ----------------------------- Test of Exceptions ----------------------------------------
 	// -----------------------------------------------------------------------------------------
@@ -168,7 +167,7 @@ public class Test_TaskInProgress {
 	public void testAddPBI() throws Exception{
 		t3.addPBI(pbi1);
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Removing of a PBI
@@ -176,12 +175,12 @@ public class Test_TaskInProgress {
 	public void testRemovePBI() throws Exception{
 		t3.removePBI(pbi1);
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Changing of the name
 	 */
 	public void testSetName() throws Exception{
 		t3.setName("Name geändert");
-		}
+	}
 }

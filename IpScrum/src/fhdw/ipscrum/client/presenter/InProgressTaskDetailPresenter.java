@@ -11,21 +11,22 @@ import fhdw.ipscrum.client.view.interfaces.ITaskDetailView;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.TaskAssigned;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 
 /**
- * Presenter for {@link Task} with the state {@link TaskAssigned} 
+ * Presenter for {@link Task} with the state {@link TaskAssigned}
  * @author Phase III / Group I
  * This Class is a specialization of {@link TaskDetailPresenter}
  */
 public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
-	
+
 	//Variable for the selected sprint
 	ISprint sprint;
-	
+
 	/**
 	 * Creates a new instance of {@link InProgressTaskDetailPresenter}
 	 * 
@@ -47,33 +48,33 @@ public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
 	//Add specifc handlers
 	@Override
 	protected void addSpecificHandler() {
-		
+
 		// Handler for the OkayEvent
 		// Refresh the task with the given informations from the view class
 		this.getView().addOkayEventHandler(new EventHandler<EventArgs>() {
-			
+
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-			
-				
+
+
 				try {
 					// person will be only changed if a person is selected
 					if(getView().getPerson() != null){
-					//set reponsible person
-					InProgressTaskDetailPresenter.this.task.setResponsibility(getView().getPerson());
+						//set reponsible person
+						InProgressTaskDetailPresenter.this.task.setResponsibility(getView().getPerson());
 					}
 					// set effort
-					InProgressTaskDetailPresenter.this.task.setPlanEffort(getView().getEffort());
-					
-					// set description 
+					InProgressTaskDetailPresenter.this.task.setPlanEffort(new Effort(getView().getEffortInput()));
+
+					// set description
 					InProgressTaskDetailPresenter.this.task.setDescription(getView().getDescription());
-					
+
 					// check if the task is finished
 					if(getView().isFinished()){
 						// set the task to finish
 						InProgressTaskDetailPresenter.this.task.finish();
 					}
-				
+
 				} catch (ForbiddenStateException e) {
 					// Displays an error if the action is not allowed cause of the Task-State
 					GwtUtils.displayError(e);
@@ -93,7 +94,7 @@ public class InProgressTaskDetailPresenter extends TaskDetailPresenter {
 	@Override
 	protected ITaskDetailView createView() {
 		IInProgressTaskDeailView view = new InProgressTaskDetailView();
-		
+
 		return view;
 	}
 

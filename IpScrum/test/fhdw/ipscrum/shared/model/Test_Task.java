@@ -1,19 +1,16 @@
 package fhdw.ipscrum.shared.model;
 
-import static org.junit.Assert.*;
-import fhdw.ipscrum.shared.exceptions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
-
-import java.lang.*;
+import java.util.Iterator;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Iterator;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 
 public class Test_Task {
 
@@ -86,9 +83,9 @@ public class Test_Task {
 		sprintbl.addTask(t4);
 		sprintbl.addTask(t5);
 		sprintbl.addTask(t6);
-		
+
 		t6.setResponsibility(per1);
-		
+
 	}
 
 	@AfterClass
@@ -156,8 +153,8 @@ public class Test_Task {
 		pbiIt = t4.getPBIIterator();
 		while (pbiIt.hasNext()){
 			pbix = pbiIt.next();
-		if (pbix == pbi1) {
-			pl1 = true;
+			if (pbix == pbi1) {
+				pl1 = true;
 			}
 		}
 
@@ -171,7 +168,7 @@ public class Test_Task {
 	public void testAddPBI2() throws Exception {
 		t4.addPBI(pbi1);
 	}
-	
+
 	@Test
 	/**
 	 * Getting the description
@@ -202,7 +199,7 @@ public class Test_Task {
 	 * Getting planed effort
 	 */
 	public void testGetPlanEffort() throws Exception {
-		assertEquals(zero, t1.getPlanEffort());
+		assertEquals(new Effort(zero), t1.getPlanEffort());
 	}
 
 	@Test
@@ -210,8 +207,8 @@ public class Test_Task {
 	 * Setting the planed effort
 	 */
 	public void testSetPlanEffort() throws Exception {
-		t1.setPlanEffort(3);
-		assertEquals(three, t1.getPlanEffort());
+		t1.setPlanEffort(new Effort(3));
+		assertEquals(new Effort(three), t1.getPlanEffort());
 	}
 
 	@Test
@@ -354,7 +351,7 @@ public class Test_Task {
 	public void testLifeCircle1() throws Exception {
 		// Setting name and planed effort
 		t2.setName("Task");
-		t2.setPlanEffort(3);
+		t2.setPlanEffort(new Effort(3));
 
 		// Adding a pbi
 		t2.addPBI(pbi2);
@@ -368,8 +365,8 @@ public class Test_Task {
 		pbiIt = t2.getPBIIterator();
 		while (pbiIt.hasNext()){
 			pbix = pbiIt.next();
-		if (pbix == pbi1) {
-			pl1 = true;
+			if (pbix == pbi1) {
+				pl1 = true;
 			}
 		}
 
@@ -377,7 +374,7 @@ public class Test_Task {
 		assertEquals(true, pl1);
 		assertEquals(true, t2.isFinished());
 		assertEquals("Task", t2.getName());
-		assertEquals(three, t2.getPlanEffort());
+		assertEquals(new Effort(three), t2.getPlanEffort());
 		assertEquals(per2, t2.getResponsiblePerson());
 
 	}
@@ -392,7 +389,7 @@ public class Test_Task {
 	public void testLifeCircle2() throws Exception {
 		// setting name and planned effort
 		t3.setName("Task");
-		t3.setPlanEffort(3);
+		t3.setPlanEffort(new Effort(3));
 
 		// adding two pbi's
 		t3.addPBI(pbi3);
@@ -420,31 +417,31 @@ public class Test_Task {
 		pl1 = false;
 		while (pbiIt.hasNext()){
 			pbix = pbiIt.next();
-		
-		if (pbix == pbi1) {
-			pl1 = true;
-		}}
+
+			if (pbix == pbi1) {
+				pl1 = true;
+			}}
 		assertEquals(true, pl1);
 		pbiIt = t3.getPBIIterator();
 		pl1 = false;
 		while (pbiIt.hasNext()) {
 			pbix = pbiIt.next();
-			if (pbix == pbi4) pl1 = true;	
+			if (pbix == pbi4) pl1 = true;
 		}
 		assertEquals(true, pl1);
 
 		pl1 = true;
 		while (pbiIt.hasNext()){
 			pbix = pbiIt.next();
-		if (pbix == pbi3) {
-			pl1 = false;
+			if (pbix == pbi3) {
+				pl1 = false;
 			}
 		}
 		assertEquals(true, pl1);
 
 		assertEquals(true, t3.isFinished());
 		assertEquals("Task", t3.getName());
-		assertEquals(three, t3.getPlanEffort());
+		assertEquals(new Effort(three), t3.getPlanEffort());
 		assertEquals(per2, t3.getResponsiblePerson());
 
 	}

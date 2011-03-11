@@ -9,7 +9,6 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
-import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 
@@ -176,7 +175,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 		while (i.hasNext()) {
 			ITask current = i.next();
 			if (current.isFinished() && (current.getFinishDate().before(date) || current.getFinishDate().equals(date))) {
-				result -= current.getPlanEffort();
+				result -= current.getPlanEffort().getValue();
 			}
 		}
 		return result;
@@ -191,7 +190,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 		Iterator<ITask> i = this.taskIterator();
 		while (i.hasNext()) {
 			ITask current = i.next();
-			result += current.getPlanEffort();
+			result += current.getPlanEffort().getValue();
 		}
 		return result;
 	}

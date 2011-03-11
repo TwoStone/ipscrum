@@ -17,6 +17,7 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.TaskUnassigned;
@@ -26,7 +27,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
 /**
  * Presenter for {@link Task} with the state {@link TaskUnassigned}
  * 
- * @author Phase III / Group I 
+ * @author Phase III / Group I
  * This Class is a specialization of {@link TaskDetailPresenter}
  */
 public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
@@ -71,13 +72,12 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 					ToDoTaskDetailPresenter.this.task.setDescription(getView()
 							.getDescription());
 					// Effort
-					ToDoTaskDetailPresenter.this.task.setPlanEffort(getView()
-							.getEffort());
+					ToDoTaskDetailPresenter.this.task.setPlanEffort(new Effort(getView().getEffortInput()));
 					// Check if selected Person is null
 					if (getView().getPerson() != null) {
 						// Add a responsible person for the task
 						ToDoTaskDetailPresenter.this.task
-								.setResponsibility(getView().getPerson());
+						.setResponsibility(getView().getPerson());
 
 					}
 
@@ -134,7 +134,7 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 					public void onUpdate(Object sender,
 							MultiplePBIArgs eventArgs) {
 						Iterator<ProductBacklogItem> pbisIt = eventArgs
-								.getPbis().iterator();
+						.getPbis().iterator();
 
 						while (pbisIt.hasNext()) {
 							try {

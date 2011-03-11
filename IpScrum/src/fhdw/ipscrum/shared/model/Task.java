@@ -43,7 +43,7 @@ public class Task extends Observable implements ITask {
 	 * the plan effort may be changed during the lifecycle of a task.
 	 * You can also call it "estimated rest effort".
 	 */
-	private Integer planEffort;
+	private Effort planEffort;
 	/**
 	 * 1:1 relation to the sprint backlog
 	 */
@@ -65,7 +65,7 @@ public class Task extends Observable implements ITask {
 		try {
 			this.setName(name);
 			this.setDescription(description);
-			this.setPlanEffort(0);
+			this.setPlanEffort(new Effort(0));
 		} catch (final ForbiddenStateException e) {
 			/*
 			 * INTERNAL ERROR should never happen, make sure that the initial
@@ -105,7 +105,7 @@ public class Task extends Observable implements ITask {
 				throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 			}
 		}
-		
+
 		if (pbi.getSprint()==null){
 			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}
@@ -149,7 +149,7 @@ public class Task extends Observable implements ITask {
 	}
 
 	@Override
-	public Integer getPlanEffort() {
+	public Effort getPlanEffort() {
 		return this.planEffort;
 	}
 
@@ -207,7 +207,7 @@ public class Task extends Observable implements ITask {
 
 
 	@Override
-	public void setPlanEffort(Integer planEffort)
+	public void setPlanEffort(Effort planEffort)
 	throws ForbiddenStateException {
 		this.state.setPlanEffort(planEffort);
 		this.notifyObservers();
@@ -387,7 +387,7 @@ public class Task extends Observable implements ITask {
 	 * replaces the actual planEffort with the new.
 	 * @param planEffort
 	 */
-	protected void doSetPlanEffort(Integer planEffort) {
+	protected void doSetPlanEffort(Effort planEffort) {
 		this.planEffort = planEffort;
 	}
 
@@ -421,17 +421,17 @@ public class Task extends Observable implements ITask {
 	 */
 	protected void enforceRemovePBI(final ProductBacklogItem pbi){
 		this.state.accept(new ITaskStateVisitor() {
-			
+
 			@Override
 			public void handleTaskUnassigned(TaskUnassigned taskUnassigned) {
-				Task.this.doRemovePBI(pbi);	
+				Task.this.doRemovePBI(pbi);
 			}
-			
+
 			@Override
 			public void handleTaskInProgress(TaskInProgress taskInProgress) {
-				Task.this.doRemovePBI(pbi);	
+				Task.this.doRemovePBI(pbi);
 			}
-			
+
 			@Override
 			public void handleTaskFinished(TaskFinished taskFinished) {
 				//do nothing

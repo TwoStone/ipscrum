@@ -17,7 +17,7 @@ public class TaskInProgress extends TaskAssigned {
 	 * Creates a new TaskInProgress instance
 	 * @param task A task has to be passed to represent the 1:1 relation between the task and its state.
 	 * @param responsiblePerson person which is responsible for the task.
-	 * @throws SprintAssociationException 
+	 * @throws SprintAssociationException
 	 */
 	public TaskInProgress(Task task, IPerson responsiblePerson) throws SprintAssociationException {
 		super(task, responsiblePerson);
@@ -37,30 +37,30 @@ public class TaskInProgress extends TaskAssigned {
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException, NoValidValueException {
+	throws ForbiddenStateException, NoValidValueException {
 		this.getMyTask().doSetDescription(description);
-		
+
 	}
 
 	@Override
 	public void finish() throws ForbiddenStateException {
-		this.getMyTask().doSetTaskFinished();		
+		this.getMyTask().doSetTaskFinished();
 	}
 
 	@Override
 	public void finish(Date finishDate) throws ForbiddenStateException {
-		this.getMyTask().doSetTaskFinished(finishDate);		
+		this.getMyTask().doSetTaskFinished(finishDate);
 	}
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
-		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);	
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);
-		
+
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class TaskInProgress extends TaskAssigned {
 
 	@Override
 	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
-		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);	
+		throw new ForbiddenStateException(ExceptionConstants.FORBIDDEN_STATE_ERROR);
 	}
 
 	@Override
@@ -94,10 +94,10 @@ public class TaskInProgress extends TaskAssigned {
 		iTaskStateVisitor.handleTaskInProgress(this);
 	}
 	@Override
-	public void setPlanEffort(Integer planEffort)
-			throws ForbiddenStateException {
+	public void setPlanEffort(Effort planEffort)
+	throws ForbiddenStateException {
 		this.getMyTask().doSetPlanEffort(planEffort);
 	}
-	
+
 
 }

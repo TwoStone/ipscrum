@@ -29,19 +29,19 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 	@Override
 	public void setName(String name) throws ForbiddenStateException, NoValidValueException {
 		this.getMyTask().doSetName(name);
-		
+
 	}
 
 	@Override
 	public void setDescription(String description)
-			throws ForbiddenStateException, NoValidValueException {
+	throws ForbiddenStateException, NoValidValueException {
 		this.getMyTask().doSetDescription(description);
-		
+
 	}
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson)
-			throws ForbiddenStateException, SprintAssociationException {
+	throws ForbiddenStateException, SprintAssociationException {
 		this.getMyTask().setTaskAssigned(responsiblePerson);
 	}
 
@@ -57,14 +57,14 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 	@Override
 	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException {
 		this.getMyTask().doAddPBI(pbi);
-		
+
 	}
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
-			throws ForbiddenStateException {
+	throws ForbiddenStateException {
 		this.getMyTask().doRemovePBI(pbi);
-		
+
 	}
 
 	@Override
@@ -92,9 +92,9 @@ public class TaskUnassigned extends AbstractTaskState implements ITaskState {
 		iTaskStateVisitor.handleTaskUnassigned(this);
 	}
 	@Override
-	public void setPlanEffort(Integer planEffort)
-			throws ForbiddenStateException {
+	public void setPlanEffort(Effort planEffort)
+	throws ForbiddenStateException {
 		this.getMyTask().doSetPlanEffort(planEffort);
 	}
-	
+
 }

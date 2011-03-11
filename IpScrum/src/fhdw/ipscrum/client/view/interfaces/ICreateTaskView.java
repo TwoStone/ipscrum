@@ -5,7 +5,7 @@ import fhdw.ipscrum.client.events.EventHandler;
 
 public interface ICreateTaskView extends IView{
 
-	
+
 	/**
 	 * @return a String with the name of a new task.
 	 */
@@ -15,11 +15,11 @@ public interface ICreateTaskView extends IView{
 	 * @return a String with the description of a new task.
 	 */
 	public String getDescription();
-	
+
 	/**
-	 * @return a Integer with the plan effort (man-hours) of a new task. 
+	 * @return a Integer with the plan effort (man-hours) of a new task.
 	 */
-	public Integer getEffort();
+	public Integer getEffortInput();
 
 	/**
 	 * Use this method to add a handler for saveNewTaskEvent
