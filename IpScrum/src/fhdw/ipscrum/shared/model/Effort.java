@@ -32,6 +32,12 @@ public class Effort implements Serializable {
 		this.value = value;
 	}
 
+
+	@Override
+	public String toString() {
+		return this.value.toString();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
