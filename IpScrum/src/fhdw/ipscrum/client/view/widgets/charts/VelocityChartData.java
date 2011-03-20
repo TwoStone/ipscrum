@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
@@ -12,19 +13,13 @@ public class VelocityChartData implements ChartData {
 
 	ITeam team;
 	ArrayList<ISprint> sprints;
-	Double averageVelocity;
-	Double worstAverageVelocity;
-
-
-	public Double getWorstAverageVelocity() {
-		return worstAverageVelocity;
-	}
+	Double absAverageVelocity;
+	Double relAverageVelocity;
 
 	public VelocityChartData(ITeam team) {
 		this.team = team;
 		this.sprints = createSprintList();
-		this.averageVelocity = this.calculateAverageVelocity(this.sprints);
-		this.worstAverageVelocity = this.calculateWorstAverageVelocity();
+		this.calculateAverages(this.sprints);
 	}
 
 
@@ -40,33 +35,19 @@ public class VelocityChartData implements ChartData {
 		return tempSprintList;
 	}
 
-	private Double calculateAverageVelocity(List<ISprint> sprintList) {
+	private void calculateAverages(List<ISprint> sprintList) {
 		if (sprintList.size()<2) {
-			return Double.NaN;
+			this.absAverageVelocity = Double.NaN;
+			this.relAverageVelocity = Double.NaN;
 		}
-		double result = 0d;
+		double resultAbs = 0d;
+		double resultRel = 0d;
 		for (ISprint sprint : sprintList) {
-			result += sprint.getCumulatedManDayCostsOfClosedPbis();
+			resultAbs += sprint.getCumulatedManDayCostsOfClosedPbis();
+			resultRel += VelocityChartData.calculateRelativeVelocity(sprint);
 		}
-		return result / sprintList.size();
-	}
-
-	private Double calculateWorstAverageVelocity() {
-		if (this.sprints.size()<4) {
-			return Double.NaN;
-		}
-		ArrayList<ISprint> tempSprintList = new ArrayList<ISprint>();
-		tempSprintList.addAll(this.sprints);
-		Collections.sort(tempSprintList, new Comparator<ISprint>() {
-			@Override
-			public int compare(ISprint o1, ISprint o2) {
-				Integer val1 = o1.getCumulatedManDayCostsOfClosedPbis();
-				Integer val2 = o2.getCumulatedManDayCostsOfClosedPbis();
-				return val1.compareTo(val2);
-			}
-		});
-
-		return this.calculateAverageVelocity(tempSprintList.subList(0, 3));
+		this.absAverageVelocity = resultAbs / sprintList.size();
+		this.relAverageVelocity = resultRel / sprintList.size();
 	}
 
 	@Override
@@ -86,8 +67,24 @@ public class VelocityChartData implements ChartData {
 		return sprints;
 	}
 
-	public Double getAverageVelocity() {
-		return averageVelocity;
+	public Double getAbsAverageVelocity() {
+		return absAverageVelocity;
+	}
+
+	public Double getRelAverageVelocity() {
+		return relAverageVelocity;
+	}
+
+
+	/**
+	 * This is used to obtain the relative velocity (efforts/sprintlength) of a sprint/team.
+	 * @param sprint the sprint to be processed
+	 * @return a chart-value (double)
+	 */
+	public static double calculateRelativeVelocity(ISprint sprint) {
+		double effort = sprint.getCumulatedManDayCostsOfClosedPbis();
+		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		return effort/sprintLength; // TODO check possible zero-division problem
 	}
 
 }

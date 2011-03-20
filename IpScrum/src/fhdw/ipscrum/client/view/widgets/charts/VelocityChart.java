@@ -1,9 +1,6 @@
 package fhdw.ipscrum.client.view.widgets.charts;
 
-import com.google.gwt.user.client.ui.Label;
 import com.googlecode.gchart.client.GChart;
-import com.googlecode.gchart.client.GChart.Curve.Point;
-import com.googlecode.gchart.client.HoverUpdateable;
 
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -15,9 +12,10 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 public class VelocityChart extends GChart {
 
 	private final VelocityChartData data;
-	private Curve averageCurve;
-	private Curve velocityCurve;
-	private Curve worstAverageCurve;
+	private Curve absVelocityCurve;
+	private Curve relVelocityCurve;
+	private Curve absAverageCurve;
+	private Curve relAverageCurve;
 
 	/**
 	 * This is the default constructor.
@@ -37,33 +35,44 @@ public class VelocityChart extends GChart {
 		setChartTitle("<h2>Team " + this.data.getTeam().getDescription() + "</h2>");
 		setChartSize(500, 500);
 
-		// SETUP VELOCITY CURVE
+		// SETUP ABSOLUTE-VELOCITY CURVE
 		addCurve();
-		velocityCurve = getCurve();
-		velocityCurve.setYAxis(GChart.Y_AXIS);
-		velocityCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		velocityCurve.getSymbol().setHoverWidget(new VelocityChartHoverWidget());
-		velocityCurve.getSymbol().setBackgroundColor("Purple");
-		velocityCurve.getSymbol().setBorderColor("Pink");
-		velocityCurve.getSymbol().setBorderWidth(1);
+		absVelocityCurve = getCurve();
+		absVelocityCurve.setYAxis(GChart.Y_AXIS);
+		absVelocityCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		absVelocityCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("geleistete Aufwände: ${y}"));
+		absVelocityCurve.getSymbol().setBackgroundColor("dodgerblue");
+		absVelocityCurve.getSymbol().setBorderColor("papayawhip");
+		absVelocityCurve.getSymbol().setBorderWidth(1);
 
-		// SETUP AVERAGE CURVE
+		// SETUP RELATIVE-VELOCITY CURVE
 		addCurve();
-		averageCurve = getCurve();
-		averageCurve.setYAxis(GChart.Y_AXIS);
-		averageCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		averageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt aller Sprints: ${y}"));
-		averageCurve.getSymbol().setBorderColor("Firebrick");
-		averageCurve.getSymbol().setBackgroundColor("White");
+		relVelocityCurve = getCurve();
+		relVelocityCurve.setYAxis(GChart.Y_AXIS);
+		relVelocityCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		relVelocityCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("relative Velocity: ${y}"));
+		relVelocityCurve.getSymbol().setBackgroundColor("skyblue");
+		relVelocityCurve.getSymbol().setBorderColor("papayawhip");
+		relVelocityCurve.getSymbol().setBorderWidth(1);
+		absVelocityCurve.getSymbol().setWidth(relVelocityCurve.getSymbol().getWidth()+8);
 
-		// SETUP WORST AVERAGE CURVE
+		// SETUP ABSOLUTE-AVERAGE CURVE
 		addCurve();
-		worstAverageCurve = getCurve();
-		worstAverageCurve.setYAxis(GChart.Y_AXIS);
-		worstAverageCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		worstAverageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt der unteren drei: ${y}"));
-		worstAverageCurve.getSymbol().setBorderColor("Firebrick");
-		worstAverageCurve.getSymbol().setBackgroundColor("White");
+		absAverageCurve = getCurve();
+		absAverageCurve.setYAxis(GChart.Y_AXIS);
+		absAverageCurve.getSymbol().setSymbolType(SymbolType.LINE);
+		absAverageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt (absolut): ${y}"));
+		absAverageCurve.getSymbol().setBorderColor("firebrick");
+		absAverageCurve.getSymbol().setBackgroundColor("white");
+
+		// SETUP RELATIVE-AVERAGE CURVE
+		addCurve();
+		relAverageCurve = getCurve();
+		relAverageCurve.setYAxis(GChart.Y_AXIS);
+		relAverageCurve.getSymbol().setSymbolType(SymbolType.LINE);
+		relAverageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt (relativ): ${y}"));
+		relAverageCurve.getSymbol().setBorderColor("firebrick");
+		relAverageCurve.getSymbol().setBackgroundColor("white");
 
 		getYAxis().setAxisLabel(TextConstants.CHART_VELOCITY_YAXIS_LABEL);
 		getYAxis().getAxisLabel().setStyleName("rotated");
@@ -90,28 +99,10 @@ public class VelocityChart extends GChart {
 	private void populateChart() {
 		for (int i = 0; i < this.data.getSprints().size(); i++) {
 			ISprint currentSprint = this.data.getSprints().get(i);
-			averageCurve.addPoint(i, this.data.getAverageVelocity());
-			worstAverageCurve.addPoint(i, this.data.getWorstAverageVelocity());
-			velocityCurve.addPoint(i, currentSprint.getCumulatedManDayCostsOfClosedPbis());
-			String annotationText = "Sprint " + currentSprint.getName() + ":<br />" + currentSprint.getCumulatedManDayCostsOfClosedPbis() + " geleistete Aufwände";
-			velocityCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
-			velocityCurve.getPoint().setAnnotationVisible(false);
+			absVelocityCurve.addPoint(i, currentSprint.getCumulatedManDayCostsOfClosedPbis());
+			relVelocityCurve.addPoint(i, VelocityChartData.calculateRelativeVelocity(currentSprint));
+			absAverageCurve.addPoint(i, this.data.getAbsAverageVelocity());
+			relAverageCurve.addPoint(i, this.data.getRelAverageVelocity());
 		}
 	}
-}
-
-/**
- *	This is to control the annotation-behaviour.
- */
-class VelocityChartHoverWidget extends Label implements HoverUpdateable {
-	@Override
-	public void hoverCleanup(Point hoveredAwayFrom) {
-		hoveredAwayFrom.setAnnotationVisible(false);
-	}
-
-	@Override
-	public void hoverUpdate(Point hoveredOver) {
-		hoveredOver.setAnnotationVisible(true);
-	}
-
 }
