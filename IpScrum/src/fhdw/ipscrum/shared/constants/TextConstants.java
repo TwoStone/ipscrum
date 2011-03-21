@@ -150,6 +150,30 @@ public final class TextConstants {
 	public static final String SPRINTTABLE_TEAMHEADER = "Team";
 	public static final String SPRINTTABLE_BEGINDATEHEADER = "Beginn";
 	public static final String SPRINTTABLE_ENDDATEHEADER = "Ende";
+	
+	public static final String INCIDENT_VACATION_NAME = "Urlaub";
+	public static final String INCIDENT_VACATION_DESCR_SUFFIX = " befindet sich im Urlaub.";
+	public static final String INCIDENT_ILLNESS_NAME = "Krankheit";
+	public static final String INCIDENT_ILLNESS_DESCR_SUFFIX = " ist aus gesundheitlichen Gründen abwesend.";
+	public static final String INCIDENT_TASKCOMPLETION_NAME = "Task erledigt";
+	public static final String INCIDENT_TASKCOMPLETION_DESCR_PREFIX = "Der Task '";
+	public static final String INCIDENT_TASKCOMPLETION_DESCR_INFIX = "' wurde von ";
+	public static final String INCIDENT_TASKCOMPLETION_DESCR_SUFFIX = " erledigt";
+	public static final String INCIDENT_PBICOMPLETION_NAME1 = "Feature abgenommen";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_PREFIX1 = "Das Feature '";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_INFIX1 = "' wurde von Product Owner ";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_SUFFIX1 = " abgenommen.";
+	public static final String INCIDENT_PBICOMPLETION_NAME2 = "Bug behoben";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_PREFIX2 = "Der Bug '";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_SUFFIX2 = " als behoben akzeptiert";
+	public static final String INCIDENT_SPRINTCOMPLETION_NAME = "Sprint beendet";
+	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_PREFIX = "Der Sprint '" ;
+	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_INFIX = "' wurde von dem Team ";
+	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_SUFFIX = " beendet.";
+	public static final String INCIDENT_RELEASECOMPLETION_NAME = "Neues Release";
+	public static final String INCIDENT_RELEASECOMPLETION_DESCR_PREFIX = "Das geplante Release '";
+	public static final String INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX = "' wurde ausgerollt";
+	
 	/* [END SECTION] */
 
 	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
@@ -186,6 +210,7 @@ public final class TextConstants {
 	public static final String SYSTEMEVERWALTUNG = "Systemeverwaltung";
 	public static final String ÜBERGEORDNET = "Übergeordnet";
 	public static final String NEUES_SYSTEM_HINZUFÜGEN = "Neues System hinzufügen";
+
 
 	/* [END SECTION] */
 
