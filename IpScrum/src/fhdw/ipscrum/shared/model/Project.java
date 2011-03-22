@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
@@ -16,6 +17,7 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
@@ -55,7 +57,11 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 * Bidirectional association to the product backlog.
 	 */
 	private OneToOne<OneToOne, Project> backlogAssoc;
-
+	
+	/**
+	 * Bidirectional association to the incidents.
+	 */
+	private ManyToMany<ManyToMany, Project> incidentAssoc;
 	@SuppressWarnings("unused")
 	/**
 	 * Default Constructor for GWT serialization.
@@ -78,6 +84,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 		this.backlogAssoc = new OneToOne<OneToOne, Project>(this);
 		this.backlogAssoc.set(new ProductBacklog(this).getProjectAssoc());
 		this.possibleSystems = new ArrayList<System>();
+		this.incidentAssoc = new ManyToMany<ManyToMany, Project> (this);
 	}
 
 	@Override
@@ -347,5 +354,15 @@ public class Project extends Observable implements BDACompare, Serializable,
 
 	public void removeSystem(System system) {
 		this.possibleSystems.remove(system);
+	}
+	
+	public ManyToMany<ManyToMany, Project> getIncidentAssoc(){
+		return this.incidentAssoc;
+	}
+	
+	public void addIncident(final Incident incident){
+		if (incident!=null){
+			this.getIncidentAssoc().add(incident.getProjectAssoc());
+		}
 	}
 }

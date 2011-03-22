@@ -3,8 +3,11 @@ package fhdw.ipscrum.shared.model.incidents;
 import java.util.Date;
 import java.util.Iterator;
 
+import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -16,7 +19,7 @@ import fhdw.ipscrum.shared.observer.Observable;
  * and the progress of the projects. They represent the project history and 
  * provide a basis for planning activities.
  */
-public class Incident extends Observable {
+public class Incident extends Observable implements BDACompare {
 	private static final long serialVersionUID = 3849328996818037099L;
 	
 	/**
@@ -41,6 +44,11 @@ public class Incident extends Observable {
 	 * Specific type of the incident;
 	 */
 	private IncidentType incidentType;
+	
+	/**
+	 * Project association
+	 */
+	private ManyToMany<ManyToMany, Incident> projectAssoc;
 	/* private constructor for serialization */
 	private Incident(){}
 	
@@ -50,6 +58,7 @@ public class Incident extends Observable {
 		this.setStart(start);
 		//TODO: Plausibilität prüfen!
 		this.setEnd(end);
+		this.projectAssoc = new ManyToMany<ManyToMany, Incident>(this);
 	}
 	public static Incident createVacationIncident(IPerson person, Date start, Date end){
 		Incident i = new Incident(TextConstants.INCIDENT_VACATION_NAME,
@@ -163,6 +172,28 @@ public class Incident extends Observable {
 
 	public Iterator<IPerson> getParticipants(){
 		return this.incidentType.getParticipants();
+	}
+	
+	public ManyToMany<ManyToMany, Incident> getProjectAssoc(){
+		return this.projectAssoc;
+	}
+	
+	public void addProject(Project project) {
+		if (project != null){
+			this.getProjectAssoc().add(project.getIncidentAssoc());
+		}
+	}
+
+	@Override
+	public int indirectHashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean indirectEquals(Object obj) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

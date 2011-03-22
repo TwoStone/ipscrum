@@ -16,7 +16,7 @@ public abstract class IncidentType implements Serializable {
 	private boolean isGlobal;
 	
 	public  void setGlobal(boolean isGlobal){
-		this.setGlobal(isGlobal);
+		this.isGlobal = isGlobal;
 	}
 	
 	public boolean isGlobal(){
