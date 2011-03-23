@@ -216,7 +216,7 @@ public class DemoModel {
 		final Sprint taskboardRelPhase3 = new Sprint("Taskboard",
 				"Bereitstellung von Task-Funktionalitäten", new Date(
 						2011 - 1900, 2 - 1, 14),
-						new Date(2011 - 1900, 3 - 1, 9), teamFrontend);
+						new Date(2011 - 1900, 3 - 1, 9), teamBackend);
 		final Sprint reportingRelPhase3 = new Sprint("Reporting I",
 				"Bereitstellung von Statistikelementen", new Date(2011 - 1900,
 						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), teamReporting);
@@ -283,7 +283,7 @@ public class DemoModel {
 		final Feature f1 = new Feature("Feature 1", "Beschreibung Feature 1",
 				projekt1.getBacklog());
 		f1.setLastEditor(pNils);
-		f1.setManDayCosts(new Effort(6));
+		f1.setManDayCosts(new Effort(11));
 		f1.setSprint(sprint1rel10);
 		f1.close();
 
@@ -473,28 +473,28 @@ public class DemoModel {
 		taskChartAnpassungen.setResponsibility(pWilken);
 		//		taskChartAnpassungen.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskProjektHistorieModell = new Task("Model für Projekthistorie entwickeln", "PH-Modell");
+		final Task taskProjektHistorieModell = new Task("PH-Modell", "Model für Projekthistorie entwickeln");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskProjektHistorieModell);
 		taskProjektHistorieModell.addPBI(f12);
 		taskProjektHistorieModell.setPlanEffort(new Effort(6));
 		taskProjektHistorieModell.setResponsibility(pStefan);
 		//		taskProjektHistorieModell.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskProjektHistorieGUI = new Task("GUI für Projekthistorie entwickeln", "PH-GUI");
+		final Task taskProjektHistorieGUI = new Task("PH-GUI", "GUI für Projekthistorie entwickeln");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskProjektHistorieGUI);
 		taskProjektHistorieGUI.addPBI(f12);
 		taskProjektHistorieGUI.setPlanEffort(new Effort(5));
 		taskProjektHistorieGUI.setResponsibility(pAngelina);
 		//		taskProjektHistorieGUI.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskSprintDetailsModell = new Task("Model für SprintDetails erweitern", "Mehr Detaileigenschaften");
+		final Task taskSprintDetailsModell = new Task("SprintDetail-Modell", "Mehr Detaileigenschaften");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskSprintDetailsModell);
 		taskSprintDetailsModell.addPBI(f13);
 		taskSprintDetailsModell.setPlanEffort(new Effort(4));
 		taskSprintDetailsModell.setResponsibility(pChris);
 		//		taskSprintDetailsModell.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskSprintDetailsGUI = new Task("GUI für SprintDetails erweitern", "Mehr Detaileigenschaften");
+		final Task taskSprintDetailsGUI = new Task("SprintDetail-GUI", "Mehr Detaileigenschaften");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskSprintDetailsGUI);
 		taskSprintDetailsGUI.addPBI(f13);
 		taskSprintDetailsGUI.setPlanEffort(new Effort(3));
