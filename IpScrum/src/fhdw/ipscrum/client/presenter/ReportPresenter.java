@@ -2,6 +2,8 @@ package fhdw.ipscrum.client.presenter;
 
 import com.google.gwt.user.client.ui.Panel;
 
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.ProjectEventArgs;
 import fhdw.ipscrum.client.view.ReportView;
 import fhdw.ipscrum.client.view.interfaces.IReportView;
 
@@ -33,7 +35,13 @@ public class ReportPresenter extends Presenter<IReportView> {
 	 * This is used to set up individual event actions.
 	 */
 	private void setupEventHandlers() {
-		// Eventhandling goes here..
+		
+		this.concreteView.addSelectProjectEventHandler(new EventHandler<ProjectEventArgs>() {
+			@Override
+			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
+				new ProjectHistoryPresenter(ReportPresenter.this.getView().getContentPanel(), ReportPresenter.this, eventArgs.getProject());
+			}
+		});
 	}
 
 }
