@@ -6,11 +6,15 @@ import com.google.gwt.user.client.ui.DecoratedStackPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import fhdw.ipscrum.client.events.Event;
+import fhdw.ipscrum.client.events.EventHandler;
+import fhdw.ipscrum.client.events.args.ProjectEventArgs;
 import fhdw.ipscrum.client.view.interfaces.IReportView;
 import fhdw.ipscrum.client.view.widgets.charts.RegularReleaseBurndownChart;
 import fhdw.ipscrum.client.view.widgets.charts.SprintBurndownChart;
@@ -28,6 +32,13 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
  */
 
 public class ReportView extends Composite implements IReportView {
+
+	// EVENTS
+	private final Event<ProjectEventArgs> selectProject = new Event<ProjectEventArgs>();
+	
+	
+	// EVENTS ENDE
+	
 	private SingleSelectionModel<Project> projectSelectionModel;
 	private SingleSelectionModel<IRelease> releaseSelectionModel;
 	private SingleSelectionModel<ISprint> sprintSelectionModel;
@@ -94,8 +105,10 @@ public class ReportView extends Composite implements IReportView {
 		this.projectSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
+
 				ReportView.this.contentPanel.clear();
-				ReportView.this.contentPanel.setWidget(new HTML("<h1>Projekthistorie zu " + projectSelectionModel.getSelectedObject().getName() + "<br />(noch) nicht verfügbar.</h1>"));
+				ReportView.this.selectProject.fire(ReportView.this, new ProjectEventArgs(projectSelectionModel.getSelectedObject()));
+				
 			}
 		});
 
@@ -128,5 +141,16 @@ public class ReportView extends Composite implements IReportView {
 				ReportView.this.contentPanel.setWidget(new VelocityChart(teamSelectionModel.getSelectedObject()));
 			}
 		});
+	}
+
+	@Override
+	public void addSelectProjectEventHandler(EventHandler<ProjectEventArgs> arg) {
+		this.selectProject.add(arg);
+		
+	}
+
+	@Override
+	public Panel getContentPanel() {
+		return this.contentPanel;
 	}
 }
