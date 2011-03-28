@@ -85,9 +85,8 @@ public class VelocityChart extends GChart {
 		this.populateChart();
 
 		getXAxis().clearTicks();
-		for (int i = 0; i < this.data.getTickData().size(); i++) { // TODO tickdata is useless right now
-			ISprint currentSprint = this.data.getSprints().get(i);
-			getXAxis().addTick(i, currentSprint.getName());
+		for (int i = 0; i < this.data.getSprints().size(); i++) {
+			getXAxis().addTick(i, this.data.getSprints().get(i).getName());
 		}
 
 		this.update();

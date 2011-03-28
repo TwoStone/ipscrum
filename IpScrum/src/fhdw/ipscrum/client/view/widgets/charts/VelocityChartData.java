@@ -50,15 +50,6 @@ public class VelocityChartData implements ChartData {
 		this.relAverageVelocity = resultRel / sprintList.size();
 	}
 
-	@Override
-	public List<Double> getTickData() {
-		ArrayList<Double> result = new ArrayList<Double>();
-		for (ISprint sprint : this.sprints) {
-			result.add((double) sprint.getEnd().getTime());
-		}
-		return result;
-	}
-
 	public ITeam getTeam() {
 		return team;
 	}

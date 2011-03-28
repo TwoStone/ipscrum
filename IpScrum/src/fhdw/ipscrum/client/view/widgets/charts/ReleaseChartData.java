@@ -117,7 +117,6 @@ public class ReleaseChartData implements ChartData {
 	 * This is to obtain a list of data-points for the trend-calculation.
 	 * @return a list of data-points.
 	 */
-	@Override
 	public List<Double> getTickData() {
 		ArrayList<Double> result = new ArrayList<Double>();
 		for (double i = 0; i < this.data.keySet().size(); i++) {
