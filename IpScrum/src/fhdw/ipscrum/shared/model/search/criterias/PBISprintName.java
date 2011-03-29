@@ -4,6 +4,13 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 public class PBISprintName extends TextCriteria implements PBISprintCriteria {
 
+	private static final long serialVersionUID = 4728904126758675324L;
+
+	@SuppressWarnings("unused")
+	private PBISprintName() {
+		super();
+	}
+
 	public PBISprintName(final String value) {
 		super(value);
 	}

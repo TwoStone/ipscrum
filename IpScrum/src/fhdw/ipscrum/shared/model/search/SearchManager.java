@@ -1,11 +1,13 @@
 package fhdw.ipscrum.shared.model.search;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
-public class SearchManager {
+public class SearchManager implements Serializable {
 
+	private static final long serialVersionUID = 1309138599428533013L;
 	private Vector<Search> searching;
 
 	public SearchManager() {

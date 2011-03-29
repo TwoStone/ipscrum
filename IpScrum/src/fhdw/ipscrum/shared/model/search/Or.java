@@ -6,6 +6,13 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 public class Or extends MultiLogicSearchOperator {
 
+	private static final long serialVersionUID = -5965140304562056266L;
+
+	@SuppressWarnings("unused")
+	private Or() {
+		super();
+	}
+
 	public Or(final Vector<SearchExpression> args) {
 		super(args);
 	}

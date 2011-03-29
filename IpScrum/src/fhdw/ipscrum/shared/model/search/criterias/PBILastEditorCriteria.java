@@ -6,7 +6,13 @@ import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 public class PBILastEditorCriteria implements SearchCriteria {
 
-	private final IPerson person;
+	private static final long serialVersionUID = -7842513428666320043L;
+	private IPerson person;
+
+	@SuppressWarnings("unused")
+	private PBILastEditorCriteria() {
+		super();
+	}
 
 	public PBILastEditorCriteria(final IPerson person) {
 		super();

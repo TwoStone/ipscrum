@@ -6,6 +6,13 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 public class And extends MultiLogicSearchOperator {
 
+	private static final long serialVersionUID = 817231203138838566L;
+
+	@SuppressWarnings("unused")
+	private And() {
+		super();
+	}
+
 	public And(final Vector<SearchExpression> args) {
 		super(args);
 	}

@@ -4,7 +4,12 @@ import java.util.Vector;
 
 public abstract class MultiLogicSearchOperator implements SearchExpression {
 
-	private final Vector<SearchExpression> args;
+	private static final long serialVersionUID = -374972903680516595L;
+	private Vector<SearchExpression> args;
+
+	protected MultiLogicSearchOperator() {
+		super();
+	}
 
 	public MultiLogicSearchOperator(final Vector<SearchExpression> args) {
 		super();

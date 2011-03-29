@@ -7,6 +7,13 @@ import fhdw.ipscrum.shared.model.search.SearchCriteria;
 public class PBIAcceptanceCriteria extends TextCriteria implements
 		SearchCriteria {
 
+	private static final long serialVersionUID = -2292898956935498177L;
+
+	@SuppressWarnings("unused")
+	private PBIAcceptanceCriteria() {
+		super();
+	}
+
 	public PBIAcceptanceCriteria(final String value) {
 		super(value);
 	}

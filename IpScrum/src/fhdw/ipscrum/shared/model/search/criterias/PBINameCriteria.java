@@ -5,6 +5,13 @@ import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 public class PBINameCriteria extends TextCriteria implements SearchCriteria {
 
+	private static final long serialVersionUID = -8960703187309223147L;
+
+	@SuppressWarnings("unused")
+	private PBINameCriteria() {
+		super();
+	}
+
 	public PBINameCriteria(final String name) {
 		super(name);
 	}

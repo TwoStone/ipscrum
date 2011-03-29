@@ -6,8 +6,14 @@ import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 public class PBIComplexityCriteria implements SearchCriteria {
 
-	private final Integer from;
-	private final Integer to;
+	private static final long serialVersionUID = -3726369254746420491L;
+	private Integer from;
+	private Integer to;
+
+	@SuppressWarnings("unused")
+	private PBIComplexityCriteria() {
+		super();
+	}
 
 	public PBIComplexityCriteria(final Integer from, final Integer to)
 			throws NoValidValueException {

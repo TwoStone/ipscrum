@@ -6,7 +6,13 @@ import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 public class PBIProjectCriteria implements SearchCriteria {
 
-	private final Project project;
+	private static final long serialVersionUID = 8805887457507103227L;
+	private Project project;
+
+	@SuppressWarnings("unused")
+	private PBIProjectCriteria() {
+		super();
+	}
 
 	public PBIProjectCriteria(final Project project) {
 		super();

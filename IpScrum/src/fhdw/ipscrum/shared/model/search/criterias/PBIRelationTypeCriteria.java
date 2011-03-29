@@ -6,7 +6,13 @@ import fhdw.ipscrum.shared.model.RelationType;
 
 public class PBIRelationTypeCriteria implements PBIRelationCriteria {
 
-	private final RelationType value;
+	private static final long serialVersionUID = -5912511074023370924L;
+	private RelationType value;
+
+	@SuppressWarnings("unused")
+	private PBIRelationTypeCriteria() {
+		super();
+	}
 
 	public PBIRelationTypeCriteria(final RelationType value) {
 		super();

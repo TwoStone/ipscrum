@@ -6,6 +6,13 @@ import fhdw.ipscrum.shared.model.Relation;
 public class PBIRelationDestCriteria extends TextCriteria implements
 		PBIRelationCriteria {
 
+	private static final long serialVersionUID = -3448309506611175360L;
+
+	@SuppressWarnings("unused")
+	private PBIRelationDestCriteria() {
+		super();
+	}
+
 	public PBIRelationDestCriteria(final String value) {
 		super(value);
 	}

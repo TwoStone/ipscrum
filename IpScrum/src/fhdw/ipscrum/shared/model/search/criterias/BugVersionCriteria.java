@@ -8,6 +8,13 @@ import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 public class BugVersionCriteria extends TextCriteria implements SearchCriteria {
 
+	private static final long serialVersionUID = 7595932324691599539L;
+
+	@SuppressWarnings("unused")
+	private BugVersionCriteria() {
+		super();
+	}
+
 	public BugVersionCriteria(final String version) {
 		super(version);
 	}
