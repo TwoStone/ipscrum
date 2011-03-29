@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.SortedMap;
 
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	public void testGetData_1() throws Exception {
 		SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
 
-		TreeMap<Date, SprintChartData.SprintChartDataDetails> result = fixture.getData();
+		SortedMap<Date, SprintChartData.SprintChartDataDetails> result = fixture.getData();
 
 		assertNotNull(result);
 	}

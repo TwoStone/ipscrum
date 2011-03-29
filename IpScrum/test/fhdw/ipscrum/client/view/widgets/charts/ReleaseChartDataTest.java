@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.SortedMap;
 
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 
 		ReleaseChartData fixture = new ReleaseChartData(this.pro1rel1);
 
-		TreeMap<Date, ReleaseChartData.ReleaseChartDataDetails> result = fixture.getData();
+		SortedMap<Date, ReleaseChartData.ReleaseChartDataDetails> result = fixture.getData();
 
 		// add additional test code here
 		assertNotNull(result);
