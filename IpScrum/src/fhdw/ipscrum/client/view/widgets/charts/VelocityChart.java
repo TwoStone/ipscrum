@@ -78,30 +78,33 @@ public class VelocityChart extends GChart {
 		getYAxis().getAxisLabel().setStyleName("rotated");
 		getYAxis().setAxisLabelThickness(20);
 		getYAxis().setHasGridlines(true);
-		getYAxis().setTickLabelFormat("##.#"); // TODO solve this
+		getYAxis().setTickLabelFormat("##.#");
 		getYAxis().setTickLength(25);
 		getYAxis().setAxisMin(0);
 
 		this.populateChart();
 
 		getXAxis().clearTicks();
-		for (int i = 0; i < this.data.getSprints().size(); i++) {
-			getXAxis().addTick(i, this.data.getSprints().get(i).getName());
+		int xPosition = 0;
+		for (ISprint sprint : this.data.getData().keySet()) {
+			getXAxis().addTick(xPosition, sprint.getName());
+			xPosition++;
 		}
 
 		this.update();
 	}
 
 	/**
-	 * This is to populate the chart with release-data.
+	 * This is to populate the chart with data.
 	 */
 	private void populateChart() {
-		for (int i = 0; i < this.data.getSprints().size(); i++) {
-			ISprint currentSprint = this.data.getSprints().get(i);
-			absVelocityCurve.addPoint(i, currentSprint.getCumulatedManDayCostsOfClosedPbis());
-			relVelocityCurve.addPoint(i, VelocityChartData.calculateRelativeVelocity(currentSprint));
-			absAverageCurve.addPoint(i, this.data.getAbsAverageVelocity());
-			relAverageCurve.addPoint(i, this.data.getRelAverageVelocity());
+		int xPosition = 0;
+		for (ISprint sprint : this.data.getData().keySet()) {
+			absVelocityCurve.addPoint(xPosition, this.data.getData().get(sprint).getAbsoluteVelocity());
+			relVelocityCurve.addPoint(xPosition, this.data.getData().get(sprint).getRelativeVelocity());
+			absAverageCurve.addPoint(xPosition, this.data.getAbsAverageVelocity());
+			relAverageCurve.addPoint(xPosition, this.data.getRelAverageVelocity());
+			xPosition++;
 		}
 	}
 }

@@ -13,6 +13,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
+import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 
 /**
@@ -105,27 +106,29 @@ public class Sprint implements ISprint {
 	 * Method getCumulatedManDayCosts. Calculates the cumulated ManDayCosts of
 	 * all PBIs of this Sprint.
 	 * 
-	 * @return int
+	 * @return Effort
+	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCosts()
 	 */
 	@Override
-	public int getCumulatedManDayCosts() {
+	public Effort getCumulatedManDayCosts() throws NoValidValueException {
 		int result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
 			result += pbi.getManDayCosts().getValue();
 		}
-		return result;
+		return new Effort(result);
 	}
 
 	/**
 	 * Method getCumulatedManDayCostsOfClosedPbis. Calculates the cumulated
 	 * ManDayCosts of all closed PBIs of this Sprint.
 	 * 
-	 * @return int
+	 * @return Effort
+	 * @throws NoValidValueException
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCostsOfClosedPbis()
 	 */
 	@Override
-	public int getCumulatedManDayCostsOfClosedPbis() {
+	public Effort getCumulatedManDayCostsOfClosedPbis() throws NoValidValueException {
 		this.result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
 			pbi.getState().accept(new IPBIStateVisitor() {
@@ -133,16 +136,54 @@ public class Sprint implements ISprint {
 				@Override
 				public void handleClosed(PBIClosedState closed) {
 					Sprint.this.result += pbi.getManDayCosts().getValue();
-					// TODO: Muss für "result" wirklich eine Klassenvariable erstellt werden?
 				}
 
 				@Override
 				public void handleOpen(PBIOpenState open) {
-					// we're only interested in closed tasks, so there's nothing to do here
+					// we're only interested in closed items, so there's nothing to do here
 				}
 			});
 		}
-		return this.result;
+		return new Effort(this.result);
+	}
+
+	/**
+	 * Method getCumulatedManDayCostsOfClosedFeatures. Calculates the cumulated
+	 * ManDayCosts of all closed Features of this Sprint.
+	 * 
+	 * @return Effort
+	 * @throws NoValidValueException
+	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCostsOfClosedFeatures()
+	 */
+	@Override
+	public Effort getCumulatedManDayCostsOfClosedFeatures() throws NoValidValueException {
+		this.result = 0;
+		for (final ProductBacklogItem pbi : this.getPBIs()) {
+			pbi.accept(new IProductBacklogItemVisitor() {
+
+				@Override
+				public void handleFeature(Feature feature) {
+					feature.getState().accept(new IPBIStateVisitor() {
+
+						@Override
+						public void handleOpen(PBIOpenState open) {
+							// we're only interested in closed features, so there's nothing to do here
+						}
+
+						@Override
+						public void handleClosed(PBIClosedState closed) {
+							Sprint.this.result += pbi.getManDayCosts().getValue();
+						}
+					});
+				}
+
+				@Override
+				public void handleBug(Bug bug) {
+					// we're only interested in closed features, so there's nothing to do here
+				}
+			});
+		}
+		return new Effort(this.result);
 	}
 
 	/**

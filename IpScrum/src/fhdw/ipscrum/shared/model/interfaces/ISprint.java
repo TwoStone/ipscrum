@@ -8,6 +8,7 @@ import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
@@ -131,22 +132,30 @@ ITreeVisitorRelevantElement {
 	/**
 	 * Method getCumulatedManDayCosts
 	 * @return cumulated Efforts
+	 * @throws NoValidValueException
 	 */
-	public abstract int getCumulatedManDayCosts();
+	public abstract Effort getCumulatedManDayCosts() throws NoValidValueException;
 
 	/**
 	 * Method getCumulatedManDayCostsOfClosedPbis
 	 * @return cumulated Efforts of Closed PBIs
+	 * @throws NoValidValueException
 	 */
-	public abstract int getCumulatedManDayCostsOfClosedPbis();
+	public abstract Effort getCumulatedManDayCostsOfClosedPbis() throws NoValidValueException;
+
+	/**
+	 * Method getCumulatedManDayCostsOfClosedFeatures
+	 * @return cumulated Efforts of Closed Features
+	 * @throws NoValidValueException
+	 */
+	public abstract Effort getCumulatedManDayCostsOfClosedFeatures() throws NoValidValueException;
+
 
 	/**
 	 * @param item PBI to check
 	 * @return true, if the item is associated with the sprint
 	 */
 	public boolean hasPBI(ProductBacklogItem item);
-
-
 
 
 

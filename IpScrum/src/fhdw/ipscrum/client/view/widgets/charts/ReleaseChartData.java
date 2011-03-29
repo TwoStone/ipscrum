@@ -5,8 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 
@@ -29,7 +33,7 @@ public class ReleaseChartData implements ChartData {
 		return this.release;
 	}
 
-	public TreeMap<Date, ReleaseChartDataDetails> getData() {
+	public SortedMap<Date, ReleaseChartDataDetails> getData() {
 		return this.data;
 	}
 
@@ -54,7 +58,11 @@ public class ReleaseChartData implements ChartData {
 
 		for (ISprint sprint : sortedSprints) {
 
-			runningBDValue -= sprint.getCumulatedManDayCostsOfClosedPbis();
+			try {
+				runningBDValue -= sprint.getCumulatedManDayCostsOfClosedPbis().getValue();
+			} catch (NoValidValueException e) {
+				Logger.getLogger("ErrorLogger").log(Level.WARNING, e.getMessage());
+			}
 
 			if (this.data.containsKey(sprint.getEnd())) {
 				ReleaseChartDataDetails details = this.data.get(sprint.getEnd());
@@ -69,7 +77,7 @@ public class ReleaseChartData implements ChartData {
 		}
 
 		// calculate ideal values
-		double idealBurndown = (double) overallEfforts / (double) this.getData().size();
+		double idealBurndown = overallEfforts / (double) this.getData().size();
 		double runningIdealValue = overallEfforts;
 		for (Date endDate : this.getData().keySet()) {
 			ReleaseChartDataDetails currentData = getData().get(endDate);

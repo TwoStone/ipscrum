@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.view.widgets.charts;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
@@ -75,7 +76,7 @@ public class SprintChartData implements ChartData {
 		return this.sprint;
 	}
 
-	public TreeMap<Date, SprintChartDataDetails> getData() {
+	public SortedMap<Date, SprintChartDataDetails> getData() {
 		return this.data;
 	}
 
@@ -83,8 +84,8 @@ public class SprintChartData implements ChartData {
 	 *	This class is used to hold the chart-values for one day of a sprint.
 	 */
 	class SprintChartDataDetails {
-		private Double actualBurndownValue;
-		private Double idealBurndownValue;
+		private final Double actualBurndownValue;
+		private final Double idealBurndownValue;
 
 		public SprintChartDataDetails(Double idealBurndownValue) {
 			this(null,idealBurndownValue);
@@ -99,16 +100,8 @@ public class SprintChartData implements ChartData {
 			return this.actualBurndownValue;
 		}
 
-		public void setActualBurndownValue(Double actualBurndownValue) {
-			this.actualBurndownValue = actualBurndownValue;
-		}
-
 		public Double getIdealBurndownValue() {
 			return this.idealBurndownValue;
-		}
-
-		public void setIdealBurndownValue(Double idealBurndownValue) {
-			this.idealBurndownValue = idealBurndownValue;
 		}
 	}
 
