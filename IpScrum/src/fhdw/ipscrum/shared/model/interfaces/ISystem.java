@@ -49,14 +49,15 @@ public interface ISystem extends BDACompare {
 	abstract ISystem getRoot();
 
 	/**
-	 * Returns true if the given element is in the tree else false.
+	 * Returns true if the given element is in the tree else false. TODO
+	 * Besseren Kommentar!!!
 	 */
 	public abstract boolean contains(System system);
 
 	/**
 	 * Template Method typically used by contains(). Within recursion use always
 	 * this operation. Returns true if the given element is in the tree else
-	 * false.
+	 * false. TODO Besseren Kommentar!!!
 	 */
 	public abstract boolean containsAction(System system);
 }

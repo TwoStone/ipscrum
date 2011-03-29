@@ -3,8 +3,6 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Vector;
 
-import com.google.gwt.dev.Link;
-
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
@@ -13,30 +11,36 @@ import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
 
 /**
- * This class represent the root point for the whole model. This class is additionally used for storing project independent data like teams, persons and roles.
+ * This class represent the root point for the whole model. This class is
+ * additionally used for storing project independent data like teams, persons
+ * and roles.
  */
-public class Root extends Observable implements SerializationRoot, HasRelationTypeManager {
+public class Root extends Observable implements SerializationRoot,
+		HasRelationTypeManager {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6666063945302893637L;
-	
+
 	private Vector<Project> projects;
 	private HashSet<IPerson> persons;
 	private HashSet<ITeam> teams;
 	private HashSet<IRole> roles;
 	private RelationTypeManager relationTypeManager;
 	private SystemManager sysManager;
+	private SearchManager searchManager;
 
 	/**
 	 * Method save.
 	 * 
-	 * @param identifier String
+	 * @param identifier
+	 *            String
 	 * @throws PersistenceException
 	 * @see fhdw.ipscrum.shared.persistence.SerializationRoot#save(String)
 	 */
@@ -67,6 +71,13 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 			this.projects = new Vector<Project>();
 		}
 		return this.projects;
+	}
+
+	public SearchManager getSearchManager() {
+		if (this.searchManager == null) {
+			this.searchManager = new SearchManager();
+		}
+		return this.searchManager;
 	}
 
 	/**
@@ -106,11 +117,12 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		}
 		return this.relationTypeManager;
 	}
-	
+
 	/**
 	 * Removes the given project with all depending data from the model.
 	 * 
-	 * @param project Project for Deletion!
+	 * @param project
+	 *            Project for Deletion!
 	 */
 	public void removeProject(final Project project) {
 		this.getProjects().remove(project);
@@ -123,7 +135,8 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * @param project
 	 * @throws DoubleDefinitionException
 	 */
-	public void addProject(final Project project) throws DoubleDefinitionException {
+	public void addProject(final Project project)
+			throws DoubleDefinitionException {
 		this.existsProjectName(project.getName());
 		this.getProjects().add(project);
 		this.notifyObservers();
@@ -132,11 +145,13 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	/**
 	 * Helper method to ensure that no double project names will exist.
 	 * 
-	 * @param name Name of the Project.
+	 * @param name
+	 *            Name of the Project.
 	 * 
 	 * @throws DoubleDefinitionException
 	 */
-	public void existsProjectName(final String name) throws DoubleDefinitionException {
+	public void existsProjectName(final String name)
+			throws DoubleDefinitionException {
 		for (final Project current : this.getProjects()) {
 			if (current.getName().equals(name)) {
 				throw new DoubleDefinitionException(TextConstants.PROJECT_ERROR);
@@ -157,12 +172,15 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * Adds a new person to the model!
 	 * 
 	 * 
-	 * @param person IPerson
+	 * @param person
+	 *            IPerson
 	 * @throws DoubleDefinitionException
 	 */
-	public void addPerson(final IPerson person) throws DoubleDefinitionException {
+	public void addPerson(final IPerson person)
+			throws DoubleDefinitionException {
 		if (this.getPersons().contains(person)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getPersons().add(person);
 			this.notifyObservers();
@@ -182,12 +200,14 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * Adds a new Team to the model.
 	 * 
 	 * 
-	 * @param team ITeam
+	 * @param team
+	 *            ITeam
 	 * @throws DoubleDefinitionException
 	 */
 	public void addTeam(final ITeam team) throws DoubleDefinitionException {
 		if (this.getTeams().contains(team)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getTeams().add(team);
 			this.notifyObservers();
@@ -207,7 +227,8 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * Removes the given role. TODO Check Consistency
 	 * 
 	 * 
-	 * @param role IRole
+	 * @param role
+	 *            IRole
 	 * @throws ConsistencyException
 	 */
 	public void removeRole(final IRole role) throws ConsistencyException {
@@ -217,10 +238,12 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 				this.getRoles().remove(role);
 				this.notifyObservers();
 			} else {
-				throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+				throw new ConsistencyException(
+						fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
 			}
 		} else {
-			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		}
 
 	}
@@ -229,13 +252,15 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	 * Adds a new Role to the model.
 	 * 
 	 * 
-	 * @param role IRole
+	 * @param role
+	 *            IRole
 	 * @throws DoubleDefinitionException
 	 * @throws ConsistencyException
 	 */
 	public void addRole(final IRole role) throws DoubleDefinitionException {
 		if (this.getRoles().contains(role)) {
-			throw new DoubleDefinitionException(fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getRoles().add(role);
 			this.notifyObservers();
@@ -260,9 +285,9 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		if (this.sysManager == null) {
 			this.sysManager = new SystemManager();
 		}
-		return sysManager;
+		return this.sysManager;
 	}
-	
+
 	/**
 	 * Method toString.
 	 * 
@@ -282,17 +307,26 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.getPersons() == null) ? 0 : this.getPersons().hashCode());
-		result = prime * result + ((this.getProjects() == null) ? 0 : this.getProjects().hashCode());
-		result = prime * result + ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
-		result = prime * result + ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
+		result = prime
+				* result
+				+ ((this.getPersons() == null) ? 0 : this.getPersons()
+						.hashCode());
+		result = prime
+				* result
+				+ ((this.getProjects() == null) ? 0 : this.getProjects()
+						.hashCode());
+		result = prime * result
+				+ ((this.getRoles() == null) ? 0 : this.getRoles().hashCode());
+		result = prime * result
+				+ ((this.getTeams() == null) ? 0 : this.getTeams().hashCode());
 		return result;
 	}
 
 	/**
 	 * Method equals.
 	 * 
-	 * @param obj Object
+	 * @param obj
+	 *            Object
 	 * @return boolean
 	 */
 	@Override
