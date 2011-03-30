@@ -5,15 +5,28 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
+/**
+ * Manages a list of stored SearchExpressions and initiates a search.
+ */
 public class SearchManager implements Serializable {
 
 	private static final long serialVersionUID = 1309138599428533013L;
+
+	/**
+	 * List of stored search expressions.
+	 */
 	private Vector<Search> searching;
 
+	/**
+	 * Creates a new SearchManager Object.
+	 */
 	public SearchManager() {
-
+		super();
 	}
 
+	/**
+	 * Returns the list of stored search expressions.
+	 */
 	public Vector<Search> getSearching() {
 		if (this.searching == null) {
 			this.searching = new Vector<Search>();
@@ -21,18 +34,38 @@ public class SearchManager implements Serializable {
 		return this.searching;
 	}
 
+	/**
+	 * Adds a new search to the list.
+	 */
 	public void addSearch(final Search search) {
 		this.getSearching().add(search);
 	}
 
+	/**
+	 * Removes the given search from the list.
+	 */
 	public void removeSearch(final Search search) {
 		this.getSearching().remove(search);
 	}
 
+	/**
+	 * Returns the number of searches within the list.
+	 */
 	public int getSize() {
 		return this.getSearching().size();
 	}
 
+	/**
+	 * Initiate a search for a given list of PBIs based on a specific search
+	 * expression.
+	 * 
+	 * @param elements
+	 *            Elements for search.
+	 * @param expression
+	 *            Search Expression
+	 * @return Returns a list of PBIs where the compare of each pbi with the
+	 *         search expression was successful.
+	 */
 	public Vector<ProductBacklogItem> search(
 			final Vector<ProductBacklogItem> elements,
 			final SearchExpression expression) {
