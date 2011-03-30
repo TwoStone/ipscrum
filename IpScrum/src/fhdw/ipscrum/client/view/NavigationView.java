@@ -44,6 +44,7 @@ public class NavigationView extends Composite implements INavigationView {
 	private final PushButton pshbtnSpeichern;
 	private final MenuItem mntmSystemeverwaltung;
 	private final MenuItem mntmSuche;
+	private final MenuItem mntmVerwaltung;
 
 	/**
 	 * Method createView.
@@ -66,62 +67,79 @@ public class NavigationView extends Composite implements INavigationView {
 		final MenuBar menuBar = new MenuBar(false);
 		horizontalPanel.add(menuBar);
 
-		this.mntmProjekte = new MenuItem(TextConstants.NAV_PROJECTS, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.projectEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmProjekte = new MenuItem(TextConstants.NAV_PROJECTS, false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.projectEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
 		menuBar.addItem(this.mntmProjekte);
 
-		this.mntmTaskBoard = new MenuItem(TextConstants.NAV_TASKBOARD, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.tasksEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmTaskBoard = new MenuItem(TextConstants.NAV_TASKBOARD, false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.tasksEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
 		this.mntmTaskBoard.setHTML(TextConstants.NAV_TASKBOARD);
 		menuBar.addItem(this.mntmTaskBoard);
 
-		this.mntmReports = new MenuItem(TextConstants.NAV_REPORTS, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.reportsEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
+		this.mntmReports = new MenuItem(TextConstants.NAV_REPORTS, false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.reportsEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
 		menuBar.addItem(this.mntmReports);
 
 		final MenuItemSeparator separator = new MenuItemSeparator();
 		menuBar.addSeparator(separator);
+		final MenuBar verwMenuBar = new MenuBar(true);
 
-		this.mntmPersonenstammdaten = new MenuItem(TextConstants.NAV_PERSONROLEMANAGEMENT, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.personenEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
-		menuBar.addItem(this.mntmPersonenstammdaten);
+		this.mntmVerwaltung = new MenuItem("Verwaltung", false, verwMenuBar);
 
-		this.mntmTeamzuordnung = new MenuItem(TextConstants.NAV_TEAMMANAGEMENT, false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.teamEvent.fire(NavigationView.this, new EventArgs());
-			}
-		});
-		menuBar.addItem(this.mntmTeamzuordnung);
+		this.mntmPersonenstammdaten = new MenuItem(
+				TextConstants.NAV_PERSONROLEMANAGEMENT, false, new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.personenEvent.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
+		verwMenuBar.addItem(this.mntmPersonenstammdaten);
 
-		this.mntmSystemeverwaltung = new MenuItem("Systemeverwaltung", false, new Command() {
-			@Override
-			public void execute() {
-				NavigationView.this.systemManagement.fire(NavigationView.this, new EventArgs());
-			}
-		});
-		menuBar.addItem(this.mntmSystemeverwaltung);
+		this.mntmTeamzuordnung = new MenuItem(TextConstants.NAV_TEAMMANAGEMENT,
+				false, new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.teamEvent.fire(NavigationView.this,
+								new EventArgs());
+					}
+				});
+		verwMenuBar.addItem(this.mntmTeamzuordnung);
+
+		this.mntmSystemeverwaltung = new MenuItem("Systemeverwaltung", false,
+				new Command() {
+					@Override
+					public void execute() {
+						NavigationView.this.systemManagement.fire(
+								NavigationView.this, new EventArgs());
+					}
+				});
+		verwMenuBar.addItem(this.mntmSystemeverwaltung);
+		menuBar.addItem(this.mntmVerwaltung);
 
 		this.mntmSuche = new MenuItem("Suche", false, new Command() {
 			@Override
 			public void execute() {
-				NavigationView.this.searchEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.searchEvent.fire(NavigationView.this,
+						new EventArgs());
 			}
 		});
 		menuBar.addItem(this.mntmSuche);
@@ -133,7 +151,8 @@ public class NavigationView extends Composite implements INavigationView {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				NavigationView.this.saveEvent.fire(NavigationView.this, new EventArgs());
+				NavigationView.this.saveEvent.fire(NavigationView.this,
+						new EventArgs());
 			}
 		});
 
