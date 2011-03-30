@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model.search.criterias;
 
-import fhdw.ipscrum.shared.model.search.SearchCriteria;
+import fhdw.ipscrum.shared.model.search.ISearchCriteria;
 
-public interface PBISprintCriteria extends SearchCriteria {
+public interface PBISprintCriteria extends ISearchCriteria {
 }

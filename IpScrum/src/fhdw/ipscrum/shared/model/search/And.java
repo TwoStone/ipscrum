@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model.search;
 
-import java.util.Vector;
+import java.util.Collection;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
@@ -23,7 +23,7 @@ public class And extends MultiLogicSearchOperator {
 	/**
 	 * See Super Constructor.
 	 */
-	public And(final Vector<SearchExpression> args) {
+	public And(final Collection<SearchExpression> args) {
 		super(args);
 	}
 
@@ -36,6 +36,11 @@ public class And extends MultiLogicSearchOperator {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handleAnd(this);
 	}
 
 }

@@ -2,9 +2,10 @@ package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBIComplexityCriteria implements SearchCriteria {
+public class PBIComplexityCriteria extends SearchCriteria {
 
 	private static final long serialVersionUID = -3726369254746420491L;
 	private Integer from;
@@ -44,6 +45,11 @@ public class PBIComplexityCriteria implements SearchCriteria {
 			throw new NoValidValueException(
 					"Es muss ein gültiger Bereich angegeben werden!");
 		}
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBIComplexityCriteria(this);
 	}
 
 }

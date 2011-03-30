@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
 public class PBIClosedCriteria extends PBIStateCriteria {
 
@@ -14,5 +15,10 @@ public class PBIClosedCriteria extends PBIStateCriteria {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		return (pbi.getState() instanceof PBIClosedState);
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBIClosedCriteria(this);
 	}
 }

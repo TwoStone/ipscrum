@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model.search;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Represents a logical operator with more than one argument. All arguments will
@@ -13,13 +14,14 @@ public abstract class MultiLogicSearchOperator implements SearchExpression {
 	/**
 	 * List of search expression arguments.
 	 */
-	private Vector<SearchExpression> args;
+	private final Collection<SearchExpression> args;
 
 	/**
 	 * Constructor used by GWT Serialization.
 	 */
 	protected MultiLogicSearchOperator() {
 		super();
+		this.args = new ArrayList<SearchExpression>();
 	}
 
 	/**
@@ -28,7 +30,7 @@ public abstract class MultiLogicSearchOperator implements SearchExpression {
 	 * @param args
 	 *            List of search expression arguments.
 	 */
-	public MultiLogicSearchOperator(final Vector<SearchExpression> args) {
+	public MultiLogicSearchOperator(final Collection<SearchExpression> args) {
 		super();
 		this.args = args;
 	}
@@ -36,7 +38,12 @@ public abstract class MultiLogicSearchOperator implements SearchExpression {
 	/**
 	 * Returns the search arguments.
 	 */
-	public Vector<SearchExpression> getArgs() {
+	public Collection<SearchExpression> getArgs() {
 		return this.args;
+	}
+
+	@Override
+	public void accept(ISearchTypeVisitor visitor) {
+		visitor.handleMultiLogicSearchOperator(this);
 	}
 }

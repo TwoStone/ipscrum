@@ -1,9 +1,9 @@
 package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.SearchCriteria;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBINameCriteria extends TextCriteria implements SearchCriteria {
+public class PBINameCriteria extends TextCriteria {
 
 	private static final long serialVersionUID = -8960703187309223147L;
 
@@ -24,5 +24,10 @@ public class PBINameCriteria extends TextCriteria implements SearchCriteria {
 	@Override
 	public String toString() {
 		return "PBIName ='" + this.getValue() + "'";
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBINameCriteria(this);
 	}
 }

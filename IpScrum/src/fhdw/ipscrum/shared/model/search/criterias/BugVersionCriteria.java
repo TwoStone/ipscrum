@@ -3,10 +3,10 @@ package fhdw.ipscrum.shared.model.search.criterias;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.SearchCriteria;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
-public class BugVersionCriteria extends TextCriteria implements SearchCriteria {
+public class BugVersionCriteria extends TextCriteria {
 
 	private static final long serialVersionUID = 7595932324691599539L;
 
@@ -36,8 +36,8 @@ public class BugVersionCriteria extends TextCriteria implements SearchCriteria {
 
 		@Override
 		public void handleBug(final Bug bug) {
-			this.ret = bug.getVersion().getVersion().contains(
-					BugVersionCriteria.this.getValue());
+			this.ret = bug.getVersion().getVersion()
+					.contains(BugVersionCriteria.this.getValue());
 		}
 
 		@Override
@@ -48,6 +48,11 @@ public class BugVersionCriteria extends TextCriteria implements SearchCriteria {
 		public boolean isVersion() {
 			return this.ret;
 		}
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handleBugVersionCriteria(this);
 	}
 
 }

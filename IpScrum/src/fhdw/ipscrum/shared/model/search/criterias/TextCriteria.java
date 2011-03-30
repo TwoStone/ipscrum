@@ -2,7 +2,7 @@ package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public abstract class TextCriteria implements SearchCriteria {
+public abstract class TextCriteria extends SearchCriteria {
 
 	private static final long serialVersionUID = 2959273810129438739L;
 	private String value;

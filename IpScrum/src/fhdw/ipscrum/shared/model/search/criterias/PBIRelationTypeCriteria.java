@@ -3,8 +3,11 @@ package fhdw.ipscrum.shared.model.search.criterias;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBIRelationTypeCriteria implements PBIRelationCriteria {
+public class PBIRelationTypeCriteria extends SearchCriteria implements
+		PBIRelationCriteria {
 
 	private static final long serialVersionUID = -5912511074023370924L;
 	private RelationType value;
@@ -27,6 +30,11 @@ public class PBIRelationTypeCriteria implements PBIRelationCriteria {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBIRelationTypeCriteria(this);
 	}
 
 }

@@ -2,9 +2,10 @@ package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBIProjectCriteria implements SearchCriteria {
+public class PBIProjectCriteria extends SearchCriteria {
 
 	private static final long serialVersionUID = 8805887457507103227L;
 	private Project project;
@@ -22,5 +23,10 @@ public class PBIProjectCriteria implements SearchCriteria {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		return pbi.getBacklog().getProject().equals(this.project);
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBIProjectCriteria(this);
 	}
 }

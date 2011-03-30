@@ -4,10 +4,11 @@ import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.System;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
-public class BugSystemCriteria implements SearchCriteria {
+public class BugSystemCriteria extends SearchCriteria {
 
 	private static final long serialVersionUID = -8642109016111296284L;
 	private System system;
@@ -55,5 +56,10 @@ public class BugSystemCriteria implements SearchCriteria {
 		public boolean containsSystem() {
 			return this.ret;
 		}
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handleBugSystemCriteria(this);
 	}
 }

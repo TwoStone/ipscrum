@@ -26,4 +26,14 @@ public class NoSearchExpression implements SearchExpression {
 		return true;
 	}
 
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handleNoSearchExpression(this);
+	}
+
+	@Override
+	public void accept(ISearchTypeVisitor visitor) {
+		visitor.handleNoSearchExpression(this);
+	}
+
 }

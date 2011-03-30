@@ -19,4 +19,8 @@ public interface SearchExpression extends Serializable {
 	 *         else false.
 	 */
 	public boolean search(ProductBacklogItem pbi);
+
+	public void accept(ISearchExpressionVisitor visitor);
+
+	public void accept(ISearchTypeVisitor visitor);
 }

@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
 public class PBISprintDescCriteria extends TextCriteria implements
 		PBISprintCriteria {
@@ -23,6 +24,11 @@ public class PBISprintDescCriteria extends TextCriteria implements
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBISprintDescCriteria(this);
 	}
 
 }

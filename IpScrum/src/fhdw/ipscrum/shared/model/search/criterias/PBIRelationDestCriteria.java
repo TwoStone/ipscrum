@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
 public class PBIRelationDestCriteria extends TextCriteria implements
 		PBIRelationCriteria {
@@ -25,5 +26,10 @@ public class PBIRelationDestCriteria extends TextCriteria implements
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBIRelationDestCriteria(this);
 	}
 }

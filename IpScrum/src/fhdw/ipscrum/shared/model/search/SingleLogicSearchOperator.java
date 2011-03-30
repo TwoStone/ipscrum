@@ -44,4 +44,9 @@ public abstract class SingleLogicSearchOperator implements SearchExpression {
 	public void setArg(final SearchExpression arg) {
 		this.arg = arg;
 	}
+
+	@Override
+	public void accept(ISearchTypeVisitor visitor) {
+		visitor.handleSingleLogicSearchOperator(this);
+	}
 }

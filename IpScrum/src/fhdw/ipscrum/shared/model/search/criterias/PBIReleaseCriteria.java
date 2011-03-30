@@ -1,9 +1,9 @@
 package fhdw.ipscrum.shared.model.search.criterias;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.SearchCriteria;
+import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBIReleaseCriteria extends TextCriteria implements SearchCriteria {
+public class PBIReleaseCriteria extends TextCriteria {
 
 	private static final long serialVersionUID = 8640411828423628507L;
 
@@ -19,11 +19,16 @@ public class PBIReleaseCriteria extends TextCriteria implements SearchCriteria {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		if (pbi.getSprint() != null && pbi.getSprint().getRelease() != null) {
-			return pbi.getSprint().getRelease().getVersion().contains(
-					this.getValue());
+			return pbi.getSprint().getRelease().getVersion()
+					.contains(this.getValue());
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void accept(ISearchExpressionVisitor visitor) {
+		visitor.handlePBIReleaseCriteria(this);
 	}
 
 }
