@@ -7,8 +7,6 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.view.SearchView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.model.search.And;
-import fhdw.ipscrum.shared.model.search.NoSearchExpression;
-import fhdw.ipscrum.shared.model.search.Not;
 import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.criterias.PBINameCriteria;
@@ -46,11 +44,17 @@ public class SearchPresenter extends Presenter<ISearchView> {
 	 * this is called to set up the behaviour of all interaction widgets of this view.
 	 */
 	private void setupEventHandlers() {
-		SearchExpression se = new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new PBINameCriteria("der zu suchende Name des PBIs"))))))))))))));
+		// SearchExpression se = new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new
+		// PBINameCriteria("der zu suchende Name des PBIs"))))))))))))));
 		Vector<SearchExpression> sev = new Vector<SearchExpression>();
-		sev.add(se);
-		sev.add(new NoSearchExpression());
-		this.concreteView.setSearch(new Search("test", new And(sev))); // TODO Suche: Testdaten durch korrekte ersetzen
+		// sev.add(new Not(null));
+		sev.add(new PBINameCriteria("der zu suchende Name des PBIs"));
+		sev.add(new PBINameCriteria("der zu suchende Name des PBIs"));
+		// sev.add(new NoSearchExpression());
+		// this.concreteView.setSearch(new Search("test", new And(sev))); // TODO Suche: Testdaten durch korrekte ersetzen
+		// this.concreteView.setSearch(new Search("test", new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new PBINameCriteria(
+		// "der zu suchende Name des PBIs"))))))))))))))));
+		this.concreteView.setSearch(new Search("test", new And(sev)));
 	}
 
 	/**

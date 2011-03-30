@@ -1,6 +1,6 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;
@@ -31,7 +31,7 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 		if (value == null) {
 			return false;
 		}
-		return value instanceof Search;
+		return (value instanceof SearchCriteria || value instanceof NoSearchExpression);
 	}
 
 	public SearchSelectionTreeViewModel(SingleSelectionModel<SearchExpression> selectionModel, Search search) {
@@ -46,8 +46,8 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 		if (value == null) {
 			dataProvider.getList().add(search.getExpression());
 		} else if (value instanceof MultiLogicSearchOperator) {
-			List<SearchExpression> seList = ((MultiLogicSearchOperator) value).getArgs();
-			if (seList != null) {
+			Collection<SearchExpression> seList = ((MultiLogicSearchOperator) value).getArgs();
+			if (seList != null && seList.size() > 0) {
 				dataProvider.getList().addAll(seList);
 			} else {
 				dataProvider.getList().add(new NoSearchExpression());
@@ -65,7 +65,6 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 			return null;
 		}
 		return new DefaultNodeInfo<SearchExpression>(dataProvider, seCell, selectionModel, null);
-
 	}
 
 	Cell<SearchExpression> seCell = new AbstractCell<SearchExpression>() {
@@ -74,6 +73,7 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 			if (value != null) {
 				sb.appendHtmlConstant("<div style=\"font-weight:normal;white-space: nowrap;\">");
 				sb.appendEscaped(value.toString());
+				sb.appendHtmlConstant("</div>");
 			}
 		}
 	};

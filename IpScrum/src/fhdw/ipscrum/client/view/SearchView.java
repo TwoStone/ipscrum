@@ -73,36 +73,34 @@ public class SearchView extends Composite implements ISearchView {
 			public void onSelectionChange(SelectionChangeEvent event) {
 				SearchExpression se = selectionModel.getSelectedObject();
 				if (se instanceof NoSearchExpression) {
-					showCboTyp1(true);
-					showCboTyp2(false);
-					cboTyp1.setSelectedIndex(-1);
-					cboTyp2.setSelectedIndex(-1);
+					showCboTyp1(true, -1);
+					showCboTyp2(false, -1);
 				} else if (se instanceof And) {
 				} else if (se instanceof Or) {
 				} else if (se instanceof Not) {
-					showCboTyp1(true);
-					showCboTyp2(true);
-					cboTyp1.setSelectedIndex(1);
-					cboTyp2.setSelectedIndex(2);
+					showCboTyp1(true, 1);
+					showCboTyp2(true, 2);
 				}
 			}
 		});
 	}
 
-	private void showCboTyp1(boolean b) {
+	private void showCboTyp1(boolean b, int selIndex) {
 		if (b) {
 			valuePanel.add(lblTyp1);
 			valuePanel.add(cboTyp1);
+			cboTyp1.setSelectedIndex(selIndex);
 		} else {
 			valuePanel.remove(lblTyp1);
 			valuePanel.remove(cboTyp1);
 		}
 	}
 
-	private void showCboTyp2(boolean b) {
+	private void showCboTyp2(boolean b, int selIndex) {
 		if (b) {
 			valuePanel.add(lblTyp2);
 			valuePanel.add(cboTyp2);
+			cboTyp2.setSelectedIndex(selIndex);
 		} else {
 			valuePanel.remove(lblTyp2);
 			valuePanel.remove(cboTyp1);
@@ -146,6 +144,5 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public void addSearchExpression(SearchExpression searchPart) {
 		// TODO Christin Auto-generated method stub
-
 	}
 }
