@@ -8,26 +8,22 @@ import fhdw.ipscrum.client.view.NavigationView;
 import fhdw.ipscrum.client.view.interfaces.INavigationView;
 
 /**
- * Presenter class of the navigation element. This is used to compose the main
- * navigation bar of the application.
+ * Presenter class of the navigation element. This is used to compose the main navigation bar of the application.
  */
 public class NavigationPresenter extends Presenter<INavigationView> {
 
 	/**
 	 * Constructor for NavigationPresenter.
 	 * 
-	 * @param parent
-	 *            Panel
+	 * @param parent Panel
 	 * @param parentPresenter
 	 */
-	public NavigationPresenter(final Panel parent,
-			final Presenter<?> parentPresenter) {
+	public NavigationPresenter(final Panel parent, final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 	}
 
 	/**
-	 * Method createView. Initializes the GUI and defines the behaviour of the
-	 * buttons.
+	 * Method createView. Initializes the GUI and defines the behaviour of the buttons.
 	 * 
 	 * @return INavigationView
 	 */
@@ -40,8 +36,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				new ProjectPresenter(concreteView.getContentPanel(),
-						NavigationPresenter.this);
+				new ProjectPresenter(concreteView.getContentPanel(), NavigationPresenter.this);
 			}
 		});
 
@@ -50,8 +45,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				new ReportPresenter(concreteView.getContentPanel(),
-						NavigationPresenter.this);
+				new ReportPresenter(concreteView.getContentPanel(), NavigationPresenter.this);
 			}
 		});
 
@@ -60,8 +54,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				new PersonRolePresenter(concreteView.getContentPanel(),
-						NavigationPresenter.this);
+				new PersonRolePresenter(concreteView.getContentPanel(), NavigationPresenter.this);
 			}
 		});
 
@@ -70,8 +63,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				new TeamPresenter(concreteView.getContentPanel(),
-						NavigationPresenter.this);
+				new TeamPresenter(concreteView.getContentPanel(), NavigationPresenter.this);
 			}
 		});
 
@@ -88,8 +80,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				new TaskBoardPresenter(concreteView.getContentPanel(),
-						NavigationPresenter.this);
+				new TaskBoardPresenter(concreteView.getContentPanel(), NavigationPresenter.this);
 			}
 		});
 
@@ -98,8 +89,15 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				new SystemManagementPresenter(concreteView.getContentPanel(),
-						NavigationPresenter.this);
+				new SystemManagementPresenter(concreteView.getContentPanel(), NavigationPresenter.this);
+			}
+		});
+		concreteView.addSearchHandler(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				concreteView.getContentPanel().clear();
+				new SearchPresenter(concreteView.getContentPanel(), NavigationPresenter.this);
 			}
 		});
 

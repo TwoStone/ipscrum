@@ -21,4 +21,8 @@ public class PBINameCriteria extends TextCriteria implements SearchCriteria {
 		return pbi.getName().contains(this.getValue());
 	}
 
+	@Override
+	public String toString() {
+		return "PBIName ='" + this.getValue() + "'";
+	}
 }

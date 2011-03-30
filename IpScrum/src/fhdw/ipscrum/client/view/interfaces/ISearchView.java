@@ -3,6 +3,8 @@ package fhdw.ipscrum.client.view.interfaces;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.SearchArgs;
+import fhdw.ipscrum.shared.model.search.Search;
+import fhdw.ipscrum.shared.model.search.SearchExpression;
 
 public interface ISearchView extends IView {
 	/**
@@ -39,4 +41,10 @@ public interface ISearchView extends IView {
 	 * @return
 	 */
 	IEvent<SearchArgs> getAddExistingSearchCriterion();
+
+	// TODO Christin Kommentar
+	void setSearch(Search search);
+
+	// TODO Christin Kommentar
+	void addSearchExpression(SearchExpression searchPart);
 }
