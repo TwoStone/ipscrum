@@ -13,29 +13,35 @@ public class PBICompletion extends PredefinedIssue {
 	private ProductBacklogItem pbi;
 	private IPerson participant;
 	
-	protected PBICompletion(ProductBacklogItem pbi){
-		super();
+	protected PBICompletion(String name, String description,ProductBacklogItem pbi){
+		super(name, description);
 		this.pbi = pbi;
 		this.participant = SessionManager.getInstance().getLoginUser();
 		this.setGlobal(false);
 	}
-	@SuppressWarnings("unused")
-	private PBICompletion(){}
 
-	public final ProductBacklogItem getPbi() {
+	protected final ProductBacklogItem getPbi() {
 		return pbi;
 	}
 
-	private final IPerson getParticipant() {
+	protected final IPerson getParticipant() {
 		return participant;
 	}
 
 	@Override
-	public final Iterator<IPerson> getParticipants() {
+	protected Iterator<IPerson> getParticipantsIterator() {
 		Vector<IPerson> result = new Vector<IPerson>();
 		result.add(this.getParticipant());
 		return result.iterator();
 	}
+
+	@Override
+	protected Vector<IPerson> getParticipants() {
+		Vector<IPerson> result = new Vector<IPerson>();
+		result.add(this.getParticipant());
+		return result;
+	}
+
 	
 	
 }

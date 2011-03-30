@@ -3,16 +3,22 @@ package fhdw.ipscrum.shared.model;
 import java.util.HashSet;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
+import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.messages.AddGLobalIncidentMessage;
+import fhdw.ipscrum.shared.model.messages.Message;
+import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
 import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.Observer;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
 
 /**
@@ -20,8 +26,9 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
  * additionally used for storing project independent data like teams, persons
  * and roles.
  */
-public class Root extends Observable implements SerializationRoot,
-		HasRelationTypeManager {
+
+public class Root extends Observable implements SerializationRoot, HasRelationTypeManager, Observer {
+
 
 	/**
 	 * 
@@ -34,7 +41,9 @@ public class Root extends Observable implements SerializationRoot,
 	private HashSet<IRole> roles;
 	private RelationTypeManager relationTypeManager;
 	private SystemManager sysManager;
+	private Vector<Incident> globalIncidents;
 	private SearchManager searchManager;
+
 
 	/**
 	 * Method save.
@@ -139,6 +148,7 @@ public class Root extends Observable implements SerializationRoot,
 			throws DoubleDefinitionException {
 		this.existsProjectName(project.getName());
 		this.getProjects().add(project);
+		project.addObserver(this);
 		this.notifyObservers();
 	}
 
@@ -288,6 +298,22 @@ public class Root extends Observable implements SerializationRoot,
 		return this.sysManager;
 	}
 
+	public void addIncident(Incident incident) throws DoubleDefinitionException{
+		if (incident==null) return;
+		if (!this.globalIncidents.contains(incident)){
+			this.globalIncidents.add(incident);
+		} else {
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		}
+		this.notifyObservers();
+	}
+	public void removeIncident(Incident incident) {
+		if (incident!=null && this.globalIncidents.contains(incident)){
+			this.globalIncidents.remove(incident);
+		}
+		this.notifyObservers();
+	}
+	
 	/**
 	 * Method toString.
 	 * 
@@ -370,6 +396,31 @@ public class Root extends Observable implements SerializationRoot,
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void update(Observable observable, Object argument) {
+		if (!(argument instanceof Message)){
+			return;
+		}
+		((Message)argument).accept( new MessageStandardVisitor() {
+			
+			@Override
+			public void handleAddGlobalIncidentMessage(
+					AddGLobalIncidentMessage message) {
+				try {
+					Root.this.addIncident(message.getIncident());
+				} catch (DoubleDefinitionException e) {
+					// do not add
+				}
+			}
+
+			@Override
+			public void standardHandling() {
+				// not interested in other messages
+				
+			}
+		});
 	}
 
 }

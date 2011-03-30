@@ -78,7 +78,8 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 									.getView().getName(),
 									CreateTaskPresenter.this.getView()
 									.getDescription());
-
+							// registration for messages
+							((Task)newTask).addObserver(CreateTaskPresenter.this.sprintBacklog);
 							// adds the task to the sprintBacklog...
 							CreateTaskPresenter.this.sprintBacklog
 							.addTask(newTask);

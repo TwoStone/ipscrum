@@ -9,17 +9,25 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
+import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.messages.Message;
+import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
+import fhdw.ipscrum.shared.model.messages.MessageVisitor;
+import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
+import fhdw.ipscrum.shared.model.messages.SprintCompletionMessage;
+import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
+import fhdw.ipscrum.shared.observer.Observable;
 
 /**
  * Class Sprint.
  */
-public class Sprint implements ISprint {
+public class Sprint extends Observable implements ISprint {
 	/**
 	 * 
 	 */
@@ -432,6 +440,42 @@ public class Sprint implements ISprint {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void update(Observable observable, Object argument) {
+		if (!(argument instanceof Message)){
+			return;
+		}
+		((Message) argument).accept(new MessageStandardVisitor() {
+			
+			@Override
+			public void handleTaskCompletionMessage(TaskCompletionMessage message) {
+				Sprint.this.sprintBacklog_update(message);
+			}
+
+			@Override
+			public void standardHandling() {
+				// not interested in other messages
+			}
+		});
+	}
+	private void sprintBacklog_update(TaskCompletionMessage message){
+		this.notifyObservers(message); //delegate message to project
+	}
+
+	@Override
+	public void checkDeadline() {
+		Date today = new Date();
+		if (this.end.getDay()==today.getDay()&&
+				this.end.getMonth()==today.getMonth()&&
+				this.end.getYear()==today.getYear() ||
+				this.end.before(today)){
+			SprintCompletionMessage message = new SprintCompletionMessage(this);
+			this.notifyObservers(message);
+		}
+			
+		
 	}
 
 }

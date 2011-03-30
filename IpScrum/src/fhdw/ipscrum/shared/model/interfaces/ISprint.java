@@ -12,13 +12,14 @@ import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
+import fhdw.ipscrum.shared.observer.Observer;
 
 /**
  * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
  * a fixed time frame. The name is used to identify a sprint.
  */
 public interface ISprint extends BDACompare, Serializable,
-ITreeVisitorRelevantElement {
+ITreeVisitorRelevantElement, Observer {
 	/**
 	 * Method getBegin.
 	 * 
@@ -156,6 +157,12 @@ ITreeVisitorRelevantElement {
 	 * @return true, if the item is associated with the sprint
 	 */
 	public boolean hasPBI(ProductBacklogItem item);
+	
+	/**
+	 * if the end date of the sprint has been reached,
+	 * the sprint will make a notification
+	 */
+	public void checkDeadline();
 
 
 

@@ -10,25 +10,27 @@ public class SprintCompletion extends PredefinedIssue {
 	private static final long serialVersionUID = -3980601087749190976L;
 	private ISprint sprint;
 	
-	protected SprintCompletion(ISprint sprint){
-		super();
+	protected SprintCompletion(String name, String description, ISprint sprint){
+		super(name, description);
 		this.sprint = sprint;
 		this.setGlobal(false);
 	}
-	@SuppressWarnings("unused")
-	private SprintCompletion(){}
 	
-	public ISprint getSprint(){
+	protected ISprint getSprint(){
 		return this.sprint;
 	}
+
 	@Override
-	public Iterator<IPerson> getParticipants() {
-		Vector<IPerson> result = new Vector<IPerson>();
-		Iterator<IPerson> i = this.getSprint().getTeam().getMembers().iterator();
-		while (i.hasNext()){
-			IPerson current = i.next();
-			result.add(current);
-		}
-		return result.iterator();
+	protected Iterator<IPerson> getParticipantsIterator() {
+		// empty iterator
+		return new Vector<IPerson>().iterator();
 	}
+
+	@Override
+	protected Vector<IPerson> getParticipants() {
+		// empty list
+		return new Vector<IPerson>();
+	}
+	
+	
 }

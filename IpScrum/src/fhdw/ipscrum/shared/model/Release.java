@@ -10,6 +10,7 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.messages.ReleaseCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
@@ -252,5 +253,18 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public void accept(ITreeConstructionVisitor treeVisitor) {
 		treeVisitor.handleRelease(this);
+	}
+
+	@Override
+	public void checkDeadline() {
+		Date today = new Date();
+		if (today.getDay()==this.releaseDate.getDay()&&
+				today.getMonth()==this.releaseDate.getMonth()&&
+				today.getYear()==this.releaseDate.getYear() ||
+				today.after(this.releaseDate)){
+			ReleaseCompletionMessage message = new ReleaseCompletionMessage(this);
+			this.notifyObservers(message);
+		}
+		
 	}
 }

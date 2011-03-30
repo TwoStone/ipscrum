@@ -104,4 +104,10 @@ public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevant
 	 * @return int: sum of overall efforts
 	 */
 	public abstract int getOverallEfforts();
+	
+	/**
+	 * if the release date has been reached,
+	 * the release will make a notification
+	 */
+	public void checkDeadline();
 }

@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fhdw.ipscrum.shared.bdas.BDACompare;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.incidents.Incident;
 
 public class IncidentTest extends TestCase{
@@ -30,7 +31,12 @@ public class IncidentTest extends TestCase{
 	 */
 	@Test
 	public void test_IsIncidentInProject1(){
-		this.p1.addIncident(this.i1);
+		try {
+			this.p1.addIncident(this.i1);
+		} catch (DoubleDefinitionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Iterator<BDACompare> incidentIterator = this.p1.getIncidentAssoc().getAssociations().iterator();
 		Incident current = (Incident)incidentIterator.next();
 		if (current!=null){
@@ -59,7 +65,12 @@ public class IncidentTest extends TestCase{
 	 */
 	@Test
 	public void test_IsProjectInIncident1(){
-		this.p1.addIncident(this.i1);
+		try {
+			this.p1.addIncident(this.i1);
+		} catch (DoubleDefinitionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Iterator<BDACompare> projectIterator = this.i1.getProjectAssoc().getAssociations().iterator();
 		Project current = (Project)projectIterator.next();
 		if (current!=null){
@@ -98,8 +109,17 @@ public class IncidentTest extends TestCase{
 	 */
 	@Test
 	public void test_DoubleDefinition2(){
-		p1.addIncident(i1);
-		p1.addIncident(i1);
+		try {
+			p1.addIncident(i1);
+		} catch (DoubleDefinitionException e) {
+			fail();
+		}
+		try {
+			p1.addIncident(i1);
+		} catch (DoubleDefinitionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int iAct = p1.getIncidentAssoc().getAssociations().size();
 		int iExp = 1;
 		assertEquals(iExp, iAct);

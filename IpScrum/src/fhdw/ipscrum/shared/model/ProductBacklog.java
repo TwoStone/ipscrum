@@ -13,14 +13,20 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.messages.Message;
+import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
+import fhdw.ipscrum.shared.model.messages.MessageVisitor;
+import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
+import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.Observer;
 
 /**
  * Represents the ProductBacklog of a project. It manages the
  * ProductBacklogItems.
  */
 public class ProductBacklog extends Observable implements BDACompare,
-		Serializable {
+		Serializable , Observer{
 
 	private static final long serialVersionUID = -5276089275386947750L;
 
@@ -283,5 +289,29 @@ public class ProductBacklog extends Observable implements BDACompare,
 	@Override
 	public String toString() {
 		return TextConstants.PRODUCT_BACKLOG;
+	}
+
+	@Override
+	public void update(Observable observable, Object argument) {
+		if(!(argument instanceof Message)){
+			return;
+		}
+		((Message)argument).accept(new MessageStandardVisitor() {
+			
+			@Override
+			public void handlePBICompletionMessage(PBICompletionMessage message) {
+				ProductBacklog.this.pbi_update(message);
+			}
+
+			@Override
+			public void standardHandling() {
+				// not interested in other messages
+			}
+		});
+		
+	}
+
+	private void pbi_update(PBICompletionMessage message) {
+		this.notifyObservers(message);
 	}
 }

@@ -2,7 +2,9 @@ package fhdw.ipscrum.shared.model.incidents;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.Vector;
 
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
@@ -14,14 +16,38 @@ public abstract class IncidentType implements Serializable {
 	 * logical value, which declares, if the incident has global validity
 	 */
 	private boolean isGlobal;
-	
-	public  void setGlobal(boolean isGlobal){
+	/**
+	 * the name of the incident
+	 */
+	private String name;
+	/**
+	 * further detail description
+	 */
+	private String description;
+	protected IncidentType(String name, String description){
+		this.name = name;
+		this.description = description;
+	}
+	@SuppressWarnings("unused")
+	private IncidentType(){}
+	protected void setGlobal(boolean isGlobal){
 		this.isGlobal = isGlobal;
 	}
 	
-	public boolean isGlobal(){
+	protected boolean isGlobal(){
 		return this.isGlobal;
 	}
 	
-	public abstract Iterator<IPerson> getParticipants();
+	protected abstract Iterator<IPerson> getParticipantsIterator();
+	protected abstract Vector<IPerson> getParticipants();
+	protected abstract void addParticipant(IPerson participant) throws DoubleDefinitionException;
+	protected abstract void removeParticipant(IPerson participant);
+	protected abstract void setName(String name);
+	protected abstract void setDescription(String description);
+	protected String getName(){
+		return this.name;
+	}
+	protected String getDescription(){
+		return this.description;
+	}
 }

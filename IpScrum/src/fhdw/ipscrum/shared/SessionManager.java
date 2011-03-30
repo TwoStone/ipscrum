@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared;
 
+import java.util.Iterator;
+
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -7,6 +9,7 @@ import fhdw.ipscrum.client.services.PersistenceService;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.DemoModel;
+import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
@@ -68,7 +71,17 @@ public class SessionManager {
 						callback.onLoaded();
 					}
 				});
+		/*
+		 * the following method call will be obsolete if a permanent running server has been 
+		 * implemented and it will have to be called via periodic jobs
+		 */
+		Iterator<Project> i = this.model.getProjects().iterator();
+		while (i.hasNext()){
+			i.next().checkDeadlines();
+		}
 	}
+
+	
 
 	public void save() {
 		PersistenceService.Util.getInstance().save(this.model, IDENTIFIER,

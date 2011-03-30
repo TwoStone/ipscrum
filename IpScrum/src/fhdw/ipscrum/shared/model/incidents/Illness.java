@@ -11,22 +11,31 @@ public class Illness extends PredefinedIssue {
 	
 	private IPerson participant;
 	
-	protected Illness(IPerson participant){
-		super();
+	protected Illness(String name, String description,IPerson participant){
+		super(name, description);
 		this.participant = participant;
 		this.setGlobal(true);
 	}
-	@SuppressWarnings("unused")
-	private Illness(){}
+
 	
-	public final IPerson getParticipant(){
+	protected final IPerson getParticipant(){
 		return this.participant;
 	}
 
 	@Override
-	public Iterator<IPerson> getParticipants() {
+	protected Iterator<IPerson> getParticipantsIterator() {
 		Vector<IPerson> result = new Vector<IPerson>();
 		result.add(this.getParticipant());
 		return result.iterator();
 	}
+
+
+	@Override
+	protected Vector<IPerson> getParticipants() {
+		Vector<IPerson> result = new Vector<IPerson>();
+		result.add(this.getParticipant());
+		return result;
+	}
+	
+	
 }

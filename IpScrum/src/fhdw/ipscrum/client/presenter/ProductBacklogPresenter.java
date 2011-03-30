@@ -64,6 +64,8 @@ public class ProductBacklogPresenter extends Presenter<IProductBacklogView> {
 						public void onUpdate(final Object sender, final EventArgs eventArgs) {
 							try {
 								ProductBacklogPresenter.this.project.getBacklog().addItem(presenter.getPbi());
+								//backlog registers to pbi
+								presenter.getPbi().addObserver(ProductBacklogPresenter.this.project.getBacklog());
 							} catch (final ConsistencyException e) {
 								GwtUtils.displayError(e);
 							}

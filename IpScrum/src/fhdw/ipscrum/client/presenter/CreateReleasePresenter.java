@@ -48,8 +48,12 @@ public class CreateReleasePresenter extends Presenter<ICreateReleaseView> {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 				try {
-					new Release(view.getReleaseVersion(), view.getDateBox()
+					Release  newRelease =
+						new Release(view.getReleaseVersion(), view.getDateBox()
 							.getValue(), CreateReleasePresenter.this.project);
+					// project registers for release
+					newRelease.addObserver(CreateReleasePresenter.this.project);
+					
 				} catch (final DoubleDefinitionException e) {
 					GwtUtils.displayError(e.getMessage());
 				}

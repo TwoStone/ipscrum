@@ -10,20 +10,26 @@ public class Vacation extends PredefinedIssue {
 	
 	private IPerson participant;
 	
-	protected Vacation(IPerson participant) {
-		super();
+	protected Vacation(String name, String description,IPerson participant) {
+		super(name, description);
 		this.participant = participant;
 		this.setGlobal(true);
 	}
-	@SuppressWarnings("unused")
-	private Vacation(){}
 	public final IPerson getParticipant(){
 		return this.participant;
 	}
 	@Override
-	public Iterator<IPerson> getParticipants() {
+	protected Iterator<IPerson> getParticipantsIterator() {
 		Vector<IPerson> result = new Vector<IPerson>();
 		result.add(this.getParticipant());
 		return result.iterator();
+	}
+
+
+	@Override
+	protected Vector<IPerson> getParticipants() {
+		Vector<IPerson> result = new Vector<IPerson>();
+		result.add(this.getParticipant());
+		return result;
 	}
 }

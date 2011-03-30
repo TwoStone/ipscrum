@@ -11,8 +11,15 @@ import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
+import fhdw.ipscrum.shared.model.messages.Message;
+import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
+import fhdw.ipscrum.shared.model.messages.MessageVisitor;
+import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
+import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
+import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.Observer;
 
-public class SprintBacklog implements BDACompare, Serializable {
+public class SprintBacklog extends Observable implements BDACompare, Serializable, Observer {
 
 	private static final long serialVersionUID = 2775810634965110269L;
 	@SuppressWarnings("rawtypes")
@@ -31,6 +38,7 @@ public class SprintBacklog implements BDACompare, Serializable {
 		super();
 		this.sprintAssoc = new OneToOne<OneToOne, SprintBacklog>(this);
 		this.taskAssoc = new OneToMany<ManyToOne, SprintBacklog>(this);
+		this.addObserver(sprint);
 	}
 	/**
 	 * for serialization
@@ -193,6 +201,27 @@ public class SprintBacklog implements BDACompare, Serializable {
 			result += current.getPlanEffort().getValue();
 		}
 		return result;
+	}
+	@Override
+	public void update(Observable observable, final Object argument) {
+		if (!(argument instanceof Message)){
+			return;
+		}
+		((Message) argument).accept( new MessageStandardVisitor() {	
+			@Override
+			public void handleTaskCompletionMessage(TaskCompletionMessage message) {
+				SprintBacklog.this.task_update(message);
+			}
+
+			@Override
+			public void standardHandling() {
+				// not interested in other messages
+			}
+		});
+		
+	}
+	private void task_update(TaskCompletionMessage message) {
+		this.notifyObservers(message); // delegate message to sprint
 	}
 
 }

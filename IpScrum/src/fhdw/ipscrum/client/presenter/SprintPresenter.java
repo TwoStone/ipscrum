@@ -15,6 +15,7 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.observer.Observable;
 
 /**
  * Presenter for {@link Sprint}
@@ -70,6 +71,8 @@ public class SprintPresenter extends Presenter<ISprintView> {
 									SprintPresenter.this.project
 									.addSprint(presenter
 											.getSprint());
+									// registration for messages
+									((Sprint) presenter.getSprint()).addObserver(SprintPresenter.this.project);
 									SprintPresenter.this.initialize();
 									box.hide();
 								} catch (final DoubleDefinitionException e) {

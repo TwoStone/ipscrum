@@ -14,9 +14,11 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
+import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
+import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.ITaskStateVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
 
@@ -120,12 +122,15 @@ public class Task extends Observable implements ITask {
 	public void finish() throws ForbiddenStateException {
 		this.state.finish();
 		this.notifyObservers();
+		TaskCompletionMessage message = new TaskCompletionMessage(this);
+		this.notifyObservers(message);
 	}
 
 	@Override
 	public void finish(Date finishDate) throws ForbiddenStateException {
 		this.state.finish(finishDate);
-		this.notifyObservers();
+		TaskCompletionMessage message = new TaskCompletionMessage(this);
+		this.notifyObservers(message);
 
 	}
 	@Override
