@@ -3,6 +3,9 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
+/**
+ * Represents the search criterion for PBI name.
+ */
 public class PBINameCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -8960703187309223147L;
@@ -23,11 +26,12 @@ public class PBINameCriterion extends TextCriterion {
 
 	@Override
 	public String toString() {
-		return "PBIName ='" + this.getValue() + "'";
+		return "PBI Name [" + this.getValue() + "]";
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBINameCriteria(this);
 	}
+
 }

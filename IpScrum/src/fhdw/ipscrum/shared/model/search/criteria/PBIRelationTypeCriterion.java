@@ -6,6 +6,9 @@ import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
+/**
+ * Represents the search criterion for special PBI relation types.
+ */
 public class PBIRelationTypeCriterion extends SearchCriteria implements
 		PBIRelationCriterion {
 
@@ -33,8 +36,12 @@ public class PBIRelationTypeCriterion extends SearchCriteria implements
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBIRelationTypeCriteria(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Relationstyp [" + this.value + "]";
+	}
 }

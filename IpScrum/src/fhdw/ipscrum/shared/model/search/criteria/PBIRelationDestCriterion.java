@@ -4,6 +4,9 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
+/**
+ * Represents the search criterion for special PBI relation destinations.
+ */
 public class PBIRelationDestCriterion extends TextCriterion implements
 		PBIRelationCriterion {
 
@@ -29,7 +32,13 @@ public class PBIRelationDestCriterion extends TextCriterion implements
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBIRelationDestCriteria(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Relationsziel [" + this.getValue() + "]";
+	}
+
 }

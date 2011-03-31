@@ -3,6 +3,9 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
+/**
+ * Represents the search criterion for Sprint Description.
+ */
 public class PBISprintDescCriterion extends TextCriterion implements
 		PBISprintCriterion {
 
@@ -27,8 +30,12 @@ public class PBISprintDescCriterion extends TextCriterion implements
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBISprintDescCriteria(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Sprintbeschreibung [" + this.getValue() + "]";
+	}
 }

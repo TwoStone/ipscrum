@@ -4,6 +4,9 @@ import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
+/**
+ * Represent the criterion for PBI hints.
+ */
 public class PBIHintsCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -4043249402031393640L;
@@ -29,8 +32,13 @@ public class PBIHintsCriterion extends TextCriterion {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBIHintsCritera(this);
+	}
+
+	@Override
+	public String toString() {
+		return "PBI Hinweis [" + this.getValue() + "]";
 	}
 
 }

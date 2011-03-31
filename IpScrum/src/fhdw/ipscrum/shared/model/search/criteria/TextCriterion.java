@@ -2,6 +2,9 @@ package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
+/**
+ * Represents a textual criterion.
+ */
 public abstract class TextCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = 2959273810129438739L;

@@ -5,6 +5,9 @@ import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
+/**
+ * Represents the search criterion for PBI project.
+ */
 public class PBIProjectCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = 8805887457507103227L;
@@ -26,7 +29,13 @@ public class PBIProjectCriterion extends SearchCriteria {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBIProjectCriteria(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Project [" + this.project + "]";
+	}
+
 }

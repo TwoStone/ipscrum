@@ -5,6 +5,10 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
+/**
+ * Represents the search criterion for the last editor of a PBI.
+ * 
+ */
 public class PBILastEditorCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = -7842513428666320043L;
@@ -26,8 +30,12 @@ public class PBILastEditorCriterion extends SearchCriteria {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBILastEditorCriteria(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Letzer Bearbeiter [" + this.person + "]";
+	}
 }

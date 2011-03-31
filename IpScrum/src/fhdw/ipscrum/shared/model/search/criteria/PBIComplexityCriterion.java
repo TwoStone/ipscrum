@@ -5,6 +5,9 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
+/**
+ * Represents the criterion for PBI complexity.
+ */
 public class PBIComplexityCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = -3726369254746420491L;
@@ -16,6 +19,15 @@ public class PBIComplexityCriterion extends SearchCriteria {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param from
+	 *            Range start (inclusive)
+	 * @param to
+	 *            Range end (inclusive)
+	 * @throws NoValidValueException
+	 */
 	public PBIComplexityCriterion(final Integer from, final Integer to)
 			throws NoValidValueException {
 		super();
@@ -24,6 +36,13 @@ public class PBIComplexityCriterion extends SearchCriteria {
 		this.to = to;
 	}
 
+	/**
+	 * Constructor - No Range!
+	 * 
+	 * @param fromTo
+	 *            Fix value for complexity
+	 * @throws NoValidValueException
+	 */
 	public PBIComplexityCriterion(final Integer fromTo)
 			throws NoValidValueException {
 		super();
@@ -38,6 +57,13 @@ public class PBIComplexityCriterion extends SearchCriteria {
 				.getManDayCosts().getValue() <= this.to);
 	}
 
+	/**
+	 * Helper method for validating the from-to range.
+	 * 
+	 * @param from
+	 * @param to
+	 * @throws NoValidValueException
+	 */
 	private void checkRange(final Integer from, final Integer to)
 			throws NoValidValueException {
 		// TODO Textkonstante bauen
@@ -48,8 +74,13 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBIComplexityCriteria(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Komplexität [from=" + this.from + ", to=" + this.to + "]";
 	}
 
 }

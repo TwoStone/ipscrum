@@ -3,7 +3,11 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBISprintNameCriterion extends TextCriterion implements PBISprintCriterion {
+/**
+ * Represents the search criterion for Sprint name.
+ */
+public class PBISprintNameCriterion extends TextCriterion implements
+		PBISprintCriterion {
 
 	private static final long serialVersionUID = 4728904126758675324L;
 
@@ -26,8 +30,13 @@ public class PBISprintNameCriterion extends TextCriterion implements PBISprintCr
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBISprintName(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Sprintname [" + this.getValue() + "]";
 	}
 
 }

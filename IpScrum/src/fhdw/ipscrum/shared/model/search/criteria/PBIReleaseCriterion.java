@@ -3,6 +3,11 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
+/**
+ * Represents the search criterion for the release of a PBI. (textual
+ * representation of the release name)
+ * 
+ */
 public class PBIReleaseCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = 8640411828423628507L;
@@ -19,16 +24,20 @@ public class PBIReleaseCriterion extends TextCriterion {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		if (pbi.getSprint() != null && pbi.getSprint().getRelease() != null) {
-			return pbi.getSprint().getRelease().getVersion()
-					.contains(this.getValue());
+			return pbi.getSprint().getRelease().getVersion().contains(
+					this.getValue());
 		} else {
 			return false;
 		}
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handlePBIReleaseCriteria(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Release [" + this.getValue() + "]";
+	}
 }
