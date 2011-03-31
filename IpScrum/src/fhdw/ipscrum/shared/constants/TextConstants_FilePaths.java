@@ -13,5 +13,7 @@ public class TextConstants_FilePaths {
 	public static final String DOWN_ARROW_PATH = "images/downarrow.png";
 	public static final String BOTTOM_ARROW_PATH = "images/bottomarrow.png";
 	public static final String CHART_PATH = "images/burndown.png";
+	public static final String BUG_ICON = "images/ladybug_32.png";
+	public static final String FEATURE_ICON ="images/Add-32.png";
 
 }
