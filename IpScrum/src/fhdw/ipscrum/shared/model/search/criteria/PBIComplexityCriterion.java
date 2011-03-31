@@ -1,22 +1,22 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBIComplexityCriteria extends SearchCriteria {
+public class PBIComplexityCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = -3726369254746420491L;
 	private Integer from;
 	private Integer to;
 
 	@SuppressWarnings("unused")
-	private PBIComplexityCriteria() {
+	private PBIComplexityCriterion() {
 		super();
 	}
 
-	public PBIComplexityCriteria(final Integer from, final Integer to)
+	public PBIComplexityCriterion(final Integer from, final Integer to)
 			throws NoValidValueException {
 		super();
 		this.checkRange(from, to);
@@ -24,7 +24,7 @@ public class PBIComplexityCriteria extends SearchCriteria {
 		this.to = to;
 	}
 
-	public PBIComplexityCriteria(final Integer fromTo)
+	public PBIComplexityCriterion(final Integer fromTo)
 			throws NoValidValueException {
 		super();
 		this.checkRange(fromTo, fromTo);

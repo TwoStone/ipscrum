@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
@@ -6,18 +6,18 @@ import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBIRelationTypeCriteria extends SearchCriteria implements
-		PBIRelationCriteria {
+public class PBIRelationTypeCriterion extends SearchCriteria implements
+		PBIRelationCriterion {
 
 	private static final long serialVersionUID = -5912511074023370924L;
 	private RelationType value;
 
 	@SuppressWarnings("unused")
-	private PBIRelationTypeCriteria() {
+	private PBIRelationTypeCriterion() {
 		super();
 	}
 
-	public PBIRelationTypeCriteria(final RelationType value) {
+	public PBIRelationTypeCriterion(final RelationType value) {
 		super();
 		this.value = value;
 	}

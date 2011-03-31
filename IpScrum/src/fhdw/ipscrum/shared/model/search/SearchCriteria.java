@@ -5,13 +5,10 @@ package fhdw.ipscrum.shared.model.search;
  */
 public abstract class SearchCriteria implements ISearchCriteria {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5325546377553649088L;
 
 	@Override
-	public void accept(ISearchTypeVisitor visitor) {
+	public void accept(final ISearchTypeVisitor visitor) {
 		visitor.handleSearchCriteria(this);
 	}
 

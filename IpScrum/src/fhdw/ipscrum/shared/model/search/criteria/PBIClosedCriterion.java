@@ -1,14 +1,14 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBIOpenCriteria extends PBIStateCriteria {
+public class PBIClosedCriterion extends PBIStateCriterion {
 
-	private static final long serialVersionUID = 6471312251190645567L;
+	private static final long serialVersionUID = -5970024465646595600L;
 
-	public PBIOpenCriteria() {
+	public PBIClosedCriterion() {
 		super();
 	}
 
@@ -19,6 +19,6 @@ public class PBIOpenCriteria extends PBIStateCriteria {
 
 	@Override
 	public void accept(ISearchExpressionVisitor visitor) {
-		visitor.handlePBIOpenCriteria(this);
+		visitor.handlePBIClosedCriteria(this);
 	}
 }

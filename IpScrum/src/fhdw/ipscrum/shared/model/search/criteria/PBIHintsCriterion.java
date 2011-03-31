@@ -1,19 +1,19 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBIHintsCritera extends TextCriteria {
+public class PBIHintsCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -4043249402031393640L;
 
-	public PBIHintsCritera(final String value) {
+	public PBIHintsCriterion(final String value) {
 		super(value);
 	}
 
 	@SuppressWarnings("unused")
-	private PBIHintsCritera() {
+	private PBIHintsCriterion() {
 		super();
 	}
 

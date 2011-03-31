@@ -1,21 +1,21 @@
 package fhdw.ipscrum.shared.model.search;
 
-import fhdw.ipscrum.shared.model.search.criterias.BugSystemCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.BugVersionCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIAcceptanceCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIClosedCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIComplexityCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIDescriptionCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIHintsCritera;
-import fhdw.ipscrum.shared.model.search.criterias.PBILastEditorCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBINameCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIOpenCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIProjectCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIRelationDestCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIRelationTypeCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBIReleaseCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBISprintDescCriteria;
-import fhdw.ipscrum.shared.model.search.criterias.PBISprintName;
+import fhdw.ipscrum.shared.model.search.criteria.BugSystemCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.BugVersionCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIAcceptanceCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIComplexityCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIDescriptionCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIHintsCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBILastEditorCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIProjectCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIRelationDestCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIRelationTypeCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
 
 public interface ISearchExpressionVisitor {
 
@@ -25,40 +25,40 @@ public interface ISearchExpressionVisitor {
 
 	void handleNot(ISearchExpressionVisitor visitor);
 
-	void handleBugSystemCriteria(BugSystemCriteria bugSystemCriteria);
+	void handleBugSystemCriteria(BugSystemCriterion bugSystemCriteria);
 
-	void handleBugVersionCriteria(BugVersionCriteria bugVersionCriteria);
+	void handleBugVersionCriteria(BugVersionCriterion bugVersionCriteria);
 
-	void handlePBIAcceptanceCriteria(PBIAcceptanceCriteria pbiAcceptanceCriteria);
+	void handlePBIAcceptanceCriteria(PBIAcceptanceCriterion pbiAcceptanceCriteria);
 
-	void handlePBIClosedCriteria(PBIClosedCriteria pbiClosedCriteria);
+	void handlePBIClosedCriteria(PBIClosedCriterion pbiClosedCriteria);
 
-	void handlePBIComplexityCriteria(PBIComplexityCriteria pbiComplexityCriteria);
+	void handlePBIComplexityCriteria(PBIComplexityCriterion pbiComplexityCriteria);
 
-	void handlePBIHintsCritera(PBIHintsCritera pbiHintsCritera);
+	void handlePBIHintsCritera(PBIHintsCriterion pbiHintsCritera);
 
 	void handlePBIDescriptionCriteria(
-			PBIDescriptionCriteria pbiDescriptionCriteria);
+			PBIDescriptionCriterion pbiDescriptionCriteria);
 
-	void handlePBILastEditorCriteria(PBILastEditorCriteria pbiLastEditorCriteria);
+	void handlePBILastEditorCriteria(PBILastEditorCriterion pbiLastEditorCriteria);
 
-	void handlePBINameCriteria(PBINameCriteria pbiNameCriteria);
+	void handlePBINameCriteria(PBINameCriterion pbiNameCriteria);
 
-	void handlePBIOpenCriteria(PBIOpenCriteria pbiOpenCriteria);
+	void handlePBIOpenCriteria(PBIOpenCriterion pbiOpenCriteria);
 
-	void handlePBIProjectCriteria(PBIProjectCriteria pbiProjectCriteria);
+	void handlePBIProjectCriteria(PBIProjectCriterion pbiProjectCriteria);
 
 	void handlePBIRelationDestCriteria(
-			PBIRelationDestCriteria pbiRelationDestCriteria);
+			PBIRelationDestCriterion pbiRelationDestCriteria);
 
 	void handlePBIRelationTypeCriteria(
-			PBIRelationTypeCriteria pbiRelationTypeCriteria);
+			PBIRelationTypeCriterion pbiRelationTypeCriteria);
 
-	void handlePBIReleaseCriteria(PBIReleaseCriteria pbiReleaseCriteria);
+	void handlePBIReleaseCriteria(PBIReleaseCriterion pbiReleaseCriteria);
 
-	void handlePBISprintDescCriteria(PBISprintDescCriteria pbiSprintDescCriteria);
+	void handlePBISprintDescCriteria(PBISprintDescCriterion pbiSprintDescCriteria);
 
-	void handlePBISprintName(PBISprintName pbiSprintName);
+	void handlePBISprintName(PBISprintNameCriterion pbiSprintName);
 
 	void handleNoSearchExpression(NoSearchExpression noSearchExpression);
 

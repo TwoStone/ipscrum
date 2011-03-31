@@ -1,21 +1,21 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBILastEditorCriteria extends SearchCriteria {
+public class PBILastEditorCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = -7842513428666320043L;
 	private IPerson person;
 
 	@SuppressWarnings("unused")
-	private PBILastEditorCriteria() {
+	private PBILastEditorCriterion() {
 		super();
 	}
 
-	public PBILastEditorCriteria(final IPerson person) {
+	public PBILastEditorCriterion(final IPerson person) {
 		super();
 		this.person = person;
 	}

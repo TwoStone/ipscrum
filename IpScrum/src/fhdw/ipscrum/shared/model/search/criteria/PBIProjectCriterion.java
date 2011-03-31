@@ -1,21 +1,21 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public class PBIProjectCriteria extends SearchCriteria {
+public class PBIProjectCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = 8805887457507103227L;
 	private Project project;
 
 	@SuppressWarnings("unused")
-	private PBIProjectCriteria() {
+	private PBIProjectCriterion() {
 		super();
 	}
 
-	public PBIProjectCriteria(final Project project) {
+	public PBIProjectCriterion(final Project project) {
 		super();
 		this.project = project;
 	}

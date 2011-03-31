@@ -1,26 +1,25 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBISprintDescCriteria extends TextCriteria implements
-		PBISprintCriteria {
+public class PBISprintNameCriterion extends TextCriterion implements PBISprintCriterion {
 
-	private static final long serialVersionUID = -4074891238354808621L;
+	private static final long serialVersionUID = 4728904126758675324L;
 
 	@SuppressWarnings("unused")
-	private PBISprintDescCriteria() {
+	private PBISprintNameCriterion() {
 		super();
 	}
 
-	public PBISprintDescCriteria(final String value) {
+	public PBISprintNameCriterion(final String value) {
 		super(value);
 	}
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		if (pbi.getSprint() != null) {
-			return pbi.getSprint().getDescription().contains(this.getValue());
+			return pbi.getSprint().getName().contains(this.getValue());
 		} else {
 			return false;
 		}
@@ -28,7 +27,7 @@ public class PBISprintDescCriteria extends TextCriteria implements
 
 	@Override
 	public void accept(ISearchExpressionVisitor visitor) {
-		visitor.handlePBISprintDescCriteria(this);
+		visitor.handlePBISprintName(this);
 	}
 
 }

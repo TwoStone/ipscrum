@@ -1,19 +1,19 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
-public class PBIAcceptanceCriteria extends TextCriteria {
+public class PBIAcceptanceCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -2292898956935498177L;
 
 	@SuppressWarnings("unused")
-	private PBIAcceptanceCriteria() {
+	private PBIAcceptanceCriterion() {
 		super();
 	}
 
-	public PBIAcceptanceCriteria(final String value) {
+	public PBIAcceptanceCriterion(final String value) {
 		super(value);
 	}
 

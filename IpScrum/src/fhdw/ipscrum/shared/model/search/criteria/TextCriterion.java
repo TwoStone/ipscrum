@@ -1,17 +1,17 @@
-package fhdw.ipscrum.shared.model.search.criterias;
+package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
-public abstract class TextCriteria extends SearchCriteria {
+public abstract class TextCriterion extends SearchCriteria {
 
 	private static final long serialVersionUID = 2959273810129438739L;
 	private String value;
 
-	protected TextCriteria() {
+	protected TextCriterion() {
 		super();
 	}
 
-	public TextCriteria(final String value) {
+	public TextCriterion(final String value) {
 		super();
 		this.value = value;
 	}

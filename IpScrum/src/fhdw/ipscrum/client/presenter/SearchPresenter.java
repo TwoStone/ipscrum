@@ -9,7 +9,7 @@ import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.model.search.And;
 import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
-import fhdw.ipscrum.shared.model.search.criterias.PBINameCriteria;
+import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
 
 /**
  * presenter class of the team interface. this interface is used to inspect, create and modify teams as well as adding and removing persons to teams.
@@ -48,8 +48,8 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		// PBINameCriteria("der zu suchende Name des PBIs"))))))))))))));
 		Vector<SearchExpression> sev = new Vector<SearchExpression>();
 		// sev.add(new Not(null));
-		sev.add(new PBINameCriteria("der zu suchende Name des PBIs"));
-		sev.add(new PBINameCriteria("der zu suchende Name des PBIs"));
+		sev.add(new PBINameCriterion("der zu suchende Name des PBIs"));
+		sev.add(new PBINameCriterion("der zu suchende Name des PBIs"));
 		// sev.add(new NoSearchExpression());
 		// this.concreteView.setSearch(new Search("test", new And(sev))); // TODO Suche: Testdaten durch korrekte ersetzen
 		// this.concreteView.setSearch(new Search("test", new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new Not(new PBINameCriteria(
