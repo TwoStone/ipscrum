@@ -12,16 +12,15 @@ public class And extends MultiLogicSearchOperator {
 
 	private static final long serialVersionUID = 817231203138838566L;
 
-	@SuppressWarnings("unused")
 	/**
-	 * Constructor used by GWT serialization.
+	 * See {@link MultiLogicSearchOperator}
 	 */
-	private And() {
+	public And() {
 		super();
 	}
 
 	/**
-	 * See Super Constructor.
+	 * See {@link MultiLogicSearchOperator}
 	 */
 	public And(final Collection<SearchExpression> args) {
 		super(args);
@@ -39,8 +38,13 @@ public class And extends MultiLogicSearchOperator {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handleAnd(this);
+	}
+
+	@Override
+	public String toString() {
+		return "AND";
 	}
 
 }

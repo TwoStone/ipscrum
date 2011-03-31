@@ -14,14 +14,14 @@ public abstract class SingleLogicSearchOperator implements SearchExpression {
 	private SearchExpression arg;
 
 	/**
-	 * Constructor only for GWT serialization.
+	 * Constructor for GWT serialization.
 	 */
 	protected SingleLogicSearchOperator() {
 		super();
 	}
 
 	/**
-	 * Constructor
+	 * Constructor (Null-Values not allowed)
 	 * 
 	 * @param arg
 	 *            Search Expression
@@ -46,7 +46,7 @@ public abstract class SingleLogicSearchOperator implements SearchExpression {
 	}
 
 	@Override
-	public void accept(ISearchTypeVisitor visitor) {
+	public void accept(final ISearchTypeVisitor visitor) {
 		visitor.handleSingleLogicSearchOperator(this);
 	}
 }

@@ -13,14 +13,14 @@ public class Not extends SingleLogicSearchOperator {
 
 	@SuppressWarnings("unused")
 	/**
-	 * Constructor used by GWT serialization.
+	 * See {@link SingleLogicSearchOperator}
 	 */
 	private Not() {
 		super();
 	}
 
 	/**
-	 * See Super Constructor.
+	 * See {@link SingleLogicSearchOperator}
 	 */
 	public Not(final SearchExpression arg) {
 		super(arg);
@@ -37,7 +37,7 @@ public class Not extends SingleLogicSearchOperator {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handleNot(visitor);
 	}
 

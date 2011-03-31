@@ -12,18 +12,15 @@ public class Or extends MultiLogicSearchOperator {
 
 	private static final long serialVersionUID = -5965140304562056266L;
 
-	@SuppressWarnings("unused")
 	/**
-	 * Constructor used by GWT serialization.
+	 * See {@link MultiLogicSearchOperator}
 	 */
-	private Or() {
+	public Or() {
 		super();
 	}
 
 	/**
-	 * See Super Constructor.
-	 * 
-	 * @param args
+	 * See {@link MultiLogicSearchOperator}
 	 */
 	public Or(final Collection<SearchExpression> args) {
 		super(args);
@@ -41,9 +38,14 @@ public class Or extends MultiLogicSearchOperator {
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handleOr(this);
 
+	}
+
+	@Override
+	public String toString() {
+		return "OR";
 	}
 
 }
