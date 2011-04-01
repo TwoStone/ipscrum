@@ -17,7 +17,8 @@ public class DemoModel {
 		final ISystem rootSystem = root.getSysManager().getSystems();
 		final System betriebssysteme = new System("Betriebssysteme", rootSystem);
 		final System browser = new System("Browser", rootSystem);
-		final System applicationServer = new System("ApplicationServer", rootSystem);
+		final System applicationServer = new System("ApplicationServer",
+				rootSystem);
 		final System anwendungen = new System("Anwendungen", rootSystem);
 		final System firefox = new System("Firefox", browser);
 		final System iexplorer = new System("InternetExplorer", browser);
@@ -137,7 +138,8 @@ public class DemoModel {
 				CalendarUtils.getRandomReleaseDate(), projekt2);
 		final Release phase3 = new Release("Phase III", new Date(2011 - 1900,
 				3 - 1, 9), ipScrum);
-		final Release phase4 = new Release("Phase IV", new Date(2011 - 1900, 4 - 1, 8), ipScrum);
+		final Release phase4 = new Release("Phase IV", new Date(2011 - 1900,
+				4 - 1, 8), ipScrum);
 
 		// Initial Sprints
 		final Date sprint1BeginDate = CalendarUtils.getRandomDateOfThisMonth();
@@ -216,18 +218,21 @@ public class DemoModel {
 		final Sprint taskboardRelPhase3 = new Sprint("Taskboard",
 				"Bereitstellung von Task-Funktionalitäten", new Date(
 						2011 - 1900, 2 - 1, 14),
-						new Date(2011 - 1900, 3 - 1, 9), teamBackend);
+				new Date(2011 - 1900, 3 - 1, 9), teamBackend);
 		final Sprint reportingRelPhase3 = new Sprint("Reporting I",
 				"Bereitstellung von Statistikelementen", new Date(2011 - 1900,
-						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9), teamReporting);
+						2 - 1, 14), new Date(2011 - 1900, 3 - 1, 9),
+				teamReporting);
 		final Sprint ticketsRelPhase3 = new Sprint("Tickets II",
 				"Bereitstellung von Bugtracking-Funktionen", new Date(
 						2011 - 1900, 2 - 1, 14),
-						new Date(2011 - 1900, 3 - 1, 9), teamBackend);
+				new Date(2011 - 1900, 3 - 1, 9), teamBackend);
 
-		final Sprint reporting2RelPhase4 = new Sprint("Reporting II",
-				"Projekthistorie, Sprintdetailerweiterungen und Velocitycharts", new Date(2011 - 1900,
-						3 - 1, 10), new Date(2011 - 1900, 4 - 1, 8), teamReporting);
+		final Sprint reporting2RelPhase4 = new Sprint(
+				"Reporting II",
+				"Projekthistorie, Sprintdetailerweiterungen und Velocitycharts",
+				new Date(2011 - 1900, 3 - 1, 10), new Date(2011 - 1900, 4 - 1,
+						8), teamReporting);
 
 		// add possible Systems
 		projekt1.addPossibleSystem(anwendungen);
@@ -356,18 +361,27 @@ public class DemoModel {
 		f11.setSprint(reportingRelPhase3);
 		f11.close();
 
-		final Feature f12 = new Feature("Projekthistorie", "Details zum Projektablauf", ipScrum.getBacklog());
+		final Feature f12 = new Feature("Projekthistorie",
+				"Details zum Projektablauf", ipScrum.getBacklog());
 		f12.setLastEditor(pWilken);
 		f12.setManDayCosts(new Effort(15));
 		f12.setSprint(reporting2RelPhase4);
-		final Feature f13 = new Feature("Erweiterung Sprint-Details", "Mehr Detaileigenschaften im Sprint", ipScrum.getBacklog());
+		final Feature f13 = new Feature("Erweiterung Sprint-Details",
+				"Mehr Detaileigenschaften im Sprint", ipScrum.getBacklog());
 		f13.setLastEditor(pWilken);
 		f13.setManDayCosts(new Effort(10));
 		f13.setSprint(reporting2RelPhase4);
-		final Feature f14 = new Feature("Velocitycharts", "Zur Analyse der Entwiklungsgeschwindigkeit", ipScrum.getBacklog());
+		final Feature f14 = new Feature("Velocitycharts",
+				"Zur Analyse der Entwiklungsgeschwindigkeit",
+				ipScrum.getBacklog());
 		f14.setLastEditor(pWilken);
 		f14.setManDayCosts(new Effort(15));
 		f14.setSprint(reporting2RelPhase4);
+
+		Bug bug1 = new Bug(
+				"Presenter",
+				"Presenter sollten im Konstruktor keine Template method aufrufen.",
+				phase3, ipScrum.getBacklog());
 
 		// adding features to projects
 		projekt1.getBacklog().addItem(f1);
@@ -386,6 +400,7 @@ public class DemoModel {
 		ipScrum.getBacklog().addItem(f12);
 		ipScrum.getBacklog().addItem(f13);
 		ipScrum.getBacklog().addItem(f14);
+		ipScrum.getBacklog().addItem(bug1);
 
 		// Initial Relations
 		RelationType.create("Abhängig von");
@@ -393,7 +408,7 @@ public class DemoModel {
 
 		// Initial Tasks
 		final Task taskSBDCurve = new Task("Sprint Burndown-Curve",
-		"Darstellung Sprint-Fortschritt");
+				"Darstellung Sprint-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSBDCurve);
 		taskSBDCurve.addPBI(f9);
 		taskSBDCurve.setPlanEffort(new Effort(5));
@@ -401,7 +416,7 @@ public class DemoModel {
 		taskSBDCurve.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		final Task taskSIdealCurve = new Task("Sprint Ideal-Curve",
-		"Darstellung Ideal-Fortschritt");
+				"Darstellung Ideal-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSIdealCurve);
 		taskSIdealCurve.addPBI(f9);
 		taskSIdealCurve.setPlanEffort(new Effort(5));
@@ -409,7 +424,7 @@ public class DemoModel {
 		taskSIdealCurve.finish(new Date(2011 - 1900, 3 - 1, 1));
 
 		final Task taskSTrendCurve = new Task("Sprint Trend-Curve",
-		"Darstellung Trend");
+				"Darstellung Trend");
 		reportingRelPhase3.getSprintBacklog().addTask(taskSTrendCurve);
 		taskSTrendCurve.addPBI(f9);
 		taskSTrendCurve.setPlanEffort(new Effort(10));
@@ -417,7 +432,7 @@ public class DemoModel {
 		taskSTrendCurve.finish(new Date(2011 - 1900, 3 - 1, 5));
 
 		final Task taskRBDCurve = new Task("Release Burndown-Curve",
-		"Darstellung Release-Fortschritt");
+				"Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRBDCurve);
 		taskRBDCurve.addPBI(f10);
 		taskRBDCurve.setPlanEffort(new Effort(5));
@@ -425,7 +440,7 @@ public class DemoModel {
 
 		taskRBDCurve.finish(new Date(2011 - 1900, 2 - 1, 18));
 		final Task taskRIdealCurve = new Task("Release Ideal-Curve",
-		"Darstellung Release-Fortschritt");
+				"Darstellung Release-Fortschritt");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRIdealCurve);
 		taskRIdealCurve.addPBI(f10);
 		taskRIdealCurve.setPlanEffort(new Effort(5));
@@ -433,7 +448,7 @@ public class DemoModel {
 		taskRIdealCurve.finish(new Date(2011 - 1900, 2 - 1, 19));
 
 		final Task taskRTrendCurve = new Task("Release Trend-Curve",
-		"Darstellung Release");
+				"Darstellung Release");
 		reportingRelPhase3.getSprintBacklog().addTask(taskRTrendCurve);
 		taskRTrendCurve.addPBI(f10);
 		taskRTrendCurve.setPlanEffort(new Effort(5));
@@ -441,7 +456,7 @@ public class DemoModel {
 		taskRTrendCurve.finish(new Date(2011 - 1900, 2 - 1, 19));
 
 		final Task taskReportView = new Task("Report View",
-		"Report View-Komponente");
+				"Report View-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportView);
 		taskReportView.addPBI(f11);
 		taskReportView.setPlanEffort(new Effort(4));
@@ -449,13 +464,12 @@ public class DemoModel {
 		taskReportView.finish(new Date(2011 - 1900, 2 - 1, 17));
 
 		final Task taskReportPresenter = new Task("Report Presenter",
-		"Report Presenter-Komponente");
+				"Report Presenter-Komponente");
 		reportingRelPhase3.getSprintBacklog().addTask(taskReportPresenter);
 		taskReportPresenter.addPBI(f11);
 		taskReportPresenter.setPlanEffort(new Effort(1));
 		taskReportPresenter.setResponsibility(pChris);
 		taskReportPresenter.finish(new Date(2011 - 1900, 2 - 1, 17));
-
 
 		final Task taskTestdaten = new Task("Testdaten", "Demomodel aufräumen");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskTestdaten);
@@ -464,51 +478,59 @@ public class DemoModel {
 		taskTestdaten.addPBI(f14);
 		taskTestdaten.setPlanEffort(new Effort(8));
 		taskTestdaten.setResponsibility(pChris);
-		//		taskTestdaten.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskTestdaten.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskChartAnpassungen = new Task("Implementierung Chart-Anpassungen", "Neuen Chart-Typ einführen");
+		final Task taskChartAnpassungen = new Task(
+				"Implementierung Chart-Anpassungen",
+				"Neuen Chart-Typ einführen");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskChartAnpassungen);
 		taskChartAnpassungen.addPBI(f14);
 		taskChartAnpassungen.setPlanEffort(new Effort(10));
 		taskChartAnpassungen.setResponsibility(pWilken);
-		//		taskChartAnpassungen.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskChartAnpassungen.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskProjektHistorieModell = new Task("PH-Modell", "Model für Projekthistorie entwickeln");
-		reporting2RelPhase4.getSprintBacklog().addTask(taskProjektHistorieModell);
+		final Task taskProjektHistorieModell = new Task("PH-Modell",
+				"Model für Projekthistorie entwickeln");
+		reporting2RelPhase4.getSprintBacklog().addTask(
+				taskProjektHistorieModell);
 		taskProjektHistorieModell.addPBI(f12);
 		taskProjektHistorieModell.setPlanEffort(new Effort(6));
 		taskProjektHistorieModell.setResponsibility(pStefan);
-		//		taskProjektHistorieModell.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskProjektHistorieModell.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskProjektHistorieGUI = new Task("PH-GUI", "GUI für Projekthistorie entwickeln");
+		final Task taskProjektHistorieGUI = new Task("PH-GUI",
+				"GUI für Projekthistorie entwickeln");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskProjektHistorieGUI);
 		taskProjektHistorieGUI.addPBI(f12);
 		taskProjektHistorieGUI.setPlanEffort(new Effort(5));
 		taskProjektHistorieGUI.setResponsibility(pAngelina);
-		//		taskProjektHistorieGUI.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskProjektHistorieGUI.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskSprintDetailsModell = new Task("SprintDetail-Modell", "Mehr Detaileigenschaften");
+		final Task taskSprintDetailsModell = new Task("SprintDetail-Modell",
+				"Mehr Detaileigenschaften");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskSprintDetailsModell);
 		taskSprintDetailsModell.addPBI(f13);
 		taskSprintDetailsModell.setPlanEffort(new Effort(4));
 		taskSprintDetailsModell.setResponsibility(pChris);
-		//		taskSprintDetailsModell.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskSprintDetailsModell.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskSprintDetailsGUI = new Task("SprintDetail-GUI", "Mehr Detaileigenschaften");
+		final Task taskSprintDetailsGUI = new Task("SprintDetail-GUI",
+				"Mehr Detaileigenschaften");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskSprintDetailsGUI);
 		taskSprintDetailsGUI.addPBI(f13);
 		taskSprintDetailsGUI.setPlanEffort(new Effort(3));
 		taskSprintDetailsGUI.setResponsibility(pAngelina);
-		//		taskSprintDetailsGUI.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskSprintDetailsGUI.finish(new Date(2011 - 1900, 3 - 1, 23));
 
-		final Task taskGliederungsentwurf = new Task("Gliederungsentwurf", "Gliederung der Doku vorbereiten");
+		final Task taskGliederungsentwurf = new Task("Gliederungsentwurf",
+				"Gliederung der Doku vorbereiten");
 		reporting2RelPhase4.getSprintBacklog().addTask(taskGliederungsentwurf);
 		taskGliederungsentwurf.addPBI(f12);
 		taskGliederungsentwurf.addPBI(f13);
 		taskGliederungsentwurf.addPBI(f14);
 		taskGliederungsentwurf.setPlanEffort(new Effort(4));
 		taskGliederungsentwurf.setResponsibility(pChris);
-		//		taskGliederungsentwurf.finish(new Date(2011 - 1900, 3 - 1, 23));
+		// taskGliederungsentwurf.finish(new Date(2011 - 1900, 3 - 1, 23));
 
 	}
 }

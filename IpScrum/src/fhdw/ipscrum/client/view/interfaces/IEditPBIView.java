@@ -37,7 +37,8 @@ public interface IEditPBIView {
 	void setState(IProductBacklogItemState state);
 
 	/**
-	 * Returns the event, that is fired, when the feature state should be toggled.
+	 * Returns the event, that is fired, when the feature state should be
+	 * toggled.
 	 * 
 	 * @return
 	 */

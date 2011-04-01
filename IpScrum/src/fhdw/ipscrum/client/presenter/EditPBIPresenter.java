@@ -36,6 +36,16 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	public EditPBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, pbi, parentPresenter);
 	}
+	
+	
+
+	public EditPBIPresenter(ProductBacklogItem pbi, Presenter<?> parentPresenter)
+			throws NoPBISelectedException {
+		super(pbi, parentPresenter);
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	@Override
 	public void registerViewEvents() {

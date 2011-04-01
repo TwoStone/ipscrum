@@ -55,8 +55,23 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 	public PBIPresenter(final Panel parent, final ProductBacklogItem pbi,
 			final Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, parentPresenter);
+		// TODO [Verbesserung] PBI übergeben bei allen PBI Presenter nicht so
+		// cool.
+		if (pbi == null) {
+			this.abort();
+			throw new NoPBISelectedException(
+					"Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
+		}
+		this.pbi = pbi;
+		this.pbi.addObserver(this);
+		this.setupView();
+		this.registerViewEvents();
+	}
 
-		// TODO Christin sollte das nicht in den Edit-Konsturktor?
+	public PBIPresenter(final ProductBacklogItem pbi,
+			Presenter<?> parentPresenter) throws NoPBISelectedException {
+		super(parentPresenter);
+
 		if (pbi == null) {
 			this.abort();
 			throw new NoPBISelectedException(
@@ -85,9 +100,9 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 							.getCriterion());
 					box.hide();
 				} catch (final DoubleDefinitionException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				} catch (final ForbiddenStateException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				}
 
 			}
@@ -117,9 +132,9 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 					PBIPresenter.this.pbi.addHint(presenter.getHint());
 					box.hide();
 				} catch (final DoubleDefinitionException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				} catch (final ForbiddenStateException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				}
 			}
 		});
@@ -191,7 +206,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 			// Stelle auch nichts.
 			return true;
 		} catch (final UserException e) {
-			GwtUtils.displayError(e.getMessage());
+			GwtUtils.displayError(e);
 			return false;
 		}
 		return super.onFinish();
@@ -286,7 +301,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 		try {
 			this.pbi.removeAcceptanceCriterion(criterion);
 		} catch (final ForbiddenStateException e) {
-			GwtUtils.displayError(e.getMessage());
+			GwtUtils.displayError(e);
 		}
 	}
 
@@ -300,7 +315,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 		try {
 			this.pbi.removeHint(hint);
 		} catch (final ForbiddenStateException e) {
-			GwtUtils.displayError(e.getMessage());
+			GwtUtils.displayError(e);
 		}
 	}
 
@@ -354,7 +369,8 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 			this.pbi.setSprint(this.getView().getSelectedSprint());
 		} catch (final NothingSelectedException e) {
 			// Kein Sprint ausgewählt, also setzen wir den Sprint auf null.
-			// TODO NoObject Pattern wäre besser, gibt es für Sprint aber zZ
+			// TODO [Verbesserung] NoObject Pattern wäre besser, gibt es für
+			// Sprint aber zZ
 			// nicht.
 			this.pbi.setSprint(null);
 		}

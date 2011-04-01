@@ -30,65 +30,82 @@ public class BugPresenter implements Observer, IBugPresenter {
 
 	@Override
 	public void registerViewEvents() {
-		((IBugView) presenter.getView()).getChangeSystems().add(new EventHandler<EventArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				final List<System> list1 = new ArrayList<System>();
-				final List<System> list2 = new ArrayList<System>();
-				list1.addAll(((Bug) BugPresenter.this.presenter.getPbi()).getSystems());
-				list2.addAll(BugPresenter.this.presenter.getPbi().getBacklog().getProject().getPossibleSystems());
-
-				final DialogBox box = GwtUtils.createDialog(TextConstants.CHANGE_SYSTEM);
-				final SelectSystemPresenter presenter = new SelectSystemPresenter(box, BugPresenter.this.presenter, list1, list2);
-
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
-
+		((IBugView) presenter.getView()).getChangeSystems().add(
+				new EventHandler<EventArgs>() {
 					@Override
-					public void onUpdate(final Object sender, final EventArgs eventArgs) {
-						Bug bug = (Bug) BugPresenter.this.presenter.getPbi();
-						Collection<System> s = new ArrayList<System>(bug.getSystems());
-						for (final System system : s) {
-							try {
-								bug.removeSystem(system);
-							} catch (UserException e) {
-								GwtUtils.displayError(e);
-							}
-						}
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						final List<System> list1 = new ArrayList<System>();
+						final List<System> list2 = new ArrayList<System>();
+						list1.addAll(((Bug) BugPresenter.this.presenter
+								.getPbi()).getSystems());
+						list2.addAll(BugPresenter.this.presenter.getPbi()
+								.getBacklog().getProject().getPossibleSystems());
 
-						for (final System system : presenter.getSelectedSystems()) {
-							try {
-								bug.addSystem(system);
-							} catch (UserException e) {
-								GwtUtils.displayError(e);
-							}
-						}
-						box.hide();
+						final DialogBox box = GwtUtils
+								.createDialog(TextConstants.CHANGE_SYSTEM);
+						final SelectSystemPresenter presenter = new SelectSystemPresenter(
+								box, BugPresenter.this.presenter, list1, list2);
+
+						presenter.getFinished().add(
+								new EventHandler<EventArgs>() {
+
+									@Override
+									public void onUpdate(final Object sender,
+											final EventArgs eventArgs) {
+										Bug bug = (Bug) BugPresenter.this.presenter
+												.getPbi();
+										Collection<System> s = new ArrayList<System>(
+												bug.getSystems());
+										for (final System system : s) {
+											try {
+												bug.removeSystem(system);
+											} catch (UserException e) {
+												GwtUtils.displayError(e);
+											}
+										}
+
+										for (final System system : presenter
+												.getSelectedSystems()) {
+											try {
+												bug.addSystem(system);
+											} catch (UserException e) {
+												GwtUtils.displayError(e);
+											}
+										}
+										box.hide();
+									}
+								});
+
+						presenter.getAborted().add(
+								new EventHandler<EventArgs>() {
+
+									@Override
+									public void onUpdate(Object sender,
+											EventArgs eventArgs) {
+										box.hide();
+									}
+
+								});
+						box.center();
 					}
 				});
-
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						box.hide();
-					}
-
-				});
-				box.center();
-			}
-		});
 
 	}
 
 	@Override
 	public void setupView() {
-		this.view.setVersion(this.presenter.getPbi().getBacklog().getProject().getReleasePlan(), ((Bug) this.presenter.getPbi()).getVersion());
+		this.view
+				.setVersion(this.presenter.getPbi().getBacklog().getProject()
+						.getReleasePlan(),
+						((Bug) this.presenter.getPbi()).getVersion());
 		this.updateView();
 	}
 
 	@Override
 	public void updateView() {
-		this.view.setSystems(new ArrayList<System>(((Bug) this.presenter.getPbi()).getSystems()));
+		this.view.setSystems(new ArrayList<System>(((Bug) this.presenter
+				.getPbi()).getSystems()));
 	}
 
 	@Override

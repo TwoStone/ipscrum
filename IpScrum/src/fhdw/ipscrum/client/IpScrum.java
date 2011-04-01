@@ -5,6 +5,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.gchart.client.GChart;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
+import fhdw.ipscrum.client.presenter.SearchResultPresenter;
+import fhdw.ipscrum.client.view.widgets.PresenterLaunchWidget;
 import fhdw.ipscrum.client.view.widgets.charts.GWTCanvasBasedCanvasFactory;
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.SessionManager.LoadCallback;
@@ -18,23 +20,28 @@ public class IpScrum implements EntryPoint {
 	// widgets it needs to render any continuous,
 	// non-rectangular, chart aspects (solid fill pie slices,
 	// continously connected lines, etc.) clearly and
-	// efficiently.  It's generally best to do this exactly once,
+	// efficiently. It's generally best to do this exactly once,
 	// when your entire GWT application loads.
 	static {
 		GChart.setCanvasFactory(new GWTCanvasBasedCanvasFactory());
 	}
+
+	public static PresenterLaunchWidget presenterLaunchWidget;
 
 	/**
 	 * This is the entry point method.
 	 */
 	@Override
 	public void onModuleLoad() {
-
+		presenterLaunchWidget = new PresenterLaunchWidget();
 		SessionManager.getInstance().load(new LoadCallback() {
 
 			@Override
 			public void onLoaded() {
 				new RootPresenter(RootPanel.get("mainPanel"));
+				presenterLaunchWidget.addPresenter(new SearchResultPresenter(
+						SessionManager.getInstance().getModel().getProjects()
+								.get(2).getBacklog().getItems(), null));
 			}
 		});
 	}

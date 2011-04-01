@@ -15,6 +15,14 @@ body {
 	box-shadow: 5px 5px 5px silver, -5px 5px 5px silver;
 }
 
+#adminPanel {
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+	color: silver;
+	
+	}
+
 
 /** Example rules used by the template application (remove for your app) */
 h1 {

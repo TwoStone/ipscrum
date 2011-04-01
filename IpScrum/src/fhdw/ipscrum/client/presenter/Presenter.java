@@ -26,7 +26,7 @@ import fhdw.ipscrum.shared.SessionManager;
  */
 public abstract class Presenter<T extends IView> {
 
-	private final Panel parent;
+	private Panel parent;
 	private final T myView;
 	private final SessionManager manager;
 	private final Presenter<?> parentPresenter;
@@ -37,30 +37,48 @@ public abstract class Presenter<T extends IView> {
 
 	/**
 	 * Creates a new instance {@link Presenter}. Must be called in derived
-	 * classes to add the view to its parent panel.
+	 * classes to add the view to its parent panel. Due to MVP pattern, better
+	 * use {@link Presenter#Presenter(Presenter)}
 	 * 
 	 * @param parent
-	 *            GUI-Panel where the presenters view should be added.
+	 *            GUI-Panel where the presenters view should be added. The view
+	 *            will be automatically added to this panel.
+	 * 
+	 * @param parentPresenter
+	 *            Presenter that calls this presenter. Used to enable the
+	 *            possibility of building presenter-hierarchies. Can be null.
 	 */
 	public Presenter(final Panel parent, final Presenter<?> parentPresenter) {
-		super();
+		this(parentPresenter);
+
 		this.parent = parent;
-		this.children = new HashMap<Presenter<?>, Collection<EventRegistration>>();
-		this.myView = this.createView();
 		this.parent.add(this.myView);
+
+	}
+
+	/**
+	 * Creates a new instance of {@link Presenter}. <b>Does not add the view to
+	 * a panel! This must be done separately!</b>
+	 * 
+	 * @param parentPresenter
+	 *            presenter that calls this presenter. Used to enable the
+	 *            possibility of building presenter-hierarchies. Can be null.
+	 */
+	public Presenter(final Presenter<?> parentPresenter) {
+		this.children = new HashMap<Presenter<?>, Collection<EventRegistration>>();
 		this.manager = SessionManager.getInstance();
 		this.parentPresenter = parentPresenter;
 		if (this.parentPresenter != null) {
 			this.parentPresenter.addChildren(this);
 		}
-
+		this.myView = this.createView();
 	}
 
 	/**
 	 * Aborts the workflow of the presenter. Has to be called to rise the
 	 * aborted event.
 	 */
-	public void abort() {
+	public final void abort() {
 		if (this.onAbort()) {
 			this.abortChildren();
 			this.aborted.fire(this, new EventArgs());
@@ -96,13 +114,21 @@ public abstract class Presenter<T extends IView> {
 
 	}
 
+	/**
+	 * Creates the view of the presenter. <br>
+	 * <b>Note:</b> This method will be called while constructing the Presenter,
+	 * at this time the {@link Presenter#myView} field will be not instantiated.
+	 * It will be instantiate with the return value of this operation.
+	 * 
+	 * @return The view affiliating with this presenter.
+	 */
 	protected abstract T createView();
 
 	/**
-	 * Finished the workflow of the presenter. Has to be called to rise the
+	 * Finishes the workflow of the presenter. Has to be called to rise the
 	 * finished event.
 	 */
-	protected void finish() {
+	public final void finish() {
 		if (this.onFinish()) {
 			this.finished.fire(this, new EventArgs());
 		}
@@ -141,7 +167,7 @@ public abstract class Presenter<T extends IView> {
 	 * Template method. Can be overridden to do own stuff before aborted event
 	 * is fired. Return false, to cancel finish process.
 	 * 
-	 * @return
+	 * @return Indicates if the abort process should be finished.
 	 */
 	protected boolean onAbort() {
 		return true;
@@ -151,7 +177,7 @@ public abstract class Presenter<T extends IView> {
 	 * Template method. Can be overridden to do own stuff before finished event
 	 * is fired. Return false, to cancel finish process.
 	 * 
-	 * @return
+	 * @return Indicates if the finish process should be finished.
 	 */
 	protected boolean onFinish() {
 		return true;

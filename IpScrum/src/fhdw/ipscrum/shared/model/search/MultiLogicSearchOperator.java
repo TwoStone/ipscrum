@@ -14,14 +14,18 @@ public abstract class MultiLogicSearchOperator implements SearchExpression {
 	/**
 	 * List of search expression arguments.
 	 */
-	private final Collection<SearchExpression> args;
+	private Collection<SearchExpression> args;
+
+	private void setArgs(Collection<SearchExpression> args) {
+		this.args = args;
+	}
 
 	/**
 	 * Constructor used by GWT Serialization and for default initiation.
 	 */
 	public MultiLogicSearchOperator() {
 		super();
-		this.args = new ArrayList<SearchExpression>();
+		setArgs(new ArrayList<SearchExpression>());
 	}
 
 	/**

@@ -9,8 +9,14 @@ import fhdw.ipscrum.shared.model.Feature;
 
 public class EditFeaturePresenter extends EditPBIPresenter {
 
-	public EditFeaturePresenter(Panel parent, Feature feature, Presenter<?> parentPresenter) throws NoPBISelectedException {
+	public EditFeaturePresenter(Panel parent, Feature feature,
+			Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, feature, parentPresenter);
+	}
+
+	public EditFeaturePresenter(Feature feature, Presenter<?> parentPresenter)
+			throws NoPBISelectedException {
+		super(feature, parentPresenter);
 	}
 
 	@Override

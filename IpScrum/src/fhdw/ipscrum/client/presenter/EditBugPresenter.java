@@ -12,8 +12,14 @@ import fhdw.ipscrum.shared.model.Bug;
 public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter {
 	private IBugPresenter bugPresenter;
 
-	public EditBugPresenter(Panel parent, Bug bug, Presenter<?> parentPresenter) throws NoPBISelectedException {
+	public EditBugPresenter(Panel parent, Bug bug, Presenter<?> parentPresenter)
+			throws NoPBISelectedException {
 		super(parent, bug, parentPresenter);
+	}
+
+	public EditBugPresenter(Bug bug, Presenter<?> parentPresenter)
+			throws NoPBISelectedException {
+		super(bug, parentPresenter);
 	}
 
 	@Override

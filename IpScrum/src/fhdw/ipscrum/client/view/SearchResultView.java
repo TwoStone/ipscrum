@@ -12,6 +12,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -20,7 +21,9 @@ import com.google.gwt.view.client.ListDataProvider;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ShowTicketEventArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
+import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
@@ -33,7 +36,8 @@ import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
  */
 public class SearchResultView extends Composite implements ISearchResultView {
 	private ListDataProvider<ProductBacklogItem> dataProvider;
-	private Event<ShowTicketEventArgs> showTicketEvent;
+	private final Event<ShowTicketEventArgs> showTicketEvent = new Event<ShowTicketEventArgs>();
+	private DialogBox detailsDialog;
 
 	public SearchResultView() {
 
@@ -208,6 +212,8 @@ public class SearchResultView extends Composite implements ISearchResultView {
 		showColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		showColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		cellTable.addColumn(showColumn);
+
+		detailsDialog = GwtUtils.createDialog("Details");
 	}
 
 	/*
@@ -232,6 +238,18 @@ public class SearchResultView extends Composite implements ISearchResultView {
 	@Override
 	public void registerShowTicket(EventHandler<ShowTicketEventArgs> handler) {
 		showTicketEvent.add(handler);
+	}
+
+	@Override
+	public void displayDetails(IView view) {
+		detailsDialog.clear();
+		detailsDialog.add(view);
+		detailsDialog.center();
+	}
+
+	@Override
+	public void hideDetails() {
+		detailsDialog.hide();
 	}
 
 }
