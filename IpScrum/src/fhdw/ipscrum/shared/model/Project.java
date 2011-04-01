@@ -28,6 +28,7 @@ import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
 import fhdw.ipscrum.shared.model.messages.MessageVisitor;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.messages.ReleaseCompletionMessage;
+import fhdw.ipscrum.shared.model.messages.RemoveGlobalIncidentMessage;
 import fhdw.ipscrum.shared.model.messages.SprintCompletionMessage;
 import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
@@ -373,13 +374,22 @@ public class Project extends Observable implements BDACompare, Serializable,
 		return this.incidentAssoc;
 	}
 	
+	/**
+	 * returns incidents which have been created in this project.
+	 */
 	public Vector<Incident> getProjectIncidents(){
 		Vector<Incident> result = new Vector<Incident>();
-		
-		result.addAll((Collection<? extends Incident>) this.incidentAssoc.getAssociations());
-		return result;
+		Iterator<BDACompare> i = this.getIncidentAssoc().getAssociations().iterator();
+		while (i.hasNext()){
+			result.add((Incident) i.next());
+		}
+		return result;		
 	}
 	
+	/**
+	 * Adds a new Incident to the project. For every incident i.isGlobal() has to be false.
+	 * Otherwise the message will be delegated to the root object.
+	 */
 	public void addIncident(final Incident incident) throws DoubleDefinitionException{
 		if (incident == null) return;
 		if (incident.isGlobal()){
@@ -389,6 +399,21 @@ public class Project extends Observable implements BDACompare, Serializable,
 			this.getIncidentAssoc().add(incident.getProjectAssoc());
 		}
 		this.notifyObservers();
+	}
+	/**
+	 * Removes an existing incident from the project. For every incident i.isGlobal() has to be false.
+	 * Otherwise the message will be delegated to the root object.
+	 * WARNING: Only use for unit testing.
+	 * @deprecated
+	 */
+	public void removeIncident(final Incident incident){
+		if (incident==null) return;
+		if (incident.isGlobal()){
+			RemoveGlobalIncidentMessage message = new RemoveGlobalIncidentMessage(incident);
+			this.notifyObservers(message);
+		} else {
+			this.getIncidentAssoc().remove(incident.getProjectAssoc());
+		}
 	}
 
 	@Override
@@ -449,10 +474,18 @@ public class Project extends Observable implements BDACompare, Serializable,
 					// no exception notification to client necessary
 				}
 			}
+
+			@Override
+			public void handleRemoveGlobalIncidentMessage(
+					RemoveGlobalIncidentMessage message) {
+				Project.this.update_GlobalIncident(message);
+			}
 		});
 		
 	}
-	
+	/**
+	 * This method checks, if sprints or releases are completed.
+	 */
 	public void checkDeadlines(){
 		Iterator<ISprint> i1 = this.sprints.iterator();
 		while (i1.hasNext()){i1.next().checkDeadline();}
@@ -461,9 +494,9 @@ public class Project extends Observable implements BDACompare, Serializable,
 	}
 	
 	/**
-	 * notifies the root that a new global incident has been created
+	 * notifies the root that a new global incident has been created or shall be removed
 	 */
-	private void update_GlobalIncident(AddGLobalIncidentMessage message) {
+	private void update_GlobalIncident(Message message) {
 		this.notifyObservers(message);
 	}
 }

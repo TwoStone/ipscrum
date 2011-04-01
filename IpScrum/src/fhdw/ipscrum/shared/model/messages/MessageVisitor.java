@@ -6,4 +6,5 @@ public interface MessageVisitor {
 	public void handleReleaseCompletionMessage(ReleaseCompletionMessage message);
 	public void handleSprintCompletionMessage(SprintCompletionMessage message);
 	public void handleAddGlobalIncidentMessage(AddGLobalIncidentMessage message);
+	public void handleRemoveGlobalIncidentMessage(RemoveGlobalIncidentMessage message);
 }

@@ -18,6 +18,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
 import fhdw.ipscrum.shared.model.messages.AddGLobalIncidentMessage;
 import fhdw.ipscrum.shared.model.messages.Message;
 import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
+import fhdw.ipscrum.shared.model.messages.RemoveGlobalIncidentMessage;
 import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
@@ -298,7 +299,12 @@ public class Root extends Observable implements SerializationRoot,
 		}
 		return this.sysManager;
 	}
-
+	
+	/**
+	 * Adds a new global incident.  
+	 * @param incident for all incidents i.isGlobal() has to be true (consistency condition)
+	 * @throws DoubleDefinitionException 
+	 */
 	public void addIncident(Incident incident) throws DoubleDefinitionException {
 		if (incident == null)
 			return;
@@ -310,7 +316,12 @@ public class Root extends Observable implements SerializationRoot,
 		}
 		this.notifyObservers();
 	}
-
+	
+	/**
+	 * Removes an incident.
+	 * Warning: Only for use in unit tests!
+	 * @deprecated
+	 */
 	public void removeIncident(Incident incident) {
 		if (incident != null && this.globalIncidents.contains(incident)) {
 			this.globalIncidents.remove(incident);
@@ -418,6 +429,16 @@ public class Root extends Observable implements SerializationRoot,
 					// do not add
 				}
 			}
+			
+			
+
+			@Override
+			public void handleRemoveGlobalIncidentMessage(
+					RemoveGlobalIncidentMessage message) {
+				Root.this.removeIncident(message.getIncident());
+			}
+
+
 
 			@Override
 			public void standardHandling() {
@@ -426,12 +447,21 @@ public class Root extends Observable implements SerializationRoot,
 			}
 		});
 	}
-
-	public final Vector<Incident> getGlobalIncidents() {
+	/**
+	 * This method returns all global incidents. global means, the incidents are valid for
+	 * the entire application.
+	 */
+	public Vector<Incident> getGlobalIncidents(){
+		if (this.globalIncidents == null){ 
+			this.globalIncidents = new Vector<Incident>();
+		} 
 		return this.globalIncidents;
 	}
-
-	public final Iterator<Incident> getGlobalIncidentsIterator() {
+	/**
+	 * This method returns an iterator for all global incidents. 
+	 * @see getGlobalIncidents
+	 */
+	public final Iterator<Incident> getGlobalIncidentsIterator(){
 		return this.getGlobalIncidents().iterator();
 	}
 

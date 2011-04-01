@@ -68,7 +68,10 @@ public class Incident extends Observable implements BDACompare {
 							 	person));
 		return i;
 	}
-	public static Incident createIllnessIncident(IPerson person, Date start, Date end){
+	public static Incident createIllnessIncident(IPerson person, Date start, Date end) throws NoValidValueException{
+		if (isEndBeforeStart(start, end)){
+			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
+		}
 		Incident i = new Incident(start, end);
 		i.setType(new Illness( TextConstants.INCIDENT_ILLNESS_NAME,
 							   person.getFirstname() 
@@ -124,7 +127,10 @@ public class Incident extends Observable implements BDACompare {
 		return i;
 	}
 	
-	public static Incident createOtherIssueIncident(String name, String description, Date start, Date end){
+	public static Incident createOtherIssueIncident(String name, String description, Date start, Date end) throws NoValidValueException{
+		if (isEndBeforeStart(start, end)){
+			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
+		}
 		Incident i = new Incident(start, end);
 		i.setType(new OtherIssue(name, description));
 		return i;
