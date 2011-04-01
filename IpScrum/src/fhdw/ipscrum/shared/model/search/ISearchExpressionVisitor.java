@@ -16,6 +16,7 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIRelationTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.ScruumleCriterion;
 
 public interface ISearchExpressionVisitor {
 
@@ -29,18 +30,21 @@ public interface ISearchExpressionVisitor {
 
 	void handleBugVersionCriteria(BugVersionCriterion bugVersionCriteria);
 
-	void handlePBIAcceptanceCriteria(PBIAcceptanceCriterion pbiAcceptanceCriteria);
+	void handlePBIAcceptanceCriteria(
+			PBIAcceptanceCriterion pbiAcceptanceCriteria);
 
 	void handlePBIClosedCriteria(PBIClosedCriterion pbiClosedCriteria);
 
-	void handlePBIComplexityCriteria(PBIComplexityCriterion pbiComplexityCriteria);
+	void handlePBIComplexityCriteria(
+			PBIComplexityCriterion pbiComplexityCriteria);
 
 	void handlePBIHintsCritera(PBIHintsCriterion pbiHintsCritera);
 
 	void handlePBIDescriptionCriteria(
 			PBIDescriptionCriterion pbiDescriptionCriteria);
 
-	void handlePBILastEditorCriteria(PBILastEditorCriterion pbiLastEditorCriteria);
+	void handlePBILastEditorCriteria(
+			PBILastEditorCriterion pbiLastEditorCriteria);
 
 	void handlePBINameCriteria(PBINameCriterion pbiNameCriteria);
 
@@ -56,10 +60,13 @@ public interface ISearchExpressionVisitor {
 
 	void handlePBIReleaseCriteria(PBIReleaseCriterion pbiReleaseCriteria);
 
-	void handlePBISprintDescCriteria(PBISprintDescCriterion pbiSprintDescCriteria);
+	void handlePBISprintDescCriteria(
+			PBISprintDescCriterion pbiSprintDescCriteria);
 
 	void handlePBISprintName(PBISprintNameCriterion pbiSprintName);
 
 	void handleNoSearchExpression(NoSearchExpression noSearchExpression);
+
+	void handleScruumleCriterion(ScruumleCriterion scruumleCriterion);
 
 }

@@ -23,4 +23,8 @@ public abstract class TextCriterion extends SearchCriteria {
 		return this.value;
 	}
 
+	public void setValue(final String value) {
+		this.value = value;
+	}
+
 }
