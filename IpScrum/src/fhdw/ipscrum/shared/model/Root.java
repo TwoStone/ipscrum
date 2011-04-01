@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
@@ -421,6 +422,13 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 				
 			}
 		});
+	}
+	
+	public final Vector<Incident> getGlobalIncidents(){
+		return this.globalIncidents;
+	}
+	public final Iterator<Incident> getGlobalIncidentsIterator(){
+		return this.getGlobalIncidents().iterator();
 	}
 
 }

@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -370,6 +371,13 @@ public class Project extends Observable implements BDACompare, Serializable,
 	
 	public ManyToMany<ManyToMany, Project> getIncidentAssoc(){
 		return this.incidentAssoc;
+	}
+	
+	public Vector<Incident> getProjectIncidents(){
+		Vector<Incident> result = new Vector<Incident>();
+		
+		result.addAll((Collection<? extends Incident>) this.incidentAssoc.getAssociations());
+		return result;
 	}
 	
 	public void addIncident(final Incident incident) throws DoubleDefinitionException{
