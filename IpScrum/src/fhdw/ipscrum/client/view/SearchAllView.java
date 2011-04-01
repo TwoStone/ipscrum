@@ -15,9 +15,7 @@ import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -38,67 +36,59 @@ public class SearchAllView extends Composite implements ISearchAllView {
 	private final Event<DoSearchEventArgs> doSearchEvent;
 	private final Event<DoScruumleSearchEventArgs> doScruumleSearchEvent;
 	private final ListDataProvider<Search> savedSearches;
-	private ScrollPanel savedSearchPanel;
-	private ScrollPanel resultPanel;
-	private DecoratedTabPanel decoratedTabPanel;
+	private ScrollPanel bottomPanel;
 	private TextBox searchExpression;
+	private CellTable<Search> savedSearchesTable;
 
 	public SearchAllView() {
 		super();
 
-		VerticalPanel verticalPanel = new VerticalPanel();
+		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		initWidget(verticalPanel);
+		this.initWidget(verticalPanel);
+		verticalPanel.setSize("100%", "100%");
 
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
+		final VerticalPanel verticalPanel_1 = new VerticalPanel();
+		verticalPanel_1.setStyleName("searchHeader");
 		verticalPanel_1.setSpacing(10);
 		verticalPanel_1
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.add(verticalPanel_1);
-		verticalPanel_1.setHeight("200px");
+		verticalPanel_1.setSize("100%", "200px");
 
-		Image image = new Image((String) null);
+		final Image image = new Image((String) null);
 		verticalPanel_1.add(image);
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel_1.add(horizontalPanel);
-		horizontalPanel.setWidth("100%");
+		horizontalPanel.setWidth("");
 
-		searchExpression = new TextBox();
-		horizontalPanel.add(searchExpression);
-		searchExpression.setWidth("200px");
+		this.searchExpression = new TextBox();
+		horizontalPanel.add(this.searchExpression);
+		this.searchExpression.setWidth("200px");
 
-		Button search = new Button("Suchen");
+		final Button search = new Button("Suchen");
 		search.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				doScruumleSearchEvent.fire(
-						SearchAllView.this,
-						new DoScruumleSearchEventArgs(searchExpression
-								.getText()));
+				SearchAllView.this.doScruumleSearchEvent.fire(
+						SearchAllView.this, new DoScruumleSearchEventArgs(
+								SearchAllView.this.searchExpression.getText()));
 			}
 		});
 		horizontalPanel.add(search);
 
-		decoratedTabPanel = new DecoratedTabPanel();
-		verticalPanel.add(decoratedTabPanel);
-		verticalPanel.setCellHorizontalAlignment(decoratedTabPanel,
-				HasHorizontalAlignment.ALIGN_CENTER);
-		verticalPanel.setCellVerticalAlignment(decoratedTabPanel,
-				HasVerticalAlignment.ALIGN_MIDDLE);
-		decoratedTabPanel.setSize("90%", "");
+		this.bottomPanel = new ScrollPanel();
+		verticalPanel.add(this.bottomPanel);
+		this.bottomPanel.setSize("100%", "450px");
 
-		savedSearchPanel = new ScrollPanel();
-		decoratedTabPanel.add(savedSearchPanel, "Gespeicherte Suchen", false);
-		savedSearchPanel.setSize("100%", "300px");
+		this.savedSearchesTable = new CellTable<Search>();
+		this.bottomPanel.setWidget(this.savedSearchesTable);
+		this.savedSearchesTable.setSize("100%", "100%");
 
-		CellTable<Search> cellTable = new CellTable<Search>();
-		savedSearchPanel.setWidget(cellTable);
-		cellTable.setSize("100%", "100%");
-
-		Column<Search, String> iconColumn = new Column<Search, String>(
+		final Column<Search, String> iconColumn = new Column<Search, String>(
 				new ImageCell()) {
 
 			@Override
@@ -107,24 +97,25 @@ public class SearchAllView extends Composite implements ISearchAllView {
 			}
 		};
 
-		TextColumn<Search> nameColumn = new TextColumn<Search>() {
+		final TextColumn<Search> nameColumn = new TextColumn<Search>() {
 			@Override
 			public String getValue(Search object) {
 				return object.toString();
 			}
 		};
 
-		ActionCell<Search> executeCell = new ActionCell<Search>("Ausführen",
-				new Delegate<Search>() {
+		final ActionCell<Search> executeCell = new ActionCell<Search>(
+				"Ausführen", new Delegate<Search>() {
 
 					@Override
 					public void execute(Search object) {
-						doSearchEvent.fire(SearchAllView.this,
-								new DoSearchEventArgs(object));
+						SearchAllView.this.doSearchEvent.fire(
+								SearchAllView.this, new DoSearchEventArgs(
+										object));
 					}
 				});
 
-		Column<Search, Search> executeColumn = new Column<Search, Search>(
+		final Column<Search, Search> executeColumn = new Column<Search, Search>(
 				executeCell) {
 
 			@Override
@@ -133,21 +124,17 @@ public class SearchAllView extends Composite implements ISearchAllView {
 			}
 		};
 
-		cellTable.addColumn(iconColumn);
-		cellTable.addColumn(nameColumn);
-		cellTable.addColumn(executeColumn);
+		this.savedSearchesTable.addColumn(iconColumn);
+		this.savedSearchesTable.addColumn(nameColumn, "Name");
+		this.savedSearchesTable.addColumn(executeColumn);
 
-		resultPanel = new ScrollPanel();
-		resultPanel.setVisible(false);
-		resultPanel.setSize("100%", "300px");
-		doSearchEvent = new Event<DoSearchEventArgs>();
-		doScruumleSearchEvent = new Event<DoScruumleSearchEventArgs>();
-		savedSearches = new ListDataProvider<Search>();
-		savedSearches.addDataDisplay(cellTable);
-
+		this.doSearchEvent = new Event<DoSearchEventArgs>();
+		this.doScruumleSearchEvent = new Event<DoScruumleSearchEventArgs>();
+		this.savedSearches = new ListDataProvider<Search>();
+		this.savedSearches.addDataDisplay(this.savedSearchesTable);
 		// Lets make the name column sortable.
-		ListHandler<Search> sortHandler = new ListHandler<Search>(
-				savedSearches.getList());
+		final ListHandler<Search> sortHandler = new ListHandler<Search>(
+				this.savedSearches.getList());
 		nameColumn.setSortable(true);
 		sortHandler.setComparator(nameColumn, new Comparator<Search>() {
 
@@ -161,34 +148,30 @@ public class SearchAllView extends Composite implements ISearchAllView {
 
 	@Override
 	public void registerDoSavedSearch(EventHandler<DoSearchEventArgs> handler) {
-		doSearchEvent.add(handler);
+		this.doSearchEvent.add(handler);
 	}
 
 	@Override
 	public void registerDoScruumleSearch(
 			EventHandler<DoScruumleSearchEventArgs> handler) {
-		doScruumleSearchEvent.add(handler);
+		this.doScruumleSearchEvent.add(handler);
 	}
 
 	@Override
 	public void setSavedSeaches(Collection<Search> searches) {
-		savedSearches.setList(new ArrayList<Search>(searches));
+		this.savedSearches.setList(new ArrayList<Search>(searches));
 	}
 
 	@Override
 	public void displaySearchResults(ISearchResultView view) {
-		this.resultPanel.clear();
-		resultPanel.add(view);
-		resultPanel.setVisible(true);
-		this.decoratedTabPanel.add(resultPanel, "Ergebnisse");
-		int index = this.decoratedTabPanel.getWidgetIndex(resultPanel);
-		this.decoratedTabPanel.selectTab(index);
+		this.bottomPanel.clear();
+		this.bottomPanel.add(view);
 	}
 
 	@Override
 	public void hideSearchResults() {
-		this.decoratedTabPanel.remove(resultPanel);
-		this.decoratedTabPanel.selectTab(0);
+		this.bottomPanel.clear();
+		this.bottomPanel.add(this.savedSearchesTable);
 	}
 
 }

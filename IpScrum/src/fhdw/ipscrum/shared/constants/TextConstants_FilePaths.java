@@ -16,4 +16,7 @@ public class TextConstants_FilePaths {
 	public static final String FEATURE_ICON = "images/Add-32.png";
 	public static final String SEARCH_ICON = "images/Search-32.png";
 
+	public static final String LOCKED_ICON = "images/Lock-32.png";
+	public static final String UNLOCKED_ICON = "images/Unlock-32.png";
+
 }

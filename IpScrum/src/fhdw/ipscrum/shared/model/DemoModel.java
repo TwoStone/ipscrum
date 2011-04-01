@@ -5,6 +5,9 @@ import java.util.Date;
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
+import fhdw.ipscrum.shared.model.search.Search;
+import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
 
 public class DemoModel {
 
@@ -378,7 +381,7 @@ public class DemoModel {
 		f14.setManDayCosts(new Effort(15));
 		f14.setSprint(reporting2RelPhase4);
 
-		Bug bug1 = new Bug(
+		final Bug bug1 = new Bug(
 				"Presenter",
 				"Presenter sollten im Konstruktor keine Template method aufrufen.",
 				phase3, ipScrum.getBacklog());
@@ -531,6 +534,11 @@ public class DemoModel {
 		taskGliederungsentwurf.setPlanEffort(new Effort(4));
 		taskGliederungsentwurf.setResponsibility(pChris);
 		// taskGliederungsentwurf.finish(new Date(2011 - 1900, 3 - 1, 23));
+
+		final SearchExpression expr = new PBINameCriterion("Feature");
+		final Search nameFeatureSuche = new Search("Name = Feature", expr);
+
+		model.getSearchManager().addSearch(nameFeatureSuche);
 
 	}
 }

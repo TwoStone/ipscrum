@@ -1,6 +1,5 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 
@@ -28,7 +27,10 @@ import fhdw.ipscrum.client.view.interfaces.IView;
 import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.PBIClosedState;
+import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -41,28 +43,31 @@ public class SearchResultView extends Composite implements ISearchResultView {
 	private DialogBox detailsDialog;
 	private CellTable<ProductBacklogItem> cellTable;
 	private Label statusLabel;
+	private ListHandler<ProductBacklogItem> sortHandler;
 
 	public SearchResultView() {
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setSpacing(10);
+		final VerticalPanel verticalPanel = new VerticalPanel();
+
 		verticalPanel
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		initWidget(verticalPanel);
+		verticalPanel.setWidth("100%");
+		this.initWidget(verticalPanel);
 
-		dataProvider = new ListDataProvider<ProductBacklogItem>();
-		ListHandler<ProductBacklogItem> sortHandler = new ListHandler<ProductBacklogItem>(
-				dataProvider.getList());
+		this.dataProvider = new ListDataProvider<ProductBacklogItem>();
+		this.sortHandler = new ListHandler<ProductBacklogItem>(
+				this.dataProvider.getList());
 
-		statusLabel = new Label();
-		verticalPanel.add(statusLabel);
+		this.statusLabel = new Label();
+		verticalPanel.add(this.statusLabel);
 
-		cellTable = new CellTable<ProductBacklogItem>();
-		verticalPanel.add(cellTable);
+		this.cellTable = new CellTable<ProductBacklogItem>();
+		verticalPanel.add(this.cellTable);
+		this.cellTable.setWidth("100%");
 
-		cellTable.addColumnSortHandler(sortHandler);
+		this.cellTable.addColumnSortHandler(this.sortHandler);
 
-		Column<ProductBacklogItem, String> imgColumn = new Column<ProductBacklogItem, String>(
+		final Column<ProductBacklogItem, String> imgColumn = new Column<ProductBacklogItem, String>(
 				new ImageCell()) {
 
 			@Override
@@ -73,16 +78,16 @@ public class SearchResultView extends Composite implements ISearchResultView {
 
 					@Override
 					public void handleFeature(Feature feature) {
-						result = TextConstants_FilePaths.FEATURE_ICON;
+						this.result = TextConstants_FilePaths.FEATURE_ICON;
 					}
 
 					@Override
 					public void handleBug(Bug bug) {
-						result = TextConstants_FilePaths.BUG_ICON;
+						this.result = TextConstants_FilePaths.BUG_ICON;
 					}
 				}
 
-				ImageChooser imageChooser = new ImageChooser();
+				final ImageChooser imageChooser = new ImageChooser();
 				object.accept(imageChooser);
 
 				return imageChooser.result;
@@ -90,9 +95,9 @@ public class SearchResultView extends Composite implements ISearchResultView {
 		};
 		imgColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 
-		cellTable.addColumn(imgColumn);
+		this.cellTable.addColumn(imgColumn, "Typ");
 
-		TextColumn<ProductBacklogItem> nameColumn = new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> nameColumn = new TextColumn<ProductBacklogItem>() {
 			@Override
 			public String getValue(ProductBacklogItem object) {
 				return object.getName();
@@ -101,47 +106,75 @@ public class SearchResultView extends Composite implements ISearchResultView {
 		nameColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		nameColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		nameColumn.setSortable(true);
-		cellTable.addColumn(nameColumn, "Bezeichnung");
+		this.cellTable.addColumn(nameColumn, "Bezeichnung");
 
-		TextColumn<ProductBacklogItem> projectColumn = new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> projectColumn = new TextColumn<ProductBacklogItem>() {
 			@Override
 			public String getValue(ProductBacklogItem object) {
 				return object.getBacklog().getProject().getName();
 			}
 		};
+		final Column<ProductBacklogItem, String> stateColumn = new Column<ProductBacklogItem, String>(
+				new ImageCell()) {
+
+			@Override
+			public String getValue(ProductBacklogItem object) {
+				class StateIconChooser implements IPBIStateVisitor {
+					String result;
+
+					@Override
+					public void handleClosed(PBIClosedState closed) {
+						this.result = TextConstants_FilePaths.LOCKED_ICON;
+					}
+
+					@Override
+					public void handleOpen(PBIOpenState open) {
+						this.result = TextConstants_FilePaths.UNLOCKED_ICON;
+					}
+
+				}
+				final StateIconChooser chooser = new StateIconChooser();
+				object.getState().accept(chooser);
+				return chooser.result;
+			}
+		};
+		this.cellTable.addColumn(stateColumn, "Status");
+
 		projectColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		projectColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		projectColumn.setSortable(true);
-		cellTable.addColumn(projectColumn, "Projekt");
+		this.cellTable.addColumn(projectColumn, "Projekt");
 
-		TextColumn<ProductBacklogItem> sprintColumn = new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> sprintColumn = new TextColumn<ProductBacklogItem>() {
 			@Override
 			public String getValue(ProductBacklogItem object) {
-				if (object.getSprint() != null)
+				if (object.getSprint() != null) {
 					return object.getSprint().getName();
+				}
 				return "-";
 			}
 		};
 		sprintColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		sprintColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		sprintColumn.setSortable(true);
-		cellTable.addColumn(sprintColumn, "Sprint");
+		this.cellTable.addColumn(sprintColumn, "Sprint");
 
-		TextColumn<ProductBacklogItem> releaseColumn = new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> releaseColumn = new TextColumn<ProductBacklogItem>() {
 			@Override
 			public String getValue(ProductBacklogItem object) {
 				if (object.getSprint() != null
-						&& object.getSprint().getRelease() != null)
+						&& object.getSprint().getRelease() != null) {
 					return object.getSprint().getRelease().getVersion();
+				}
 				return "-";
 			}
 		};
 		releaseColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		releaseColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		releaseColumn.setSortable(true);
-		cellTable.addColumn(releaseColumn, "Release");
+		this.cellTable.addColumn(releaseColumn, "Release");
 
-		sortHandler.setComparator(nameColumn,
+		this.sortHandler.setComparator(nameColumn,
 				new Comparator<ProductBacklogItem>() {
 
 					@Override
@@ -151,7 +184,7 @@ public class SearchResultView extends Composite implements ISearchResultView {
 								arg1.getName());
 					}
 				});
-		sortHandler.setComparator(projectColumn,
+		this.sortHandler.setComparator(projectColumn,
 				new Comparator<ProductBacklogItem>() {
 
 					@Override
@@ -166,7 +199,7 @@ public class SearchResultView extends Composite implements ISearchResultView {
 										o2.getBacklog().getProject().getName());
 					}
 				});
-		sortHandler.setComparator(sprintColumn,
+		this.sortHandler.setComparator(sprintColumn,
 				new Comparator<ProductBacklogItem>() {
 					private String getSprintName(ProductBacklogItem item) {
 						return item.getSprint() != null ? item.getSprint()
@@ -176,12 +209,12 @@ public class SearchResultView extends Composite implements ISearchResultView {
 					@Override
 					public int compare(ProductBacklogItem o1,
 							ProductBacklogItem o2) {
-						String o1Sprint = getSprintName(o1);
-						String o2Sprint = getSprintName(o2);
+						final String o1Sprint = this.getSprintName(o1);
+						final String o2Sprint = this.getSprintName(o2);
 						return o1Sprint.compareToIgnoreCase(o2Sprint);
 					}
 				});
-		sortHandler.setComparator(releaseColumn,
+		this.sortHandler.setComparator(releaseColumn,
 				new Comparator<ProductBacklogItem>() {
 					private String getReleaseName(ProductBacklogItem item) {
 						return item.getSprint() != null ? item.getSprint()
@@ -193,24 +226,25 @@ public class SearchResultView extends Composite implements ISearchResultView {
 					public int compare(ProductBacklogItem o1,
 							ProductBacklogItem o2) {
 
-						return getReleaseName(o1).compareToIgnoreCase(
-								getReleaseName(o2));
+						return this.getReleaseName(o1).compareToIgnoreCase(
+								this.getReleaseName(o2));
 					}
 				});
 
-		dataProvider.addDataDisplay(cellTable);
+		this.dataProvider.addDataDisplay(this.cellTable);
 
-		ActionCell<ProductBacklogItem> actionCell = new ActionCell<ProductBacklogItem>(
+		final ActionCell<ProductBacklogItem> actionCell = new ActionCell<ProductBacklogItem>(
 				"Anzeigen", new Delegate<ProductBacklogItem>() {
 
 					@Override
 					public void execute(ProductBacklogItem object) {
-						showTicketEvent.fire(SearchResultView.this,
-								new ShowTicketEventArgs(object));
+						SearchResultView.this.showTicketEvent.fire(
+								SearchResultView.this, new ShowTicketEventArgs(
+										object));
 					}
 				});
 
-		Column<ProductBacklogItem, ProductBacklogItem> showColumn = new Column<ProductBacklogItem, ProductBacklogItem>(
+		final Column<ProductBacklogItem, ProductBacklogItem> showColumn = new Column<ProductBacklogItem, ProductBacklogItem>(
 				actionCell) {
 
 			@Override
@@ -220,9 +254,9 @@ public class SearchResultView extends Composite implements ISearchResultView {
 		};
 		showColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		showColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		cellTable.addColumn(showColumn);
+		this.cellTable.addColumn(showColumn);
 
-		detailsDialog = GwtUtils.createDialog("Details");
+		this.detailsDialog = GwtUtils.createDialog("Details");
 	}
 
 	/*
@@ -242,7 +276,8 @@ public class SearchResultView extends Composite implements ISearchResultView {
 			this.cellTable.setVisible(true);
 			this.statusLabel.setText(results.size() + " Tickets gefunden.");
 		}
-		dataProvider.setList(new ArrayList<ProductBacklogItem>(results));
+		this.dataProvider.getList().clear();
+		this.dataProvider.getList().addAll(results);
 	}
 
 	/*
@@ -254,19 +289,19 @@ public class SearchResultView extends Composite implements ISearchResultView {
 	 */
 	@Override
 	public void registerShowTicket(EventHandler<ShowTicketEventArgs> handler) {
-		showTicketEvent.add(handler);
+		this.showTicketEvent.add(handler);
 	}
 
 	@Override
 	public void displayDetails(IView view) {
-		detailsDialog.clear();
-		detailsDialog.add(view);
-		detailsDialog.center();
+		this.detailsDialog.clear();
+		this.detailsDialog.add(view);
+		this.detailsDialog.center();
 	}
 
 	@Override
 	public void hideDetails() {
-		detailsDialog.hide();
+		this.detailsDialog.hide();
 	}
 
 }

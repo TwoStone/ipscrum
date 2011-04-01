@@ -151,3 +151,6 @@ margin: 0 auto;
 	padding: 3px;
 
 }
+.searchHeader {
+	border-bottom: 1px solid #cccccc;
+}
