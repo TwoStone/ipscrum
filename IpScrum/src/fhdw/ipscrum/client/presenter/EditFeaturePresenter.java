@@ -14,11 +14,6 @@ public class EditFeaturePresenter extends EditPBIPresenter {
 		super(parent, feature, parentPresenter);
 	}
 
-	public EditFeaturePresenter(Feature feature, Presenter<?> parentPresenter)
-			throws NoPBISelectedException {
-		super(feature, parentPresenter);
-	}
-
 	@Override
 	protected IEditFeatureView createView() {
 		return new EditFeatureView();

@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.observer.Observable;
 
 /**
  * Manages a list of stored SearchExpressions and initiates a search.
  */
-public class SearchManager implements Serializable {
+public class SearchManager extends Observable implements Serializable {
 
 	private static final long serialVersionUID = 1309138599428533013L;
 
@@ -40,6 +41,7 @@ public class SearchManager implements Serializable {
 	 */
 	public void addSearch(final Search search) {
 		this.getSearching().add(search);
+		this.notifyObservers();
 	}
 
 	/**
@@ -47,6 +49,7 @@ public class SearchManager implements Serializable {
 	 */
 	public void removeSearch(final Search search) {
 		this.getSearching().remove(search);
+		this.notifyObservers();
 	}
 
 	/**

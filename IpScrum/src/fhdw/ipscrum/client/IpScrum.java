@@ -5,8 +5,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.googlecode.gchart.client.GChart;
 
 import fhdw.ipscrum.client.presenter.RootPresenter;
-import fhdw.ipscrum.client.presenter.SearchAllPresenter;
-import fhdw.ipscrum.client.presenter.SearchResultPresenter;
 import fhdw.ipscrum.client.view.widgets.PresenterLaunchWidget;
 import fhdw.ipscrum.client.view.widgets.charts.GWTCanvasBasedCanvasFactory;
 import fhdw.ipscrum.shared.SessionManager;
@@ -40,12 +38,6 @@ public class IpScrum implements EntryPoint {
 			@Override
 			public void onLoaded() {
 				new RootPresenter(RootPanel.get("mainPanel"));
-
-				presenterLaunchWidget.addPresenter(new SearchResultPresenter(
-						SessionManager.getInstance().getModel().getProjects()
-								.get(2).getBacklog().getItems(), null));
-				presenterLaunchWidget
-						.addPresenter(new SearchAllPresenter(null));
 			}
 		});
 	}

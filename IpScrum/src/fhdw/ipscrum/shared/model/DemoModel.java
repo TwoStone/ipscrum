@@ -5,9 +5,13 @@ import java.util.Date;
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
+import fhdw.ipscrum.shared.model.search.And;
+import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
 import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIProjectCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
 
 public class DemoModel {
 
@@ -538,7 +542,13 @@ public class DemoModel {
 		final SearchExpression expr = new PBINameCriterion("Feature");
 		final Search nameFeatureSuche = new Search("Name = Feature", expr);
 
+		final MultiLogicSearchOperator and = new And();
+		and.add(new PBIProjectCriterion(ipScrum));
+		and.add(new PBIReleaseCriterion(phase4.getVersion()));
+		final Search p4Suche = new Search("IpScrum Phase4", and);
+
 		model.getSearchManager().addSearch(nameFeatureSuche);
+		model.getSearchManager().addSearch(p4Suche);
 
 	}
 }

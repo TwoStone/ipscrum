@@ -28,35 +28,30 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	/**
 	 * Constructor for EditFeaturePresenter.
 	 * 
-	 * @param parent Panel
-	 * @param pbi Feature
+	 * @param parent
+	 *            Panel
+	 * @param pbi
+	 *            Feature
 	 * @param parentPresenter
 	 * @throws NoPBISelectedException
 	 */
-	public EditPBIPresenter(final Panel parent, final ProductBacklogItem pbi, final Presenter<?> parentPresenter) throws NoPBISelectedException {
+	public EditPBIPresenter(final Panel parent, final ProductBacklogItem pbi,
+			final Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, pbi, parentPresenter);
 	}
-	
-	
-
-	public EditPBIPresenter(ProductBacklogItem pbi, Presenter<?> parentPresenter)
-			throws NoPBISelectedException {
-		super(pbi, parentPresenter);
-		// TODO Auto-generated constructor stub
-	}
-
-
 
 	@Override
 	public void registerViewEvents() {
 		super.registerViewEvents();
-		((IEditPBIView) this.getView()).toggleFeatureState().add(new EventHandler<EventArgs>() {
+		((IEditPBIView) this.getView()).toggleFeatureState().add(
+				new EventHandler<EventArgs>() {
 
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				EditPBIPresenter.this.toggleFeatureState();
-			}
-		});
+					@Override
+					public void onUpdate(final Object sender,
+							final EventArgs eventArgs) {
+						EditPBIPresenter.this.toggleFeatureState();
+					}
+				});
 	}
 
 	/**
@@ -82,16 +77,21 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	}
 
 	@Override
-	public void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException, UserException {
+	public void updatePBI() throws NoValidValueException,
+			NoSprintDefinedException, ConsistencyException,
+			DoubleDefinitionException, ForbiddenStateException, UserException {
 		super.updatePBI();
-		this.getPbi().setManDayCosts(new Effort(((IEditPBIView) this.getView()).getComplexity()));
+		this.getPbi().setManDayCosts(
+				new Effort(((IEditPBIView) this.getView()).getComplexity()));
 	}
 
 	@Override
 	public void updateView() {
 		super.updateView();
-		((IEditPBIView) this.getView()).setLastEditor(this.getPbi().getLastEditor());
-		((IEditPBIView) this.getView()).setComplexity(this.getPbi().getManDayCosts());
+		((IEditPBIView) this.getView()).setLastEditor(this.getPbi()
+				.getLastEditor());
+		((IEditPBIView) this.getView()).setComplexity(this.getPbi()
+				.getManDayCosts());
 		((IEditPBIView) this.getView()).setState(this.getPbi().getState());
 	}
 }

@@ -68,21 +68,6 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 		this.registerViewEvents();
 	}
 
-	public PBIPresenter(final ProductBacklogItem pbi,
-			Presenter<?> parentPresenter) throws NoPBISelectedException {
-		super(parentPresenter);
-
-		if (pbi == null) {
-			this.abort();
-			throw new NoPBISelectedException(
-					"Es wurde kein ProductBacklogItem zur Bearbeitung ausgewählt");
-		}
-		this.pbi = pbi;
-		this.pbi.addObserver(this);
-		this.setupView();
-		this.registerViewEvents();
-	}
-
 	/**
 	 * Creates a new presenter to create a new {@link AcceptanceCriterion}
 	 */

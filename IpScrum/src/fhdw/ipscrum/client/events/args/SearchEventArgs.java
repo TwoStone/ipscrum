@@ -9,10 +9,10 @@ import fhdw.ipscrum.shared.model.search.Search;
  * @author NW
  * 
  */
-public class DoSearchEventArgs extends EventArgs {
+public class SearchEventArgs extends EventArgs {
 	private final Search search;
 
-	public DoSearchEventArgs(Search search) {
+	public SearchEventArgs(Search search) {
 		super();
 		this.search = search;
 	}

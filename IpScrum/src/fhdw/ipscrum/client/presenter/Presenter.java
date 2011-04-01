@@ -26,10 +26,21 @@ import fhdw.ipscrum.shared.SessionManager;
  */
 public abstract class Presenter<T extends IView> {
 
-	private Panel parent;
+	private final Panel parent;
+
 	private final T myView;
 	private final SessionManager manager;
 	private final Presenter<?> parentPresenter;
+
+	/**
+	 * Returns the parental presenter.
+	 * 
+	 * @return
+	 */
+	public Presenter<?> getParentPresenter() {
+		return this.parentPresenter;
+	}
+
 	private final Map<Presenter<?>, Collection<EventRegistration>> children;
 
 	private final Event<EventArgs> finished = new Event<EventArgs>();
@@ -49,22 +60,7 @@ public abstract class Presenter<T extends IView> {
 	 *            possibility of building presenter-hierarchies. Can be null.
 	 */
 	public Presenter(final Panel parent, final Presenter<?> parentPresenter) {
-		this(parentPresenter);
-
-		this.parent = parent;
-		this.parent.add(this.myView);
-
-	}
-
-	/**
-	 * Creates a new instance of {@link Presenter}. <b>Does not add the view to
-	 * a panel! This must be done separately!</b>
-	 * 
-	 * @param parentPresenter
-	 *            presenter that calls this presenter. Used to enable the
-	 *            possibility of building presenter-hierarchies. Can be null.
-	 */
-	public Presenter(final Presenter<?> parentPresenter) {
+		super();
 		this.children = new HashMap<Presenter<?>, Collection<EventRegistration>>();
 		this.manager = SessionManager.getInstance();
 		this.parentPresenter = parentPresenter;
@@ -72,6 +68,10 @@ public abstract class Presenter<T extends IView> {
 			this.parentPresenter.addChildren(this);
 		}
 		this.myView = this.createView();
+		this.parent = parent;
+		if (parent != null) {
+			this.parent.add(this.myView);
+		}
 	}
 
 	/**
@@ -181,6 +181,16 @@ public abstract class Presenter<T extends IView> {
 	 */
 	protected boolean onFinish() {
 		return true;
+	}
+
+	/**
+	 * Returns the parent of the presenter. <b>Attention:</b> can be a null
+	 * value!
+	 * 
+	 * @return my parent
+	 */
+	public Panel getParent() {
+		return this.parent;
 	}
 
 }

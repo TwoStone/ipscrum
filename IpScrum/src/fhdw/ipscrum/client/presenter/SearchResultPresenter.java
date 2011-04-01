@@ -26,35 +26,29 @@ public class SearchResultPresenter extends Presenter<ISearchResultView>
 	public SearchResultPresenter(Collection<ProductBacklogItem> resultList,
 			Panel parent, Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
-		setResultList(resultList);
+		this.setResultList(resultList);
 	}
 
 	public void setResultList(Collection<ProductBacklogItem> resultList) {
 
 		if (this.resultList != null) {
-			for (ProductBacklogItem oldItem : this.resultList) {
+			for (final ProductBacklogItem oldItem : this.resultList) {
 				oldItem.deleteObserver(this);
 			}
 		}
 
 		this.resultList = resultList;
-		for (ProductBacklogItem item : resultList) {
+		for (final ProductBacklogItem item : resultList) {
 			item.addObserver(this);
 		}
-		updateView();
+		this.updateView();
 
-	}
-
-	public SearchResultPresenter(Collection<ProductBacklogItem> resultList,
-			Presenter<?> parentPresenter) {
-		super(parentPresenter);
-		setResultList(resultList);
 	}
 
 	@Override
 	protected ISearchResultView createView() {
-		ISearchResultView view = new SearchResultView();
-		registerEvents(view);
+		final ISearchResultView view = new SearchResultView();
+		this.registerEvents(view);
 		return view;
 	}
 
@@ -63,7 +57,7 @@ public class SearchResultPresenter extends Presenter<ISearchResultView>
 
 			@Override
 			public void onUpdate(Object sender, ShowTicketEventArgs eventArgs) {
-				ProductBacklogItem item = eventArgs.getTicket();
+				final ProductBacklogItem item = eventArgs.getTicket();
 				class EditPresenterChooser implements
 						IProductBacklogItemVisitor {
 
@@ -72,9 +66,9 @@ public class SearchResultPresenter extends Presenter<ISearchResultView>
 					@Override
 					public void handleFeature(Feature feature) {
 						try {
-							presenter = new EditFeaturePresenter(feature,
-									SearchResultPresenter.this);
-						} catch (NoPBISelectedException e) {
+							this.presenter = new EditFeaturePresenter(null,
+									feature, SearchResultPresenter.this);
+						} catch (final NoPBISelectedException e) {
 							GwtUtils.displayError(e);
 						}
 					}
@@ -82,10 +76,10 @@ public class SearchResultPresenter extends Presenter<ISearchResultView>
 					@Override
 					public void handleBug(Bug bug) {
 						try {
-							presenter = new EditBugPresenter(bug,
+							this.presenter = new EditBugPresenter(null, bug,
 									SearchResultPresenter.this);
 
-						} catch (NoPBISelectedException e) {
+						} catch (final NoPBISelectedException e) {
 							GwtUtils.displayError(e);
 						}
 
@@ -99,12 +93,12 @@ public class SearchResultPresenter extends Presenter<ISearchResultView>
 					}
 				}
 
-				EditPresenterChooser chooser = new EditPresenterChooser();
+				final EditPresenterChooser chooser = new EditPresenterChooser();
 				item.accept(chooser);
 
 				view.displayDetails(chooser.presenter.getView());
 
-				CloseHandler handler = new CloseHandler();
+				final CloseHandler handler = new CloseHandler();
 				chooser.presenter.getAborted().add(handler);
 				chooser.presenter.getFinished().add(handler);
 			}
@@ -114,10 +108,10 @@ public class SearchResultPresenter extends Presenter<ISearchResultView>
 
 	@Override
 	public void update(Observable observable, Object argument) {
-		updateView();
+		this.updateView();
 	}
 
 	private void updateView() {
-		getView().setSearchResult(resultList);
+		this.getView().setSearchResult(this.resultList);
 	}
 }

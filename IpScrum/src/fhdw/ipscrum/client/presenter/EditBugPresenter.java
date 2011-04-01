@@ -17,22 +17,17 @@ public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter 
 		super(parent, bug, parentPresenter);
 	}
 
-	public EditBugPresenter(Bug bug, Presenter<?> parentPresenter)
-			throws NoPBISelectedException {
-		super(bug, parentPresenter);
-	}
-
 	@Override
 	protected IEditBugView createView() {
-		IEditBugView view = new EditBugView();
-		bugPresenter = new BugPresenter(view, this);
+		final IEditBugView view = new EditBugView();
+		this.bugPresenter = new BugPresenter(view, this);
 		return view;
 	}
 
 	@Override
 	public void registerViewEvents() {
 		super.registerViewEvents();
-		bugPresenter.registerViewEvents();
+		this.bugPresenter.registerViewEvents();
 	}
 
 	@Override

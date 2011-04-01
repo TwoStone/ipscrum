@@ -30,6 +30,7 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.PBIClosedState;
 import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
@@ -94,7 +95,7 @@ public class SearchResultView extends Composite implements ISearchResultView {
 			}
 		};
 		imgColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-
+		imgColumn.setSortable(true);
 		this.cellTable.addColumn(imgColumn, "Typ");
 
 		final TextColumn<ProductBacklogItem> nameColumn = new TextColumn<ProductBacklogItem>() {
@@ -138,6 +139,7 @@ public class SearchResultView extends Composite implements ISearchResultView {
 				return chooser.result;
 			}
 		};
+		stateColumn.setSortable(true);
 		this.cellTable.addColumn(stateColumn, "Status");
 
 		projectColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -228,6 +230,97 @@ public class SearchResultView extends Composite implements ISearchResultView {
 
 						return this.getReleaseName(o1).compareToIgnoreCase(
 								this.getReleaseName(o2));
+					}
+				});
+
+		this.sortHandler.setComparator(stateColumn,
+				new Comparator<ProductBacklogItem>() {
+
+					@Override
+					public int compare(ProductBacklogItem o1,
+							ProductBacklogItem o2) {
+						class StateComparator implements
+								Comparator<IProductBacklogItemState> {
+
+							@Override
+							public int compare(IProductBacklogItemState o1,
+									IProductBacklogItemState o2) {
+								class StateTypeVisitor implements
+										IPBIStateVisitor {
+									Boolean isOpen;
+
+									@Override
+									public void handleClosed(
+											PBIClosedState closed) {
+										this.isOpen = false;
+									}
+
+									@Override
+									public void handleOpen(PBIOpenState open) {
+										this.isOpen = true;
+									}
+
+								}
+								final StateTypeVisitor o1State = new StateTypeVisitor();
+								o1.accept(o1State);
+								final StateTypeVisitor o2State = new StateTypeVisitor();
+								o2.accept(o2State);
+
+								if (o1State.isOpen && !o2State.isOpen) {
+									return 1;
+								}
+								if (!o1State.isOpen && o2State.isOpen) {
+									return -1;
+								}
+								return 0;
+							}
+
+						}
+						final StateComparator comp = new StateComparator();
+
+						return comp.compare(o1.getState(), o2.getState());
+					}
+				});
+
+		this.sortHandler.setComparator(imgColumn,
+				new Comparator<ProductBacklogItem>() {
+
+					@Override
+					public int compare(ProductBacklogItem o1,
+							ProductBacklogItem o2) {
+						class PBITypeChecker implements
+								IProductBacklogItemVisitor {
+
+							public PBITypeChecker(ProductBacklogItem pbi) {
+								super();
+								pbi.accept(this);
+							}
+
+							Boolean isFeature = false;
+							Boolean isBug = false;
+
+							@Override
+							public void handleBug(Bug bug) {
+								this.isBug = true;
+							}
+
+							@Override
+							public void handleFeature(Feature feature) {
+								this.isFeature = true;
+							}
+
+						}
+						final PBITypeChecker o1Type = new PBITypeChecker(o1);
+						final PBITypeChecker o2Type = new PBITypeChecker(o2);
+
+						if (o1Type.isFeature && o2Type.isBug) {
+							return 1;
+						}
+						if (o1Type.isBug && o2Type.isFeature) {
+							return -1;
+						}
+
+						return 0;
 					}
 				});
 
