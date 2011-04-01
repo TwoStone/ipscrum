@@ -14,6 +14,7 @@ import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.view.client.ListDataProvider;
 
 import fhdw.ipscrum.client.events.Event;
@@ -111,6 +112,8 @@ public class SearchesView extends Composite implements ISearchesView {
 				return object;
 			}
 		};
+		executeColumn
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Column<Search, Search> editColumn = new Column<Search, Search>(
 				editCell) {
@@ -129,6 +132,8 @@ public class SearchesView extends Composite implements ISearchesView {
 				return object;
 			}
 		};
+		deleteColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		deleteColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 
 		this.savedSearchesTable.addColumn(iconColumn);
 		this.savedSearchesTable.addColumn(nameColumn, "Name");
@@ -137,7 +142,7 @@ public class SearchesView extends Composite implements ISearchesView {
 		this.savedSearchesTable.addColumn(editColumn);
 		this.savedSearchesTable.setColumnWidth(editColumn, "35px");
 		this.savedSearchesTable.addColumn(deleteColumn);
-		this.savedSearchesTable.setColumnWidth(deleteColumn, "35px");
+		this.savedSearchesTable.setColumnWidth(deleteColumn, "100px");
 		this.savedSearches.addDataDisplay(this.savedSearchesTable);
 		nameColumn.setSortable(true);
 		sortHandler.setComparator(nameColumn, new Comparator<Search>() {
