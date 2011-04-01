@@ -80,7 +80,7 @@ public class PresenterLaunchWidget extends DialogBox {
 
 					@Override
 					public void execute(Presenter<?> object) {
-
+						dialogBox.clear();
 						dialogBox.add(object.getView());
 						dialogBox.center();
 						final List<EventRegistration> regs = new ArrayList<EventRegistration>();

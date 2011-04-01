@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model.search;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
@@ -66,8 +67,8 @@ public class SearchManager implements Serializable {
 	 * @return Returns a list of PBIs where the compare of each pbi with the
 	 *         search expression was successful.
 	 */
-	public Vector<ProductBacklogItem> search(
-			final Vector<ProductBacklogItem> elements,
+	public Collection<ProductBacklogItem> search(
+			final Collection<ProductBacklogItem> elements,
 			final SearchExpression expression) {
 
 		final Vector<ProductBacklogItem> resultList = new Vector<ProductBacklogItem>();

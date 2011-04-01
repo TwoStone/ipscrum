@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
@@ -28,8 +29,8 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
  * and roles.
  */
 
-public class Root extends Observable implements SerializationRoot, HasRelationTypeManager, Observer {
-
+public class Root extends Observable implements SerializationRoot,
+		HasRelationTypeManager, Observer {
 
 	/**
 	 * 
@@ -44,7 +45,6 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 	private SystemManager sysManager;
 	private Vector<Incident> globalIncidents;
 	private SearchManager searchManager;
-
 
 	/**
 	 * Method save.
@@ -299,22 +299,25 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 		return this.sysManager;
 	}
 
-	public void addIncident(Incident incident) throws DoubleDefinitionException{
-		if (incident==null) return;
-		if (!this.globalIncidents.contains(incident)){
+	public void addIncident(Incident incident) throws DoubleDefinitionException {
+		if (incident == null)
+			return;
+		if (!this.globalIncidents.contains(incident)) {
 			this.globalIncidents.add(incident);
 		} else {
-			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(
+					ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		}
 		this.notifyObservers();
 	}
+
 	public void removeIncident(Incident incident) {
-		if (incident!=null && this.globalIncidents.contains(incident)){
+		if (incident != null && this.globalIncidents.contains(incident)) {
 			this.globalIncidents.remove(incident);
 		}
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * Method toString.
 	 * 
@@ -401,11 +404,11 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 
 	@Override
 	public void update(Observable observable, Object argument) {
-		if (!(argument instanceof Message)){
+		if (!(argument instanceof Message)) {
 			return;
 		}
-		((Message)argument).accept( new MessageStandardVisitor() {
-			
+		((Message) argument).accept(new MessageStandardVisitor() {
+
 			@Override
 			public void handleAddGlobalIncidentMessage(
 					AddGLobalIncidentMessage message) {
@@ -419,16 +422,25 @@ public class Root extends Observable implements SerializationRoot, HasRelationTy
 			@Override
 			public void standardHandling() {
 				// not interested in other messages
-				
+
 			}
 		});
 	}
-	
-	public final Vector<Incident> getGlobalIncidents(){
+
+	public final Vector<Incident> getGlobalIncidents() {
 		return this.globalIncidents;
 	}
-	public final Iterator<Incident> getGlobalIncidentsIterator(){
+
+	public final Iterator<Incident> getGlobalIncidentsIterator() {
 		return this.getGlobalIncidents().iterator();
+	}
+
+	public Collection<ProductBacklogItem> getAllTickets() {
+		Collection<ProductBacklogItem> result = new Vector<ProductBacklogItem>();
+		for (Project project : this.projects) {
+			result.addAll(project.getBacklog().getItems());
+		}
+		return result;
 	}
 
 }

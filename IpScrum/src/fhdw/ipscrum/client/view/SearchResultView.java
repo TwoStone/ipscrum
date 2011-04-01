@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 
@@ -38,17 +39,25 @@ public class SearchResultView extends Composite implements ISearchResultView {
 	private ListDataProvider<ProductBacklogItem> dataProvider;
 	private final Event<ShowTicketEventArgs> showTicketEvent = new Event<ShowTicketEventArgs>();
 	private DialogBox detailsDialog;
+	private CellTable<ProductBacklogItem> cellTable;
+	private Label statusLabel;
 
 	public SearchResultView() {
 
 		VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setSpacing(10);
+		verticalPanel
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(verticalPanel);
 
 		dataProvider = new ListDataProvider<ProductBacklogItem>();
 		ListHandler<ProductBacklogItem> sortHandler = new ListHandler<ProductBacklogItem>(
 				dataProvider.getList());
 
-		CellTable<ProductBacklogItem> cellTable = new CellTable<ProductBacklogItem>();
+		statusLabel = new Label();
+		verticalPanel.add(statusLabel);
+
+		cellTable = new CellTable<ProductBacklogItem>();
 		verticalPanel.add(cellTable);
 
 		cellTable.addColumnSortHandler(sortHandler);
@@ -225,6 +234,14 @@ public class SearchResultView extends Composite implements ISearchResultView {
 	 */
 	@Override
 	public void setSearchResult(Collection<ProductBacklogItem> results) {
+		if (results.isEmpty()) {
+			this.cellTable.setVisible(false);
+			this.statusLabel
+					.setText("Leider keine passenden Tickets gefunden.");
+		} else {
+			this.cellTable.setVisible(true);
+			this.statusLabel.setText(results.size() + " Tickets gefunden.");
+		}
 		dataProvider.setList(new ArrayList<ProductBacklogItem>(results));
 	}
 
