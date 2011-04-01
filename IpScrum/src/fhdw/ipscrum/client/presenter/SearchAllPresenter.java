@@ -13,31 +13,38 @@ import fhdw.ipscrum.client.events.args.SearchEventArgs;
 import fhdw.ipscrum.client.view.SearchAllView;
 import fhdw.ipscrum.client.view.interfaces.ISearchAllView;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.model.search.criteria.ScruumleCriterion;
-import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
 
-public class SearchAllPresenter extends Presenter<ISearchAllView> implements
-		Observer {
+public class SearchAllPresenter extends Presenter<ISearchAllView> {
 	private final SearchResultPresenter resultPresenter;
-	private final Collection<Search> savedSearches;
-	private final SearchManager searchManager;
+	private final SearchesPresenter searchesPresenter;
+	private final SearchManager manager;
 
 	public SearchAllPresenter(Panel panel, Presenter<?> parentPresenter) {
 		super(panel, parentPresenter);
-		this.searchManager = this.getSessionManager().getModel()
-				.getSearchManager();
-		this.searchManager.addObserver(this);
-		this.savedSearches = this.searchManager.getSearching();
+
+		this.manager = this.getSessionManager().getModel().getSearchManager();
 
 		final List<ProductBacklogItem> lastFoundItems = Collections.emptyList();
 		this.resultPresenter = new SearchResultPresenter(lastFoundItems, null,
 				this);
-		this.updateView();
+		this.searchesPresenter = new SearchesPresenter(this.getView()
+				.getDisplayPanel(), this);
+
+		this.searchesPresenter
+				.registerDoSearch(new EventHandler<SearchEventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender,
+							SearchEventArgs eventArgs) {
+						SearchAllPresenter.this.doSearch(eventArgs.getSearch()
+								.getExpression());
+
+					}
+				});
 	}
 
 	@Override
@@ -58,29 +65,6 @@ public class SearchAllPresenter extends Presenter<ISearchAllView> implements
 			}
 		});
 
-		view.registerDoSavedSearch(new EventHandler<SearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
-				SearchAllPresenter.this.doSavedSearch(eventArgs.getSearch());
-			}
-		});
-
-		view.registerDoDeleteSearch(new EventHandler<SearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
-				SearchAllPresenter.this.deleteSearch(eventArgs.getSearch());
-			}
-		});
-
-		view.registerDoEditSearch(new EventHandler<SearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
-				SearchAllPresenter.this.editSearch(eventArgs.getSearch());
-			}
-		});
 		view.registerDetailedSearch(new EventHandler<EventArgs>() {
 
 			@Override
@@ -88,6 +72,20 @@ public class SearchAllPresenter extends Presenter<ISearchAllView> implements
 				SearchAllPresenter.this.switchToDetailedSearch();
 			}
 		});
+
+		view.registerShowSearches(new EventHandler<EventArgs>() {
+
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				SearchAllPresenter.this.showSearches();
+
+			}
+		});
+	}
+
+	private void showSearches() {
+		this.getView().getDisplayPanel().clear();
+		this.getView().getDisplayPanel().add(this.searchesPresenter.getView());
 	}
 
 	private void switchToDetailedSearch() {
@@ -99,43 +97,19 @@ public class SearchAllPresenter extends Presenter<ISearchAllView> implements
 		}
 	}
 
-	private void editSearch(Search search) {
-		// TODO [WICHTIG] Suche irgendwie bearbeiten
-	}
-
-	private void deleteSearch(Search search) {
-		this.getSessionManager().getModel().getSearchManager()
-				.removeSearch(search);
-	}
-
-	private void doSavedSearch(Search search) {
-		this.doSearch(this.getSessionManager().getModel().getAllTickets(),
-				search.getExpression());
-	}
-
 	private void doScruumleSearch(String searchExpression) {
-		final Collection<ProductBacklogItem> searchItems = this
-				.getSessionManager().getModel().getAllTickets();
 		final SearchCriteria criterion = new ScruumleCriterion(searchExpression);
-		this.doSearch(searchItems, criterion);
+		this.doSearch(criterion);
 	}
 
-	private void doSearch(Collection<ProductBacklogItem> searchItems,
-			SearchExpression searchExpression) {
-		final Collection<ProductBacklogItem> results = this.searchManager
-				.search(searchItems, searchExpression);
+	private void doSearch(SearchExpression searchExpression) {
+		final Collection<ProductBacklogItem> results = this.manager.search(this
+				.getSessionManager().getModel().getAllTickets(),
+				searchExpression);
 
+		this.getView().getDisplayPanel().clear();
 		this.resultPresenter.setResultList(results);
-		this.getView().displaySearchResults(this.resultPresenter.getView());
-	}
-
-	private void updateView() {
-		this.getView().setSavedSeaches(this.savedSearches);
-	}
-
-	@Override
-	public void update(Observable observable, Object argument) {
-		this.updateView();
+		this.getView().getDisplayPanel().add(this.resultPresenter.getView());
 	}
 
 }
