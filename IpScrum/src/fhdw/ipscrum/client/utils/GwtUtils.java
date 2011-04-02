@@ -3,6 +3,8 @@ package fhdw.ipscrum.client.utils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.logging.client.ConsoleLogHandler;
@@ -10,6 +12,7 @@ import com.google.gwt.logging.client.DevelopmentModeLogHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Focusable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -111,4 +114,13 @@ public final class GwtUtils {
 		return htmlBuilder.toSafeHtml().asString();
 	}
 
+	public static void setFocus(final Focusable focusable) {
+		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+
+			@Override
+			public void execute() {
+				focusable.setFocus(true);
+			}
+		});
+	}
 }
