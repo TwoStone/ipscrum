@@ -51,18 +51,6 @@ public class SearchesPresenter extends Presenter<ISearchesView> implements
 			}
 		});
 
-		view.registerDoEditSearch(new EventHandler<SearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
-				SearchesPresenter.this.editSearch(eventArgs.getSearch());
-			}
-		});
-
-	}
-
-	private void editSearch(final Search search) {
-		// TODO [WICHTIG] Suche irgendwie bearbeiten
 	}
 
 	private void deleteSearch(final Search search) {

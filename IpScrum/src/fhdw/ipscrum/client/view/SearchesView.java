@@ -51,15 +51,7 @@ public class SearchesView extends Composite implements ISearchesView {
 								new SearchEventArgs(object));
 					}
 				});
-		final ActionCell<Search> editCell = new ActionCell<Search>(
-				"Bearbeiten", new Delegate<Search>() {
 
-					@Override
-					public void execute(Search object) {
-						SearchesView.this.doEditSearchEvent.fire(
-								SearchesView.this, new SearchEventArgs(object));
-					}
-				});
 		final ActionCell<Search> deleteCell = new ActionCell<Search>("Löschen",
 				new Delegate<Search>() {
 
@@ -115,15 +107,6 @@ public class SearchesView extends Composite implements ISearchesView {
 		executeColumn
 				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-		final Column<Search, Search> editColumn = new Column<Search, Search>(
-				editCell) {
-
-			@Override
-			public Search getValue(Search object) {
-				return object;
-			}
-		};
-
 		final Column<Search, Search> deleteColumn = new Column<Search, Search>(
 				deleteCell) {
 
@@ -139,8 +122,6 @@ public class SearchesView extends Composite implements ISearchesView {
 		this.savedSearchesTable.addColumn(nameColumn, "Name");
 		this.savedSearchesTable.addColumn(executeColumn);
 		this.savedSearchesTable.setColumnWidth(executeColumn, "35px");
-		this.savedSearchesTable.addColumn(editColumn);
-		this.savedSearchesTable.setColumnWidth(editColumn, "35px");
 		this.savedSearchesTable.addColumn(deleteColumn);
 		this.savedSearchesTable.setColumnWidth(deleteColumn, "100px");
 		this.savedSearches.addDataDisplay(this.savedSearchesTable);
@@ -163,11 +144,6 @@ public class SearchesView extends Composite implements ISearchesView {
 	public void setSavedSeaches(Collection<Search> searches) {
 		this.savedSearches.getList().clear();
 		this.savedSearches.getList().addAll(searches);
-	}
-
-	@Override
-	public void registerDoEditSearch(EventHandler<SearchEventArgs> handler) {
-		this.doEditSearchEvent.add(handler);
 	}
 
 	@Override

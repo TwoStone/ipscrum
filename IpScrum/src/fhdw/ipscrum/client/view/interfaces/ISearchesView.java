@@ -17,14 +17,6 @@ public interface ISearchesView extends IView {
 	public void registerDoSavedSearch(EventHandler<SearchEventArgs> handler);
 
 	/**
-	 * Registers handler to get notified if the user wants to edit a saved
-	 * search.
-	 * 
-	 * @param handler
-	 */
-	public void registerDoEditSearch(EventHandler<SearchEventArgs> handler);
-
-	/**
 	 * Registers handler to get notified if the user wants to delete a saved
 	 * search.
 	 * 
