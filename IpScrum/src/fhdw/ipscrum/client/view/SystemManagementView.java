@@ -47,8 +47,8 @@ public class SystemManagementView extends Composite implements
 		this.initWidget(verticalPanel);
 		verticalPanel.setSize("50%", "");
 
-		final HTML htmlNewHtml = new HTML("<h1>" + TextConstants.SYSTEMEVERWALTUNG + "</h1>",
-				true);
+		final HTML htmlNewHtml = new HTML("<h1>"
+				+ TextConstants.SYSTEMEVERWALTUNG + "</h1>", true);
 		verticalPanel.add(htmlNewHtml);
 
 		final ScrollPanel scrollPanel = new ScrollPanel();
@@ -86,7 +86,8 @@ public class SystemManagementView extends Composite implements
 		this.parentComboBox = new ListBox();
 		grid.setWidget(1, 1, this.parentComboBox);
 
-		final Button btnNewSystem = new Button(TextConstants.NEUES_SYSTEM_HINZUFÜGEN);
+		final Button btnNewSystem = new Button(
+				TextConstants.NEUES_SYSTEM_HINZUFÜGEN);
 		btnNewSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
@@ -100,6 +101,7 @@ public class SystemManagementView extends Composite implements
 				SystemManagementView.this.createSystemEvent.fire(
 						SystemManagementView.this, new NewSystemEventArgs(name,
 								parent));
+				nameTextBox.setText(TextConstants.EMPTY_TEXT);
 			}
 		});
 		grid.setWidget(2, 1, btnNewSystem);
