@@ -8,7 +8,6 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.logging.client.ConsoleLogHandler;
-import com.google.gwt.logging.client.DevelopmentModeLogHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -25,7 +24,7 @@ public final class GwtUtils {
 	private static Logger logger = Logger.getLogger("ErrorLogger");
 
 	static {
-		logger.addHandler(new DevelopmentModeLogHandler());
+		// logger.addHandler(new DevelopmentModeLogHandler());
 		logger.addHandler(new ConsoleLogHandler());
 	}
 
