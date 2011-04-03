@@ -10,6 +10,7 @@ import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
+import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
 import fhdw.ipscrum.shared.model.search.NoSearchExpression;
 import fhdw.ipscrum.shared.model.search.Search;
@@ -41,29 +42,46 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
-		ListDataProvider<SearchExpression> dataProvider = new ListDataProvider<SearchExpression>();
-
+		final T val = value;
+		final ListDataProvider<SearchExpression> dataProvider = new ListDataProvider<SearchExpression>();
 		if (value == null) {
 			dataProvider.getList().add(search.getExpression());
-		} else if (value instanceof MultiLogicSearchOperator) {
-			Collection<SearchExpression> seList = ((MultiLogicSearchOperator) value).getArgs();
-			if (seList != null && seList.size() > 0) {
-				dataProvider.getList().addAll(seList);
-			} else {
-				dataProvider.getList().add(new NoSearchExpression());
-			}
-		} else if (value instanceof SingleLogicSearchOperator) {
-			SearchExpression se = ((SingleLogicSearchOperator) value).getArg();
-			if (se != null) {
-				dataProvider.getList().add(se);
-			} else {
-				dataProvider.getList().add(new NoSearchExpression());
-			}
-		} else if (value instanceof SearchCriteria) {
-			// TODO Christin hier sollte nichts passieren, oder?
 		} else {
-			return null;
+			ISearchTypeVisitor searchTypeVisitor = new ISearchTypeVisitor() {
+
+				@Override
+				public void handleSingleLogicSearchOperator(SingleLogicSearchOperator singleLogicSearchOperator) {
+					SearchExpression se = ((SingleLogicSearchOperator) val).getArg();
+					if (se != null) {
+						dataProvider.getList().add(se);
+					} else {
+						dataProvider.getList().add(new NoSearchExpression());
+					}
+				}
+
+				@Override
+				public void handleSearchCriteria(SearchCriteria searchCriteria) {
+					// do nothing
+				}
+
+				@Override
+				public void handleNoSearchExpression(NoSearchExpression noSearchExpression) {
+					// do nothing
+				}
+
+				@Override
+				public void handleMultiLogicSearchOperator(MultiLogicSearchOperator multiLogicSearchOperator) {
+					Collection<SearchExpression> seCollection = ((MultiLogicSearchOperator) val).getArgs();
+					if (seCollection != null && seCollection.size() > 0) {
+						dataProvider.getList().addAll(seCollection);
+					} else {
+						dataProvider.getList().add(new NoSearchExpression());
+					}
+				}
+			};
+			((SearchExpression) value).accept(searchTypeVisitor);
 		}
+
 		return new DefaultNodeInfo<SearchExpression>(dataProvider, seCell, selectionModel, null);
 	}
 

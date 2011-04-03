@@ -24,27 +24,23 @@ public interface ISearchExpressionVisitor {
 
 	void handleAnd(And and);
 
-	void handleNot(ISearchExpressionVisitor visitor);
+	void handleNot(Not not);
 
 	void handleBugSystemCriteria(BugSystemCriterion bugSystemCriteria);
 
 	void handleBugVersionCriteria(BugVersionCriterion bugVersionCriteria);
 
-	void handlePBIAcceptanceCriteria(
-			PBIAcceptanceCriterion pbiAcceptanceCriteria);
+	void handlePBIAcceptanceCriteria(PBIAcceptanceCriterion pbiAcceptanceCriteria);
 
 	void handlePBIClosedCriteria(PBIClosedCriterion pbiClosedCriteria);
 
-	void handlePBIComplexityCriteria(
-			PBIComplexityCriterion pbiComplexityCriteria);
+	void handlePBIComplexityCriteria(PBIComplexityCriterion pbiComplexityCriteria);
 
 	void handlePBIHintsCritera(PBIHintsCriterion pbiHintsCritera);
 
-	void handlePBIDescriptionCriteria(
-			PBIDescriptionCriterion pbiDescriptionCriteria);
+	void handlePBIDescriptionCriteria(PBIDescriptionCriterion pbiDescriptionCriteria);
 
-	void handlePBILastEditorCriteria(
-			PBILastEditorCriterion pbiLastEditorCriteria);
+	void handlePBILastEditorCriteria(PBILastEditorCriterion pbiLastEditorCriteria);
 
 	void handlePBINameCriteria(PBINameCriterion pbiNameCriteria);
 
@@ -52,16 +48,13 @@ public interface ISearchExpressionVisitor {
 
 	void handlePBIProjectCriteria(PBIProjectCriterion pbiProjectCriteria);
 
-	void handlePBIRelationDestCriteria(
-			PBIRelationDestCriterion pbiRelationDestCriteria);
+	void handlePBIRelationDestCriteria(PBIRelationDestCriterion pbiRelationDestCriteria);
 
-	void handlePBIRelationTypeCriteria(
-			PBIRelationTypeCriterion pbiRelationTypeCriteria);
+	void handlePBIRelationTypeCriteria(PBIRelationTypeCriterion pbiRelationTypeCriteria);
 
 	void handlePBIReleaseCriteria(PBIReleaseCriterion pbiReleaseCriteria);
 
-	void handlePBISprintDescCriteria(
-			PBISprintDescCriterion pbiSprintDescCriteria);
+	void handlePBISprintDescCriteria(PBISprintDescCriterion pbiSprintDescCriteria);
 
 	void handlePBISprintName(PBISprintNameCriterion pbiSprintName);
 

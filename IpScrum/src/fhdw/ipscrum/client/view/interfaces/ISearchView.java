@@ -1,10 +1,14 @@
 package fhdw.ipscrum.client.view.interfaces;
 
+import java.util.Collection;
+
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.client.events.args.SearchArgs;
+import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.System;
+import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.Search;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
 
 public interface ISearchView extends IView {
 	/**
@@ -36,15 +40,32 @@ public interface ISearchView extends IView {
 	IEvent<EventArgs> getAddLogicalOperator();
 
 	/**
-	 * Returns the event fired when an existing search criterion should be added.
+	 * Sets the Search to display.
 	 * 
-	 * @return
 	 */
-	IEvent<SearchArgs> getAddExistingSearchCriterion();
-
-	// TODO Christin Kommentar
 	void setSearch(Search search);
 
-	// TODO Christin Kommentar
-	void addSearchExpression(SearchExpression searchPart);
+	/**
+	 * Sets the projects that are searchable.
+	 * 
+	 */
+	void setProjects(Collection<Project> projects);
+
+	/**
+	 * Sets the systems that are searchable.
+	 * 
+	 */
+	void setSystems(Collection<System> systems);
+
+	/**
+	 * Sets the persons that are searchable.
+	 * 
+	 */
+	void setPersons(Collection<IPerson> persons);
+
+	/**
+	 * Sets the relationtypes that are searchable.
+	 * 
+	 */
+	void setRelationTypes(Collection<RelationType> relationtypes);
 }
