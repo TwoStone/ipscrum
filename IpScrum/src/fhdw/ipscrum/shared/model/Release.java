@@ -87,6 +87,7 @@ public class Release extends Observable implements IRelease, Observer {
 		project.isReleaseDoubleDefined(version, releaseDate);// can throw
 		// DoubleDefinitionException
 		this.getProjectAssoc().set(project.getReleaseAssoc());
+		this.addObserver(project);
 	}
 
 	@Override

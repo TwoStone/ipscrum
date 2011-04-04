@@ -129,6 +129,7 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 	 */
 	public void addTask(final ITask task) {
 		this.getTaskAssoc().add(task.getSprintBacklogAssoc());
+		((Task)task).addObserver(this);
 	}
 
 	/**

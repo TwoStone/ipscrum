@@ -70,9 +70,6 @@ public class SprintPresenter extends Presenter<ISprintView> {
 											SprintPresenter.this.project
 													.addSprint(presenter
 															.getSprint());
-											// registration for messages
-											((Sprint) presenter.getSprint())
-													.addObserver(SprintPresenter.this.project);
 											SprintPresenter.this.initialize();
 											box.hide();
 										} catch (final DoubleDefinitionException e) {
