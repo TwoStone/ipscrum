@@ -45,8 +45,12 @@ import java.util.Vector;
  * </ul>
  * </p>
  */
-public abstract class Observable implements Serializable {
+public abstract class Observable implements Serializable, IObservable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Each Observer is only one time in the list.
 	 */
@@ -59,31 +63,46 @@ public abstract class Observable implements Serializable {
 		this.observers = new Vector<Observer>();
 	}
 
-	/**
-	 * Adds an observer to the set of observers for this object, provided that
-	 * it is not the same as some observer already in the set.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.shared.observer.IObservable#addObserver(fhdw.ipscrum.shared
+	 * .observer.Observer)
 	 */
+	@Override
 	public void addObserver(final Observer observer) {
 		this.getObservers().add(observer);
 	}
 
-	/**
-	 * Returns the number of observers of this Observable object.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.shared.observer.IObservable#countObservers()
 	 */
+	@Override
 	public int countObservers() {
 		return this.getObservers().size();
 	}
 
-	/**
-	 * Deletes an observer from the set of observers of this object.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.shared.observer.IObservable#deleteObserver(fhdw.ipscrum.
+	 * shared.observer.Observer)
 	 */
+	@Override
 	public void deleteObserver(final Observer observer) {
 		this.getObservers().remove(observer);
 	}
 
-	/**
-	 * Clears the observer list so that this object no longer has any observers.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.shared.observer.IObservable#deleteObservers()
 	 */
+	@Override
 	public void deleteObservers() {
 		this.getObservers().removeAllElements();
 	}
@@ -126,23 +145,24 @@ public abstract class Observable implements Serializable {
 		return result;
 	}
 
-	/**
-	 * Notifies all registered observers and calls the update(Observable
-	 * observable, Object argument) method.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * The Update Method will be called in the following way: update(this, null)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#notifyObservers()
 	 */
+	@Override
 	public void notifyObservers() {
 		this.notifyObservers(null);
 	}
 
-	/**
-	 * Notifies all registered observers and calls the update(Observable
-	 * observable, Object argument) method.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * The Update Method will be called in the following way: update(this,
-	 * argument)
+	 * @see
+	 * fhdw.ipscrum.shared.observer.IObservable#notifyObservers(java.lang.Object
+	 * )
 	 */
+	@Override
 	public void notifyObservers(final Object argument) {
 		for (final Observer current : this.getObservers()) {
 			current.update(this, argument);

@@ -39,8 +39,7 @@ public interface ISystem extends BDACompare {
 	 * Return the bidirectional association between IHasChildren Classes.<br />
 	 * Don't use this Getter out of the model.
 	 */
-	@SuppressWarnings("rawtypes")
-	OneToMany<ManyToOne, ISystem> getToSystemAssoc();
+	OneToMany<ManyToOne<?, ?>, ISystem> getToSystemAssoc();
 
 	/**
 	 * Returns the root parent of this element. This is the parent on the top of
@@ -49,15 +48,15 @@ public interface ISystem extends BDACompare {
 	abstract ISystem getRoot();
 
 	/**
-	 * Returns true if the given element is in the tree else false. TODO
-	 * Besseren Kommentar!!!
+	 * Check if the specified element can be found somewhere inside the
+	 * hierarchical order.</br> <B>This operation first searches for the top of
+	 * the tree and then walks down.</b>
 	 */
 	public abstract boolean contains(System system);
 
 	/**
-	 * Template Method typically used by contains(). Within recursion use always
-	 * this operation. Returns true if the given element is in the tree else
-	 * false. TODO Besseren Kommentar!!!
+	 * Checks if the element is contained in the tree downwards from this
+	 * system.
 	 */
 	public abstract boolean containsAction(System system);
 }

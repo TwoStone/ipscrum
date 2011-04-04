@@ -40,5 +40,5 @@ public interface IRole extends BDACompare, Serializable {
 	 * 
 	 * @return ToPersonAssoc
 	 */
-	public ManyToMany<ManyToMany, IRole> getToPersonAssoc();
+	public ManyToMany<ManyToMany<?, ?>, IRole> getToPersonAssoc();
 }

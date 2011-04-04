@@ -57,10 +57,10 @@ public class SessionManager {
 					public void onFailure(final Throwable caught) {
 						try {
 							DemoModel.populateModel(SessionManager.this.model);
-							GwtUtils.displayError("Modell korrumpiert. Demo-Daten geladen.");
+							GwtUtils.displayWarning("Modell korrumpiert. Demo-Daten geladen.");
 							callback.onLoaded();
 						} catch (final UserException e) {
-							GwtUtils.displayError(e.getMessage());
+							GwtUtils.displayError(e);
 						}
 
 					}
@@ -72,16 +72,15 @@ public class SessionManager {
 					}
 				});
 		/*
-		 * the following method call will be obsolete if a permanent running server has been 
-		 * implemented and it will have to be called via periodic jobs
+		 * the following method call will be obsolete if a permanent running
+		 * server has been implemented and it will have to be called via
+		 * periodic jobs
 		 */
 		Iterator<Project> i = this.model.getProjects().iterator();
-		while (i.hasNext()){
+		while (i.hasNext()) {
 			i.next().checkDeadlines();
 		}
 	}
-
-	
 
 	public void save() {
 		PersistenceService.Util.getInstance().save(this.model, IDENTIFIER,

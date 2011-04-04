@@ -16,15 +16,14 @@ import fhdw.ipscrum.shared.observer.Observable;
  * Class Rootsystem.
  * 
  */
-@SuppressWarnings("unchecked")
 public class Rootsystem extends Observable implements ISystem {
 
 	private static final long serialVersionUID = 3375902891368480223L;
 
-	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
+	private OneToMany<ManyToOne<?, ?>, ISystem> toSystemAssoc;
 
 	private void setToSystemAssoc(
-			final OneToMany<ManyToOne, ISystem> toSystemAssoc) {
+			final OneToMany<ManyToOne<?, ?>, ISystem> toSystemAssoc) {
 		this.toSystemAssoc = toSystemAssoc;
 	}
 
@@ -32,7 +31,7 @@ public class Rootsystem extends Observable implements ISystem {
 	 * Constructor for Rootsystem
 	 */
 	public Rootsystem() {
-		this.setToSystemAssoc(new OneToMany<ManyToOne, ISystem>(this));
+		this.setToSystemAssoc(new OneToMany<ManyToOne<?, ?>, ISystem>(this));
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class Rootsystem extends Observable implements ISystem {
 	}
 
 	@Override
-	public OneToMany<ManyToOne, ISystem> getToSystemAssoc() {
+	public OneToMany<ManyToOne<?, ?>, ISystem> getToSystemAssoc() {
 		return this.toSystemAssoc;
 	}
 
@@ -85,6 +84,7 @@ public class Rootsystem extends Observable implements ISystem {
 
 	/**
 	 * Return the name as String
+	 * 
 	 * @return name
 	 */
 	@Override

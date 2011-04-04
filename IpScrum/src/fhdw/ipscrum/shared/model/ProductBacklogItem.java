@@ -15,20 +15,20 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IProductBacklogItemState;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.Observer;
 
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
 @SuppressWarnings("rawtypes")
 public abstract class ProductBacklogItem extends Observable implements
-BDACompare, Serializable {
+		BDACompare, Serializable, Observer {
 
 	private static final long serialVersionUID = 1599696800942615676L;
 
@@ -74,7 +74,8 @@ BDACompare, Serializable {
 	/**
 	 * @param name
 	 *            Name of the PBI.
-	 * @param description String
+	 * @param description
+	 *            String
 	 * @param backlog
 	 *            Backlog of the PBI.
 	 * @throws ForbiddenStateException
@@ -122,7 +123,7 @@ BDACompare, Serializable {
 	 */
 	public void addAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-	throws DoubleDefinitionException, ForbiddenStateException {
+			throws DoubleDefinitionException, ForbiddenStateException {
 		this.getState().addAcceptanceCriterion(acceptanceCriterion);
 	}
 
@@ -136,7 +137,7 @@ BDACompare, Serializable {
 	 * 
 	 */
 	public void addHint(final Hint hint) throws DoubleDefinitionException,
-	ForbiddenStateException {
+			ForbiddenStateException {
 		this.getState().addHint(hint);
 	}
 
@@ -149,7 +150,7 @@ BDACompare, Serializable {
 	 *             will be thrown if the relation already exists
 	 */
 	public void addRelation(final Relation relation)
-	throws DoubleDefinitionException, ForbiddenStateException {
+			throws DoubleDefinitionException, ForbiddenStateException {
 		this.getState().addRelation(relation);
 	}
 
@@ -165,9 +166,9 @@ BDACompare, Serializable {
 
 	protected void doAddAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion)
-	throws DoubleDefinitionException {
+			throws DoubleDefinitionException {
 		final Iterator<AcceptanceCriterion> iterator = this.acceptanceCriteria
-		.iterator();
+				.iterator();
 		while (iterator.hasNext()) {
 			final AcceptanceCriterion current = iterator.next();
 			if (current.equals(acceptanceCriterion)) {
@@ -223,7 +224,7 @@ BDACompare, Serializable {
 	// }
 
 	protected void doAddRelation(final Relation relation)
-	throws DoubleDefinitionException {
+			throws DoubleDefinitionException {
 		final Iterator<Relation> iterator = this.relations.iterator();
 		while (iterator.hasNext()) {
 			final Relation current = iterator.next();
@@ -261,13 +262,13 @@ BDACompare, Serializable {
 	}
 
 	protected void doSetLastEditor(final IPerson lastEditor)
-	throws ForbiddenStateException {
+			throws ForbiddenStateException {
 		this.lastEditor = lastEditor;
 		this.notifyObservers();
 	}
 
 	protected void doSetManDayCosts(final Effort manDayCosts)
-	throws NoValidValueException, ForbiddenStateException {
+			throws NoValidValueException, ForbiddenStateException {
 		if (manDayCosts != null && manDayCosts.getValue() >= 0) {
 			this.manDayCosts.setValue(manDayCosts.getValue());
 			this.notifyObservers();
@@ -277,8 +278,8 @@ BDACompare, Serializable {
 	}
 
 	protected void doSetName(final String name) throws NoValidValueException,
-	DoubleDefinitionException, ConsistencyException,
-	ForbiddenStateException {
+			DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
 		if (this.getBacklog() != null) {
 			if (name != null && name.trim().length() > 0) {
 				if (this.getBacklog() != null) {
@@ -301,14 +302,15 @@ BDACompare, Serializable {
 	}
 
 	protected void doSetSprint(final ISprint sprint)
-	throws NoSprintDefinedException, ConsistencyException,
-	ForbiddenStateException {
+			throws NoSprintDefinedException, ConsistencyException,
+			ForbiddenStateException {
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
 		} else {
 			this.getSprintAssoc().set(null);
 		}
+
 		this.notifyObservers();
 	}
 
@@ -443,14 +445,14 @@ BDACompare, Serializable {
 		final int prime = 31;
 		int result = this.indirectHashCode();
 		result = prime
-		* result
-		+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
-				.hashCode());
+				* result
+				+ ((this.backlogAssoc == null) ? 0 : this.backlogAssoc
+						.hashCode());
 		result = prime * result
-		+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
+				+ ((this.lastEditor == null) ? 0 : this.lastEditor.hashCode());
 		result = prime
-		* result
-		+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
+				* result
+				+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
 		return result;
 	}
 
@@ -495,10 +497,10 @@ BDACompare, Serializable {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime
-		* result
-		+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
+				* result
+				+ ((this.manDayCosts == null) ? 0 : this.manDayCosts.hashCode());
 		result = prime * result
-		+ ((this.name == null) ? 0 : this.name.hashCode());
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -516,7 +518,7 @@ BDACompare, Serializable {
 	 *             will be thrown if the state does not allow this action
 	 */
 	public void removeAcceptanceCriterion(final AcceptanceCriterion criterion)
-	throws ForbiddenStateException {
+			throws ForbiddenStateException {
 		this.getState().removeAcceptanceCriterion(criterion);
 		this.notifyObservers();
 
@@ -540,7 +542,7 @@ BDACompare, Serializable {
 	 *             will be thrown if the state does not allow this action
 	 */
 	public void removeRelation(final Relation relation)
-	throws ForbiddenStateException {
+			throws ForbiddenStateException {
 		this.getState().removeRelation(relation);
 		this.notifyObservers();
 	}
@@ -556,12 +558,12 @@ BDACompare, Serializable {
 	 * @throws ForbiddenStateException
 	 */
 	public void setDescription(final String description)
-	throws ForbiddenStateException {
+			throws ForbiddenStateException {
 		this.getState().setDescription(description);
 	}
 
 	public void setLastEditor(final IPerson lastEditor)
-	throws ForbiddenStateException {
+			throws ForbiddenStateException {
 		this.getState().setLastEditor(lastEditor);
 	}
 
@@ -576,7 +578,7 @@ BDACompare, Serializable {
 	 *             If the pbi was closed.
 	 */
 	public void setManDayCosts(final Effort manDayCosts)
-	throws NoValidValueException, ForbiddenStateException {
+			throws NoValidValueException, ForbiddenStateException {
 		this.getState().setManDayCosts(manDayCosts);
 	}
 
@@ -594,8 +596,8 @@ BDACompare, Serializable {
 	 *             backlog
 	 */
 	public void setName(final String name) throws NoValidValueException,
-	DoubleDefinitionException, ConsistencyException,
-	ForbiddenStateException {
+			DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
 		this.getState().setName(name);
 	}
 
@@ -612,14 +614,20 @@ BDACompare, Serializable {
 	 *             The pbi was closed.
 	 */
 	public void setSprint(final ISprint sprint)
-	throws NoSprintDefinedException, ConsistencyException,
-	ForbiddenStateException {
+			throws NoSprintDefinedException, ConsistencyException,
+			ForbiddenStateException {
 		this.getState().setSprint(sprint);
 	}
 
 	@Override
 	public String toString() {
 		return "ProductBacklogItem [aufwand=" + this.manDayCosts + ", name="
-		+ this.name + "]";
+				+ this.name + "]";
+	}
+
+	@Override
+	public void update(Observable observable, Object argument) {
+		// TODO Auto-generated method stub
+
 	}
 }

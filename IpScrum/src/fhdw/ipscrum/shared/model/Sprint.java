@@ -9,14 +9,11 @@ import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
 import fhdw.ipscrum.shared.bdas.OneToOne;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 import fhdw.ipscrum.shared.model.messages.Message;
 import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
-import fhdw.ipscrum.shared.model.messages.MessageVisitor;
-import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.messages.SprintCompletionMessage;
 import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.IPBIStateVisitor;
@@ -37,10 +34,10 @@ public class Sprint extends Observable implements ISprint {
 	private Date begin;
 	private Date end;
 
-	private ManyToOne<OneToMany, ISprint> toReleaseAssoc;
-	private OneToMany<ManyToOne, ISprint> toPBIAssoc;
-	private OneToOne<OneToOne, Sprint> sprintBacklogAssoc;
-	private ManyToOne<OneToMany, ISprint> toTeamAssoc;
+	private ManyToOne<OneToMany<?, ?>, ISprint> toReleaseAssoc;
+	private OneToMany<ManyToOne<?, ?>, ISprint> toPBIAssoc;
+	private OneToOne<OneToOne<?, ?>, Sprint> sprintBacklogAssoc;
+	private ManyToOne<OneToMany<?, ?>, ISprint> toTeamAssoc;
 	private int result;
 
 	@SuppressWarnings("unused")
@@ -64,20 +61,20 @@ public class Sprint extends Observable implements ISprint {
 	 */
 	public Sprint(final String name, final String description,
 			final Date begin, final Date end, final ITeam team)
-	throws NoValidValueException {
+			throws NoValidValueException {
 		super();
 		this.setName(name);
 		this.setDescription(description);
 		this.setTimeFrame(begin, end);
-		this.toReleaseAssoc = new ManyToOne<OneToMany, ISprint>(this);
-		this.toPBIAssoc = new OneToMany<ManyToOne, ISprint>(this);
-		this.sprintBacklogAssoc = new OneToOne<OneToOne, Sprint>(this);
+		this.toReleaseAssoc = new ManyToOne<OneToMany<?, ?>, ISprint>(this);
+		this.toPBIAssoc = new OneToMany<ManyToOne<?, ?>, ISprint>(this);
+		this.sprintBacklogAssoc = new OneToOne<OneToOne<?, ?>, Sprint>(this);
 		this.sprintBacklogAssoc.set(new SprintBacklog(this).getSprintAssoc());
-		this.toTeamAssoc = new ManyToOne<OneToMany, ISprint>(this);
+		this.toTeamAssoc = new ManyToOne<OneToMany<?, ?>, ISprint>(this);
 		this.setTeam(team);
 	}
 
-	protected ManyToOne<OneToMany, ISprint> getToTeamAssoc() {
+	protected ManyToOne<OneToMany<?, ?>, ISprint> getToTeamAssoc() {
 		return this.toTeamAssoc;
 	}
 
@@ -97,7 +94,6 @@ public class Sprint extends Observable implements ISprint {
 	public boolean equals(final Object obj) {
 		return this.indirectEquals(obj);
 	}
-
 
 	/**
 	 * Method getBegin.
@@ -136,7 +132,8 @@ public class Sprint extends Observable implements ISprint {
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCostsOfClosedPbis()
 	 */
 	@Override
-	public Effort getCumulatedManDayCostsOfClosedPbis() throws NoValidValueException {
+	public Effort getCumulatedManDayCostsOfClosedPbis()
+			throws NoValidValueException {
 		this.result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
 			pbi.getState().accept(new IPBIStateVisitor() {
@@ -148,7 +145,8 @@ public class Sprint extends Observable implements ISprint {
 
 				@Override
 				public void handleOpen(PBIOpenState open) {
-					// we're only interested in closed items, so there's nothing to do here
+					// we're only interested in closed items, so there's nothing
+					// to do here
 				}
 			});
 		}
@@ -164,7 +162,8 @@ public class Sprint extends Observable implements ISprint {
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getCumulatedManDayCostsOfClosedFeatures()
 	 */
 	@Override
-	public Effort getCumulatedManDayCostsOfClosedFeatures() throws NoValidValueException {
+	public Effort getCumulatedManDayCostsOfClosedFeatures()
+			throws NoValidValueException {
 		this.result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
 			pbi.accept(new IProductBacklogItemVisitor() {
@@ -175,19 +174,22 @@ public class Sprint extends Observable implements ISprint {
 
 						@Override
 						public void handleOpen(PBIOpenState open) {
-							// we're only interested in closed features, so there's nothing to do here
+							// we're only interested in closed features, so
+							// there's nothing to do here
 						}
 
 						@Override
 						public void handleClosed(PBIClosedState closed) {
-							Sprint.this.result += pbi.getManDayCosts().getValue();
+							Sprint.this.result += pbi.getManDayCosts()
+									.getValue();
 						}
 					});
 				}
 
 				@Override
 				public void handleBug(Bug bug) {
-					// we're only interested in closed features, so there's nothing to do here
+					// we're only interested in closed features, so there's
+					// nothing to do here
 				}
 			});
 		}
@@ -255,7 +257,7 @@ public class Sprint extends Observable implements ISprint {
 
 	@Override
 	public SprintBacklog getSprintBacklog() {
-		return (SprintBacklog)this.sprintBacklogAssoc.get();
+		return (SprintBacklog) this.sprintBacklogAssoc.get();
 	}
 
 	/**
@@ -276,7 +278,7 @@ public class Sprint extends Observable implements ISprint {
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getToPBIAssoc()
 	 */
 	@Override
-	public OneToMany<ManyToOne, ISprint> getToPBIAssoc() {
+	public OneToMany<ManyToOne<?, ?>, ISprint> getToPBIAssoc() {
 		return this.toPBIAssoc;
 	}
 
@@ -287,7 +289,7 @@ public class Sprint extends Observable implements ISprint {
 	 * @see fhdw.ipscrum.shared.model.interfaces.ISprint#getToReleaseAssoc()
 	 */
 	@Override
-	public ManyToOne<OneToMany, ISprint> getToReleaseAssoc() {
+	public ManyToOne<OneToMany<?, ?>, ISprint> getToReleaseAssoc() {
 		return this.toReleaseAssoc;
 	}
 
@@ -342,7 +344,7 @@ public class Sprint extends Observable implements ISprint {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-		+ ((this.name == null) ? 0 : this.name.hashCode());
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
 
@@ -387,7 +389,8 @@ public class Sprint extends Observable implements ISprint {
 	@Override
 	public void setTeam(final ITeam team) throws NoValidValueException {
 		if (team == null) {
-			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
+			throw new NoValidValueException(
+					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
 		} else {
 			this.getToTeamAssoc().set(team.getToSprintAssoc());
 		}
@@ -406,7 +409,7 @@ public class Sprint extends Observable implements ISprint {
 	 */
 	@Override
 	public void setTimeFrame(final Date begin, final Date end)
-	throws NoValidValueException {
+			throws NoValidValueException {
 		if (begin == null || end == null) {
 			throw new NoValidValueException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
@@ -433,10 +436,11 @@ public class Sprint extends Observable implements ISprint {
 	public boolean hasPBI(ProductBacklogItem item) {
 		boolean result = false;
 		Iterator<ProductBacklogItem> pbiIterator = this.getPBIs().iterator();
-		while (pbiIterator.hasNext()){
+		while (pbiIterator.hasNext()) {
 			ProductBacklogItem current = pbiIterator.next();
-			if (current.equals(item)){
-				result = true; break;
+			if (current.equals(item)) {
+				result = true;
+				break;
 			}
 		}
 		return result;
@@ -444,13 +448,14 @@ public class Sprint extends Observable implements ISprint {
 
 	@Override
 	public void update(Observable observable, Object argument) {
-		if (!(argument instanceof Message)){
+		if (!(argument instanceof Message)) {
 			return;
 		}
 		((Message) argument).accept(new MessageStandardVisitor() {
-			
+
 			@Override
-			public void handleTaskCompletionMessage(TaskCompletionMessage message) {
+			public void handleTaskCompletionMessage(
+					TaskCompletionMessage message) {
 				Sprint.this.sprintBacklog_update(message);
 			}
 
@@ -460,22 +465,23 @@ public class Sprint extends Observable implements ISprint {
 			}
 		});
 	}
-	private void sprintBacklog_update(TaskCompletionMessage message){
-		this.notifyObservers(message); //delegate message to project
+
+	private void sprintBacklog_update(TaskCompletionMessage message) {
+		this.notifyObservers(message); // delegate message to project
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void checkDeadline() {
 		Date today = new Date();
-		if (this.end.getDay()==today.getDay()&&
-				this.end.getMonth()==today.getMonth()&&
-				this.end.getYear()==today.getYear() ||
-				this.end.before(today)){
+		if (this.end.getDay() == today.getDay()
+				&& this.end.getMonth() == today.getMonth()
+				&& this.end.getYear() == today.getYear()
+				|| this.end.before(today)) {
 			SprintCompletionMessage message = new SprintCompletionMessage(this);
 			this.notifyObservers(message);
 		}
-			
-		
+
 	}
 
 }

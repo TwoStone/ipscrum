@@ -12,7 +12,8 @@ import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 /**
  * Interface for Persons in Scrum.
  */
-public interface IPerson extends BDACompare, Serializable, ITreeVisitorRelevantElement {
+public interface IPerson extends BDACompare, Serializable,
+		ITreeVisitorRelevantElement {
 
 	/**
 	 * Method getFirstname.
@@ -79,6 +80,6 @@ public interface IPerson extends BDACompare, Serializable, ITreeVisitorRelevantE
 	 * 
 	 * @return ToRoleAssoc
 	 */
-	public ManyToMany<ManyToMany, IPerson> getToRoleAssoc();
+	public ManyToMany<ManyToMany<?, ?>, IPerson> getToRoleAssoc();
 
 }

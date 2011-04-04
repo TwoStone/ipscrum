@@ -38,21 +38,21 @@ public class Release extends Observable implements IRelease {
 	/**
 	 * Bidirectional association to project.
 	 */
-	private ManyToOne<OneToMany, IRelease> projectAssoc;
+	private ManyToOne<OneToMany<?, ?>, IRelease> projectAssoc;
 
 	// @final
 	/**
 	 * Bidirectional association to sprint.
 	 */
-	private OneToMany<ManyToOne, IRelease> sprintAssoc;
+	private OneToMany<ManyToOne<?, ?>, IRelease> sprintAssoc;
 
 	@Override
-	public OneToMany<ManyToOne, IRelease> getSprintAssoc() {
+	public OneToMany<ManyToOne<?, ?>, IRelease> getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 
 	@Override
-	public ManyToOne<OneToMany, IRelease> getProjectAssoc() {
+	public ManyToOne<OneToMany<?, ?>, IRelease> getProjectAssoc() {
 		return this.projectAssoc;
 	}
 
@@ -81,8 +81,8 @@ public class Release extends Observable implements IRelease {
 		this.version = version;
 		this.releaseDate = releaseDate;
 		// this.project = project;
-		this.projectAssoc = new ManyToOne<OneToMany, IRelease>(this);
-		this.sprintAssoc = new OneToMany<ManyToOne, IRelease>(this);
+		this.projectAssoc = new ManyToOne<OneToMany<?, ?>, IRelease>(this);
+		this.sprintAssoc = new OneToMany<ManyToOne<?, ?>, IRelease>(this);
 		project.isReleaseDoubleDefined(version, releaseDate);// can throw
 		// DoubleDefinitionException
 		this.getProjectAssoc().set(project.getReleaseAssoc());
@@ -95,7 +95,7 @@ public class Release extends Observable implements IRelease {
 
 	@Override
 	public void setVersion(final String version)
-	throws DoubleDefinitionException {
+			throws DoubleDefinitionException {
 		this.getProject().isReleaseDoubleDefined(this.getVersion(),
 				this.getReleaseDate());
 		this.version = version;
@@ -109,7 +109,7 @@ public class Release extends Observable implements IRelease {
 
 	@Override
 	public void setReleaseDate(final Date releaseDate)
-	throws DoubleDefinitionException {
+			throws DoubleDefinitionException {
 		this.getProject().isReleaseDoubleDefined(this.getVersion(),
 				this.getReleaseDate());
 		this.releaseDate = releaseDate;
@@ -156,7 +156,7 @@ public class Release extends Observable implements IRelease {
 	@Override
 	public String toString() {
 		return "Release [releaseDate=" + this.releaseDate + ", version="
-		+ this.version + "]";
+				+ this.version + "]";
 	}
 
 	@Override
@@ -164,10 +164,10 @@ public class Release extends Observable implements IRelease {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime
-		* result
-		+ ((this.releaseDate == null) ? 0 : this.releaseDate.hashCode());
+				* result
+				+ ((this.releaseDate == null) ? 0 : this.releaseDate.hashCode());
 		result = prime * result
-		+ ((this.version == null) ? 0 : this.version.hashCode());
+				+ ((this.version == null) ? 0 : this.version.hashCode());
 		return result;
 	}
 
@@ -176,12 +176,12 @@ public class Release extends Observable implements IRelease {
 		final int prime = 31;
 		int result = this.indirectHashCode();
 		result = prime
-		* result
-		+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
-				.hashCode());
+				* result
+				+ ((this.projectAssoc == null) ? 0 : this.projectAssoc
+						.hashCode());
 		result = prime
-		* result
-		+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
+				* result
+				+ ((this.sprintAssoc == null) ? 0 : this.sprintAssoc.hashCode());
 		return result;
 	}
 
@@ -255,16 +255,18 @@ public class Release extends Observable implements IRelease {
 		treeVisitor.handleRelease(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void checkDeadline() {
 		Date today = new Date();
-		if (today.getDay()==this.releaseDate.getDay()&&
-				today.getMonth()==this.releaseDate.getMonth()&&
-				today.getYear()==this.releaseDate.getYear() ||
-				today.after(this.releaseDate)){
-			ReleaseCompletionMessage message = new ReleaseCompletionMessage(this);
+		if (today.getDay() == this.releaseDate.getDay()
+				&& today.getMonth() == this.releaseDate.getMonth()
+				&& today.getYear() == this.releaseDate.getYear()
+				|| today.after(this.releaseDate)) {
+			ReleaseCompletionMessage message = new ReleaseCompletionMessage(
+					this);
 			this.notifyObservers(message);
 		}
-		
+
 	}
 }

@@ -18,7 +18,7 @@ public class Person implements IPerson {
 	private static final long serialVersionUID = 7278345193465676081L;
 	private String firstname;
 	private String lastname;
-	private ManyToMany<ManyToMany, IPerson> toRoleAssoc;
+	private ManyToMany<ManyToMany<?, ?>, IPerson> toRoleAssoc;
 
 	@SuppressWarnings("unused")
 	private Person() {
@@ -34,11 +34,11 @@ public class Person implements IPerson {
 	 * @throws NoValidValueException
 	 */
 	public Person(final String firstname, final String lastname)
-	throws NoValidValueException {
+			throws NoValidValueException {
 		super();
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
-		this.toRoleAssoc = new ManyToMany<ManyToMany, IPerson>(this);
+		this.toRoleAssoc = new ManyToMany<ManyToMany<?, ?>, IPerson>(this);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class Person implements IPerson {
 	 * @see fhdw.ipscrum.shared.model.interfaces.IPerson#getToRoleAssoc()
 	 */
 	@Override
-	public ManyToMany<ManyToMany, IPerson> getToRoleAssoc() {
+	public ManyToMany<ManyToMany<?, ?>, IPerson> getToRoleAssoc() {
 		return this.toRoleAssoc;
 	}
 
@@ -73,7 +73,7 @@ public class Person implements IPerson {
 	 */
 	@Override
 	public void setFirstname(final String firstname)
-	throws NoValidValueException {
+			throws NoValidValueException {
 		if (firstname == null || firstname.length() == 0) {
 			throw new NoValidValueException(
 					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
@@ -245,9 +245,9 @@ public class Person implements IPerson {
 		int result = 1;
 		final int prime = 31;
 		result = prime * result
-		+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
+				+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
 		result = prime * result
-		+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
+				+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
 		return result;
 	}
 

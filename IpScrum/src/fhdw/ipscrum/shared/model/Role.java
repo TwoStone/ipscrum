@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
 public class Role implements IRole {
 	private static final long serialVersionUID = 4751308921900403733L;
 	private String description;
-	private ManyToMany<ManyToMany, IRole> toPersonAssoc;
+	private ManyToMany<ManyToMany<?, ?>, IRole> toPersonAssoc;
 
 	@SuppressWarnings("unused")
 	private Role() {
@@ -30,7 +30,7 @@ public class Role implements IRole {
 	public Role(final String description) throws NoValidValueException {
 		super();
 		this.setDescription(description);
-		this.toPersonAssoc = new ManyToMany<ManyToMany, IRole>(this);
+		this.toPersonAssoc = new ManyToMany<ManyToMany<?, ?>, IRole>(this);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class Role implements IRole {
 	 * @see fhdw.ipscrum.shared.model.interfaces.IRole#getToPersonAssoc()
 	 */
 	@Override
-	public ManyToMany<ManyToMany, IRole> getToPersonAssoc() {
+	public ManyToMany<ManyToMany<?, ?>, IRole> getToPersonAssoc() {
 		return this.toPersonAssoc;
 	}
 

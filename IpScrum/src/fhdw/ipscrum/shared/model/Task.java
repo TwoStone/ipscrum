@@ -14,7 +14,6 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.SprintAssociationException;
-import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.interfaces.ITaskState;
@@ -41,29 +40,32 @@ public class Task extends Observable implements ITask {
 	 */
 	private List<ProductBacklogItem> assignedPBIs;
 	/**
-	 * the plan effort is the estimated effort for executing the task.
-	 * the plan effort may be changed during the lifecycle of a task.
-	 * You can also call it "estimated rest effort".
+	 * the plan effort is the estimated effort for executing the task. the plan
+	 * effort may be changed during the lifecycle of a task. You can also call
+	 * it "estimated rest effort".
 	 */
 	private Effort planEffort;
 	/**
 	 * 1:1 relation to the sprint backlog
 	 */
 	@SuppressWarnings("rawtypes")
-	private ManyToOne<OneToMany, Task> sprintBacklogAssoc;
+	private ManyToOne<OneToMany<?, ?>, Task> sprintBacklogAssoc;
 
 	/**
 	 * Creates a Task instance with initial state >>unassigned<<.
 	 * 
-	 * @param name pass a short name to the task
-	 * @param description pass a more detailed description
-	 * @throws NoValidValueException is thrown if name or description is empty.
+	 * @param name
+	 *            pass a short name to the task
+	 * @param description
+	 *            pass a more detailed description
+	 * @throws NoValidValueException
+	 *             is thrown if name or description is empty.
 	 */
 	@SuppressWarnings("rawtypes")
 	public Task(String name, String description) throws NoValidValueException {
 		super();
 		this.state = new TaskUnassigned(this);
-		this.sprintBacklogAssoc = new ManyToOne<OneToMany, Task>(this);
+		this.sprintBacklogAssoc = new ManyToOne<OneToMany<?, ?>, Task>(this);
 		try {
 			this.setName(name);
 			this.setDescription(description);
@@ -76,11 +78,12 @@ public class Task extends Observable implements ITask {
 			 * for debugging
 			 */
 			java.lang.System.out
-			.print(ExceptionConstants.TASK_INITIAL_STATE_ERROR);
+					.print(ExceptionConstants.TASK_INITIAL_STATE_ERROR);
 		}
 		this.assignedPBIs = new ArrayList<ProductBacklogItem>();
 
 	}
+
 	/**
 	 * for serialization
 	 */
@@ -88,35 +91,40 @@ public class Task extends Observable implements ITask {
 	private Task() {
 		super();
 	}
+
 	@SuppressWarnings("rawtypes")
 	@Override
-	public ManyToOne<OneToMany, Task> getSprintBacklogAssoc(){
+	public ManyToOne<OneToMany<?, ?>, Task> getSprintBacklogAssoc() {
 		return this.sprintBacklogAssoc;
-	}
-	@Override
-	public SprintBacklog getSprintBacklog(){
-		return (SprintBacklog)this.getSprintBacklogAssoc().get();
 	}
 
 	@Override
-	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException, DoubleDefinitionException {
+	public SprintBacklog getSprintBacklog() {
+		return (SprintBacklog) this.getSprintBacklogAssoc().get();
+	}
+
+	@Override
+	public void addPBI(ProductBacklogItem pbi) throws ForbiddenStateException,
+			SprintAssociationException, DoubleDefinitionException {
 		Iterator<ProductBacklogItem> i = this.getPBIIterator();
-		while (i.hasNext()){
+		while (i.hasNext()) {
 			ProductBacklogItem current = i.next();
-			if (current.equals(pbi)){
-				throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			if (current.equals(pbi)) {
+				throw new DoubleDefinitionException(
+						ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 			}
 		}
 
-		if (pbi.getSprint()==null){
-			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
+		if (pbi.getSprint() == null) {
+			throw new SprintAssociationException(
+					ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}
-		if (!pbi.getSprint().getSprintBacklog().hasTask(this)){
-			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
+		if (!pbi.getSprint().getSprintBacklog().hasTask(this)) {
+			throw new SprintAssociationException(
+					ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}
 		this.state.addPBI(pbi);
 	}
-
 
 	@Override
 	public void finish() throws ForbiddenStateException {
@@ -133,6 +141,7 @@ public class Task extends Observable implements ITask {
 		this.notifyObservers(message);
 
 	}
+
 	@Override
 	public String getDescription() {
 		return this.description;
@@ -180,40 +189,39 @@ public class Task extends Observable implements ITask {
 
 	@Override
 	public void removePBI(ProductBacklogItem pbi)
-	throws ForbiddenStateException {
+			throws ForbiddenStateException {
 		this.state.removePBI(pbi);
 
 	}
 
 	@Override
 	public void setDescription(String description)
-	throws ForbiddenStateException, NoValidValueException {
+			throws ForbiddenStateException, NoValidValueException {
 		this.state.setDescription(description);
 
 	}
 
 	@Override
 	public void setName(String name) throws ForbiddenStateException,
-	NoValidValueException {
+			NoValidValueException {
 		this.state.setName(name);
 
 	}
 
 	@Override
 	public void setResponsibility(IPerson responsiblePerson)
-	throws ForbiddenStateException, SprintAssociationException {
-		if (this.isPersonValid(responsiblePerson)){
+			throws ForbiddenStateException, SprintAssociationException {
+		if (this.isPersonValid(responsiblePerson)) {
 			this.state.setResponsibility(responsiblePerson);
 			this.notifyObservers();
 		} else {
-			throw new SprintAssociationException(ExceptionConstants.PERSON_NOT_IN_SPRINT_TEAM_ERROR);
+			throw new SprintAssociationException(
+					ExceptionConstants.PERSON_NOT_IN_SPRINT_TEAM_ERROR);
 		}
 	}
 
-
 	@Override
-	public void setPlanEffort(Effort planEffort)
-	throws ForbiddenStateException {
+	public void setPlanEffort(Effort planEffort) throws ForbiddenStateException {
 		this.state.setPlanEffort(planEffort);
 		this.notifyObservers();
 
@@ -224,12 +232,12 @@ public class Task extends Observable implements ITask {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-		+ ((assignedPBIs == null) ? 0 : assignedPBIs.hashCode());
+				+ ((assignedPBIs == null) ? 0 : assignedPBIs.hashCode());
 		result = prime * result
-		+ ((description == null) ? 0 : description.hashCode());
+				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-		+ ((planEffort == null) ? 0 : planEffort.hashCode());
+				+ ((planEffort == null) ? 0 : planEffort.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
@@ -284,7 +292,9 @@ public class Task extends Observable implements ITask {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.shared.observer.Observable#equals(java.lang.Object)
 	 */
 	@Override
@@ -292,7 +302,9 @@ public class Task extends Observable implements ITask {
 		return this.indirectEquals(obj);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.shared.observer.Observable#hashCode()
 	 */
 	@Override
@@ -304,18 +316,20 @@ public class Task extends Observable implements ITask {
 	public boolean hasPBI(ProductBacklogItem pbi) {
 		boolean result = false;
 		Iterator<ProductBacklogItem> pbiIterator = this.getPBIIterator();
-		while (pbiIterator.hasNext()){
+		while (pbiIterator.hasNext()) {
 			ProductBacklogItem current = pbiIterator.next();
-			if (current.equals(pbi)){
-				result = true; break;
+			if (current.equals(pbi)) {
+				result = true;
+				break;
 			}
 		}
 		return result;
 	}
+
 	/**
-	 * adds a new ProductBacklogItem to the task.
-	 * PRECONDITION: consistency has been checked.
-	 * That means: pbi.sprint.sprintbacklog contains this task
+	 * adds a new ProductBacklogItem to the task. PRECONDITION: consistency has
+	 * been checked. That means: pbi.sprint.sprintbacklog contains this task
+	 * 
 	 * @param pbi
 	 */
 	protected void doAddPBI(ProductBacklogItem pbi) {
@@ -325,13 +339,17 @@ public class Task extends Observable implements ITask {
 	protected void doRemovePBI(ProductBacklogItem pbi) {
 		this.assignedPBIs.remove(pbi);
 	}
+
 	/**
 	 * Replaces the actual description with the new one.
-	 * @param description new description
-	 * @throws NoValidValueException will be raised if the description is empty.
+	 * 
+	 * @param description
+	 *            new description
+	 * @throws NoValidValueException
+	 *             will be raised if the description is empty.
 	 */
 	protected void doSetDescription(String description)
-	throws NoValidValueException {
+			throws NoValidValueException {
 		if (description.equals(TextConstants.EMPTY_TEXT)) {
 			throw new NoValidValueException(
 					ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
@@ -342,8 +360,11 @@ public class Task extends Observable implements ITask {
 
 	/**
 	 * replaces the actual name with the new one.
-	 * @param name new name
-	 * @throws NoValidValueException will be raised if the name is empty
+	 * 
+	 * @param name
+	 *            new name
+	 * @throws NoValidValueException
+	 *             will be raised if the name is empty
 	 */
 	protected void doSetName(String name) throws NoValidValueException {
 		if (name.equals(TextConstants.EMPTY_TEXT)) {
@@ -355,24 +376,29 @@ public class Task extends Observable implements ITask {
 
 	/**
 	 * changes state to TaskFinished and passes actual responsiblePerson
+	 * 
 	 * @throws ForbiddenStateException
 	 * @throws SprintAssociationException
 	 */
 	protected void doSetTaskFinished() throws ForbiddenStateException {
-		//this.setPlanEffort(0);
+		// this.setPlanEffort(0);
 		final TaskFinished newState = new TaskFinished(this,
 				this.getResponsiblePerson());
 		this.setState(newState);
 	}
 
-	protected void doSetTaskFinished(Date finishDate) throws ForbiddenStateException {
-		//this.setPlanEffort(0);
-		TaskFinished newState = new TaskFinished(this, this.getResponsiblePerson(), finishDate);
+	protected void doSetTaskFinished(Date finishDate)
+			throws ForbiddenStateException {
+		// this.setPlanEffort(0);
+		TaskFinished newState = new TaskFinished(this,
+				this.getResponsiblePerson(), finishDate);
 		this.setState(newState);
 	}
 
 	/**
-	 * sets a new state to the task. this operation shall be called only by the owner of the state.
+	 * sets a new state to the task. this operation shall be called only by the
+	 * owner of the state.
+	 * 
 	 * @param state
 	 */
 	protected void setState(ITaskState state) {
@@ -385,11 +411,14 @@ public class Task extends Observable implements ITask {
 	 * @param responsiblePerson
 	 * @throws SprintAssociationException
 	 */
-	protected void setTaskAssigned(IPerson responsiblePerson) throws SprintAssociationException {
+	protected void setTaskAssigned(IPerson responsiblePerson)
+			throws SprintAssociationException {
 		this.state = new TaskInProgress(this, responsiblePerson);
 	}
+
 	/**
 	 * replaces the actual planEffort with the new.
+	 * 
 	 * @param planEffort
 	 */
 	protected void doSetPlanEffort(Effort planEffort) {
@@ -399,32 +428,36 @@ public class Task extends Observable implements ITask {
 	/**
 	 * Checks if a person may obtain responsibility for a task.
 	 * 
-	 * @param responsiblePerson Person to check
-	 * @return
-	 * - true, if the person is a member of the sprint team.
-	 * - false, if the person is not a member of the sprint team or
-	 *          if the person isn't in a team at all
+	 * @param responsiblePerson
+	 *            Person to check
+	 * @return - true, if the person is a member of the sprint team. - false, if
+	 *         the person is not a member of the sprint team or if the person
+	 *         isn't in a team at all
 	 */
-	protected boolean isPersonValid(IPerson responsiblePerson){
-		Vector<IPerson> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
-		if (sprintTeamMembers==null){
+	protected boolean isPersonValid(IPerson responsiblePerson) {
+		Vector<IPerson> sprintTeamMembers = this.getSprintBacklog().getSprint()
+				.getTeam().getMembers();
+		if (sprintTeamMembers == null) {
 			return false;
 		}
 		Iterator<IPerson> memberIterator = sprintTeamMembers.iterator();
 		boolean isPersonValid = false;
-		while (memberIterator.hasNext()){
+		while (memberIterator.hasNext()) {
 			IPerson current = memberIterator.next();
-			if (current.equals(responsiblePerson)){
-				isPersonValid = true; break;
+			if (current.equals(responsiblePerson)) {
+				isPersonValid = true;
+				break;
 			}
 		}
 		return isPersonValid;
 	}
+
 	/**
-	 * This operation enforces a PBI to be removed, even if it is in the state InProgress
-	 * To keep revision safety, it won't be removed from a finsished Task
+	 * This operation enforces a PBI to be removed, even if it is in the state
+	 * InProgress To keep revision safety, it won't be removed from a finsished
+	 * Task
 	 */
-	protected void enforceRemovePBI(final ProductBacklogItem pbi){
+	protected void enforceRemovePBI(final ProductBacklogItem pbi) {
 		this.state.accept(new ITaskStateVisitor() {
 
 			@Override
@@ -439,7 +472,7 @@ public class Task extends Observable implements ITask {
 
 			@Override
 			public void handleTaskFinished(TaskFinished taskFinished) {
-				//do nothing
+				// do nothing
 			}
 		});
 	}

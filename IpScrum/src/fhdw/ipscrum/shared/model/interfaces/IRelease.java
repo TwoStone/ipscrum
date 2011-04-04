@@ -17,7 +17,8 @@ import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
  * ensure independent implementations of group 1 and 3 of phase 2.
  * 
  */
-public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevantElement {
+public interface IRelease extends BDACompare, Serializable,
+		ITreeVisitorRelevantElement {
 
 	/**
 	 * Returns a list with all sprints connected to the Release.
@@ -67,7 +68,7 @@ public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevant
 	 *            New Version.
 	 */
 	public abstract void setVersion(String version)
-	throws DoubleDefinitionException;
+			throws DoubleDefinitionException;
 
 	/**
 	 * Returns the release date
@@ -82,17 +83,17 @@ public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevant
 	 *            New release date
 	 */
 	public abstract void setReleaseDate(Date releaseDate)
-	throws DoubleDefinitionException;
+			throws DoubleDefinitionException;
 
 	/**
 	 * Returns the bidirectional association to the project.
 	 */
-	public abstract ManyToOne<OneToMany, IRelease> getProjectAssoc();
+	public abstract ManyToOne<OneToMany<?, ?>, IRelease> getProjectAssoc();
 
 	/**
 	 * Returns the bidirectional association to the sprints.
 	 */
-	public abstract OneToMany<ManyToOne, IRelease> getSprintAssoc();
+	public abstract OneToMany<ManyToOne<?, ?>, IRelease> getSprintAssoc();
 
 	/**
 	 * This will remove all sprints from the release.
@@ -101,13 +102,14 @@ public interface IRelease extends BDACompare, Serializable, ITreeVisitorRelevant
 
 	/**
 	 * This is to calculate the overall Effort of a release.
+	 * 
 	 * @return int: sum of overall efforts
 	 */
 	public abstract int getOverallEfforts();
-	
+
 	/**
-	 * if the release date has been reached,
-	 * the release will make a notification
+	 * if the release date has been reached, the release will make a
+	 * notification
 	 */
 	public void checkDeadline();
 }

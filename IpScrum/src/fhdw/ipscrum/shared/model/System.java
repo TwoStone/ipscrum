@@ -2,8 +2,6 @@ package fhdw.ipscrum.shared.model;
 
 import java.util.Vector;
 
-import com.google.gwt.dev.asm.commons.Method;
-
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
 import fhdw.ipscrum.shared.bdas.OneToMany;
@@ -18,32 +16,31 @@ import fhdw.ipscrum.shared.observer.Observable;
 /**
  * Class System.
  */
-@SuppressWarnings("unchecked")
 public class System extends Observable implements BDACompare, ISystem {
 
 	private static final long serialVersionUID = -5808437328511791688L;
 	private String name;
 
-	private ManyToOne<OneToMany, System> toIHasChildAssoc;
-	private OneToMany<ManyToOne, ISystem> toSystemAssoc;
+	private ManyToOne<OneToMany<?, ?>, System> toIHasChildAssoc;
+	private OneToMany<ManyToOne<?, ?>, ISystem> toSystemAssoc;
 
 	/**
-	 * Constructor for System, automatically establish a bidirectional association
+	 * Constructor for System, automatically establish a bidirectional
+	 * association
 	 * 
 	 * @param name
-	 * 			String
+	 *            String
 	 * @param parent
-	 * 			ISystem
+	 *            ISystem
 	 * @throws UserException
 	 */
 	public System(final String name, final ISystem parent) throws UserException {
 		this.setName(name);
-		this.toIHasChildAssoc = new ManyToOne<OneToMany, System>(this);
-		this.toSystemAssoc = new OneToMany<ManyToOne, ISystem>(this);
+		this.toIHasChildAssoc = new ManyToOne<OneToMany<?, ?>, System>(this);
+		this.toSystemAssoc = new OneToMany<ManyToOne<?, ?>, ISystem>(this);
 		this.setParent(parent);
 	}
-	
-	
+
 	protected System() {
 	}
 
@@ -52,7 +49,7 @@ public class System extends Observable implements BDACompare, ISystem {
 	 * 
 	 * @return ManyToOne association
 	 */
-	protected ManyToOne<OneToMany, System> getToIHasChildAssoc() {
+	protected ManyToOne<OneToMany<?, ?>, System> getToIHasChildAssoc() {
 		return this.toIHasChildAssoc;
 	}
 
@@ -72,8 +69,7 @@ public class System extends Observable implements BDACompare, ISystem {
 	 */
 	public void setName(final String name) throws UserException {
 		if (name == null || name.trim().length() <= 0) {
-			throw new NoValidValueException(
-					ExceptionConstants.NO_VALID_NAME);
+			throw new NoValidValueException(ExceptionConstants.NO_VALID_NAME);
 		}
 		this.name = name;
 	}
@@ -95,13 +91,15 @@ public class System extends Observable implements BDACompare, ISystem {
 
 	/**
 	 * private to set / change the referenced parent
+	 * 
 	 * @param parent
 	 * @throws DoubleDefinitionException
 	 */
 	private void setParent(final ISystem parent)
 			throws DoubleDefinitionException {
 		if (parent.contains(this)) {
-			throw new DoubleDefinitionException(ExceptionConstants.SYSTEM_ALREADY_KNOWN);
+			throw new DoubleDefinitionException(
+					ExceptionConstants.SYSTEM_ALREADY_KNOWN);
 		} else {
 			this.toIHasChildAssoc.set(parent.getToSystemAssoc());
 
@@ -231,12 +229,13 @@ public class System extends Observable implements BDACompare, ISystem {
 	}
 
 	@Override
-	public OneToMany<ManyToOne, ISystem> getToSystemAssoc() {
+	public OneToMany<ManyToOne<?, ?>, ISystem> getToSystemAssoc() {
 		return this.toSystemAssoc;
 	}
 
 	/**
 	 * return the name with the parent as a prefix
+	 * 
 	 * @return
 	 */
 	public String toDisplayWithParent() {
