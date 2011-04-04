@@ -13,7 +13,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-public class Test_BugSystemCriterion {
+public class Test_BugVersionCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -145,45 +145,35 @@ public class Test_BugSystemCriterion {
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
 	
-	//@Test
-	/**
-	 * Test of constructor
-	 */
-	//public void testConstructor() throws Exception{
-	//	BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
-	//	assertEqulas(windowsXP, BugSC1.)
-	//}
-	
-	
 	@Test
 	/**
-	 * Search for a System in a Bug
-	 * System is part of the Bug
+	 * Search for a Version in a Bug
+	 * Version is part of the Bug
 	 */
 	
 	public void testsearch1() throws Exception{
-		BugSystemCriterion BugSC2 = new BugSystemCriterion(windowsXP); 
-		assertEquals(true, BugSC2.search(pbi4));
+		BugVersionCriterion BugVC2 = new BugVersionCriterion("Release 1"); 
+		assertEquals(true, BugVC2.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search for a System in a Bug
-	 * System is not part of the Bug
+	 * Search for a Version in a Bug
+	 * Version is not part of the Bug
 	 */
 	
 	public void testsearch2() throws Exception{
-		BugSystemCriterion BugSC3 = new BugSystemCriterion(windows2000); 
-		assertEquals(false, BugSC3.search(pbi4));
+		BugVersionCriterion BugVC3 = new BugVersionCriterion("Release 2"); 
+		assertEquals(false, BugVC3.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search for a System in a Feature
+	 * Search for a Version in a Feature
 	 */
 	
 	public void testsearch3() throws Exception{
-		BugSystemCriterion BugSC4 = new BugSystemCriterion(windowsXP); 
-		assertEquals(false, BugSC4.search(pbi1));
+		BugVersionCriterion BugVC4 = new BugVersionCriterion("Release 1"); 
+		assertEquals(false, BugVC4.search(pbi1));
 	}
 }

@@ -13,7 +13,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-public class Test_BugSystemCriterion {
+public class Test_PBIComplexityCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -44,7 +44,8 @@ public class Test_BugSystemCriterion {
 	private static Sprint sprint2 = null;
 	private static Sprint sprint3 = null;
 	private static Sprint sprint4 = null;
-	
+	private static AcceptanceCriterion accCrit1 = null;
+	private static AcceptanceCriterion accCrit2 = null;
 	
 	
 	private static System testsys = null;
@@ -65,6 +66,8 @@ public class Test_BugSystemCriterion {
 		textverarbeitung.addSystem(windowsVista);
 		textverarbeitung.addSystem(windows7);
 		textverarbeitung.addSystem(linux);
+		accCrit1 = new AcceptanceCriterion("Fehler behoben");
+		accCrit2 = new AcceptanceCriterion("Funktion ist ausführbar");
 				
 		pbi1 = new Feature("Texte eingeben", "Texte im Programm erfassen", pbltext);
 		pbi2 = new Feature("Textbearbeitung", "Texte bearbeiten", pbltext);
@@ -85,6 +88,11 @@ public class Test_BugSystemCriterion {
 		pbi2.setManDayCosts(new Effort(7));
 		pbi3.setManDayCosts(new Effort(3));
 		pbi4.setManDayCosts(new Effort(5));
+		
+		pbi1.addAcceptanceCriterion(accCrit2);
+		pbi2.addAcceptanceCriterion(accCrit2);
+		pbi3.addAcceptanceCriterion(accCrit2);
+		pbi4.addAcceptanceCriterion(accCrit1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -145,45 +153,63 @@ public class Test_BugSystemCriterion {
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
 	
-	//@Test
-	/**
-	 * Test of constructor
-	 */
-	//public void testConstructor() throws Exception{
-	//	BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
-	//	assertEqulas(windowsXP, BugSC1.)
-	//}
-	
-	
 	@Test
 	/**
-	 * Search for a System in a Bug
-	 * System is part of the Bug
+	 * Search, if a Bug needs more than 5 PT and less than 20
 	 */
 	
 	public void testsearch1() throws Exception{
-		BugSystemCriterion BugSC2 = new BugSystemCriterion(windowsXP); 
-		assertEquals(true, BugSC2.search(pbi4));
+		PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5,20); 
+		assertEquals(true, comCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search for a System in a Bug
-	 * System is not part of the Bug
+	 * Search, if a Bug needs excatly 5 PT
 	 */
 	
 	public void testsearch2() throws Exception{
-		BugSystemCriterion BugSC3 = new BugSystemCriterion(windows2000); 
-		assertEquals(false, BugSC3.search(pbi4));
+		PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5); 
+		assertEquals(true, comCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search for a System in a Feature
+	 * Search, if a Bug needs less than 5 PT
 	 */
 	
 	public void testsearch3() throws Exception{
-		BugSystemCriterion BugSC4 = new BugSystemCriterion(windowsXP); 
-		assertEquals(false, BugSC4.search(pbi1));
+		PBIComplexityCriterion comCrit = new PBIComplexityCriterion(0,4);
+		assertEquals(false, comCrit.search(pbi1));
+	}
+	
+	@Test
+	/**
+	 * Search, if a Feature needs more than 5 PT
+	 */
+	
+	public void testsearch4() throws Exception{
+		PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5,20); 
+		assertEquals(true, comCrit.search(pbi1));
+	}
+	
+	@Test
+	/**
+	 * Search, if a Feature needs excatly 5 PT
+	 */
+	
+	public void testsearch5() throws Exception{
+		PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5); 
+		assertEquals(false, comCrit.search(pbi4));
+	}
+
+	@Test
+	/**
+	 * Search, if a Feature needs less than 5 PT
+	 */
+	
+	public void testsearch6() throws Exception{
+		PBIComplexityCriterion comCrit = new PBIComplexityCriterion(0,4);
+		assertEquals(false, comCrit.search(pbi1));
 	}
 }

@@ -13,7 +13,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-public class Test_BugSystemCriterion {
+public class Test_PBIAcceptanceCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -44,7 +44,8 @@ public class Test_BugSystemCriterion {
 	private static Sprint sprint2 = null;
 	private static Sprint sprint3 = null;
 	private static Sprint sprint4 = null;
-	
+	private static AcceptanceCriterion accCrit1 = null;
+	private static AcceptanceCriterion accCrit2 = null;
 	
 	
 	private static System testsys = null;
@@ -65,6 +66,8 @@ public class Test_BugSystemCriterion {
 		textverarbeitung.addSystem(windowsVista);
 		textverarbeitung.addSystem(windows7);
 		textverarbeitung.addSystem(linux);
+		accCrit1 = new AcceptanceCriterion("Fehler behoben");
+		accCrit2 = new AcceptanceCriterion("Funktion ist ausführbar");
 				
 		pbi1 = new Feature("Texte eingeben", "Texte im Programm erfassen", pbltext);
 		pbi2 = new Feature("Textbearbeitung", "Texte bearbeiten", pbltext);
@@ -85,6 +88,11 @@ public class Test_BugSystemCriterion {
 		pbi2.setManDayCosts(new Effort(7));
 		pbi3.setManDayCosts(new Effort(3));
 		pbi4.setManDayCosts(new Effort(5));
+		
+		pbi1.addAcceptanceCriterion(accCrit2);
+		pbi2.addAcceptanceCriterion(accCrit2);
+		pbi3.addAcceptanceCriterion(accCrit2);
+		pbi4.addAcceptanceCriterion(accCrit1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -145,45 +153,47 @@ public class Test_BugSystemCriterion {
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
 	
-	//@Test
-	/**
-	 * Test of constructor
-	 */
-	//public void testConstructor() throws Exception{
-	//	BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
-	//	assertEqulas(windowsXP, BugSC1.)
-	//}
-	
-	
 	@Test
 	/**
-	 * Search for a System in a Bug
-	 * System is part of the Bug
+	 * Search for an Acceptance Criteria in a Bug
+	 * Criteria is part of the Bug
 	 */
 	
 	public void testsearch1() throws Exception{
-		BugSystemCriterion BugSC2 = new BugSystemCriterion(windowsXP); 
-		assertEquals(true, BugSC2.search(pbi4));
+		PBIAcceptanceCriterion accCrit = new PBIAcceptanceCriterion("Fehler"); 
+		assertEquals(true, accCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search for a System in a Bug
-	 * System is not part of the Bug
+	 * Search for an Acceptance Criteria in a Bug
+	 * Criteria is not in the Bug
 	 */
 	
 	public void testsearch2() throws Exception{
-		BugSystemCriterion BugSC3 = new BugSystemCriterion(windows2000); 
-		assertEquals(false, BugSC3.search(pbi4));
+		PBIAcceptanceCriterion accCrit = new PBIAcceptanceCriterion("Funktion"); 
+		assertEquals(false, accCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search for a System in a Feature
+	 * Search for an Acceptance Criteria in a Feature
+	 * Criteria is not in the Feature
 	 */
 	
 	public void testsearch3() throws Exception{
-		BugSystemCriterion BugSC4 = new BugSystemCriterion(windowsXP); 
-		assertEquals(false, BugSC4.search(pbi1));
+		PBIAcceptanceCriterion accCrit = new PBIAcceptanceCriterion("Fehler");
+		assertEquals(false, accCrit.search(pbi1));
+	}
+	
+	@Test
+	/**
+	 * Search for an Acceptance Criteria in a Feature
+	 * Criteria is in the Feature
+	 */
+	
+	public void testsearch4() throws Exception{
+		PBIAcceptanceCriterion accCrit = new PBIAcceptanceCriterion("Funktion");
+		assertEquals(true, accCrit.search(pbi1));
 	}
 }
