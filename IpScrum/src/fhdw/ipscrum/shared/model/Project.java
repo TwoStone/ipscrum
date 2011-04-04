@@ -37,7 +37,6 @@ import fhdw.ipscrum.shared.observer.TransientObserver;
 /**
  * Represents a Scrum Project.
  */
-@SuppressWarnings("rawtypes")
 public class Project extends Observable implements BDACompare, Serializable,
 		ITreeVisitorRelevantElement, TransientObserver, IHasSystems {
 
@@ -61,17 +60,17 @@ public class Project extends Observable implements BDACompare, Serializable,
 	/**
 	 * Bidirectional association to releases.
 	 */
-	private OneToMany<ManyToOne, Project> releaseAssoc;
+	private OneToMany<ManyToOne<?, ?>, Project> releaseAssoc;
 
 	/**
 	 * Bidirectional association to the product backlog.
 	 */
-	private OneToOne<OneToOne, Project> backlogAssoc;
+	private OneToOne<OneToOne<?, ?>, Project> backlogAssoc;
 
 	/**
 	 * Bidirectional association to the incidents.
 	 */
-	private ManyToMany<ManyToMany, Project> incidentAssoc;
+	private ManyToMany<ManyToMany<?, ?>, Project> incidentAssoc;
 
 	@SuppressWarnings("unused")
 	/**
@@ -91,11 +90,11 @@ public class Project extends Observable implements BDACompare, Serializable,
 			ConsistencyException {
 		super();
 		this.name = name;
-		this.releaseAssoc = new OneToMany<ManyToOne, Project>(this);
-		this.backlogAssoc = new OneToOne<OneToOne, Project>(this);
+		this.releaseAssoc = new OneToMany<ManyToOne<?, ?>, Project>(this);
+		this.backlogAssoc = new OneToOne<OneToOne<?, ?>, Project>(this);
 		this.backlogAssoc.set(new ProductBacklog(this).getProjectAssoc());
 		this.possibleSystems = new ArrayList<System>();
-		this.incidentAssoc = new ManyToMany<ManyToMany, Project>(this);
+		this.incidentAssoc = new ManyToMany<ManyToMany<?, ?>, Project>(this);
 		// project registers for events of product backlog
 		this.getBacklog().addObserver(this);
 	}
@@ -192,7 +191,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 	/**
 	 * Returns the bidirectional association to the backlog.
 	 */
-	protected OneToOne<OneToOne, Project> getBacklogAssoc() {
+	protected OneToOne<OneToOne<?, ?>, Project> getBacklogAssoc() {
 		return this.backlogAssoc;
 	}
 
@@ -216,7 +215,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 	/**
 	 * Returns the bidirectional association to the releases.
 	 */
-	protected OneToMany<ManyToOne, Project> getReleaseAssoc() {
+	protected OneToMany<ManyToOne<?, ?>, Project> getReleaseAssoc() {
 		return this.releaseAssoc;
 	}
 
@@ -381,7 +380,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 		this.possibleSystems.remove(system);
 	}
 
-	public ManyToMany<ManyToMany, Project> getIncidentAssoc() {
+	public ManyToMany<ManyToMany<?, ?>, Project> getIncidentAssoc() {
 		return this.incidentAssoc;
 	}
 
@@ -389,9 +388,9 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 * returns incidents which have been created in this project.
 	 */
 	public Vector<Incident> getProjectIncidents() {
-		Vector<Incident> result = new Vector<Incident>();
-		Iterator<BDACompare> i = this.getIncidentAssoc().getAssociations()
-				.iterator();
+		final Vector<Incident> result = new Vector<Incident>();
+		final Iterator<BDACompare> i = this.getIncidentAssoc()
+				.getAssociations().iterator();
 		while (i.hasNext()) {
 			result.add((Incident) i.next());
 		}
@@ -404,10 +403,11 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 */
 	public void addIncident(final Incident incident)
 			throws DoubleDefinitionException {
-		if (incident == null)
+		if (incident == null) {
 			return;
+		}
 		if (incident.isGlobal()) {
-			AddGLobalIncidentMessage message = new AddGLobalIncidentMessage(
+			final AddGLobalIncidentMessage message = new AddGLobalIncidentMessage(
 					incident);
 			this.notifyObservers(message);
 		} else {
@@ -425,10 +425,11 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 */
 	@Deprecated
 	public void removeIncident(final Incident incident) {
-		if (incident == null)
+		if (incident == null) {
 			return;
+		}
 		if (incident.isGlobal()) {
-			RemoveGlobalIncidentMessage message = new RemoveGlobalIncidentMessage(
+			final RemoveGlobalIncidentMessage message = new RemoveGlobalIncidentMessage(
 					incident);
 			this.notifyObservers(message);
 		} else {
@@ -446,22 +447,22 @@ public class Project extends Observable implements BDACompare, Serializable,
 			@Override
 			public void handleTaskCompletionMessage(
 					TaskCompletionMessage message) {
-				Incident i = Incident.createTaskCompletionIncident(message
-						.getTask());
+				final Incident i = Incident
+						.createTaskCompletionIncident(message.getTask());
 				try {
 					Project.this.addIncident(i);
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					// do nothing, if Incident is already inside the list
 				}
 			}
 
 			@Override
 			public void handlePBICompletionMessage(PBICompletionMessage message) {
-				Incident i = Incident.createPBICompletionIncident(message
+				final Incident i = Incident.createPBICompletionIncident(message
 						.getPBI());
 				try {
 					Project.this.addIncident(i);
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					/*
 					 * should never happen, every PBICompletionIncident is
 					 * unique because every ProductBacklogItem is unique.
@@ -483,7 +484,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 					Project.this.addIncident(Incident
 							.createReleaseCompletionIncident(message
 									.getRelease()));
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					// no exception notification to client necessary
 				}
 			}
@@ -494,7 +495,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 				try {
 					Project.this.addIncident(Incident
 							.createSprintCompletionIncident(message.getSprint()));
-				} catch (DoubleDefinitionException e) {
+				} catch (final DoubleDefinitionException e) {
 					// no exception notification to client necessary
 				}
 			}
@@ -512,11 +513,11 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 * This method checks, if sprints or releases are completed.
 	 */
 	public void checkDeadlines() {
-		Iterator<ISprint> i1 = this.sprints.iterator();
+		final Iterator<ISprint> i1 = this.sprints.iterator();
 		while (i1.hasNext()) {
 			i1.next().checkDeadline();
 		}
-		Iterator<IRelease> i2 = this.getReleasePlan().iterator();
+		final Iterator<IRelease> i2 = this.getReleasePlan().iterator();
 		while (i2.hasNext()) {
 			i2.next().checkDeadline();
 		}

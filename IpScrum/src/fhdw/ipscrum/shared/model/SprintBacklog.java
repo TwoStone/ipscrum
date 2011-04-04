@@ -21,22 +21,21 @@ public class SprintBacklog extends Observable implements BDACompare,
 		Serializable, TransientObserver {
 
 	private static final long serialVersionUID = 2775810634965110269L;
-	@SuppressWarnings("rawtypes")
+
 	/**
 	 * 1:1 relation to the sprint.
 	 */
-	private OneToOne<OneToOne, SprintBacklog> sprintAssoc;
-	@SuppressWarnings("rawtypes")
+	private OneToOne<OneToOne<?, ?>, SprintBacklog> sprintAssoc;
+
 	/**
 	 * 1:* relation to the tasks of the sprint
 	 */
-	private OneToMany<ManyToOne, SprintBacklog> taskAssoc;
+	private OneToMany<ManyToOne<?, ?>, SprintBacklog> taskAssoc;
 
-	@SuppressWarnings("rawtypes")
 	public SprintBacklog(ISprint sprint) {
 		super();
-		this.sprintAssoc = new OneToOne<OneToOne, SprintBacklog>(this);
-		this.taskAssoc = new OneToMany<ManyToOne, SprintBacklog>(this);
+		this.sprintAssoc = new OneToOne<OneToOne<?, ?>, SprintBacklog>(this);
+		this.taskAssoc = new OneToMany<ManyToOne<?, ?>, SprintBacklog>(this);
 		this.addObserver(sprint);
 	}
 
@@ -90,8 +89,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 		return result;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public OneToMany<ManyToOne, SprintBacklog> getTaskAssoc() {
+	public OneToMany<ManyToOne<?, ?>, SprintBacklog> getTaskAssoc() {
 		return this.taskAssoc;
 	}
 
@@ -99,8 +97,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 		return (ISprint) this.getSprintAssoc().get();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public OneToOne<OneToOne, SprintBacklog> getSprintAssoc() {
+	public OneToOne<OneToOne<?, ?>, SprintBacklog> getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 

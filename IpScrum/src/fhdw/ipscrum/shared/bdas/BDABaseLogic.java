@@ -33,6 +33,7 @@ import java.util.Vector;
  * </p>
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
+// Ohne rawtypes funktioniert es hier leider nicht.
 public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 		implements Serializable {
 

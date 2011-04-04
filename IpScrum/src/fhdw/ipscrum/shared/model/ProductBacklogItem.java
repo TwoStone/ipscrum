@@ -26,7 +26,6 @@ import fhdw.ipscrum.shared.observer.TransientObserver;
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
-@SuppressWarnings("rawtypes")
 public abstract class ProductBacklogItem extends Observable implements
 		BDACompare, Serializable, TransientObserver {
 
@@ -50,12 +49,12 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the bidirectional association to the backlog.
 	 */
-	private ManyToOne<OneToMany, ProductBacklogItem> backlogAssoc;
+	private ManyToOne<OneToMany<?, ?>, ProductBacklogItem> backlogAssoc;
 
 	/**
 	 * Returns the bidirectional association to the sprint.
 	 */
-	private ManyToOne<OneToMany, ProductBacklogItem> sprintAssoc;
+	private ManyToOne<OneToMany<?, ?>, ProductBacklogItem> sprintAssoc;
 
 	private List<Relation> relations;
 
@@ -96,8 +95,10 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.relations = new ArrayList<Relation>();
 		this.acceptanceCriteria = new ArrayList<AcceptanceCriterion>();
 		this.hints = new ArrayList<Hint>();
-		this.backlogAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
-		this.sprintAssoc = new ManyToOne<OneToMany, ProductBacklogItem>(this);
+		this.backlogAssoc = new ManyToOne<OneToMany<?, ?>, ProductBacklogItem>(
+				this);
+		this.sprintAssoc = new ManyToOne<OneToMany<?, ?>, ProductBacklogItem>(
+				this);
 
 		this.description = description;
 		this.manDayCosts = new Effort(0);
@@ -242,7 +243,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	protected void doRemoveAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion) {
 		this.acceptanceCriteria.remove(acceptanceCriterion);
-		PBICompletionMessage message = new PBICompletionMessage(this);
+		final PBICompletionMessage message = new PBICompletionMessage(this);
 		this.notifyObservers(message);
 	}
 
@@ -304,8 +305,9 @@ public abstract class ProductBacklogItem extends Observable implements
 	protected void doSetSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException,
 			ForbiddenStateException {
-		if (this.getSprint() != null)
+		if (this.getSprint() != null) {
 			this.getSprint().deleteObserver(this);
+		}
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
@@ -384,7 +386,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the bidirectional association to the backlog.
 	 */
-	protected ManyToOne<OneToMany, ProductBacklogItem> getBacklogAssoc() {
+	protected ManyToOne<OneToMany<?, ?>, ProductBacklogItem> getBacklogAssoc() {
 		return this.backlogAssoc;
 	}
 
@@ -437,7 +439,7 @@ public abstract class ProductBacklogItem extends Observable implements
 	/**
 	 * Returns the bidirectional association to the sprint.
 	 */
-	protected ManyToOne<OneToMany, ProductBacklogItem> getSprintAssoc() {
+	protected ManyToOne<OneToMany<?, ?>, ProductBacklogItem> getSprintAssoc() {
 		return this.sprintAssoc;
 	}
 
