@@ -131,10 +131,10 @@ public class DemoModel {
 		final Project projekt2 = new Project("Projekt 2");
 		final Project ipScrum = new Project("IP-Scrum");
 
-		ipScrum.addPossibleSystem(browser);
-		projekt1.addPossibleSystem(win7);
-		projekt1.addPossibleSystem(winxp);
-		projekt2.addPossibleSystem(sapbw);
+		ipScrum.addSystem(browser);
+		projekt1.addSystem(win7);
+		projekt1.addSystem(winxp);
+		projekt2.addSystem(sapbw);
 
 		// Initial Releases
 		final Release rel10 = new Release("1.0",
@@ -242,12 +242,12 @@ public class DemoModel {
 						8), teamReporting);
 
 		// add possible Systems
-		projekt1.addPossibleSystem(anwendungen);
-		projekt2.addPossibleSystem(betriebssysteme);
-		projekt2.addPossibleSystem(browser);
-		projekt2.addPossibleSystem(applicationServer);
-		ipScrum.addPossibleSystem(betriebssysteme);
-		ipScrum.addPossibleSystem(browser);
+		projekt1.addSystem(anwendungen);
+		projekt2.addSystem(betriebssysteme);
+		projekt2.addSystem(browser);
+		projekt2.addSystem(applicationServer);
+		ipScrum.addSystem(betriebssysteme);
+		ipScrum.addSystem(browser);
 
 		// assigning sprints to projects
 		projekt1.addSprint(sprint1rel10);

@@ -12,16 +12,17 @@ import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.exceptions.WrongReleaseException;
 import fhdw.ipscrum.shared.exceptions.WrongSystemException;
 import fhdw.ipscrum.shared.model.interfaces.IBugState;
+import fhdw.ipscrum.shared.model.interfaces.IHasSystems;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
- * Represents a Bug as special type of a {@link ProductBacklogItem}. A
- * feature may contain relationships to other features. Furthermore, acceptance
- * criteria and hints can be associated. A feature can be editable in the state
- * "open" and is read-only in the state "closed".
+ * Represents a Bug as special type of a {@link ProductBacklogItem}. A feature
+ * may contain relationships to other features. Furthermore, acceptance criteria
+ * and hints can be associated. A feature can be editable in the state "open"
+ * and is read-only in the state "closed".
  */
-public class Bug extends ProductBacklogItem {
+public class Bug extends ProductBacklogItem implements IHasSystems {
 
 	/**
 	 * 
@@ -40,17 +41,20 @@ public class Bug extends ProductBacklogItem {
 
 	/**
 	 * Constructor for a new Bug
+	 * 
 	 * @param name
-	 * 			String
+	 *            String
 	 * @param description
-	 * 			String
+	 *            String
 	 * @param version
-	 * 			{@link IRelease}
+	 *            {@link IRelease}
 	 * @param backlog
-	 * 			{@link ProductBacklog}
+	 *            {@link ProductBacklog}
 	 * @throws UserException
 	 */
-	public Bug(final String name, final String description, final IRelease version, final ProductBacklog backlog) throws UserException {
+	public Bug(final String name, final String description,
+			final IRelease version, final ProductBacklog backlog)
+			throws UserException {
 		super(name, description, backlog);
 		this.setVersion(version);
 		this.systems = new ArrayList<System>();
@@ -62,27 +66,34 @@ public class Bug extends ProductBacklogItem {
 	}
 
 	/**
-	 * action depends on current state, if the bug is open, the System will be added
+	 * action depends on current state, if the bug is open, the System will be
+	 * added
+	 * 
 	 * @param system
 	 * @throws UserException
 	 */
+	@Override
 	public void addSystem(final System system) throws UserException {
 		this.getState().addSystem(system);
 	}
 
 	/**
-	 * action depends on current state, if the bug is open, the System will be removed
+	 * action depends on current state, if the bug is open, the System will be
+	 * removed
+	 * 
 	 * @param system
 	 * @throws UserException
 	 */
+	@Override
 	public void removeSystem(final System system) throws UserException {
 		this.getState().removeSystem(system);
 	}
 
 	/**
-	 * Adds a system to the local list to restrict where the bug happened <br><b>
-	 * ATTENTION </b><br>
+	 * Adds a system to the local list to restrict where the bug happened <br>
+	 * <b> ATTENTION </b><br>
 	 * Not for direct usage, use instead the Method: addSystem(System system)
+	 * 
 	 * @param system
 	 * @throws WrongSystemException
 	 */
@@ -90,7 +101,8 @@ public class Bug extends ProductBacklogItem {
 		if (this.getBacklog().getProject().isPossibleSystem(system)) {
 			this.systems.add(system);
 		} else {
-			throw new WrongSystemException(ExceptionConstants.SYSTEM_IS_NOT_POSSIBLE);
+			throw new WrongSystemException(
+					ExceptionConstants.SYSTEM_IS_NOT_POSSIBLE);
 		}
 		this.notifyObservers();
 	}
@@ -102,21 +114,27 @@ public class Bug extends ProductBacklogItem {
 	}
 
 	/**
-	 * action depends on current state, if the bug is open, the action will executed 
+	 * action depends on current state, if the bug is open, the action will
+	 * executed
+	 * 
 	 * @param version
-	 * @throws WrongReleaseException, if the release is not referenced in project
+	 * @throws WrongReleaseException
+	 *             , if the release is not referenced in project
 	 */
-	public void doSetVersion(final IRelease version) throws WrongReleaseException {
+	public void doSetVersion(final IRelease version)
+			throws WrongReleaseException {
 		if (this.getBacklog().getProject().getReleasePlan().contains(version)) {
 			this.version = version;
 		} else {
-			throw new WrongReleaseException(ExceptionConstants.RELEASE_NOT_IN_PROJECT);
+			throw new WrongReleaseException(
+					ExceptionConstants.RELEASE_NOT_IN_PROJECT);
 		}
 		this.notifyObservers();
 	}
 
 	/**
 	 * Method getVersion.
+	 * 
 	 * @return release
 	 */
 	public IRelease getVersion() {
@@ -131,8 +149,9 @@ public class Bug extends ProductBacklogItem {
 	/**
 	 * Method getSystems.
 	 * 
-	 * @return unmodifiable List 
+	 * @return unmodifiable List
 	 */
+	@Override
 	public Collection<System> getSystems() {
 		return Collections.unmodifiableCollection(this.systems);
 	}
@@ -147,9 +166,10 @@ public class Bug extends ProductBacklogItem {
 	}
 
 	/**
-	 * Remove a system of the local list<br><b>
-	 * ATTENTION </b><br>
+	 * Remove a system of the local list<br>
+	 * <b> ATTENTION </b><br>
 	 * Not for direct usage, use instead the Method: removeSystem(System system)
+	 * 
 	 * @param system
 	 */
 	public void doRemoveSystem(final System system) {

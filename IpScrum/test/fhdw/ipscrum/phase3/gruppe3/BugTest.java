@@ -147,8 +147,8 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
-		pro.addPossibleSystem(sys2);
+		pro.addSystem(sys1);
+		pro.addSystem(sys2);
 
 		bug.addSystem(sys1);
 		bug.addSystem(sys2);
@@ -177,7 +177,7 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
+		pro.addSystem(sys1);
 
 		bug.addSystem(sys1);
 		bug.addSystem(sys2);
@@ -203,9 +203,9 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
+		pro.addSystem(sys1);
 
-		pro2.addPossibleSystem(sys2);
+		pro2.addSystem(sys2);
 
 		bug.addSystem(sys1);
 		bug.addSystem(sys2);
@@ -230,8 +230,8 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
-		pro.addPossibleSystem(sys2);
+		pro.addSystem(sys1);
+		pro.addSystem(sys2);
 
 		bug.close();
 
@@ -343,8 +343,8 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
-		pro.addPossibleSystem(sys2);
+		pro.addSystem(sys1);
+		pro.addSystem(sys2);
 
 		bug.addSystem(sys1);
 		bug.addSystem(sys2);
@@ -373,8 +373,8 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
-		pro.addPossibleSystem(sys2);
+		pro.addSystem(sys1);
+		pro.addSystem(sys2);
 
 		bug.addSystem(sys1);
 		bug.addSystem(sys2);
@@ -411,8 +411,8 @@ public class BugTest {
 		final System sys1 = new System("S1", root);
 		final System sys2 = new System("S2", root);
 
-		pro.addPossibleSystem(sys1);
-		pro.addPossibleSystem(sys2);
+		pro.addSystem(sys1);
+		pro.addSystem(sys2);
 
 		bug.addSystem(sys1);
 		bug.addSystem(sys2);

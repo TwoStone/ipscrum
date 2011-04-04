@@ -41,20 +41,20 @@ public class ProjectTest {
 		final System system6 = new System("S6", root);
 
 		// Alle werden doppelt hinzugefügt, dürfen aber nur 1 mal enthalten sein
-		fixture.addPossibleSystem(system);
-		fixture.addPossibleSystem(system);
-		fixture.addPossibleSystem(system2);
-		fixture.addPossibleSystem(system2);
-		fixture.addPossibleSystem(system3);
-		fixture.addPossibleSystem(system3);
-		fixture.addPossibleSystem(system4);
-		fixture.addPossibleSystem(system4);
-		fixture.addPossibleSystem(system5);
-		fixture.addPossibleSystem(system5);
-		fixture.addPossibleSystem(system6);
-		fixture.addPossibleSystem(system6);
+		fixture.addSystem(system);
+		fixture.addSystem(system);
+		fixture.addSystem(system2);
+		fixture.addSystem(system2);
+		fixture.addSystem(system3);
+		fixture.addSystem(system3);
+		fixture.addSystem(system4);
+		fixture.addSystem(system4);
+		fixture.addSystem(system5);
+		fixture.addSystem(system5);
+		fixture.addSystem(system6);
+		fixture.addSystem(system6);
 
-		final List<System> result = fixture.getPossibleSystems();
+		final List<System> result = fixture.getSystems();
 
 		assertEquals(4, result.size());
 		assertTrue(result.contains(system));
@@ -79,11 +79,11 @@ public class ProjectTest {
 		final System system2 = new System("S2", root);
 		final System system3 = new System("S3", system2);
 
-		fixture.addPossibleSystem(system);
-		fixture.addPossibleSystem(system2);
-		fixture.addPossibleSystem(system3);
+		fixture.addSystem(system);
+		fixture.addSystem(system2);
+		fixture.addSystem(system3);
 
-		final List<System> result = fixture.getPossibleSystems();
+		final List<System> result = fixture.getSystems();
 
 		assertEquals(2, result.size());
 		assertTrue(result.contains(system));
@@ -103,7 +103,7 @@ public class ProjectTest {
 		final Rootsystem root = new Rootsystem();
 		final System system = new System("S1", root);
 
-		fixture.addPossibleSystem(system);
+		fixture.addSystem(system);
 		assertTrue(fixture.isPossibleSystem(system));
 	}
 
@@ -122,10 +122,10 @@ public class ProjectTest {
 		final System system2 = new System("S2", root);
 		final System system3 = new System("S3", system2);
 
-		fixture.addPossibleSystem(system);
-		fixture.addPossibleSystem(system2);
+		fixture.addSystem(system);
+		fixture.addSystem(system2);
 
-		fixture2.addPossibleSystem(system3);
+		fixture2.addSystem(system3);
 
 		assertTrue(fixture.isPossibleSystem(system));
 		assertTrue(fixture.isPossibleSystem(system2));

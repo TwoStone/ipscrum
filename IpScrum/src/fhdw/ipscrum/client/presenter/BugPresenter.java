@@ -1,7 +1,6 @@
 package fhdw.ipscrum.client.presenter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.google.gwt.user.client.ui.DialogBox;
@@ -40,12 +39,14 @@ public class BugPresenter implements Observer, IBugPresenter {
 						list1.addAll(((Bug) BugPresenter.this.presenter
 								.getPbi()).getSystems());
 						list2.addAll(BugPresenter.this.presenter.getPbi()
-								.getBacklog().getProject().getPossibleSystems());
+								.getBacklog().getProject().getSystems());
 
 						final DialogBox box = GwtUtils
 								.createDialog(TextConstants.CHANGE_SYSTEM);
 						final SelectSystemPresenter presenter = new SelectSystemPresenter(
-								box, BugPresenter.this.presenter, list1, list2);
+								box, BugPresenter.this.presenter,
+								(Bug) BugPresenter.this.presenter.getPbi(),
+								list2);
 
 						presenter.getFinished().add(
 								new EventHandler<EventArgs>() {
@@ -53,26 +54,6 @@ public class BugPresenter implements Observer, IBugPresenter {
 									@Override
 									public void onUpdate(final Object sender,
 											final EventArgs eventArgs) {
-										Bug bug = (Bug) BugPresenter.this.presenter
-												.getPbi();
-										Collection<System> s = new ArrayList<System>(
-												bug.getSystems());
-										for (final System system : s) {
-											try {
-												bug.removeSystem(system);
-											} catch (UserException e) {
-												GwtUtils.displayError(e);
-											}
-										}
-
-										for (final System system : presenter
-												.getSelectedSystems()) {
-											try {
-												bug.addSystem(system);
-											} catch (UserException e) {
-												GwtUtils.displayError(e);
-											}
-										}
 										box.hide();
 									}
 								});

@@ -2,13 +2,11 @@ package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.bdas.ManyToOne;
@@ -20,11 +18,11 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.incidents.Incident;
+import fhdw.ipscrum.shared.model.interfaces.IHasSystems;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.messages.AddGLobalIncidentMessage;
 import fhdw.ipscrum.shared.model.messages.Message;
-import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
 import fhdw.ipscrum.shared.model.messages.MessageVisitor;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.messages.ReleaseCompletionMessage;
@@ -41,7 +39,7 @@ import fhdw.ipscrum.shared.observer.Observer;
  */
 @SuppressWarnings("rawtypes")
 public class Project extends Observable implements BDACompare, Serializable,
-		ITreeVisitorRelevantElement, Observer {
+		ITreeVisitorRelevantElement, Observer, IHasSystems {
 
 	private static final long serialVersionUID = 6337710256829006568L;
 
@@ -69,11 +67,12 @@ public class Project extends Observable implements BDACompare, Serializable,
 	 * Bidirectional association to the product backlog.
 	 */
 	private OneToOne<OneToOne, Project> backlogAssoc;
-	
+
 	/**
 	 * Bidirectional association to the incidents.
 	 */
 	private ManyToMany<ManyToMany, Project> incidentAssoc;
+
 	@SuppressWarnings("unused")
 	/**
 	 * Default Constructor for GWT serialization.
@@ -96,7 +95,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 		this.backlogAssoc = new OneToOne<OneToOne, Project>(this);
 		this.backlogAssoc.set(new ProductBacklog(this).getProjectAssoc());
 		this.possibleSystems = new ArrayList<System>();
-		this.incidentAssoc = new ManyToMany<ManyToMany, Project> (this);
+		this.incidentAssoc = new ManyToMany<ManyToMany, Project>(this);
 		// project registers for events of product backlog
 		this.getBacklog().addObserver(this);
 	}
@@ -106,13 +105,15 @@ public class Project extends Observable implements BDACompare, Serializable,
 		treeVisitor.handleProject(this);
 	}
 
-	/**
-	 * Adds a {@link System} to the local list of possible systems
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param system
-	 *            {@link System}
+	 * @see
+	 * fhdw.ipscrum.shared.model.HasSystems#addPossibleSystem(fhdw.ipscrum.shared
+	 * .model.System)
 	 */
-	public void addPossibleSystem(final System system) {
+	@Override
+	public void addSystem(final System system) {
 		if (!this.isPossibleSystem(system)) {
 
 			final Iterator<System> i = this.possibleSystems.iterator();
@@ -201,12 +202,13 @@ public class Project extends Observable implements BDACompare, Serializable,
 		return this.name;
 	}
 
-	/**
-	 * Method getPossibleSystems.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return {@link List<System>}
+	 * @see fhdw.ipscrum.shared.model.HasSystems#getPossibleSystems()
 	 */
-	public List<System> getPossibleSystems() {
+	@Override
+	public List<System> getSystems() {
 		return this.possibleSystems;
 	}
 
@@ -366,50 +368,67 @@ public class Project extends Observable implements BDACompare, Serializable,
 		return "Project [name=" + this.name + "]";
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.shared.model.HasSystems#removeSystem(fhdw.ipscrum.shared
+	 * .model.System)
+	 */
+	@Override
 	public void removeSystem(System system) {
 		this.possibleSystems.remove(system);
 	}
-	
-	public ManyToMany<ManyToMany, Project> getIncidentAssoc(){
+
+	public ManyToMany<ManyToMany, Project> getIncidentAssoc() {
 		return this.incidentAssoc;
 	}
-	
+
 	/**
 	 * returns incidents which have been created in this project.
 	 */
-	public Vector<Incident> getProjectIncidents(){
+	public Vector<Incident> getProjectIncidents() {
 		Vector<Incident> result = new Vector<Incident>();
-		Iterator<BDACompare> i = this.getIncidentAssoc().getAssociations().iterator();
-		while (i.hasNext()){
+		Iterator<BDACompare> i = this.getIncidentAssoc().getAssociations()
+				.iterator();
+		while (i.hasNext()) {
 			result.add((Incident) i.next());
 		}
-		return result;		
+		return result;
 	}
-	
+
 	/**
-	 * Adds a new Incident to the project. For every incident i.isGlobal() has to be false.
-	 * Otherwise the message will be delegated to the root object.
+	 * Adds a new Incident to the project. For every incident i.isGlobal() has
+	 * to be false. Otherwise the message will be delegated to the root object.
 	 */
-	public void addIncident(final Incident incident) throws DoubleDefinitionException{
-		if (incident == null) return;
-		if (incident.isGlobal()){
-			AddGLobalIncidentMessage message = new AddGLobalIncidentMessage(incident);
+	public void addIncident(final Incident incident)
+			throws DoubleDefinitionException {
+		if (incident == null)
+			return;
+		if (incident.isGlobal()) {
+			AddGLobalIncidentMessage message = new AddGLobalIncidentMessage(
+					incident);
 			this.notifyObservers(message);
 		} else {
 			this.getIncidentAssoc().add(incident.getProjectAssoc());
 		}
 		this.notifyObservers();
 	}
+
 	/**
-	 * Removes an existing incident from the project. For every incident i.isGlobal() has to be false.
-	 * Otherwise the message will be delegated to the root object.
-	 * WARNING: Only use for unit testing.
+	 * Removes an existing incident from the project. For every incident
+	 * i.isGlobal() has to be false. Otherwise the message will be delegated to
+	 * the root object. WARNING: Only use for unit testing.
+	 * 
 	 * @deprecated
 	 */
-	public void removeIncident(final Incident incident){
-		if (incident==null) return;
-		if (incident.isGlobal()){
-			RemoveGlobalIncidentMessage message = new RemoveGlobalIncidentMessage(incident);
+	@Deprecated
+	public void removeIncident(final Incident incident) {
+		if (incident == null)
+			return;
+		if (incident.isGlobal()) {
+			RemoveGlobalIncidentMessage message = new RemoveGlobalIncidentMessage(
+					incident);
 			this.notifyObservers(message);
 		} else {
 			this.getIncidentAssoc().remove(incident.getProjectAssoc());
@@ -418,14 +437,16 @@ public class Project extends Observable implements BDACompare, Serializable,
 
 	@Override
 	public void update(Observable observable, Object argument) {
-		if (!(argument instanceof Message)){
+		if (!(argument instanceof Message)) {
 			return;
-			//TODO: properly specify operation update(Message message)!!!
+			// TODO: properly specify operation update(Message message)!!!
 		}
 		((Message) argument).accept(new MessageVisitor() {
 			@Override
-			public void handleTaskCompletionMessage(TaskCompletionMessage message) {
-				Incident i = Incident.createTaskCompletionIncident(message.getTask());
+			public void handleTaskCompletionMessage(
+					TaskCompletionMessage message) {
+				Incident i = Incident.createTaskCompletionIncident(message
+						.getTask());
 				try {
 					Project.this.addIncident(i);
 				} catch (DoubleDefinitionException e) {
@@ -435,16 +456,17 @@ public class Project extends Observable implements BDACompare, Serializable,
 
 			@Override
 			public void handlePBICompletionMessage(PBICompletionMessage message) {
-				Incident i = Incident.createPBICompletionIncident(message.getPBI());
+				Incident i = Incident.createPBICompletionIncident(message
+						.getPBI());
 				try {
 					Project.this.addIncident(i);
 				} catch (DoubleDefinitionException e) {
 					/*
-					 * should never happen, every PBICompletionIncident is unique because
-					 * every ProductBacklogItem is unique.
+					 * should never happen, every PBICompletionIncident is
+					 * unique because every ProductBacklogItem is unique.
 					 */
 				}
-				
+
 			}
 
 			@Override
@@ -452,13 +474,14 @@ public class Project extends Observable implements BDACompare, Serializable,
 					AddGLobalIncidentMessage message) {
 				Project.this.update_GlobalIncident(message);
 			}
-			
+
 			@Override
 			public void handleReleaseCompletionMessage(
 					ReleaseCompletionMessage message) {
 				try {
-					Project.this.addIncident(
-							Incident.createReleaseCompletionIncident(message.getRelease()));
+					Project.this.addIncident(Incident
+							.createReleaseCompletionIncident(message
+									.getRelease()));
 				} catch (DoubleDefinitionException e) {
 					// no exception notification to client necessary
 				}
@@ -468,8 +491,8 @@ public class Project extends Observable implements BDACompare, Serializable,
 			public void handleSprintCompletionMessage(
 					SprintCompletionMessage message) {
 				try {
-					Project.this.addIncident(
-							Incident.createSprintCompletionIncident(message.getSprint()));
+					Project.this.addIncident(Incident
+							.createSprintCompletionIncident(message.getSprint()));
 				} catch (DoubleDefinitionException e) {
 					// no exception notification to client necessary
 				}
@@ -481,20 +504,26 @@ public class Project extends Observable implements BDACompare, Serializable,
 				Project.this.update_GlobalIncident(message);
 			}
 		});
-		
+
 	}
+
 	/**
 	 * This method checks, if sprints or releases are completed.
 	 */
-	public void checkDeadlines(){
+	public void checkDeadlines() {
 		Iterator<ISprint> i1 = this.sprints.iterator();
-		while (i1.hasNext()){i1.next().checkDeadline();}
+		while (i1.hasNext()) {
+			i1.next().checkDeadline();
+		}
 		Iterator<IRelease> i2 = this.getReleasePlan().iterator();
-		while (i2.hasNext()){i2.next().checkDeadline();}
+		while (i2.hasNext()) {
+			i2.next().checkDeadline();
+		}
 	}
-	
+
 	/**
-	 * notifies the root that a new global incident has been created or shall be removed
+	 * notifies the root that a new global incident has been created or shall be
+	 * removed
 	 */
 	private void update_GlobalIncident(Message message) {
 		this.notifyObservers(message);
