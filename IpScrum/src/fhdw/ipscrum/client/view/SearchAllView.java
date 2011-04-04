@@ -50,8 +50,8 @@ public class SearchAllView extends Composite implements ISearchAllView {
 		verticalPanel_1.setSize("100%", "200px");
 
 		final Image image = new Image((String) null);
+		// TODO [WICHTIG] Hier könnte Ihr Suchlogo stehen!!!
 		verticalPanel_1.add(image);
-
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel_1.add(horizontalPanel);

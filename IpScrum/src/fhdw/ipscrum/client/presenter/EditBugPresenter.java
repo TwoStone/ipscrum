@@ -51,7 +51,6 @@ public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter 
 	public void onUpdateModel() throws NoValidValueException,
 			NoSprintDefinedException, ConsistencyException,
 			DoubleDefinitionException, ForbiddenStateException, UserException {
-		// TODO Auto-generated method stub
 		super.onUpdateModel();
 		this.bugPresenter.onUpdateModel();
 	}

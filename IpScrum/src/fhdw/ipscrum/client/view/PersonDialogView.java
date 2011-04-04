@@ -15,9 +15,9 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.TwoStringArgs;
+import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.IPersonDialogView;
 import fhdw.ipscrum.shared.constants.TextConstants;
-
 
 /**
  * This view is used as a dialogbox to create or modify persons.
@@ -57,7 +57,10 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		this.vNamePanel.add(this.lblVorname);
 
 		this.vorname = new TextBox();
-		this.vorname.setFocus(true); // TODO does not work - how to set focus to the textbox when the dialog opens?
+		// this.vorname.setFocus(true); // TODO does not work - how to set focus
+		// to
+		// the textbox when the dialog opens?
+		GwtUtils.setFocus(vorname);
 		this.vNamePanel.add(this.vorname);
 
 		this.nNamePanel = new VerticalPanel();
@@ -71,14 +74,18 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		this.nNamePanel.add(this.nachname);
 
 		this.bottomPanel = new VerticalPanel();
-		this.bottomPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		this.bottomPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+		this.bottomPanel
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		this.bottomPanel
+				.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
 		this.verticalPanel.add(this.bottomPanel);
 		this.bottomPanel.setSize("320px", "70px");
 
 		this.buttonPanel = new HorizontalPanel();
-		this.buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-		this.buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		this.buttonPanel
+				.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+		this.buttonPanel
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		this.bottomPanel.add(this.buttonPanel);
 		this.buttonPanel.setSize("219px", "36px");
 
@@ -86,7 +93,11 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		this.ok_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				PersonDialogView.this.commitEvent.fire(PersonDialogView.this, new TwoStringArgs(PersonDialogView.this.vorname.getText(), PersonDialogView.this.nachname.getText()));
+				PersonDialogView.this.commitEvent.fire(
+						PersonDialogView.this,
+						new TwoStringArgs(PersonDialogView.this.vorname
+								.getText(), PersonDialogView.this.nachname
+								.getText()));
 			}
 		});
 		this.buttonPanel.add(this.ok_button);
@@ -96,40 +107,54 @@ public class PersonDialogView extends Composite implements IPersonDialogView {
 		this.abb_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				PersonDialogView.this.cancelEvent.fire(PersonDialogView.this, new EventArgs());
+				PersonDialogView.this.cancelEvent.fire(PersonDialogView.this,
+						new EventArgs());
 			}
 		});
 		this.buttonPanel.add(this.abb_button);
 		this.abb_button.setSize("100px", "28px");
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#defineCancelEventHandler(fhdw.ipscrum.client.events.EventHandler)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#
+	 * defineCancelEventHandler(fhdw.ipscrum.client.events.EventHandler)
 	 */
 	@Override
 	public void defineCancelEventHandler(EventHandler<EventArgs> args) {
 		this.cancelEvent.add(args);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#defineCommitEventHandler(fhdw.ipscrum.client.events.EventHandler)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#
+	 * defineCommitEventHandler(fhdw.ipscrum.client.events.EventHandler)
 	 */
 	@Override
 	public void defineCommitEventHandler(EventHandler<TwoStringArgs> args) {
 		this.commitEvent.add(args);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#setVorname(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.interfaces.IPersonDialogView#setVorname(java
+	 * .lang.String)
 	 */
 	@Override
 	public void setVorname(String vorname) {
 		this.vorname.setText(vorname);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.interfaces.IPersonDialogView#setNachname(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.interfaces.IPersonDialogView#setNachname(java
+	 * .lang.String)
 	 */
 	@Override
 	public void setNachname(String nachname) {
