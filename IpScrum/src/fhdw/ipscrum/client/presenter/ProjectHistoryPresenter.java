@@ -36,74 +36,59 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 					public void onUpdate(Object sender,
 							IncidentDetailArgs eventArgs) {
 
-						// Eigenschaften des Incidents aus der View ziehen
-						String description = ProjectHistoryPresenter.this // Beschreibung
+						// Eigenschaften des Incidents aus der View holen:
+						// Beschreibung
+						String description = ProjectHistoryPresenter.this 
 								.getView().getDescriptionText();
-						Date endDate = ProjectHistoryPresenter.this.getView() // Ende
-																				// Datum
+						// Ende-Datum
+						Date endDate = ProjectHistoryPresenter.this.getView() 
 								.getEndDate();
-						Date startDate = ProjectHistoryPresenter.this.getView() // Start
-																				// Datum
+						// Start-Datum
+						Date startDate = ProjectHistoryPresenter.this.getView() 
 								.getStartDate();
 						IPerson pers = ProjectHistoryPresenter.this.getView() // Person
 								.getPerson();
 						String name = ProjectHistoryPresenter.this.getView()
 								.getName();
-
 						// der neue incident wird initialisiert
 						Incident newInci = null;
-
 						// der durch die eventArgs übergebene Typ wird in eine
 						// variable "type" gesepeichert
 						String type = eventArgs.getTyp();
 
 						try {
 							// Typ des Incidents festlegen und Incident anlegen
-
-							// urlaub
+				
+							// Urlaub
 							if (type.equals(TextConstants.INCIDENT_VACATION_NAME)) {
+								if (startDate == null || endDate == null || pers == null) {
+									GwtUtils.displayWarning("Bitte ein Start- und Ende-Datum und eine Person auswählen!");
+								}else{
 								newInci = Incident.createVacationIncident(pers,
 										startDate, endDate);
+								ProjectHistoryPresenter.this.getSessionManager().getModel().getGlobalIncidents().add(newInci);
+								ProjectHistoryPresenter.this.initialize();}
 							}
+							//Krankheit
 							if (type.equals(TextConstants.INCIDENT_ILLNESS_NAME)) {
+								if (startDate == null || endDate == null || pers == null) {
+									GwtUtils.displayWarning("Bitte ein Start- und Ende-Datum und eine Person auswählen!");
+								}else{
 								newInci = Incident.createIllnessIncident(pers,
 										startDate, endDate);
+								ProjectHistoryPresenter.this.getSessionManager().getModel().getGlobalIncidents().add(newInci);
+								ProjectHistoryPresenter.this.initialize();}
 							}
-							// if
-							// (type.equals(TextConstants.INCIDENT_PBICOMPLETION_NAME1))
-							// {
-							// //newInci =
-							// Incident.createPBICompletionIncident(pbi);
-							// }
-							// if
-							// (type.equals(TextConstants.INCIDENT_PBICOMPLETION_NAME2))
-							// {
-							// newInci =
-							// Incident.createPBICompletionIncident(project.getBacklog().getItems().firstElement());
-							// } if
-							// (type.equals(TextConstants.INCIDENT_RELEASECOMPLETION_NAME))
-							// {
-							// newInci =
-							// Incident.createReleaseCompletionIncident(project.getReleasePlan().firstElement());
-							// }if
-							// (type.equals(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME))
-							// {
-							// //newInci =
-							// Incident.createSprintCompletionIncident(project.getSprints().get(0));
-							// project.checkDeadlines();
-							// Vector<Incident> vector =
-							// project.getProjectIncidents();
-							// //project.update(project, newInci);
-							// newInci = vector.firstElement();
-							//
-							// }
+							//Sonstiges Ereignis
 							if (type.equals("Sonstiges Ereignis")) {
+								if (startDate == null || endDate == null || description.equals("") || name.equals("")) {
+									GwtUtils.displayWarning("Bitte Start-, Ende-Datum, Namen und Beschreibung eingeben!");
+								}else{
 								newInci = Incident.createOtherIssueIncident(
 										name, description, startDate, endDate);
+								ProjectHistoryPresenter.this.addIncident(newInci);
+								ProjectHistoryPresenter.this.initialize();}
 							}
-
-							// TODO: typabfragen für krankheit, task, pbi
-							// usw........
 
 						}
 						// Fehlerbehandlung für ungültige Eingaben
@@ -113,10 +98,12 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 
 						// Methode für das hinzufügen eines Incidents in den
 						// root aufrufen
-						newInci.addProject(project);
-						ProjectHistoryPresenter.this.addIncident(newInci);
-						ProjectHistoryPresenter.this.initialize();
+//						if (newInci != null){
+//						newInci.addProject(project);
+//						ProjectHistoryPresenter.this.addIncident(newInci);
+//						ProjectHistoryPresenter.this.initialize();
 					}
+					//	}
 				});
 
 		// Handler für das hinzufügen eines Incidents
@@ -150,6 +137,7 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 	 */
 	protected void addIncident(Incident newInci) {
 		try {
+//			newInci.addProject(this.project);
 			this.project.addIncident(newInci);
 		} catch (DoubleDefinitionException e) {
 			GwtUtils.displayError(e);
@@ -162,8 +150,9 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 	 * allready created incidents
 	 */
 	private void initialize() {
-		this.getView().refreshProjectHistoryTable(
-				this.project.getProjectIncidents());
+		Vector<Incident> incidents = this.project.getProjectIncidents();
+		incidents.addAll(this.getSessionManager().getModel().getGlobalIncidents());
+		this.getView().refreshProjectHistoryTable(incidents);
 
 		Vector<IPerson> persons = new Vector<IPerson>();
 		persons.addAll(this.getSessionManager().getModel().getPersons());
