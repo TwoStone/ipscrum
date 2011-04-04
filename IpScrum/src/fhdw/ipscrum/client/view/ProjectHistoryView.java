@@ -2,8 +2,12 @@ package fhdw.ipscrum.client.view;
 
 import java.util.Date;
 import java.util.Vector;
+
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.DateCell;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -21,10 +25,12 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DateBox.DefaultFormat;
 import com.google.gwt.view.client.SingleSelectionModel;
+
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.IncidentDetailArgs;
@@ -32,11 +38,10 @@ import fhdw.ipscrum.client.view.interfaces.IProjectHistoryView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.user.client.ui.TextBox;
 
 public class ProjectHistoryView extends Composite implements IProjectHistoryView{
+	
+	//********************* VIEW ELEMENTS ****************************************
 	private CellTable<Incident> projectHistoryTable;
 	private CellList<IPerson> personCellList;
 	private Button btnAnlegen;
@@ -44,14 +49,18 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 	private DateBox startdateBox;
 	private DateBox enddateBox;
 	private TextArea descriptionTextArea;
-	
-	private final Event<IncidentDetailArgs> createIncident = new Event<IncidentDetailArgs>();
-	private final Event<IncidentDetailArgs> changeTyp = new Event<IncidentDetailArgs>();
 	private Label lblName;
 	private TextBox nameTextBox;
 	private Label lblBeschreibung;
 	private Label lblPersonen;
 	private ScrollPanel scrollPanel_1;
+	//******************** VIEW ELEMENTS ENDE ************************************
+	
+	//********************** EVENTS ********************************************
+	private final Event<IncidentDetailArgs> createIncident = new Event<IncidentDetailArgs>();
+	private final Event<IncidentDetailArgs> changeTyp = new Event<IncidentDetailArgs>();
+	// ********************* END EVENTS *****************************************
+	
 	
 	public ProjectHistoryView() {
 		
@@ -63,7 +72,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 		horizontalPanel.setStyleName("createFeatureTable");
 		horizontalPanel.setSpacing(3);
 		concreteProjectHistoryPanel.add(horizontalPanel, 73, 394);
-		horizontalPanel.setSize("562px", "194px");
+		horizontalPanel.setSize("605px", "194px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(2);
@@ -123,7 +132,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 		verticalPanel_1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		verticalPanel_1.setSpacing(2);
 		horizontalPanel.add(verticalPanel_1);
-		verticalPanel_1.setSize("193px", "185px");
+		verticalPanel_1.setSize("185px", "188px");
 		
 		lblPersonen = new Label("Personen:");
 		verticalPanel_1.add(lblPersonen);
@@ -133,7 +142,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 		scrollPanel_1 = new ScrollPanel();
 		verticalPanel_1.add(scrollPanel_1);
 		scrollPanel_1.setStyleName("smallborder");
-		scrollPanel_1.setSize("187px", "100px");
+		scrollPanel_1.setSize("190px", "100px");
 		
 		personCellList = new CellList<IPerson>(new AbstractCell<IPerson>(){
 			@Override
@@ -147,7 +156,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 		VerticalPanel verticalPanel_2 = new VerticalPanel();
 		verticalPanel_2.setSpacing(2);
 		horizontalPanel.add(verticalPanel_2);
-		verticalPanel_2.setSize("185px", "185px");
+		verticalPanel_2.setSize("185px", "188px");
 		
 		lblName = new Label("Name:");
 		verticalPanel_2.add(lblName);
@@ -192,6 +201,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 				return incident.getStart();
 			}
 		};
+		startDateColumn.setSortable(true);
 		projectHistoryTable.addColumn(startDateColumn, "Start-Datum");
 		
 		Column<Incident, Date> endDateColumn = new Column<Incident, Date>(new DateCell()) {
@@ -200,6 +210,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 				return incident.getEnd();
 			}
 		};
+		endDateColumn.setSortable(true);
 		projectHistoryTable.addColumn(endDateColumn, "Ende-Datum");
 		
 		TextColumn<Incident> typColumn = new TextColumn<Incident>() {
@@ -213,10 +224,14 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 		TextColumn<Incident> descriptionColumn = new TextColumn<Incident>() {
 			@Override
 			public String getValue(Incident incident) {
-				return incident.getDescription();
-			}
+				if(incident.getDescription().length() <= 60){
+					return incident.getDescription();
+				}else{
+				return incident.getDescription().substring(0, 60) + "...";
+			}}
 		};
 		projectHistoryTable.addColumn(descriptionColumn, "Beschreibung");
+//		((SourcesMouseEvents) descriptionColumn).addMouseListener(new ToolTipListener(TextConstants.PBI_MOUSEOVER, 9999999, "taskboardLabel"));
 		
 		TextColumn<Incident> personColumn = new TextColumn<Incident>() {
 			@Override
@@ -225,6 +240,7 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 			}
 		};
 		projectHistoryTable.addColumn(personColumn, "Personen");
+		
 
 	}
 	protected CellTable<Incident> getProjectHistoryTable() {
@@ -233,6 +249,14 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 	@Override
 	public void refreshProjectHistoryTable(Vector<Incident> incidents) {
 		this.getProjectHistoryTable().setRowData(incidents);
+	
+		int counter = 0;
+		for (Incident Incident : incidents) {
+		Element current = this.getProjectHistoryTable().getRowElement(counter);
+		current.setTitle(Incident.getDescription());
+		counter++;
+		}
+		
 	}
 	
 	@Override
@@ -313,13 +337,12 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 	
 	@Override
 	public void getOtherIssueView(){
+	getDescriptionTextArea().setText("");
 	getDescriptionTextArea().setVisible(true);
 	getLblBeschreibung().setVisible(true);
 	getLblName().setVisible(true);
+	getNameTextBox().setText("");
 	getNameTextBox().setVisible(true);
-	getLblPersonen().setVisible(false);
-	getPersonCellList().setVisible(false);
-	getScrollPanel_1().setVisible(false);
 }
 	@Override
 	public void getNormalView(){
@@ -327,8 +350,5 @@ public class ProjectHistoryView extends Composite implements IProjectHistoryView
 		getLblBeschreibung().setVisible(false);
 		getLblName().setVisible(false);
 		getNameTextBox().setVisible(false);
-		getLblPersonen().setVisible(true);
-		getPersonCellList().setVisible(true);
-		getScrollPanel_1().setVisible(true);
 }
 }
