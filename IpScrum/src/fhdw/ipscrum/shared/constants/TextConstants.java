@@ -173,6 +173,16 @@ public final class TextConstants {
 	public static final String INCIDENT_RELEASECOMPLETION_NAME = "Neues Release";
 	public static final String INCIDENT_RELEASECOMPLETION_DESCR_PREFIX = "Das geplante Release '";
 	public static final String INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX = "' wurde ausgerollt";
+	public static final String INCIDENT_OTHER_ISSUE = "Sonstiges Ereignis";
+	public static final String INCIDENT_START_DATE = "Start-Datum:";
+	public static final String INCIDENT_END_DATE = "Ende-Datum:";
+	public static final String INCIDENT_PERSONS = "Personen:";
+	public static final String INCIDENT_START_DATE_COLUMN = "Start-Datum";
+	public static final String INCIDENT_END_DATE_COLUMN = "Ende-Datum";
+	public static final String INCIDENT_TYPE = "Typ";
+	public static final String POINTS = "...";
+	public static final String INCIDENT_WARNING_1 = "Bitte ein Start- und Ende-Datum und eine Person auswählen!";
+	public static final String INCIDENT_WARNING_2 = "Bitte Start-, Ende-Datum, Namen und Beschreibung eingeben!";
 	
 	/* [END SECTION] */
 
