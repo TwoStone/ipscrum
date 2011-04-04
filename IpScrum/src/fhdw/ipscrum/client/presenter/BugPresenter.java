@@ -119,4 +119,9 @@ public class BugPresenter implements Observer, IBugPresenter {
 		bug.setVersion(this.view.getSelectedVersion());
 	}
 
+	@Override
+	public void onUpdateModel() throws UserException {
+
+	}
+
 }

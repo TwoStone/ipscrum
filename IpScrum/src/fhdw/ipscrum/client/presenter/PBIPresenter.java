@@ -16,12 +16,9 @@ import fhdw.ipscrum.client.view.interfaces.IPBIView;
 import fhdw.ipscrum.client.view.widgets.AbortDialog;
 import fhdw.ipscrum.client.view.widgets.AbortDialog.OnOkayCommand;
 import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
-import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
-import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.NothingSelectedException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
@@ -344,9 +341,10 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 	}
 
 	@Override
-	public void updatePBI() throws NoValidValueException,
-			NoSprintDefinedException, ConsistencyException,
-			DoubleDefinitionException, ForbiddenStateException, UserException {
+	public final void updatePBI() throws UserException {
+
+		this.startUpdatingModel();
+
 		this.pbi.setName(this.getView().getName());
 		this.pbi.setDescription(this.getView().getDescription());
 		this.pbi.setLastEditor(SessionManager.getInstance().getLoginUser());
@@ -359,6 +357,28 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 			// nicht.
 			this.pbi.setSprint(null);
 		}
+		this.onUpdateModel();
+		this.endUpdatingModel();
+	}
+
+	@Override
+	public void onUpdateModel() throws UserException {
+
+	}
+
+	/**
+	 * Ends the model updating process. Registers to changes of the pbi.
+	 */
+	private void endUpdatingModel() {
+		this.pbi.addObserver(this);
+	}
+
+	/**
+	 * Starts the model updating process. Deregisters observer from model
+	 * object.
+	 */
+	private void startUpdatingModel() {
+		this.pbi.deleteObserver(this);
 	}
 
 	@Override

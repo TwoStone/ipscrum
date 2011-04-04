@@ -3,6 +3,10 @@
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.logging.Logging' />
+  <inherits name="com.google.gwt.resources.Resources" />
+  <inherits name="com.google.gwt.logging.LogImpl"/>
+  <inherits name="fhdw.ipscrum.IpScrum"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
   
   <!--  Inherit GWT chart library 								  -->
   <inherits name='com.googlecode.gchart.GChart'/>
@@ -22,8 +26,6 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
-  <inherits name="com.google.gwt.logging.LogImpl"/>
-  <inherits name="fhdw.ipscrum.IpScrum"/>
-  <inherits name="com.google.gwt.junit.JUnit"/>
+
 
 </module>

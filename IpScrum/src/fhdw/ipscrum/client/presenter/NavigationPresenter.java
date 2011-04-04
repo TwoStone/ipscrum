@@ -107,8 +107,7 @@ public class NavigationPresenter extends Presenter<INavigationView> {
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				concreteView.getContentPanel().clear();
-				final Presenter<?> presenter = new SearchAllPresenter(
-						concreteView.getContentPanel(),
+				new SearchAllPresenter(concreteView.getContentPanel(),
 						NavigationPresenter.this);
 			}
 		});

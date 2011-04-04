@@ -5,7 +5,8 @@ import java.util.Comparator;
 
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
-import com.google.gwt.cell.client.ImageCell;
+import com.google.gwt.cell.client.ImageResourceCell;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
@@ -21,10 +22,10 @@ import com.google.gwt.view.client.ListDataProvider;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.ShowTicketEventArgs;
+import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
 import fhdw.ipscrum.client.view.interfaces.IView;
-import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.PBIClosedState;
@@ -68,23 +69,23 @@ public class SearchResultView extends Composite implements ISearchResultView {
 
 		this.cellTable.addColumnSortHandler(this.sortHandler);
 
-		final Column<ProductBacklogItem, String> imgColumn = new Column<ProductBacklogItem, String>(
-				new ImageCell()) {
+		final Column<ProductBacklogItem, ImageResource> imgColumn = new Column<ProductBacklogItem, ImageResource>(
+				new ImageResourceCell()) {
 
 			@Override
-			public String getValue(ProductBacklogItem object) {
+			public ImageResource getValue(ProductBacklogItem object) {
 
 				class ImageChooser implements IProductBacklogItemVisitor {
-					String result;
+					ImageResource result;
 
 					@Override
 					public void handleFeature(Feature feature) {
-						this.result = TextConstants_FilePaths.FEATURE_ICON;
+						this.result = MyResources.INSTANCE.featureIcon();
 					}
 
 					@Override
 					public void handleBug(Bug bug) {
-						this.result = TextConstants_FilePaths.BUG_ICON;
+						this.result = MyResources.INSTANCE.bugIcon();
 					}
 				}
 
@@ -93,6 +94,7 @@ public class SearchResultView extends Composite implements ISearchResultView {
 
 				return imageChooser.result;
 			}
+
 		};
 		imgColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		imgColumn.setSortable(true);
@@ -115,22 +117,22 @@ public class SearchResultView extends Composite implements ISearchResultView {
 				return object.getBacklog().getProject().getName();
 			}
 		};
-		final Column<ProductBacklogItem, String> stateColumn = new Column<ProductBacklogItem, String>(
-				new ImageCell()) {
+		final Column<ProductBacklogItem, ImageResource> stateColumn = new Column<ProductBacklogItem, ImageResource>(
+				new ImageResourceCell()) {
 
 			@Override
-			public String getValue(ProductBacklogItem object) {
+			public ImageResource getValue(ProductBacklogItem object) {
 				class StateIconChooser implements IPBIStateVisitor {
-					String result;
+					ImageResource result;
 
 					@Override
 					public void handleClosed(PBIClosedState closed) {
-						this.result = TextConstants_FilePaths.LOCKED_ICON;
+						this.result = MyResources.INSTANCE.lockIcon();
 					}
 
 					@Override
 					public void handleOpen(PBIOpenState open) {
-						this.result = TextConstants_FilePaths.UNLOCKED_ICON;
+						this.result = MyResources.INSTANCE.unlockIcon();
 					}
 
 				}

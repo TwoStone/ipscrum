@@ -19,12 +19,22 @@ public interface IPBIPresenter {
 	void setupView();
 
 	/**
-	 * Updates the view with the values of the feature. Does not set name and description. Call setupView to set them.
+	 * Updates the view with the values of the feature. Does not set name and
+	 * description. Call setupView to set them.
 	 */
 	void updateView();
 
 	/**
 	 * Updates the loaded feature with the values set in the view.
 	 */
-	void updatePBI() throws NoValidValueException, NoSprintDefinedException, ConsistencyException, DoubleDefinitionException, ForbiddenStateException, UserException;
+	void updatePBI() throws NoValidValueException, NoSprintDefinedException,
+			ConsistencyException, DoubleDefinitionException,
+			ForbiddenStateException, UserException;
+
+	/**
+	 * Is called inside the updatePBI logic. Do own logic here.
+	 * 
+	 * @throws UserException
+	 */
+	void onUpdateModel() throws UserException;
 }

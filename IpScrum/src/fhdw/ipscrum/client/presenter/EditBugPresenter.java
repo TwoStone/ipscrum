@@ -5,7 +5,12 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.presenter.interfaces.IBugPresenter;
 import fhdw.ipscrum.client.view.EditBugView;
 import fhdw.ipscrum.client.view.interfaces.IEditBugView;
+import fhdw.ipscrum.shared.exceptions.ConsistencyException;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
+import fhdw.ipscrum.shared.exceptions.NoSprintDefinedException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Bug;
 
@@ -43,8 +48,11 @@ public class EditBugPresenter extends EditPBIPresenter implements IBugPresenter 
 	}
 
 	@Override
-	public void updatePBI() throws UserException {
-		super.updatePBI();
-		this.bugPresenter.updatePBI();
+	public void onUpdateModel() throws NoValidValueException,
+			NoSprintDefinedException, ConsistencyException,
+			DoubleDefinitionException, ForbiddenStateException, UserException {
+		// TODO Auto-generated method stub
+		super.onUpdateModel();
+		this.bugPresenter.onUpdateModel();
 	}
 }

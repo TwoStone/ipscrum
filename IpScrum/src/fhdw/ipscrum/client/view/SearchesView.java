@@ -5,9 +5,10 @@ import java.util.Comparator;
 
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
-import com.google.gwt.cell.client.ImageCell;
+import com.google.gwt.cell.client.ImageResourceCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
@@ -20,9 +21,9 @@ import com.google.gwt.view.client.ListDataProvider;
 import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
+import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.view.interfaces.ISearchesView;
 import fhdw.ipscrum.client.view.widgets.QuestionDialog;
-import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.search.Search;
 
 public class SearchesView extends Composite implements ISearchesView {
@@ -79,12 +80,12 @@ public class SearchesView extends Composite implements ISearchesView {
 		this.initWidget(this.savedSearchesTable);
 		this.savedSearchesTable.setSize("100%", "100%");
 
-		final Column<Search, String> iconColumn = new Column<Search, String>(
-				new ImageCell()) {
+		final Column<Search, ImageResource> iconColumn = new Column<Search, ImageResource>(
+				new ImageResourceCell()) {
 
 			@Override
-			public String getValue(Search object) {
-				return TextConstants_FilePaths.SEARCH_ICON;
+			public ImageResource getValue(Search object) {
+				return MyResources.INSTANCE.searchIcon();
 			}
 		};
 		iconColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);

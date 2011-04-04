@@ -11,10 +11,12 @@ import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 
-public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresenter {
+public class CreateBugPresenter extends CreatePBIPresenter implements
+		IBugPresenter {
 	private IBugPresenter bugPresenter;
 
-	public CreateBugPresenter(Panel parent, ProductBacklog backlog, Presenter<?> parentPresenter) throws NoPBISelectedException {
+	public CreateBugPresenter(Panel parent, ProductBacklog backlog,
+			Presenter<?> parentPresenter) throws NoPBISelectedException {
 		super(parent, createNewBug(backlog), parentPresenter);
 	}
 
@@ -38,14 +40,17 @@ public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresen
 	}
 
 	/**
-	 * Creates a new feature. Only for internal use because catching exceptions in constructor does not work.
+	 * Creates a new feature. Only for internal use because catching exceptions
+	 * in constructor does not work.
 	 * 
 	 * @return Bug A new {@link Bug} with dummy name.
 	 */
 	private static Bug createNewBug(final ProductBacklog backlog) {
 		try {
-			// Übergeben eines Platzhalters als Namen, da erstellen mit leerem Namen nicht funktioniert.
-			return new Bug(NEWPBINAME, "", backlog.getProject().getReleasePlan().get(0), backlog);
+			// Übergeben eines Platzhalters als Namen, da erstellen mit leerem
+			// Namen nicht funktioniert.
+			return new Bug(NEWPBINAME, "", backlog.getProject()
+					.getReleasePlan().get(0), backlog);
 		} catch (final UserException e) {
 			GwtUtils.displayError(e);
 		}
@@ -59,8 +64,8 @@ public class CreateBugPresenter extends CreatePBIPresenter implements IBugPresen
 	}
 
 	@Override
-	public void updatePBI() throws UserException {
-		super.updatePBI();
+	public void onUpdateModel() throws UserException {
+		// super.updatePBI();
 		this.bugPresenter.updatePBI();
 	}
 }

@@ -19,17 +19,17 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PersonArgs;
+import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.view.interfaces.IRootView;
-import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
- * RootView. Used for the main layout of the application.
- * This composite also contains the login form.
+ * RootView. Used for the main layout of the application. This composite also
+ * contains the login form.
  */
 public class RootView extends Composite implements IRootView {
 	private final ListBox comboBoxUsers;
-	private final HashMap<Integer,IPerson> userMap = new HashMap<Integer,IPerson>();
+	private final HashMap<Integer, IPerson> userMap = new HashMap<Integer, IPerson>();
 	private final Button btnLogin;
 	private final Button btnLogout;
 	private final Event<PersonArgs> loginEvent = new Event<PersonArgs>();
@@ -46,15 +46,17 @@ public class RootView extends Composite implements IRootView {
 		mainPanel.add(headPanel);
 		headPanel.setSize("1000px", "50px");
 
-		Image image = new Image(TextConstants_FilePaths.LOGO_PATH);
+		Image image = new Image(MyResources.INSTANCE.logoSmall());
 		headPanel.add(image);
 		image.setSize("157px", "50px");
 
 		HorizontalPanel loginPanel = new HorizontalPanel();
 		loginPanel.setSpacing(5);
 		headPanel.add(loginPanel);
-		headPanel.setCellVerticalAlignment(loginPanel, HasVerticalAlignment.ALIGN_MIDDLE);
-		headPanel.setCellHorizontalAlignment(loginPanel, HasHorizontalAlignment.ALIGN_RIGHT);
+		headPanel.setCellVerticalAlignment(loginPanel,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		headPanel.setCellHorizontalAlignment(loginPanel,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		this.comboBoxUsers = new ListBox();
 		loginPanel.add(this.comboBoxUsers);
@@ -68,7 +70,8 @@ public class RootView extends Composite implements IRootView {
 		this.btnLogin.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				RootView.this.loginEvent.fire(RootView.this, new PersonArgs(RootView.this.getSelectedUser()));
+				RootView.this.loginEvent.fire(RootView.this, new PersonArgs(
+						RootView.this.getSelectedUser()));
 			}
 		});
 		this.btnLogin.setSize("66px", "22px");
@@ -88,8 +91,12 @@ public class RootView extends Composite implements IRootView {
 		this.contentPanel.setSize("1000px", "650px");
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#fillComboBoxUsers(java.util.ArrayList)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.interfaces.IRootView#fillComboBoxUsers(java.
+	 * util.ArrayList)
 	 */
 	@Override
 	public void fillComboBoxUsers(ArrayList<IPerson> tempUserList) {
@@ -102,13 +109,16 @@ public class RootView extends Composite implements IRootView {
 
 	/**
 	 * Returns the selected user of the ComboBox.
+	 * 
 	 * @return selected user as an instance of IPerson
 	 */
 	private IPerson getSelectedUser() {
 		return this.userMap.get(this.comboBoxUsers.getSelectedIndex());
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#activateLogin()
 	 */
 	@Override
@@ -117,7 +127,9 @@ public class RootView extends Composite implements IRootView {
 		this.btnLogin.setEnabled(true);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#deactivateLogin()
 	 */
 	@Override
@@ -126,7 +138,9 @@ public class RootView extends Composite implements IRootView {
 		this.btnLogin.setEnabled(false);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.client.view.interfaces.IRootView#getContentPanel()
 	 */
 	@Override

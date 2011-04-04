@@ -77,10 +77,10 @@ public abstract class EditPBIPresenter extends PBIPresenter<IPBIView> {
 	}
 
 	@Override
-	public void updatePBI() throws NoValidValueException,
+	public void onUpdateModel() throws NoValidValueException,
 			NoSprintDefinedException, ConsistencyException,
 			DoubleDefinitionException, ForbiddenStateException, UserException {
-		super.updatePBI();
+		// super.updatePBI();
 		this.getPbi().setManDayCosts(
 				new Effort(((IEditPBIView) this.getView()).getComplexity()));
 	}

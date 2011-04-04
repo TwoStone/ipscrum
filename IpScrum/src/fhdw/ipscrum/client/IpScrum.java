@@ -24,7 +24,6 @@ public class IpScrum implements EntryPoint {
 	static {
 		GChart.setCanvasFactory(new GWTCanvasBasedCanvasFactory());
 	}
-
 	public static PresenterLaunchWidget presenterLaunchWidget;
 
 	/**
