@@ -17,9 +17,9 @@ import fhdw.ipscrum.shared.model.messages.MessageVisitor;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
-public class SprintBacklog extends Observable implements BDACompare, Serializable, Observer {
+public class SprintBacklog extends Observable implements BDACompare, Serializable, TransientObserver {
 
 	private static final long serialVersionUID = 2775810634965110269L;
 	@SuppressWarnings("rawtypes")

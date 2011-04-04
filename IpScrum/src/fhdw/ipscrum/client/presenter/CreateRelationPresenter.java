@@ -21,12 +21,12 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
 /**
  */
 public class CreateRelationPresenter extends Presenter<ICreateRelationView>
-		implements Observer {
+		implements TransientObserver {
 	private Relation relation;
 	private final String sourceName;
 	private final ProductBacklog backlog;

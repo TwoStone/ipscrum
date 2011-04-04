@@ -10,10 +10,10 @@ import fhdw.ipscrum.client.view.interfaces.ISearchesView;
 import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
 public class SearchesPresenter extends Presenter<ISearchesView> implements
-		Observer {
+		TransientObserver {
 
 	private final Event<SearchEventArgs> doSearch;
 	private final SearchManager manager;

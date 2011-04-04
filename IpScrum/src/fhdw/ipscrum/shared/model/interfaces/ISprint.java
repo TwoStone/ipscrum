@@ -13,14 +13,14 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.SprintBacklog;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 import fhdw.ipscrum.shared.observer.IObservable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
 /**
  * Interface for Sprints in Scrum. A sprint contains productbacklogitems and has
  * a fixed time frame. The name is used to identify a sprint.
  */
 public interface ISprint extends BDACompare, Serializable,
-		ITreeVisitorRelevantElement, Observer, IObservable {
+		ITreeVisitorRelevantElement, TransientObserver, IObservable {
 	/**
 	 * Method getBegin.
 	 * 

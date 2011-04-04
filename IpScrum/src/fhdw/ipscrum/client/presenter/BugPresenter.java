@@ -16,9 +16,9 @@ import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
-public class BugPresenter implements Observer, IBugPresenter {
+public class BugPresenter implements TransientObserver, IBugPresenter {
 	private final IBugView view;
 	private final PBIPresenter<?> presenter;
 

@@ -54,123 +54,110 @@ public abstract class Observable implements Serializable, IObservable {
 	/**
 	 * Each Observer is only one time in the list.
 	 */
-	private transient Vector<Observer> observers;
+	private transient Vector<TransientObserver> observers;
+
+	private Vector<PersistentObserver> persistentObservers;
 
 	/**
 	 * Construct an Observable with zero Observers.
 	 */
 	public Observable() {
-		this.observers = new Vector<Observer>();
+		this.observers = new Vector<TransientObserver>();
+		this.persistentObservers = new Vector<PersistentObserver>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.observer.IObservable#addObserver(fhdw.ipscrum.shared
-	 * .observer.Observer)
+	private Vector<PersistentObserver> getPersistentObservers() {
+		if (this.persistentObservers == null) {
+			this.persistentObservers = new Vector<PersistentObserver>();
+		}
+		return this.persistentObservers;
+	}
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#addObserver(fhdw.ipscrum.shared.observer.TransientObserver)
 	 */
-	@Override
-	public void addObserver(final Observer observer) {
-		this.getObservers().add(observer);
+	public void addObserver(final TransientObserver observer) {
+		this.getTransientObservers().add(observer);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#addObserver(fhdw.ipscrum.shared.observer.PersistentObserver)
+	 */
+	public void addObserver(final PersistentObserver observer) {
+		this.getPersistentObservers().add(observer);
+	}
+
+	/* (non-Javadoc)
 	 * @see fhdw.ipscrum.shared.observer.IObservable#countObservers()
 	 */
-	@Override
 	public int countObservers() {
-		return this.getObservers().size();
+		return this.countTransientObservers() + this.countPersistentObservers();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.observer.IObservable#deleteObserver(fhdw.ipscrum.
-	 * shared.observer.Observer)
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#countTransientObservers()
 	 */
-	@Override
-	public void deleteObserver(final Observer observer) {
-		this.getObservers().remove(observer);
+	public int countTransientObservers() {
+		return this.getTransientObservers().size();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#countPersistentObservers()
+	 */
+	public int countPersistentObservers() {
+		return this.getPersistentObservers().size();
+	}
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#deleteObserver(fhdw.ipscrum.shared.observer.TransientObserver)
+	 */
+	public void deleteObserver(final TransientObserver observer) {
+		this.getTransientObservers().remove(observer);
+	}
+
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#deleteObserver(fhdw.ipscrum.shared.observer.PersistentObserver)
+	 */
+	public void deleteObserver(final PersistentObserver observer) {
+		this.getPersistentObservers().remove(observer);
+	}
+
+	/* (non-Javadoc)
 	 * @see fhdw.ipscrum.shared.observer.IObservable#deleteObservers()
 	 */
-	@Override
 	public void deleteObservers() {
-		this.getObservers().removeAllElements();
+		this.getTransientObservers().removeAllElements();
+		this.getPersistentObservers().removeAllElements();
 	}
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		final Observable other = (Observable) obj;
-		if (this.getObservers() == null) {
-			if (other.getObservers() != null) {
-				return false;
-			}
-		} else if (!this.getObservers().equals(other.getObservers())) {
-			return false;
-		}
-		return true;
-	}
-
-	private Vector<Observer> getObservers() {
+	private Vector<TransientObserver> getTransientObservers() {
 		if (this.observers == null) {
-			this.observers = new Vector<Observer>();
+			this.observers = new Vector<TransientObserver>();
 		}
 		return this.observers;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((this.observers == null) ? 0 : this.observers.hashCode());
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see fhdw.ipscrum.shared.observer.IObservable#notifyObservers()
 	 */
-	@Override
 	public void notifyObservers() {
 		this.notifyObservers(null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.observer.IObservable#notifyObservers(java.lang.Object
-	 * )
+	/* (non-Javadoc)
+	 * @see fhdw.ipscrum.shared.observer.IObservable#notifyObservers(java.lang.Object)
 	 */
-	@Override
 	public void notifyObservers(final Object argument) {
-		for (final Observer current : this.getObservers()) {
+		for (final TransientObserver current : this.getTransientObservers()) {
+			current.update(this, argument);
+		}
+		for (final PersistentObserver current : this.getPersistentObservers()) {
 			current.update(this, argument);
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "Observable [observers=" + this.getObservers() + "]";
+		return "Observable [observers=" + this.getTransientObservers() + "]";
 	}
 }

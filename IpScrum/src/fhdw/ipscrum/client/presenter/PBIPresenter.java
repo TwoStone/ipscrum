@@ -28,13 +28,13 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
 /**
  * Base class for presenting {@link Feature}s.
  */
 public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
-		implements Observer, IPBIPresenter {
+		implements TransientObserver, IPBIPresenter {
 	protected static final String NEWPBINAME = "###empty###";
 
 	private final ProductBacklogItem pbi;
@@ -332,7 +332,7 @@ public abstract class PBIPresenter<T extends IPBIView> extends Presenter<T>
 	 *            Observable
 	 * @param argument
 	 *            Object
-	 * @see fhdw.ipscrum.shared.observer.Observer#update(Observable, Object)
+	 * @see fhdw.ipscrum.shared.observer.TransientObserver#update(Observable, Object)
 	 */
 	@Override
 	public void update(final Observable observable, final Object argument) {

@@ -13,7 +13,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.messages.ReleaseCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
 /**
  * Release represents a version of a project. A release could have a number of
@@ -21,7 +21,7 @@ import fhdw.ipscrum.shared.observer.Observer;
  * 
  * A Release belongs to explicit one project.
  */
-public class Release extends Observable implements IRelease, Observer {
+public class Release extends Observable implements IRelease, TransientObserver {
 
 	private static final long serialVersionUID = 5237642704820206585L;
 

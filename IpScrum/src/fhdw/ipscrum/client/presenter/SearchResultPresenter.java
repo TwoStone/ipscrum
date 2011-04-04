@@ -16,10 +16,10 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.Observer;
+import fhdw.ipscrum.shared.observer.TransientObserver;
 
 public class SearchResultPresenter extends Presenter<ISearchResultView>
-		implements Observer {
+		implements TransientObserver {
 
 	private Collection<ProductBacklogItem> resultList;
 
