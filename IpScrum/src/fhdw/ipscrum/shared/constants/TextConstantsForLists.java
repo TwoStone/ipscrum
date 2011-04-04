@@ -3,47 +3,49 @@ package fhdw.ipscrum.shared.constants;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("serial")
+// Werden nur in der Oberfläche verwendet.
 public final class TextConstantsForLists {
 
 	public static final Map<Integer, String> SEARCH_TYPES = new HashMap<Integer, String>() {
 		{
-			put(1, "Logischer Operator");
-			put(2, "Suchkriterium");
+			this.put(1, "Logischer Operator");
+			this.put(2, "Suchkriterium");
 		}
 	};;
 
 	public static final Map<Integer, String> SEARCH_LOGICALS = new HashMap<Integer, String>() {
 		{
-			put(1, "AND");
-			put(2, "OR");
-			put(3, "NOT");
+			this.put(1, "AND");
+			this.put(2, "OR");
+			this.put(3, "NOT");
 		}
 	};;
 
 	public static final Map<Integer, String> SEARCH_CRITERIA = new HashMap<Integer, String>() {
 		{
-			put(1, "Freitextsuche");
-			put(2, "Projekt");
-			put(3, "Release");
-			put(4, "Name");
-			put(5, "Sprint-Beschreibung");
-			put(6, "Sprint-Name");
-			put(7, "Aufwand");
-			put(8, "Status");
-			put(9, "Letzter Bearbeiter");
-			put(10, "Beschreibung");
-			put(11, "Beziehung");
-			put(12, "Hinweis");
-			put(13, "Akzeptanzkriterium");
-			put(14, "System (nur Bugs)");
-			put(15, "Version (nur Bugs)");
+			this.put(1, "Freitextsuche");
+			this.put(2, "Projekt");
+			this.put(3, "Release");
+			this.put(4, "Name");
+			this.put(5, "Sprint-Beschreibung");
+			this.put(6, "Sprint-Name");
+			this.put(7, "Aufwand");
+			this.put(8, "Status");
+			this.put(9, "Letzter Bearbeiter");
+			this.put(10, "Beschreibung");
+			this.put(11, "Beziehung");
+			this.put(12, "Hinweis");
+			this.put(13, "Akzeptanzkriterium");
+			this.put(14, "System (nur Bugs)");
+			this.put(15, "Version (nur Bugs)");
 		}
 	};;
 
 	public static final Map<Integer, String> SEARCH_PBI_STATE = new HashMap<Integer, String>() {
 		{
-			put(1, "Offen");
-			put(2, "Geschlossen");
+			this.put(1, "Offen");
+			this.put(2, "Geschlossen");
 		}
 	};;
 }

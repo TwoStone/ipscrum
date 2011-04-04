@@ -15,7 +15,7 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
 
 public class DemoModel {
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "unused" })
 	public static void populateModel(final Root model) throws UserException {
 
 		final Root root = model;

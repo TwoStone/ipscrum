@@ -13,13 +13,12 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.interfaces.ITask;
 import fhdw.ipscrum.shared.model.messages.Message;
 import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
-import fhdw.ipscrum.shared.model.messages.MessageVisitor;
-import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.TransientObserver;
 
-public class SprintBacklog extends Observable implements BDACompare, Serializable, TransientObserver {
+public class SprintBacklog extends Observable implements BDACompare,
+		Serializable, TransientObserver {
 
 	private static final long serialVersionUID = 2775810634965110269L;
 	@SuppressWarnings("rawtypes")
@@ -40,6 +39,7 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 		this.taskAssoc = new OneToMany<ManyToOne, SprintBacklog>(this);
 		this.addObserver(sprint);
 	}
+
 	/**
 	 * for serialization
 	 */
@@ -47,13 +47,13 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 	private SprintBacklog() {
 	}
 
-
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return this.indirectHashCode();
 	}
+
 	@Override
-	public boolean equals(Object obj){
+	public boolean equals(Object obj) {
 		return this.indirectEquals(obj);
 	}
 
@@ -81,7 +81,7 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 	public Iterator<ITask> taskIterator() {
 		Iterator<ITask> result = null;
 		final Iterator<BDACompare> i = this.getTaskAssoc().getAssociations()
-		.iterator();
+				.iterator();
 		final Vector<ITask> taskVector = new Vector<ITask>();
 		while (i.hasNext()) {
 			taskVector.add((ITask) i.next());
@@ -129,7 +129,7 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 	 */
 	public void addTask(final ITask task) {
 		this.getTaskAssoc().add(task.getSprintBacklogAssoc());
-		((Task)task).addObserver(this);
+		((Task) task).addObserver(this);
 	}
 
 	/**
@@ -143,15 +143,16 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 
 	/**
 	 * Checks whether a task is associated with the pbi.
+	 * 
 	 * @param pbi
 	 * @return true, if pbi is element of task.assignedPBIs
 	 */
-	public boolean hasPBI(ProductBacklogItem pbi){
+	public boolean hasPBI(ProductBacklogItem pbi) {
 		boolean result = false;
-		Iterator<ITask> taskIterator = this.taskIterator();
-		while (taskIterator.hasNext()){
-			ITask current = taskIterator.next();
-			if (current.hasPBI(pbi)){
+		final Iterator<ITask> taskIterator = this.taskIterator();
+		while (taskIterator.hasNext()) {
+			final ITask current = taskIterator.next();
+			if (current.hasPBI(pbi)) {
 				result = true;
 			}
 		}
@@ -159,31 +160,37 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 	}
 
 	/**
-	 * This method deletes the PBI from all contained tasks, if the task is not finished.
-	 * @param pbi ProductBacklogItem to be deleted
+	 * This method deletes the PBI from all contained tasks, if the task is not
+	 * finished.
+	 * 
+	 * @param pbi
+	 *            ProductBacklogItem to be deleted
 	 */
 	public void removePBIFromTasks(ProductBacklogItem pbi) {
-		Iterator<ITask> taskIterator = this.taskIterator();
-		while (taskIterator.hasNext()){
-			ITask current = taskIterator.next();
-			if (current.hasPBI(pbi)){
+		final Iterator<ITask> taskIterator = this.taskIterator();
+		while (taskIterator.hasNext()) {
+			final ITask current = taskIterator.next();
+			if (current.hasPBI(pbi)) {
 				((Task) current).enforceRemovePBI(pbi);
 			}
 		}
 	}
 
-
 	/**
 	 * This is used to calculate the individual data-points per day.
-	 * @param date the day to calculate the data-point for
+	 * 
+	 * @param date
+	 *            the day to calculate the data-point for
 	 * @return the amount of effort that is left for this day.
 	 */
 	public int getEffortByDay(Date date) {
 		int result = this.calculateOverallTaskEffort();
-		Iterator<ITask> i = this.taskIterator();
+		final Iterator<ITask> i = this.taskIterator();
 		while (i.hasNext()) {
-			ITask current = i.next();
-			if (current.isFinished() && (current.getFinishDate().before(date) || current.getFinishDate().equals(date))) {
+			final ITask current = i.next();
+			if (current.isFinished()
+					&& (current.getFinishDate().before(date) || current
+							.getFinishDate().equals(date))) {
 				result -= current.getPlanEffort().getValue();
 			}
 		}
@@ -191,26 +198,30 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 	}
 
 	/**
-	 * This is to obtain a sum of all efforts of tasks that are connected to the sprint.
+	 * This is to obtain a sum of all efforts of tasks that are connected to the
+	 * sprint.
+	 * 
 	 * @return sum of task-efforts.
 	 */
 	public int calculateOverallTaskEffort() {
 		int result = 0;
-		Iterator<ITask> i = this.taskIterator();
+		final Iterator<ITask> i = this.taskIterator();
 		while (i.hasNext()) {
-			ITask current = i.next();
+			final ITask current = i.next();
 			result += current.getPlanEffort().getValue();
 		}
 		return result;
 	}
+
 	@Override
 	public void update(Observable observable, final Object argument) {
-		if (!(argument instanceof Message)){
+		if (!(argument instanceof Message)) {
 			return;
 		}
-		((Message) argument).accept( new MessageStandardVisitor() {	
+		((Message) argument).accept(new MessageStandardVisitor() {
 			@Override
-			public void handleTaskCompletionMessage(TaskCompletionMessage message) {
+			public void handleTaskCompletionMessage(
+					TaskCompletionMessage message) {
 				SprintBacklog.this.task_update(message);
 			}
 
@@ -219,8 +230,9 @@ public class SprintBacklog extends Observable implements BDACompare, Serializabl
 				// not interested in other messages
 			}
 		});
-		
+
 	}
+
 	private void task_update(TaskCompletionMessage message) {
 		this.notifyObservers(message); // delegate message to sprint
 	}

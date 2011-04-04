@@ -2,8 +2,6 @@ package fhdw.ipscrum.shared.model;
 
 import java.io.Serializable;
 
-import com.google.gwt.dev.Link;
-
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
 
 /**
@@ -27,7 +25,8 @@ public class SystemManager implements Serializable {
 	private Rootsystem rootsystem;
 
 	/**
-	 * Returns the {@link Rootsystem} object 
+	 * Returns the {@link Rootsystem} object
+	 * 
 	 * @return {@link Rootsystem}
 	 */
 	public ISystem getSystems() {

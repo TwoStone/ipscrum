@@ -31,12 +31,12 @@ public class ProductBacklog extends Observable implements BDACompare,
 	/**
 	 * Bidirectional associations to the pbis.
 	 */
-	private OneToMany<ManyToOne, ProductBacklog> assoc;
+	private OneToMany<ManyToOne<?, ?>, ProductBacklog> assoc;
 
 	/**
 	 * Bidirectional association to the project.
 	 */
-	private OneToOne<OneToOne, ProductBacklog> projectAssoc;
+	private OneToOne<OneToOne<?, ?>, ProductBacklog> projectAssoc;
 
 	@SuppressWarnings("unused")
 	/**
@@ -55,8 +55,8 @@ public class ProductBacklog extends Observable implements BDACompare,
 	 */
 	protected ProductBacklog(final Project project) {
 		super();
-		this.projectAssoc = new OneToOne<OneToOne, ProductBacklog>(this);
-		this.assoc = new OneToMany<ManyToOne, ProductBacklog>(this);
+		this.projectAssoc = new OneToOne<OneToOne<?, ?>, ProductBacklog>(this);
+		this.assoc = new OneToMany<ManyToOne<?, ?>, ProductBacklog>(this);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 	/**
 	 * Returns the bidirectional association to the pbis.
 	 */
-	protected OneToMany<ManyToOne, ProductBacklog> getAssoc() {
+	protected OneToMany<ManyToOne<?, ?>, ProductBacklog> getAssoc() {
 		return this.assoc;
 	}
 
@@ -156,7 +156,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 	/**
 	 * Returns the bidirectional association to the related project.
 	 */
-	protected OneToOne<OneToOne, ProductBacklog> getProjectAssoc() {
+	protected OneToOne<OneToOne<?, ?>, ProductBacklog> getProjectAssoc() {
 		return this.projectAssoc;
 	}
 
@@ -274,17 +274,18 @@ public class ProductBacklog extends Observable implements BDACompare,
 	private void removeFromDependentTasks(ProductBacklogItem item) {
 		Iterator<ISprint> sprintIterator = this.getProject().getSprints()
 				.iterator();
-		Vector<ISprint> mySprints = new Vector<ISprint>();
+		final Vector<ISprint> mySprints = new Vector<ISprint>();
 		while (sprintIterator.hasNext()) {
-			ISprint current = sprintIterator.next();
+			final ISprint current = sprintIterator.next();
 			if ((current).hasPBI(item)) {
 				mySprints.add(current);
 			}
 		}
 		sprintIterator = mySprints.iterator();
 		while (sprintIterator.hasNext()) {
-			ISprint current = sprintIterator.next();
-			SprintBacklog currentSprintBacklog = current.getSprintBacklog();
+			final ISprint current = sprintIterator.next();
+			final SprintBacklog currentSprintBacklog = current
+					.getSprintBacklog();
 			if (currentSprintBacklog.hasPBI(item)) {
 				currentSprintBacklog.removePBIFromTasks(item);
 			}

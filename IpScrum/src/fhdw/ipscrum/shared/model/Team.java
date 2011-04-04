@@ -20,11 +20,11 @@ public class Team implements ITeam {
 	private static final long serialVersionUID = 4333795796975266821L;
 	private String description;
 	private Vector<IPerson> members;
-	private OneToMany<ManyToOne, ITeam> toSprintAssoc;
-
+	private OneToMany<ManyToOne<?, ?>, ITeam> toSprintAssoc;
 
 	@SuppressWarnings("unused")
-	private Team() {}
+	private Team() {
+	}
 
 	/**
 	 * Constructor for Team.
@@ -37,19 +37,19 @@ public class Team implements ITeam {
 		super();
 		this.setDescription(description);
 		this.members = new Vector<IPerson>();
-		this.toSprintAssoc = new OneToMany<ManyToOne, ITeam>(this);
+		this.toSprintAssoc = new OneToMany<ManyToOne<?, ?>, ITeam>(this);
 	}
 
-
 	@Override
-	public OneToMany<ManyToOne, ITeam> getToSprintAssoc() {
+	public OneToMany<ManyToOne<?, ?>, ITeam> getToSprintAssoc() {
 		return this.toSprintAssoc;
 	}
 
 	@Override
 	public Vector<ISprint> getSprints() {
-		Vector<ISprint> ret = new Vector<ISprint>();
-		for (BDACompare current : this.getToSprintAssoc().getAssociations()) {
+		final Vector<ISprint> ret = new Vector<ISprint>();
+		for (final BDACompare current : this.getToSprintAssoc()
+				.getAssociations()) {
 			ret.add((ISprint) current);
 		}
 		return ret;
@@ -59,31 +59,38 @@ public class Team implements ITeam {
 	public int indirectHashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime
+				* result
+				+ ((this.description == null) ? 0 : this.description.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public int hashCode() {
 		int result = this.indirectHashCode();
-		result = result + ((toSprintAssoc == null) ? 0 : toSprintAssoc.hashCode());
+		result = result
+				+ ((this.toSprintAssoc == null) ? 0 : this.toSprintAssoc
+						.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean indirectEquals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Team other = (Team) obj;
-		if (description == null) {
-			if (other.description != null)
+		}
+		final Team other = (Team) obj;
+		if (this.description == null) {
+			if (other.description != null) {
 				return false;
-		} else if (!description.equals(other.description)) {
+			}
+		} else if (!this.description.equals(other.description)) {
 			return false;
 		}
 		return true;
@@ -94,12 +101,14 @@ public class Team implements ITeam {
 		if (!this.indirectEquals(obj)) {
 			return false;
 		} else {
-			Team other = (Team) obj;
-			if (toSprintAssoc == null) {
-				if (other.toSprintAssoc != null)
+			final Team other = (Team) obj;
+			if (this.toSprintAssoc == null) {
+				if (other.toSprintAssoc != null) {
 					return false;
-			} else if (!toSprintAssoc.equals(other.toSprintAssoc))
+				}
+			} else if (!this.toSprintAssoc.equals(other.toSprintAssoc)) {
 				return false;
+			}
 		}
 		return true;
 	}
