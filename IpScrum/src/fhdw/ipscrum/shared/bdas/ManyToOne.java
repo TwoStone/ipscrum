@@ -1,13 +1,14 @@
 package fhdw.ipscrum.shared.bdas;
 
-@SuppressWarnings("unchecked")
-/**
- * This association in a Many-to-One scenario is referenced 0/many times 
- * and references 1 or 0 associations.
- */
-public class ManyToOne<A extends OneToMany, F extends BDACompare> extends
+public class ManyToOne<A extends OneToMany<?, ?>, F extends BDACompare> extends
 		BDABaseLogic<A, F> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4241282566454466117L;
+
+	@SuppressWarnings("unused")
 	private ManyToOne() {
 	}
 

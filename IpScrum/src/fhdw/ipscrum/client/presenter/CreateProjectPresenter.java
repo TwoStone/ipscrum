@@ -52,9 +52,9 @@ public class CreateProjectPresenter extends Presenter<ICreateProjectView> {
 						SessionManager.getInstance().getModel()
 								.addProject(new Project(view.getProjectName()));
 					} catch (final ConsistencyException e) {
-						GwtUtils.displayError(e.getMessage());
+						GwtUtils.displayError(e);
 					} catch (final DoubleDefinitionException e) {
-						GwtUtils.displayError(e.getMessage());
+						GwtUtils.displayError(e);
 					}
 					CreateProjectPresenter.this.finish();
 				} catch (final NoValidValueException e) {

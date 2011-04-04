@@ -15,9 +15,7 @@ import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.messages.Message;
 import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
-import fhdw.ipscrum.shared.model.messages.MessageVisitor;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
-import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.Observer;
 
@@ -26,7 +24,7 @@ import fhdw.ipscrum.shared.observer.Observer;
  * ProductBacklogItems.
  */
 public class ProductBacklog extends Observable implements BDACompare,
-		Serializable , Observer{
+		Serializable, Observer {
 
 	private static final long serialVersionUID = -5276089275386947750L;
 
@@ -72,9 +70,11 @@ public class ProductBacklog extends Observable implements BDACompare,
 		if (item != null) {
 			if (item.getBacklog() == null) {
 				this.getAssoc().add(item.getBacklogAssoc());
+				item.addObserver(this);
 				this.notifyObservers();
 			} else if (item.getBacklog() == this) {
 				this.getAssoc().add(item.getBacklogAssoc());
+				item.addObserver(this);
 				this.notifyObservers();
 			} else {
 				// Needed because in this case a change is not alowed.
@@ -259,28 +259,33 @@ public class ProductBacklog extends Observable implements BDACompare,
 		this.removeFromDependentTasks(item); // Phase III
 		item.setSprint(null);// Providing Consistency
 		this.getAssoc().remove(item.getBacklogAssoc());
+		item.deleteObserver(this);
 		this.notifyObservers();
 	}
+
 	/**
-	 * removes item from tasks, which have a reference to the item.
-	 * if dependent tasks are finished, the reference cannot be deleted and it
-	 * will persist in the task as a string-value
-	 * @param item item which shall be deleted
+	 * removes item from tasks, which have a reference to the item. if dependent
+	 * tasks are finished, the reference cannot be deleted and it will persist
+	 * in the task as a string-value
+	 * 
+	 * @param item
+	 *            item which shall be deleted
 	 */
 	private void removeFromDependentTasks(ProductBacklogItem item) {
-		Iterator<ISprint> sprintIterator = this.getProject().getSprints().iterator();
+		Iterator<ISprint> sprintIterator = this.getProject().getSprints()
+				.iterator();
 		Vector<ISprint> mySprints = new Vector<ISprint>();
-		while (sprintIterator.hasNext()){
+		while (sprintIterator.hasNext()) {
 			ISprint current = sprintIterator.next();
-			if ((current).hasPBI(item)){
+			if ((current).hasPBI(item)) {
 				mySprints.add(current);
-			}	
+			}
 		}
 		sprintIterator = mySprints.iterator();
-		while (sprintIterator.hasNext()){
+		while (sprintIterator.hasNext()) {
 			ISprint current = sprintIterator.next();
 			SprintBacklog currentSprintBacklog = current.getSprintBacklog();
-			if (currentSprintBacklog.hasPBI(item)){
+			if (currentSprintBacklog.hasPBI(item)) {
 				currentSprintBacklog.removePBIFromTasks(item);
 			}
 		}
@@ -293,11 +298,11 @@ public class ProductBacklog extends Observable implements BDACompare,
 
 	@Override
 	public void update(Observable observable, Object argument) {
-		if(!(argument instanceof Message)){
+		if (!(argument instanceof Message)) {
 			return;
 		}
-		((Message)argument).accept(new MessageStandardVisitor() {
-			
+		((Message) argument).accept(new MessageStandardVisitor() {
+
 			@Override
 			public void handlePBICompletionMessage(PBICompletionMessage message) {
 				ProductBacklog.this.pbi_update(message);
@@ -308,7 +313,7 @@ public class ProductBacklog extends Observable implements BDACompare,
 				// not interested in other messages
 			}
 		});
-		
+
 	}
 
 	private void pbi_update(PBICompletionMessage message) {

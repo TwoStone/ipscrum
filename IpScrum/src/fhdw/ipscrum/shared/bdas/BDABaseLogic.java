@@ -30,9 +30,9 @@ import java.util.Vector;
  * <br />
  * <b>Example: 1:1 Scenario between ClassA and ClassB</b><br />
  * TODO Example will Follow
- *</p>
+ * </p>
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 		implements Serializable {
 
@@ -52,7 +52,6 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	/**
 	 * Only for Serialization
 	 */
-	@SuppressWarnings("unused")
 	protected BDABaseLogic() {
 	}
 
@@ -197,8 +196,8 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	/**
 	 * Helper for equals to ensure that no cycles will appear.
 	 */
-	private boolean indirectEquals(final BDABaseLogic current,
-			final BDABaseLogic object) {
+	private boolean indirectEquals(final BDABaseLogic<?, ?> current,
+			final BDABaseLogic<?, ?> object) {
 		return current.getElement().indirectEquals(object.getElement());
 	}
 
@@ -213,7 +212,7 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
-		final BDABaseLogic other = (BDABaseLogic) obj;
+		final BDABaseLogic<?, ?> other = (BDABaseLogic<?, ?>) obj;
 		// Haben beide das gleiche Basiselement?
 		if (!this.indirectEquals(this, other)) {
 			return false;
@@ -242,11 +241,11 @@ public abstract class BDABaseLogic<T extends BDABaseLogic, E extends BDACompare>
 	 * Compares the list of connected associations.<br />
 	 * Returns true if both lists are equal an in same order.
 	 */
-	private boolean equalsForAll(final BDABaseLogic other) {
+	private boolean equalsForAll(final BDABaseLogic<?, ?> other) {
 		if (this.getConnectTo().size() == other.getConnectTo().size()) {
 			for (int i = 0; i <= this.getConnectTo().size() - 1; i++) {
-				if (!this.indirectEquals(this.getAssociation(i), other
-						.getAssociation(i))) {
+				if (!this.indirectEquals(this.getAssociation(i),
+						other.getAssociation(i))) {
 					return false;
 				}
 			}

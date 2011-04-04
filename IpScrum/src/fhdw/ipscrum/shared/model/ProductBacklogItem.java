@@ -304,9 +304,12 @@ public abstract class ProductBacklogItem extends Observable implements
 	protected void doSetSprint(final ISprint sprint)
 			throws NoSprintDefinedException, ConsistencyException,
 			ForbiddenStateException {
+		if (this.getSprint() != null)
+			this.getSprint().deleteObserver(this);
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getSprintAssoc().set((sprint.getToPBIAssoc()));
+			sprint.addObserver(this);
 		} else {
 			this.getSprintAssoc().set(null);
 		}
@@ -627,7 +630,6 @@ public abstract class ProductBacklogItem extends Observable implements
 
 	@Override
 	public void update(Observable observable, Object argument) {
-		// TODO Auto-generated method stub
-
+		this.notifyObservers();
 	}
 }

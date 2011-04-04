@@ -1,6 +1,5 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,7 +17,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
@@ -37,17 +36,21 @@ import fhdw.ipscrum.shared.model.System;
  */
 public class SelectSystemView extends Composite implements ISelectSystemView {
 
-	private CellTable<System> cellTableAusgewaehlteSysteme;
+	private ListDataProvider<System> systemDataProvider;
+	private SingleSelectionModel<System> systemSelectionModel;
 	private Tree tree;
 	private final Event<SystemArgs> removeSelectedSystem = new Event<SystemArgs>();
 	private final Event<SystemArgs> addSelectedSystem = new Event<SystemArgs>();
 	private final Event<EventArgs> save = new Event<EventArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
-	private MultiSelectionModel<System> selModelSystemTable;
 	private final Button btnOk;
 	private final Button btnAbbrechen;
 
 	public SelectSystemView() {
+
+		systemDataProvider = new ListDataProvider<System>();
+		systemSelectionModel = new SingleSelectionModel<System>(
+				systemDataProvider);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
@@ -64,11 +67,11 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		scrollPanel.setStyleName("tableBorder");
 		scrollPanel.setSize("250px", "425px");
 
-		this.cellTableAusgewaehlteSysteme = new CellTable<System>();
-		scrollPanel.setWidget(this.cellTableAusgewaehlteSysteme);
-		this.cellTableAusgewaehlteSysteme.setSize("100%", "100%");
-		this.cellTableAusgewaehlteSysteme
-				.setSelectionModel(new SingleSelectionModel<System>());
+		CellTable<System> cellTableAusgewaehlteSysteme = new CellTable<System>();
+		this.systemDataProvider.addDataDisplay(cellTableAusgewaehlteSysteme);
+		scrollPanel.setWidget(cellTableAusgewaehlteSysteme);
+		cellTableAusgewaehlteSysteme.setSize("100%", "100%");
+		cellTableAusgewaehlteSysteme.setSelectionModel(systemSelectionModel);
 
 		final TextColumn<System> colSystemName = new TextColumn<System>() {
 			@Override
@@ -76,8 +79,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 				return object.getName();
 			}
 		};
-		this.cellTableAusgewaehlteSysteme
-				.addColumn(colSystemName, "Systemname");
+		cellTableAusgewaehlteSysteme.addColumn(colSystemName, "Systemname");
 
 		final VerticalPanel verticalPanelAllocationButtons = new VerticalPanel();
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
@@ -171,12 +173,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public System getSelectedOfSelectedSystems() {
-		@SuppressWarnings("unchecked")
-		final// TODO Christin: geht das nicht schöner?
-		SingleSelectionModel<System> selSysModel = (SingleSelectionModel<System>) this.cellTableAusgewaehlteSysteme
-				.getSelectionModel();
-		final System selectedSystem = selSysModel.getSelectedObject();
-		return selectedSystem;
+		return systemSelectionModel.getSelectedObject();
 	}
 
 	@Override
@@ -192,8 +189,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	@Override
 	public void updateSelectedSystemData(
 			final Collection<System> selectedSystems) {
-		this.cellTableAusgewaehlteSysteme.setRowData(new ArrayList<System>(
-				selectedSystems));
+		this.systemDataProvider.getList().clear();
+		systemDataProvider.getList().addAll(selectedSystems);
 	}
 
 	@Override
@@ -201,14 +198,9 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 			final Collection<System> availableSystems,
 			final Collection<System> selectedSystems) {
 		this.tree.clear();
-		final Collection<System> displayedSystems = new ArrayList<System>();
 		for (final System system : availableSystems) {
 			this.buildTree(system, this.tree, selectedSystems);
-			// if (!this.isSelectedSystem(system, selectedSystems)) {
-			//
-			// }
 		}
-		// this.fillTree(availableSystems, null);
 	}
 
 	private void buildTree(final System system, final HasTreeItems parent,
@@ -235,22 +227,6 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 			}
 		}
 		return false;
-	}
-
-	private void fillTree(final Collection<System> systems,
-			final TreeItem parent) {
-		for (final System system : systems) {
-			final TreeItem tItem = new TreeItem(system.toString());
-			tItem.setUserObject(system);
-			if (parent == null) {
-				this.tree.addItem(tItem);
-			} else {
-				parent.addItem(tItem);
-			}
-			tItem.setState(true);
-
-			this.fillTree(system.getSystems(), tItem);
-		}
 	}
 
 	@Override

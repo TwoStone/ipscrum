@@ -13,6 +13,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.messages.ReleaseCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.Observer;
 
 /**
  * Release represents a version of a project. A release could have a number of
@@ -20,7 +21,7 @@ import fhdw.ipscrum.shared.observer.Observable;
  * 
  * A Release belongs to explicit one project.
  */
-public class Release extends Observable implements IRelease {
+public class Release extends Observable implements IRelease, Observer {
 
 	private static final long serialVersionUID = 5237642704820206585L;
 
@@ -129,18 +130,20 @@ public class Release extends Observable implements IRelease {
 	public void addSprint(final ISprint sprint) throws UserException {
 		this.getProject().isSprintDefined(sprint);
 		this.getSprintAssoc().add(sprint.getToReleaseAssoc());
+		sprint.addObserver(this);
 	}
 
 	@Override
 	public void removeAllSprints() {
 		for (final ISprint current : this.getSprints()) {
-			this.getSprintAssoc().remove(current.getToReleaseAssoc());
+			removeSprint(current);
 		}
 	}
 
 	@Override
 	public void removeSprint(final ISprint sprint) {
 		this.getSprintAssoc().remove(sprint.getToReleaseAssoc());
+		sprint.deleteObserver(this);
 	}
 
 	@Override
@@ -268,5 +271,10 @@ public class Release extends Observable implements IRelease {
 			this.notifyObservers(message);
 		}
 
+	}
+
+	@Override
+	public void update(Observable observable, Object argument) {
+		notifyObservers();
 	}
 }

@@ -142,6 +142,7 @@ public class Project extends Observable implements BDACompare, Serializable,
 					fhdw.ipscrum.shared.constants.ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else {
 			this.getSprints().add(sprint);
+			sprint.addObserver(this);
 			this.notifyObservers();
 		}
 	}

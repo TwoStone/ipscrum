@@ -2,14 +2,15 @@ package fhdw.ipscrum.shared.bdas;
 
 import java.util.Vector;
 
-@SuppressWarnings("unchecked")
-/**
- * This association in a Many-to-One scenario is referenced 0/1 time and
- * references 0/many associations.
- */
-public class OneToMany<A extends ManyToOne, F extends BDACompare> extends
+public class OneToMany<A extends ManyToOne<?, ?>, F extends BDACompare> extends
 		BDABaseLogic<A, F> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6011490089965913363L;
+
+	@SuppressWarnings("unused")
 	private OneToMany() {
 	}
 

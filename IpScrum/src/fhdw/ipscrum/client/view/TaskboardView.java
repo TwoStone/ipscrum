@@ -57,17 +57,17 @@ public class TaskboardView extends Composite implements ITaskboardView {
 
 	// ####### View Elements ###############
 	private SingleSelectionModel<ISprint> sprintSelectionModel;
-	private HorizontalPanel contentPanel;
-	private Button btnEditInProgressTask;
-	private CellList<ProductBacklogItem> pbiCellList;
-	private Button btnNewTask;
-	private Button btnEditDoneTask;
-	private Button btnEditTodoTask;
-	private CellList<ITask> todoCellList;
-	private CellList<ITask> doneCellList;
-	private CellList<ITask> inProgressCellList;
-	private Button btnDeleteTodoTask;
-	private AbsolutePanel concreteTaskboardPanel;
+	private final HorizontalPanel contentPanel;
+	private final Button btnEditInProgressTask;
+	private final CellList<ProductBacklogItem> pbiCellList;
+	private final Button btnNewTask;
+	private final Button btnEditDoneTask;
+	private final Button btnEditTodoTask;
+	private final CellList<ITask> todoCellList;
+	private final CellList<ITask> doneCellList;
+	private final CellList<ITask> inProgressCellList;
+	private final Button btnDeleteTodoTask;
+	private final AbsolutePanel concreteTaskboardPanel;
 
 	// ####### Ende View Elements ###############
 
@@ -75,6 +75,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	 * Constructor for {@link TaskboardView}. Creates all View-Elements for the
 	 * taskboard and calls the initTreeSelectionModel().
 	 */
+	@SuppressWarnings("deprecation")
 	public TaskboardView() {
 
 		this.initTreeSelectionModel();
@@ -96,7 +97,8 @@ public class TaskboardView extends Composite implements ITaskboardView {
 				new SprintSelectionTreeViewModel(sprintSelectionModel), null);
 		projectCellTree.setAnimationEnabled(true);
 
-		stackPanel.add(projectCellTree, TextConstants.CHART_SPRINTSTACK_TITLE, false);
+		stackPanel.add(projectCellTree, TextConstants.CHART_SPRINTSTACK_TITLE,
+				false);
 		projectCellTree.setSize("100%", "100%");
 
 		concreteTaskboardPanel = new AbsolutePanel();
@@ -113,14 +115,14 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		newTasklPanel.add(lblPBI);
 		lblPBI.setSize("", "");
 		lblPBI.setStyleName("taskboardLabel");
-		lblPBI.addMouseListener(new ToolTipListener(TextConstants.PBI_MOUSEOVER, 9999999, "taskboardLabel"));
-		
+		lblPBI.addMouseListener(new ToolTipListener(
+				TextConstants.PBI_MOUSEOVER, 9999999, "taskboardLabel"));
+
 		ScrollPanel newTaskScrollPanel = new ScrollPanel();
 		newTaskScrollPanel.setStyleName("smallborder");
 		newTasklPanel.add(newTaskScrollPanel);
 		newTaskScrollPanel.setSize("160px", "250px");
 
-		
 		pbiCellList = new CellList<ProductBacklogItem>(
 				new AbstractCell<ProductBacklogItem>() {
 					@Override
@@ -139,17 +141,18 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		newTasklPanel.add(btnNewTask);
 		btnNewTask.setText(TextConstants.NEW_TASK);
 		btnNewTask.setSize("100%", "30px");
-		
+
 		VerticalPanel toDoTaskPanel = new VerticalPanel();
 		toDoTaskPanel.setSpacing(3);
 		concreteTaskboardPanel.add(toDoTaskPanel, 242, 25);
 		toDoTaskPanel.setSize("140px", "300px");
 
 		Label lblZuErledigen = new Label(TextConstants.TO_FINISH);
-		lblZuErledigen.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		lblZuErledigen
+				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		toDoTaskPanel.add(lblZuErledigen);
 		lblZuErledigen.setStyleName("taskboardLabel");
-		
+
 		ScrollPanel toDoTaskScrollPanel = new ScrollPanel();
 		toDoTaskScrollPanel.setStyleName("smallborder");
 		toDoTaskPanel.add(toDoTaskScrollPanel);
@@ -184,7 +187,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		lblInArbeit.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		inProgressTaskPanel.add(lblInArbeit);
 		lblInArbeit.setStyleName("taskboardLabel");
-		
+
 		ScrollPanel inProgressScrollPanel = new ScrollPanel();
 		inProgressScrollPanel.setStyleName("smallborder");
 		inProgressTaskPanel.add(inProgressScrollPanel);
@@ -222,7 +225,7 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		lblErledigt.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		finishTaskPanel.add(lblErledigt);
 		lblErledigt.setStyleName("taskboardLabel");
-		
+
 		ScrollPanel finishScrollPanel = new ScrollPanel();
 		finishScrollPanel.setStyleName("smallborder");
 		finishTaskPanel.add(finishScrollPanel);
@@ -241,25 +244,26 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		btnEditDoneTask.setStyleName("taskboardButton");
 		finishTaskPanel.add(btnEditDoneTask);
 		btnEditDoneTask.setSize("100%", "28px");
-		
+
 		Image imgHelp = new Image("images/icon_hilfe.gif");
 		concreteTaskboardPanel.add(imgHelp, 682, 548);
-		
+
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		absolutePanel.setStyleName("taskboardLabel");
 		concreteTaskboardPanel.add(absolutePanel, 220, 25);
 		absolutePanel.setSize("1px", "350px");
-		
-		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP, 99999999, "taskboardLabel"));
-		
+
+		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP,
+				99999999, "taskboardLabel"));
+
 		imgHelp.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-			taskboardHelp.fire(TaskboardView.this, new EventArgs());	
+				taskboardHelp.fire(TaskboardView.this, new EventArgs());
 			}
 		});
-		
+
 		btnEditDoneTask.addClickHandler(new ClickHandler() {
 
 			@Override
@@ -346,12 +350,11 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	public void addDetailsFinishTaskEventHandler(EventHandler<TaskArgs> arg) {
 		detailsFinishTaskEvent.add(arg);
 	}
-	
 
 	@Override
 	public void addTaskboardHelpEventHandler(EventHandler<EventArgs> arg) {
 		taskboardHelp.add(arg);
-		
+
 	}
 
 	// Methods for refreshing / filling the cell-Lists
@@ -361,9 +364,9 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		this.getPbiCellList().setRowData(pbis);
 		int counter = 0;
 		for (ProductBacklogItem pbi : pbis) {
-		Element current = this.getPbiCellList().getRowElement(counter);
-		current.setTitle(pbi.getDescription());
-		counter++;
+			Element current = this.getPbiCellList().getRowElement(counter);
+			current.setTitle(pbi.getDescription());
+			counter++;
 		}
 	}
 
@@ -372,9 +375,9 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		this.getTodoCellList().setRowData(tasks);
 		int counter = 0;
 		for (ITask task : tasks) {
-		Element current = this.getTodoCellList().getRowElement(counter);
-		current.setTitle(task.getDescription());
-		counter++;
+			Element current = this.getTodoCellList().getRowElement(counter);
+			current.setTitle(task.getDescription());
+			counter++;
 		}
 		this.getTodoCellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
@@ -383,15 +386,16 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	@Override
 	public void refreshInProgressTasks(Vector<ITask> tasks) {
 		this.getInProgresscellList().setRowData(tasks);
-		
+
 		int counter = 0;
 		for (ITask task : tasks) {
-		Element current = this.getInProgresscellList().getRowElement(counter);
-		current.setTitle(task.getDescription());
-		counter++;
-		
+			Element current = this.getInProgresscellList().getRowElement(
+					counter);
+			current.setTitle(task.getDescription());
+			counter++;
+
 		}
-		
+
 		this.getInProgresscellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
 	}
@@ -399,14 +403,14 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	@Override
 	public void refreshDoneTasks(Vector<ITask> tasks) {
 		this.getDoneCellList().setRowData(tasks);
-	
+
 		int counter = 0;
 		for (ITask task : tasks) {
-		Element current = this.getDoneCellList().getRowElement(counter);
-		current.setTitle(task.getDescription());
-		counter++;
+			Element current = this.getDoneCellList().getRowElement(counter);
+			current.setTitle(task.getDescription());
+			counter++;
 		}
-		
+
 		this.getDoneCellList().setSelectionModel(
 				new SingleSelectionModel<ITask>());
 	}

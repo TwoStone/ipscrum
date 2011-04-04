@@ -20,8 +20,9 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
 public class AddPBIsToTaskPresenter extends Presenter<IAddPBIsToTaskView> {
 
 	ITask task;
-	
-	public AddPBIsToTaskPresenter(Panel parent, Presenter<?> parentPresenter, ITask task) {
+
+	public AddPBIsToTaskPresenter(Panel parent, Presenter<?> parentPresenter,
+			ITask task) {
 		super(parent, parentPresenter);
 		this.task = task;
 		addHandler();
@@ -30,62 +31,67 @@ public class AddPBIsToTaskPresenter extends Presenter<IAddPBIsToTaskView> {
 
 	private void initializeView() {
 		refreshTaskPBIs();
-		refreshSprintPBIs();		
-		}
+		refreshSprintPBIs();
+	}
 
 	private void refreshSprintPBIs() {
-		Vector<ProductBacklogItem> pbis = this.task.getSprintBacklog().getSprint().getPBIs();
+		Vector<ProductBacklogItem> pbis = this.task.getSprintBacklog()
+				.getSprint().getPBIs();
 		this.getView().refreshSprintPBIs(pbis);
 	}
 
 	private void refreshTaskPBIs() {
 		Vector<ProductBacklogItem> pbis = new Vector<ProductBacklogItem>();
 		Iterator<ProductBacklogItem> pbisIt = this.task.getPBIIterator();
-		
-		while(pbisIt.hasNext()){
+
+		while (pbisIt.hasNext()) {
 			pbis.add(pbisIt.next());
 		}
-		
+
 		this.getView().refreshTaskPBIs(pbis);
 	}
 
 	private void addHandler() {
-		this.getView().addAddPBIsToTaskEventHandler(new EventHandler<MultiplePBIArgs>() {
-			
-			@Override
-			public void onUpdate(Object sender, MultiplePBIArgs eventArgs) {
-			Iterator<ProductBacklogItem> pbis = eventArgs.getPbis().iterator();
-			
-			while(pbis.hasNext()){
-				try {
-					AddPBIsToTaskPresenter.this.task.addPBI(pbis.next());
-				} catch (ForbiddenStateException e) {
-					GwtUtils.displayError(e.getMessage());
-				} catch (SprintAssociationException e) {
-					GwtUtils.displayError(e.getMessage());
-				} catch (DoubleDefinitionException e) {
-					GwtUtils.displayError(e.getMessage());
-				}
-			}
-		AddPBIsToTaskPresenter.this.refreshTaskPBIs();
-			}
-		});
-		
+		this.getView().addAddPBIsToTaskEventHandler(
+				new EventHandler<MultiplePBIArgs>() {
+
+					@Override
+					public void onUpdate(Object sender,
+							MultiplePBIArgs eventArgs) {
+						Iterator<ProductBacklogItem> pbis = eventArgs.getPbis()
+								.iterator();
+
+						while (pbis.hasNext()) {
+							try {
+								AddPBIsToTaskPresenter.this.task.addPBI(pbis
+										.next());
+							} catch (ForbiddenStateException e) {
+								GwtUtils.displayError(e);
+							} catch (SprintAssociationException e) {
+								GwtUtils.displayError(e);
+							} catch (DoubleDefinitionException e) {
+								GwtUtils.displayError(e);
+							}
+						}
+						AddPBIsToTaskPresenter.this.refreshTaskPBIs();
+					}
+				});
+
 		this.getView().addCloseEventHandler(new EventHandler<EventArgs>() {
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-			AddPBIsToTaskPresenter.this.finish();
+				AddPBIsToTaskPresenter.this.finish();
 			}
 		});
-		
+
 	}
 
 	@Override
 	protected IAddPBIsToTaskView createView() {
-		
+
 		IAddPBIsToTaskView view = new AddPBIsToTaskView();
-		
+
 		return view;
 	}
 

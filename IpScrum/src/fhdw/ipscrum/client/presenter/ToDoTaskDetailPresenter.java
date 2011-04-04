@@ -27,8 +27,8 @@ import fhdw.ipscrum.shared.model.interfaces.ITask;
 /**
  * Presenter for {@link Task} with the state {@link TaskUnassigned}
  * 
- * @author Phase III / Group I
- * This Class is a specialization of {@link TaskDetailPresenter}
+ * @author Phase III / Group I This Class is a specialization of
+ *         {@link TaskDetailPresenter}
  */
 public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 
@@ -40,10 +40,14 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 	 * 
 	 * Gives the team-members of the sprint to the view-class
 	 * 
-	 * @param Panel parent
-	 * @param Presentere parentPresenter
-	 * @param ITask task
-	 * @param ISprint sprint
+	 * @param Panel
+	 *            parent
+	 * @param Presentere
+	 *            parentPresenter
+	 * @param ITask
+	 *            task
+	 * @param ISprint
+	 *            sprint
 	 */
 	public ToDoTaskDetailPresenter(Panel parent, Presenter<?> parentPresenter,
 			ITask task, ISprint sprint) {
@@ -72,27 +76,28 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 					ToDoTaskDetailPresenter.this.task.setDescription(getView()
 							.getDescription());
 					// Effort
-					ToDoTaskDetailPresenter.this.task.setPlanEffort(new Effort(getView().getEffortInput()));
+					ToDoTaskDetailPresenter.this.task.setPlanEffort(new Effort(
+							getView().getEffortInput()));
 					// Check if selected Person is null
 					if (getView().getPerson() != null) {
 						// Add a responsible person for the task
 						ToDoTaskDetailPresenter.this.task
-						.setResponsibility(getView().getPerson());
+								.setResponsibility(getView().getPerson());
 
 					}
 
 				} catch (ForbiddenStateException e) {
 					// Displays an error if action not allowed cause of the
 					// state
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				} catch (NoValidValueException e) {
 					// Displays an error if the given informations from the
 					// view-class are not valid
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				} catch (SprintAssociationException e) {
 					// consistency error: displays an error if the person is not
 					// in the team of the sprint
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				}
 				// fire finish event for this presenter
 				ToDoTaskDetailPresenter.this.finish();
@@ -134,13 +139,13 @@ public class ToDoTaskDetailPresenter extends TaskDetailPresenter {
 					public void onUpdate(Object sender,
 							MultiplePBIArgs eventArgs) {
 						Iterator<ProductBacklogItem> pbisIt = eventArgs
-						.getPbis().iterator();
+								.getPbis().iterator();
 
 						while (pbisIt.hasNext()) {
 							try {
 								task.removePBI(pbisIt.next());
 							} catch (ForbiddenStateException e) {
-								GwtUtils.displayError(e.getMessage());
+								GwtUtils.displayError(e);
 							}
 						}
 						refreshPBIs();

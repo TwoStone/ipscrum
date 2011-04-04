@@ -288,7 +288,8 @@ public class SprintTest {
 		final Sprint fixture = new Sprint("name", "a", new Date(), new Date(),
 				new Team("team"));
 
-		final OneToMany<ManyToOne, ISprint> result = fixture.getToPBIAssoc();
+		final OneToMany<ManyToOne<?, ?>, ISprint> result = fixture
+				.getToPBIAssoc();
 		assertNotNull(result);
 	}
 
@@ -301,7 +302,7 @@ public class SprintTest {
 		final Sprint fixture = new Sprint("name", "a", new Date(), new Date(),
 				new Team("team"));
 
-		ManyToOne<OneToMany, ISprint> result = fixture
+		ManyToOne<OneToMany<?, ?>, ISprint> result = fixture
 				.getToReleaseAssoc();
 		assertNotNull(result);
 	}

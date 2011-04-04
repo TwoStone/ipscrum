@@ -10,6 +10,10 @@ import fhdw.ipscrum.shared.model.interfaces.IPerson;
  * 
  */
 public final class Admin extends Person implements IPerson {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4251029931188074222L;
 	private static Admin instance;
 
 	/**

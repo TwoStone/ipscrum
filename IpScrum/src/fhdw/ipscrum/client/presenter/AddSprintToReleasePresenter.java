@@ -76,7 +76,7 @@ public class AddSprintToReleasePresenter extends
 					AddSprintToReleasePresenter.this.release
 							.addSprint(eventArgs.getSprint());
 				} catch (final UserException e) {
-					GwtUtils.displayError(e.getMessage());
+					GwtUtils.displayError(e);
 				}
 				AddSprintToReleasePresenter.this.finish();
 			}

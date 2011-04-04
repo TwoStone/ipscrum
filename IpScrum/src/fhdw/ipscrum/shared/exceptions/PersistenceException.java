@@ -7,7 +7,6 @@ public class PersistenceException extends Exception {
 
 	private static final long serialVersionUID = -8987838419804405820L;
 
-	@SuppressWarnings("unused")
 	protected PersistenceException() {
 	}
 

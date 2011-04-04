@@ -77,40 +77,43 @@ public class CreateTaskPresenter extends Presenter<ICreateTaskView> {
 							ITask newTask = new Task(CreateTaskPresenter.this
 									.getView().getName(),
 									CreateTaskPresenter.this.getView()
-									.getDescription());
+											.getDescription());
 							// registration for messages
-							((Task)newTask).addObserver(CreateTaskPresenter.this.sprintBacklog);
+							((Task) newTask)
+									.addObserver(CreateTaskPresenter.this.sprintBacklog);
 							// adds the task to the sprintBacklog...
 							CreateTaskPresenter.this.sprintBacklog
-							.addTask(newTask);
+									.addTask(newTask);
 
 							// sets the given plan effort from the view-class,
 							// that could be 0
-							newTask.setPlanEffort(new Effort(CreateTaskPresenter.this.getView().getEffortInput()));
+							newTask.setPlanEffort(new Effort(
+									CreateTaskPresenter.this.getView()
+											.getEffortInput()));
 
 							// adding all selected pbis to the new task
 							Iterator<ProductBacklogItem> pbiIterator = selectedPBIs
-							.iterator();
+									.iterator();
 
 							while (pbiIterator.hasNext()) {
 								try {
 									newTask.addPBI(pbiIterator.next());
 								} catch (ForbiddenStateException e) {
-									GwtUtils.displayError(e.getMessage());
+									GwtUtils.displayError(e);
 								} catch (SprintAssociationException e) {
 									// displays an error if the pbi is not
 									// contained in the sprint
-									GwtUtils.displayError(e.getMessage());
+									GwtUtils.displayError(e);
 								} catch (DoubleDefinitionException e) {
-									GwtUtils.displayError(e.getMessage());
+									GwtUtils.displayError(e);
 								}
 							}
 
 							// catching the exceptions
 						} catch (NoValidValueException e1) {
-							GwtUtils.displayError(e1.getMessage());
+							GwtUtils.displayError(e1);
 						} catch (ForbiddenStateException e) {
-							GwtUtils.displayError(e.getMessage());
+							GwtUtils.displayError(e);
 						}
 						// ... and fires a finish event
 						CreateTaskPresenter.this.finish();

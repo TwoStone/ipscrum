@@ -15,21 +15,24 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.ForbiddenStateException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Feature;
+import fhdw.ipscrum.shared.model.Person;
 import fhdw.ipscrum.shared.model.ProductBacklog;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.Sprint;
+import fhdw.ipscrum.shared.model.SprintBacklog;
+import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.Team;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import fhdw.ipscrum.shared.model.*;
-import fhdw.ipscrum.shared.exceptions.*;
 
+@SuppressWarnings("deprecation")
 public class AllInOneTests {
 
 	private static Project test = null;
@@ -49,9 +52,7 @@ public class AllInOneTests {
 	private static Boolean pl1 = null;
 	private static Iterator<ProductBacklogItem> pbiIt = null;
 	private static ProductBacklogItem pbix = null;
-	
 
-	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		test = new Project("test");
@@ -66,20 +67,19 @@ public class AllInOneTests {
 		c = new Feature("C", "testC", pbltest);
 		d = new Feature("D", "testD", pbltest);
 		t = new Feature("Task", "test Task", pbltest);
-		
+
 		team1 = new Team("Team");
 		per1 = new Person("Max", "Mustermann");
 		team1.addMember(per1);
 		t1 = new Task("Task 1", "Removing of a PBI in PBL");
-		sprint = new Sprint("Sprint", "Beschreibung", new Date(),new Date(), team1);
+		sprint = new Sprint("Sprint", "Beschreibung", new Date(), new Date(),
+				team1);
 		sprintbl = sprint.getSprintBacklog();
 		test.addSprint(sprint);
 		sprintbl.addTask(t1);
 		t.setSprint(sprint);
 		t1.addPBI(t);
 		pl1 = true;
-		
-		
 
 		// System.out.println(pbltest.getItems().toString());
 	}
@@ -582,65 +582,65 @@ public class AllInOneTests {
 	/**
 	 * Removal of a PBI in PBL, which is connected with a task
 	 */
-	public void testRemovePBI1() throws Exception{
+	public void testRemovePBI1() throws Exception {
 		final int entriesInList = pbltest.getItems().size();
 		pbltest.removeItem(t);
-		
+
 		// Has e been removed from PBL?
 		assertEquals(entriesInList - 1, pbltest.getItems().size());
-		
+
 		// Has task t1 been removed? (unassigned task)
 		pbiIt = t1.getPBIIterator();
-        pl1 = true;
-        while(pbiIt.hasNext()){
-            pbix = pbiIt.next();
-            if(pbix == t) pl1 = false;
-            }
-        assertEquals(true,pl1);
-		
+		pl1 = true;
+		while (pbiIt.hasNext()) {
+			pbix = pbiIt.next();
+			if (pbix == t)
+				pl1 = false;
+		}
+		assertEquals(true, pl1);
+
 	}
-	
+
 	@Test
 	/**
 	 * Removal of a PBI in PBL, which is connected with an assigned task
 	 */
-	public void testRemovePBI2() throws Exception{
+	public void testRemovePBI2() throws Exception {
 		pbltest.addItem(t);
 		final int entriesInList = pbltest.getItems().size();
 		t1.setResponsibility(per1);
 		pbltest.removeItem(t);
-		
+
 		// Has e been removed from PBL?
 		assertEquals(entriesInList - 1, pbltest.getItems().size());
 		// Removal of PBI from task t1 is enforced.
 		pbiIt = t1.getPBIIterator();
-        pl1 = true;
-        while(pbiIt.hasNext()){
-            pbix = pbiIt.next();
-            if(pbix == t) pl1 = false;
-            }
-        assertEquals(true,pl1);
-		
+		pl1 = true;
+		while (pbiIt.hasNext()) {
+			pbix = pbiIt.next();
+			if (pbix == t)
+				pl1 = false;
+		}
+		assertEquals(true, pl1);
+
 	}
-	
+
 	@Test(expected = ForbiddenStateException.class)
 	/**
 	 * Removal of a PBI in PBL, which is connected with an assigned task
 	 */
-	public void testRemovePBI3() throws Exception{
+	public void testRemovePBI3() throws Exception {
 		pbltest.addItem(t);
 		final int entriesInList = pbltest.getItems().size();
 		t1.finish();
 		pbltest.removeItem(t);
-		
+
 		// Has e been removed from PBL?
 		assertEquals(entriesInList - 1, pbltest.getItems().size());
 		// Removal of PBI from task t1 is not allowed.
-		
+
 	}
-	
-	
-	
+
 	// ************************************************************************
 	// ************************************************************************
 
@@ -661,5 +661,5 @@ public class AllInOneTests {
 		final ProductBacklog lvBacklog = pbltest;
 		assertEquals(lvBacklog, pbltest);
 	}
-	
+
 }

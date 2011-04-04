@@ -2,13 +2,15 @@ package fhdw.ipscrum.shared.bdas;
 
 import java.util.Vector;
 
-@SuppressWarnings("unchecked")
-/**
- * This element is referenced 0 or many times and references many
- */
-public class ManyToMany<A extends ManyToMany, F extends BDACompare> extends
-		BDABaseLogic<A, F> {
+public class ManyToMany<A extends ManyToMany<?, ?>, F extends BDACompare>
+		extends BDABaseLogic<A, F> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5339896801068234102L;
+
+	@SuppressWarnings("unused")
 	private ManyToMany() {
 	}
 

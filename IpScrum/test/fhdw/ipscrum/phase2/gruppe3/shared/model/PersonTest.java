@@ -228,7 +228,8 @@ public class PersonTest {
 	public void testGetToRoleAssoc_1() throws Exception {
 		final Person fixture = new Person("firstname", "lastname");
 
-		final ManyToMany<ManyToMany, IPerson> result = fixture.getToRoleAssoc();
+		final ManyToMany<ManyToMany<?, ?>, IPerson> result = fixture
+				.getToRoleAssoc();
 		assertNotNull(result);
 	}
 

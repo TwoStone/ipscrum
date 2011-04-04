@@ -1,6 +1,6 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 
 import fhdw.ipscrum.client.events.Event;
@@ -28,7 +29,6 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.PersonTeamArgs;
 import fhdw.ipscrum.client.view.interfaces.ITeamView;
-import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
@@ -36,20 +36,24 @@ import fhdw.ipscrum.shared.model.interfaces.IRole;
 import fhdw.ipscrum.shared.model.interfaces.ITeam;
 
 /**
- * view class of the team interface. this composes the team management gui.
- * this view is used to inspect, create and modify teams as well as adding and removing persons to teams.
+ * view class of the team interface. this composes the team management gui. this
+ * view is used to inspect, create and modify teams as well as adding and
+ * removing persons to teams.
  */
 public class TeamView extends Composite implements ITeamView {
 
-	private CellTable<IPerson> cellTablePersons;
 	private Tree tree;
 	private final Event<EventArgs> newTeamEvent = new Event<EventArgs>();
 	private final Event<PersonTeamArgs> modifyTeamEvent = new Event<PersonTeamArgs>();
 	private final Event<PersonTeamArgs> removePersonFromTeamEvent = new Event<PersonTeamArgs>();
 	private final Event<PersonTeamArgs> addPersonToTeamEvent = new Event<PersonTeamArgs>();
 	private MultiSelectionModel<IPerson> selModelPersonTable;
+	private ListDataProvider<IPerson> personDataProvider;
+	private Collection<IPerson> originalPersonList;
 
 	public TeamView() {
+
+		personDataProvider = new ListDataProvider<IPerson>();
 
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
@@ -81,7 +85,8 @@ public class TeamView extends Composite implements ITeamView {
 		verticalPanelTeams.add(horizontalPanelTeamButtons);
 		horizontalPanelTeamButtons.setWidth("100%");
 
-		Button btnNeuesTeamAnlegen = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_CREATENEWTEAM);
+		Button btnNeuesTeamAnlegen = new Button(
+				TextConstants.TEAMVIEW_BUTTONLABEL_CREATENEWTEAM);
 		btnNeuesTeamAnlegen.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -91,12 +96,16 @@ public class TeamView extends Composite implements ITeamView {
 		horizontalPanelTeamButtons.add(btnNeuesTeamAnlegen);
 		btnNeuesTeamAnlegen.setWidth("100%");
 
-		Button btnTeamBearbeiten = new Button(TextConstants.TEAMVIEW_BUTTONLABEL_MODIFYTEAM);
+		Button btnTeamBearbeiten = new Button(
+				TextConstants.TEAMVIEW_BUTTONLABEL_MODIFYTEAM);
 		btnTeamBearbeiten.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (TeamView.this.getSelectedTeamOfTree() != null) {
-					TeamView.this.modifyTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.getSelectedTeamOfTree()));
+					TeamView.this.modifyTeamEvent.fire(
+							TeamView.this,
+							new PersonTeamArgs(TeamView.this
+									.getSelectedTeamOfTree()));
 				}
 			}
 		});
@@ -107,12 +116,21 @@ public class TeamView extends Composite implements ITeamView {
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
 		horizontalPanel.add(verticalPanelAllocationButtons);
 
-		Button btnRemovePersonFromTeam = new Button(TextConstants.BUTTONLABEL_REMOVE);
+		Button btnRemovePersonFromTeam = new Button(
+				TextConstants.BUTTONLABEL_REMOVE);
 		btnRemovePersonFromTeam.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (TeamView.this.getSelectedPersonOfTree() != null && TeamView.this.getSelectedTeamOfTree() != null) { // does not work sometimes..
-					TeamView.this.removePersonFromTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.getSelectedPersonOfTree(), TeamView.this.getSelectedTeamOfTree()));
+				if (TeamView.this.getSelectedPersonOfTree() != null
+						&& TeamView.this.getSelectedTeamOfTree() != null) { // does
+																			// not
+																			// work
+																			// sometimes..
+					TeamView.this.removePersonFromTeamEvent.fire(
+							TeamView.this,
+							new PersonTeamArgs(TeamView.this
+									.getSelectedPersonOfTree(), TeamView.this
+									.getSelectedTeamOfTree()));
 				}
 			}
 		});
@@ -122,8 +140,14 @@ public class TeamView extends Composite implements ITeamView {
 		btnAddPersonToTeam.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (TeamView.this.selModelPersonTable.getSelectedSet().size()>0 && TeamView.this.getSelectedTeamOfTree() != null) {
-					TeamView.this.addPersonToTeamEvent.fire(TeamView.this, new PersonTeamArgs(TeamView.this.selModelPersonTable.getSelectedSet(), TeamView.this.getSelectedTeamOfTree()));
+				if (TeamView.this.selModelPersonTable.getSelectedSet().size() > 0
+						&& TeamView.this.getSelectedTeamOfTree() != null) {
+					TeamView.this.addPersonToTeamEvent.fire(
+							TeamView.this,
+							new PersonTeamArgs(
+									TeamView.this.selModelPersonTable
+											.getSelectedSet(), TeamView.this
+											.getSelectedTeamOfTree()));
 				} else {
 					Window.alert(ExceptionConstants.GUI_TEAMVIEW_ASSIGNERROR);
 				}
@@ -134,7 +158,8 @@ public class TeamView extends Composite implements ITeamView {
 		VerticalPanel verticalPanelPersons = new VerticalPanel();
 		horizontalPanel.add(verticalPanelPersons);
 
-		Label lblVerfgbarePersonen = new Label(TextConstants.TEAMVIEW_PERSONTABLEHEADER);
+		Label lblVerfgbarePersonen = new Label(
+				TextConstants.TEAMVIEW_PERSONTABLEHEADER);
 		verticalPanelPersons.add(lblVerfgbarePersonen);
 
 		ScrollPanel scrollPanel = new ScrollPanel();
@@ -142,11 +167,13 @@ public class TeamView extends Composite implements ITeamView {
 		verticalPanelPersons.add(scrollPanel);
 		scrollPanel.setSize("450px", "425px");
 
-		this.cellTablePersons = new CellTable<IPerson>();
-		scrollPanel.setWidget(this.cellTablePersons);
-		this.cellTablePersons.setSize("100%", "100%");
-		this.selModelPersonTable = new MultiSelectionModel<IPerson>();
-		this.cellTablePersons.setSelectionModel(this.selModelPersonTable);
+		CellTable<IPerson> cellTablePersons = new CellTable<IPerson>();
+		personDataProvider.addDataDisplay(cellTablePersons);
+		scrollPanel.setWidget(cellTablePersons);
+		cellTablePersons.setSize("100%", "100%");
+		this.selModelPersonTable = new MultiSelectionModel<IPerson>(
+				personDataProvider);
+		cellTablePersons.setSelectionModel(this.selModelPersonTable);
 
 		TextColumn<IPerson> colFirstname = new TextColumn<IPerson>() {
 			@Override
@@ -154,7 +181,8 @@ public class TeamView extends Composite implements ITeamView {
 				return object.getFirstname();
 			}
 		};
-		this.cellTablePersons.addColumn(colFirstname, TextConstants.TEAMVIEW_FIRSTNAMEHEADER);
+		cellTablePersons.addColumn(colFirstname,
+				TextConstants.TEAMVIEW_FIRSTNAMEHEADER);
 
 		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
 			@Override
@@ -162,11 +190,13 @@ public class TeamView extends Composite implements ITeamView {
 				return object.getLastname();
 			}
 		};
-		this.cellTablePersons.addColumn(colLastname, TextConstants.TEAMVIEW_LASTNAMEHEADER);
+		cellTablePersons.addColumn(colLastname,
+				TextConstants.TEAMVIEW_LASTNAMEHEADER);
 
 		TextColumn<IPerson> colRoles = new TextColumn<IPerson>() {
 			@Override
-			public void render(Context context, IPerson object, SafeHtmlBuilder sb) {
+			public void render(Context context, IPerson object,
+					SafeHtmlBuilder sb) {
 				for (IRole role : object.getRoles()) {
 					sb.appendHtmlConstant(role.toString() + "<br />");
 				}
@@ -177,21 +207,29 @@ public class TeamView extends Composite implements ITeamView {
 				return object.getRoles().toString();
 			}
 		};
-		this.cellTablePersons.addColumn(colRoles,TextConstants.TEAMVIEW_ROLESHEADER);
+		cellTablePersons
+				.addColumn(colRoles, TextConstants.TEAMVIEW_ROLESHEADER);
 	}
 
 	/**
-	 * This method is called when the team-selection changes. It updates the person-table to just show availabe persons.
+	 * This method is called when the team-selection changes. It updates the
+	 * person-table to just show availabe persons.
 	 */
 	private void updateGuiToSelectionChange() {
-		Vector<IPerson> personsToHide = this.getSelectedTeamOfTree().getMembers();
-		HashSet<IPerson> personsToShow = (HashSet<IPerson>) SessionManager.getInstance().getModel().getPersons().clone();
-		personsToShow.removeAll(personsToHide);
-
-		this.cellTablePersons.setRowData(new ArrayList<IPerson>(personsToShow));
+		Vector<IPerson> personsToHide = this.getSelectedTeamOfTree()
+				.getMembers();
+		personDataProvider.getList().clear();
+		personDataProvider.getList().addAll(originalPersonList);
+		personDataProvider.getList().removeAll(personsToHide);
+		// personsToShow.removeAll(personsToHide);
+		//
+		// this.cellTablePersons.setRowData(new
+		// ArrayList<IPerson>(personsToShow));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.client.view.ITeamView#getSelectedPersonOfTree()
 	 */
 	@Override
@@ -205,7 +243,9 @@ public class TeamView extends Composite implements ITeamView {
 		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fhdw.ipscrum.client.view.ITeamView#getSelectedTeamOfTree()
 	 */
 	@Override
@@ -214,15 +254,21 @@ public class TeamView extends Composite implements ITeamView {
 			Object selItem = this.tree.getSelectedItem().getUserObject();
 			if (selItem instanceof ITeam) {
 				return (ITeam) selItem;
-			} else if (selItem instanceof IPerson && this.tree.getSelectedItem().getParentItem().getUserObject() instanceof ITeam) {
-				return (ITeam) this.tree.getSelectedItem().getParentItem().getUserObject();
+			} else if (selItem instanceof IPerson
+					&& this.tree.getSelectedItem().getParentItem()
+							.getUserObject() instanceof ITeam) {
+				return (ITeam) this.tree.getSelectedItem().getParentItem()
+						.getUserObject();
 			}
 		}
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ITeamView#updateTeamTreeData(java.util.HashSet)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.ITeamView#updateTeamTreeData(java.util.HashSet)
 	 */
 	@Override
 	public void updateTeamTreeData(HashSet<ITeam> teamSet) {
@@ -242,37 +288,63 @@ public class TeamView extends Composite implements ITeamView {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ITeamView#updatePersonTableData(java.util.HashSet)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.ITeamView#updatePersonTableData(java.util.HashSet
+	 * )
 	 */
 	@Override
 	public void updatePersonTableData(HashSet<IPerson> personSet) {
-		this.cellTablePersons.setRowData(new ArrayList<IPerson>(personSet));
+		this.originalPersonList = personSet;
+		this.personDataProvider.getList().clear();
+		this.personDataProvider.getList().addAll(personSet);
 	}
 
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ITeamView#defineNewTeamEvent(fhdw.ipscrum.client.events.EventHandler)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.ITeamView#defineNewTeamEvent(fhdw.ipscrum.client
+	 * .events.EventHandler)
 	 */
 	@Override
 	public void defineNewTeamEvent(EventHandler<EventArgs> args) {
 		this.newTeamEvent.add(args);
 	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ITeamView#defineModifyTeamEvent(fhdw.ipscrum.client.events.EventHandler)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.ITeamView#defineModifyTeamEvent(fhdw.ipscrum
+	 * .client.events.EventHandler)
 	 */
 	@Override
 	public void defineModifyTeamEvent(EventHandler<PersonTeamArgs> args) {
 		this.modifyTeamEvent.add(args);
 	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ITeamView#defineRemovePersonFromTeamEvent(fhdw.ipscrum.client.events.EventHandler)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.ITeamView#defineRemovePersonFromTeamEvent(fhdw
+	 * .ipscrum.client.events.EventHandler)
 	 */
 	@Override
-	public void defineRemovePersonFromTeamEvent(EventHandler<PersonTeamArgs> args) {
+	public void defineRemovePersonFromTeamEvent(
+			EventHandler<PersonTeamArgs> args) {
 		this.removePersonFromTeamEvent.add(args);
 	}
-	/* (non-Javadoc)
-	 * @see fhdw.ipscrum.client.view.ITeamView#defineAddPersonToTeamEvent(fhdw.ipscrum.client.events.EventHandler)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fhdw.ipscrum.client.view.ITeamView#defineAddPersonToTeamEvent(fhdw.ipscrum
+	 * .client.events.EventHandler)
 	 */
 	@Override
 	public void defineAddPersonToTeamEvent(EventHandler<PersonTeamArgs> args) {

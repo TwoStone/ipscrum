@@ -53,8 +53,7 @@ public class Event<T extends EventArgs> implements IEvent<T> {
 	 * 
 	 * @param handler
 	 */
-	protected void remove(final EventHandler<T> handler) {
+	protected void remove(final EventHandler<?> handler) {
 		this.handlers.remove(handler);
 	}
-
 }

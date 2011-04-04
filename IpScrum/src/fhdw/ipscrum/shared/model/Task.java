@@ -48,7 +48,6 @@ public class Task extends Observable implements ITask {
 	/**
 	 * 1:1 relation to the sprint backlog
 	 */
-	@SuppressWarnings("rawtypes")
 	private ManyToOne<OneToMany<?, ?>, Task> sprintBacklogAssoc;
 
 	/**
@@ -61,7 +60,6 @@ public class Task extends Observable implements ITask {
 	 * @throws NoValidValueException
 	 *             is thrown if name or description is empty.
 	 */
-	@SuppressWarnings("rawtypes")
 	public Task(String name, String description) throws NoValidValueException {
 		super();
 		this.state = new TaskUnassigned(this);
@@ -92,7 +90,6 @@ public class Task extends Observable implements ITask {
 		super();
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public ManyToOne<OneToMany<?, ?>, Task> getSprintBacklogAssoc() {
 		return this.sprintBacklogAssoc;

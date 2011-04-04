@@ -54,7 +54,6 @@ public final class GwtUtils {
 	 * 
 	 * @param error
 	 */
-	@Deprecated
 	public static void displayError(final String error) {
 		logger.log(Level.WARNING, error);
 		showErrorBox(TextConstants.UTILS_ERROR, error);

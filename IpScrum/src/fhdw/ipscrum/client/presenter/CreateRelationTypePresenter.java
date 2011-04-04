@@ -37,7 +37,7 @@ public class CreateRelationTypePresenter extends Presenter<ITextView> {
 			this.setRelationType(RelationType.create(this.getView()
 					.getContent()));
 		} catch (final DoubleDefinitionException e) {
-			GwtUtils.displayError(e.getMessage());
+			GwtUtils.displayError(e);
 			return false;
 		}
 		return super.onFinish();
