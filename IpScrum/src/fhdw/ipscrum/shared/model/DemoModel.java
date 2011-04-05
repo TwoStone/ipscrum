@@ -3,7 +3,10 @@ package fhdw.ipscrum.shared.model;
 import java.util.Date;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
+import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
+import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.interfaces.ISystem;
 import fhdw.ipscrum.shared.model.search.And;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
@@ -550,5 +553,21 @@ public class DemoModel {
 		model.getSearchManager().addSearch(nameFeatureSuche);
 		model.getSearchManager().addSearch(p4Suche);
 
+	}
+	
+	public static void populateStandardIncidentTypes(final Root model){
+		final Root root = model;
+		
+		try {
+			root.addIncidentType(TextConstants.INCIDENT_VACATION_NAME, new IncidentType(TextConstants.INCIDENT_VACATION_NAME));
+			root.addIncidentType(TextConstants.INCIDENT_ILLNESS_NAME, new IncidentType(TextConstants.INCIDENT_ILLNESS_NAME));
+			root.addIncidentType(TextConstants.INCIDENT_TASKCOMPLETION_NAME, new IncidentType(TextConstants.INCIDENT_TASKCOMPLETION_NAME));
+			root.addIncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME1, new IncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME1));
+			root.addIncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME2, new IncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME2));
+			root.addIncidentType(TextConstants.INCIDENT_RELEASECOMPLETION_NAME, new IncidentType(TextConstants.INCIDENT_RELEASECOMPLETION_NAME));
+			root.addIncidentType(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME, new IncidentType(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME));
+		} catch (DoubleDefinitionException e) {
+			// should never happen
+		}
 	}
 }

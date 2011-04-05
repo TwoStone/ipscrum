@@ -18,7 +18,7 @@ public class IncidentType implements Serializable {
 	 */
 	private String name;
 	
-	protected IncidentType(String name){
+	public IncidentType(String name){
 		this.name = name;
 		
 	}

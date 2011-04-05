@@ -57,6 +57,7 @@ public class SessionManager {
 					public void onFailure(final Throwable caught) {
 						try {
 							DemoModel.populateModel(SessionManager.this.model);
+							DemoModel.populateStandardIncidentTypes(SessionManager.this.model);
 							GwtUtils.displayWarning("Modell korrumpiert. Demo-Daten geladen.");
 							callback.onLoaded();
 						} catch (final UserException e) {

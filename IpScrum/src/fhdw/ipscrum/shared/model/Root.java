@@ -1,6 +1,7 @@
 package fhdw.ipscrum.shared.model;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -483,20 +484,26 @@ public class Root extends Observable implements SerializationRoot,
 	 * @throws DoubleDefinitionException if a type with the name already exists
 	 */
 	public void addIncidentType(String name, IncidentType incidentType) throws DoubleDefinitionException{
-		if (this.incidentTypes.get(name)!=null){
+		if (!(this.getIncidentTypeMap().get(name)==null)){
 			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		} else{
-			this.incidentTypes.put(name, incidentType);
+			this.getIncidentTypeMap().put(name, incidentType);
 		}
 	}
 	
+	private Map<String, IncidentType> getIncidentTypeMap(){
+		if (this.incidentTypes == null){
+			this.incidentTypes = new HashMap<String, IncidentType>();
+		}
+		return this.incidentTypes;
+	}
 	/**
 	 * Returns the unique incident by a specified name
 	 * @param name
 	 * @return
 	 */
 	public IncidentType getIncidentTypeByName(String name) {
-		IncidentType result = this.incidentTypes.get(name);
+		IncidentType result = this.getIncidentTypeMap().get(name);
 		if (result == null){
 			return null;
 			//TODO: NoSuchValueException
@@ -510,7 +517,7 @@ public class Root extends Observable implements SerializationRoot,
 	 * @return
 	 */
 	public Collection<IncidentType> getIncidentTypes(){
-		return this.incidentTypes.values();
+		return this.getIncidentTypeMap().values();
 	}
 
 }
