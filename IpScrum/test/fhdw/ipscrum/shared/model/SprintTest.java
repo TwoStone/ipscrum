@@ -72,5 +72,50 @@ public class SprintTest extends SetUpTestData {
 			fail(e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testGetCumulatedManDayCostsOfClosedFeatures() {
+		try {
+			//ohne Bugs
+			assertEquals(new Effort(10), this.pro1rel1spr1.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(20), this.pro1rel1spr2.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(50), this.pro1rel1spr3.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(0), this.pro1rel1spr4.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(63), this.pro1rel1spr5.getCumulatedManDayCostsOfClosedFeatures());
+
+			assertEquals(new Effort(92), this.pro1rel2spr1.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(41), this.pro1rel2spr2.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(103), this.pro1rel2spr3.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(116), this.pro1rel2spr4.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(22), this.pro1rel2spr5.getCumulatedManDayCostsOfClosedFeatures());
+
+			assertEquals(new Effort(16), this.pro2rel1spr1.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(12), this.pro2rel1spr2.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(7), this.pro2rel1spr3.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(3), this.pro2rel1spr4.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(0), this.pro2rel1spr5.getCumulatedManDayCostsOfClosedFeatures());
+
+			assertEquals(new Effort(71), this.pro2rel2spr1.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(31), this.pro2rel2spr2.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(43), this.pro2rel2spr3.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(24), this.pro2rel2spr4.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(12), this.pro2rel2spr5.getCumulatedManDayCostsOfClosedFeatures());
+			
+			//mit Bugs
+			assertEquals(new Effort(7), this.pro3rel1spr1.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(2), this.pro3rel1spr2.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(2), this.pro3rel1spr3.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(0), this.pro3rel1spr4.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(39), this.pro3rel1spr5.getCumulatedManDayCostsOfClosedFeatures());
+
+			assertEquals(new Effort(7), this.pro3rel2spr1.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(35), this.pro3rel2spr2.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(36), this.pro3rel2spr4.getCumulatedManDayCostsOfClosedFeatures());
+			assertEquals(new Effort(0), this.pro3rel2spr5.getCumulatedManDayCostsOfClosedFeatures());
+		} catch (NoValidValueException e) {
+			fail(e.getMessage());
+		}
+	}
+
 
 }

@@ -60,7 +60,7 @@ public class VelocityChartData implements ChartData {
 	/**
 	 * This method is used to set the average values for the chart.
 	 */
-	private void calculateAverages() {
+	 void calculateAverages() {
 		Vector<ISprint> sprintList = this.team.getSprints();
 		if (sprintList.size()<2) {
 			this.absAverageVelocity = Double.NaN;
@@ -102,7 +102,7 @@ public class VelocityChartData implements ChartData {
 	 * @param sprint the sprint to be processed
 	 * @return a chart-value (double)
 	 */
-	private double calculateRelativeVelocity(ISprint sprint) {
+	 double calculateRelativeVelocity(ISprint sprint) {
 		double effort = 0;
 		double tempVar = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());
 		try {
