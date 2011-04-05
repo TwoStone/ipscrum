@@ -96,12 +96,7 @@ public class Test_PBILastEditorCriterion {
 		pbi2.addAcceptanceCriterion(accCrit2);
 		pbi3.addAcceptanceCriterion(accCrit2);
 		pbi4.addAcceptanceCriterion(accCrit1);
-		
-		pbi1.setLastEditor(p1);
-		pbi2.setLastEditor(p1);
-		pbi3.setLastEditor(p1);
-		pbi4.setLastEditor(p1);
-
+	
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
 	pbltext.addItem(pbi3);
@@ -114,7 +109,7 @@ public class Test_PBILastEditorCriterion {
 	p5 = new Person("Maximilian", "Schulz");
 	p6 = new Person("Klaus", "Krüger");
 	p7 = new Person("Joachim", "Krüger");
-
+	
 	entwickler = new Team("Entwickler");
 	planung = new Team("Planung");
 	test = new Team("Test");
@@ -147,6 +142,11 @@ public class Test_PBILastEditorCriterion {
 	pbi2.setSprint(sprint2);
 	pbi3.setSprint(sprint3);
 	pbi4.setSprint(sprint4);
+	
+	pbi1.setLastEditor(p1);
+	pbi2.setLastEditor(p1);
+	pbi3.setLastEditor(p1);
+	pbi4.setLastEditor(p1);
 
 	}
 
