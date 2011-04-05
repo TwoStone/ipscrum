@@ -38,4 +38,8 @@ public class PBILastEditorCriterion extends SearchCriteria {
 	public String toString() {
 		return "Letzer Bearbeiter [" + this.person + "]";
 	}
+
+	public IPerson getPerson() {
+		return this.person;
+	}
 }

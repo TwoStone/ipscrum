@@ -38,6 +38,7 @@ public class ScruumleCriterion extends TextCriterion implements ISearchCriteria 
 		textualCriterias.add(new PBIReleaseCriterion(this.getValue()));
 		textualCriterias.add(new PBISprintDescCriterion(this.getValue()));
 		textualCriterias.add(new PBISprintNameCriterion(this.getValue()));
+		textualCriterias.add(new PBIProjectNameCriterion(this.getValue()));
 
 		final Or or = new Or(textualCriterias);
 

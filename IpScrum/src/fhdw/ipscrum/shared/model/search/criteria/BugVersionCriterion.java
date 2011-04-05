@@ -74,5 +74,4 @@ public class BugVersionCriterion extends TextCriterion {
 	public String toString() {
 		return "Version [" + this.getValue() + "]";
 	}
-
 }

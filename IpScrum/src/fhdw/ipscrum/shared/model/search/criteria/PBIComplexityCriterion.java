@@ -83,4 +83,11 @@ public class PBIComplexityCriterion extends SearchCriteria {
 		return "Komplexität [from=" + this.from + ", to=" + this.to + "]";
 	}
 
+	public Integer getFrom() {
+		return this.from;
+	}
+
+	public Integer getTo() {
+		return this.to;
+	}
 }
