@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
+import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
@@ -12,6 +13,7 @@ import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
+import fhdw.ipscrum.shared.model.Root;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.interfaces.ISprint;
@@ -55,6 +57,7 @@ public abstract class Incident extends Observable implements BDACompare {
 	@SuppressWarnings("rawtypes")
 	private ManyToMany<ManyToMany, Incident> projectAssoc;
 	/* private constructor for serialization */
+	@SuppressWarnings("unused")
 	private Incident(){}
 	
 	@SuppressWarnings("rawtypes")
@@ -67,97 +70,96 @@ public abstract class Incident extends Observable implements BDACompare {
 	
 	public abstract void accept(IncidentVisitor visitor);
 	
-	public static Incident createVacationIncident(IPerson person, Date start, Date end) throws NoValidValueException{
-		//TODO:
-		return null;
-		
-		/*if (isEndBeforeStart(start, end)){
+	public static OneParticipantIncident createVacationIncident(IPerson person, Date start, Date end) throws NoValidValueException{
+		if (isEndBeforeStart(start, end))
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
-		}
-		Incident i = new Incident(start, end);
-		i.setType(new Vacation( TextConstants.INCIDENT_VACATION_NAME,
-								person.getFirstname()
-								+ TextConstants.SPACE 
-								+ person.getLastname() 
-								+ TextConstants.INCIDENT_VACATION_DESCR_SUFFIX,
-							 	person));
-		return i;*/
+		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
+		IncidentType type = root.getIncidentTypeByName(TextConstants.INCIDENT_VACATION_NAME);
+		String description = person.getFirstname()
+							+ TextConstants.SPACE 
+							+ person.getLastname() 
+							+ TextConstants.INCIDENT_VACATION_DESCR_SUFFIX;
+		OneParticipantIncident i = new OneParticipantIncident(start, end, person);
+		i.setType(type);
+		i.setDescription(description);
+		i.setGlobal(true);
+		return i;
 	}
-	public static Incident createIllnessIncident(IPerson person, Date start, Date end) throws NoValidValueException{
-		//TODO:
-		return null;
-		/*if (isEndBeforeStart(start, end)){
+	public static OneParticipantIncident createIllnessIncident(IPerson person, Date start, Date end) throws NoValidValueException{
+		if (isEndBeforeStart(start, end))
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
-		}
-		Incident i = new Incident(start, end);
-		i.setType(new Illness( TextConstants.INCIDENT_ILLNESS_NAME,
-							   person.getFirstname() 
-							   + TextConstants.SPACE 
-							   + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX,	
-							   person));
-		return i;*/
+		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
+		IncidentType type = root.getIncidentTypeByName(TextConstants.INCIDENT_ILLNESS_NAME);
+		String description = person.getFirstname() 
+		   					+ TextConstants.SPACE 
+		   					+ TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+		OneParticipantIncident i = new OneParticipantIncident(start, end, person);
+		i.setType(type);
+		i.setDescription(description);
+		i.setGlobal(true);
+		return i;
 	}
-	public static Incident createTaskCompletionIncident(ITask task){
-		//TODO:
-		return null;
-		/*Date d = new Date();
-		String description;
-		description = TextConstants.INCIDENT_TASKCOMPLETION_DESCR_PREFIX 
-					+ task.getName()
-					+ TextConstants.INCIDENT_TASKCOMPLETION_DESCR_INFIX 
-					+ task.getResponsiblePerson().getFirstname()
-					+ TextConstants.SPACE 
-					+ task.getResponsiblePerson().getLastname()
-					+ TextConstants.INCIDENT_TASKCOMPLETION_DESCR_SUFFIX;
-		
-		Incident i = new Incident(d,d);
-		
-		i.setType(new TaskCompletion(TextConstants.INCIDENT_TASKCOMPLETION_NAME, description, task));
-		return i;*/
-	}
-	public static Incident createPBICompletionIncident(ProductBacklogItem pbi){
-		//TODO:
-		return null;
-		/*IncidentPBIVisitor v = new IncidentPBIVisitor();
-		pbi.accept(v);
+	public static OneParticipantIncident createTaskCompletionIncident(ITask task){
 		Date d = new Date();
-		Incident i = new Incident(d, d);
-		i.setType(new PBICompletion(v.getResultName(), v.getResultDescription(), pbi));
-		return i;*/
+		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
+		IncidentType type = root.getIncidentTypeByName(TextConstants.INCIDENT_TASKCOMPLETION_NAME);
+		String description = TextConstants.INCIDENT_TASKCOMPLETION_DESCR_PREFIX 
+							+ task.getName()
+							+ TextConstants.INCIDENT_TASKCOMPLETION_DESCR_INFIX 
+							+ task.getResponsiblePerson().getFirstname()
+							+ TextConstants.SPACE 
+							+ task.getResponsiblePerson().getLastname()
+							+ TextConstants.INCIDENT_TASKCOMPLETION_DESCR_SUFFIX;
+		OneParticipantIncident i = new OneParticipantIncident( d, d, task.getResponsiblePerson());
+		i.setType(type);
+		i.setDescription(description);		
+		return i;
 	}
-	public static Incident createSprintCompletionIncident(ISprint sprint){
-		//TODO:
-		return null;
-		/*Date d = new Date();
-		String description;
-		description = TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_PREFIX
-					  + sprint.getName() 
-					  + TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_INFIX
-					  + sprint.getTeam().getDescription()
-					  + TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_SUFFIX;
-		Incident i = new Incident(d,d);
-		i.setType(new SprintCompletion(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME, description,sprint));
-		return i;*/
+	public static OneParticipantIncident createPBICompletionIncident(ProductBacklogItem pbi){
+		Date d = new Date();
+		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
+		IncidentPBIVisitor v = new IncidentPBIVisitor();
+		// check concrete subclass of ProductBacklogItem
+		pbi.accept(v);
+		IncidentType type = root.getIncidentTypeByName(v.getResultName());
+		String description = v.getResultDescription();
+		OneParticipantIncident i = new OneParticipantIncident(d, d, pbi.getLastEditor());
+		i.setType(type);
+		i.setDescription(description);
+		return i;
 	}
-	public static Incident createReleaseCompletionIncident(IRelease release){
-		//TODO:
-		return null;
-		/*Date d = new Date();
-		String description;
-		description = TextConstants.INCIDENT_RELEASECOMPLETION_DESCR_PREFIX
-					+ release.getVersion()
-					+ TextConstants.INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX;
-		Incident i = new Incident(d,d);
-		i.setType(new ReleaseCompletion(TextConstants.INCIDENT_RELEASECOMPLETION_NAME, description,release));
-		return i;*/
+	public static MultipleParticipantIncident createSprintCompletionIncident(ISprint sprint){
+		Date d = new Date();
+		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
+		IncidentType type = root.getIncidentTypeByName(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME);
+		String description = TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_PREFIX
+							+ sprint.getName() 
+							+ TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_INFIX
+							+ sprint.getTeam().getDescription()
+							+ TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_SUFFIX;
+		MultipleParticipantIncident i = new MultipleParticipantIncident(d, d);
+		i.setType(type);
+		i.setDescription(description);
+		return i;
+	}
+	public static MultipleParticipantIncident createReleaseCompletionIncident(IRelease release){
+		Date d = new Date();
+		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
+		IncidentType type = root.getIncidentTypeByName(TextConstants.INCIDENT_RELEASECOMPLETION_NAME);
+		String description = TextConstants.INCIDENT_RELEASECOMPLETION_DESCR_PREFIX
+							+ release.getVersion()
+							+ TextConstants.INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX;
+		MultipleParticipantIncident i = new MultipleParticipantIncident(d, d);
+		i.setType(type);
+		i.setDescription(description);
+		return i;
 	}
 	
-	public static Incident createOtherIssueIncident(IncidentType type, String description, Date start, Date end) throws NoValidValueException{
-		//TODO:
+	public static MultipleParticipantIncident createOtherIssueIncident(IncidentType type, String description, Date start, Date end) throws NoValidValueException{
 		if (isEndBeforeStart(start, end)){
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		}
-		Incident i = new MultipleParticipantIncident(start, end);
+		MultipleParticipantIncident i = new MultipleParticipantIncident(start, end);
 		i.setType(type);
 		i.setDescription(description);
 		return i;
@@ -191,7 +193,7 @@ public abstract class Incident extends Observable implements BDACompare {
 	public void setEnd(final Date end) {
 		this.end = end;
 	}
-	private void setType(final IncidentType incidentType){
+	protected void setType(final IncidentType incidentType){
 		this.incidentType = incidentType;
 	}
 	public final IncidentType getIncidentType(){
@@ -212,22 +214,73 @@ public abstract class Incident extends Observable implements BDACompare {
 	public boolean isGlobal(){
 		return this.isGlobal;
 	}
+	
+	public void setGlobal(boolean isGlobal){
+		this.isGlobal = isGlobal;
+	}
 
 	@Override
 	public int indirectHashCode() {
-		// TODO Auto-generated method stub
-		return 0;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((end == null) ? 0 : end.hashCode());
+		result = prime * result
+				+ ((incidentType == null) ? 0 : incidentType.hashCode());
+		result = prime * result + (isGlobal ? 1231 : 1237);
+		result = prime * result + ((start == null) ? 0 : start.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean indirectEquals(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Incident other = (Incident) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (end == null) {
+			if (other.end != null)
+				return false;
+		} else if (!end.equals(other.end))
+			return false;
+		if (incidentType == null) {
+			if (other.incidentType != null)
+				return false;
+		} else if (!incidentType.equals(other.incidentType))
+			return false;
+		if (isGlobal != other.isGlobal)
+			return false;
+		if (start == null) {
+			if (other.start != null)
+				return false;
+		} else if (!start.equals(other.start))
+			return false;
+		return true;
 	}
 	
 	private static boolean isEndBeforeStart(Date start, Date end){
 		return end.before(start);
 	}
+
+	@Override
+	public int hashCode() {
+		return this.indirectHashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.indirectEquals(obj);
+	}
+	
 	
 
 }
