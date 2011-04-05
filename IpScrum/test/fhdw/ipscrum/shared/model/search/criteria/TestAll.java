@@ -20,12 +20,10 @@ import org.junit.runners.Suite;
 		Test_PBIDescriptionCriterion.class, Test_PBIHintsCriterion.class,
 		Test_PBILastEditorCriterion.class, Test_PBINameCriterion.class,
 		Test_PBIOpenCriterion.class, Test_PBIProjectCriterion.class,
-		Test_PBIRelationCriterion.class, Test_PBIRelationDestCriterion.class,
+		Test_PBIRelationDestCriterion.class,
 		Test_PBIRelationTypeCriterion.class, Test_PBIReleaseCriterion.class,
-		Test_PBISprintCriterion.class, Test_PBISprintDescCriterion.class,
-		Test_PBISprintNameCriterion.class, Test_PBIStateCriterion.class,
-		Test_ProjectCriterion.class, Test_ScruumleCriterion.class,
-		Test_TextCriterion.class, })
+		Test_PBISprintNameCriterion.class,
+		})
 public class TestAll {
 
 	/**
