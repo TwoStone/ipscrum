@@ -37,7 +37,7 @@ public class PBIAcceptanceCriterion extends TextCriterion {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		for (final AcceptanceCriterion current : pbi.getAcceptanceCriteria()) {
-			if (current.getContent().contains(this.getValue())) {
+			if (this.nonSensitiveContains(current.getContent())) {
 				return true;
 			}
 		}

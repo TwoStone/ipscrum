@@ -23,7 +23,7 @@ public class PBIHintsCriterion extends TextCriterion {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		for (final Hint current : pbi.getHints()) {
-			if (current.getContent().contains(this.getValue())) {
+			if (this.nonSensitiveContains(current.getContent())) {
 				return true;
 			}
 		}

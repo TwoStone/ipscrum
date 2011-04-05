@@ -24,7 +24,7 @@ public class PBIRelationDestCriterion extends TextCriterion implements
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		for (final Relation current : pbi.getRelations()) {
-			if (current.getTarget().getName().contains(this.getValue())) {
+			if (this.nonSensitiveContains(current.getTarget().getName())) {
 				return true;
 			}
 		}

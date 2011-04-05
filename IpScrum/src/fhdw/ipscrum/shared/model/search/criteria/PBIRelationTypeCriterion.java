@@ -44,4 +44,8 @@ public class PBIRelationTypeCriterion extends SearchCriteria implements
 	public String toString() {
 		return "Relationstyp [" + this.value + "]";
 	}
+
+	public RelationType getValue() {
+		return this.value;
+	}
 }

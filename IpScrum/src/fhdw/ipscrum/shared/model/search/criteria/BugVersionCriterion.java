@@ -51,8 +51,8 @@ public class BugVersionCriterion extends TextCriterion {
 
 		@Override
 		public void handleBug(final Bug bug) {
-			this.ret = bug.getVersion().getVersion().contains(
-					BugVersionCriterion.this.getValue());
+			this.ret = BugVersionCriterion.this.nonSensitiveContains(bug
+					.getVersion().getVersion());
 		}
 
 		@Override

@@ -22,7 +22,7 @@ public class PBIDescriptionCriterion extends TextCriterion {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		if (pbi.getDescription() != null) {
-			return pbi.getDescription().contains(this.getValue());
+			return this.nonSensitiveContains(pbi.getDescription());
 		} else {
 			return false;
 		}

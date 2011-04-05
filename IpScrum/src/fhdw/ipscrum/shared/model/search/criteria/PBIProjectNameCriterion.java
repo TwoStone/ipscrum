@@ -22,8 +22,8 @@ public class PBIProjectNameCriterion extends TextCriterion implements
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return pbi.getBacklog().getProject().getName()
-				.contains(this.getValue());
+		return this.nonSensitiveContains(pbi.getBacklog().getProject()
+				.getName());
 	}
 
 	@Override

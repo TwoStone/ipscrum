@@ -23,7 +23,7 @@ public class PBISprintNameCriterion extends TextCriterion implements
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		if (pbi.getSprint() != null) {
-			return pbi.getSprint().getName().contains(this.getValue());
+			return this.nonSensitiveContains(pbi.getSprint().getName());
 		} else {
 			return false;
 		}

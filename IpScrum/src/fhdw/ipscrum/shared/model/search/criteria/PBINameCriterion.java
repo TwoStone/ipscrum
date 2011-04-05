@@ -21,7 +21,7 @@ public class PBINameCriterion extends TextCriterion {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return pbi.getName().contains(this.getValue());
+		return this.nonSensitiveContains(pbi.getName());
 	}
 
 	@Override

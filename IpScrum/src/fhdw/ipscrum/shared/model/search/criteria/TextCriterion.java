@@ -27,4 +27,16 @@ public abstract class TextCriterion extends SearchCriteria {
 		this.value = value;
 	}
 
+	/**
+	 * This method checks if arg1 contains the attribute value of this class. It
+	 * differs from the String based contains because it's not case sensitive.
+	 * 
+	 * @param arg
+	 *            Argument
+	 * @return True if arg1 contains -value- and false if not.
+	 */
+	public boolean nonSensitiveContains(final String arg) {
+		return arg.toLowerCase().contains(this.value.toLowerCase());
+	}
+
 }

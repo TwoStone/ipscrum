@@ -24,8 +24,8 @@ public class PBIReleaseCriterion extends TextCriterion {
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
 		if (pbi.getSprint() != null && pbi.getSprint().getRelease() != null) {
-			return pbi.getSprint().getRelease().getVersion().contains(
-					this.getValue());
+			return this.nonSensitiveContains(pbi.getSprint().getRelease()
+					.getVersion());
 		} else {
 			return false;
 		}
