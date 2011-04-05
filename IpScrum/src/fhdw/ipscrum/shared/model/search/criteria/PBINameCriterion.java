@@ -26,7 +26,7 @@ public class PBINameCriterion extends TextCriterion {
 
 	@Override
 	public String toString() {
-		return "PBI Name [" + this.getValue() + "]";
+		return "PBI Bezeichnung [" + this.getValue() + "]";
 	}
 
 	@Override

@@ -81,7 +81,7 @@ public class BugSystemCriterion extends SearchCriteria {
 
 	@Override
 	public String toString() {
-		return "System [system=" + this.system + "]";
+		return "System [" + this.system + "]";
 	}
 
 	public System getSystem() {

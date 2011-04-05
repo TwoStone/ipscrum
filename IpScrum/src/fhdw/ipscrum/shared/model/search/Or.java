@@ -45,7 +45,7 @@ public class Or extends MultiLogicSearchOperator {
 
 	@Override
 	public String toString() {
-		return "OR";
+		return "ODER";
 	}
 
 }

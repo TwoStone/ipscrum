@@ -44,7 +44,7 @@ public class And extends MultiLogicSearchOperator {
 
 	@Override
 	public String toString() {
-		return "AND";
+		return "UND";
 	}
 
 }

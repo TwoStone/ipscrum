@@ -45,4 +45,8 @@ public class ScruumleCriterion extends TextCriterion implements ISearchCriteria 
 		return or.search(pbi);
 	}
 
+	@Override
+	public String toString() {
+		return "Scruumle Textsuche [ " + this.getValue() + " ]";
+	}
 }

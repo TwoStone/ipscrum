@@ -27,6 +27,6 @@ public class PBIOpenCriterion extends PBIStateCriterion {
 
 	@Override
 	public String toString() {
-		return "PBI Open";
+		return "PBI offen";
 	}
 }

@@ -27,6 +27,6 @@ public class PBIClosedCriterion extends PBIStateCriterion {
 
 	@Override
 	public String toString() {
-		return "PBI Closed";
+		return "PBI geschlossen";
 	}
 }

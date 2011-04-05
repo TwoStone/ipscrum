@@ -36,7 +36,7 @@ public class PBIProjectCriterion extends SearchCriteria implements
 
 	@Override
 	public String toString() {
-		return "Project [" + this.project + "]";
+		return "Projekt [" + this.project + "]";
 	}
 
 	public Project getProject() {

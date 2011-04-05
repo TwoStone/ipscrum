@@ -33,7 +33,7 @@ public class PBIProjectNameCriterion extends TextCriterion implements
 
 	@Override
 	public String toString() {
-		return "Project [" + this.getValue() + "]";
+		return "Projektname [" + this.getValue() + "]";
 	}
 
 }

@@ -80,7 +80,7 @@ public class PBIComplexityCriterion extends SearchCriteria {
 
 	@Override
 	public String toString() {
-		return "Komplexität [from=" + this.from + ", to=" + this.to + "]";
+		return "Komplexität [von=" + this.from + ", bis=" + this.to + "]";
 	}
 
 	public Integer getFrom() {
