@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
@@ -11,6 +12,7 @@ import fhdw.ipscrum.shared.exceptions.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.PersistenceException;
 import fhdw.ipscrum.shared.model.incidents.Incident;
+import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.interfaces.HasRelationTypeManager;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRole;
@@ -45,6 +47,7 @@ public class Root extends Observable implements SerializationRoot,
 	private RelationTypeManager relationTypeManager;
 	private SystemManager sysManager;
 	private Vector<Incident> globalIncidents;
+	private Map<String, IncidentType> incidentTypes;
 	private SearchManager searchManager;
 
 	/**
@@ -471,6 +474,43 @@ public class Root extends Observable implements SerializationRoot,
 			result.addAll(project.getBacklog().getItems());
 		}
 		return result;
+	}
+	
+	/**
+	 * Adds a new unique incident type identified by a unique name
+	 * @param name name of the incident type
+	 * @param incidentType new concrete incident type
+	 * @throws DoubleDefinitionException if a type with the name already exists
+	 */
+	public void addIncidentType(String name, IncidentType incidentType) throws DoubleDefinitionException{
+		if (this.incidentTypes.get(name)!=null){
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+		} else{
+			this.incidentTypes.put(name, incidentType);
+		}
+	}
+	
+	/**
+	 * Returns the unique incident by a specified name
+	 * @param name
+	 * @return
+	 */
+	public IncidentType getIncidentTypeByName(String name) {
+		IncidentType result = this.incidentTypes.get(name);
+		if (result == null){
+			return null;
+			//TODO: NoSuchValueException
+		} else{
+			return result;
+		}
+	}
+	
+	/**
+	 * returns all incident types which are defined in the application's context.
+	 * @return
+	 */
+	public Collection<IncidentType> getIncidentTypes(){
+		return this.incidentTypes.values();
 	}
 
 }

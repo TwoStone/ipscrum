@@ -23,7 +23,7 @@ import fhdw.ipscrum.shared.observer.Observable;
  * and the progress of the projects. They represent the project history and 
  * provide a basis for planning activities.
  */
-public class Incident extends Observable implements BDACompare {
+public abstract class Incident extends Observable implements BDACompare {
 	private static final long serialVersionUID = 3849328996818037099L;
 	
 	/**
@@ -36,6 +36,14 @@ public class Incident extends Observable implements BDACompare {
 	 * start and end date are the same.
 	 */
 	private Date end;
+	/**
+	 * logical value which defines if an incident has global validity
+	 */
+	private boolean isGlobal;
+	/**
+	 * further detail description of the incident
+	 */
+	private String description;
 	/**
 	 * Specific type of the incident;
 	 */
@@ -50,13 +58,20 @@ public class Incident extends Observable implements BDACompare {
 	private Incident(){}
 	
 	@SuppressWarnings("rawtypes")
-	private Incident(Date start, Date end){
+	protected Incident(Date start, Date end){
 		this.setStart(start);
 		this.setEnd(end);
 		this.projectAssoc = new ManyToMany<ManyToMany, Incident>(this);
+		this.isGlobal = false;
 	}
+	
+	public abstract void accept(IncidentVisitor visitor);
+	
 	public static Incident createVacationIncident(IPerson person, Date start, Date end) throws NoValidValueException{
-		if (isEndBeforeStart(start, end)){
+		//TODO:
+		return null;
+		
+		/*if (isEndBeforeStart(start, end)){
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		}
 		Incident i = new Incident(start, end);
@@ -66,10 +81,12 @@ public class Incident extends Observable implements BDACompare {
 								+ person.getLastname() 
 								+ TextConstants.INCIDENT_VACATION_DESCR_SUFFIX,
 							 	person));
-		return i;
+		return i;*/
 	}
 	public static Incident createIllnessIncident(IPerson person, Date start, Date end) throws NoValidValueException{
-		if (isEndBeforeStart(start, end)){
+		//TODO:
+		return null;
+		/*if (isEndBeforeStart(start, end)){
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		}
 		Incident i = new Incident(start, end);
@@ -78,10 +95,12 @@ public class Incident extends Observable implements BDACompare {
 							   + TextConstants.SPACE 
 							   + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX,	
 							   person));
-		return i;
+		return i;*/
 	}
 	public static Incident createTaskCompletionIncident(ITask task){
-		Date d = new Date();
+		//TODO:
+		return null;
+		/*Date d = new Date();
 		String description;
 		description = TextConstants.INCIDENT_TASKCOMPLETION_DESCR_PREFIX 
 					+ task.getName()
@@ -94,18 +113,22 @@ public class Incident extends Observable implements BDACompare {
 		Incident i = new Incident(d,d);
 		
 		i.setType(new TaskCompletion(TextConstants.INCIDENT_TASKCOMPLETION_NAME, description, task));
-		return i;
+		return i;*/
 	}
 	public static Incident createPBICompletionIncident(ProductBacklogItem pbi){
-		IncidentPBIVisitor v = new IncidentPBIVisitor();
+		//TODO:
+		return null;
+		/*IncidentPBIVisitor v = new IncidentPBIVisitor();
 		pbi.accept(v);
 		Date d = new Date();
 		Incident i = new Incident(d, d);
 		i.setType(new PBICompletion(v.getResultName(), v.getResultDescription(), pbi));
-		return i;
+		return i;*/
 	}
 	public static Incident createSprintCompletionIncident(ISprint sprint){
-		Date d = new Date();
+		//TODO:
+		return null;
+		/*Date d = new Date();
 		String description;
 		description = TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_PREFIX
 					  + sprint.getName() 
@@ -114,77 +137,65 @@ public class Incident extends Observable implements BDACompare {
 					  + TextConstants.INCIDENT_SPRINTCOMPLETION_DESCR_SUFFIX;
 		Incident i = new Incident(d,d);
 		i.setType(new SprintCompletion(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME, description,sprint));
-		return i;
+		return i;*/
 	}
 	public static Incident createReleaseCompletionIncident(IRelease release){
-		Date d = new Date();
+		//TODO:
+		return null;
+		/*Date d = new Date();
 		String description;
 		description = TextConstants.INCIDENT_RELEASECOMPLETION_DESCR_PREFIX
 					+ release.getVersion()
 					+ TextConstants.INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX;
 		Incident i = new Incident(d,d);
 		i.setType(new ReleaseCompletion(TextConstants.INCIDENT_RELEASECOMPLETION_NAME, description,release));
-		return i;
+		return i;*/
 	}
 	
-	public static Incident createOtherIssueIncident(String name, String description, Date start, Date end) throws NoValidValueException{
+	public static Incident createOtherIssueIncident(IncidentType type, String description, Date start, Date end) throws NoValidValueException{
+		//TODO:
 		if (isEndBeforeStart(start, end)){
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		}
-		Incident i = new Incident(start, end);
-		i.setType(new OtherIssue(name, description));
+		Incident i = new MultipleParticipantIncident(start, end);
+		i.setType(type);
+		i.setDescription(description);
 		return i;
 		
 	}
-	
-	public void addParticipant(IPerson participant) throws DoubleDefinitionException{
-		//TODO: Typabfrage, hinzufügen nur bei OtherIssue
-		this.incidentType.addParticipant(participant);
-	}
 
-	public String getName() {
+	public final String getName() {
 		return this.getIncidentType().getName();
 	}
 
-	public void setName(String name) {
-		this.getIncidentType().setName(name);
-	}
-
-	public String getDescription() {
-		return this.getIncidentType().getDescription();
+	public final String getDescription() {
+		return this.description;
 	}
 
 	public void setDescription(String description) {
-		this.getIncidentType().setDescription(description);
+		this.description = description;
 	}
 
-	public Date getStart() {
+	public final Date getStart() {
 		return this.start;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(final Date start) {
 		this.start = start;
 	}
 
-	public Date getEnd() {
+	public final Date getEnd() {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(final Date end) {
 		this.end = end;
 	}
-	private void setType(IncidentType incidentType){
+	private void setType(final IncidentType incidentType){
 		this.incidentType = incidentType;
 	}
 	public final IncidentType getIncidentType(){
 		return this.incidentType;
-	}
-
-	public Iterator<IPerson> getParticipantsIterator(){
-		return this.getIncidentType().getParticipantsIterator();
-	}
-	public Vector<IPerson> getParticipants(){
-		return this.getIncidentType().getParticipants();
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -199,7 +210,7 @@ public class Incident extends Observable implements BDACompare {
 	}
 	
 	public boolean isGlobal(){
-		return this.getIncidentType().isGlobal();
+		return this.isGlobal;
 	}
 
 	@Override
