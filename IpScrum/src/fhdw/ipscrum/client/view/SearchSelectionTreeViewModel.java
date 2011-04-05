@@ -55,7 +55,7 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 					if (se != null) {
 						dataProvider.getList().add(se);
 					} else {
-						dataProvider.getList().add(new NoSearchExpression());
+						dataProvider.getList().add(new NoSearchExpression((SingleLogicSearchOperator) val));
 					}
 				}
 
@@ -75,7 +75,7 @@ public class SearchSelectionTreeViewModel implements TreeViewModel {
 					if (seCollection != null && seCollection.size() > 0) {
 						dataProvider.getList().addAll(seCollection);
 					} else {
-						dataProvider.getList().add(new NoSearchExpression());
+						dataProvider.getList().add(new NoSearchExpression((MultiLogicSearchOperator) val));
 					}
 				}
 			};

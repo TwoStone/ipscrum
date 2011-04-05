@@ -3,8 +3,7 @@ package fhdw.ipscrum.shared.model.search;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 /**
- * Represents the logical operator Not. For Example: Not(arg) -> arg=true=>false
- * | arg=false=>true
+ * Represents the logical operator Not. For Example: Not(arg) -> arg=true=>false | arg=false=>true
  * 
  */
 public class Not extends SingleLogicSearchOperator {
@@ -15,7 +14,7 @@ public class Not extends SingleLogicSearchOperator {
 	/**
 	 * See {@link SingleLogicSearchOperator}
 	 */
-	private Not() {
+	public Not() {
 		super();
 	}
 

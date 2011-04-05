@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
+import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
@@ -37,7 +38,14 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<EventArgs> getAddLogicalOperator();
+	IEvent<CreateLogicalOperatorArgs> getAddLogicalOperator();
+
+	//
+	// /**
+	// * Returns the Search.
+	// *
+	// */
+	// Search getSearch();
 
 	/**
 	 * Sets the Search to display.
@@ -68,4 +76,10 @@ public interface ISearchView extends IView {
 	 * 
 	 */
 	void setRelationTypes(Collection<RelationType> relationtypes);
+
+	/**
+	 * Updates the tree.
+	 * 
+	 */
+	void updateTree();
 }

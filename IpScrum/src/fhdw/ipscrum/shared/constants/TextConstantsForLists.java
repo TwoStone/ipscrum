@@ -16,9 +16,9 @@ public final class TextConstantsForLists {
 
 	public static final Map<Integer, String> SEARCH_LOGICALS = new HashMap<Integer, String>() {
 		{
-			this.put(1, "AND");
-			this.put(2, "OR");
-			this.put(3, "NOT");
+			this.put(1, "UND");
+			this.put(2, "ODER");
+			this.put(3, "NICHT");
 		}
 	};;
 
