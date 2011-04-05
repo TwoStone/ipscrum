@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
-import fhdw.ipscrum.shared.model.PBIClosedState;
+import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 
@@ -17,7 +17,7 @@ public class PBIOpenCriterion extends PBIStateCriterion {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return (pbi.getState() instanceof PBIClosedState);
+		return (pbi.getState() instanceof PBIOpenState);
 	}
 
 	@Override
