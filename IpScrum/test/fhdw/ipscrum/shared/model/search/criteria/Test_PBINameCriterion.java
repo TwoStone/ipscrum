@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
@@ -13,8 +15,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-
-public class Test_PBIClosedCriterion {
+public class Test_PBINameCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -96,6 +97,11 @@ public class Test_PBIClosedCriterion {
 		pbi2.addAcceptanceCriterion(accCrit2);
 		pbi3.addAcceptanceCriterion(accCrit2);
 		pbi4.addAcceptanceCriterion(accCrit1);
+		
+		pbi1.setLastEditor(p1);
+		pbi2.setLastEditor(p1);
+		pbi3.setLastEditor(p1);
+		pbi4.setLastEditor(p1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -160,51 +166,58 @@ public class Test_PBIClosedCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
-
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is not closed
+	 * Test of constructor
+	 */
+	public void testConstructor() throws Exception{
+	PBINameCriterion naCrit = new PBINameCriterion("Fehler");
+	assertEquals("Fehler", naCrit.getValue());
+	}
+	
+	@Test
+	/**
+	 * Search, if a Bug's name contains a certain string
+	 * name contains the string
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(false, closeCrit.search(pbi4));
+		PBINameCriterion naCrit = new PBINameCriterion("Fehler"); 
+		assertTrue(naCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is closed
+	 * Search, if a Bug's name contains a certain string
+	 * name does not contain the string
 	 */
 	
 	public void testsearch2() throws Exception{
-		pbi4.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(true, closeCrit.search(pbi4));
+		PBINameCriterion naCrit = new PBINameCriterion("Feature"); 
+		assertFalse(naCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is closed
+	 * Search, if a Feature's name contains a certain string
+	 * name contains the string
 	 */
 	
 	public void testsearch3() throws Exception{
-		pbi1.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(true, closeCrit.search(pbi1));
+		PBINameCriterion naCrit = new PBINameCriterion("Texte");
+		assertTrue(naCrit.search(pbi1));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is open
+	 * Search, if a Feature's name contains a certain string
+	 * name does not contain the string
 	 */
 	
 	public void testsearch4() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(false, closeCrit.search(pbi2));
+		PBINameCriterion naCrit = new PBINameCriterion("Fehler");
+		assertFalse(naCrit.search(pbi1));
 	}
+
 }

@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
@@ -13,10 +15,10 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-
-public class Test_PBIClosedCriterion {
+public class Test_PBIRelationTypeCriterion {
 	
 	private static Project textverarbeitung = null;
+	private static Project taschenrechner = null;
 	private static ProductBacklog pbltext = null;
 	private static SystemManager systemmanager = null;
 	private static System betriebssystem = null;
@@ -47,6 +49,12 @@ public class Test_PBIClosedCriterion {
 	private static Sprint sprint4 = null;
 	private static AcceptanceCriterion accCrit1 = null;
 	private static AcceptanceCriterion accCrit2 = null;
+	private static RelationType rt1 = null;
+	private static RelationType rt2 = null;
+	private static RelationType rt3 = null;
+	private static Relation r1 = null;
+	private static Relation r2 = null;
+	private static Relation r3 = null;
 	
 	
 	private static System testsys = null;
@@ -54,6 +62,7 @@ public class Test_PBIClosedCriterion {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		textverarbeitung = new Project("Textverarbeitung");
+		taschenrechner = new Project("Taschenrechner");
 		pbltext = textverarbeitung.getBacklog();
 		release1 = new Release("Release 1", new Date(), textverarbeitung);
 		systemmanager = new SystemManager();
@@ -96,6 +105,11 @@ public class Test_PBIClosedCriterion {
 		pbi2.addAcceptanceCriterion(accCrit2);
 		pbi3.addAcceptanceCriterion(accCrit2);
 		pbi4.addAcceptanceCriterion(accCrit1);
+		
+		pbi1.setLastEditor(p1);
+		pbi2.setLastEditor(p1);
+		pbi3.setLastEditor(p1);
+		pbi4.setLastEditor(p1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -142,6 +156,20 @@ public class Test_PBIClosedCriterion {
 	pbi2.setSprint(sprint2);
 	pbi3.setSprint(sprint3);
 	pbi4.setSprint(sprint4);
+	
+	rt1 = RelationType.create("Abhängig von");
+	rt2 = RelationType.create("Fehler zu");
+	rt3 = RelationType.create("ausgehend von");
+	
+	r1 = new Relation(rt1, pbi1);
+	r2 = new Relation(rt2, pbi3);
+	r3 = new Relation(rt3, pbi4);
+	
+	pbi2.addRelation(r1);
+	pbi3.addRelation(r1);
+	pbi3.addRelation(r2);
+	pbi4.addRelation(r2);
+	
 
 	}
 
@@ -160,51 +188,75 @@ public class Test_PBIClosedCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
-
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is not closed
+	 * Search, if a Bug has a specific relation
+	 * Bug does have that relation
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(false, closeCrit.search(pbi4));
+		PBIRelationTypeCriterion rtCrit = new PBIRelationTypeCriterion(rt2); 
+		assertTrue(rtCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is closed
+	 * Search, if a Bug has a specific relation
+	 * Bug does not have that relation
 	 */
 	
 	public void testsearch2() throws Exception{
-		pbi4.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(true, closeCrit.search(pbi4));
+		PBIRelationTypeCriterion rtCrit = new PBIRelationTypeCriterion(rt3); 
+		assertFalse(rtCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is closed
+	 * Search, if a Feature has a specific relation
+	 * Feature does have that relation
+	 * Feature has only one relation
 	 */
 	
 	public void testsearch3() throws Exception{
-		pbi1.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(true, closeCrit.search(pbi1));
+		PBIRelationTypeCriterion rtCrit = new PBIRelationTypeCriterion(rt1);
+		assertTrue(rtCrit.search(pbi2));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is open
+	 * Search, if a Feature has a specific relation
+	 * Feature does have that relation
+	 * Feature has more than one relation
 	 */
 	
 	public void testsearch4() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(false, closeCrit.search(pbi2));
+		PBIRelationTypeCriterion rtCrit = new PBIRelationTypeCriterion(rt1);
+		assertTrue(rtCrit.search(pbi3));
 	}
+	
+	@Test
+	/**
+	 * Search, if a Feature has a specific relation
+	 * Feature does not have that relation
+	 * Feature has only one relation
+	 */
+	
+	public void testsearch5() throws Exception{
+		PBIRelationTypeCriterion rtCrit = new PBIRelationTypeCriterion(rt3);
+		assertFalse(rtCrit.search(pbi1));
+	}
+	
+	@Test
+	/**
+	 * Search, if a Feature has a specific relation
+	 * Feature does not have that relation
+	 * Feature has more than one relation
+	 */
+	
+	public void testsearch6() throws Exception{
+		PBIRelationTypeCriterion rtCrit = new PBIRelationTypeCriterion(rt3);
+		assertFalse(rtCrit.search(pbi3));
+	}
+
 }

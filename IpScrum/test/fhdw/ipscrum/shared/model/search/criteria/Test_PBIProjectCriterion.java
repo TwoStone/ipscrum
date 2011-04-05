@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
@@ -13,10 +15,10 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-
-public class Test_PBIClosedCriterion {
+public class Test_PBIProjectCriterion {
 	
 	private static Project textverarbeitung = null;
+	private static Project taschenrechner = null;
 	private static ProductBacklog pbltext = null;
 	private static SystemManager systemmanager = null;
 	private static System betriebssystem = null;
@@ -54,6 +56,7 @@ public class Test_PBIClosedCriterion {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		textverarbeitung = new Project("Textverarbeitung");
+		taschenrechner = new Project("Taschenrechner");
 		pbltext = textverarbeitung.getBacklog();
 		release1 = new Release("Release 1", new Date(), textverarbeitung);
 		systemmanager = new SystemManager();
@@ -96,6 +99,11 @@ public class Test_PBIClosedCriterion {
 		pbi2.addAcceptanceCriterion(accCrit2);
 		pbi3.addAcceptanceCriterion(accCrit2);
 		pbi4.addAcceptanceCriterion(accCrit1);
+		
+		pbi1.setLastEditor(p1);
+		pbi2.setLastEditor(p1);
+		pbi3.setLastEditor(p1);
+		pbi4.setLastEditor(p1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -160,51 +168,58 @@ public class Test_PBIClosedCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
-
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is not closed
+	 * Test of constructor
+	 */
+	public void testConstructor() throws Exception{
+	PBIProjectCriterion prCrit = new PBIProjectCriterion(textverarbeitung);
+	assertEquals(textverarbeitung, prCrit.getProject());
+	}
+	
+	@Test
+	/**
+	 * Search, if a Bug is contained in a project
+	 * Bug is in the project
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(false, closeCrit.search(pbi4));
+		PBIProjectCriterion naCrit = new PBIProjectCriterion(textverarbeitung); 
+		assertTrue(naCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is closed
+	 * Search, if a Bug is contained in a project
+	 * Bug is not in the project
 	 */
 	
 	public void testsearch2() throws Exception{
-		pbi4.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(true, closeCrit.search(pbi4));
+		PBIProjectCriterion prCrit = new PBIProjectCriterion(taschenrechner); 
+		assertFalse(prCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is closed
+	 * Search, if a Feature is in a project
+	 * Feature is in the Project
 	 */
 	
 	public void testsearch3() throws Exception{
-		pbi1.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(true, closeCrit.search(pbi1));
+		PBIProjectCriterion prCrit = new PBIProjectCriterion(textverarbeitung);
+		assertTrue(prCrit.search(pbi1));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is open
+	 * Search, if a Feature is in a project
+	 * Feature is not in the project
 	 */
 	
 	public void testsearch4() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(false, closeCrit.search(pbi2));
+		PBIProjectCriterion prCrit = new PBIProjectCriterion(taschenrechner);
+		assertFalse(prCrit.search(pbi1));
 	}
+
 }

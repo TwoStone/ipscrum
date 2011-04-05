@@ -13,8 +13,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-
-public class Test_PBIClosedCriterion {
+public class Test_PBIDescriptionCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -160,51 +159,59 @@ public class Test_PBIClosedCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
-
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is not closed
+	 * Test of constructor
+	 */
+	public void testConstructor() throws Exception{
+	PBIDescriptionCriterion desCrit = new PBIDescriptionCriterion("Fehler");
+	assertEquals("Fehler", desCrit.getValue());
+	}
+	
+	
+	@Test
+	/**
+	 * Search, if a Bug Description contains a certain String
+	 * Description does contain the string
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(false, closeCrit.search(pbi4));
+		PBIDescriptionCriterion desCrit = new PBIDescriptionCriterion("Fehler"); 
+		assertEquals(true, desCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is closed
+	 * Search, if a Bug Description contains a certain String
+	 * Description does not contain the string
 	 */
 	
 	public void testsearch2() throws Exception{
-		pbi4.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(true, closeCrit.search(pbi4));
+		PBIDescriptionCriterion desCrit = new PBIDescriptionCriterion("Feature"); 
+		assertEquals(false, desCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is closed
+	 * Search, if a Feature Description contains a certain String
+	 * Description does contain the string
 	 */
 	
 	public void testsearch3() throws Exception{
-		pbi1.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(true, closeCrit.search(pbi1));
+		PBIDescriptionCriterion desCrit = new PBIDescriptionCriterion("Texte");
+		assertEquals(true, desCrit.search(pbi1));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is open
+	 * Search, if a Feature Description contains a certrain string
+	 * Description does not contain the string
 	 */
 	
 	public void testsearch4() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(false, closeCrit.search(pbi2));
+		PBIDescriptionCriterion desCrit = new PBIDescriptionCriterion("Fehler");
+		assertEquals(false, desCrit.search(pbi1));
 	}
+
 }

@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
@@ -13,8 +15,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-
-public class Test_PBIClosedCriterion {
+public class Test_ScruumleCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -96,6 +97,11 @@ public class Test_PBIClosedCriterion {
 		pbi2.addAcceptanceCriterion(accCrit2);
 		pbi3.addAcceptanceCriterion(accCrit2);
 		pbi4.addAcceptanceCriterion(accCrit1);
+		
+		pbi1.setLastEditor(p1);
+		pbi2.setLastEditor(p1);
+		pbi3.setLastEditor(p1);
+		pbi4.setLastEditor(p1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -160,51 +166,50 @@ public class Test_PBIClosedCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
-
+	
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is not closed
+	 * Scruumle Search on a Bug
+	 * String is in the Bug
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(false, closeCrit.search(pbi4));
+		ScruumleCriterion srCrit = new ScruumleCriterion("Fehler"); 
+		assertTrue(srCrit.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Bug is closed
-	 * Bug is closed
+	 * Scruumle Search on a Bug
+	 * String is in the Bug
 	 */
 	
 	public void testsearch2() throws Exception{
-		pbi4.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion(); 
-		assertEquals(true, closeCrit.search(pbi4));
+		ScruumleCriterion srCrit = new ScruumleCriterion("korrekt"); 
+		assertFalse(srCrit.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is closed
+	 * Scruumle Search on a Feature
+	 * String is not in the Feature
 	 */
 	
 	public void testsearch3() throws Exception{
-		pbi1.close();
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(true, closeCrit.search(pbi1));
+		ScruumleCriterion srCrit = new ScruumleCriterion("Texte");
+		assertTrue(srCrit.search(pbi1));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Feature is closed
-	 * Feature is open
+	 * Scruumle Search on a Feature
+	 * String is not in the Feature
 	 */
 	
 	public void testsearch4() throws Exception{
-		PBIClosedCriterion closeCrit = new PBIClosedCriterion();
-		assertEquals(false, closeCrit.search(pbi2));
+		ScruumleCriterion srCrit = new ScruumleCriterion("Hallo");
+		assertFalse(srCrit.search(pbi1));
 	}
+
 }

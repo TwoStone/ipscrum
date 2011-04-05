@@ -70,6 +70,7 @@ public class Test_BugSystemCriterion {
 		windowsVista = new System("Windows Vista", betriebssystem);
 		windows7 = new System("Windows 7", betriebssystem);
 		linux = new System("Linux", betriebssystem);
+		textverarbeitung.addSystem(betriebssystem);
 		textverarbeitung.addSystem(windowsXP);
 		textverarbeitung.addSystem(windows2000);
 		textverarbeitung.addSystem(windowsVista);
@@ -86,11 +87,8 @@ public class Test_BugSystemCriterion {
 
 		pbi1.addHint(new Hint("Groß-/Kleinschreibung, Zahlen, Sonderzeichen"));
 		pbi2.addHint(new Hint("fett, unterstrichen, kursiv, farbig"));
-		pbi3
-				.addHint(new Hint(
-						"Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können"));
-		pbi4.addHint(new Hint(
-				"werden bei unterschiedlichen Systemen anders angezeigt"));
+		pbi3.addHint(new Hint("Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können"));
+		pbi4.addHint(new Hint("werden bei unterschiedlichen Systemen anders angezeigt"));
 
 		pbi4.addSystem(betriebssystem);
 		pbi4.addSystem(windows7);
@@ -141,6 +139,11 @@ public class Test_BugSystemCriterion {
 				new Date(), entwickler);
 		sprint4 = new Sprint("Sprint 4", "Beschreibung", new Date(),
 				new Date(), entwickler);
+		
+		textverarbeitung.addSprint(sprint1);
+		textverarbeitung.addSprint(sprint2);
+		textverarbeitung.addSprint(sprint3);
+		textverarbeitung.addSprint(sprint4);
 
 		pbi1.setSprint(sprint1);
 		pbi2.setSprint(sprint2);
@@ -166,14 +169,14 @@ public class Test_BugSystemCriterion {
 	// ----------------------------------
 	// ---------------------------------------------------------------------------
 
-	// @Test
+	@Test
 	/**
 	 * Test of constructor
 	 */
-	// public void testConstructor() throws Exception{
-	// BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
-	// assertEqulas(windowsXP, BugSC1.)
-	// }
+	public void testConstructor() throws Exception{
+	BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
+	assertEquals(windowsXP, BugSC1.getSystem());
+	}
 
 	@Test
 	/**

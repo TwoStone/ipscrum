@@ -50,6 +50,7 @@ public class Test_PBIAcceptanceCriterion {
 	
 	private static System testsys = null;
 
+	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		textverarbeitung = new Project("Textverarbeitung");
 		pbltext = textverarbeitung.getBacklog();
@@ -61,6 +62,7 @@ public class Test_PBIAcceptanceCriterion {
 		windowsVista = new System("Windows Vista", betriebssystem);
 		windows7 = new System("Windows 7", betriebssystem);
 		linux = new System("Linux", betriebssystem);
+		textverarbeitung.addSystem(betriebssystem);
 		textverarbeitung.addSystem(windowsXP);
 		textverarbeitung.addSystem(windows2000);
 		textverarbeitung.addSystem(windowsVista);
@@ -129,7 +131,12 @@ public class Test_PBIAcceptanceCriterion {
 	sprint2 = new Sprint("Sprint 2", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint3 = new Sprint("Sprint 3", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint4 = new Sprint("Sprint 4", "Beschreibung", new Date(), new Date(), entwickler);
-
+	
+	textverarbeitung.addSprint(sprint1);
+	textverarbeitung.addSprint(sprint2);
+	textverarbeitung.addSprint(sprint3);
+	textverarbeitung.addSprint(sprint4);
+	
 	pbi1.setSprint(sprint1);
 	pbi2.setSprint(sprint2);
 	pbi3.setSprint(sprint3);
@@ -152,6 +159,15 @@ public class Test_PBIAcceptanceCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
+	
+	@Test
+	/**
+	 * Test of constructor
+	 */
+	public void testConstructor() throws Exception{
+	PBIAcceptanceCriterion accCrit = new PBIAcceptanceCriterion("Fehler");
+	assertEquals("Fehler", accCrit.getValue());
+	}
 	
 	@Test
 	/**

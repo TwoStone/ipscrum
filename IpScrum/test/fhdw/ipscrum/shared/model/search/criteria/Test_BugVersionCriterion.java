@@ -49,6 +49,7 @@ public class Test_BugVersionCriterion {
 	
 	private static System testsys = null;
 
+	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		textverarbeitung = new Project("Textverarbeitung");
 		pbltext = textverarbeitung.getBacklog();
@@ -60,6 +61,7 @@ public class Test_BugVersionCriterion {
 		windowsVista = new System("Windows Vista", betriebssystem);
 		windows7 = new System("Windows 7", betriebssystem);
 		linux = new System("Linux", betriebssystem);
+		textverarbeitung.addSystem(betriebssystem);
 		textverarbeitung.addSystem(windowsXP);
 		textverarbeitung.addSystem(windows2000);
 		textverarbeitung.addSystem(windowsVista);
@@ -116,11 +118,16 @@ public class Test_BugVersionCriterion {
 	ideen.addMember(p3);
 	ideen.addMember(p4);
 	ideen.addMember(p6);
-
+	
 	sprint1 = new Sprint("Sprint 1", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint2 = new Sprint("Sprint 2", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint3 = new Sprint("Sprint 3", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint4 = new Sprint("Sprint 4", "Beschreibung", new Date(), new Date(), entwickler);
+	
+	textverarbeitung.addSprint(sprint1);
+	textverarbeitung.addSprint(sprint2);
+	textverarbeitung.addSprint(sprint3);
+	textverarbeitung.addSprint(sprint4);
 
 	pbi1.setSprint(sprint1);
 	pbi2.setSprint(sprint2);
@@ -144,6 +151,15 @@ public class Test_BugVersionCriterion {
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions ----------------------------------
 	// ---------------------------------------------------------------------------
+	
+	@Test
+	/**
+	 * Test of constructor
+	 */
+	public void testConstructor() throws Exception{
+	BugVersionCriterion BugSV1 = new BugVersionCriterion("Release");
+	assertEquals("Release", BugSV1.getValue());
+	}
 	
 	@Test
 	/**
