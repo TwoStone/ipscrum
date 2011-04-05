@@ -121,7 +121,7 @@ public class RootsystemTest {
 
 		final boolean result = fixture.equals(fixture2);
 
-		assertEquals(true, result);
+		assertEquals(false, result);
 	}
 
 	/**

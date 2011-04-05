@@ -167,9 +167,9 @@ public class SystemTest {
 		final System fixture2 = new System("MySystem2", fixture);
 		final System fixture3 = new System("G2", fixture2);
 		final System fixture4 = new System("MySystem3", fixture2);
-		final System fixture5 = new System("MySystem3", fixture4);
-		final System fixture6 = new System("MySystem3", fixture5);
-		final System fixture7 = new System("MySystem3", fixture6);
+		final System fixture5 = new System("MySystem4", fixture4);
+		final System fixture6 = new System("MySystem5", fixture5);
+		final System fixture7 = new System("MySystem6", fixture6);
 
 		final Vector<System> result = root.getSystemsRecursiv();
 		final Vector<System> result2 = fixture5.getSystemsRecursiv();
@@ -200,9 +200,9 @@ public class SystemTest {
 		final System fixture2 = new System("MySystem2", fixture);
 		final System fixture3 = new System("G2", fixture2);
 		final System fixture4 = new System("MySystem3", fixture2);
-		final System fixture5 = new System("MySystem3", fixture4);
-		final System fixture6 = new System("MySystem3", fixture5);
-		final System fixture7 = new System("MySystem3", fixture6);
+		final System fixture5 = new System("MySystem4", fixture4);
+		final System fixture6 = new System("MySystem5", fixture5);
+		final System fixture7 = new System("MySystem6", fixture6);
 
 		assertEquals(root, fixture.getRoot());
 		assertEquals(root, fixture1.getRoot());
@@ -227,9 +227,9 @@ public class SystemTest {
 		final System fixture2 = new System("MySystem2", fixture);
 		final System fixture3 = new System("G2", fixture2);
 		final System fixture4 = new System("MySystem3", fixture2);
-		final System fixture5 = new System("MySystem3", fixture4);
-		final System fixture6 = new System("MySystem3", fixture5);
-		final System fixture7 = new System("MySystem3", fixture6);
+		final System fixture5 = new System("MySystem4", fixture4);
+		final System fixture6 = new System("MySystem5", fixture5);
+		final System fixture7 = new System("MySystem6", fixture6);
 
 		final Vector<System> result = root.getSystems();
 		final Vector<System> result2 = fixture2.getSystems();

@@ -142,9 +142,6 @@ public class System extends Observable implements BDACompare, ISystem {
 		if (this == obj) {
 			return true;
 		}
-		if (!super.equals(obj)) {
-			return false;
-		}
 		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
@@ -190,7 +187,12 @@ public class System extends Observable implements BDACompare, ISystem {
 
 	@Override
 	public boolean containsAction(final System system) {
-		for (final System current : this.getSystems()) {
+		if (this.equals(system)) {
+			return true;
+		}
+
+		final Vector<System> systems = this.getSystems();
+		for (final System current : systems) {
 			if (current.equals(system)) {
 				return true;
 			} else {

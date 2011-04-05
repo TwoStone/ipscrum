@@ -87,8 +87,11 @@ public class Test_BugSystemCriterion {
 
 		pbi1.addHint(new Hint("Groß-/Kleinschreibung, Zahlen, Sonderzeichen"));
 		pbi2.addHint(new Hint("fett, unterstrichen, kursiv, farbig"));
-		pbi3.addHint(new Hint("Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können"));
-		pbi4.addHint(new Hint("werden bei unterschiedlichen Systemen anders angezeigt"));
+		pbi3
+				.addHint(new Hint(
+						"Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können"));
+		pbi4.addHint(new Hint(
+				"werden bei unterschiedlichen Systemen anders angezeigt"));
 
 		pbi4.addSystem(betriebssystem);
 		pbi4.addSystem(windows7);
@@ -139,7 +142,7 @@ public class Test_BugSystemCriterion {
 				new Date(), entwickler);
 		sprint4 = new Sprint("Sprint 4", "Beschreibung", new Date(),
 				new Date(), entwickler);
-		
+
 		textverarbeitung.addSprint(sprint1);
 		textverarbeitung.addSprint(sprint2);
 		textverarbeitung.addSprint(sprint3);
@@ -173,9 +176,9 @@ public class Test_BugSystemCriterion {
 	/**
 	 * Test of constructor
 	 */
-	public void testConstructor() throws Exception{
-	BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
-	assertEquals(windowsXP, BugSC1.getSystem());
+	public void testConstructor() throws Exception {
+		final BugSystemCriterion BugSC1 = new BugSystemCriterion(windowsXP);
+		assertEquals(windowsXP, BugSC1.getSystem());
 	}
 
 	@Test
@@ -185,6 +188,8 @@ public class Test_BugSystemCriterion {
 	 */
 	public void testsearch1() throws Exception {
 		final BugSystemCriterion BugSC2 = new BugSystemCriterion(windowsXP);
+		java.lang.System.out.println(pbi4.getSystems());
+
 		assertEquals(true, BugSC2.search(pbi4));
 	}
 
