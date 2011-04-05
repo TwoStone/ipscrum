@@ -49,9 +49,9 @@ public class SearchAllView extends Composite implements ISearchAllView {
 		verticalPanel.add(verticalPanel_1);
 		verticalPanel_1.setSize("100%", "200px");
 
-		final Image image = new Image((String) null);
+		final Image imgScruumle = new Image("images/Scruumle.gif");
 		// TODO [WICHTIG] Hier könnte Ihr Suchlogo stehen!!!
-		verticalPanel_1.add(image);
+		verticalPanel_1.add(imgScruumle);
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel_1.add(horizontalPanel);
