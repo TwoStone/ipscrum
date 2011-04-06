@@ -17,7 +17,7 @@ import fhdw.ipscrum.shared.model.interfaces.ITeam;
  * This class represents a data container for Velocity-Charts.
  * It also contains calculation-algorithms to generate chart-data.
  */
-public class VelocityChartData implements ChartData {
+public class VelocityChartData {
 
 
 	private final ITeam team;

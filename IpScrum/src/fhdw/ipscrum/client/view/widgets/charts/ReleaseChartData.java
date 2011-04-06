@@ -18,7 +18,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  * This class represents a data container for Release Burndown-Charts.
  * It also contains calculation-algorithms to generate chart-data.
  */
-public class ReleaseChartData implements ChartData {
+public class ReleaseChartData {
 
 	private final IRelease release;
 	private final TreeMap<Date,ReleaseChartDataDetails> data;

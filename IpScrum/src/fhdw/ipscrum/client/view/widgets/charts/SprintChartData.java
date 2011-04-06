@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
  * This class represents a data container for Sprint Burndown-Charts.
  * It also contains calculation-algorithms to generate chart-data.
  */
-public class SprintChartData implements ChartData {
+public class SprintChartData {
 
 	private final ISprint sprint;
 	private final ArrayList<Date> daysInvolved;
