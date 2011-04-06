@@ -17,13 +17,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	private static Double nan = new Double(0).NaN;
 	
 	
-	/**
-	 * Run the VelocityChartData(ITeam) constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+//------------------ Test of the Constructor--------------------------//
 	@Test
 	public void testVelocityChartData_1()
 		throws Exception {
@@ -34,79 +28,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertNotNull(result);
 	}
 
-	/**
-	 * Run the void calculateAverages() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
-	@Test
-	public void testCalculateAverages_1()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
 
-		fixture.calculateAverages();
-		
-		
-
-	}
-
-	/**
-	 * Run the void calculateAverages() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
-	@Test
-	public void testCalculateAverages_2()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team2);
-
-		fixture.calculateAverages();
-
-	}
-
-	/**
-	 * Run the void calculateAverages() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
-	@Test
-	public void testCalculateAverages_3()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team3);
-
-		fixture.calculateAverages();
-
-	}
-
-	/**
-	 * Run the void calculateAverages() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
-	@Test
-	public void testCalculateAverages_4()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-
-		fixture.calculateAverages();
-
-	}
-
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+//------------------ Tests of the method calculateRelativeVelocity()--------------------------//
 	@Test
 	public void testCalculateRelativeVelocity_1()
 		throws Exception {
@@ -124,13 +47,6 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertEquals(expected, result, 0.1);
 	}
 	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
 	@Test
 	public void testCalculateRelativeVelocity_2()
 		throws Exception {
@@ -148,13 +64,6 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertEquals(expected, result, 0.1);
 	}
 	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
 	@Test
 	public void testCalculateRelativeVelocity_3()
 		throws Exception {
@@ -172,13 +81,6 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertEquals(expected, result, 0.1);
 	}
 	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
 	@Test
 	public void testCalculateRelativeVelocity_4()
 		throws Exception {
@@ -195,14 +97,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_5()
 		throws Exception {
@@ -219,14 +114,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_6()
 		throws Exception {
@@ -244,13 +132,6 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertEquals(expected, result, 0.1);
 	}
 
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
 	@Test
 	public void testCalculateRelativeVelocity_7()
 		throws Exception {
@@ -267,14 +148,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_8()
 		throws Exception {
@@ -291,14 +165,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_9()
 		throws Exception {
@@ -315,14 +182,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_10()
 		throws Exception {
@@ -339,14 +199,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_11()
 		throws Exception {
@@ -363,14 +216,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_12()
 		throws Exception {
@@ -387,14 +233,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_13()
 		throws Exception {
@@ -411,14 +250,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_14()
 		throws Exception {
@@ -435,14 +267,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_15()
 		throws Exception {
@@ -459,14 +284,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_16()
 		throws Exception {
@@ -483,14 +301,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_17()
 		throws Exception {
@@ -507,14 +318,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_18()
 		throws Exception {
@@ -531,14 +335,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_19()
 		throws Exception {
@@ -555,14 +352,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_20()
 		throws Exception {
@@ -579,14 +369,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_21()
 		throws Exception {
@@ -603,14 +386,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_22()
 		throws Exception {
@@ -627,14 +403,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_23()
 		throws Exception {
@@ -651,14 +420,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_24()
 		throws Exception {
@@ -675,14 +437,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_25()
 		throws Exception {
@@ -699,14 +454,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_26()
 		throws Exception {
@@ -723,14 +471,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_27()
 		throws Exception {
@@ -747,14 +488,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_28()
 		throws Exception {
@@ -771,14 +505,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_29()
 		throws Exception {
@@ -795,14 +522,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	/**
-	 * Run the double calculateRelativeVelocity(ISprint) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testCalculateRelativeVelocity_30()
 		throws Exception {
@@ -819,17 +539,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 		
 		assertEquals(expected, result, 0.1);
 	}
-	
-	
 
-
-	/**
-	 * Run the Double getAbsAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+//------------------ Tests of the method getAbsAverageVelocity()--------------------------//
 	@Test
 	public void testGetAbsAverageVelocity_1()
 		throws Exception {
@@ -840,14 +551,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertNotNull(result);
 		assertEquals(36.8, result.doubleValue(),0.1);
 	}
-	
-	/**
-	 * Run the Double getAbsAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testGetAbsAverageVelocity_2()
 		throws Exception {
@@ -858,14 +562,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertNotNull(result);
 		assertEquals(this.nan.doubleValue(), result.doubleValue(),0.1);
 	}
-	
-	/**
-	 * Run the Double getAbsAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testGetAbsAverageVelocity_3()
 		throws Exception {
@@ -877,14 +574,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertEquals(this.nan.doubleValue(), result.doubleValue(),0.1);
 
 	}
-	
-	/**
-	 * Run the Double getAbsAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testGetAbsAverageVelocity_4()
 		throws Exception {
@@ -898,13 +588,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 	}
 
-	/**
-	 * Run the Double getRelAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+//------------------ Tests of the method getRelAverageVelocity()--------------------------//
 	@Test
 	public void testGetRelAverageVelocity_1()
 		throws Exception {
@@ -916,14 +600,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertNotNull(result);
 		assertEquals(1.142868048299083, result.doubleValue(), 0.1);
 	}
-	
-	/**
-	 * Run the Double getRelAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testGetRelAverageVelocity_2()
 		throws Exception {
@@ -934,14 +611,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertNotNull(result);
 		assertEquals(this.nan.doubleValue(), result.doubleValue(), 0.1);
 	}
-	
-	/**
-	 * Run the Double getRelAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testGetRelAverageVelocity_3()
 		throws Exception {
@@ -952,14 +622,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertNotNull(result);
 		assertEquals(this.nan.doubleValue(), result.doubleValue(), 0.1);
 	}
-	
-	/**
-	 * Run the Double getRelAverageVelocity() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+
 	@Test
 	public void testGetRelAverageVelocity_4()
 		throws Exception {
@@ -972,13 +635,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 		assertEquals(0.6929374201787996, result.doubleValue(), 0.1);
 	}
 
-	/**
-	 * Run the ITeam getTeam() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 05.04.11 16:58
-	 */
+//------------------ Test of the method getTeam()--------------------------//
 	@Test
 	public void testGetTeam_1()
 		throws Exception {

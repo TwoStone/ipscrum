@@ -60,7 +60,7 @@ public class VelocityChartData implements ChartData {
 	/**
 	 * This method is used to set the average values for the chart.
 	 */
-	 void calculateAverages() {
+	 private void calculateAverages() {
 		Vector<ISprint> sprintList = this.team.getSprints();
 		if (sprintList.size()<2) {
 			this.absAverageVelocity = Double.NaN;
