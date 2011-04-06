@@ -47,7 +47,7 @@ public interface ITask extends ITaskStateOperations, BDACompare {
 	 * @return the association object which is owner of the sprint backlog
 	 *         object.
 	 */
-	public ManyToOne<OneToMany<?, ?>, Task> getSprintBacklogAssoc();
+	public ManyToOne<OneToMany, Task> getSprintBacklogAssoc();
 
 	/**
 	 * Checks if the PBI is contained in this.assignedPBIs

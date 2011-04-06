@@ -21,13 +21,13 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.TransientObserver;
+import fhdw.ipscrum.shared.observer.PersistentObserver;
 
 /**
  * Represents the abstract Root Class for a ProductBacklogItem.
  */
 public abstract class ProductBacklogItem extends Observable implements
-		BDACompare, Serializable, TransientObserver {
+		BDACompare, Serializable, PersistentObserver {
 
 	private static final long serialVersionUID = 1599696800942615676L;
 

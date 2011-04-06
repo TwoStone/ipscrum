@@ -24,7 +24,7 @@ import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
 import fhdw.ipscrum.shared.model.messages.RemoveGlobalIncidentMessage;
 import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.TransientObserver;
+import fhdw.ipscrum.shared.observer.PersistentObserver;
 import fhdw.ipscrum.shared.persistence.SerializationRoot;
 
 /**
@@ -34,7 +34,7 @@ import fhdw.ipscrum.shared.persistence.SerializationRoot;
  */
 
 public class Root extends Observable implements SerializationRoot,
-		HasRelationTypeManager, TransientObserver {
+		HasRelationTypeManager, PersistentObserver {
 
 	/**
 	 * 

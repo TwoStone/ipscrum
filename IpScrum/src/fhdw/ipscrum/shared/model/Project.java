@@ -32,13 +32,13 @@ import fhdw.ipscrum.shared.model.messages.TaskCompletionMessage;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.TransientObserver;
+import fhdw.ipscrum.shared.observer.PersistentObserver;
 
 /**
  * Represents a Scrum Project.
  */
 public class Project extends Observable implements BDACompare, Serializable,
-		ITreeVisitorRelevantElement, TransientObserver, IHasSystems {
+		ITreeVisitorRelevantElement, PersistentObserver, IHasSystems {
 
 	private static final long serialVersionUID = 6337710256829006568L;
 

@@ -17,14 +17,14 @@ import fhdw.ipscrum.shared.model.messages.Message;
 import fhdw.ipscrum.shared.model.messages.MessageStandardVisitor;
 import fhdw.ipscrum.shared.model.messages.PBICompletionMessage;
 import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.TransientObserver;
+import fhdw.ipscrum.shared.observer.PersistentObserver;
 
 /**
  * Represents the ProductBacklog of a project. It manages the
  * ProductBacklogItems.
  */
 public class ProductBacklog extends Observable implements BDACompare,
-		Serializable, TransientObserver {
+		Serializable, PersistentObserver {
 
 	private static final long serialVersionUID = -5276089275386947750L;
 
