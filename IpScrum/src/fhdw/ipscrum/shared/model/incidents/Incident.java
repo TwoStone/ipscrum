@@ -57,7 +57,7 @@ public abstract class Incident extends Observable implements BDACompare, Seriali
 	private ManyToMany<ManyToMany, Incident> projectAssoc;
 	/* private constructor for serialization */
 	@SuppressWarnings("unused")
-	private Incident(){}
+	protected Incident(){}
 	
 	@SuppressWarnings("rawtypes")
 	protected Incident(Date start, Date end){
@@ -193,8 +193,7 @@ public abstract class Incident extends Observable implements BDACompare, Seriali
 		MultipleParticipantIncident i = new MultipleParticipantIncident(start, end);
 		i.setType(type);
 		i.setDescription(description);
-		return i;
-		
+		return i;	
 	}
 
 	public final String getName() {

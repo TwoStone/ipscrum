@@ -16,6 +16,9 @@ public class OneParticipantIncident extends Incident {
 		super(start, end);
 		this.participant = participant;
 	}
+	protected OneParticipantIncident(){
+		super();
+	}
 	
 	public IPerson getParticipant(){
 		return this.participant;

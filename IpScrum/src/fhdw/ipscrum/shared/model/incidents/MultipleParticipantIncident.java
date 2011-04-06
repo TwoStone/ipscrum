@@ -17,6 +17,9 @@ public class MultipleParticipantIncident extends Incident {
 		super(start, end);
 		this.participants = new Vector<IPerson>();
 	}
+	protected MultipleParticipantIncident(){
+		super();
+	}
 	
 	public final Vector<IPerson> getParticipants(){
 		return this.participants;
