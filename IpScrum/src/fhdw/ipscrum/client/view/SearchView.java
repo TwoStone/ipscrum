@@ -24,7 +24,16 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.ProjectSearchCriterionEventArgs;
+import fhdw.ipscrum.client.events.args.RelationSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.ReleaseSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
+import fhdw.ipscrum.client.events.args.StatusSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.SystemSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.TextSearchCriterionArgs;
 import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.constants.TextConstantsForLists;
@@ -42,7 +51,16 @@ import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.SingleLogicSearchOperator;
 
 public class SearchView extends Composite implements ISearchView {
-	private final Event<EventArgs> addSearchCriterion = new Event<EventArgs>();
+	private final Event<PBITypSearchCriterionArgs> addPbiTypSearchCriterion = new Event<PBITypSearchCriterionArgs>();
+	private final Event<ProjectSearchCriterionEventArgs> addProjektSearchCriterion = new Event<ProjectSearchCriterionEventArgs>();
+	private final Event<ReleaseSearchCriterionArgs> addReleaseSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
+	private final Event<EffortSearchCriterionArgs> addAufwandSearchCriterion = new Event<EffortSearchCriterionArgs>();
+	private final Event<StatusSearchCriterionArgs> addStatusSearchCriterion = new Event<StatusSearchCriterionArgs>();
+	private final Event<LastEditorSearchCriterionArgs> addLetzterBearbeiterSearchCriterion = new Event<LastEditorSearchCriterionArgs>();
+	private final Event<RelationSearchCriterionArgs> addBeziehungSearchCriterion = new Event<RelationSearchCriterionArgs>();
+	private final Event<SystemSearchCriterionArgs> addSystemSearchCriterion = new Event<SystemSearchCriterionArgs>();
+	private final Event<ReleaseSearchCriterionArgs> addVersionSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
+	private final Event<TextSearchCriterionArgs> addTextSearchCriterion = new Event<TextSearchCriterionArgs>();
 	private final Event<EventArgs> changeSearchName = new Event<EventArgs>();
 	private final Event<CreateLogicalOperatorArgs> addLogicalOperator = new Event<CreateLogicalOperatorArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
@@ -83,10 +101,10 @@ public class SearchView extends Composite implements ISearchView {
 		mainPanel = new VerticalPanel();
 		initWidget(mainPanel);
 		mainPanel.setSpacing(5);
-		mainPanel.setSize("100%", "100%");
+		mainPanel.setSize("1000", "400");
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
-		horizontalPanel.setSize("100%", "100%");
+		horizontalPanel.setSize("", "400");
 		mainPanel.add(horizontalPanel);
 
 		scrollPanelResult = new ScrollPanel();
@@ -95,6 +113,7 @@ public class SearchView extends Composite implements ISearchView {
 
 		verticalPanel = new VerticalPanel();
 		horizontalPanel.add(verticalPanel);
+		verticalPanel.setSize("600px", "330px");
 		scrollPanelSearch = new ScrollPanel();
 		verticalPanel.add(scrollPanelSearch);
 		verticalPanel.add(buttonPanel);
@@ -127,9 +146,8 @@ public class SearchView extends Composite implements ISearchView {
 			}
 		});
 		buttonPanel.add(btnAusfuehren);
-
-		scrollPanelSearch.setSize("600px", "300");
-		scrollPanelResult.setSize("100%", "300");
+		scrollPanelSearch.setSize("600px", "300px");
+		scrollPanelResult.setSize("980px", "270px");
 
 		valuePanel = new VerticalPanel();
 
@@ -144,13 +162,48 @@ public class SearchView extends Composite implements ISearchView {
 		});
 		horizontalPanel.add(valuePanel);
 		valuePanel.setSpacing(5);
-		valuePanel.setSize("500", "400");
 
 		btnHinzu = new Button("Hinzufügen");
 		btnHinzu.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				SearchView.this.addLogicalOperator.fire(SearchView.this, new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1, ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
+				if (cboTyp1.getSelectedIndex() == 0) {
+					SearchView.this.addLogicalOperator.fire(SearchView.this, new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1,
+							((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
+				} else if (cboTyp1.getSelectedIndex() == 1 && !SearchView.this.fireEventForSearchCriteria()) {
+					int i = cboTyp2.getSelectedIndex();
+					switch (i) {
+					case 0:
+						break;
+					case 1:
+						break;
+					case 2:
+						break;
+					case 6:
+						break;
+					case 7:
+						break;
+					case 8:
+						break;
+					case 10:
+						break;
+					case 13:
+						break;
+					case 14:
+						break;
+					default:
+						break;
+					}
+					// this.put(1, "Typ des PBI");
+					// this.put(2, "Projekt");
+					// this.put(3, "Release");
+					// this.put(7, "Aufwand");
+					// this.put(8, "Status");
+					// this.put(9, "Letzter Bearbeiter");
+					// this.put(11, "Beziehung");
+					// this.put(14, "System (nur Bugs)");
+					// this.put(15, "Version (nur Bugs)");
+				}
 			}
 		});
 
@@ -273,6 +326,38 @@ public class SearchView extends Composite implements ISearchView {
 
 			}
 		});
+	}
+
+	private boolean fireEventForSearchCriteria() {
+		switch (cboTyp2.getSelectedIndex()) {
+		case 3:
+			addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			break;
+		case 4:
+			addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			break;
+		case 5:
+			addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			break;
+		case 9:
+			addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			break;
+		case 11:
+			addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			break;
+		case 12:
+			addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			break;
+		default:
+			return false;
+		}
+		return true;
 	}
 
 	private void fillCombobox(ListBox cbo, Map<Integer, String> map) {
@@ -444,8 +529,8 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public IEvent<EventArgs> getAddNewSearchCriterion() {
-		return this.addSearchCriterion;
+	public IEvent<TextSearchCriterionArgs> getAddTextSearchCriterion() {
+		return this.addTextSearchCriterion;
 	}
 
 	@Override
@@ -463,7 +548,7 @@ public class SearchView extends Composite implements ISearchView {
 	public void updateTree() {
 		cellTree = new CellTree(new SearchExpressionTreeViewModel(searchSelectionModel, selectionModel, search), null);
 		scrollPanelSearch.setWidget(cellTree);
-		cellTree.setSize("500px", "400px");
+		cellTree.setSize("600px", "300px");
 		cellTree.setVisible(true);
 	}
 

@@ -36,6 +36,7 @@ public abstract class ExceptionConstants {
 	public static final String RELEASE_NOT_IN_PROJECT = "Release gehört nicht zum übergeordneten Projekt!";
 	public static final String EFFORT_MIN_VALUE = "Aufwand darf nicht weniger als 0 betragen!";
 
+	public static final String SEARCH_NOT_POSSIBLE = "Suchkriterium kann nicht erstellt werden";
 	public static final String SEARCH_NOT_UPDATEABLE = "Suche darf nicht bearbeitet werden";
 	public static final String SEARCH_DOUBLE_DEFINITION_ERROR = "Es existiert bereits eine Suche mit diesem Namen. Bitte einen anderen Namen wählen.";
 }

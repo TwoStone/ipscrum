@@ -84,6 +84,7 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 						Collection<SearchExpression> seCollection = ((MultiLogicSearchOperator) val).getArgs();
 						if (seCollection != null && seCollection.size() > 0) {
 							dataProvider.getList().addAll(seCollection);
+							dataProvider.getList().add(new NoSearchExpression((MultiLogicSearchOperator) val));
 						} else {
 							dataProvider.getList().add(new NoSearchExpression((MultiLogicSearchOperator) val));
 						}
@@ -100,9 +101,7 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 		@Override
 		public void render(Context context, SearchExpression value, SafeHtmlBuilder sb) {
 			if (value != null) {
-				// sb.appendHtmlConstant("<div style=\"font-weight:normal;white-space: nowrap;\">");
 				sb.appendEscaped(value.toString());
-				// sb.appendHtmlConstant("</div>");
 			}
 		}
 	};

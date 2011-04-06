@@ -9,6 +9,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
+import fhdw.ipscrum.client.events.args.TextSearchCriterionArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SearchView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
@@ -25,6 +26,12 @@ import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.SingleLogicSearchOperator;
+import fhdw.ipscrum.shared.model.search.criteria.PBIAcceptanceCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIDescriptionCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIHintsCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
 
 /**
  * presenter class of the team interface. this interface is used to inspect, create and modify teams as well as adding and removing persons to teams.
@@ -107,31 +114,74 @@ public class SearchPresenter extends Presenter<ISearchView> {
 				SearchPresenter.this.showSearch(eventArgs.getSearch());
 			}
 		});
+
+		this.getView().getAddTextSearchCriterion().add(new EventHandler<TextSearchCriterionArgs>() {
+			@Override
+			public void onUpdate(Object sender, TextSearchCriterionArgs eventArgs) {
+				SearchPresenter.this.createTextSearchCriteria(eventArgs);
+			}
+		});
 	}
 
 	protected void showSearch(Search search) {
 		if (this.getParent() != null) {
-			SearchResultPresenter resultPresenter = new SearchResultPresenter(this.getSessionManager().getModel().getSearchManager().search(this.getSessionManager().getModel().getAllTickets(), search.getExpression()), null, this);
+			SearchResultPresenter resultPresenter = new SearchResultPresenter(this.getSessionManager().getModel().getSearchManager()
+					.search(this.getSessionManager().getModel().getAllTickets(), search.getExpression()), null, this);
 			this.getView().updateResults(resultPresenter.getView());
 		}
 	}
 
 	private void createLogicalOperator(CreateLogicalOperatorArgs eventargs) {
-		final SearchExpression searchExp;
+		final SearchExpression newSearchExp;
 		if (eventargs.getValue() == 1) {
-			searchExp = new And();
+			newSearchExp = new And();
 		} else if (eventargs.getValue() == 2) {
-			searchExp = new Or();
+			newSearchExp = new Or();
 		} else if (eventargs.getValue() == 3) {
-			searchExp = new Not();
+			newSearchExp = new Not();
 		} else {
-			searchExp = null;
+			newSearchExp = null;
 		}
 
+		addSearchExpression(eventargs.getSearchExpression(), newSearchExp);
+	}
+
+	private void createTextSearchCriteria(TextSearchCriterionArgs eventargs) {
+		SearchExpression newSearchExp = null;
+
+		switch (eventargs.getValue()) {
+		case 4:
+			newSearchExp = new PBINameCriterion(eventargs.getString());
+			break;
+		case 5:
+			newSearchExp = new PBISprintDescCriterion(eventargs.getString());
+			break;
+		case 6:
+			newSearchExp = new PBISprintNameCriterion(eventargs.getString());
+			break;
+		case 10:
+			newSearchExp = new PBIDescriptionCriterion(eventargs.getString());
+			break;
+		case 12:
+			newSearchExp = new PBIHintsCriterion(eventargs.getString());
+			break;
+		case 13:
+			newSearchExp = new PBIAcceptanceCriterion(eventargs.getString());
+			break;
+		default:
+			GwtUtils.displayError(ExceptionConstants.SEARCH_NOT_POSSIBLE);
+			break;
+		}
+		if (newSearchExp != null) {
+			addSearchExpression(eventargs.getSearchExpression(), newSearchExp);
+		}
+	}
+
+	private void addSearchExpression(SearchExpression oldSearchExp, final SearchExpression newSearchExp) {
 		ISearchTypeVisitor seVisitor = new ISearchTypeVisitor() {
 			@Override
 			public void handleSingleLogicSearchOperator(SingleLogicSearchOperator singleLogicSearchOperator) {
-				singleLogicSearchOperator.setArg(searchExp);
+				singleLogicSearchOperator.setArg(newSearchExp);
 			}
 
 			@Override
@@ -146,10 +196,10 @@ public class SearchPresenter extends Presenter<ISearchView> {
 
 			@Override
 			public void handleMultiLogicSearchOperator(MultiLogicSearchOperator multiLogicSearchOperator) {
-				multiLogicSearchOperator.add(searchExp);
+				multiLogicSearchOperator.add(newSearchExp);
 			}
 		};
-		eventargs.getSearchExpression().accept(seVisitor);
+		oldSearchExp.accept(seVisitor);
 		this.getView().updateTree();
 	}
 

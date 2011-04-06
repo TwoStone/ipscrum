@@ -6,6 +6,7 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
+import fhdw.ipscrum.client.events.args.TextSearchCriterionArgs;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
@@ -39,7 +40,7 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<EventArgs> getAddNewSearchCriterion();
+	IEvent<TextSearchCriterionArgs> getAddTextSearchCriterion();
 
 	/**
 	 * Returns the event fired when a logical operator should be added.
