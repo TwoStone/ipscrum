@@ -97,7 +97,7 @@ public class Bug extends ProductBacklogItem implements IHasSystems {
 	 * @param system
 	 * @throws WrongSystemException
 	 */
-	public void doAddSystem(final System system) throws WrongSystemException {
+	protected void doAddSystem(final System system) throws WrongSystemException {
 		if (this.getBacklog().getProject().isPossibleSystem(system)) {
 			this.systems.add(system);
 		} else {
@@ -121,7 +121,7 @@ public class Bug extends ProductBacklogItem implements IHasSystems {
 	 * @throws WrongReleaseException
 	 *             , if the release is not referenced in project
 	 */
-	public void doSetVersion(final IRelease version)
+	protected void doSetVersion(final IRelease version)
 			throws WrongReleaseException {
 		if (this.getBacklog().getProject().getReleasePlan().contains(version)) {
 			this.version = version;
@@ -172,7 +172,7 @@ public class Bug extends ProductBacklogItem implements IHasSystems {
 	 * 
 	 * @param system
 	 */
-	public void doRemoveSystem(final System system) {
+	protected void doRemoveSystem(final System system) {
 		this.systems.remove(system);
 		this.notifyObservers();
 	}

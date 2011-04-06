@@ -104,8 +104,8 @@ public abstract class ProductBacklogItem extends Observable implements
 		this.manDayCosts = new Effort(0);
 		this.initializeState();
 
+		this.name = name;
 		this.setBacklog(backlog);
-		this.setName(name);
 
 	}
 
