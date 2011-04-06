@@ -6,6 +6,7 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIAcceptanceCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIComplexityCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIDescriptionCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIFeatureTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIHintsCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBILastEditorCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
@@ -17,6 +18,7 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIRelationTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBUBugTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.ScruumleCriterion;
 
 public interface ISearchExpressionVisitor {
@@ -71,5 +73,9 @@ public interface ISearchExpressionVisitor {
 	void handleNoSearchExpression(NoSearchExpression noSearchExpression);
 
 	void handleScruumleCriterion(ScruumleCriterion scruumleCriterion);
+
+	void handleBugTypeCriterion(PBUBugTypeCriterion scruumleCriterion);
+
+	void handleFeatureTypeCriterion(PBIFeatureTypeCriterion scruumleCriterion);
 
 }
