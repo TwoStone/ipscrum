@@ -24,7 +24,7 @@ public final class TextConstantsForLists {
 
 	public static final Map<Integer, String> SEARCH_CRITERIA = new HashMap<Integer, String>() {
 		{
-			this.put(1, "Freitextsuche");
+			this.put(1, "Typ des PBI");
 			this.put(2, "Projekt");
 			this.put(3, "Release");
 			this.put(4, "Name");
@@ -46,6 +46,12 @@ public final class TextConstantsForLists {
 		{
 			this.put(1, "Offen");
 			this.put(2, "Geschlossen");
+		}
+	};;
+	public static final Map<Integer, String> SEARCH_PBI_TYPE = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Feature");
+			this.put(2, "Bug");
 		}
 	};;
 }

@@ -30,14 +30,12 @@ public class Search implements Serializable {
 	/**
 	 * Constructor
 	 * 
-	 * @param name
-	 *            Name of the search.
-	 * @param expression
-	 *            Wrapped search expression
+	 * @param name Name of the search.
+	 * @param expression Wrapped search expression
 	 */
 	public Search(final String name, final SearchExpression expression) {
 		super();
-		this.name = name;
+		this.setName(name);
 		this.expression = expression;
 	}
 
@@ -54,4 +52,29 @@ public class Search implements Serializable {
 	public String getName() {
 		return this.name;
 	}
+
+	/**
+	 * Sets the name of the search.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Search other = (Search) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
 }

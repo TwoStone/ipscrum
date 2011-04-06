@@ -24,11 +24,12 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.events.args.SearchEventArgs;
+import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.constants.TextConstantsForLists;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.RelationType;
-import fhdw.ipscrum.shared.model.Release;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
@@ -42,70 +43,125 @@ import fhdw.ipscrum.shared.model.search.SingleLogicSearchOperator;
 
 public class SearchView extends Composite implements ISearchView {
 	private final Event<EventArgs> addSearchCriterion = new Event<EventArgs>();
+	private final Event<EventArgs> changeSearchName = new Event<EventArgs>();
 	private final Event<CreateLogicalOperatorArgs> addLogicalOperator = new Event<CreateLogicalOperatorArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
-	private final Event<EventArgs> save = new Event<EventArgs>();
-	private SingleSelectionModel<SearchExpression> selectionModel;
+	private final Event<SearchEventArgs> doSearch = new Event<SearchEventArgs>();
+	private final Event<SearchEventArgs> save = new Event<SearchEventArgs>();
+	private final SingleSelectionModel<SearchExpression> selectionModel;
+	private final SingleSelectionModel<Search> searchSelectionModel;
 	private Collection<Project> projects;
-	private Collection<Release> releases;
 	private Collection<System> systems;
 	private Collection<IPerson> persons;
 	private Collection<RelationType> relationtypes;
 	private CellTree cellTree;
-	private ScrollPanel scrollPanelSearch;
-	private VerticalPanel valuePanel;
-	private VerticalPanel thirdLevelPanel;
-	private ListBox cboTyp1;
-	private ListBox cboTyp2;
-	private Label lblTyp1;
-	private Label lblTyp2;
-	private Label lblThirdLevel;
-	private Label lblThirdLevel2;
-	private ListBox cboThirdLevel;
-	private TextBox txtThirdLevel;
-	private TextBox txtThirdLevel2;
+	private final VerticalPanel mainPanel;
+	private final ScrollPanel scrollPanelSearch;
+	private final ScrollPanel scrollPanelResult;
+	private final VerticalPanel valuePanel;
+	private final VerticalPanel thirdLevelPanel;
+	private final ListBox cboTyp1;
+	private final ListBox cboTyp2;
+	private final Label lblTyp1;
+	private final Label lblTyp2;
+	private final Label lblThirdLevel;
+	private final Label lblThirdLevel2;
+	private final ListBox cboThirdLevel;
+	private final TextBox txtThirdLevel;
+	private final TextBox txtThirdLevel2;
+	private final Label lblSearchName;
+	private final TextBox txtSearchName;
 	private Search search;
-	private Button btnOk;
-	private HorizontalPanel buttonPanel;
-	private Button btnAbbrechen;
+	private final Button btnSpeichern;
+	private final Button btnAusfuehren;
+	private final Button btnAbbrechen;
+	private final Button btnHinzu;
+	private final VerticalPanel verticalPanel;
+	private final HorizontalPanel buttonPanel;
 
 	public SearchView() {
+		mainPanel = new VerticalPanel();
+		initWidget(mainPanel);
+		mainPanel.setSpacing(5);
+		mainPanel.setSize("100%", "100%");
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		initWidget(horizontalPanel);
 		horizontalPanel.setSpacing(5);
+		horizontalPanel.setSize("100%", "100%");
+		mainPanel.add(horizontalPanel);
+
+		scrollPanelResult = new ScrollPanel();
+		mainPanel.add(scrollPanelResult);
+		buttonPanel = new HorizontalPanel();
+
+		verticalPanel = new VerticalPanel();
+		horizontalPanel.add(verticalPanel);
 		scrollPanelSearch = new ScrollPanel();
-		horizontalPanel.add(scrollPanelSearch);
-		scrollPanelSearch.setSize("500px", "400px");
+		verticalPanel.add(scrollPanelSearch);
+		verticalPanel.add(buttonPanel);
+
+		btnSpeichern = new Button("Suche speichern");
+		btnSpeichern.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				save.fire(SearchView.this, new SearchEventArgs(search));
+			}
+		});
+		buttonPanel.add(btnSpeichern);
+
+		btnAbbrechen = new Button("Suche verwerfen");
+		btnAbbrechen.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				abort.fire(SearchView.this, new EventArgs());
+			}
+		});
+		buttonPanel.add(btnAbbrechen);
+
+		btnAusfuehren = new Button("Suche ausführen");
+		btnAusfuehren.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				doSearch.fire(SearchView.this, new SearchEventArgs(search));
+			}
+		});
+		buttonPanel.add(btnAusfuehren);
+
+		scrollPanelSearch.setSize("600px", "300");
+		scrollPanelResult.setSize("100%", "300");
+
 		valuePanel = new VerticalPanel();
 
+		txtSearchName = new TextBox();
+		txtSearchName.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				search.setName(SearchView.this.txtSearchName.getText());
+				changeSearchName.fire(SearchView.this, new EventArgs());
+			}
+		});
 		horizontalPanel.add(valuePanel);
 		valuePanel.setSpacing(5);
 		valuePanel.setSize("500", "400");
 
-		buttonPanel = new HorizontalPanel();
-
-		btnOk = new Button("OK");
-		buttonPanel.add(btnOk);
-		btnOk.addClickHandler(new ClickHandler() {
-
+		btnHinzu = new Button("Hinzufügen");
+		btnHinzu.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				if (cboTyp1.getSelectedIndex() == 0) {
-					SearchView.this.addLogicalOperator.fire(SearchView.this, new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1,
-							((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
-				} else if (cboTyp1.getSelectedIndex() == 1) {
-
-				}
+				SearchView.this.addLogicalOperator.fire(SearchView.this, new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1, ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
 			}
 		});
-
-		btnAbbrechen = new Button("Abbrechen");
-		buttonPanel.add(btnAbbrechen);
 
 		thirdLevelPanel = new VerticalPanel();
 		thirdLevelPanel.setSize("490", "200");
 
-		lblTyp1 = new Label("Typ des Suchausdrucks");
+		lblTyp1 = new Label();
+		lblTyp1.setText("Typ des Suchausdrucks");
+
+		lblSearchName = new Label();
+		lblSearchName.setText("Name der Suche");
 
 		cboTyp1 = new ListBox();
 		fillCombobox(cboTyp1, TextConstantsForLists.SEARCH_TYPES);
@@ -137,7 +193,7 @@ public class SearchView extends Composite implements ISearchView {
 				if (cboTyp1.getSelectedIndex() == 0) {
 					thirdLevelPanel.clear();
 					valuePanel.add(thirdLevelPanel);
-					thirdLevelPanel.add(buttonPanel);
+					thirdLevelPanel.add(btnHinzu);
 				} else if (cboTyp1.getSelectedIndex() == 1) {
 					valuePanel.add(thirdLevelPanel);
 					showThirdLevel(cboTyp2.getSelectedIndex());
@@ -155,7 +211,23 @@ public class SearchView extends Composite implements ISearchView {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-				thirdLevelPanel.add(buttonPanel);
+				thirdLevelPanel.add(btnHinzu);
+			}
+		});
+
+		searchSelectionModel = new SingleSelectionModel<Search>();
+		this.searchSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				if (searchSelectionModel.getSelectedObject() != null) {
+					selectionModel.setSelected(selectionModel.getSelectedObject(), false);
+					valuePanel.add(lblSearchName);
+					txtSearchName.setText(search.getName());
+					valuePanel.add(txtSearchName);
+				} else {
+					valuePanel.remove(lblSearchName);
+					valuePanel.remove(txtSearchName);
+				}
 			}
 		});
 
@@ -164,34 +236,41 @@ public class SearchView extends Composite implements ISearchView {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				SearchExpression se = selectionModel.getSelectedObject();
-				ISearchTypeVisitor searchTypeVisitor = new ISearchTypeVisitor() {
+				if (se != null) {
+					searchSelectionModel.setSelected(searchSelectionModel.getSelectedObject(), false);
+					ISearchTypeVisitor searchTypeVisitor = new ISearchTypeVisitor() {
 
-					@Override
-					public void handleMultiLogicSearchOperator(MultiLogicSearchOperator multiLogicSearchOperator) {
-						showCboTyp1(false);
-						showCboTyp2(false, null);
-					}
+						@Override
+						public void handleMultiLogicSearchOperator(MultiLogicSearchOperator multiLogicSearchOperator) {
+							showCboTyp1(false);
+							showCboTyp2(false, null);
+						}
 
-					@Override
-					public void handleSearchCriteria(SearchCriteria searchCriteria) {
-						showCboTyp1(false);
-						showCboTyp2(false, null);
-					}
+						@Override
+						public void handleSearchCriteria(SearchCriteria searchCriteria) {
+							showCboTyp1(false);
+							showCboTyp2(false, null);
+						}
 
-					@Override
-					public void handleSingleLogicSearchOperator(SingleLogicSearchOperator singleLogicSearchOperator) {
-						showCboTyp1(false);
-						showCboTyp2(false, null);
-					}
+						@Override
+						public void handleSingleLogicSearchOperator(SingleLogicSearchOperator singleLogicSearchOperator) {
+							showCboTyp1(false);
+							showCboTyp2(false, null);
+						}
 
-					@Override
-					public void handleNoSearchExpression(NoSearchExpression noSearchExpression) {
-						showCboTyp1(true);
-						showCboTyp2(false, null);
-					}
+						@Override
+						public void handleNoSearchExpression(NoSearchExpression noSearchExpression) {
+							showCboTyp1(true);
+							showCboTyp2(false, null);
+						}
 
-				};
-				se.accept(searchTypeVisitor);
+					};
+					se.accept(searchTypeVisitor);
+				} else {
+					showCboTyp1(false);
+					showCboTyp2(false, null);
+				}
+
 			}
 		});
 	}
@@ -234,8 +313,9 @@ public class SearchView extends Composite implements ISearchView {
 
 		switch (selection) {
 		case 0:
-			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			fillCombobox(cboThirdLevel, TextConstantsForLists.SEARCH_PBI_TYPE);
+			thirdLevelPanel.add(cboThirdLevel);
+			cboThirdLevel.setSelectedIndex(-1);
 			break;
 		case 1:
 			cboThirdLevel.clear();
@@ -252,15 +332,15 @@ public class SearchView extends Composite implements ISearchView {
 			break;
 		case 3:
 			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 4:
 			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 5:
 			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 6:
 			lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA.get(selection + 1) + " von");
@@ -284,7 +364,7 @@ public class SearchView extends Composite implements ISearchView {
 			break;
 		case 9:
 			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 10:
 			cboThirdLevel.clear();
@@ -296,11 +376,11 @@ public class SearchView extends Composite implements ISearchView {
 			break;
 		case 11:
 			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 12:
 			thirdLevelPanel.add(txtThirdLevel);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 13:
 			cboThirdLevel.clear();
@@ -309,7 +389,7 @@ public class SearchView extends Composite implements ISearchView {
 			}
 			thirdLevelPanel.add(cboThirdLevel);
 			cboThirdLevel.setSelectedIndex(-1);
-			thirdLevelPanel.add(buttonPanel);
+			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 14:
 			lblThirdLevel.setText("Version befindet sich im Projekt");
@@ -354,7 +434,7 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public IEvent<EventArgs> getSave() {
+	public IEvent<SearchEventArgs> getSave() {
 		return this.save;
 	}
 
@@ -381,7 +461,7 @@ public class SearchView extends Composite implements ISearchView {
 
 	@Override
 	public void updateTree() {
-		cellTree = new CellTree(new SearchSelectionTreeViewModel(selectionModel, search), null);
+		cellTree = new CellTree(new SearchExpressionTreeViewModel(searchSelectionModel, selectionModel, search), null);
 		scrollPanelSearch.setWidget(cellTree);
 		cellTree.setSize("500px", "400px");
 		cellTree.setVisible(true);
@@ -405,5 +485,21 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public void setRelationTypes(Collection<RelationType> relationtypes) {
 		this.relationtypes = relationtypes;
+	}
+
+	@Override
+	public IEvent<EventArgs> getChangeSearchName() {
+		return changeSearchName;
+	}
+
+	@Override
+	public IEvent<SearchEventArgs> getDoSearch() {
+		return doSearch;
+	}
+
+	@Override
+	public void updateResults(ISearchResultView resultView) {
+		scrollPanelResult.clear();
+		scrollPanelResult.add(resultView);
 	}
 }

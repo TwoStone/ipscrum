@@ -1,6 +1,5 @@
 package fhdw.ipscrum.shared.constants;
 
-
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -150,7 +149,7 @@ public final class TextConstants {
 	public static final String SPRINTTABLE_TEAMHEADER = "Team";
 	public static final String SPRINTTABLE_BEGINDATEHEADER = "Beginn";
 	public static final String SPRINTTABLE_ENDDATEHEADER = "Ende";
-	
+
 	public static final String INCIDENT_VACATION_NAME = "Urlaub";
 	public static final String INCIDENT_VACATION_DESCR_SUFFIX = " befindet sich im Urlaub.";
 	public static final String INCIDENT_ILLNESS_NAME = "Krankheit";
@@ -167,7 +166,7 @@ public final class TextConstants {
 	public static final String INCIDENT_PBICOMPLETION_DESCR_PREFIX2 = "Der Bug '";
 	public static final String INCIDENT_PBICOMPLETION_DESCR_SUFFIX2 = " als behoben akzeptiert";
 	public static final String INCIDENT_SPRINTCOMPLETION_NAME = "Sprint beendet";
-	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_PREFIX = "Der Sprint '" ;
+	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_PREFIX = "Der Sprint '";
 	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_INFIX = "' wurde von dem Team ";
 	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_SUFFIX = " beendet.";
 	public static final String INCIDENT_RELEASECOMPLETION_NAME = "Neues Release";
@@ -183,7 +182,7 @@ public final class TextConstants {
 	public static final String POINTS = "...";
 	public static final String INCIDENT_WARNING_1 = "Bitte ein Start- und Ende-Datum und eine Person auswählen!";
 	public static final String INCIDENT_WARNING_2 = "Bitte Start-, Ende-Datum, Namen und Beschreibung eingeben!";
-	
+
 	/* [END SECTION] */
 
 	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
@@ -221,7 +220,7 @@ public final class TextConstants {
 	public static final String ÜBERGEORDNET = "Übergeordnet";
 	public static final String NEUES_SYSTEM_HINZUFÜGEN = "Neues System hinzufügen";
 
-
 	/* [END SECTION] */
+	public static final String NEW_SEARCH = "Neue Suche";
 
 }

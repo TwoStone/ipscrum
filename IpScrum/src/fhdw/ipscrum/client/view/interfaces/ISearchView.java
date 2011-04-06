@@ -5,6 +5,7 @@ import java.util.Collection;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.events.args.SearchEventArgs;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
@@ -17,7 +18,14 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<EventArgs> getSave();
+	IEvent<SearchEventArgs> getSave();
+
+	/**
+	 * Returns the event fired when a search.
+	 * 
+	 * @return
+	 */
+	IEvent<SearchEventArgs> getDoSearch();
 
 	/**
 	 * Returns the event fired when the workflow shell be aborted.
@@ -40,12 +48,12 @@ public interface ISearchView extends IView {
 	 */
 	IEvent<CreateLogicalOperatorArgs> getAddLogicalOperator();
 
-	//
-	// /**
-	// * Returns the Search.
-	// *
-	// */
-	// Search getSearch();
+	/**
+	 * Returns the event fired when the search-name has changed.
+	 * 
+	 * @return
+	 */
+	IEvent<EventArgs> getChangeSearchName();
 
 	/**
 	 * Sets the Search to display.
@@ -82,4 +90,10 @@ public interface ISearchView extends IView {
 	 * 
 	 */
 	void updateTree();
+
+	/**
+	 * Updates the searchresults.
+	 * 
+	 */
+	void updateResults(ISearchResultView resultView);
 }

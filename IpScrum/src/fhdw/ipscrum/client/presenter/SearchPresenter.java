@@ -5,12 +5,15 @@ import java.util.Collection;
 
 import com.google.gwt.user.client.ui.Panel;
 
+import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.events.args.SearchEventArgs;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.SearchView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.And;
 import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
@@ -36,7 +39,20 @@ public class SearchPresenter extends Presenter<ISearchView> {
 	 */
 	public SearchPresenter(final Panel parent, final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
+		this.init();
 		this.setupEventHandlers();
+	}
+
+	private void init() {
+		this.getView().setSearch(new Search(TextConstants.NEW_SEARCH, new And()));
+		this.getView().setProjects(this.getSessionManager().getModel().getProjects());
+		this.getView().setSystems(this.getSessionManager().getModel().getSysManager().getSystems().getSystems());
+		this.getView().setRelationTypes(this.getSessionManager().getModel().getRelationTypeManager().getRelationTypes());
+		Collection<IPerson> persons = new ArrayList<IPerson>();
+		for (IPerson person : this.getSessionManager().getModel().getPersons()) {
+			persons.add(person);
+		}
+		this.getView().setPersons(persons);
 	}
 
 	/**
@@ -54,23 +70,50 @@ public class SearchPresenter extends Presenter<ISearchView> {
 	 * this is called to set up the behaviour of all interaction widgets of this view.
 	 */
 	private void setupEventHandlers() {
-		this.getView().setSearch(new Search("test", new And()));
-		this.getView().setProjects(this.getSessionManager().getModel().getProjects());
-		this.getView().setSystems(this.getSessionManager().getModel().getSysManager().getSystems().getSystems());
-		this.getView().setRelationTypes(this.getSessionManager().getModel().getRelationTypeManager().getRelationTypes());
-		Collection<IPerson> persons = new ArrayList<IPerson>();
-		for (IPerson person : this.getSessionManager().getModel().getPersons()) {
-			persons.add(person);
-		}
-		this.getView().setPersons(persons);
 
 		this.getView().getAddLogicalOperator().add(new EventHandler<CreateLogicalOperatorArgs>() {
-
 			@Override
 			public void onUpdate(Object sender, CreateLogicalOperatorArgs eventArgs) {
 				SearchPresenter.this.createLogicalOperator(eventArgs);
 			}
 		});
+
+		this.getView().getChangeSearchName().add(new EventHandler<EventArgs>() {
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				SearchPresenter.this.getView().updateTree();
+			}
+		});
+		this.getView().getSave().add(new EventHandler<SearchEventArgs>() {
+			@Override
+			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
+
+				if (SearchPresenter.this.saveSearch(eventArgs.getSearch())) {
+					SearchPresenter.this.backToSearchesAll();
+				} else {
+					GwtUtils.displayError(ExceptionConstants.SEARCH_DOUBLE_DEFINITION_ERROR);
+				}
+			}
+		});
+		this.getView().getAborted().add(new EventHandler<EventArgs>() {
+			@Override
+			public void onUpdate(Object sender, EventArgs eventArgs) {
+				SearchPresenter.this.backToSearchesAll();
+			}
+		});
+		this.getView().getDoSearch().add(new EventHandler<SearchEventArgs>() {
+			@Override
+			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
+				SearchPresenter.this.showSearch(eventArgs.getSearch());
+			}
+		});
+	}
+
+	protected void showSearch(Search search) {
+		if (this.getParent() != null) {
+			SearchResultPresenter resultPresenter = new SearchResultPresenter(this.getSessionManager().getModel().getSearchManager().search(this.getSessionManager().getModel().getAllTickets(), search.getExpression()), null, this);
+			this.getView().updateResults(resultPresenter.getView());
+		}
 	}
 
 	private void createLogicalOperator(CreateLogicalOperatorArgs eventargs) {
@@ -108,5 +151,22 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		};
 		eventargs.getSearchExpression().accept(seVisitor);
 		this.getView().updateTree();
+	}
+
+	private void backToSearchesAll() {
+		if (this.getParent() != null) {
+			this.getParent().clear();
+			new SearchAllPresenter(this.getParent(), this.getParentPresenter());
+			this.finish();
+		}
+	}
+
+	private boolean saveSearch(Search search) {
+		if (this.getSessionManager().getModel().getSearchManager().getSearching().contains(search)) {
+			return false;
+		} else {
+			this.getSessionManager().getModel().getSearchManager().addSearch(search);
+			return true;
+		}
 	}
 }
