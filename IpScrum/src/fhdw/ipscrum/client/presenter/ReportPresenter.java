@@ -39,7 +39,7 @@ public class ReportPresenter extends Presenter<IReportView> {
 		this.concreteView.addSelectProjectEventHandler(new EventHandler<ProjectEventArgs>() {
 			@Override
 			public void onUpdate(Object sender, ProjectEventArgs eventArgs) {
-				//new ProjectHistoryPresenter(ReportPresenter.this.getView().getContentPanel(), ReportPresenter.this, eventArgs.getProject());
+				new ProjectHistoryPresenter(ReportPresenter.this.getView().getContentPanel(), ReportPresenter.this, eventArgs.getProject());
 			}
 		});
 	}
