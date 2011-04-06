@@ -1,35 +1,31 @@
 package fhdw.ipscrum.shared.model.incidents;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.Vector;
-
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
 /**
  * This class represents the abstract node for specific types of incidents
+ * (Knowledge Layer). Users can create specific Incident-Types identified by
+ * the name.
  */
 public class IncidentType implements Serializable {
 	private static final long serialVersionUID = -9075240586079380217L;
 
 	/**
-	 * the name of the incident
+	 * the name of the incidentType and identifier
 	 */
 	private String name;
 	
 	public IncidentType(String name){
-		this.name = name;
-		
+		this.setName(name);		
 	}
 	@SuppressWarnings("unused")
 	private IncidentType(){}
 	
-	public void setName(String name){
+	private void setName(String name){
 		this.name=name;
 	}
 
-	public String getName(){
+	public final String getName(){
 		return this.name;
 	}
 	@Override

@@ -1,15 +1,13 @@
 package fhdw.ipscrum.shared.model.incidents;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Vector;
 
 import fhdw.ipscrum.shared.SessionManager;
 import fhdw.ipscrum.shared.bdas.BDACompare;
 import fhdw.ipscrum.shared.bdas.ManyToMany;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
@@ -23,9 +21,10 @@ import fhdw.ipscrum.shared.observer.Observable;
  * An Incident represents events occurring in one ore more scrum projects.
  * Incidents which are well recorded, are a good tool for analyzing the velocity 
  * and the progress of the projects. They represent the project history and 
- * provide a basis for planning activities.
+ * provide a basis for planning activities. Incidents are in the operations layer.
+ * the knowledge layer contains the {@link IncidentType} instances.
  */
-public abstract class Incident extends Observable implements BDACompare {
+public abstract class Incident extends Observable implements BDACompare, Serializable {
 	private static final long serialVersionUID = 3849328996818037099L;
 	
 	/**
@@ -69,7 +68,12 @@ public abstract class Incident extends Observable implements BDACompare {
 	}
 	
 	public abstract void accept(IncidentVisitor visitor);
-	
+	/**
+	 * @return
+	 * Incident with {@link IncidentType} instance "Vacation"
+	 * @throws NoValidValueException
+	 * Precondition: start <= end
+	 */
 	public static OneParticipantIncident createVacationIncident(IPerson person, Date start, Date end) throws NoValidValueException{
 		if (isEndBeforeStart(start, end))
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
@@ -85,6 +89,12 @@ public abstract class Incident extends Observable implements BDACompare {
 		i.setGlobal(true);
 		return i;
 	}
+	/**
+	 * @return
+	 * Incident with {@link IncidentType} instance "Illness"
+	 * @throws NoValidValueException
+	 * Precondition: start <= end
+	 */
 	public static OneParticipantIncident createIllnessIncident(IPerson person, Date start, Date end) throws NoValidValueException{
 		if (isEndBeforeStart(start, end))
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
@@ -99,6 +109,10 @@ public abstract class Incident extends Observable implements BDACompare {
 		i.setGlobal(true);
 		return i;
 	}
+	/**
+	 * @return
+	 * Incident with {@link IncidentType} instance "TaskCompletion"
+	 */
 	public static OneParticipantIncident createTaskCompletionIncident(ITask task){
 		Date d = new Date();
 		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
@@ -115,6 +129,10 @@ public abstract class Incident extends Observable implements BDACompare {
 		i.setDescription(description);		
 		return i;
 	}
+	/**
+	 * @return
+	 * Incident with {@link IncidentType} instance "PBICompletion"
+	 */
 	public static OneParticipantIncident createPBICompletionIncident(ProductBacklogItem pbi){
 		Date d = new Date();
 		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
@@ -128,6 +146,10 @@ public abstract class Incident extends Observable implements BDACompare {
 		i.setDescription(description);
 		return i;
 	}
+	/**
+	 * @return
+	 * Incident with {@link IncidentType} instance "SprintCompletion"
+	 */
 	public static MultipleParticipantIncident createSprintCompletionIncident(ISprint sprint){
 		Date d = new Date();
 		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
@@ -142,6 +164,10 @@ public abstract class Incident extends Observable implements BDACompare {
 		i.setDescription(description);
 		return i;
 	}
+	/**
+	 * @return
+	 * Incident with {@link IncidentType} instance "ReleaseCompletion"
+	 */
 	public static MultipleParticipantIncident createReleaseCompletionIncident(IRelease release){
 		Date d = new Date();
 		Root root = SessionManager.getInstance().getModel(); //TODO: geht das auch besser?
@@ -154,7 +180,12 @@ public abstract class Incident extends Observable implements BDACompare {
 		i.setDescription(description);
 		return i;
 	}
-	
+	/**
+	 * @return
+	 * Incident with a custom {@link IncidentType} instance.
+	 * @throws NoValidValueException
+	 * Precondition: start <= end
+	 */
 	public static MultipleParticipantIncident createOtherIssueIncident(IncidentType type, String description, Date start, Date end) throws NoValidValueException{
 		if (isEndBeforeStart(start, end)){
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
@@ -196,6 +227,11 @@ public abstract class Incident extends Observable implements BDACompare {
 	protected void setType(final IncidentType incidentType){
 		this.incidentType = incidentType;
 	}
+	
+	/**
+	 * @return
+	 * the type-instance of the Incident
+	 */
 	public final IncidentType getIncidentType(){
 		return this.incidentType;
 	}
@@ -204,17 +240,28 @@ public abstract class Incident extends Observable implements BDACompare {
 	public ManyToMany<ManyToMany, Incident> getProjectAssoc(){
 		return this.projectAssoc;
 	}
-	
-	public void addProject(Project project) {
+	/**
+	 * Adds a new project to the incident's scope
+	 * @param project
+	 */
+	public void addProject(final Project project) {
 		if (project != null){
 			this.getProjectAssoc().add(project.getIncidentAssoc());
 		}
 	}
 	
+	/**
+	 * @return
+	 * True, if the incident has global validity
+	 */
 	public boolean isGlobal(){
 		return this.isGlobal;
 	}
 	
+	/**
+	 * Changes validity to the value of isGlobal
+	 * @param isGlobal
+	 */
 	public void setGlobal(boolean isGlobal){
 		this.isGlobal = isGlobal;
 	}
