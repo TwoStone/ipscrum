@@ -2,7 +2,6 @@ package fhdw.ipscrum.shared.model.search;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -14,6 +13,7 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 
 public class NotTest extends SetUpTestData {
 
@@ -34,17 +34,14 @@ public class NotTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testNot() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testSearch() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression = new NoSearchExpression();
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		NoSearchExpression noSearchExpression = new NoSearchExpression(parentExpression);
 		collection.add(noSearchExpression);
 
 		assertTrue(noSearchExpression.search(item));

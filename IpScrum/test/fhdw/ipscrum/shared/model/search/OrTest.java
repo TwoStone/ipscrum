@@ -38,13 +38,14 @@ public class OrTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		Or or = new Or(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
 		collection.add(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 		collection.add(noSearchExpression2);
 
-		Or or = new Or(collection);
 		assertTrue(or.search(item));
 	}
 
@@ -53,14 +54,16 @@ public class OrTest extends SetUpTestData {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+
+		Or or = new Or(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
 		collection.add(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 		collection.add(NotNoSearchExpression2);
 
-		Or or = new Or(collection);
 		assertTrue(or.search(item));
 	}
 
@@ -70,14 +73,15 @@ public class OrTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		Or or = new Or(collection);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 		collection.add(NotNoSearchExpression2);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
 		collection.add(noSearchExpression1);
 
-		Or or = new Or(collection);
 		assertTrue(or.search(item));
 	}
 
@@ -87,15 +91,16 @@ public class OrTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		Or or = new Or(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
 		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
 		collection.add(NotNoSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 		collection.add(NotNoSearchExpression2);
 
-		Or or = new Or(collection);
 		assertFalse(or.search(item));
 	}
 
@@ -103,11 +108,12 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_TrueTrue_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
-
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
-
 		Or or = new Or();
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
+
 		or.add(noSearchExpression1);
 		or.add(noSearchExpression2);
 		assertTrue(or.search(item));
@@ -117,12 +123,13 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_TrueFalse_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		Or or = new Or();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 
-		Or or = new Or();
 		or.add(noSearchExpression1);
 		or.add(NotNoSearchExpression2);
 		assertTrue(or.search(item));
@@ -132,12 +139,13 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_FalseTrue_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		Or or = new Or();
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
 		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 
-		Or or = new Or();
 		or.add(NotNoSearchExpression1);
 		or.add(noSearchExpression2);
 		assertTrue(or.search(item));
@@ -147,13 +155,14 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_FalseFalse_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		Or or = new Or();
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
 		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 
-		Or or = new Or();
 		or.add(NotNoSearchExpression1);
 		or.add(NotNoSearchExpression2);
 		assertFalse(or.search(item));

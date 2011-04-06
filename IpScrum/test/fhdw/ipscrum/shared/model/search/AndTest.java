@@ -38,13 +38,14 @@ public class AndTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		And and = new And(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
 		collection.add(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 		collection.add(noSearchExpression2);
 
-		And and = new And(collection);
 		assertTrue(and.search(item));
 	}
 
@@ -53,14 +54,16 @@ public class AndTest extends SetUpTestData {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+
+		And and = new And(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
 		collection.add(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 		collection.add(NotNoSearchExpression2);
 
-		And and = new And(collection);
 		assertFalse(and.search(item));
 	}
 
@@ -70,14 +73,15 @@ public class AndTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		And and = new And(collection);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 		collection.add(NotNoSearchExpression2);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
 		collection.add(noSearchExpression1);
 
-		And and = new And(collection);
 		assertFalse(and.search(item));
 	}
 
@@ -87,15 +91,16 @@ public class AndTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		And and = new And(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
 		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
 		collection.add(NotNoSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 		collection.add(NotNoSearchExpression2);
 
-		And and = new And(collection);
 		assertFalse(and.search(item));
 	}
 
@@ -103,11 +108,12 @@ public class AndTest extends SetUpTestData {
 	public void testSearch_TrueTrue_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
-
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
-
 		And and = new And();
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
+
 		and.add(noSearchExpression1);
 		and.add(noSearchExpression2);
 		assertTrue(and.search(item));
@@ -117,12 +123,13 @@ public class AndTest extends SetUpTestData {
 	public void testSearch_TrueFalse_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		And and = new And();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 
-		And and = new And();
 		and.add(noSearchExpression1);
 		and.add(NotNoSearchExpression2);
 		assertFalse(and.search(item));
@@ -132,12 +139,13 @@ public class AndTest extends SetUpTestData {
 	public void testSearch_FalseTrue_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		And and = new And();
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
 		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 
-		And and = new And();
 		and.add(NotNoSearchExpression1);
 		and.add(noSearchExpression2);
 		assertFalse(and.search(item));
@@ -147,13 +155,14 @@ public class AndTest extends SetUpTestData {
 	public void testSearch_FalseFalse_ConstruktorWithoutParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression();
+		And and = new And();
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
 		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression();
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
 		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
 
-		And and = new And();
 		and.add(NotNoSearchExpression1);
 		and.add(NotNoSearchExpression2);
 		assertFalse(and.search(item));

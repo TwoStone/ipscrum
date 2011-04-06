@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
+
 public class SingleLogicSearchOperatorTest extends SetUpTestData {
 
 	@BeforeClass
@@ -28,8 +30,9 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 
 	@Test
 	public void testGetArg() {
-		SearchExpression expression1 = new NoSearchExpression();
-		SearchExpression expression2 = new NoSearchExpression();
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		SearchExpression expression1 = new NoSearchExpression(parentExpression);
 
 		SingleLogicSearchOperator operator = new Not(expression1);
 		assertEquals(expression1, operator.getArg());
@@ -37,8 +40,10 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 
 	@Test
 	public void testSetArg() {
-		SearchExpression expression1 = new NoSearchExpression();
-		SearchExpression expression2 = new NoSearchExpression();
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		SearchExpression expression1 = new NoSearchExpression(parentExpression);
+		SearchExpression expression2 = new NoSearchExpression(parentExpression);
 
 		SingleLogicSearchOperator operator = new Not(expression1);
 		assertEquals(expression1, operator.getArg());

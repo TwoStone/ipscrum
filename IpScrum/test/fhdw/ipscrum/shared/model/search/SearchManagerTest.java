@@ -8,14 +8,17 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
 
 public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testGetSearching() {
-		Search search1 = new Search("Name1", new NoSearchExpression());
-		Search search2 = new Search("Name2", new NoSearchExpression());
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
+		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -27,8 +30,10 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testAddSearch() {
-		Search search1 = new Search("Name1", new NoSearchExpression());
-		Search search2 = new Search("Name2", new NoSearchExpression());
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
+		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -45,9 +50,10 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testRemoveSearch() {
+		SearchExpression parentExpression = new PBIOpenCriterion();
 
-		Search search1 = new Search("Name1", new NoSearchExpression());
-		Search search2 = new Search("Name2", new NoSearchExpression());
+		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
+		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -67,8 +73,10 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testGetSize() {
-		Search search1 = new Search("Name1", new NoSearchExpression());
-		Search search2 = new Search("Name2", new NoSearchExpression());
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
+		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -84,14 +92,14 @@ public class SearchManagerTest extends SetUpTestData {
 	public void testSearch1_NoSearchExpression() {
 		SearchManager manager = new SearchManager();
 		Collection<ProductBacklogItem> elements = this.listOfFeatures;
-		assertEquals(elements, manager.search(elements, new NoSearchExpression()));
+		assertEquals(elements, manager.search(elements, new NoSearchExpression(new PBIOpenCriterion())));
 	}
 
 	@Test
 	public void testSearch2_NotNoSearchExpression() {
 		SearchManager manager = new SearchManager();
 		Collection<ProductBacklogItem> elements = this.listOfFeatures;
-		Collection<ProductBacklogItem> result = manager.search(elements, new Not(new NoSearchExpression()));
+		Collection<ProductBacklogItem> result = manager.search(elements, new Not(new NoSearchExpression(new PBIOpenCriterion())));
 		assertEquals(0, result.size());
 	}
 

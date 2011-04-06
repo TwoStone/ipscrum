@@ -1,6 +1,6 @@
 package fhdw.ipscrum.shared.model.search;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -9,10 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import fhdw.ipscrum.shared.exceptions.UserException;
-import fhdw.ipscrum.shared.model.Feature;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 
-public class NoSearchExpressionTest extends SetUpTestData{
+public class NoSearchExpressionTest extends SetUpTestData {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -32,8 +31,10 @@ public class NoSearchExpressionTest extends SetUpTestData{
 
 	@Test
 	public void testSearch() throws UserException {
-		
-		NoSearchExpression expression = new NoSearchExpression();
+
+		SearchExpression parentExpression = new PBIOpenCriterion();
+
+		NoSearchExpression expression = new NoSearchExpression(parentExpression);
 		assertTrue(expression.search(this.pro1rel1spr1fea1));
 	}
 
