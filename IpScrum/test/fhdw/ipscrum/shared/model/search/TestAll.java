@@ -21,6 +21,8 @@ import fhdw.ipscrum.shared.model.search.criteria.Test_PBIReleaseCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.Test_PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.Test_PBISprintNameCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.Test_ScruumleCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.Test_PBIBugTypeCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.Test_PBIFeatureTypeCriterion;
 
 /**
  * The class <code>TestAll</code> builds a suite that can be used to run all of
@@ -32,7 +34,18 @@ import fhdw.ipscrum.shared.model.search.criteria.Test_ScruumleCriterion;
  * @version $Revision: 1.0 $
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ Test_BugSystemCriterion.class, Test_BugVersionCriterion.class, Test_PBIAcceptanceCriterion.class, Test_PBIClosedCriterion.class, Test_PBIComplexityCriterion.class, Test_PBIDescriptionCriterion.class, Test_PBIHintsCriterion.class, Test_PBILastEditorCriterion.class, Test_PBINameCriterion.class, Test_PBIOpenCriterion.class, Test_PBIProjectCriterion.class, Test_PBIRelationDestCriterion.class, Test_PBIRelationTypeCriterion.class, Test_PBIReleaseCriterion.class, Test_PBISprintDescCriterion.class, Test_PBISprintNameCriterion.class, Test_ScruumleCriterion.class, AndTest.class, MultiLogicSearchOperatorTest.class, NoSearchExpressionTest.class, NotTest.class, OrTest.class, SearchManagerTest.class, SearchTest.class, SingleLogicSearchOperatorTest.class, })
+@Suite.SuiteClasses({ Test_BugSystemCriterion.class, Test_BugVersionCriterion.class, 
+	Test_PBIAcceptanceCriterion.class, Test_PBIClosedCriterion.class, 
+	Test_PBIComplexityCriterion.class, Test_PBIDescriptionCriterion.class, 
+	Test_PBIHintsCriterion.class, Test_PBILastEditorCriterion.class, 
+	Test_PBINameCriterion.class, Test_PBIOpenCriterion.class, 
+	Test_PBIBugTypeCriterion.class, Test_PBIFeatureTypeCriterion.class,	
+	Test_PBIProjectCriterion.class, Test_PBIRelationDestCriterion.class, 
+	Test_PBIRelationTypeCriterion.class, Test_PBIReleaseCriterion.class, 
+	Test_PBISprintDescCriterion.class, Test_PBISprintNameCriterion.class, 
+	Test_ScruumleCriterion.class, AndTest.class, MultiLogicSearchOperatorTest.class, 
+	NoSearchExpressionTest.class, NotTest.class, OrTest.class, SearchManagerTest.class,
+	SearchTest.class, SingleLogicSearchOperatorTest.class, })
 public class TestAll {
 
 	/**
