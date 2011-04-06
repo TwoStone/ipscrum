@@ -7,10 +7,10 @@ import fhdw.ipscrum.shared.model.search.SearchExpression;
  */
 public class EffortSearchCriterionArgs extends EventArgs {
 	private SearchExpression se;
-	private int valueFrom;
-	private int valueTo;
+	private Integer valueFrom;
+	private Integer valueTo;
 
-	public EffortSearchCriterionArgs(SearchExpression se, int valueFrom, int valueTo) {
+	public EffortSearchCriterionArgs(SearchExpression se, Integer valueFrom, Integer valueTo) {
 		super();
 		this.se = se;
 		this.valueFrom = valueFrom;
@@ -21,11 +21,11 @@ public class EffortSearchCriterionArgs extends EventArgs {
 		return se;
 	}
 
-	public int getValueFrom() {
+	public Integer getValueFrom() {
 		return valueFrom;
 	}
 
-	public int getValueTo() {
+	public Integer getValueTo() {
 		return valueTo;
 	}
 

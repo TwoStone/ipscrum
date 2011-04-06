@@ -22,14 +22,11 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	/**
 	 * Constructor
 	 * 
-	 * @param from
-	 *            Range start (inclusive)
-	 * @param to
-	 *            Range end (inclusive)
+	 * @param from Range start (inclusive)
+	 * @param to Range end (inclusive)
 	 * @throws NoValidValueException
 	 */
-	public PBIComplexityCriterion(final Integer from, final Integer to)
-			throws NoValidValueException {
+	public PBIComplexityCriterion(final Integer from, final Integer to) throws NoValidValueException {
 		super();
 		this.checkRange(from, to);
 		this.from = from;
@@ -39,12 +36,10 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	/**
 	 * Constructor - No Range!
 	 * 
-	 * @param fromTo
-	 *            Fix value for complexity
+	 * @param fromTo Fix value for complexity
 	 * @throws NoValidValueException
 	 */
-	public PBIComplexityCriterion(final Integer fromTo)
-			throws NoValidValueException {
+	public PBIComplexityCriterion(final Integer fromTo) throws NoValidValueException {
 		super();
 		this.checkRange(fromTo, fromTo);
 		this.from = fromTo;
@@ -53,8 +48,7 @@ public class PBIComplexityCriterion extends SearchCriteria {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return (pbi.getManDayCosts().getValue() >= this.from && pbi
-				.getManDayCosts().getValue() <= this.to);
+		return (pbi.getManDayCosts().getValue() >= this.from && pbi.getManDayCosts().getValue() <= this.to);
 	}
 
 	/**
@@ -64,12 +58,11 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	 * @param to
 	 * @throws NoValidValueException
 	 */
-	private void checkRange(final Integer from, final Integer to)
-			throws NoValidValueException {
+	private void checkRange(final Integer from, final Integer to) throws NoValidValueException {
 		// TODO Textkonstante bauen
+		// TODO Nullwerte abfangen!
 		if (from <= 0 || to <= 0 || to < from) {
-			throw new NoValidValueException(
-					"Es muss ein gültiger Bereich angegeben werden!");
+			throw new NoValidValueException("Es muss ein gültiger Bereich angegeben werden!");
 		}
 	}
 

@@ -1,27 +1,33 @@
 package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.shared.model.Relation;
+import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 
 /**
  */
 public class RelationSearchCriterionArgs extends EventArgs {
 	private SearchExpression se;
-	private Relation relation;
+	private RelationType relationType;
+	private String relationDesc;
 
-	public RelationSearchCriterionArgs(SearchExpression se, Relation relation) {
+	public RelationSearchCriterionArgs(SearchExpression se, RelationType relationType, String relationDesc) {
 		super();
 		this.se = se;
-		this.relation = relation;
+		this.relationType = relationType;
+		this.relationDesc = relationDesc;
 	}
 
 	public SearchExpression getSe() {
 		return se;
 	}
 
-	public Relation getRelation() {
-		return relation;
+	public RelationType getRelationType() {
+		return relationType;
+	}
+
+	public String getRelationDesc() {
+		return relationDesc;
 	}
 
 }

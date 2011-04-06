@@ -1,7 +1,7 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -12,6 +12,7 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.IntegerBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -68,10 +69,10 @@ public class SearchView extends Composite implements ISearchView {
 	private final Event<SearchEventArgs> save = new Event<SearchEventArgs>();
 	private final SingleSelectionModel<SearchExpression> selectionModel;
 	private final SingleSelectionModel<Search> searchSelectionModel;
-	private Collection<Project> projects;
-	private Collection<System> systems;
-	private Collection<IPerson> persons;
-	private Collection<RelationType> relationtypes;
+	private List<Project> projects;
+	private List<System> systems;
+	private List<IPerson> persons;
+	private List<RelationType> relationtypes;
 	private CellTree cellTree;
 	private final VerticalPanel mainPanel;
 	private final ScrollPanel scrollPanelSearch;
@@ -80,13 +81,15 @@ public class SearchView extends Composite implements ISearchView {
 	private final VerticalPanel thirdLevelPanel;
 	private final ListBox cboTyp1;
 	private final ListBox cboTyp2;
+	private ListBox cboProjects;
 	private final Label lblTyp1;
 	private final Label lblTyp2;
 	private final Label lblThirdLevel;
 	private final Label lblThirdLevel2;
 	private final ListBox cboThirdLevel;
 	private final TextBox txtThirdLevel;
-	private final TextBox txtThirdLevel2;
+	private final IntegerBox intBoxFrom;
+	private final IntegerBox intBoxTo;
 	private final Label lblSearchName;
 	private final TextBox txtSearchName;
 	private Search search;
@@ -172,37 +175,41 @@ public class SearchView extends Composite implements ISearchView {
 							((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
 				} else if (cboTyp1.getSelectedIndex() == 1 && !SearchView.this.fireEventForSearchCriteria()) {
 					int i = cboTyp2.getSelectedIndex();
+					SearchExpression se = ((NoSearchExpression) selectionModel.getSelectedObject()).getParent();
 					switch (i) {
 					case 0:
+						addPbiTypSearchCriterion.fire(this, new PBITypSearchCriterionArgs(se, SearchView.this.cboThirdLevel.getSelectedIndex() + 1));
 						break;
 					case 1:
+						addProjektSearchCriterion.fire(this, new ProjectSearchCriterionEventArgs(se, projects.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 2:
+						IRelease r = projects.get(SearchView.this.cboProjects.getSelectedIndex()).getReleasePlan().get(cboThirdLevel.getSelectedIndex());
+						addReleaseSearchCriterion.fire(this, new ReleaseSearchCriterionArgs(se, r));
 						break;
 					case 6:
+						// TODO Christin: Anpassung RangeCheck im kriterium
+						addAufwandSearchCriterion.fire(this, new EffortSearchCriterionArgs(se, intBoxFrom.getValue(), intBoxTo.getValue()));
 						break;
 					case 7:
+						addStatusSearchCriterion.fire(this, new StatusSearchCriterionArgs(se, cboThirdLevel.getSelectedIndex() + 1));
 						break;
 					case 8:
+						addLetzterBearbeiterSearchCriterion.fire(this, new LastEditorSearchCriterionArgs(se, persons.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 10:
+						addBeziehungSearchCriterion.fire(this, new RelationSearchCriterionArgs(se, relationtypes.get(cboThirdLevel.getSelectedIndex()), txtThirdLevel.getText()));
 						break;
 					case 13:
+						addSystemSearchCriterion.fire(this, new SystemSearchCriterionArgs(se, systems.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 14:
+						IRelease v = projects.get(SearchView.this.cboProjects.getSelectedIndex()).getReleasePlan().get(cboThirdLevel.getSelectedIndex());
+						addVersionSearchCriterion.fire(this, new ReleaseSearchCriterionArgs(se, v));
 						break;
 					default:
 						break;
 					}
-					// this.put(1, "Typ des PBI");
-					// this.put(2, "Projekt");
-					// this.put(3, "Release");
-					// this.put(7, "Aufwand");
-					// this.put(8, "Status");
-					// this.put(9, "Letzter Bearbeiter");
-					// this.put(11, "Beziehung");
-					// this.put(14, "System (nur Bugs)");
-					// this.put(15, "Version (nur Bugs)");
 				}
 			}
 		});
@@ -259,7 +266,22 @@ public class SearchView extends Composite implements ISearchView {
 		lblThirdLevel2 = new Label();
 		cboThirdLevel = new ListBox();
 		txtThirdLevel = new TextBox();
-		txtThirdLevel2 = new TextBox();
+		intBoxFrom = new IntegerBox();
+		intBoxFrom.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				SearchView.this.checkAufwand();
+			}
+		});
+		intBoxTo = new IntegerBox();
+		intBoxTo.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				SearchView.this.checkAufwand();
+			}
+		});
 		cboThirdLevel.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -326,6 +348,14 @@ public class SearchView extends Composite implements ISearchView {
 
 			}
 		});
+	}
+
+	private void checkAufwand() {
+		if ((intBoxFrom.getValue() != null && intBoxFrom.getValue() > 0) || (intBoxTo.getValue() != null && intBoxTo.getValue() > 0)) {
+			thirdLevelPanel.add(btnHinzu);
+		} else {
+			thirdLevelPanel.remove(btnHinzu);
+		}
 	}
 
 	private boolean fireEventForSearchCriteria() {
@@ -416,28 +446,33 @@ public class SearchView extends Composite implements ISearchView {
 			showReleaseSelection();
 			break;
 		case 3:
+			txtThirdLevel.setText("");
 			thirdLevelPanel.add(txtThirdLevel);
 			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 4:
+			txtThirdLevel.setText("");
 			thirdLevelPanel.add(txtThirdLevel);
 			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 5:
+			txtThirdLevel.setText("");
 			thirdLevelPanel.add(txtThirdLevel);
 			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 6:
 			lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA.get(selection + 1) + " von");
-			thirdLevelPanel.add(txtThirdLevel);
-
+			intBoxFrom.setValue(null);
+			intBoxTo.setValue(null);
+			thirdLevelPanel.add(intBoxFrom);
 			lblThirdLevel2.setText(TextConstantsForLists.SEARCH_CRITERIA.get(selection + 1) + " bis");
 			thirdLevelPanel.add(lblThirdLevel2);
-			thirdLevelPanel.add(txtThirdLevel2);
+			thirdLevelPanel.add(intBoxTo);
 			break;
 		case 7:
 			fillCombobox(cboThirdLevel, TextConstantsForLists.SEARCH_PBI_STATE);
 			thirdLevelPanel.add(cboThirdLevel);
+			cboThirdLevel.setSelectedIndex(-1);
 			break;
 		case 8:
 			cboThirdLevel.clear();
@@ -448,6 +483,7 @@ public class SearchView extends Composite implements ISearchView {
 			cboThirdLevel.setSelectedIndex(-1);
 			break;
 		case 9:
+			txtThirdLevel.setText("");
 			thirdLevelPanel.add(txtThirdLevel);
 			thirdLevelPanel.add(btnHinzu);
 			break;
@@ -460,10 +496,12 @@ public class SearchView extends Composite implements ISearchView {
 			cboThirdLevel.setSelectedIndex(-1);
 			break;
 		case 11:
+			txtThirdLevel.setText("");
 			thirdLevelPanel.add(txtThirdLevel);
 			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 12:
+			txtThirdLevel.setText("");
 			thirdLevelPanel.add(txtThirdLevel);
 			thirdLevelPanel.add(btnHinzu);
 			break;
@@ -490,7 +528,7 @@ public class SearchView extends Composite implements ISearchView {
 		cboThirdLevel.clear();
 		thirdLevelPanel.add(lblThirdLevel);
 
-		final ListBox cboProjects = new ListBox();
+		cboProjects = new ListBox();
 
 		for (Project t : projects) {
 			cboProjects.addItem(t.getName());
@@ -546,6 +584,7 @@ public class SearchView extends Composite implements ISearchView {
 
 	@Override
 	public void updateTree() {
+		valuePanel.clear();
 		cellTree = new CellTree(new SearchExpressionTreeViewModel(searchSelectionModel, selectionModel, search), null);
 		scrollPanelSearch.setWidget(cellTree);
 		cellTree.setSize("600px", "300px");
@@ -553,22 +592,22 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public void setProjects(Collection<Project> projects) {
+	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
 
 	@Override
-	public void setSystems(Collection<System> systems) {
+	public void setSystems(List<System> systems) {
 		this.systems = systems;
 	}
 
 	@Override
-	public void setPersons(Collection<IPerson> persons) {
+	public void setPersons(List<IPerson> persons) {
 		this.persons = persons;
 	}
 
 	@Override
-	public void setRelationTypes(Collection<RelationType> relationtypes) {
+	public void setRelationTypes(List<RelationType> relationtypes) {
 		this.relationtypes = relationtypes;
 	}
 
@@ -586,5 +625,50 @@ public class SearchView extends Composite implements ISearchView {
 	public void updateResults(ISearchResultView resultView) {
 		scrollPanelResult.clear();
 		scrollPanelResult.add(resultView);
+	}
+
+	@Override
+	public IEvent<PBITypSearchCriterionArgs> getAddPbiTypSearchCriterion() {
+		return addPbiTypSearchCriterion;
+	}
+
+	@Override
+	public IEvent<ProjectSearchCriterionEventArgs> getAddProjektSearchCriterion() {
+		return addProjektSearchCriterion;
+	}
+
+	@Override
+	public IEvent<ReleaseSearchCriterionArgs> getAddReleaseSearchCriterion() {
+		return addReleaseSearchCriterion;
+	}
+
+	@Override
+	public IEvent<EffortSearchCriterionArgs> getAddAufwandSearchCriterion() {
+		return addAufwandSearchCriterion;
+	}
+
+	@Override
+	public IEvent<StatusSearchCriterionArgs> getAddStatusSearchCriterion() {
+		return addStatusSearchCriterion;
+	}
+
+	@Override
+	public IEvent<LastEditorSearchCriterionArgs> getAddLetzterBearbeiterSearchCriterion() {
+		return addLetzterBearbeiterSearchCriterion;
+	}
+
+	@Override
+	public IEvent<RelationSearchCriterionArgs> getAddBeziehungSearchCriterion() {
+		return addBeziehungSearchCriterion;
+	}
+
+	@Override
+	public IEvent<SystemSearchCriterionArgs> getAddSystemSearchCriterion() {
+		return addSystemSearchCriterion;
+	}
+
+	@Override
+	public IEvent<ReleaseSearchCriterionArgs> getAddVersionSearchCriterion() {
+		return addVersionSearchCriterion;
 	}
 }
