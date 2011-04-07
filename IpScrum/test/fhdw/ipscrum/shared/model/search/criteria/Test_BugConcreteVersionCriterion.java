@@ -13,7 +13,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-public class Test_BugVersionCriterion {
+public class Test_BugConcreteVersionCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -25,6 +25,7 @@ public class Test_BugVersionCriterion {
 	private static System windows7 = null;
 	private static System linux = null;
 	private static Release release1 = null;
+	private static Release release2 = null;
 	private static Feature pbi1 = null;
 	private static Feature pbi2= null;
 	private static Feature pbi3 = null;
@@ -54,6 +55,7 @@ public class Test_BugVersionCriterion {
 		textverarbeitung = new Project("Textverarbeitung");
 		pbltext = textverarbeitung.getBacklog();
 		release1 = new Release("Release 1", new Date(), textverarbeitung);
+		release2 = new Release("Release 2", new Date(), textverarbeitung);
 		systemmanager = new SystemManager();
 		betriebssystem = new System("Betriebssystem", systemmanager.getSystems());
 		windowsXP = new System("Windows XP", betriebssystem);
@@ -154,22 +156,13 @@ public class Test_BugVersionCriterion {
 	
 	@Test
 	/**
-	 * Test of constructor
-	 */
-	public void testConstructor() throws Exception{
-	BugVersionNameCriterion BugSV1 = new BugVersionNameCriterion("Release");
-	assertEquals("Release", BugSV1.getValue());
-	}
-	
-	@Test
-	/**
 	 * Search for a Version in a Bug
 	 * Version is part of the Bug
 	 */
 	
 	public void testsearch1() throws Exception{
-		BugVersionNameCriterion BugVC2 = new BugVersionNameCriterion("Release 1"); 
-		assertEquals(true, BugVC2.search(pbi4));
+		BugConcreteVersionCriterion BugVN2 = new BugConcreteVersionCriterion(release1); 
+		assertEquals(true, BugVN2.search(pbi4));
 	}
 	
 	@Test
@@ -179,8 +172,8 @@ public class Test_BugVersionCriterion {
 	 */
 	
 	public void testsearch2() throws Exception{
-		BugVersionNameCriterion BugVC3 = new BugVersionNameCriterion("Release 2"); 
-		assertEquals(false, BugVC3.search(pbi4));
+		BugConcreteVersionCriterion BugVN3 = new BugConcreteVersionCriterion(release2); 
+		assertEquals(false, BugVN3.search(pbi4));
 	}
 
 	@Test
@@ -189,7 +182,7 @@ public class Test_BugVersionCriterion {
 	 */
 	
 	public void testsearch3() throws Exception{
-		BugVersionNameCriterion BugVC4 = new BugVersionNameCriterion("Release 1"); 
-		assertEquals(false, BugVC4.search(pbi1));
+		BugConcreteVersionCriterion BugVN4 = new BugConcreteVersionCriterion(release1);
+		assertEquals(false, BugVN4.search(pbi1));
 	}
 }

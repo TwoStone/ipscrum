@@ -1,8 +1,6 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 import java.util.Date;
 
@@ -15,7 +13,7 @@ import org.junit.Test;
 import fhdw.ipscrum.shared.model.*;
 import fhdw.ipscrum.shared.model.System;
 
-public class Test_PBIReleaseCriterion {
+public class Test_BugVersionNameCriterion {
 	
 	private static Project textverarbeitung = null;
 	private static ProductBacklog pbltext = null;
@@ -27,7 +25,6 @@ public class Test_PBIReleaseCriterion {
 	private static System windows7 = null;
 	private static System linux = null;
 	private static Release release1 = null;
-	private static Release release2 = null;
 	private static Feature pbi1 = null;
 	private static Feature pbi2= null;
 	private static Feature pbi3 = null;
@@ -47,8 +44,7 @@ public class Test_PBIReleaseCriterion {
 	private static Sprint sprint2 = null;
 	private static Sprint sprint3 = null;
 	private static Sprint sprint4 = null;
-	private static AcceptanceCriterion accCrit1 = null;
-	private static AcceptanceCriterion accCrit2 = null;
+	
 	
 	
 	private static System testsys = null;
@@ -58,7 +54,6 @@ public class Test_PBIReleaseCriterion {
 		textverarbeitung = new Project("Textverarbeitung");
 		pbltext = textverarbeitung.getBacklog();
 		release1 = new Release("Release 1", new Date(), textverarbeitung);
-		release2 = new Release("Release 2", new Date(), textverarbeitung);
 		systemmanager = new SystemManager();
 		betriebssystem = new System("Betriebssystem", systemmanager.getSystems());
 		windowsXP = new System("Windows XP", betriebssystem);
@@ -72,8 +67,6 @@ public class Test_PBIReleaseCriterion {
 		textverarbeitung.addSystem(windowsVista);
 		textverarbeitung.addSystem(windows7);
 		textverarbeitung.addSystem(linux);
-		accCrit1 = new AcceptanceCriterion("Fehler behoben");
-		accCrit2 = new AcceptanceCriterion("Funktion ist ausführbar");
 				
 		pbi1 = new Feature("Texte eingeben", "Texte im Programm erfassen", pbltext);
 		pbi2 = new Feature("Textbearbeitung", "Texte bearbeiten", pbltext);
@@ -94,16 +87,6 @@ public class Test_PBIReleaseCriterion {
 		pbi2.setManDayCosts(new Effort(7));
 		pbi3.setManDayCosts(new Effort(3));
 		pbi4.setManDayCosts(new Effort(5));
-		
-		pbi1.addAcceptanceCriterion(accCrit2);
-		pbi2.addAcceptanceCriterion(accCrit2);
-		pbi3.addAcceptanceCriterion(accCrit2);
-		pbi4.addAcceptanceCriterion(accCrit1);
-		
-		pbi1.setLastEditor(p1);
-		pbi2.setLastEditor(p1);
-		pbi3.setLastEditor(p1);
-		pbi4.setLastEditor(p1);
 
 	pbltext.addItem(pbi1);
 	pbltext.addItem(pbi2);
@@ -135,7 +118,7 @@ public class Test_PBIReleaseCriterion {
 	ideen.addMember(p3);
 	ideen.addMember(p4);
 	ideen.addMember(p6);
-
+	
 	sprint1 = new Sprint("Sprint 1", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint2 = new Sprint("Sprint 2", "Beschreibung", new Date(), new Date(), entwickler);
 	sprint3 = new Sprint("Sprint 3", "Beschreibung", new Date(), new Date(), entwickler);
@@ -145,16 +128,11 @@ public class Test_PBIReleaseCriterion {
 	textverarbeitung.addSprint(sprint2);
 	textverarbeitung.addSprint(sprint3);
 	textverarbeitung.addSprint(sprint4);
-	
+
 	pbi1.setSprint(sprint1);
 	pbi2.setSprint(sprint2);
 	pbi3.setSprint(sprint3);
 	pbi4.setSprint(sprint4);
-	
-	release1.addSprint(sprint1);
-	release1.addSprint(sprint2);
-	release1.addSprint(sprint3);
-	release2.addSprint(sprint4);
 
 	}
 
@@ -176,46 +154,42 @@ public class Test_PBIReleaseCriterion {
 	
 	@Test
 	/**
-	 * Search, if a Bug is in a certain release
-	 * Bug is in the release
+	 * Test of constructor
+	 */
+	public void testConstructor() throws Exception{
+	BugVersionNameCriterion BugSV1 = new BugVersionNameCriterion("Release");
+	assertEquals("Release", BugSV1.getValue());
+	}
+	
+	@Test
+	/**
+	 * Search for a Version in a Bug
+	 * Version is part of the Bug
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Release"); 
-		assertTrue(reCrit.search(pbi4));
+		BugVersionNameCriterion BugVC2 = new BugVersionNameCriterion("Release 1"); 
+		assertEquals(true, BugVC2.search(pbi4));
 	}
 	
 	@Test
 	/**
-	 * Search, if a Bug is in a certain release
-	 * Bug is not in the release
+	 * Search for a Version in a Bug
+	 * Version is not part of the Bug
 	 */
 	
 	public void testsearch2() throws Exception{
-		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Feature"); 
-		assertFalse(reCrit.search(pbi4));
+		BugVersionNameCriterion BugVC3 = new BugVersionNameCriterion("Release 2"); 
+		assertEquals(false, BugVC3.search(pbi4));
 	}
 
 	@Test
 	/**
-	 * Search, if a Feature is in a certain release
-	 * Feature is in the release
+	 * Search for a Version in a Feature
 	 */
 	
 	public void testsearch3() throws Exception{
-		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Release");
-		assertTrue(reCrit.search(pbi1));
+		BugVersionNameCriterion BugVC4 = new BugVersionNameCriterion("Release 1"); 
+		assertEquals(false, BugVC4.search(pbi1));
 	}
-	
-	@Test
-	/**
-	 * Search, if a Feature is in a certain release
-	 * Feature is not in the release
-	 */
-	
-	public void testsearch4() throws Exception{
-		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Fehler");
-		assertFalse(reCrit.search(pbi1));
-	}
-
 }
