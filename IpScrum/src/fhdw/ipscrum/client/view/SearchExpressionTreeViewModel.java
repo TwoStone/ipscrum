@@ -10,6 +10,7 @@ import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
 import fhdw.ipscrum.shared.model.search.NoSearchExpression;
@@ -90,7 +91,7 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 						}
 					}
 				};
-				((SearchExpression) value).accept(searchTypeVisitor);
+				((ISearchExpression) value).accept(searchTypeVisitor);
 			}
 			return new DefaultNodeInfo<SearchExpression>(dataProvider, seCell, selectionModel, null);
 		}

@@ -1,21 +1,21 @@
 package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 /**
  */
 public class PBITypSearchCriterionArgs extends EventArgs {
-	private SearchExpression se;
+	private ISearchExpression se;
 	private int value;
 
-	public PBITypSearchCriterionArgs(SearchExpression se, int value) {
+	public PBITypSearchCriterionArgs(ISearchExpression se, int value) {
 		super();
 		this.se = se;
 		this.value = value;
 	}
 
-	public SearchExpression getSe() {
+	public ISearchExpression getSe() {
 		return se;
 	}
 

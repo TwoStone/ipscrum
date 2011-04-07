@@ -13,8 +13,8 @@ import fhdw.ipscrum.client.events.args.SearchEventArgs;
 import fhdw.ipscrum.client.view.SearchAllView;
 import fhdw.ipscrum.client.view.interfaces.ISearchAllView;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.SearchManager;
 import fhdw.ipscrum.shared.model.search.criteria.ScruumleCriterion;
 
@@ -102,7 +102,7 @@ public class SearchAllPresenter extends Presenter<ISearchAllView> {
 		this.doSearch(criterion);
 	}
 
-	private void doSearch(SearchExpression searchExpression) {
+	private void doSearch(ISearchExpression searchExpression) {
 		final Collection<ProductBacklogItem> results = this.manager.search(this
 				.getSessionManager().getModel().getAllTickets(),
 				searchExpression);

@@ -30,7 +30,7 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 
 	@Test
 	public void testGetArg() {
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		SearchExpression expression1 = new NoSearchExpression(parentExpression);
 
@@ -40,7 +40,7 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 
 	@Test
 	public void testSetArg() {
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		SearchExpression expression1 = new NoSearchExpression(parentExpression);
 		SearchExpression expression2 = new NoSearchExpression(parentExpression);

@@ -1,12 +1,12 @@
 package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 /**
  */
 public class TextSearchCriterionArgs extends EventArgs {
-	private SearchExpression se;
+	private ISearchExpression se;
 	private String string;
 	private int value;
 
@@ -16,7 +16,7 @@ public class TextSearchCriterionArgs extends EventArgs {
 	 * @param string String
 	 * @param value int
 	 */
-	public TextSearchCriterionArgs(String string, SearchExpression se, int value) {
+	public TextSearchCriterionArgs(String string, ISearchExpression se, int value) {
 		super();
 		this.string = string;
 		this.value = value;
@@ -44,7 +44,7 @@ public class TextSearchCriterionArgs extends EventArgs {
 	/**
 	 * @return the se
 	 */
-	public SearchExpression getSearchExpression() {
+	public ISearchExpression getSearchExpression() {
 		return se;
 	}
 }

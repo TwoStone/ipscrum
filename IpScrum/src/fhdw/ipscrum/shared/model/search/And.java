@@ -28,7 +28,7 @@ public class And extends MultiLogicSearchOperator {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		for (final SearchExpression current : this.getArgs()) {
+		for (final ISearchExpression current : this.getArgs()) {
 			if (!current.search(pbi)) {
 				return false;
 			}

@@ -7,7 +7,7 @@ import java.util.Collection;
  * Represents a logical operator with more than one argument. All arguments will
  * be combined with the same logical operator, e.g. And or Or
  */
-public abstract class MultiLogicSearchOperator implements SearchExpression {
+public abstract class MultiLogicSearchOperator extends SearchExpression {
 
 	private static final long serialVersionUID = -374972903680516595L;
 
@@ -59,7 +59,7 @@ public abstract class MultiLogicSearchOperator implements SearchExpression {
 	/**
 	 * Removes the given search expression from the list if it exists.
 	 */
-	public void remove(final SearchExpression expression) {
+	public void remove(final ISearchExpression expression) {
 		this.args.remove(expression);
 	}
 
@@ -76,11 +76,11 @@ public abstract class MultiLogicSearchOperator implements SearchExpression {
 	}
 
 	@Override
-	public boolean contains(final SearchExpression expression) {
+	public boolean contains(final ISearchExpression expression) {
 		if (this.equals(expression)) {
 			return true;
 		} else {
-			for (final SearchExpression current : this.args) {
+			for (final ISearchExpression current : this.args) {
 				if (current.equals(expression)) {
 					return true;
 				} else {

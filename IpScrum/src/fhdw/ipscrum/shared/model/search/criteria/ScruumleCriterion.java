@@ -3,12 +3,11 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.ISearchCriteria;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.Or;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 
-public class ScruumleCriterion extends TextCriterion implements ISearchCriteria {
+public class ScruumleCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -4292151762764306185L;
 

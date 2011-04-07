@@ -2,19 +2,19 @@ package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 public class ProjectSearchCriterionEventArgs extends EventArgs {
-	private SearchExpression se;
+	private ISearchExpression se;
 	private final Project project;
 
-	public ProjectSearchCriterionEventArgs(SearchExpression se, Project project) {
+	public ProjectSearchCriterionEventArgs(ISearchExpression se, Project project) {
 		super();
 		this.se = se;
 		this.project = project;
 	}
 
-	public SearchExpression getSe() {
+	public ISearchExpression getSe() {
 		return se;
 	}
 

@@ -4,7 +4,7 @@ package fhdw.ipscrum.shared.model.search;
  * Represents a logical operator with one argument. This argument is a search
  * expression.
  */
-public abstract class SingleLogicSearchOperator implements SearchExpression {
+public abstract class SingleLogicSearchOperator extends SearchExpression {
 
 	private static final long serialVersionUID = -2387020530370101740L;
 
@@ -51,7 +51,7 @@ public abstract class SingleLogicSearchOperator implements SearchExpression {
 	}
 
 	@Override
-	public boolean contains(final SearchExpression expression) {
+	public boolean contains(final ISearchExpression expression) {
 		if (this.equals(expression)) {
 			return true;
 		} else {

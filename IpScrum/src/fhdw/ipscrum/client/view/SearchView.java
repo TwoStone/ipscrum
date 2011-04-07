@@ -45,6 +45,7 @@ import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
 import fhdw.ipscrum.shared.model.search.NoSearchExpression;
@@ -177,7 +178,7 @@ public class SearchView extends Composite implements ISearchView {
 							((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
 				} else if (cboTyp1.getSelectedIndex() == 1 && !SearchView.this.fireEventForTextSearchCriterion()) {
 					int i = cboTyp2.getSelectedIndex();
-					SearchExpression se = ((NoSearchExpression) selectionModel.getSelectedObject()).getParent();
+					ISearchExpression se = ((NoSearchExpression) selectionModel.getSelectedObject()).getParent();
 					switch (i) {
 					case 0:
 						addPbiTypSearchCriterion.fire(this, new PBITypSearchCriterionArgs(se, SearchView.this.cboThirdLevel.getSelectedIndex() + 1));
@@ -313,7 +314,7 @@ public class SearchView extends Composite implements ISearchView {
 		this.selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				SearchExpression se = selectionModel.getSelectedObject();
+				ISearchExpression se = selectionModel.getSelectedObject();
 				if (se != null) {
 					searchSelectionModel.setSelected(searchSelectionModel.getSelectedObject(), false);
 					ISearchTypeVisitor searchTypeVisitor = new ISearchTypeVisitor() {

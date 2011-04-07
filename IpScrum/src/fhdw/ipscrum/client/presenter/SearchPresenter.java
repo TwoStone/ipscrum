@@ -28,6 +28,7 @@ import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.And;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
 import fhdw.ipscrum.shared.model.search.NoSearchExpression;
@@ -298,7 +299,7 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		}
 	}
 
-	private void addSearchExpression(final SearchExpression oldSearchExp, final SearchExpression newSearchExp) {
+	private void addSearchExpression(final ISearchExpression oldSearchExp, final SearchExpression newSearchExp) {
 		final ISearchTypeVisitor seVisitor = new ISearchTypeVisitor() {
 			@Override
 			public void handleSingleLogicSearchOperator(final SingleLogicSearchOperator singleLogicSearchOperator) {

@@ -39,7 +39,7 @@ public class NotTest extends SetUpTestData {
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		NoSearchExpression noSearchExpression = new NoSearchExpression(parentExpression);
 		collection.add(noSearchExpression);

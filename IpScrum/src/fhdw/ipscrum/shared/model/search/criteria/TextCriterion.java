@@ -1,7 +1,7 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
 
 /**
  * Represents a textual criterion.
@@ -72,7 +72,7 @@ public abstract class TextCriterion extends SearchCriteria {
 	}
 
 	@Override
-	public boolean contains(final SearchExpression expression) {
+	public boolean contains(final ISearchExpression expression) {
 		return this.equals(expression);
 	}
 

@@ -1,18 +1,18 @@
 package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 public class CreateLogicalOperatorArgs extends EventArgs {
 	private int value;
-	private SearchExpression se;
+	private ISearchExpression se;
 
 	/**
 	 * Constructor for SearchArgs.
 	 * 
 	 * @param search Search
 	 */
-	public CreateLogicalOperatorArgs(int value, SearchExpression se) {
+	public CreateLogicalOperatorArgs(int value, ISearchExpression se) {
 		super();
 		this.value = value;
 		this.se = se;
@@ -30,7 +30,7 @@ public class CreateLogicalOperatorArgs extends EventArgs {
 	/**
 	 * @return the se
 	 */
-	public SearchExpression getSearchExpression() {
+	public ISearchExpression getSearchExpression() {
 		return se;
 	}
 }

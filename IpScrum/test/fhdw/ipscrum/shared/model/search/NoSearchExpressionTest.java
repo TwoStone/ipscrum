@@ -32,7 +32,7 @@ public class NoSearchExpressionTest extends SetUpTestData {
 	@Test
 	public void testSearch() throws UserException {
 
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		NoSearchExpression expression = new NoSearchExpression(parentExpression);
 		assertTrue(expression.search(this.pro1rel1spr1fea1));

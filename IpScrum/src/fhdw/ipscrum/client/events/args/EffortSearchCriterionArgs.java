@@ -1,23 +1,23 @@
 package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 /**
  */
 public class EffortSearchCriterionArgs extends EventArgs {
-	private SearchExpression se;
+	private ISearchExpression se;
 	private Integer valueFrom;
 	private Integer valueTo;
 
-	public EffortSearchCriterionArgs(SearchExpression se, Integer valueFrom, Integer valueTo) {
+	public EffortSearchCriterionArgs(ISearchExpression se, Integer valueFrom, Integer valueTo) {
 		super();
 		this.se = se;
 		this.valueFrom = valueFrom;
 		this.valueTo = valueTo;
 	}
 
-	public SearchExpression getSe() {
+	public ISearchExpression getSe() {
 		return se;
 	}
 

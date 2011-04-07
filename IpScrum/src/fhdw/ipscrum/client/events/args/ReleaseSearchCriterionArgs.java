@@ -2,20 +2,20 @@ package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 public class ReleaseSearchCriterionArgs extends EventArgs {
-	private SearchExpression se;
+	private ISearchExpression se;
 
 	private IRelease release;
 
-	public ReleaseSearchCriterionArgs(SearchExpression se, IRelease release) {
+	public ReleaseSearchCriterionArgs(ISearchExpression se, IRelease release) {
 		super();
 		this.se = se;
 		this.release = release;
 	}
 
-	public SearchExpression getSe() {
+	public ISearchExpression getSe() {
 		return se;
 	}
 

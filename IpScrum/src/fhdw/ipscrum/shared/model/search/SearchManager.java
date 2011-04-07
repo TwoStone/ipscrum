@@ -72,7 +72,7 @@ public class SearchManager extends Observable implements Serializable {
 	 */
 	public Collection<ProductBacklogItem> search(
 			final Collection<ProductBacklogItem> elements,
-			final SearchExpression expression) {
+			final ISearchExpression expression) {
 
 		final Vector<ProductBacklogItem> resultList = new Vector<ProductBacklogItem>();
 		for (final ProductBacklogItem current : elements) {

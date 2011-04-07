@@ -15,7 +15,7 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testGetSearching() {
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
 		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
@@ -30,7 +30,7 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testAddSearch() {
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
 		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
@@ -50,7 +50,7 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testRemoveSearch() {
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
 		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
@@ -73,7 +73,7 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testGetSize() {
-		SearchExpression parentExpression = new PBIOpenCriterion();
+		ISearchExpression parentExpression = new PBIOpenCriterion();
 
 		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
 		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));

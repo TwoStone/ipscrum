@@ -2,21 +2,21 @@ package fhdw.ipscrum.client.events.args;
 
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 
 /**
  */
 public class SystemSearchCriterionArgs extends EventArgs {
-	private SearchExpression se;
+	private ISearchExpression se;
 	private System system;
 
-	public SystemSearchCriterionArgs(SearchExpression se, System system) {
+	public SystemSearchCriterionArgs(ISearchExpression se, System system) {
 		super();
 		this.se = se;
 		this.system = system;
 	}
 
-	public SearchExpression getSe() {
+	public ISearchExpression getSe() {
 		return se;
 	}
 

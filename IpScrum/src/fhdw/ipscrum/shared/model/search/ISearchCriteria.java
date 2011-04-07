@@ -1,5 +1,5 @@
 package fhdw.ipscrum.shared.model.search;
 
-public interface ISearchCriteria extends SearchExpression {
+public interface ISearchCriteria extends ISearchExpression {
 
 }
