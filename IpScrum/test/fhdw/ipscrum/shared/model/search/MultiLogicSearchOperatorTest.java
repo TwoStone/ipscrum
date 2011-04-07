@@ -160,12 +160,6 @@ public class MultiLogicSearchOperatorTest extends SetUpTestData {
 
 		And and = new And(collection);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
-		collection.add(noSearchExpression1);
-
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
-		collection.add(noSearchExpression2);
-
 		assertTrue(and.contains(and));
 	}
 
