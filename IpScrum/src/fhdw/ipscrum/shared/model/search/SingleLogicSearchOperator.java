@@ -31,9 +31,10 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 	 * @param arg
 	 *            Search Expression
 	 */
-	public SingleLogicSearchOperator(final SearchExpression arg) {
+	public SingleLogicSearchOperator(final SearchExpression arg)
+			throws CycleException {
 		super();
-		this.arg = arg;
+		this.setArg(arg);
 	}
 
 	/**

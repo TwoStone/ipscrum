@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model.search;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 
 /**
@@ -14,7 +15,7 @@ public class Not extends SingleLogicSearchOperator {
 	/**
 	 * See {@link SingleLogicSearchOperator}
 	 */
-	public Not(final SearchExpression arg) {
+	public Not(final SearchExpression arg) throws CycleException {
 		super(arg);
 	}
 
