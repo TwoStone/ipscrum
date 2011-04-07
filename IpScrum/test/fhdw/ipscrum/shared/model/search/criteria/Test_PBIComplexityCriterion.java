@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Effort;
@@ -23,6 +24,8 @@ import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.SystemManager;
 import fhdw.ipscrum.shared.model.Team;
+
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
 public class Test_PBIComplexityCriterion {
 
@@ -212,6 +215,45 @@ public class Test_PBIComplexityCriterion {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(1, null);
 		assertEquals(new Integer(1), comCrit.getFrom());
 		assertEquals(null, comCrit.getTo());
+	}
+	
+	@Test(expected = NoValidValueException.class)
+	/**
+	 * Test of constructor with two numbers
+	 * to is null
+	 */
+	public void testConstructor4() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, null);
+	}
+	
+	@Test(expected = NoValidValueException.class)
+	/**
+	 * Test of constructor with two numbers
+	 * to is null
+	 */
+	public void testConstructor5() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(-1, null);
+
+	}
+	
+	@Test(expected = NoValidValueException.class)
+	/**
+	 * Test of constructor with two numbers
+	 * to is null
+	 */
+	public void testConstructor6() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, -1);
+
+	}
+	
+	@Test(expected = NoValidValueException.class)
+	/**
+	 * Test of constructor with two numbers
+	 * to is null
+	 */
+	public void testConstructor7() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(-2,-1);
+
 	}
 
 	@Test
