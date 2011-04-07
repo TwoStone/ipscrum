@@ -195,6 +195,7 @@ public class Test_PBIComplexityCriterion {
 	@Test
 	/**
 	 * Test of constructor with two numbers
+	 * from is null
 	 */
 	public void testConstructor2() throws Exception {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, 3);
@@ -205,6 +206,7 @@ public class Test_PBIComplexityCriterion {
 	@Test
 	/**
 	 * Test of constructor with two numbers
+	 * to is null
 	 */
 	public void testConstructor3() throws Exception {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(1, null);
