@@ -187,7 +187,7 @@ public class Test_PBIComplexityCriterion {
 	 * Test of constructor with two numbers
 	 * From is bigger as to
 	 */
-	public void testConstructor1a() throws Exception {
+	public void testConstructor8() throws Exception {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(3, 1);
 		assertEquals(new Integer(1), comCrit.getFrom());
 		assertEquals(new Integer(3), comCrit.getTo());
