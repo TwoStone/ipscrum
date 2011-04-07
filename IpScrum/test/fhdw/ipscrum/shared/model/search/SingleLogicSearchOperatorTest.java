@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
+import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 
 public class SingleLogicSearchOperatorTest extends SetUpTestData {
@@ -31,21 +33,17 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testGetArg() {
-		ISearchExpression parentExpression = new PBIOpenCriterion();
-
-		SearchExpression expression1 = new NoSearchExpression(parentExpression);
+	public void testGetArg() throws CycleException {
+		SearchExpression expression1 = new PBIClosedCriterion();
 
 		SingleLogicSearchOperator operator = new Not(expression1);
 		assertEquals(expression1, operator.getArg());
 	}
 
 	@Test
-	public void testSetArg() {
-		ISearchExpression parentExpression = new PBIOpenCriterion();
-
-		SearchExpression expression1 = new NoSearchExpression(parentExpression);
-		SearchExpression expression2 = new NoSearchExpression(parentExpression);
+	public void testSetArg() throws CycleException {
+		SearchExpression expression1 = new PBIClosedCriterion();
+		SearchExpression expression2 = new PBIClosedCriterion();
 
 		SingleLogicSearchOperator operator = new Not(expression1);
 		assertEquals(expression1, operator.getArg());
@@ -55,15 +53,16 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testContains_ConstruktorWithParameter() {
+	public void testContains_ConstruktorWithParameter() throws CycleException {
 		Not not = new Not(new PBIOpenCriterion());
 
 		assertTrue(not.contains(not));
 	}
 
 	@Test
-	public void testContains_ConstruktorWithoutParameter() {
+	public void testContains_ConstruktorWithoutParameter() throws CycleException {
 		Not not = new Not();
+		not.setArg(new PBIOpenCriterion());
 
 		assertTrue(not.contains(not));
 	}
