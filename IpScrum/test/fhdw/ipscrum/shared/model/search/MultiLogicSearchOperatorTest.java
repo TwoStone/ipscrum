@@ -163,4 +163,22 @@ public class MultiLogicSearchOperatorTest extends SetUpTestData {
 		assertTrue(and.contains(and));
 	}
 
+	@Test
+	public void testContains_ConstruktorWithoutParameter() {
+		And and = new And();
+
+		assertTrue(and.contains(and));
+	}
+
+	@Test
+	public void testContainsIndirect_ConstruktorWithoutParameter() {
+		And and1 = new And();
+
+		And and2 = new And();
+		and1.add(and2);
+
+		assertTrue(and1.contains(and2));
+		assertFalse(and2.contains(and1));
+	}
+
 }
