@@ -49,7 +49,7 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIProjectCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
-import fhdw.ipscrum.shared.model.search.criteria.PBUBugTypeCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIBugTypeCriterion;
 
 /**
  * presenter class of the team interface. this interface is used to inspect, create and modify teams as well as adding and removing persons to teams.
@@ -148,7 +148,7 @@ public class SearchPresenter extends Presenter<ISearchView> {
 				if (eventArgs.getValue() == 1) {
 					addSearchExpression(eventArgs.getSe(), new PBIFeatureTypeCriterion());
 				} else if (eventArgs.getValue() == 2) {
-					addSearchExpression(eventArgs.getSe(), new PBUBugTypeCriterion());
+					addSearchExpression(eventArgs.getSe(), new PBIBugTypeCriterion());
 				}
 			}
 		});

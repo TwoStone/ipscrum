@@ -26,7 +26,10 @@ public class PBILastEditorCriterion extends SearchCriteria {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return pbi.getLastEditor().equals(this.person);
+		if (pbi.getLastEditor() != null) {
+			return pbi.getLastEditor().equals(this.person);
+		}
+		return false;
 	}
 
 	@Override

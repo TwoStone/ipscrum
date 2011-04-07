@@ -29,13 +29,13 @@ public class ScruumleCriterion extends TextCriterion implements ISearchCriteria 
 	public boolean search(final ProductBacklogItem pbi) {
 		final Vector<SearchExpression> textualCriterias = new Vector<SearchExpression>();
 
-		textualCriterias.add(new BugVersionCriterion(this.getValue()));
+		textualCriterias.add(new BugVersionNameCriterion(this.getValue()));
 		textualCriterias.add(new PBIAcceptanceCriterion(this.getValue()));
 		textualCriterias.add(new PBIDescriptionCriterion(this.getValue()));
 		textualCriterias.add(new PBIHintsCriterion(this.getValue()));
 		textualCriterias.add(new PBINameCriterion(this.getValue()));
 		textualCriterias.add(new PBIRelationDestCriterion(this.getValue()));
-		textualCriterias.add(new PBIReleaseCriterion(this.getValue()));
+		textualCriterias.add(new PBIReleaseNameCriterion(this.getValue()));
 		textualCriterias.add(new PBISprintDescCriterion(this.getValue()));
 		textualCriterias.add(new PBISprintNameCriterion(this.getValue()));
 		textualCriterias.add(new PBIProjectNameCriterion(this.getValue()));

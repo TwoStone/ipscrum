@@ -1,10 +1,13 @@
 package fhdw.ipscrum.shared.model.search;
 
+import fhdw.ipscrum.shared.model.search.criteria.BugConcreteVersionCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.BugSystemCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.BugVersionCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIAcceptanceCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIBugTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIComplexityCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIConcreteReleaseCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIDescriptionCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIFeatureTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIHintsCriterion;
@@ -18,7 +21,6 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIRelationTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
-import fhdw.ipscrum.shared.model.search.criteria.PBUBugTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.ScruumleCriterion;
 
 public interface ISearchExpressionVisitor {
@@ -63,7 +65,7 @@ public interface ISearchExpressionVisitor {
 	void handlePBIRelationTypeCriteria(
 			PBIRelationTypeCriterion pbiRelationTypeCriteria);
 
-	void handlePBIReleaseCriteria(PBIReleaseCriterion pbiReleaseCriteria);
+	void handlePBIReleaseNameCriteria(PBIReleaseCriterion pbiReleaseCriteria);
 
 	void handlePBISprintDescCriteria(
 			PBISprintDescCriterion pbiSprintDescCriteria);
@@ -74,8 +76,14 @@ public interface ISearchExpressionVisitor {
 
 	void handleScruumleCriterion(ScruumleCriterion scruumleCriterion);
 
-	void handleBugTypeCriterion(PBUBugTypeCriterion scruumleCriterion);
+	void handleBugTypeCriterion(PBIBugTypeCriterion scruumleCriterion);
 
 	void handleFeatureTypeCriterion(PBIFeatureTypeCriterion scruumleCriterion);
+
+	void handlePBIConcreteReleaseCriterion(
+			PBIConcreteReleaseCriterion scruumleCriterion);
+
+	void handleBugConcreteVersionCriteria(
+			BugConcreteVersionCriterion scruumleCriterion);
 
 }

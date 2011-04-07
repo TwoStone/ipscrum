@@ -181,7 +181,7 @@ public class Test_PBIReleaseCriterion {
 	 */
 	
 	public void testsearch1() throws Exception{
-		PBIReleaseCriterion reCrit = new PBIReleaseCriterion("Release"); 
+		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Release"); 
 		assertTrue(reCrit.search(pbi4));
 	}
 	
@@ -192,7 +192,7 @@ public class Test_PBIReleaseCriterion {
 	 */
 	
 	public void testsearch2() throws Exception{
-		PBIReleaseCriterion reCrit = new PBIReleaseCriterion("Feature"); 
+		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Feature"); 
 		assertFalse(reCrit.search(pbi4));
 	}
 
@@ -203,7 +203,7 @@ public class Test_PBIReleaseCriterion {
 	 */
 	
 	public void testsearch3() throws Exception{
-		PBIReleaseCriterion reCrit = new PBIReleaseCriterion("Release");
+		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Release");
 		assertTrue(reCrit.search(pbi1));
 	}
 	
@@ -214,7 +214,7 @@ public class Test_PBIReleaseCriterion {
 	 */
 	
 	public void testsearch4() throws Exception{
-		PBIReleaseCriterion reCrit = new PBIReleaseCriterion("Fehler");
+		PBIReleaseNameCriterion reCrit = new PBIReleaseNameCriterion("Fehler");
 		assertFalse(reCrit.search(pbi1));
 	}
 

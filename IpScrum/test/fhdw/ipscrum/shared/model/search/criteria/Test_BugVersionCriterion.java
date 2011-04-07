@@ -157,7 +157,7 @@ public class Test_BugVersionCriterion {
 	 * Test of constructor
 	 */
 	public void testConstructor() throws Exception{
-	BugVersionCriterion BugSV1 = new BugVersionCriterion("Release");
+	BugVersionNameCriterion BugSV1 = new BugVersionNameCriterion("Release");
 	assertEquals("Release", BugSV1.getValue());
 	}
 	
@@ -168,7 +168,7 @@ public class Test_BugVersionCriterion {
 	 */
 	
 	public void testsearch1() throws Exception{
-		BugVersionCriterion BugVC2 = new BugVersionCriterion("Release 1"); 
+		BugVersionNameCriterion BugVC2 = new BugVersionNameCriterion("Release 1"); 
 		assertEquals(true, BugVC2.search(pbi4));
 	}
 	
@@ -179,7 +179,7 @@ public class Test_BugVersionCriterion {
 	 */
 	
 	public void testsearch2() throws Exception{
-		BugVersionCriterion BugVC3 = new BugVersionCriterion("Release 2"); 
+		BugVersionNameCriterion BugVC3 = new BugVersionNameCriterion("Release 2"); 
 		assertEquals(false, BugVC3.search(pbi4));
 	}
 
@@ -189,7 +189,7 @@ public class Test_BugVersionCriterion {
 	 */
 	
 	public void testsearch3() throws Exception{
-		BugVersionCriterion BugVC4 = new BugVersionCriterion("Release 1"); 
+		BugVersionNameCriterion BugVC4 = new BugVersionNameCriterion("Release 1"); 
 		assertEquals(false, BugVC4.search(pbi1));
 	}
 }

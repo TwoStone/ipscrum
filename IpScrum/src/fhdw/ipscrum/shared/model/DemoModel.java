@@ -14,7 +14,7 @@ import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIProjectCriterion;
-import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseNameCriterion;
 
 public class DemoModel {
 
@@ -547,7 +547,7 @@ public class DemoModel {
 
 		final MultiLogicSearchOperator and = new And();
 		and.add(new PBIProjectCriterion(ipScrum));
-		and.add(new PBIReleaseCriterion(phase4.getVersion()));
+		and.add(new PBIReleaseNameCriterion(phase4.getVersion()));
 		final Search p4Suche = new Search("IpScrum Phase4", and);
 
 		model.getSearchManager().addSearch(nameFeatureSuche);
