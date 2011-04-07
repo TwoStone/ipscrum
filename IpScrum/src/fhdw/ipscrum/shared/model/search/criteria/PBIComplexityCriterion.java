@@ -14,6 +14,12 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	private Integer from;
 	private Integer to;
 
+	// /**
+	// * If from an to value are equal then this value defines if from/to is
+	// * Minimum or Maximum -> true means Minimum -> false means Maximum
+	// */
+	// private boolean isMin;
+
 	@SuppressWarnings("unused")
 	private PBIComplexityCriterion() {
 		super();
@@ -22,33 +28,33 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	/**
 	 * Constructor
 	 * 
-	 * @param from Range start (inclusive)
-	 * @param to Range end (inclusive)
+	 * @param from
+	 *            Range start (inclusive)
+	 * @param to
+	 *            Range end (inclusive)
 	 * @throws NoValidValueException
 	 */
-	public PBIComplexityCriterion(final Integer from, final Integer to) throws NoValidValueException {
+	public PBIComplexityCriterion(final Integer from, final Integer to)
+			throws NoValidValueException {
 		super();
 		this.checkRange(from, to);
 		this.from = from;
 		this.to = to;
 	}
 
-	/**
-	 * Constructor - No Range!
-	 * 
-	 * @param fromTo Fix value for complexity
-	 * @throws NoValidValueException
-	 */
-	public PBIComplexityCriterion(final Integer fromTo) throws NoValidValueException {
-		super();
-		this.checkRange(fromTo, fromTo);
-		this.from = fromTo;
-		this.to = fromTo;
-	}
-
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return (pbi.getManDayCosts().getValue() >= this.from && pbi.getManDayCosts().getValue() <= this.to);
+		if (this.from == null && this.to >= 0) {
+			// Maximum
+			return (pbi.getManDayCosts().getValue() <= this.to);
+		} else if (this.from >= 0 && this.to == null) {
+			// Minimum
+			return (pbi.getManDayCosts().getValue() >= this.from);
+		} else {
+			// Range
+			return (pbi.getManDayCosts().getValue() >= this.from && pbi
+					.getManDayCosts().getValue() <= this.to);
+		}
 	}
 
 	/**
@@ -58,11 +64,25 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	 * @param to
 	 * @throws NoValidValueException
 	 */
-	private void checkRange(final Integer from, final Integer to) throws NoValidValueException {
+	private void checkRange(final Integer from, final Integer to)
+			throws NoValidValueException {
 		// TODO Textkonstante bauen
-		// TODO Nullwerte abfangen!
-		if (from <= 0 || to <= 0 || to < from) {
-			throw new NoValidValueException("Es muss ein gültiger Bereich angegeben werden!");
+		final String exc = "Es muss ein gültiger Bereich angegeben werden!";
+
+		if (from == null && to == null) {
+			throw new NoValidValueException(exc);
+		}
+
+		if (from == null && to < 0) {
+			throw new NoValidValueException(exc);
+		}
+
+		if (from < 0 && to == null) {
+			throw new NoValidValueException(exc);
+		}
+
+		if (from < 0 && to < 0) {
+			throw new NoValidValueException(exc);
 		}
 	}
 
