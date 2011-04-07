@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model.search;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -36,6 +37,19 @@ public class NoSearchExpressionTest extends SetUpTestData {
 
 		NoSearchExpression expression = new NoSearchExpression(parentExpression);
 		assertTrue(expression.search(this.pro1rel1spr1fea1));
+	}
+
+	@Test
+	public void testContains() throws UserException {
+
+		ISearchExpression parentExpression = new PBIOpenCriterion();
+
+		NoSearchExpression expression1 = new NoSearchExpression(parentExpression);
+		NoSearchExpression expression2 = new NoSearchExpression(parentExpression);
+		assertFalse(expression1.contains(expression2));
+		assertFalse(expression2.contains(expression1));
+		assertTrue(expression1.contains(expression1));
+		assertTrue(expression2.contains(expression2));
 	}
 
 }
