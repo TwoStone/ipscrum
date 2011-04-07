@@ -58,4 +58,35 @@ public class PBIConcreteReleaseCriterion extends SearchCriteria implements
 		return "Release Kriterium [ " + this.release + " ]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.release == null) ? 0 : this.release.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final PBIConcreteReleaseCriterion other = (PBIConcreteReleaseCriterion) obj;
+		if (this.release == null) {
+			if (other.release != null) {
+				return false;
+			}
+		} else if (!this.release.equals(other.release)) {
+			return false;
+		}
+		return true;
+	}
+
 }

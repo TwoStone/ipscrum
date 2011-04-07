@@ -21,7 +21,7 @@ public class NoSearchExpression implements SearchExpression {
 	/**
 	 * Constructor.
 	 */
-	public NoSearchExpression(SearchExpression parent) {
+	public NoSearchExpression(final SearchExpression parent) {
 		super();
 		this.parent = parent;
 	}
@@ -32,22 +32,26 @@ public class NoSearchExpression implements SearchExpression {
 	}
 
 	@Override
-	public boolean search(ProductBacklogItem pbi) {
+	public boolean search(final ProductBacklogItem pbi) {
 		return true;
 	}
 
 	@Override
-	public void accept(ISearchExpressionVisitor visitor) {
+	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handleNoSearchExpression(this);
 	}
 
 	@Override
-	public void accept(ISearchTypeVisitor visitor) {
+	public void accept(final ISearchTypeVisitor visitor) {
 		visitor.handleNoSearchExpression(this);
 	}
 
 	public SearchExpression getParent() {
-		return parent;
+		return this.parent;
 	}
 
+	@Override
+	public boolean contains(final SearchExpression expression) {
+		return false;
+	}
 }

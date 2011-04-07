@@ -87,4 +87,35 @@ public class BugSystemCriterion extends SearchCriteria {
 	public System getSystem() {
 		return this.system;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.system == null) ? 0 : this.system.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final BugSystemCriterion other = (BugSystemCriterion) obj;
+		if (this.system == null) {
+			if (other.system != null) {
+				return false;
+			}
+		} else if (!this.system.equals(other.system)) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -49,4 +49,44 @@ public abstract class SingleLogicSearchOperator implements SearchExpression {
 	public void accept(final ISearchTypeVisitor visitor) {
 		visitor.handleSingleLogicSearchOperator(this);
 	}
+
+	@Override
+	public boolean contains(final SearchExpression expression) {
+		if (this.equals(expression)) {
+			return true;
+		} else {
+			return this.arg.contains(expression);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.arg == null) ? 0 : this.arg.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final SingleLogicSearchOperator other = (SingleLogicSearchOperator) obj;
+		if (this.arg == null) {
+			if (other.arg != null) {
+				return false;
+			}
+		} else if (!this.arg.equals(other.arg)) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -23,4 +23,6 @@ public interface SearchExpression extends Serializable {
 	public void accept(ISearchExpressionVisitor visitor);
 
 	public void accept(ISearchTypeVisitor visitor);
+
+	public boolean contains(SearchExpression expression);
 }

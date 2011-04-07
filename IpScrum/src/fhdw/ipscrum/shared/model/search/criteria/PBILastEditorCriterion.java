@@ -45,4 +45,35 @@ public class PBILastEditorCriterion extends SearchCriteria {
 	public IPerson getPerson() {
 		return this.person;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.person == null) ? 0 : this.person.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final PBILastEditorCriterion other = (PBILastEditorCriterion) obj;
+		if (this.person == null) {
+			if (other.person != null) {
+				return false;
+			}
+		} else if (!this.person.equals(other.person)) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -42,4 +42,35 @@ public class PBIProjectCriterion extends SearchCriteria implements
 	public Project getProject() {
 		return this.project;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.project == null) ? 0 : this.project.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final PBIProjectCriterion other = (PBIProjectCriterion) obj;
+		if (this.project == null) {
+			if (other.project != null) {
+				return false;
+			}
+		} else if (!this.project.equals(other.project)) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -12,4 +12,9 @@ public abstract class SearchCriteria implements ISearchCriteria {
 		visitor.handleSearchCriteria(this);
 	}
 
+	@Override
+	public boolean contains(final SearchExpression expression) {
+		return this.equals(expression);
+	}
+
 }

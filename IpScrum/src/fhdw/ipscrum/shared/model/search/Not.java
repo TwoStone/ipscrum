@@ -36,5 +36,4 @@ public class Not extends SingleLogicSearchOperator {
 	public void accept(final ISearchExpressionVisitor visitor) {
 		visitor.handleNot(this);
 	}
-
 }

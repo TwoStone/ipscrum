@@ -77,4 +77,35 @@ public class BugConcreteVersionCriterion extends SearchCriteria implements
 	public String toString() {
 		return "Bug Version Kriterium [ " + this.version + " ]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((this.version == null) ? 0 : this.version.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final BugConcreteVersionCriterion other = (BugConcreteVersionCriterion) obj;
+		if (this.version == null) {
+			if (other.version != null) {
+				return false;
+			}
+		} else if (!this.version.equals(other.version)) {
+			return false;
+		}
+		return true;
+	}
 }
