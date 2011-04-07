@@ -14,8 +14,7 @@ public class PBIClosedCriterion extends PBIStateCriterion {
 	/**
 	 * See {@link PBIStateCriterion}
 	 */
-	@SuppressWarnings("unused")
-	private PBIClosedCriterion() {
+	public PBIClosedCriterion() {
 		super();
 	}
 

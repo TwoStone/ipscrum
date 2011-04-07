@@ -11,8 +11,7 @@ public class PBIBugTypeCriterion extends PBITypeCriterion {
 	/**
 	 * See {@link PBITypeCriterion}
 	 */
-	@SuppressWarnings("unused")
-	private PBIBugTypeCriterion() {
+	public PBIBugTypeCriterion() {
 		super();
 	}
 

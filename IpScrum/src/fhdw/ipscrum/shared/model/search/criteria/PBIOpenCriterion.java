@@ -14,8 +14,7 @@ public class PBIOpenCriterion extends PBIStateCriterion {
 	/**
 	 * See {@link PBIStateCriterion}
 	 */
-	@SuppressWarnings("unused")
-	private PBIOpenCriterion() {
+	public PBIOpenCriterion() {
 		super();
 	}
 
