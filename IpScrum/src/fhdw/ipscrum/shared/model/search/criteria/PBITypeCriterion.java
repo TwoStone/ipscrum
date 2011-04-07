@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -12,7 +13,14 @@ public abstract class PBITypeCriterion extends SearchCriteria {
 	/**
 	 * Default Constructor for GWT Serialization
 	 */
-	public PBITypeCriterion() {
+	public PBITypeCriterion(final Operator parent) {
+		super(parent);
+	}
+
+	/**
+	 * See {@link TextCriterion}
+	 */
+	protected PBITypeCriterion() {
 		super();
 	}
 }

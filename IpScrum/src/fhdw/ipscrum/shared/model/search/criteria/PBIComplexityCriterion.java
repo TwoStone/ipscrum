@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -13,12 +14,6 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	private static final long serialVersionUID = -3726369254746420491L;
 	private Integer from;
 	private Integer to;
-
-	// /**
-	// * If from an to value are equal then this value defines if from/to is
-	// * Minimum or Maximum -> true means Minimum -> false means Maximum
-	// */
-	// private boolean isMin;
 
 	@SuppressWarnings("unused")
 	private PBIComplexityCriterion() {
@@ -34,9 +29,9 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	 *            Range end (inclusive)
 	 * @throws NoValidValueException
 	 */
-	public PBIComplexityCriterion(final Integer from, final Integer to)
-			throws NoValidValueException {
-		super();
+	public PBIComplexityCriterion(final Integer from, final Integer to,
+			final Operator parent) throws NoValidValueException {
+		super(parent);
 		this.checkRange(from, to);
 		this.from = from;
 		this.to = to;

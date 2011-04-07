@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.Hint;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represent the criterion for PBI hints.
@@ -11,8 +12,8 @@ public class PBIHintsCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -4043249402031393640L;
 
-	public PBIHintsCriterion(final String value) {
-		super(value);
+	public PBIHintsCriterion(final String value, final Operator parent) {
+		super(value, parent);
 	}
 
 	@SuppressWarnings("unused")

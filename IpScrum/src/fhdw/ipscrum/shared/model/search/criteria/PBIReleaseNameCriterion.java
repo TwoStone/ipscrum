@@ -2,13 +2,15 @@ package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represents the search criterion for the release of a PBI. (textual
  * representation of the release name)
  * 
  */
-public class PBIReleaseNameCriterion extends TextCriterion implements PBIReleaseCriterion {
+public class PBIReleaseNameCriterion extends TextCriterion implements
+		PBIReleaseCriterion {
 
 	private static final long serialVersionUID = 8640411828423628507L;
 
@@ -17,8 +19,8 @@ public class PBIReleaseNameCriterion extends TextCriterion implements PBIRelease
 		super();
 	}
 
-	public PBIReleaseNameCriterion(final String value) {
-		super(value);
+	public PBIReleaseNameCriterion(final String value, final Operator parent) {
+		super(value, parent);
 	}
 
 	@Override

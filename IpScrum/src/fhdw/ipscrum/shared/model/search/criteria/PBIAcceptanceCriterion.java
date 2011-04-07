@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represents the criterion for a acceptance criterion
@@ -30,8 +31,8 @@ public class PBIAcceptanceCriterion extends TextCriterion {
 	 * @param value
 	 *            AcceptanceCriterion search content
 	 */
-	public PBIAcceptanceCriterion(final String value) {
-		super(value);
+	public PBIAcceptanceCriterion(final String value, final Operator parent) {
+		super(value, parent);
 	}
 
 	@Override

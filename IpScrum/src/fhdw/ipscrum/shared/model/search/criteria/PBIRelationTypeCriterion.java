@@ -4,6 +4,7 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Relation;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -20,8 +21,9 @@ public class PBIRelationTypeCriterion extends SearchCriteria implements
 		super();
 	}
 
-	public PBIRelationTypeCriterion(final RelationType value) {
-		super();
+	public PBIRelationTypeCriterion(final RelationType value,
+			final Operator parent) {
+		super(parent);
 		this.value = value;
 	}
 

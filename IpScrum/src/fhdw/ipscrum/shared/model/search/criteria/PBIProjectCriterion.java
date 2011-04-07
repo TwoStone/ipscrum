@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -19,8 +20,8 @@ public class PBIProjectCriterion extends SearchCriteria implements
 		super();
 	}
 
-	public PBIProjectCriterion(final Project project) {
-		super();
+	public PBIProjectCriterion(final Project project, final Operator parent) {
+		super(parent);
 		this.project = project;
 	}
 

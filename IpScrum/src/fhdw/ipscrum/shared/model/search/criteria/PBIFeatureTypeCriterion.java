@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 
 public class PBIFeatureTypeCriterion extends PBITypeCriterion {
 
@@ -11,8 +12,8 @@ public class PBIFeatureTypeCriterion extends PBITypeCriterion {
 	/**
 	 * See {@link PBITypeCriterion}
 	 */
-	public PBIFeatureTypeCriterion() {
-		super();
+	public PBIFeatureTypeCriterion(final Operator parent) {
+		super(parent);
 	}
 
 	@Override

@@ -7,8 +7,8 @@ import fhdw.ipscrum.shared.observer.PersistentObserver;
  * Represents a logical operator with one argument. This argument is a search
  * expression.
  */
-public abstract class SingleLogicSearchOperator extends SearchExpression
-		implements PersistentObserver {
+public abstract class SingleLogicSearchOperator extends Operator implements
+		PersistentObserver {
 
 	private static final long serialVersionUID = -2387020530370101740L;
 
@@ -16,6 +16,10 @@ public abstract class SingleLogicSearchOperator extends SearchExpression
 	 * Search Expression
 	 */
 	private SearchExpression arg;
+
+	protected SingleLogicSearchOperator(final Operator parent) {
+		super(parent);
+	}
 
 	/**
 	 * Constructor for GWT serialization.
@@ -30,8 +34,9 @@ public abstract class SingleLogicSearchOperator extends SearchExpression
 	 * @param arg
 	 *            Search Expression
 	 */
-	public SingleLogicSearchOperator(final SearchExpression arg) {
-		super();
+	public SingleLogicSearchOperator(final SearchExpression arg,
+			final Operator parent) {
+		super(parent);
 		this.arg = arg;
 	}
 

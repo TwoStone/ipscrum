@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.Or;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 
@@ -11,12 +12,16 @@ public class ScruumleCriterion extends TextCriterion {
 
 	private static final long serialVersionUID = -4292151762764306185L;
 
-	public ScruumleCriterion() {
+	/**
+	 * See {@link TextCriterion}
+	 */
+	@SuppressWarnings("unused")
+	private ScruumleCriterion() {
 		super();
 	}
 
-	public ScruumleCriterion(final String value) {
-		super(value);
+	public ScruumleCriterion(final String value, final Operator parent) {
+		super(value, parent);
 	}
 
 	@Override
@@ -28,18 +33,23 @@ public class ScruumleCriterion extends TextCriterion {
 	public boolean search(final ProductBacklogItem pbi) {
 		final Vector<SearchExpression> textualCriterias = new Vector<SearchExpression>();
 
-		textualCriterias.add(new BugVersionNameCriterion(this.getValue()));
-		textualCriterias.add(new PBIAcceptanceCriterion(this.getValue()));
-		textualCriterias.add(new PBIDescriptionCriterion(this.getValue()));
-		textualCriterias.add(new PBIHintsCriterion(this.getValue()));
-		textualCriterias.add(new PBINameCriterion(this.getValue()));
-		textualCriterias.add(new PBIRelationDestCriterion(this.getValue()));
-		textualCriterias.add(new PBIReleaseNameCriterion(this.getValue()));
-		textualCriterias.add(new PBISprintDescCriterion(this.getValue()));
-		textualCriterias.add(new PBISprintNameCriterion(this.getValue()));
-		textualCriterias.add(new PBIProjectNameCriterion(this.getValue()));
+		textualCriterias
+				.add(new BugVersionNameCriterion(this.getValue(), null));
+		textualCriterias.add(new PBIAcceptanceCriterion(this.getValue(), null));
+		textualCriterias
+				.add(new PBIDescriptionCriterion(this.getValue(), null));
+		textualCriterias.add(new PBIHintsCriterion(this.getValue(), null));
+		textualCriterias.add(new PBINameCriterion(this.getValue(), null));
+		textualCriterias
+				.add(new PBIRelationDestCriterion(this.getValue(), null));
+		textualCriterias
+				.add(new PBIReleaseNameCriterion(this.getValue(), null));
+		textualCriterias.add(new PBISprintDescCriterion(this.getValue(), null));
+		textualCriterias.add(new PBISprintNameCriterion(this.getValue(), null));
+		textualCriterias
+				.add(new PBIProjectNameCriterion(this.getValue(), null));
 
-		final Or or = new Or(textualCriterias);
+		final Or or = new Or(textualCriterias, null);
 
 		return or.search(pbi);
 	}

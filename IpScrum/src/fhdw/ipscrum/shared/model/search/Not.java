@@ -11,15 +11,23 @@ public class Not extends SingleLogicSearchOperator {
 
 	private static final long serialVersionUID = 5747320984085365276L;
 
-	public Not() {
-		super();
+	public Not(final Operator parent) {
+		super(parent);
 	}
 
 	/**
 	 * See {@link SingleLogicSearchOperator}
 	 */
-	public Not(final SearchExpression arg) {
-		super(arg);
+	public Not(final SearchExpression arg, final Operator parent) {
+		super(arg, parent);
+	}
+
+	/**
+	 * See {@link SingleLogicSearchOperator}
+	 */
+	@SuppressWarnings("unused")
+	private Not() {
+		super();
 	}
 
 	@Override

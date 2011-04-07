@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represents the search criterion for PBI project.
@@ -16,8 +17,8 @@ public class PBIProjectNameCriterion extends TextCriterion implements
 		super();
 	}
 
-	public PBIProjectNameCriterion(final String name) {
-		super(name);
+	public PBIProjectNameCriterion(final String name, final Operator parent) {
+		super(name, parent);
 	}
 
 	@Override

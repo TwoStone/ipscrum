@@ -5,10 +5,17 @@ import fhdw.ipscrum.shared.model.ProductBacklogItem;
 /**
  * Represents a placeholder for SearchExpressions.
  */
-public class NoSearchExpression extends SearchExpression {
+public class NoSearchExpression extends Operator {
 
 	private static final long serialVersionUID = 2962799494224674084L;
-	private ISearchExpression parent;
+	private ISearchExpression parent1;
+
+	/**
+	 * Constructor used by GWT Serialization and for default initiation.
+	 */
+	public NoSearchExpression(final Operator parent) {
+		super(parent);
+	}
 
 	/**
 	 * Constructor used by GWT Serialization and for default initiation.
@@ -21,9 +28,10 @@ public class NoSearchExpression extends SearchExpression {
 	/**
 	 * Constructor.
 	 */
-	public NoSearchExpression(final ISearchExpression parent) {
-		super();
-		this.parent = parent;
+	public NoSearchExpression(final ISearchExpression parent,
+			final Operator parent1) {
+		super(parent1);
+		this.parent1 = parent;
 	}
 
 	@Override
@@ -46,9 +54,10 @@ public class NoSearchExpression extends SearchExpression {
 		visitor.handleNoSearchExpression(this);
 	}
 
-	public ISearchExpression getParent() {
-		return this.parent;
-	}
+	// @Override
+	// public ISearchExpression getParent() {
+	// return this.parent1;
+	// }
 
 	@Override
 	public boolean contains(final ISearchExpression expression) {

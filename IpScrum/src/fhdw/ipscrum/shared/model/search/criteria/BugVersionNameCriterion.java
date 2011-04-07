@@ -4,12 +4,14 @@ import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
  * Represents the Bug Version Criterion in a textual way.
  */
-public class BugVersionNameCriterion extends TextCriterion implements BugVersionCriterion {
+public class BugVersionNameCriterion extends TextCriterion implements
+		BugVersionCriterion {
 
 	private static final long serialVersionUID = 7595932324691599539L;
 
@@ -27,8 +29,8 @@ public class BugVersionNameCriterion extends TextCriterion implements BugVersion
 	 * @param version
 	 *            Version of the Bug as String
 	 */
-	public BugVersionNameCriterion(final String version) {
-		super(version);
+	public BugVersionNameCriterion(final String version, final Operator parent) {
+		super(version, parent);
 	}
 
 	@Override

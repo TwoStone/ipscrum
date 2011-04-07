@@ -12,10 +12,21 @@ public abstract class SearchExpression extends Observable implements
 
 	private static final long serialVersionUID = 2552750369508572721L;
 
+	private Operator parent;
+
+	public SearchExpression(final Operator parent) {
+		super();
+		this.parent = parent;
+	}
+
 	/**
 	 * Default Constructor for GWT
 	 */
-	public SearchExpression() {
+	protected SearchExpression() {
 		super();
+	}
+
+	public Operator getParent() {
+		return this.parent;
 	}
 }

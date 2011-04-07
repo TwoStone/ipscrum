@@ -5,6 +5,7 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
@@ -31,8 +32,8 @@ public class BugSystemCriterion extends SearchCriteria {
 	 * @param system
 	 *            System criterion
 	 */
-	public BugSystemCriterion(final System system) {
-		super();
+	public BugSystemCriterion(final System system, final Operator parent) {
+		super(parent);
 		this.system = system;
 	}
 

@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represents the search criterion for Sprint name.
@@ -11,13 +12,16 @@ public class PBISprintNameCriterion extends TextCriterion implements
 
 	private static final long serialVersionUID = 4728904126758675324L;
 
+	/**
+	 * See {@link TextCriterion}
+	 */
 	@SuppressWarnings("unused")
 	private PBISprintNameCriterion() {
 		super();
 	}
 
-	public PBISprintNameCriterion(final String value) {
-		super(value);
+	public PBISprintNameCriterion(final String value, final Operator parent) {
+		super(value, parent);
 	}
 
 	@Override

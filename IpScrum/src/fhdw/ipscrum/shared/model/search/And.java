@@ -15,15 +15,23 @@ public class And extends MultiLogicSearchOperator {
 	/**
 	 * See {@link MultiLogicSearchOperator}
 	 */
-	public And() {
+	public And(final Operator parent) {
+		super(parent);
+	}
+
+	/**
+	 * See {@link MultiLogicSearchOperator}
+	 */
+	@SuppressWarnings("unused")
+	private And() {
 		super();
 	}
 
 	/**
 	 * See {@link MultiLogicSearchOperator}
 	 */
-	public And(final Collection<SearchExpression> args) {
-		super(args);
+	public And(final Collection<SearchExpression> args, final Operator parent) {
+		super(args, parent);
 	}
 
 	@Override

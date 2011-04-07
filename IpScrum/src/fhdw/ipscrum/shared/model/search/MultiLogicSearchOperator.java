@@ -10,8 +10,8 @@ import fhdw.ipscrum.shared.observer.PersistentObserver;
  * Represents a logical operator with more than one argument. All arguments will
  * be combined with the same logical operator, e.g. And or Or
  */
-public abstract class MultiLogicSearchOperator extends SearchExpression
-		implements PersistentObserver {
+public abstract class MultiLogicSearchOperator extends Operator implements
+		PersistentObserver {
 
 	private static final long serialVersionUID = -374972903680516595L;
 
@@ -24,10 +24,15 @@ public abstract class MultiLogicSearchOperator extends SearchExpression
 		this.args = args;
 	}
 
+	public MultiLogicSearchOperator(final Operator parent) {
+		super(parent);
+		this.setArgs(new ArrayList<SearchExpression>());
+	}
+
 	/**
 	 * Constructor used by GWT Serialization and for default initiation.
 	 */
-	public MultiLogicSearchOperator() {
+	protected MultiLogicSearchOperator() {
 		super();
 		this.setArgs(new ArrayList<SearchExpression>());
 	}
@@ -39,8 +44,9 @@ public abstract class MultiLogicSearchOperator extends SearchExpression
 	 *            List of search expression arguments.
 	 * 
 	 */
-	public MultiLogicSearchOperator(final Collection<SearchExpression> args) {
-		super();
+	public MultiLogicSearchOperator(final Collection<SearchExpression> args,
+			final Operator parent) {
+		super(parent);
 		this.args = args;
 	}
 

@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -19,8 +20,8 @@ public class PBILastEditorCriterion extends SearchCriteria {
 		super();
 	}
 
-	public PBILastEditorCriterion(final IPerson person) {
-		super();
+	public PBILastEditorCriterion(final IPerson person, final Operator parent) {
+		super(parent);
 		this.person = person;
 	}
 
