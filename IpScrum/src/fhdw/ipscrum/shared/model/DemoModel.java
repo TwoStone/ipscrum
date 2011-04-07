@@ -4,6 +4,7 @@ import java.util.Date;
 
 import fhdw.ipscrum.client.utils.CalendarUtils;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.incidents.IncidentType;
@@ -18,7 +19,7 @@ import fhdw.ipscrum.shared.model.search.criteria.PBIReleaseNameCriterion;
 
 public class DemoModel {
 
-	@SuppressWarnings({ "deprecation", "unused" })
+	@SuppressWarnings( { "deprecation", "unused" })
 	public static void populateModel(final Root model) throws UserException {
 
 		final Root root = model;
@@ -140,12 +141,12 @@ public class DemoModel {
 		projekt2.addSystem(sapbw);
 
 		// Initial Releases
-		final Release rel10 = new Release("1.0",
-				CalendarUtils.getRandomReleaseDate(), projekt1);
-		final Release rel13 = new Release("1.3",
-				CalendarUtils.getRandomReleaseDate(), projekt1);
-		final Release rel20 = new Release("2.0",
-				CalendarUtils.getRandomReleaseDate(), projekt2);
+		final Release rel10 = new Release("1.0", CalendarUtils
+				.getRandomReleaseDate(), projekt1);
+		final Release rel13 = new Release("1.3", CalendarUtils
+				.getRandomReleaseDate(), projekt1);
+		final Release rel20 = new Release("2.0", CalendarUtils
+				.getRandomReleaseDate(), projekt2);
 		final Release phase3 = new Release("Phase III", new Date(2011 - 1900,
 				3 - 1, 9), ipScrum);
 		final Release phase4 = new Release("Phase IV", new Date(2011 - 1900,
@@ -382,8 +383,8 @@ public class DemoModel {
 		f13.setManDayCosts(new Effort(10));
 		f13.setSprint(reporting2RelPhase4);
 		final Feature f14 = new Feature("Velocitycharts",
-				"Zur Analyse der Entwiklungsgeschwindigkeit",
-				ipScrum.getBacklog());
+				"Zur Analyse der Entwiklungsgeschwindigkeit", ipScrum
+						.getBacklog());
 		f14.setLastEditor(pWilken);
 		f14.setManDayCosts(new Effort(15));
 		f14.setSprint(reporting2RelPhase4);
@@ -546,27 +547,50 @@ public class DemoModel {
 		final Search nameFeatureSuche = new Search("Name = Feature", expr);
 
 		final MultiLogicSearchOperator and = new And();
-		and.add(new PBIProjectCriterion(ipScrum));
-		and.add(new PBIReleaseNameCriterion(phase4.getVersion()));
+		try {
+			and.add(new PBIProjectCriterion(ipScrum));
+			and.add(new PBIReleaseNameCriterion(phase4.getVersion()));
+		} catch (final CycleException e) {
+			// da Demodaten, kann hier kein Fehler auftreten!
+			// Dafür wird gesorgt!
+		}
 		final Search p4Suche = new Search("IpScrum Phase4", and);
 
 		model.getSearchManager().addSearch(nameFeatureSuche);
 		model.getSearchManager().addSearch(p4Suche);
 
 	}
-	
-	public static void populateStandardIncidentTypes(final Root model){
+
+	public static void populateStandardIncidentTypes(final Root model) {
 		final Root root = model;
-		
+
 		try {
-			root.addIncidentType(TextConstants.INCIDENT_VACATION_NAME, new IncidentType(TextConstants.INCIDENT_VACATION_NAME));
-			root.addIncidentType(TextConstants.INCIDENT_ILLNESS_NAME, new IncidentType(TextConstants.INCIDENT_ILLNESS_NAME));
-			root.addIncidentType(TextConstants.INCIDENT_TASKCOMPLETION_NAME, new IncidentType(TextConstants.INCIDENT_TASKCOMPLETION_NAME));
-			root.addIncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME1, new IncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME1));
-			root.addIncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME2, new IncidentType(TextConstants.INCIDENT_PBICOMPLETION_NAME2));
-			root.addIncidentType(TextConstants.INCIDENT_RELEASECOMPLETION_NAME, new IncidentType(TextConstants.INCIDENT_RELEASECOMPLETION_NAME));
-			root.addIncidentType(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME, new IncidentType(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME));
-		} catch (DoubleDefinitionException e) {
+			root.addIncidentType(TextConstants.INCIDENT_VACATION_NAME,
+					new IncidentType(TextConstants.INCIDENT_VACATION_NAME));
+			root.addIncidentType(TextConstants.INCIDENT_ILLNESS_NAME,
+					new IncidentType(TextConstants.INCIDENT_ILLNESS_NAME));
+			root
+					.addIncidentType(
+							TextConstants.INCIDENT_TASKCOMPLETION_NAME,
+							new IncidentType(
+									TextConstants.INCIDENT_TASKCOMPLETION_NAME));
+			root
+					.addIncidentType(
+							TextConstants.INCIDENT_PBICOMPLETION_NAME1,
+							new IncidentType(
+									TextConstants.INCIDENT_PBICOMPLETION_NAME1));
+			root
+					.addIncidentType(
+							TextConstants.INCIDENT_PBICOMPLETION_NAME2,
+							new IncidentType(
+									TextConstants.INCIDENT_PBICOMPLETION_NAME2));
+			root.addIncidentType(TextConstants.INCIDENT_RELEASECOMPLETION_NAME,
+					new IncidentType(
+							TextConstants.INCIDENT_RELEASECOMPLETION_NAME));
+			root.addIncidentType(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME,
+					new IncidentType(
+							TextConstants.INCIDENT_SPRINTCOMPLETION_NAME));
+		} catch (final DoubleDefinitionException e) {
 			// should never happen
 		}
 	}
