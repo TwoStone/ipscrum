@@ -35,10 +35,10 @@ public class CreateIncidentTypeView extends Composite implements
 		initWidget(verticalPanel);
 		verticalPanel.setSize("238px", "134px");
 
-		Label label = new Label("Neuen Ereignis-Typ anlegen:");
-		label.setStyleName("LabelElement");
-		verticalPanel.add(label);
-		label.setSize("201px", "24px");
+		Label lblNeuenEreignistypAnlegen = new Label("Neuen Ereignis-Typ anlegen");
+		lblNeuenEreignistypAnlegen.setStyleName("bold");
+		verticalPanel.add(lblNeuenEreignistypAnlegen);
+		lblNeuenEreignistypAnlegen.setSize("201px", "24px");
 
 		Label label_1 = new Label("Name:");
 		label_1.setWordWrap(false);

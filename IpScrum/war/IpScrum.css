@@ -154,3 +154,8 @@ margin: 0 auto;
 .searchBottom {
 	border-top: 1px solid #cccccc;
 }
+.smallborderWithWhiteBG {
+	border: silver 1px solid;
+	padding: 5px;
+    background-color: White;
+}

@@ -9,6 +9,7 @@ import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
@@ -79,22 +80,22 @@ public class ProjectHistoryView extends Composite implements
 		projectHistoryTable.setTableLayoutFixed(false);
 		projectHistoryTable.setSize("100%", "100%");
 
-		Column<Incident, Date> startDateColumn = new Column<Incident, Date>(
-				new DateCell()) {
+		TextColumn<Incident> startDateColumn = new TextColumn<Incident>() {
 			@Override
-			public Date getValue(Incident incident) {
-				return incident.getStart();
+			public String getValue(Incident incident) {
+				DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");
+				return fmt.format(incident.getStart());
 			}
 		};
 		startDateColumn.setSortable(true);
 
 		projectHistoryTable.addColumn(startDateColumn, "Start-Datum");
 
-		Column<Incident, Date> endDateColumn = new Column<Incident, Date>(
-				new DateCell()) {
+		TextColumn<Incident> endDateColumn = new TextColumn<Incident>() {
 			@Override
-			public Date getValue(Incident incident) {
-				return incident.getEnd();
+			public String getValue(Incident incident) {
+				DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");
+				return fmt.format(incident.getEnd());
 			}
 		};
 		endDateColumn.setSortable(true);
@@ -116,11 +117,10 @@ public class ProjectHistoryView extends Composite implements
 		TextColumn<Incident> descriptionColumn = new TextColumn<Incident>() {
 			@Override
 			public String getValue(Incident incident) {
-				 if (incident.getDescription().length() <= 60) {
+				 if (incident.getDescription().length() <= 80) {
 				 return incident.getDescription();
 				 } else {
-				 return incident.getDescription().substring(0, 60) +
-				 TextConstants.POINTS;
+				 return incident.getDescription().substring(0, 80) + TextConstants.POINTS;
 				 }
 			}
 		};
@@ -192,7 +192,7 @@ public class ProjectHistoryView extends Composite implements
 
 		ScrollPanel scrollPanel_1 = new ScrollPanel();
 		verticalPanel.add(scrollPanel_1);
-		scrollPanel_1.setStyleName("smallborder");
+		scrollPanel_1.setStyleName("smallborderWithWhiteBG");
 		scrollPanel_1.setSize("177px", "90px");
 
 		typeCellList = new CellList<IncidentType>(

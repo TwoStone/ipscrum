@@ -1,5 +1,7 @@
 package fhdw.ipscrum.client.presenter;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -37,9 +39,16 @@ public class CreateIncidentPresenter extends Presenter<ICreateIncidentView> {
 		getView().refreshProjects(
 				new Vector<Project>(getSessionManager().getModel()
 						.getProjects()));
-		getView().refreshTypes(
-				new Vector<IncidentType>(getSessionManager().getModel()
-						.getIncidentTypes()));
+		
+		// You shall only be able to create Incidents with non-automatic incident-types. So these are filtered here first.
+		Vector<IncidentType> temp = new Vector<IncidentType>();
+		temp.addAll(getSessionManager().getModel().getIncidentTypes());
+		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_TASKCOMPLETION_NAME));
+		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_PBICOMPLETION_NAME1));
+		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_PBICOMPLETION_NAME2));
+		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_RELEASECOMPLETION_NAME));
+		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME));
+		getView().refreshTypes(temp);
 	}
 
 	private void addHandler() {

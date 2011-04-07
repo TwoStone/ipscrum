@@ -58,10 +58,10 @@ public class CreateIncidentView extends Composite implements
 		horizontalPanel.add(verticalPanel);
 		verticalPanel.setSize("180px", "223px");
 
-		Label label = new Label("Neues Ereignis anlegen:");
-		label.setStyleName("LabelElement");
-		verticalPanel.add(label);
-		label.setSize("185px", "28px");
+		Label lblNeuesEreignisAnlegen = new Label("Neues Ereignis anlegen");
+		lblNeuesEreignisAnlegen.setStyleName("bold");
+		verticalPanel.add(lblNeuesEreignisAnlegen);
+		lblNeuesEreignisAnlegen.setSize("185px", "28px");
 
 		createBtn = new Button("Anlegen");
 		createBtn.setText("Ereignis Anlegen");
@@ -115,7 +115,7 @@ public class CreateIncidentView extends Composite implements
 
 		ScrollPanel scrollPanel = new ScrollPanel();
 		verticalPanel_1.add(scrollPanel);
-		scrollPanel.setStyleName("smallborder");
+		scrollPanel.setStyleName("smallborderWithWhiteBG");
 		scrollPanel.setSize("183px", "70px");
 
 		typeCellList = new CellList<IncidentType>(
@@ -152,7 +152,7 @@ public class CreateIncidentView extends Composite implements
 		label_4.setSize("95%", "22px");
 
 		ScrollPanel scrollPanel_2 = new ScrollPanel();
-		scrollPanel_2.setStyleName("smallborder");
+		scrollPanel_2.setStyleName("smallborderWithWhiteBG");
 		verticalPanel_2.add(scrollPanel_2);
 		scrollPanel_2.setSize("183px", "70px");
 
@@ -174,7 +174,7 @@ public class CreateIncidentView extends Composite implements
 
 		ScrollPanel scrollPanel_1 = new ScrollPanel();
 		verticalPanel_2.add(scrollPanel_1);
-		scrollPanel_1.setStyleName("smallborder");
+		scrollPanel_1.setStyleName("smallborderWithWhiteBG");
 		scrollPanel_1.setSize("183px", "70px");
 
 		projectsCellList = new CellList<Project>(new AbstractCell<Project>() {
