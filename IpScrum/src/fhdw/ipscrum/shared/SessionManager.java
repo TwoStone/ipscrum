@@ -59,6 +59,7 @@ public class SessionManager {
 							DemoModel.populateModel(SessionManager.this.model);
 							DemoModel.populateStandardIncidentTypes(SessionManager.this.model);
 							GwtUtils.displayWarning("Modell korrumpiert. Demo-Daten geladen.");
+							SessionManager.this.checkDeadlines(SessionManager.this.model);
 							callback.onLoaded();
 						} catch (final UserException e) {
 							GwtUtils.displayError(e);
@@ -69,15 +70,20 @@ public class SessionManager {
 					@Override
 					public void onSuccess(final SerializationRoot result) {
 						SessionManager.this.model = (Root) result;
+						SessionManager.this.checkDeadlines((Root)result);
 						callback.onLoaded();
 					}
 				});
-		/*
-		 * the following method call will be obsolete if a permanent running
-		 * server has been implemented and it will have to be called via
-		 * periodic jobs
-		 */
-		Iterator<Project> i = this.model.getProjects().iterator();
+	}
+	/**
+	 * This Method checks if Sprint or Release deadlines have been reached.
+	 * If so, it will populate new Incidents for the project history.
+	 * the method will be obsolete if a permanent running
+	 * server has been implemented and it will have to be called via
+	 * periodic jobs
+	 */
+	private void checkDeadlines(Root root) {
+		Iterator<Project> i = root.getProjects().iterator();
 		while (i.hasNext()) {
 			i.next().checkDeadlines();
 		}
