@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model.search;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -151,6 +152,21 @@ public class MultiLogicSearchOperatorTest extends SetUpTestData {
 		collection.add(noSearchExpression2);
 
 		assertEquals(new Integer(2), and.getSize());
+	}
+
+	@Test
+	public void testContains_ConstruktorWithParameter() {
+		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
+
+		And and = new And(collection);
+
+		NoSearchExpression noSearchExpression1 = new NoSearchExpression(and);
+		collection.add(noSearchExpression1);
+
+		NoSearchExpression noSearchExpression2 = new NoSearchExpression(and);
+		collection.add(noSearchExpression2);
+
+		assertTrue(and.contains(and));
 	}
 
 }
