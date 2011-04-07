@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.AcceptanceCriterion;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Effort;
@@ -24,8 +24,6 @@ import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.SystemManager;
 import fhdw.ipscrum.shared.model.Team;
-
-import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 
 public class Test_PBIComplexityCriterion {
 
@@ -69,8 +67,7 @@ public class Test_PBIComplexityCriterion {
 		pbltext = textverarbeitung.getBacklog();
 		release1 = new Release("Release 1", new Date(), textverarbeitung);
 		systemmanager = new SystemManager();
-		betriebssystem = new System("Betriebssystem", systemmanager
-				.getSystems());
+		betriebssystem = new System("Betriebssystem", systemmanager.getSystems());
 		windowsXP = new System("Windows XP", betriebssystem);
 		windows2000 = new System("Windows 2000", betriebssystem);
 		windowsVista = new System("Windows Vista", betriebssystem);
@@ -85,21 +82,15 @@ public class Test_PBIComplexityCriterion {
 		accCrit1 = new AcceptanceCriterion("Fehler behoben");
 		accCrit2 = new AcceptanceCriterion("Funktion ist ausführbar");
 
-		pbi1 = new Feature("Texte eingeben", "Texte im Programm erfassen",
-				pbltext);
+		pbi1 = new Feature("Texte eingeben", "Texte im Programm erfassen", pbltext);
 		pbi2 = new Feature("Textbearbeitung", "Texte bearbeiten", pbltext);
-		pbi3 = new Feature("Farben", "Farbige Markierungen ermöglichen",
-				pbltext);
-		pbi4 = new Bug("Fehler bei Farben",
-				"Darstellung der Farben fehlerhaft", release1, pbltext);
+		pbi3 = new Feature("Farben", "Farbige Markierungen ermöglichen", pbltext);
+		pbi4 = new Bug("Fehler bei Farben", "Darstellung der Farben fehlerhaft", release1, pbltext);
 
 		pbi1.addHint(new Hint("Groß-/Kleinschreibung, Zahlen, Sonderzeichen"));
 		pbi2.addHint(new Hint("fett, unterstrichen, kursiv, farbig"));
-		pbi3
-				.addHint(new Hint(
-						"Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können"));
-		pbi4.addHint(new Hint(
-				"werden bei unterschiedlichen Systemen anders angezeigt"));
+		pbi3.addHint(new Hint("Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können"));
+		pbi4.addHint(new Hint("werden bei unterschiedlichen Systemen anders angezeigt"));
 
 		pbi4.addSystem(betriebssystem);
 		pbi4.addSystem(windows7);
@@ -147,14 +138,10 @@ public class Test_PBIComplexityCriterion {
 		ideen.addMember(p4);
 		ideen.addMember(p6);
 
-		sprint1 = new Sprint("Sprint 1", "Beschreibung", new Date(),
-				new Date(), entwickler);
-		sprint2 = new Sprint("Sprint 2", "Beschreibung", new Date(),
-				new Date(), entwickler);
-		sprint3 = new Sprint("Sprint 3", "Beschreibung", new Date(),
-				new Date(), entwickler);
-		sprint4 = new Sprint("Sprint 4", "Beschreibung", new Date(),
-				new Date(), entwickler);
+		sprint1 = new Sprint("Sprint 1", "Beschreibung", new Date(), new Date(), entwickler);
+		sprint2 = new Sprint("Sprint 2", "Beschreibung", new Date(), new Date(), entwickler);
+		sprint3 = new Sprint("Sprint 3", "Beschreibung", new Date(), new Date(), entwickler);
+		sprint4 = new Sprint("Sprint 4", "Beschreibung", new Date(), new Date(), entwickler);
 
 		textverarbeitung.addSprint(sprint1);
 		textverarbeitung.addSprint(sprint2);
@@ -194,7 +181,18 @@ public class Test_PBIComplexityCriterion {
 		assertEquals(new Integer(1), comCrit.getFrom());
 		assertEquals(new Integer(3), comCrit.getTo());
 	}
-	
+
+	@Test(expected = NoValidValueException.class)
+	/**
+	 * Test of constructor with two numbers
+	 * From is bigger as to
+	 */
+	public void testConstructor1a() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(3, 1);
+		assertEquals(new Integer(1), comCrit.getFrom());
+		assertEquals(new Integer(3), comCrit.getTo());
+	}
+
 	@Test
 	/**
 	 * Test of constructor with two numbers
@@ -205,7 +203,7 @@ public class Test_PBIComplexityCriterion {
 		assertEquals(null, comCrit.getFrom());
 		assertEquals(new Integer(3), comCrit.getTo());
 	}
-	
+
 	@Test
 	/**
 	 * Test of constructor with two numbers
@@ -216,7 +214,7 @@ public class Test_PBIComplexityCriterion {
 		assertEquals(new Integer(1), comCrit.getFrom());
 		assertEquals(null, comCrit.getTo());
 	}
-	
+
 	@Test(expected = NoValidValueException.class)
 	/**
 	 * Test of constructor with two numbers
@@ -225,7 +223,7 @@ public class Test_PBIComplexityCriterion {
 	public void testConstructor4() throws Exception {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, null);
 	}
-	
+
 	@Test(expected = NoValidValueException.class)
 	/**
 	 * Test of constructor with two numbers
@@ -235,7 +233,7 @@ public class Test_PBIComplexityCriterion {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(-1, null);
 
 	}
-	
+
 	@Test(expected = NoValidValueException.class)
 	/**
 	 * Test of constructor with two numbers
@@ -245,14 +243,14 @@ public class Test_PBIComplexityCriterion {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, -1);
 
 	}
-	
+
 	@Test(expected = NoValidValueException.class)
 	/**
 	 * Test of constructor with two numbers
 	 * to is null
 	 */
 	public void testConstructor7() throws Exception {
-		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(-2,-1);
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(-2, -1);
 
 	}
 
@@ -273,7 +271,7 @@ public class Test_PBIComplexityCriterion {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, 4);
 		assertEquals(false, comCrit.search(pbi1));
 	}
-	
+
 	@Test
 	/**
 	 * Search, if a Bug needs more than 5 PT
