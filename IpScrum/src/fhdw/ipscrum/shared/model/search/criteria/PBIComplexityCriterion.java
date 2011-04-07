@@ -79,6 +79,10 @@ public class PBIComplexityCriterion extends SearchCriteria {
 		if (from != null && from < 0 && to != null && to < 0) {
 			throw new NoValidValueException(exc);
 		}
+
+		if (from != null && to != null && from > to) {
+			throw new NoValidValueException(exc);
+		}
 	}
 
 	@Override
@@ -88,6 +92,14 @@ public class PBIComplexityCriterion extends SearchCriteria {
 
 	@Override
 	public String toString() {
+		final String cons = "Komplexität";
+		if (this.from == null) {
+			return cons + " [Max. <= " + this.to + " ]";
+		}
+		if (this.to == null) {
+			return cons + " [Min. >= " + this.to + " ]";
+		}
+
 		return "Komplexität [von=" + this.from + ", bis=" + this.to + "]";
 	}
 
