@@ -598,7 +598,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 
 		assertNotNull(result);
-		assertEquals(1.142868048299083, result.doubleValue(), 0.1);
+		assertEquals(1.142868, result.doubleValue(), 0.0000001);
 	}
 
 	@Test
@@ -632,7 +632,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 
 
 		assertNotNull(result);
-		assertEquals(0.6929374201787996, result.doubleValue(), 0.1);
+		assertEquals(0.6929374, result.doubleValue(), 0.0000001);
 	}
 
 //------------------ Test of the method getTeam()--------------------------//
