@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
@@ -36,7 +37,7 @@ public class NotTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testSearch() throws UserException {
+	public void testSearch() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();

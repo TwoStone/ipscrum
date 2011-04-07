@@ -3,8 +3,6 @@ package fhdw.ipscrum.shared.model.search;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,75 +35,7 @@ public class OrTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testSearch_TrueTrue_ConstruktorWithParameter() throws UserException {
-		ProductBacklogItem item = pro1rel1spr1fea1;
-
-		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
-
-		Or or = new Or(collection);
-
-		SearchExpression searchExpression1 = new PBIClosedCriterion();
-		collection.add(searchExpression1);
-
-		SearchExpression searchExpression2 = new PBIClosedCriterion();
-		collection.add(searchExpression2);
-
-		assertTrue(or.search(item));
-	}
-
-	@Test
-	public void testSearch_TrueFalse_ConstruktorWithParameter() throws UserException {
-		ProductBacklogItem item = pro1rel1spr1fea1;
-
-		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
-
-		Or or = new Or(collection);
-
-		SearchExpression searchExpression1 = new PBIClosedCriterion();
-		collection.add(searchExpression1);
-
-		SearchExpression searchExpression2 = new PBIOpenCriterion();
-		collection.add(searchExpression2);
-
-		assertTrue(or.search(item));
-	}
-
-	@Test
-	public void testSearch_FalseTrue_ConstruktorWithParameter() throws UserException {
-		ProductBacklogItem item = pro1rel1spr1fea1;
-
-		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
-
-		Or or = new Or(collection);
-
-		SearchExpression searchExpression1 = new PBIOpenCriterion();
-		collection.add(searchExpression1);
-
-		SearchExpression searchExpression2 = new PBIClosedCriterion();
-		collection.add(searchExpression2);
-
-		assertTrue(or.search(item));
-	}
-
-	@Test
-	public void testSearch_FalseFalse_ConstruktorWithParameter() throws UserException {
-		ProductBacklogItem item = pro1rel1spr1fea1;
-
-		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
-
-		Or or = new Or(collection);
-
-		SearchExpression searchExpression1 = new PBIOpenCriterion();
-		collection.add(searchExpression1);
-
-		SearchExpression searchExpression2 = new PBIOpenCriterion();
-		collection.add(searchExpression2);
-
-		assertFalse(or.search(item));
-	}
-
-	@Test
-	public void testSearch_TrueTrue_ConstruktorWithoutParameter() throws UserException, CycleException {
+	public void testSearch_TrueTrue() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
@@ -120,7 +50,7 @@ public class OrTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testSearch_TrueFalse_ConstruktorWithoutParameter() throws UserException, CycleException {
+	public void testSearch_TrueFalse() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
@@ -135,7 +65,7 @@ public class OrTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testSearch_FalseTrue_ConstruktorWithoutParameter() throws UserException, CycleException {
+	public void testSearch_FalseTrue() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
@@ -150,7 +80,7 @@ public class OrTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testSearch_FalseFalse_ConstruktorWithoutParameter() throws UserException, CycleException {
+	public void testSearch_FalseFalse() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
