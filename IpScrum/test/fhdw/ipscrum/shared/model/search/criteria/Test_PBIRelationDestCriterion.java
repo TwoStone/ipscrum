@@ -157,9 +157,9 @@ public class Test_PBIRelationDestCriterion {
 	pbi3.setSprint(sprint3);
 	pbi4.setSprint(sprint4);
 	
-	rt1 = RelationType.create("Abhängig von");
-	rt2 = RelationType.create("Fehler zu");
-	rt3 = RelationType.create("ausgehend von");
+	rt1 = RelationType.create("Abhängig von1");
+	rt2 = RelationType.create("Fehler zu1");
+	rt3 = RelationType.create("ausgehend von1");
 	
 	r1 = new Relation(rt1, pbi1);
 	r2 = new Relation(rt2, pbi3);
