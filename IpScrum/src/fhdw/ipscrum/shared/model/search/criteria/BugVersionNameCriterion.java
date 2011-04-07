@@ -4,7 +4,6 @@ import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
@@ -29,8 +28,8 @@ public class BugVersionNameCriterion extends TextCriterion implements
 	 * @param version
 	 *            Version of the Bug as String
 	 */
-	public BugVersionNameCriterion(final String version, final Operator parent) {
-		super(version, parent);
+	public BugVersionNameCriterion(final String version) {
+		super(version);
 	}
 
 	@Override

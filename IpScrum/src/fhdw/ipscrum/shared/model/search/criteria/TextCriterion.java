@@ -1,7 +1,6 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.search.ISearchExpression;
-import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -19,8 +18,8 @@ public abstract class TextCriterion extends SearchCriteria {
 		super();
 	}
 
-	public TextCriterion(final String value, final Operator parent) {
-		super(parent);
+	public TextCriterion(final String value) {
+		super();
 		this.value = value;
 	}
 

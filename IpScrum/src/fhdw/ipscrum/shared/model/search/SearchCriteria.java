@@ -7,10 +7,6 @@ public abstract class SearchCriteria extends SearchExpression {
 
 	private static final long serialVersionUID = -5325546377553649088L;
 
-	public SearchCriteria(final Operator parent) {
-		super(parent);
-	}
-
 	/**
 	 * GWT Constructor
 	 */

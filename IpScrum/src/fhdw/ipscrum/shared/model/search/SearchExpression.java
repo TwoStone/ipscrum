@@ -14,11 +14,6 @@ public abstract class SearchExpression extends Observable implements
 
 	private Operator parent;
 
-	public SearchExpression(final Operator parent) {
-		super();
-		this.parent = parent;
-	}
-
 	/**
 	 * Default Constructor for GWT
 	 */
@@ -26,10 +21,12 @@ public abstract class SearchExpression extends Observable implements
 		super();
 	}
 
+	@Override
 	public Operator getParent() {
 		return this.parent;
 	}
 
+	@Override
 	public void setParent(final Operator parent) {
 		this.parent = parent;
 	}

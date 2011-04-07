@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.PBIOpenState;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represents the criterion for PBI Open-State
@@ -18,10 +17,6 @@ public class PBIOpenCriterion extends PBIStateCriterion {
 	@SuppressWarnings("unused")
 	private PBIOpenCriterion() {
 		super();
-	}
-
-	public PBIOpenCriterion(final Operator parent) {
-		super(parent);
 	}
 
 	@Override

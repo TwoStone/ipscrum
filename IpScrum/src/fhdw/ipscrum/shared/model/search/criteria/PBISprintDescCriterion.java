@@ -2,7 +2,6 @@ package fhdw.ipscrum.shared.model.search.criteria;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 
 /**
  * Represents the search criterion for Sprint Description.
@@ -17,8 +16,8 @@ public class PBISprintDescCriterion extends TextCriterion implements
 		super();
 	}
 
-	public PBISprintDescCriterion(final String value, final Operator parent) {
-		super(value, parent);
+	public PBISprintDescCriterion(final String value) {
+		super(value);
 	}
 
 	@Override

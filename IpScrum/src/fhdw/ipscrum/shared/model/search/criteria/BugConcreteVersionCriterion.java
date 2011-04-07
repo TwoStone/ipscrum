@@ -5,7 +5,6 @@ import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
@@ -29,9 +28,8 @@ public class BugConcreteVersionCriterion extends SearchCriteria implements
 	 * @param version
 	 *            Bug Version
 	 */
-	public BugConcreteVersionCriterion(final IRelease version,
-			final Operator parent) {
-		super(parent);
+	public BugConcreteVersionCriterion(final IRelease version) {
+		super();
 		this.version = version;
 	}
 

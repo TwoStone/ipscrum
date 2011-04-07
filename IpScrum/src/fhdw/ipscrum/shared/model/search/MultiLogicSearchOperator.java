@@ -24,11 +24,6 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 		this.args = args;
 	}
 
-	public MultiLogicSearchOperator(final Operator parent) {
-		super(parent);
-		this.setArgs(new ArrayList<ISearchExpression>());
-	}
-
 	/**
 	 * Constructor used by GWT Serialization and for default initiation.
 	 */
@@ -44,9 +39,8 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	 *            List of search expression arguments.
 	 * 
 	 */
-	public MultiLogicSearchOperator(final Collection<ISearchExpression> args,
-			final Operator parent) {
-		super(parent);
+	public MultiLogicSearchOperator(final Collection<ISearchExpression> args) {
+		super();
 		this.args = args;
 	}
 

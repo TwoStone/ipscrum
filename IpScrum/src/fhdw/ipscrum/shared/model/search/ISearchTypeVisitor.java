@@ -10,6 +10,4 @@ public interface ISearchTypeVisitor {
 	void handleSingleLogicSearchOperator(
 			SingleLogicSearchOperator singleLogicSearchOperator);
 
-	void handleNoSearchExpression(NoSearchExpression noSearchExpression);
-
 }

@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.Bug;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 
 public class PBIBugTypeCriterion extends PBITypeCriterion {
 
@@ -15,13 +14,6 @@ public class PBIBugTypeCriterion extends PBITypeCriterion {
 	@SuppressWarnings("unused")
 	private PBIBugTypeCriterion() {
 		super();
-	}
-
-	/**
-	 * See {@link PBITypeCriterion}
-	 */
-	public PBIBugTypeCriterion(final Operator parent) {
-		super(parent);
 	}
 
 	@Override

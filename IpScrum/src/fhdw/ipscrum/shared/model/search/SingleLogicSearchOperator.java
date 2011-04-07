@@ -17,10 +17,6 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 	 */
 	private SearchExpression arg;
 
-	protected SingleLogicSearchOperator(final Operator parent) {
-		super(parent);
-	}
-
 	/**
 	 * Constructor for GWT serialization.
 	 */
@@ -36,7 +32,7 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 	 */
 	public SingleLogicSearchOperator(final SearchExpression arg,
 			final Operator parent) {
-		super(parent);
+		super();
 		this.arg = arg;
 	}
 

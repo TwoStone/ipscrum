@@ -72,8 +72,6 @@ public interface ISearchExpressionVisitor {
 
 	void handlePBISprintName(PBISprintNameCriterion pbiSprintName);
 
-	void handleNoSearchExpression(NoSearchExpression noSearchExpression);
-
 	void handleScruumleCriterion(ScruumleCriterion scruumleCriterion);
 
 	void handleBugTypeCriterion(PBIBugTypeCriterion scruumleCriterion);

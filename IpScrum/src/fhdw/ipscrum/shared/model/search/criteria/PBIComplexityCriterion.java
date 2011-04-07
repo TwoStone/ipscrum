@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -29,9 +28,9 @@ public class PBIComplexityCriterion extends SearchCriteria {
 	 *            Range end (inclusive)
 	 * @throws NoValidValueException
 	 */
-	public PBIComplexityCriterion(final Integer from, final Integer to,
-			final Operator parent) throws NoValidValueException {
-		super(parent);
+	public PBIComplexityCriterion(final Integer from, final Integer to)
+			throws NoValidValueException {
+		super();
 		this.checkRange(from, to);
 		this.from = from;
 		this.to = to;

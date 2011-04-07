@@ -15,23 +15,15 @@ public class Or extends MultiLogicSearchOperator {
 	/**
 	 * See {@link MultiLogicSearchOperator}
 	 */
-	public Or(final Operator parent) {
-		super(parent);
-	}
-
-	/**
-	 * See {@link MultiLogicSearchOperator}
-	 */
-	@SuppressWarnings("unused")
-	private Or() {
+	public Or() {
 		super();
 	}
 
 	/**
 	 * See {@link MultiLogicSearchOperator}
 	 */
-	public Or(final Collection<ISearchExpression> args, final Operator parent) {
-		super(args, parent);
+	public Or(final Collection<ISearchExpression> args) {
+		super(args);
 	}
 
 	@Override

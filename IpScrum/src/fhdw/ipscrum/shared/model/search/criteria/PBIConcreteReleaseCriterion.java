@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.interfaces.IRelease;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
-import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 
 /**
@@ -32,9 +31,8 @@ public class PBIConcreteReleaseCriterion extends SearchCriteria implements
 	 * @param release
 	 *            Search criterion release
 	 */
-	public PBIConcreteReleaseCriterion(final IRelease release,
-			final Operator parent) {
-		super(parent);
+	public PBIConcreteReleaseCriterion(final IRelease release) {
+		super();
 		this.release = release;
 	}
 

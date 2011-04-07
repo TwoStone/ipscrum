@@ -11,10 +11,6 @@ public class Not extends SingleLogicSearchOperator {
 
 	private static final long serialVersionUID = 5747320984085365276L;
 
-	public Not(final Operator parent) {
-		super(parent);
-	}
-
 	/**
 	 * See {@link SingleLogicSearchOperator}
 	 */
