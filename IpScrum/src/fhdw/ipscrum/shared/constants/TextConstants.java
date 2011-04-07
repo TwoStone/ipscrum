@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.constants;
 
+import com.google.gwt.user.cellview.client.Header;
+
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -176,8 +178,7 @@ public final class TextConstants {
 	public static final String INCIDENT_START_DATE = "Start-Datum:";
 	public static final String INCIDENT_END_DATE = "Ende-Datum:";
 	public static final String INCIDENT_PERSONS = "Personen:";
-	public static final String INCIDENT_START_DATE_COLUMN = "Start-Datum";
-	public static final String INCIDENT_END_DATE_COLUMN = "Ende-Datum";
+	public static final String INCIDENT_TIME_COLUMN = "Zeitraum/Datum";
 	public static final String INCIDENT_TYPE = "Typ";
 	public static final String POINTS = "...";
 	public static final String INCIDENT_WARNING_1 = "Bitte ein Start- und Ende-Datum und eine Person auswählen!";
@@ -222,5 +223,4 @@ public final class TextConstants {
 
 	/* [END SECTION] */
 	public static final String NEW_SEARCH = "Neue Suche";
-
 }

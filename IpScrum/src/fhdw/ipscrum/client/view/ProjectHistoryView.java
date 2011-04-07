@@ -1,11 +1,9 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Date;
 import java.util.Set;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,11 +11,12 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -33,11 +32,9 @@ import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.incidents.MultipleParticipantIncident;
 import fhdw.ipscrum.shared.model.incidents.OneParticipantIncident;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
 public class ProjectHistoryView extends Composite implements
-		IProjectHistoryView {
+IProjectHistoryView {
 
 	// ********************* VIEW ELEMENTS ****************************************
 	private CellTable<Incident> projectHistoryTable;
@@ -80,36 +77,28 @@ public class ProjectHistoryView extends Composite implements
 		projectHistoryTable.setTableLayoutFixed(false);
 		projectHistoryTable.setSize("100%", "100%");
 
-		TextColumn<Incident> startDateColumn = new TextColumn<Incident>() {
+		TextColumn<Incident> timeColumn = new TextColumn<Incident>() {
 			@Override
 			public String getValue(Incident incident) {
 				DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");
-				return fmt.format(incident.getStart());
+				if (incident.getStart().equals(incident.getEnd())) {
+					return fmt.format(incident.getStart());
+				} else {
+					return fmt.format(incident.getStart()) + " - " + fmt.format(incident.getEnd());
+				}
 			}
 		};
-		startDateColumn.setSortable(true);
 
-		projectHistoryTable.addColumn(startDateColumn, "Start-Datum");
-
-		TextColumn<Incident> endDateColumn = new TextColumn<Incident>() {
-			@Override
-			public String getValue(Incident incident) {
-				DateTimeFormat fmt = DateTimeFormat.getFormat("dd.MM.yyyy");
-				return fmt.format(incident.getEnd());
-			}
-		};
-		endDateColumn.setSortable(true);
-		projectHistoryTable.addColumn(endDateColumn,
-				TextConstants.INCIDENT_END_DATE_COLUMN);
+		projectHistoryTable.addColumn(timeColumn, TextConstants.INCIDENT_TIME_COLUMN);
 
 		TextColumn<Incident> typColumn = new TextColumn<Incident>() {
 			@Override
 			public String getValue(Incident incident) {
-				if (incident.getIncidentType() == null) { 
-					return TextConstants.EMPTY_TEXT; 
-					} else { 
-						return incident.getIncidentType().getName();
-					} 
+				if (incident.getIncidentType() == null) {
+					return TextConstants.EMPTY_TEXT;
+				} else {
+					return incident.getIncidentType().getName();
+				}
 			}
 		};
 		projectHistoryTable.addColumn(typColumn, TextConstants.INCIDENT_TYPE);
@@ -117,11 +106,11 @@ public class ProjectHistoryView extends Composite implements
 		TextColumn<Incident> descriptionColumn = new TextColumn<Incident>() {
 			@Override
 			public String getValue(Incident incident) {
-				 if (incident.getDescription().length() <= 80) {
-				 return incident.getDescription();
-				 } else {
-				 return incident.getDescription().substring(0, 80) + TextConstants.POINTS;
-				 }
+				if (incident.getDescription().length() <= 80) {
+					return incident.getDescription();
+				} else {
+					return incident.getDescription().substring(0, 80) + TextConstants.POINTS;
+				}
 			}
 		};
 		projectHistoryTable.addColumn(descriptionColumn,
@@ -132,10 +121,10 @@ public class ProjectHistoryView extends Composite implements
 			public String getValue(Incident incident) {
 				if (incident instanceof MultipleParticipantIncident) {
 					return ((MultipleParticipantIncident) incident)
-							.getParticipants().toString();
+					.getParticipants().toString();
 				} else {
 					return ((OneParticipantIncident) incident).getParticipant()
-							.toString();
+					.toString();
 				}
 
 			}
@@ -149,25 +138,26 @@ public class ProjectHistoryView extends Composite implements
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel_2.add(horizontalPanel);
 		horizontalPanel.setSize("406px", "117px");
-		
+
 		VerticalPanel verticalPanel_1 = new VerticalPanel();
 		verticalPanel_1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		verticalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.add(verticalPanel_1);
 		verticalPanel_1.setSize("154px", "96px");
-		
-				createTypebutton = new Button("Anlegen");
-				verticalPanel_1.add(createTypebutton);
-				createTypebutton.addClickHandler(new ClickHandler() {
-					public void onClick(ClickEvent event) {
-						ProjectHistoryView.this.createType.fire(
-								ProjectHistoryView.this, null);
 
-					}
-				});
-				createTypebutton.setText("Typ Anlegen");
-				createTypebutton.setStyleName("taskboardButton");
-				createTypebutton.setSize("138px", "35");
+		createTypebutton = new Button("Anlegen");
+		verticalPanel_1.add(createTypebutton);
+		createTypebutton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				ProjectHistoryView.this.createType.fire(
+						ProjectHistoryView.this, null);
+
+			}
+		});
+		createTypebutton.setText("Typ Anlegen");
+		createTypebutton.setStyleName("taskboardButton");
+		createTypebutton.setSize("138px", "35");
 
 		createIncidentbtn = new Button(TextConstants.CREATE);
 		verticalPanel_1.add(createIncidentbtn);
@@ -229,14 +219,14 @@ public class ProjectHistoryView extends Composite implements
 	public void refreshProjectHistoryTable(Vector<Incident> incidents) {
 		this.getProjectHistoryTable().setRowData(incidents);
 
-		 //Tooltips erzeugen
-		 int counter = 0;
-		 for (Incident Incident : incidents) {
-		 Element current = this.getProjectHistoryTable().getRowElement(
-		 counter);
-		 current.setTitle(Incident.getDescription());
-		 counter++;
-		 }
+		//Tooltips erzeugen
+		int counter = 0;
+		for (Incident Incident : incidents) {
+			Element current = this.getProjectHistoryTable().getRowElement(
+					counter);
+			current.setTitle(Incident.getDescription());
+			counter++;
+		}
 
 	}
 
