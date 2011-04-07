@@ -53,6 +53,7 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 				this.arg.deleteObserver(this);
 			}
 			this.arg = null;
+			this.notifyObservers();
 		} else {
 			if (!arg.contains(this)) {
 				if (this.arg != null) {
