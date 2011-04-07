@@ -24,17 +24,22 @@ public class CreateIncidentTypePresenter extends
 
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
-				try {
-					CreateIncidentTypePresenter.this
-							.getSessionManager()
-							.getModel()
-							.addIncidentType(getView().getName(),
-									new IncidentType(getView().getName()));
-				} catch (DoubleDefinitionException e) {
-					GwtUtils.displayError(e);
-				}
-				CreateIncidentTypePresenter.this.finish();
 
+				if (CreateIncidentTypePresenter.this.getView().getName()
+						.equals("")) {
+					GwtUtils.displayWarning("Bitte einen Namen eintragen!");
+				} else {
+					try {
+						CreateIncidentTypePresenter.this
+								.getSessionManager()
+								.getModel()
+								.addIncidentType(getView().getName(),
+										new IncidentType(getView().getName()));
+					} catch (DoubleDefinitionException e) {
+						GwtUtils.displayError(e);
+					}
+					CreateIncidentTypePresenter.this.finish();
+				}	
 			}
 		});
 
