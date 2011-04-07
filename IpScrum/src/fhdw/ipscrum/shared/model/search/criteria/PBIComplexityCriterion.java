@@ -73,15 +73,15 @@ public class PBIComplexityCriterion extends SearchCriteria {
 			throw new NoValidValueException(exc);
 		}
 
-		if (from == null && to < 0) {
+		if (from == null && to != null && to < 0) {
 			throw new NoValidValueException(exc);
 		}
 
-		if (from < 0 && to == null) {
+		if (from != null && from < 0 && to == null) {
 			throw new NoValidValueException(exc);
 		}
 
-		if (from < 0 && to < 0) {
+		if (from != null && from < 0 && to != null && to < 0) {
 			throw new NoValidValueException(exc);
 		}
 	}
