@@ -104,8 +104,11 @@ public class ProjectHistoryView extends Composite implements
 		TextColumn<Incident> typColumn = new TextColumn<Incident>() {
 			@Override
 			public String getValue(Incident incident) {
-
-				return incident.getIncidentType().getName();
+				if (incident.getIncidentType() == null) { 
+					return TextConstants.EMPTY_TEXT; 
+					} else { 
+						return incident.getIncidentType().getName();
+					} 
 			}
 		};
 		projectHistoryTable.addColumn(typColumn, TextConstants.INCIDENT_TYPE);
