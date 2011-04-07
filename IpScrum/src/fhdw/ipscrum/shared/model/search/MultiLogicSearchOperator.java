@@ -18,15 +18,15 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	/**
 	 * List of search expression arguments.
 	 */
-	private Collection<SearchExpression> args;
+	private Collection<ISearchExpression> args;
 
-	private void setArgs(final Collection<SearchExpression> args) {
+	private void setArgs(final Collection<ISearchExpression> args) {
 		this.args = args;
 	}
 
 	public MultiLogicSearchOperator(final Operator parent) {
 		super(parent);
-		this.setArgs(new ArrayList<SearchExpression>());
+		this.setArgs(new ArrayList<ISearchExpression>());
 	}
 
 	/**
@@ -34,7 +34,7 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	 */
 	protected MultiLogicSearchOperator() {
 		super();
-		this.setArgs(new ArrayList<SearchExpression>());
+		this.setArgs(new ArrayList<ISearchExpression>());
 	}
 
 	/**
@@ -44,7 +44,7 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	 *            List of search expression arguments.
 	 * 
 	 */
-	public MultiLogicSearchOperator(final Collection<SearchExpression> args,
+	public MultiLogicSearchOperator(final Collection<ISearchExpression> args,
 			final Operator parent) {
 		super(parent);
 		this.args = args;
@@ -53,16 +53,17 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	/**
 	 * Returns the search arguments.
 	 */
-	public Collection<SearchExpression> getArgs() {
+	public Collection<ISearchExpression> getArgs() {
 		return this.args;
 	}
 
 	/**
 	 * Adds a search expression to the list.
 	 */
-	public void add(final SearchExpression expression) {
+	public void add(final ISearchExpression expression) {
 		if (!expression.contains(this)) {
 			expression.addObserver(this);
+			expression.setParent(this);
 			this.args.add(expression);
 			this.notifyObservers();
 		}
@@ -73,6 +74,7 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	 */
 	public void remove(final ISearchExpression expression) {
 		this.args.remove(expression);
+		expression.setParent(null);
 		expression.deleteObserver(this);
 		this.notifyObservers();
 	}

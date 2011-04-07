@@ -29,4 +29,8 @@ public abstract class SearchExpression extends Observable implements
 	public Operator getParent() {
 		return this.parent;
 	}
+
+	public void setParent(final Operator parent) {
+		this.parent = parent;
+	}
 }

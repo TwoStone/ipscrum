@@ -3,10 +3,10 @@ package fhdw.ipscrum.shared.model.search.criteria;
 import java.util.Vector;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.Or;
-import fhdw.ipscrum.shared.model.search.SearchExpression;
 
 public class ScruumleCriterion extends TextCriterion {
 
@@ -31,7 +31,7 @@ public class ScruumleCriterion extends TextCriterion {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		final Vector<SearchExpression> textualCriterias = new Vector<SearchExpression>();
+		final Vector<ISearchExpression> textualCriterias = new Vector<ISearchExpression>();
 
 		textualCriterias
 				.add(new BugVersionNameCriterion(this.getValue(), null));

@@ -30,7 +30,7 @@ public class Or extends MultiLogicSearchOperator {
 	/**
 	 * See {@link MultiLogicSearchOperator}
 	 */
-	public Or(final Collection<SearchExpression> args, final Operator parent) {
+	public Or(final Collection<ISearchExpression> args, final Operator parent) {
 		super(args, parent);
 	}
 

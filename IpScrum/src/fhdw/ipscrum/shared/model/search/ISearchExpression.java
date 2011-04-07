@@ -3,6 +3,9 @@ package fhdw.ipscrum.shared.model.search;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.observer.IObservable;
 
+/**
+ * Represents a search expression
+ */
 public interface ISearchExpression extends IObservable {
 
 	/**
@@ -20,6 +23,15 @@ public interface ISearchExpression extends IObservable {
 
 	public abstract void accept(ISearchTypeVisitor visitor);
 
+	/**
+	 * Checks if the given search expression is contained.
+	 * 
+	 * @return True if its contained else false.
+	 */
 	public abstract boolean contains(ISearchExpression expression);
+
+	public Operator getParent();
+
+	public void setParent(final Operator parent);
 
 }

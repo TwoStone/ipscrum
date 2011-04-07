@@ -48,11 +48,12 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 	}
 
 	/**
-	 * Changes the search expression.
+	 * Changes the search expression. Null Value is not allowed!
 	 */
 	public void setArg(final SearchExpression arg) {
 		this.arg.deleteObserver(this);
 		this.arg = arg;
+		this.arg.setParent(this);
 		this.arg.addObserver(this);
 		this.notifyObservers();
 	}

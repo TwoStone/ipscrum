@@ -30,7 +30,7 @@ public class And extends MultiLogicSearchOperator {
 	/**
 	 * See {@link MultiLogicSearchOperator}
 	 */
-	public And(final Collection<SearchExpression> args, final Operator parent) {
+	public And(final Collection<ISearchExpression> args, final Operator parent) {
 		super(args, parent);
 	}
 
