@@ -14,8 +14,8 @@ public class Not extends SingleLogicSearchOperator {
 	/**
 	 * See {@link SingleLogicSearchOperator}
 	 */
-	public Not(final SearchExpression arg, final Operator parent) {
-		super(arg, parent);
+	public Not(final SearchExpression arg) {
+		super(arg);
 	}
 
 	/**
