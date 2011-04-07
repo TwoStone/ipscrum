@@ -1,8 +1,9 @@
 package fhdw.ipscrum.shared.model.search;
 
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.observer.IObservable;
 
-public interface ISearchExpression {
+public interface ISearchExpression extends IObservable {
 
 	/**
 	 * Compares the given ProductPacklogItem pbi with the concrete

@@ -3,11 +3,15 @@ package fhdw.ipscrum.shared.model.search;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.PersistentObserver;
+
 /**
  * Represents a logical operator with more than one argument. All arguments will
  * be combined with the same logical operator, e.g. And or Or
  */
-public abstract class MultiLogicSearchOperator extends SearchExpression {
+public abstract class MultiLogicSearchOperator extends SearchExpression
+		implements PersistentObserver {
 
 	private static final long serialVersionUID = -374972903680516595L;
 
@@ -52,7 +56,9 @@ public abstract class MultiLogicSearchOperator extends SearchExpression {
 	 */
 	public void add(final SearchExpression expression) {
 		if (!expression.contains(this)) {
+			expression.addObserver(this);
 			this.args.add(expression);
+			this.notifyObservers();
 		}
 	}
 
@@ -61,6 +67,8 @@ public abstract class MultiLogicSearchOperator extends SearchExpression {
 	 */
 	public void remove(final ISearchExpression expression) {
 		this.args.remove(expression);
+		expression.deleteObserver(this);
+		this.notifyObservers();
 	}
 
 	/**
@@ -122,4 +130,8 @@ public abstract class MultiLogicSearchOperator extends SearchExpression {
 		return true;
 	}
 
+	@Override
+	public void update(final Observable observable, final Object argument) {
+		this.notifyObservers();
+	}
 }

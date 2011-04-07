@@ -1,10 +1,14 @@
 package fhdw.ipscrum.shared.model.search;
 
+import fhdw.ipscrum.shared.observer.Observable;
+import fhdw.ipscrum.shared.observer.PersistentObserver;
+
 /**
  * Represents a logical operator with one argument. This argument is a search
  * expression.
  */
-public abstract class SingleLogicSearchOperator extends SearchExpression {
+public abstract class SingleLogicSearchOperator extends SearchExpression
+		implements PersistentObserver {
 
 	private static final long serialVersionUID = -2387020530370101740L;
 
@@ -42,7 +46,10 @@ public abstract class SingleLogicSearchOperator extends SearchExpression {
 	 * Changes the search expression.
 	 */
 	public void setArg(final SearchExpression arg) {
+		this.arg.deleteObserver(this);
 		this.arg = arg;
+		this.arg.addObserver(this);
+		this.notifyObservers();
 	}
 
 	@Override
@@ -88,5 +95,10 @@ public abstract class SingleLogicSearchOperator extends SearchExpression {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public void update(final Observable observable, final Object argument) {
+		this.notifyObservers();
 	}
 }
