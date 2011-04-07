@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model.search;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -50,6 +52,30 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 
 		operator.setArg(expression2);
 		assertEquals(expression2, operator.getArg());
+	}
+
+	@Test
+	public void testContains_ConstruktorWithParameter() {
+		Not not = new Not(new PBIOpenCriterion());
+
+		assertTrue(not.contains(not));
+	}
+
+	@Test
+	public void testContains_ConstruktorWithoutParameter() {
+		Not not = new Not();
+
+		assertTrue(not.contains(not));
+	}
+
+	@Test
+	public void testContainsIndirect_ConstruktorWithoutParameter() {
+		Not not1 = new Not();
+
+		Not not2 = new Not();
+
+		assertFalse(not1.contains(not2));
+		assertFalse(not2.contains(not1));
 	}
 
 }
