@@ -775,8 +775,10 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	private void openTree(TreeNode node) {
-		for (int i = 0; i < node.getChildCount(); i++) {
-			this.openTree(node.setChildOpen(i, true));
+		if (node != null) {
+			for (int i = 0; i < node.getChildCount(); i++) {
+				this.openTree(node.setChildOpen(i, true));
+			}
 		}
 
 	}
@@ -876,6 +878,7 @@ public class SearchView extends Composite implements ISearchView {
 	private void disableDeleteButton() {
 		if (SearchView.this.deleteRegistration != null) {
 			SearchView.this.deleteRegistration.removeHandler();
+			this.deleteRegistration = null;
 		}
 		this.btnLschen.setEnabled(false);
 	}

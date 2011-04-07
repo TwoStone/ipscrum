@@ -10,6 +10,7 @@ import com.google.gwt.view.client.TreeViewModel;
 
 import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.search.SingleLogicSearchOperator;
@@ -26,7 +27,7 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 
 	@Override
 	public boolean isLeaf(Object value) {
-		return (value instanceof SearchCriteria);
+		return value instanceof SearchCriteria;
 	}
 
 	public SearchExpressionTreeViewModel(
@@ -51,52 +52,22 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 
 			if (value instanceof Search) {
 				dataProvider.getList().add(((Search) value).getExpression());
+
 			} else if (value instanceof SingleLogicSearchOperator) {
 				final SingleLogicSearchOperator operator = (SingleLogicSearchOperator) value;
-				dataProvider.getList().add(operator.getArg());
-				return new DefaultNodeInfo<ISearchExpression>(dataProvider,
-						this.searchExpressionCell, this.selectionModel, null);
+				if (operator.getArg() != null) {
+					dataProvider.getList().add(operator.getArg());
+				}
+
 			} else if (value instanceof MultiLogicSearchOperator) {
 				final MultiLogicSearchOperator operator = (MultiLogicSearchOperator) value;
-				dataProvider.getList().addAll(operator.getArgs());
-				return new DefaultNodeInfo<ISearchExpression>(dataProvider,
-						this.searchExpressionCell, this.selectionModel, null);
+				if (operator.getArgs().size() > 0) {
+					dataProvider.getList().addAll(operator.getArgs());
+				}
+
 			}
-			// final ISearchExpression expression = (ISearchExpression) value;
-			// final ISearchTypeVisitor searchTypeVisitor = new
-			// ISearchTypeVisitor() {
-			//
-			// @Override
-			// public void handleSingleLogicSearchOperator(
-			// SingleLogicSearchOperator singleLogicSearchOperator) {
-			// final SearchExpression se = ((SingleLogicSearchOperator) val)
-			// .getArg();
-			// if (se != null) {
-			// dataProvider.getList().add(se);
-			// }
-			// }
-			//
-			// @Override
-			// public void handleSearchCriteria(
-			// SearchCriteria searchCriteria) {
-			// // do nothing
-			// }
-			//
-			// @Override
-			// public void handleMultiLogicSearchOperator(
-			// MultiLogicSearchOperator multiLogicSearchOperator) {
-			// final Collection<ISearchExpression> seCollection =
-			// multiLogicSearchOperator
-			// .getArgs();
-			// if (seCollection != null && seCollection.size() > 0) {
-			// dataProvider.getList().addAll(seCollection);
-			// }
-			// }
-			// };
-			// expression.accept(searchTypeVisitor);
-			//
-			// }
-			return null;
+			return new DefaultNodeInfo<ISearchExpression>(dataProvider,
+					this.searchExpressionCell, this.selectionModel, null);
 		}
 	}
 
@@ -106,6 +77,10 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 				SafeHtmlBuilder sb) {
 			if (value != null) {
 				sb.appendEscaped(value.toString());
+
+				if (value instanceof Operator) {
+					sb.appendHtmlConstant(" <small> (klicken zum Hinzufügen) </small>");
+				}
 			}
 		}
 	};
