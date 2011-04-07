@@ -45,17 +45,26 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 	}
 
 	/**
-	 * Changes the search expression. Null Value is not allowed!
+	 * Changes the search expression.
 	 */
 	public void setArg(final SearchExpression arg) throws CycleException {
-		if (!arg.contains(this)) {
-			this.arg.deleteObserver(this);
-			this.arg = arg;
-			this.arg.setParent(this);
-			this.arg.addObserver(this);
-			this.notifyObservers();
+		if (arg == null) {
+			if (this.arg != null) {
+				this.arg.deleteObserver(this);
+			}
+			this.arg = null;
 		} else {
-			throw new CycleException();
+			if (!arg.contains(this)) {
+				if (this.arg != null) {
+					this.arg.deleteObserver(this);
+				}
+				this.arg = arg;
+				this.arg.setParent(this);
+				this.arg.addObserver(this);
+				this.notifyObservers();
+			} else {
+				throw new CycleException();
+			}
 		}
 	}
 
