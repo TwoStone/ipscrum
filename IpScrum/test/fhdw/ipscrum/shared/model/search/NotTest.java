@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 
 public class NotTest extends SetUpTestData {
@@ -27,6 +28,7 @@ public class NotTest extends SetUpTestData {
 
 	@Before
 	public void setUp() throws Exception {
+		super.setUp();
 	}
 
 	@After
@@ -41,12 +43,12 @@ public class NotTest extends SetUpTestData {
 
 		ISearchExpression parentExpression = new PBIOpenCriterion();
 
-		NoSearchExpression noSearchExpression = new NoSearchExpression(parentExpression);
-		collection.add(noSearchExpression);
+		SearchExpression searchExpression1 = new PBIClosedCriterion();
+		collection.add(searchExpression1);
 
-		assertTrue(noSearchExpression.search(item));
+		assertTrue(searchExpression1.search(item));
 
-		Not not = new Not(noSearchExpression);
+		Not not = new Not(searchExpression1);
 		assertFalse(not.search(item));
 	}
 

@@ -11,8 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 
 public class OrTest extends SetUpTestData {
 
@@ -26,6 +29,7 @@ public class OrTest extends SetUpTestData {
 
 	@Before
 	public void setUp() throws Exception {
+		super.setUp();
 	}
 
 	@After
@@ -36,15 +40,15 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_TrueTrue_ConstruktorWithParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
+		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
 
 		Or or = new Or(collection);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
-		collection.add(noSearchExpression1);
+		SearchExpression searchExpression1 = new PBIClosedCriterion();
+		collection.add(searchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
-		collection.add(noSearchExpression2);
+		SearchExpression searchExpression2 = new PBIClosedCriterion();
+		collection.add(searchExpression2);
 
 		assertTrue(or.search(item));
 	}
@@ -53,16 +57,15 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_TrueFalse_ConstruktorWithParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
+		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
 
 		Or or = new Or(collection);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
-		collection.add(noSearchExpression1);
+		SearchExpression searchExpression1 = new PBIClosedCriterion();
+		collection.add(searchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
-		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
-		collection.add(NotNoSearchExpression2);
+		SearchExpression searchExpression2 = new PBIOpenCriterion();
+		collection.add(searchExpression2);
 
 		assertTrue(or.search(item));
 	}
@@ -71,16 +74,15 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_FalseTrue_ConstruktorWithParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
+		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
 
 		Or or = new Or(collection);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
-		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
-		collection.add(NotNoSearchExpression2);
+		SearchExpression searchExpression1 = new PBIOpenCriterion();
+		collection.add(searchExpression1);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
-		collection.add(noSearchExpression1);
+		SearchExpression searchExpression2 = new PBIClosedCriterion();
+		collection.add(searchExpression2);
 
 		assertTrue(or.search(item));
 	}
@@ -89,82 +91,76 @@ public class OrTest extends SetUpTestData {
 	public void testSearch_FalseFalse_ConstruktorWithParameter() throws UserException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
-		ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
+		ArrayList<ISearchExpression> collection = new ArrayList<ISearchExpression>();
 
 		Or or = new Or(collection);
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
-		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
-		collection.add(NotNoSearchExpression1);
+		SearchExpression searchExpression1 = new PBIOpenCriterion();
+		collection.add(searchExpression1);
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
-		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
-		collection.add(NotNoSearchExpression2);
+		SearchExpression searchExpression2 = new PBIOpenCriterion();
+		collection.add(searchExpression2);
 
 		assertFalse(or.search(item));
 	}
 
 	@Test
-	public void testSearch_TrueTrue_ConstruktorWithoutParameter() throws UserException {
+	public void testSearch_TrueTrue_ConstruktorWithoutParameter() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
+		SearchExpression searchExpression1 = new PBIClosedCriterion();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
+		SearchExpression searchExpression2 = new PBIClosedCriterion();
 
-		or.add(noSearchExpression1);
-		or.add(noSearchExpression2);
+		or.add(searchExpression1);
+		or.add(searchExpression2);
 		assertTrue(or.search(item));
 	}
 
 	@Test
-	public void testSearch_TrueFalse_ConstruktorWithoutParameter() throws UserException {
+	public void testSearch_TrueFalse_ConstruktorWithoutParameter() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
+		SearchExpression searchExpression1 = new PBIClosedCriterion();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
-		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
+		SearchExpression searchExpression2 = new PBIOpenCriterion();
 
-		or.add(noSearchExpression1);
-		or.add(NotNoSearchExpression2);
+		or.add(searchExpression1);
+		or.add(searchExpression2);
 		assertTrue(or.search(item));
 	}
 
 	@Test
-	public void testSearch_FalseTrue_ConstruktorWithoutParameter() throws UserException {
+	public void testSearch_FalseTrue_ConstruktorWithoutParameter() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
-		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
+		SearchExpression searchExpression1 = new PBIOpenCriterion();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
+		SearchExpression searchExpression2 = new PBIClosedCriterion();
 
-		or.add(NotNoSearchExpression1);
-		or.add(noSearchExpression2);
+		or.add(searchExpression1);
+		or.add(searchExpression2);
 		assertTrue(or.search(item));
 	}
 
 	@Test
-	public void testSearch_FalseFalse_ConstruktorWithoutParameter() throws UserException {
+	public void testSearch_FalseFalse_ConstruktorWithoutParameter() throws UserException, CycleException {
 		ProductBacklogItem item = pro1rel1spr1fea1;
 
 		Or or = new Or();
 
-		NoSearchExpression noSearchExpression1 = new NoSearchExpression(or);
-		Not NotNoSearchExpression1 = new Not(noSearchExpression1);
+		SearchExpression searchExpression1 = new PBIOpenCriterion();
 
-		NoSearchExpression noSearchExpression2 = new NoSearchExpression(or);
-		Not NotNoSearchExpression2 = new Not(noSearchExpression2);
+		SearchExpression searchExpression2 = new PBIOpenCriterion();
 
-		or.add(NotNoSearchExpression1);
-		or.add(NotNoSearchExpression2);
+		or.add(searchExpression1);
+		or.add(searchExpression2);
 		assertFalse(or.search(item));
 	}
 
