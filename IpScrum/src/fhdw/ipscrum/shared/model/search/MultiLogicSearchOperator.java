@@ -102,37 +102,6 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((this.args == null) ? 0 : this.args.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
-			return false;
-		}
-		final MultiLogicSearchOperator other = (MultiLogicSearchOperator) obj;
-		if (this.args == null) {
-			if (other.args != null) {
-				return false;
-			}
-		} else if (!this.args.equals(other.args)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public void update(final Observable observable, final Object argument) {
 		this.notifyObservers();
 	}
