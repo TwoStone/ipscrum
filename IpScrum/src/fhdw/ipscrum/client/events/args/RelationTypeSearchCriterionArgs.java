@@ -6,16 +6,14 @@ import fhdw.ipscrum.shared.model.search.SearchExpression;
 
 /**
  */
-public class RelationSearchCriterionArgs extends EventArgs {
-	private SearchExpression se;
-	private RelationType relationType;
-	private String relationDesc;
+public class RelationTypeSearchCriterionArgs extends EventArgs {
+	private final SearchExpression se;
+	private final RelationType relationType;
 
-	public RelationSearchCriterionArgs(SearchExpression se, RelationType relationType, String relationDesc) {
+	public RelationTypeSearchCriterionArgs(SearchExpression se, RelationType relationType) {
 		super();
 		this.se = se;
 		this.relationType = relationType;
-		this.relationDesc = relationDesc;
 	}
 
 	public SearchExpression getSe() {
@@ -25,9 +23,4 @@ public class RelationSearchCriterionArgs extends EventArgs {
 	public RelationType getRelationType() {
 		return relationType;
 	}
-
-	public String getRelationDesc() {
-		return relationDesc;
-	}
-
 }

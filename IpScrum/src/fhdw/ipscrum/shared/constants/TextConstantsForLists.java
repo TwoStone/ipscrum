@@ -54,4 +54,10 @@ public final class TextConstantsForLists {
 			this.put(2, "Bug");
 		}
 	};;
+	public static final Map<Integer, String> SEARCH_RELATIONSEARCHTYPE = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Typ der Relation");
+			this.put(2, "Ziel der Relation");
+		}
+	};;
 }

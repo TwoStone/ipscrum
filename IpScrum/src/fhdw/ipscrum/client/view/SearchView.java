@@ -1,5 +1,6 @@
 package fhdw.ipscrum.client.view;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,8 @@ import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.ProjectSearchCriterionEventArgs;
-import fhdw.ipscrum.client.events.args.RelationSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.RelationDestSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.RelationTypeSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.ReleaseSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
 import fhdw.ipscrum.client.events.args.StatusSearchCriterionArgs;
@@ -38,6 +40,7 @@ import fhdw.ipscrum.client.events.args.TextSearchCriterionArgs;
 import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.constants.TextConstantsForLists;
+import fhdw.ipscrum.shared.model.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
@@ -58,7 +61,8 @@ public class SearchView extends Composite implements ISearchView {
 	private final Event<EffortSearchCriterionArgs> addAufwandSearchCriterion = new Event<EffortSearchCriterionArgs>();
 	private final Event<StatusSearchCriterionArgs> addStatusSearchCriterion = new Event<StatusSearchCriterionArgs>();
 	private final Event<LastEditorSearchCriterionArgs> addLetzterBearbeiterSearchCriterion = new Event<LastEditorSearchCriterionArgs>();
-	private final Event<RelationSearchCriterionArgs> addBeziehungSearchCriterion = new Event<RelationSearchCriterionArgs>();
+	private final Event<RelationTypeSearchCriterionArgs> addBeziehungTypSearchCriterion = new Event<RelationTypeSearchCriterionArgs>();
+	private final Event<RelationDestSearchCriterionArgs> addBeziehungZielSearchCriterion = new Event<RelationDestSearchCriterionArgs>();
 	private final Event<SystemSearchCriterionArgs> addSystemSearchCriterion = new Event<SystemSearchCriterionArgs>();
 	private final Event<ReleaseSearchCriterionArgs> addVersionSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
 	private final Event<TextSearchCriterionArgs> addTextSearchCriterion = new Event<TextSearchCriterionArgs>();
@@ -70,6 +74,7 @@ public class SearchView extends Composite implements ISearchView {
 	private final SingleSelectionModel<SearchExpression> selectionModel;
 	private final SingleSelectionModel<Search> searchSelectionModel;
 	private List<Project> projects;
+	private List<ProductBacklogItem> pbis;
 	private List<System> systems;
 	private List<IPerson> persons;
 	private List<RelationType> relationtypes;
@@ -81,7 +86,7 @@ public class SearchView extends Composite implements ISearchView {
 	private final VerticalPanel thirdLevelPanel;
 	private final ListBox cboTyp1;
 	private final ListBox cboTyp2;
-	private ListBox cboProjects;
+	private ListBox cboThirdPreselection;
 	private final Label lblTyp1;
 	private final Label lblTyp2;
 	private final Label lblThirdLevel;
@@ -104,10 +109,8 @@ public class SearchView extends Composite implements ISearchView {
 		mainPanel = new VerticalPanel();
 		initWidget(mainPanel);
 		mainPanel.setSpacing(5);
-		mainPanel.setSize("1000", "400");
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
-		horizontalPanel.setSize("", "400");
 		mainPanel.add(horizontalPanel);
 
 		scrollPanelResult = new ScrollPanel();
@@ -171,9 +174,8 @@ public class SearchView extends Composite implements ISearchView {
 			@Override
 			public void onClick(ClickEvent event) {
 				if (cboTyp1.getSelectedIndex() == 0) {
-					SearchView.this.addLogicalOperator.fire(SearchView.this, new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1,
-							((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
-				} else if (cboTyp1.getSelectedIndex() == 1 && !SearchView.this.fireEventForSearchCriteria()) {
+					SearchView.this.addLogicalOperator.fire(SearchView.this, new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1, ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent()));
+				} else if (cboTyp1.getSelectedIndex() == 1 && !SearchView.this.fireEventForTextSearchCriterion()) {
 					int i = cboTyp2.getSelectedIndex();
 					SearchExpression se = ((NoSearchExpression) selectionModel.getSelectedObject()).getParent();
 					switch (i) {
@@ -184,7 +186,7 @@ public class SearchView extends Composite implements ISearchView {
 						addProjektSearchCriterion.fire(this, new ProjectSearchCriterionEventArgs(se, projects.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 2:
-						IRelease r = projects.get(SearchView.this.cboProjects.getSelectedIndex()).getReleasePlan().get(cboThirdLevel.getSelectedIndex());
+						IRelease r = projects.get(SearchView.this.cboThirdPreselection.getSelectedIndex()).getReleasePlan().get(cboThirdLevel.getSelectedIndex());
 						addReleaseSearchCriterion.fire(this, new ReleaseSearchCriterionArgs(se, r));
 						break;
 					case 6:
@@ -198,13 +200,18 @@ public class SearchView extends Composite implements ISearchView {
 						addLetzterBearbeiterSearchCriterion.fire(this, new LastEditorSearchCriterionArgs(se, persons.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 10:
-						addBeziehungSearchCriterion.fire(this, new RelationSearchCriterionArgs(se, relationtypes.get(cboThirdLevel.getSelectedIndex()), txtThirdLevel.getText()));
+						if (cboThirdPreselection.getSelectedIndex() == 0) {
+							addBeziehungTypSearchCriterion.fire(this, new RelationTypeSearchCriterionArgs(se, relationtypes.get(cboThirdLevel.getSelectedIndex())));
+						} else if (cboThirdPreselection.getSelectedIndex() == 0) {
+							addBeziehungZielSearchCriterion.fire(this, new RelationDestSearchCriterionArgs(se, pbis.get(cboThirdLevel.getSelectedIndex())));
+						}
+
 						break;
 					case 13:
 						addSystemSearchCriterion.fire(this, new SystemSearchCriterionArgs(se, systems.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 14:
-						IRelease v = projects.get(SearchView.this.cboProjects.getSelectedIndex()).getReleasePlan().get(cboThirdLevel.getSelectedIndex());
+						IRelease v = projects.get(SearchView.this.cboThirdPreselection.getSelectedIndex()).getReleasePlan().get(cboThirdLevel.getSelectedIndex());
 						addVersionSearchCriterion.fire(this, new ReleaseSearchCriterionArgs(se, v));
 						break;
 					default:
@@ -358,31 +365,25 @@ public class SearchView extends Composite implements ISearchView {
 		}
 	}
 
-	private boolean fireEventForSearchCriteria() {
+	private boolean fireEventForTextSearchCriterion() {
 		switch (cboTyp2.getSelectedIndex()) {
 		case 3:
-			addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 4:
-			addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 5:
-			addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 9:
-			addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 11:
-			addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 12:
-			addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
+			addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(txtThirdLevel.getText(), ((NoSearchExpression) SearchView.this.selectionModel.getSelectedObject()).getParent(), cboTyp2.getSelectedIndex() + 1));
 			break;
 		default:
 			return false;
@@ -488,12 +489,37 @@ public class SearchView extends Composite implements ISearchView {
 			thirdLevelPanel.add(btnHinzu);
 			break;
 		case 10:
+			lblThirdLevel.setText("Art des Beziehungskriteriums");
 			cboThirdLevel.clear();
-			for (RelationType t : relationtypes) {
-				cboThirdLevel.addItem(t.getDescription());
-			}
-			thirdLevelPanel.add(cboThirdLevel);
-			cboThirdLevel.setSelectedIndex(-1);
+			thirdLevelPanel.add(lblThirdLevel);
+			cboThirdPreselection = new ListBox();
+			fillCombobox(cboThirdPreselection, TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE);
+			thirdLevelPanel.add(cboThirdPreselection);
+			cboThirdPreselection.setSelectedIndex(-1);
+			cboThirdPreselection.addChangeHandler(new ChangeHandler() {
+				@Override
+				public void onChange(ChangeEvent event) {
+					thirdLevelPanel.remove(btnHinzu);
+					cboThirdLevel.clear();
+					if (cboThirdPreselection.getSelectedIndex() == 0) {
+						for (RelationType t : relationtypes) {
+							cboThirdLevel.addItem(t.getDescription());
+						}
+					} else if (cboThirdPreselection.getSelectedIndex() == 1) {
+						for (ProductBacklogItem t : pbis) {
+							String s = t.getDescription();
+							if (s.length() > 30) {
+								s = s.substring(0, 30) + "[...]";
+							}
+							cboThirdLevel.addItem(s);
+						}
+					}
+					cboThirdLevel.setSelectedIndex(-1);
+					lblThirdLevel2.setText(TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE.get(cboThirdPreselection.getSelectedIndex() + 1));
+					thirdLevelPanel.add(lblThirdLevel);
+					thirdLevelPanel.add(cboThirdLevel);
+				}
+			});
 			break;
 		case 11:
 			txtThirdLevel.setText("");
@@ -528,20 +554,20 @@ public class SearchView extends Composite implements ISearchView {
 		cboThirdLevel.clear();
 		thirdLevelPanel.add(lblThirdLevel);
 
-		cboProjects = new ListBox();
+		cboThirdPreselection = new ListBox();
 
 		for (Project t : projects) {
-			cboProjects.addItem(t.getName());
+			cboThirdPreselection.addItem(t.getName());
 		}
-		thirdLevelPanel.add(cboProjects);
-		cboProjects.setSelectedIndex(-1);
-		cboProjects.addChangeHandler(new ChangeHandler() {
+		thirdLevelPanel.add(cboThirdPreselection);
+		cboThirdPreselection.setSelectedIndex(-1);
+		cboThirdPreselection.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
 				Iterator<Project> it = projects.iterator();
 				Project project = null;
-				for (int i = 0; i <= cboProjects.getSelectedIndex(); i++) {
+				for (int i = 0; i <= cboThirdPreselection.getSelectedIndex(); i++) {
 					project = it.next();
 				}
 
@@ -562,7 +588,7 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public IEvent<EventArgs> getAborted() {
+	public IEvent<EventArgs> getAbort() {
 		return this.abort;
 	}
 
@@ -594,6 +620,12 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
+		pbis = new ArrayList<ProductBacklogItem>();
+		for (Project t : projects) {
+			if (t.getBacklog() != null && t.getBacklog().getItems() != null) {
+				pbis.addAll(t.getBacklog().getItems());
+			}
+		}
 	}
 
 	@Override
@@ -628,12 +660,12 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public IEvent<PBITypSearchCriterionArgs> getAddPbiTypSearchCriterion() {
+	public IEvent<PBITypSearchCriterionArgs> getAddPbiTypeSearchCriterion() {
 		return addPbiTypSearchCriterion;
 	}
 
 	@Override
-	public IEvent<ProjectSearchCriterionEventArgs> getAddProjektSearchCriterion() {
+	public IEvent<ProjectSearchCriterionEventArgs> getAddProjectSearchCriterion() {
 		return addProjektSearchCriterion;
 	}
 
@@ -643,23 +675,23 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public IEvent<EffortSearchCriterionArgs> getAddAufwandSearchCriterion() {
+	public IEvent<EffortSearchCriterionArgs> getAddEffortSearchCriterion() {
 		return addAufwandSearchCriterion;
 	}
 
 	@Override
-	public IEvent<StatusSearchCriterionArgs> getAddStatusSearchCriterion() {
+	public IEvent<StatusSearchCriterionArgs> getAddStateSearchCriterion() {
 		return addStatusSearchCriterion;
 	}
 
 	@Override
-	public IEvent<LastEditorSearchCriterionArgs> getAddLetzterBearbeiterSearchCriterion() {
+	public IEvent<LastEditorSearchCriterionArgs> getAddLastEditorSearchCriterion() {
 		return addLetzterBearbeiterSearchCriterion;
 	}
 
 	@Override
-	public IEvent<RelationSearchCriterionArgs> getAddBeziehungSearchCriterion() {
-		return addBeziehungSearchCriterion;
+	public IEvent<RelationTypeSearchCriterionArgs> getAddRelationTypeSearchCriterion() {
+		return addBeziehungTypSearchCriterion;
 	}
 
 	@Override
@@ -670,5 +702,10 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public IEvent<ReleaseSearchCriterionArgs> getAddVersionSearchCriterion() {
 		return addVersionSearchCriterion;
+	}
+
+	@Override
+	public IEvent<RelationDestSearchCriterionArgs> getAddRelationDestSearchCriterion() {
+		return addBeziehungZielSearchCriterion;
 	}
 }

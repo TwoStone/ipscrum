@@ -9,7 +9,8 @@ import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.ProjectSearchCriterionEventArgs;
-import fhdw.ipscrum.client.events.args.RelationSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.RelationDestSearchCriterionArgs;
+import fhdw.ipscrum.client.events.args.RelationTypeSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.ReleaseSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
 import fhdw.ipscrum.client.events.args.StatusSearchCriterionArgs;
@@ -41,7 +42,7 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<EventArgs> getAborted();
+	IEvent<EventArgs> getAbort();
 
 	/**
 	 * Returns the event fired when a new search criterion should be added.
@@ -69,14 +70,14 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<PBITypSearchCriterionArgs> getAddPbiTypSearchCriterion();
+	IEvent<PBITypSearchCriterionArgs> getAddPbiTypeSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.
 	 * 
 	 * @return
 	 */
-	IEvent<ProjectSearchCriterionEventArgs> getAddProjektSearchCriterion();
+	IEvent<ProjectSearchCriterionEventArgs> getAddProjectSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.
@@ -90,28 +91,35 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<EffortSearchCriterionArgs> getAddAufwandSearchCriterion();
+	IEvent<EffortSearchCriterionArgs> getAddEffortSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.
 	 * 
 	 * @return
 	 */
-	IEvent<StatusSearchCriterionArgs> getAddStatusSearchCriterion();
+	IEvent<StatusSearchCriterionArgs> getAddStateSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.
 	 * 
 	 * @return
 	 */
-	IEvent<LastEditorSearchCriterionArgs> getAddLetzterBearbeiterSearchCriterion();
+	IEvent<LastEditorSearchCriterionArgs> getAddLastEditorSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.
 	 * 
 	 * @return
 	 */
-	IEvent<RelationSearchCriterionArgs> getAddBeziehungSearchCriterion();
+	IEvent<RelationTypeSearchCriterionArgs> getAddRelationTypeSearchCriterion();
+
+	/**
+	 * Returns the event fired when a searchCriterion should be added.
+	 * 
+	 * @return
+	 */
+	IEvent<RelationDestSearchCriterionArgs> getAddRelationDestSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.
