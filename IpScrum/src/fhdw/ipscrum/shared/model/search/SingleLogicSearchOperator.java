@@ -63,7 +63,11 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 		if (this.equals(expression)) {
 			return true;
 		} else {
-			return this.arg.contains(expression);
+			if (this.arg != null) {
+				return this.arg.contains(expression);
+			} else {
+				return false;
+			}
 		}
 	}
 
