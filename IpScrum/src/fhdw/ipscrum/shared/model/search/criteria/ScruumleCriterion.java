@@ -1,9 +1,7 @@
 package fhdw.ipscrum.shared.model.search.criteria;
 
-import java.util.Vector;
-
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.ISearchExpressionVisitor;
 import fhdw.ipscrum.shared.model.search.Or;
 
@@ -30,21 +28,22 @@ public class ScruumleCriterion extends TextCriterion {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		final Vector<ISearchExpression> textualCriterias = new Vector<ISearchExpression>();
+		final Or or = new Or();
 
-		textualCriterias.add(new BugVersionNameCriterion(this.getValue()));
-		textualCriterias.add(new PBIAcceptanceCriterion(this.getValue()));
-		textualCriterias.add(new PBIDescriptionCriterion(this.getValue()));
-		textualCriterias.add(new PBIHintsCriterion(this.getValue()));
-		textualCriterias.add(new PBINameCriterion(this.getValue()));
-		textualCriterias.add(new PBIRelationDestCriterion(this.getValue()));
-		textualCriterias.add(new PBIReleaseNameCriterion(this.getValue()));
-		textualCriterias.add(new PBISprintDescCriterion(this.getValue()));
-		textualCriterias.add(new PBISprintNameCriterion(this.getValue()));
-		textualCriterias.add(new PBIProjectNameCriterion(this.getValue()));
-
-		final Or or = new Or(textualCriterias);
-
+		try {
+			or.add(new BugVersionNameCriterion(this.getValue()));
+			or.add(new PBIAcceptanceCriterion(this.getValue()));
+			or.add(new PBIDescriptionCriterion(this.getValue()));
+			or.add(new PBIHintsCriterion(this.getValue()));
+			or.add(new PBINameCriterion(this.getValue()));
+			or.add(new PBIRelationDestCriterion(this.getValue()));
+			or.add(new PBIReleaseNameCriterion(this.getValue()));
+			or.add(new PBISprintDescCriterion(this.getValue()));
+			or.add(new PBISprintNameCriterion(this.getValue()));
+			or.add(new PBIProjectNameCriterion(this.getValue()));
+		} catch (final CycleException e) {
+			return false;
+		}
 		return or.search(pbi);
 	}
 

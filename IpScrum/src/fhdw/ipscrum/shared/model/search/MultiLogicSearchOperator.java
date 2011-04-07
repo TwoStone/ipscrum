@@ -19,30 +19,14 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	/**
 	 * List of search expression arguments.
 	 */
-	private Collection<ISearchExpression> args;
-
-	private void setArgs(final Collection<ISearchExpression> args) {
-		this.args = args;
-	}
+	private final Collection<ISearchExpression> args;
 
 	/**
 	 * Constructor used by GWT Serialization and for default initiation.
 	 */
-	protected MultiLogicSearchOperator() {
+	public MultiLogicSearchOperator() {
 		super();
-		this.setArgs(new ArrayList<ISearchExpression>());
-	}
-
-	/**
-	 * Constructor (Null-Values not allowed!)
-	 * 
-	 * @param args
-	 *            List of search expression arguments.
-	 * 
-	 */
-	public MultiLogicSearchOperator(final Collection<ISearchExpression> args) {
-		super();
-		this.args = args;
+		this.args = new ArrayList<ISearchExpression>();
 	}
 
 	/**
