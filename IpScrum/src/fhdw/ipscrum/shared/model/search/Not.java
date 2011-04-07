@@ -21,8 +21,7 @@ public class Not extends SingleLogicSearchOperator {
 	/**
 	 * See {@link SingleLogicSearchOperator}
 	 */
-	@SuppressWarnings("unused")
-	private Not() {
+	public Not() {
 		super();
 	}
 
