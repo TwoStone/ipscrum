@@ -6,7 +6,9 @@ import java.util.Collection;
 
 import org.junit.Test;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
@@ -15,10 +17,8 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testGetSearching() {
-		ISearchExpression parentExpression = new PBIOpenCriterion();
-
-		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
-		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
+		Search search1 = new Search("Name1", new PBIOpenCriterion());
+		Search search2 = new Search("Name2", new PBIOpenCriterion());
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -30,10 +30,8 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testAddSearch() {
-		ISearchExpression parentExpression = new PBIOpenCriterion();
-
-		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
-		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
+		Search search1 = new Search("Name1", new PBIOpenCriterion());
+		Search search2 = new Search("Name2", new PBIOpenCriterion());
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -50,10 +48,8 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testRemoveSearch() {
-		ISearchExpression parentExpression = new PBIOpenCriterion();
-
-		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
-		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
+		Search search1 = new Search("Name1", new PBIOpenCriterion());
+		Search search2 = new Search("Name2", new PBIOpenCriterion());
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -73,10 +69,8 @@ public class SearchManagerTest extends SetUpTestData {
 
 	@Test
 	public void testGetSize() {
-		ISearchExpression parentExpression = new PBIOpenCriterion();
-
-		Search search1 = new Search("Name1", new NoSearchExpression(parentExpression));
-		Search search2 = new Search("Name2", new NoSearchExpression(parentExpression));
+		Search search1 = new Search("Name1", new PBIOpenCriterion());
+		Search search2 = new Search("Name2", new PBIOpenCriterion());
 
 		SearchManager manager = new SearchManager();
 		manager.addSearch(search1);
@@ -89,18 +83,19 @@ public class SearchManagerTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testSearch1_NoSearchExpression() {
+	public void testSearch1_PBIClosedCriterion() {
 		SearchManager manager = new SearchManager();
 		Collection<ProductBacklogItem> elements = this.listOfFeatures;
-		assertEquals(elements, manager.search(elements, new NoSearchExpression(new PBIOpenCriterion())));
+		Collection<ProductBacklogItem> result = manager.search(elements, new PBIClosedCriterion());
+		assertEquals(53, result.size());
 	}
 
 	@Test
-	public void testSearch2_NotNoSearchExpression() {
+	public void testSearch2_NotPBIClosedCriterion() throws CycleException {
 		SearchManager manager = new SearchManager();
 		Collection<ProductBacklogItem> elements = this.listOfFeatures;
-		Collection<ProductBacklogItem> result = manager.search(elements, new Not(new NoSearchExpression(new PBIOpenCriterion())));
-		assertEquals(0, result.size());
+		Collection<ProductBacklogItem> result = manager.search(elements, new Not(new PBIClosedCriterion()));
+		assertEquals(47, result.size());
 	}
 
 	@Test
