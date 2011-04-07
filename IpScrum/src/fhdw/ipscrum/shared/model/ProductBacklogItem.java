@@ -163,6 +163,8 @@ public abstract class ProductBacklogItem extends Observable implements
 	 */
 	public void close() throws ForbiddenStateException {
 		this.getState().close();
+		final PBICompletionMessage message = new PBICompletionMessage(this);
+		this.notifyObservers(message);
 	}
 
 	protected void doAddAcceptanceCriterion(
@@ -243,8 +245,6 @@ public abstract class ProductBacklogItem extends Observable implements
 	protected void doRemoveAcceptanceCriterion(
 			final AcceptanceCriterion acceptanceCriterion) {
 		this.acceptanceCriteria.remove(acceptanceCriterion);
-		final PBICompletionMessage message = new PBICompletionMessage(this);
-		this.notifyObservers(message);
 	}
 
 	protected void doRemoveHint(final Hint hint) {
