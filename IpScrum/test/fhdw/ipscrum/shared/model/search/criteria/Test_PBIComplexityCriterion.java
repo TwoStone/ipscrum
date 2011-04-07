@@ -186,10 +186,30 @@ public class Test_PBIComplexityCriterion {
 	/**
 	 * Test of constructor with two numbers
 	 */
-	public void testConstructor2() throws Exception {
+	public void testConstructor1() throws Exception {
 		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(1, 3);
 		assertEquals(new Integer(1), comCrit.getFrom());
 		assertEquals(new Integer(3), comCrit.getTo());
+	}
+	
+	@Test
+	/**
+	 * Test of constructor with two numbers
+	 */
+	public void testConstructor2() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, 3);
+		assertEquals(null, comCrit.getFrom());
+		assertEquals(new Integer(3), comCrit.getTo());
+	}
+	
+	@Test
+	/**
+	 * Test of constructor with two numbers
+	 */
+	public void testConstructor3() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(1, null);
+		assertEquals(new Integer(1), comCrit.getFrom());
+		assertEquals(null, comCrit.getTo());
 	}
 
 	@Test
@@ -205,9 +225,18 @@ public class Test_PBIComplexityCriterion {
 	/**
 	 * Search, if a Bug needs less than 5 PT
 	 */
-	public void testsearch3() throws Exception {
-		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(1, 4);
+	public void testsearch2() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, 4);
 		assertEquals(false, comCrit.search(pbi1));
+	}
+	
+	@Test
+	/**
+	 * Search, if a Bug needs more than 5 PT
+	 */
+	public void testsearch3() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5, null);
+		assertEquals(true, comCrit.search(pbi4));
 	}
 
 	@Test
@@ -215,7 +244,7 @@ public class Test_PBIComplexityCriterion {
 	 * Search, if a Feature needs more than 5 PT
 	 */
 	public void testsearch4() throws Exception {
-		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5, 20);
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(5, null);
 		assertEquals(true, comCrit.search(pbi1));
 	}
 
@@ -223,8 +252,9 @@ public class Test_PBIComplexityCriterion {
 	/**
 	 * Search, if a Feature needs less than 5 PT
 	 */
-	public void testsearch6() throws Exception {
-		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(1, 4);
+	public void testsearch5() throws Exception {
+		final PBIComplexityCriterion comCrit = new PBIComplexityCriterion(null, 4);
 		assertEquals(false, comCrit.search(pbi1));
 	}
+
 }
