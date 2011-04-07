@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-
 import fhdw.ipscrum.client.utils.CalendarUtils;
-import fhdw.ipscrum.shared.SessionManager;
+import fhdw.ipscrum.shared.exceptions.UserException;
 import fhdw.ipscrum.shared.model.Effort;
 import fhdw.ipscrum.shared.model.Feature;
 import fhdw.ipscrum.shared.model.Person;
@@ -23,7 +19,7 @@ import fhdw.ipscrum.shared.model.Sprint;
 import fhdw.ipscrum.shared.model.Task;
 import fhdw.ipscrum.shared.model.Team;
 
-public abstract class SetUpTestData {
+public class TestDemoData {
 
 	public Feature pro1rel2spr1fea1;
 	public Feature pro1rel1spr5fea5;
@@ -267,24 +263,11 @@ public abstract class SetUpTestData {
 	public Task pro2rel2spr5tas4;
 	public Task pro2rel2spr5tas5;
 	public Task pro2rel1spr5tas1;
-
 	public Collection<ProductBacklogItem> listOfFeatures;
 
-	// public ArrayList<ProductBacklogItem> listOfFeatures;
-
-	@BeforeClass
-	public static void SetUpBeforeClass() throws Exception {
-		if (SessionManager.getInstance().getModel().getRelationTypeManager()
-				.getRelationTypes().size() == 0) {
-			// Initial Relations
-			RelationType.create("Abhängig von");
-			RelationType.create("Siehe auch");
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	@Before
-	public void setUp() throws Exception {
+	public TestDemoData() throws UserException {
+		RelationType.create("Abhängig von");
+		RelationType.create("Siehe auch");
 
 		root = new Root();
 
@@ -2439,7 +2422,4 @@ public abstract class SetUpTestData {
 		listOfFeatures.add(pro2rel2spr5fea5);
 	}
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 }
