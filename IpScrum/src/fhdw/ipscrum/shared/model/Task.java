@@ -134,6 +134,7 @@ public class Task extends Observable implements ITask {
 	@Override
 	public void finish(Date finishDate) throws ForbiddenStateException {
 		this.state.finish(finishDate);
+		this.notifyObservers();
 		TaskCompletionMessage message = new TaskCompletionMessage(this);
 		this.notifyObservers(message);
 
