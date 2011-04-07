@@ -9,7 +9,6 @@ import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.ProjectSearchCriterionEventArgs;
-import fhdw.ipscrum.client.events.args.RelationDestSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.RelationTypeSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.ReleaseSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.SearchEventArgs;
@@ -119,7 +118,7 @@ public interface ISearchView extends IView {
 	 * 
 	 * @return
 	 */
-	IEvent<RelationDestSearchCriterionArgs> getAddRelationDestSearchCriterion();
+	IEvent<TextSearchCriterionArgs> getAddRelationDestSearchCriterion();
 
 	/**
 	 * Returns the event fired when a searchCriterion should be added.

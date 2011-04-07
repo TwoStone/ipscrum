@@ -25,6 +25,7 @@ import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.RelationType;
+import fhdw.ipscrum.shared.model.System;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 import fhdw.ipscrum.shared.model.search.And;
 import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
@@ -36,11 +37,13 @@ import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
 import fhdw.ipscrum.shared.model.search.SearchExpression;
 import fhdw.ipscrum.shared.model.search.SingleLogicSearchOperator;
+import fhdw.ipscrum.shared.model.search.criteria.BugConcreteVersionCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.BugSystemCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIAcceptanceCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIBugTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIComplexityCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIConcreteReleaseCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIDescriptionCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIFeatureTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIHintsCriterion;
@@ -48,6 +51,8 @@ import fhdw.ipscrum.shared.model.search.criteria.PBILastEditorCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBINameCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBIProjectCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIRelationDestCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIRelationTypeCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
 
@@ -71,7 +76,7 @@ public class SearchPresenter extends Presenter<ISearchView> {
 	private void init() {
 		this.getView().setSearch(new Search(TextConstants.NEW_SEARCH, new And()));
 		this.getView().setProjects(this.getSessionManager().getModel().getProjects());
-		this.getView().setSystems(this.getSessionManager().getModel().getSysManager().getSystems().getSystems());
+		this.getView().setSystems(getAllSystems(this.getSessionManager().getModel().getSysManager().getSystems().getSystems()));
 		final List<RelationType> rt = new ArrayList<RelationType>();
 		rt.addAll(this.getSessionManager().getModel().getRelationTypeManager().getRelationTypes());
 		this.getView().setRelationTypes(rt);
@@ -80,6 +85,17 @@ public class SearchPresenter extends Presenter<ISearchView> {
 			persons.add(person);
 		}
 		this.getView().setPersons(persons);
+	}
+
+	private List<System> getAllSystems(List<System> sysList) {
+		List<System> ret = new ArrayList<System>();
+		for (System system : sysList) {
+			ret.add(system);
+			if (system.getSystems() != null && system.getSystems().size() > 0) {
+				ret.addAll(getAllSystems(system.getSystems()));
+			}
+		}
+		return ret;
 	}
 
 	/**
@@ -163,11 +179,7 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		this.getView().getAddReleaseSearchCriterion().add(new EventHandler<ReleaseSearchCriterionArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final ReleaseSearchCriterionArgs eventArgs) {
-				// addSearchExpression(eventArgs.getSe(), new
-				// PBIReleaseCriterion(eventArgs.getRelease()));
-				GwtUtils.displayError("Hier könnte ihre Werbung stehen (Absprache Releasekriterium offen)"); // TODO
-																												// Christin:
-																												// ReleaseKriterium
+				addSearchExpression(eventArgs.getSe(), new PBIConcreteReleaseCriterion(eventArgs.getRelease()));
 			}
 		});
 
@@ -203,8 +215,14 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		this.getView().getAddRelationTypeSearchCriterion().add(new EventHandler<RelationTypeSearchCriterionArgs>() {
 			@Override
 			public void onUpdate(Object sender, RelationTypeSearchCriterionArgs eventArgs) {
-				// addSearchExpression(eventArgs.getSe(), new PBIRelationCriterion());
-				GwtUtils.displayError("Hier könnte ihre Werbung stehen (Absprache Relationskriterium offen)"); // TODO Christin: Relationskriterium
+				addSearchExpression(eventArgs.getSe(), new PBIRelationTypeCriterion(eventArgs.getRelationType()));
+			}
+		});
+
+		this.getView().getAddRelationDestSearchCriterion().add(new EventHandler<TextSearchCriterionArgs>() {
+			@Override
+			public void onUpdate(Object sender, TextSearchCriterionArgs eventArgs) {
+				addSearchExpression(eventArgs.getSearchExpression(), new PBIRelationDestCriterion(eventArgs.getString()));
 			}
 		});
 
@@ -218,21 +236,15 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		this.getView().getAddVersionSearchCriterion().add(new EventHandler<ReleaseSearchCriterionArgs>() {
 			@Override
 			public void onUpdate(final Object sender, final ReleaseSearchCriterionArgs eventArgs) {
-				// addSearchExpression(eventArgs.getSe(), new
-				// BugVersionCriterion(eventArgs.getRelease()));
-				GwtUtils.displayError("Hier könnte ihre Werbung stehen (Absprache Releasekriterium offen)"); // TODO
-																												// Christin:
-																												// ReleaseKriterium
+				addSearchExpression(eventArgs.getSe(), new BugConcreteVersionCriterion(eventArgs.getRelease()));
 			}
 		});
-
-		// this.put(15, "Version (nur Bugs)");
-
 	}
 
 	protected void showSearch(final Search search) {
 		if (this.getParent() != null) {
-			final SearchResultPresenter resultPresenter = new SearchResultPresenter(this.getSessionManager().getModel().getSearchManager().search(this.getSessionManager().getModel().getAllTickets(), search.getExpression()), null, this);
+			final SearchResultPresenter resultPresenter = new SearchResultPresenter(this.getSessionManager().getModel().getSearchManager()
+					.search(this.getSessionManager().getModel().getAllTickets(), search.getExpression()), null, this);
 			this.getView().updateResults(resultPresenter.getView());
 		}
 	}
@@ -267,6 +279,9 @@ public class SearchPresenter extends Presenter<ISearchView> {
 			break;
 		case 10:
 			newSearchExp = new PBIDescriptionCriterion(eventargs.getString());
+			break;
+		case 11:
+			newSearchExp = new PBIRelationDestCriterion(eventargs.getString());
 			break;
 		case 12:
 			newSearchExp = new PBIHintsCriterion(eventargs.getString());
