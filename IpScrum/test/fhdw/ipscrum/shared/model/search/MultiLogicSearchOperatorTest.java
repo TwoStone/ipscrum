@@ -66,6 +66,15 @@ public class MultiLogicSearchOperatorTest extends SetUpTestData {
 		assertEquals(new Integer(2), and.getSize());
 	}
 
+	@Test(expected = CycleException.class)
+	public void testAddException() throws CycleException {
+		And and = new And();
+
+		SearchExpression searchExpression1 = new PBIClosedCriterion();
+
+		and.add(and);
+	}
+
 	@Test
 	public void testRemove() throws CycleException {
 		And and = new And();

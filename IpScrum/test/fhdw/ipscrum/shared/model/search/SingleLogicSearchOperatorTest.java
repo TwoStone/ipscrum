@@ -52,6 +52,13 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 		assertEquals(expression2, operator.getArg());
 	}
 
+	@Test(expected = CycleException.class)
+	public void testSetArgException() throws CycleException {
+		SearchExpression expression1 = new PBIClosedCriterion();
+		SingleLogicSearchOperator not = new Not(expression1);
+		not.setArg(not);
+	}
+
 	@Test
 	public void testContains_ConstruktorWithParameter() throws CycleException {
 		Not not = new Not(new PBIOpenCriterion());
@@ -60,7 +67,8 @@ public class SingleLogicSearchOperatorTest extends SetUpTestData {
 	}
 
 	@Test
-	public void testContains_ConstruktorWithoutParameter() throws CycleException {
+	public void testContains_ConstruktorWithoutParameter()
+			throws CycleException {
 		Not not = new Not();
 		not.setArg(new PBIOpenCriterion());
 
