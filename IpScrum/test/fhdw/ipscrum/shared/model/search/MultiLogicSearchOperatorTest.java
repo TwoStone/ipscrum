@@ -27,6 +27,7 @@ public class MultiLogicSearchOperatorTest extends SetUpTestData {
 
 	@Before
 	public void setUp() throws Exception {
+		super.setUp();
 	}
 
 	@After
