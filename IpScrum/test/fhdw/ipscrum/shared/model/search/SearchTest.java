@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.model.search.criteria.PBIOpenCriterion;
+import fhdw.ipscrum.shared.model.search.criteria.PBIClosedCriterion;
 
 public class SearchTest extends SetUpTestData {
 
@@ -31,7 +31,7 @@ public class SearchTest extends SetUpTestData {
 	@Test
 	public void testSearch() {
 		String name = new String("Name");
-		SearchExpression expression = new NoSearchExpression(new PBIOpenCriterion());
+		SearchExpression expression = new PBIClosedCriterion();
 		Search search = new Search(name, expression);
 		assertEquals(expression, search.getExpression());
 		assertEquals(name, search.getName());
