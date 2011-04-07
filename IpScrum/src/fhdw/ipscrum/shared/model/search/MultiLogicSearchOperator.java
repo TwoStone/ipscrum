@@ -3,6 +3,7 @@ package fhdw.ipscrum.shared.model.search;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.PersistentObserver;
 
@@ -54,12 +55,14 @@ public abstract class MultiLogicSearchOperator extends Operator implements
 	/**
 	 * Adds a search expression to the list.
 	 */
-	public void add(final ISearchExpression expression) {
+	public void add(final ISearchExpression expression) throws CycleException {
 		if (!expression.contains(this)) {
 			expression.addObserver(this);
 			expression.setParent(this);
 			this.args.add(expression);
 			this.notifyObservers();
+		} else {
+			throw new CycleException();
 		}
 	}
 

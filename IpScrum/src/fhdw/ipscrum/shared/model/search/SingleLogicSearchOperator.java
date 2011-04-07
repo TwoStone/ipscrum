@@ -1,5 +1,6 @@
 package fhdw.ipscrum.shared.model.search;
 
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.PersistentObserver;
 
@@ -45,12 +46,16 @@ public abstract class SingleLogicSearchOperator extends Operator implements
 	/**
 	 * Changes the search expression. Null Value is not allowed!
 	 */
-	public void setArg(final SearchExpression arg) {
-		this.arg.deleteObserver(this);
-		this.arg = arg;
-		this.arg.setParent(this);
-		this.arg.addObserver(this);
-		this.notifyObservers();
+	public void setArg(final SearchExpression arg) throws CycleException {
+		if (!arg.contains(this)) {
+			this.arg.deleteObserver(this);
+			this.arg = arg;
+			this.arg.setParent(this);
+			this.arg.addObserver(this);
+			this.notifyObservers();
+		} else {
+			throw new CycleException();
+		}
 	}
 
 	@Override
