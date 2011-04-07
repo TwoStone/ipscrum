@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Panel;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.events.args.DeleteEventArgs;
 import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
@@ -23,6 +24,7 @@ import fhdw.ipscrum.client.view.SearchView;
 import fhdw.ipscrum.client.view.interfaces.ISearchView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.CycleException;
 import fhdw.ipscrum.shared.exceptions.NoValidValueException;
 import fhdw.ipscrum.shared.model.RelationType;
 import fhdw.ipscrum.shared.model.System;
@@ -31,8 +33,8 @@ import fhdw.ipscrum.shared.model.search.And;
 import fhdw.ipscrum.shared.model.search.ISearchExpression;
 import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
 import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
-import fhdw.ipscrum.shared.model.search.NoSearchExpression;
 import fhdw.ipscrum.shared.model.search.Not;
+import fhdw.ipscrum.shared.model.search.Operator;
 import fhdw.ipscrum.shared.model.search.Or;
 import fhdw.ipscrum.shared.model.search.Search;
 import fhdw.ipscrum.shared.model.search.SearchCriteria;
@@ -58,42 +60,51 @@ import fhdw.ipscrum.shared.model.search.criteria.PBISprintDescCriterion;
 import fhdw.ipscrum.shared.model.search.criteria.PBISprintNameCriterion;
 
 /**
- * presenter class of the team interface. this interface is used to inspect, create and modify teams as well as adding and removing persons to teams.
+ * presenter class of the team interface. this interface is used to inspect,
+ * create and modify teams as well as adding and removing persons to teams.
  */
 public class SearchPresenter extends Presenter<ISearchView> {
 
 	/**
 	 * Constructor for TeamPresenter.
 	 * 
-	 * @param parent Panel
+	 * @param parent
+	 *            Panel
 	 * @param parentPresenter
 	 */
-	public SearchPresenter(final Panel parent, final Presenter<?> parentPresenter) {
+	public SearchPresenter(final Panel parent,
+			final Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 		this.init();
 		this.setupEventHandlers();
 	}
 
 	private void init() {
-		this.getView().setSearch(new Search(TextConstants.NEW_SEARCH, new And()));
-		this.getView().setProjects(this.getSessionManager().getModel().getProjects());
-		this.getView().setSystems(getAllSystems(this.getSessionManager().getModel().getSysManager().getSystems().getSystems()));
+		this.getView().setSearch(
+				new Search(TextConstants.NEW_SEARCH, new And()));
+		this.getView().setProjects(
+				this.getSessionManager().getModel().getProjects());
+		this.getView().setSystems(
+				this.getAllSystems(this.getSessionManager().getModel()
+						.getSysManager().getSystems().getSystems()));
 		final List<RelationType> rt = new ArrayList<RelationType>();
-		rt.addAll(this.getSessionManager().getModel().getRelationTypeManager().getRelationTypes());
+		rt.addAll(this.getSessionManager().getModel().getRelationTypeManager()
+				.getRelationTypes());
 		this.getView().setRelationTypes(rt);
 		final List<IPerson> persons = new ArrayList<IPerson>();
-		for (final IPerson person : this.getSessionManager().getModel().getPersons()) {
+		for (final IPerson person : this.getSessionManager().getModel()
+				.getPersons()) {
 			persons.add(person);
 		}
 		this.getView().setPersons(persons);
 	}
 
 	private List<System> getAllSystems(List<System> sysList) {
-		List<System> ret = new ArrayList<System>();
-		for (System system : sysList) {
+		final List<System> ret = new ArrayList<System>();
+		for (final System system : sysList) {
 			ret.add(system);
 			if (system.getSystems() != null && system.getSystems().size() > 0) {
-				ret.addAll(getAllSystems(system.getSystems()));
+				ret.addAll(this.getAllSystems(system.getSystems()));
 			}
 		}
 		return ret;
@@ -111,16 +122,19 @@ public class SearchPresenter extends Presenter<ISearchView> {
 	}
 
 	/**
-	 * this is called to set up the behaviour of all interaction widgets of this view.
+	 * this is called to set up the behaviour of all interaction widgets of this
+	 * view.
 	 */
 	private void setupEventHandlers() {
 
-		this.getView().getAddLogicalOperator().add(new EventHandler<CreateLogicalOperatorArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final CreateLogicalOperatorArgs eventArgs) {
-				SearchPresenter.this.createLogicalOperator(eventArgs);
-			}
-		});
+		this.getView().getAddLogicalOperator()
+				.add(new EventHandler<CreateLogicalOperatorArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final CreateLogicalOperatorArgs eventArgs) {
+						SearchPresenter.this.createLogicalOperator(eventArgs);
+					}
+				});
 
 		this.getView().getChangeSearchName().add(new EventHandler<EventArgs>() {
 			@Override
@@ -130,7 +144,8 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		});
 		this.getView().getSave().add(new EventHandler<SearchEventArgs>() {
 			@Override
-			public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final SearchEventArgs eventArgs) {
 
 				if (SearchPresenter.this.saveSearch(eventArgs.getSearch())) {
 					SearchPresenter.this.backToSearchesAll();
@@ -147,105 +162,202 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		});
 		this.getView().getDoSearch().add(new EventHandler<SearchEventArgs>() {
 			@Override
-			public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
+			public void onUpdate(final Object sender,
+					final SearchEventArgs eventArgs) {
 				SearchPresenter.this.showSearch(eventArgs.getSearch());
 			}
 		});
 
-		this.getView().getAddTextSearchCriterion().add(new EventHandler<TextSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final TextSearchCriterionArgs eventArgs) {
-				SearchPresenter.this.createTextSearchCriteria(eventArgs);
-			}
-		});
+		this.getView().getAddTextSearchCriterion()
+				.add(new EventHandler<TextSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final TextSearchCriterionArgs eventArgs) {
+						SearchPresenter.this
+								.createTextSearchCriteria(eventArgs);
+					}
+				});
 
-		this.getView().getAddPbiTypeSearchCriterion().add(new EventHandler<PBITypSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(Object sender, PBITypSearchCriterionArgs eventArgs) {
-				if (eventArgs.getValue() == 1) {
-					addSearchExpression(eventArgs.getSe(), new PBIFeatureTypeCriterion());
-				} else if (eventArgs.getValue() == 2) {
-					addSearchExpression(eventArgs.getSe(), new PBIBugTypeCriterion());
-				}
-			}
-		});
+		this.getView().getAddPbiTypeSearchCriterion()
+				.add(new EventHandler<PBITypSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							PBITypSearchCriterionArgs eventArgs) {
 
-		this.getView().getAddProjectSearchCriterion().add(new EventHandler<ProjectSearchCriterionEventArgs>() {
-			@Override
-			public void onUpdate(Object sender, ProjectSearchCriterionEventArgs eventArgs) {
-				addSearchExpression(eventArgs.getSe(), new PBIProjectCriterion(eventArgs.getProject()));
-			}
-		});
+						if (eventArgs.getValue() == 1) {
+							SearchPresenter.this.addSearchExpression(
+									eventArgs.getSe(),
+									new PBIFeatureTypeCriterion());
+						} else if (eventArgs.getValue() == 2) {
+							SearchPresenter.this.addSearchExpression(
+									eventArgs.getSe(),
+									new PBIBugTypeCriterion());
+						}
+					}
+				});
 
-		this.getView().getAddReleaseSearchCriterion().add(new EventHandler<ReleaseSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final ReleaseSearchCriterionArgs eventArgs) {
-				addSearchExpression(eventArgs.getSe(), new PBIConcreteReleaseCriterion(eventArgs.getRelease()));
-			}
-		});
+		this.getView().getAddProjectSearchCriterion()
+				.add(new EventHandler<ProjectSearchCriterionEventArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							ProjectSearchCriterionEventArgs eventArgs) {
 
-		this.getView().getAddEffortSearchCriterion().add(new EventHandler<EffortSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(Object sender, EffortSearchCriterionArgs eventArgs) {
-				try {
-					addSearchExpression(eventArgs.getSe(), new PBIComplexityCriterion(eventArgs.getValueFrom(), eventArgs.getValueTo()));
-				} catch (NoValidValueException e) {
-					GwtUtils.displayError(e);
-				}
-			}
-		});
+						SearchPresenter.this.addSearchExpression(eventArgs
+								.getSe(),
+								new PBIProjectCriterion(eventArgs.getProject()));
+					}
+				});
 
-		this.getView().getAddStateSearchCriterion().add(new EventHandler<StatusSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(Object sender, StatusSearchCriterionArgs eventArgs) {
-				if (eventArgs.getValue() == 1) {
-					addSearchExpression(eventArgs.getSearchExpression(), new PBIOpenCriterion());
-				} else if (eventArgs.getValue() == 2) {
-					addSearchExpression(eventArgs.getSearchExpression(), new PBIClosedCriterion());
-				}
-			}
-		});
+		this.getView().getAddReleaseSearchCriterion()
+				.add(new EventHandler<ReleaseSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final ReleaseSearchCriterionArgs eventArgs) {
+						SearchPresenter.this.addSearchExpression(eventArgs
+								.getSe(), new PBIConcreteReleaseCriterion(
+								eventArgs.getRelease()));
+					}
+				});
 
-		this.getView().getAddLastEditorSearchCriterion().add(new EventHandler<LastEditorSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(Object sender, LastEditorSearchCriterionArgs eventArgs) {
-				addSearchExpression(eventArgs.getSe(), new PBILastEditorCriterion(eventArgs.getPerson()));
-			}
-		});
+		this.getView().getAddEffortSearchCriterion()
+				.add(new EventHandler<EffortSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							EffortSearchCriterionArgs eventArgs) {
+						try {
 
-		this.getView().getAddRelationTypeSearchCriterion().add(new EventHandler<RelationTypeSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(Object sender, RelationTypeSearchCriterionArgs eventArgs) {
-				addSearchExpression(eventArgs.getSe(), new PBIRelationTypeCriterion(eventArgs.getRelationType()));
-			}
-		});
+							SearchPresenter.this.addSearchExpression(
+									eventArgs.getSe(),
+									new PBIComplexityCriterion(eventArgs
+											.getValueFrom(), eventArgs
+											.getValueTo()));
+						} catch (final NoValidValueException e) {
+							GwtUtils.displayError(e);
+						}
+					}
+				});
 
-		this.getView().getAddRelationDestSearchCriterion().add(new EventHandler<TextSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(Object sender, TextSearchCriterionArgs eventArgs) {
-				addSearchExpression(eventArgs.getSearchExpression(), new PBIRelationDestCriterion(eventArgs.getString()));
-			}
-		});
+		this.getView().getAddStateSearchCriterion()
+				.add(new EventHandler<StatusSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							StatusSearchCriterionArgs eventArgs) {
+						if (eventArgs.getValue() == 1) {
+							SearchPresenter.this.addSearchExpression(
+									eventArgs.getSearchExpression(),
+									new PBIOpenCriterion());
+						} else if (eventArgs.getValue() == 2) {
+							SearchPresenter.this.addSearchExpression(
+									eventArgs.getSearchExpression(),
+									new PBIClosedCriterion());
+						}
+					}
+				});
 
-		this.getView().getAddSystemSearchCriterion().add(new EventHandler<SystemSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final SystemSearchCriterionArgs eventArgs) {
-				SearchPresenter.this.addSearchExpression(eventArgs.getSe(), new BugSystemCriterion(eventArgs.getSystem()));
-			}
-		});
+		this.getView().getAddLastEditorSearchCriterion()
+				.add(new EventHandler<LastEditorSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							LastEditorSearchCriterionArgs eventArgs) {
+						SearchPresenter.this.addSearchExpression(
+								eventArgs.getSe(),
+								new PBILastEditorCriterion(eventArgs
+										.getPerson()));
+					}
+				});
 
-		this.getView().getAddVersionSearchCriterion().add(new EventHandler<ReleaseSearchCriterionArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final ReleaseSearchCriterionArgs eventArgs) {
-				addSearchExpression(eventArgs.getSe(), new BugConcreteVersionCriterion(eventArgs.getRelease()));
-			}
-		});
+		this.getView().getAddRelationTypeSearchCriterion()
+				.add(new EventHandler<RelationTypeSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							RelationTypeSearchCriterionArgs eventArgs) {
+						SearchPresenter.this.addSearchExpression(eventArgs
+								.getSe(), new PBIRelationTypeCriterion(
+								eventArgs.getRelationType()));
+					}
+				});
+
+		this.getView().getAddRelationDestSearchCriterion()
+				.add(new EventHandler<TextSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(Object sender,
+							TextSearchCriterionArgs eventArgs) {
+						SearchPresenter.this.addSearchExpression(
+								eventArgs.getSearchExpression(),
+								new PBIRelationDestCriterion(eventArgs
+										.getString()));
+					}
+				});
+
+		this.getView().getAddSystemSearchCriterion()
+				.add(new EventHandler<SystemSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final SystemSearchCriterionArgs eventArgs) {
+						SearchPresenter.this.addSearchExpression(eventArgs
+								.getSe(),
+								new BugSystemCriterion(eventArgs.getSystem()));
+					}
+				});
+
+		this.getView().getAddVersionSearchCriterion()
+				.add(new EventHandler<ReleaseSearchCriterionArgs>() {
+					@Override
+					public void onUpdate(final Object sender,
+							final ReleaseSearchCriterionArgs eventArgs) {
+						SearchPresenter.this.addSearchExpression(eventArgs
+								.getSe(), new BugConcreteVersionCriterion(
+								eventArgs.getRelease()));
+					}
+				});
+		this.getView().getDeleteEventArgs()
+				.add(new EventHandler<DeleteEventArgs>() {
+
+					@Override
+					public void onUpdate(Object sender,
+							DeleteEventArgs eventArgs) {
+						final ISearchExpression expression = eventArgs
+								.getExpression();
+						final Operator parent = expression.getParent();
+						if (parent != null) {
+							parent.accept(new ISearchTypeVisitor() {
+
+								@Override
+								public void handleSingleLogicSearchOperator(
+										SingleLogicSearchOperator singleLogicSearchOperator) {
+									try {
+										singleLogicSearchOperator.setArg(null);
+									} catch (final CycleException e) {
+										// Kann hier nicht auftreten! Wenn null
+										// übergeben wird.
+									}
+								}
+
+								@Override
+								public void handleSearchCriteria(
+										SearchCriteria searchCriteria) {
+								}
+
+								@Override
+								public void handleMultiLogicSearchOperator(
+										MultiLogicSearchOperator multiLogicSearchOperator) {
+									multiLogicSearchOperator.remove(expression);
+								}
+							});
+						}
+					}
+				});
 	}
 
 	protected void showSearch(final Search search) {
 		if (this.getParent() != null) {
-			final SearchResultPresenter resultPresenter = new SearchResultPresenter(this.getSessionManager().getModel().getSearchManager()
-					.search(this.getSessionManager().getModel().getAllTickets(), search.getExpression()), null, this);
+			final SearchResultPresenter resultPresenter = new SearchResultPresenter(
+					this.getSessionManager()
+							.getModel()
+							.getSearchManager()
+							.search(this.getSessionManager().getModel()
+									.getAllTickets(), search.getExpression()),
+					null, this);
 			this.getView().updateResults(resultPresenter.getView());
 		}
 	}
@@ -265,7 +377,8 @@ public class SearchPresenter extends Presenter<ISearchView> {
 		this.addSearchExpression(eventargs.getSearchExpression(), newSearchExp);
 	}
 
-	private void createTextSearchCriteria(final TextSearchCriterionArgs eventargs) {
+	private void createTextSearchCriteria(
+			final TextSearchCriterionArgs eventargs) {
 		SearchExpression newSearchExp = null;
 
 		switch (eventargs.getValue()) {
@@ -295,15 +408,22 @@ public class SearchPresenter extends Presenter<ISearchView> {
 			break;
 		}
 		if (newSearchExp != null) {
-			this.addSearchExpression(eventargs.getSearchExpression(), newSearchExp);
+			this.addSearchExpression(eventargs.getSearchExpression(),
+					newSearchExp);
 		}
 	}
 
-	private void addSearchExpression(final ISearchExpression oldSearchExp, final SearchExpression newSearchExp) {
+	private void addSearchExpression(final ISearchExpression oldSearchExp,
+			final SearchExpression newSearchExp) {
 		final ISearchTypeVisitor seVisitor = new ISearchTypeVisitor() {
 			@Override
-			public void handleSingleLogicSearchOperator(final SingleLogicSearchOperator singleLogicSearchOperator) {
-				singleLogicSearchOperator.setArg(newSearchExp);
+			public void handleSingleLogicSearchOperator(
+					final SingleLogicSearchOperator singleLogicSearchOperator) {
+				try {
+					singleLogicSearchOperator.setArg(newSearchExp);
+				} catch (final CycleException e) {
+					GwtUtils.displayError(e);
+				}
 			}
 
 			@Override
@@ -312,13 +432,13 @@ public class SearchPresenter extends Presenter<ISearchView> {
 			}
 
 			@Override
-			public void handleNoSearchExpression(final NoSearchExpression noSearchExpression) {
-				GwtUtils.displayError(ExceptionConstants.SEARCH_NOT_UPDATEABLE);
-			}
-
-			@Override
-			public void handleMultiLogicSearchOperator(final MultiLogicSearchOperator multiLogicSearchOperator) {
-				multiLogicSearchOperator.add(newSearchExp);
+			public void handleMultiLogicSearchOperator(
+					final MultiLogicSearchOperator multiLogicSearchOperator) {
+				try {
+					multiLogicSearchOperator.add(newSearchExp);
+				} catch (final CycleException e) {
+					GwtUtils.displayError(e);
+				}
 			}
 		};
 		oldSearchExp.accept(seVisitor);
@@ -334,10 +454,12 @@ public class SearchPresenter extends Presenter<ISearchView> {
 	}
 
 	private boolean saveSearch(final Search search) {
-		if (this.getSessionManager().getModel().getSearchManager().getSearching().contains(search)) {
+		if (this.getSessionManager().getModel().getSearchManager()
+				.getSearching().contains(search)) {
 			return false;
 		} else {
-			this.getSessionManager().getModel().getSearchManager().addSearch(search);
+			this.getSessionManager().getModel().getSearchManager()
+					.addSearch(search);
 			return true;
 		}
 	}

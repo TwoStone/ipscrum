@@ -6,8 +6,8 @@ import fhdw.ipscrum.shared.model.search.ISearchExpression;
 /**
  */
 public class PBITypSearchCriterionArgs extends EventArgs {
-	private ISearchExpression se;
-	private int value;
+	private final ISearchExpression se;
+	private final int value;
 
 	public PBITypSearchCriterionArgs(ISearchExpression se, int value) {
 		super();
@@ -16,10 +16,10 @@ public class PBITypSearchCriterionArgs extends EventArgs {
 	}
 
 	public ISearchExpression getSe() {
-		return se;
+		return this.se;
 	}
 
 	public int getValue() {
-		return value;
+		return this.value;
 	}
 }

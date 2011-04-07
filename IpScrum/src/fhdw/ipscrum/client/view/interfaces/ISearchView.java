@@ -5,6 +5,7 @@ import java.util.List;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.IEvent;
 import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.events.args.DeleteEventArgs;
 import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
 import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
@@ -133,6 +134,8 @@ public interface ISearchView extends IView {
 	 * @return
 	 */
 	IEvent<ReleaseSearchCriterionArgs> getAddVersionSearchCriterion();
+
+	IEvent<DeleteEventArgs> getDeleteEventArgs();
 
 	/**
 	 * Sets the Search to display.
