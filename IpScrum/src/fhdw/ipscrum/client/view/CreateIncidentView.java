@@ -25,10 +25,16 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateIncidentView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
+/**
+ * This class is used to create the {@link CreateIncidentView}.
+ * 
+ * @author Phase IV - Group Reporting II
+ */
 public class CreateIncidentView extends Composite implements
 		ICreateIncidentView {
 
@@ -58,13 +64,13 @@ public class CreateIncidentView extends Composite implements
 		horizontalPanel.add(verticalPanel);
 		verticalPanel.setSize("180px", "223px");
 
-		Label lblNeuesEreignisAnlegen = new Label("Neues Ereignis anlegen");
+		Label lblNeuesEreignisAnlegen = new Label(TextConstants.CREATE_NEW_INCIDENT);
 		lblNeuesEreignisAnlegen.setStyleName("bold");
 		verticalPanel.add(lblNeuesEreignisAnlegen);
 		lblNeuesEreignisAnlegen.setSize("185px", "28px");
 
-		createBtn = new Button("Anlegen");
-		createBtn.setText("Ereignis Anlegen");
+		createBtn = new Button(TextConstants.CREATE);
+		createBtn.setText(TextConstants.CREATE_INCIDENT);
 		createBtn.setStyleName("taskboardButton");
 		createBtn.addClickHandler(new ClickHandler() {
 
@@ -74,7 +80,7 @@ public class CreateIncidentView extends Composite implements
 			}
 		});
 
-		Label label_5 = new Label("Start-Datum:");
+		Label label_5 = new Label(TextConstants.INCIDENT_START_DATE);
 		verticalPanel.add(label_5);
 		label_5.setStyleName("TreeItem-leaf");
 
@@ -82,7 +88,7 @@ public class CreateIncidentView extends Composite implements
 		verticalPanel.add(startDateBox);
 		startDateBox.setWidth("155");
 
-		Label label_6 = new Label("Ende-Datum:");
+		Label label_6 = new Label(TextConstants.INCIDENT_END_DATE);
 		verticalPanel.add(label_6);
 		label_6.setStyleName("TreeItem-leaf");
 
@@ -92,14 +98,13 @@ public class CreateIncidentView extends Composite implements
 		verticalPanel.add(createBtn);
 		createBtn.setWidth("137px");
 
-		Button cancelBtn = new Button("New button");
+		Button cancelBtn = new Button(TextConstants.ABORT);
 		cancelBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				CreateIncidentView.this.cancelEvent.fire(
 						CreateIncidentView.this, new EventArgs());
 			}
 		});
-		cancelBtn.setText("Abbrechen");
 		cancelBtn.setStyleName("taskboardButton");
 		verticalPanel.add(cancelBtn);
 		cancelBtn.setWidth("137px");
@@ -108,7 +113,7 @@ public class CreateIncidentView extends Composite implements
 		horizontalPanel.add(verticalPanel_1);
 		verticalPanel_1.setHeight("223px");
 
-		Label label_1 = new Label("Typ:");
+		Label label_1 = new Label(TextConstants.TYPE);
 		verticalPanel_1.add(label_1);
 		label_1.setStyleName("TreeItem-leaf");
 		label_1.setSize("95%", "22px");
@@ -131,7 +136,7 @@ public class CreateIncidentView extends Composite implements
 		typeCellList
 				.setSelectionModel(new SingleSelectionModel<IncidentType>());
 
-		Label label_2 = new Label("Beschreibung:");
+		Label label_2 = new Label(TextConstants.SPRINTDIALOG_DESCRIPTION);
 		verticalPanel_1.add(label_2);
 		label_2.setStyleName("TreeItem-leaf");
 		label_2.setSize("95%", "22px");
@@ -146,7 +151,7 @@ public class CreateIncidentView extends Composite implements
 		horizontalPanel.add(verticalPanel_2);
 		verticalPanel_2.setSize("205px", "223px");
 
-		Label label_4 = new Label("Personen:");
+		Label label_4 = new Label(TextConstants.INCIDENT_PERSONS);
 		label_4.setStyleName("TreeItem-leaf");
 		verticalPanel_2.add(label_4);
 		label_4.setSize("95%", "22px");
@@ -160,7 +165,7 @@ public class CreateIncidentView extends Composite implements
 			@Override
 			public void render(Context context, IPerson value,
 					SafeHtmlBuilder sb) {
-				sb.appendEscaped(value.getFirstname() + " "
+				sb.appendEscaped(value.getFirstname() + TextConstants.SPACE
 						+ value.getLastname());
 			}
 		});
@@ -168,7 +173,7 @@ public class CreateIncidentView extends Composite implements
 		personCellList.setSize("161px", "60px");
 		personCellList.setSelectionModel(new MultiSelectionModel<IPerson>());
 
-		Label label_3 = new Label("Projekte:");
+		Label label_3 = new Label(TextConstants.PROJECTS);
 		verticalPanel_2.add(label_3);
 		label_3.setStyleName("TreeItem-leaf");
 
