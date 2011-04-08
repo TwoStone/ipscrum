@@ -13,8 +13,15 @@ import fhdw.ipscrum.client.events.Event;
 import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.view.interfaces.ICreateIncidentTypeView;
+import fhdw.ipscrum.shared.constants.TextConstants;
+
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
+/**
+ * This class is used to create the {@link CreateIncidentTypeView}.
+ * 
+ * @author Phase IV - Group Reporting II
+ */
 public class CreateIncidentTypeView extends Composite implements
 		ICreateIncidentTypeView {
 	private TextBox nameTextBox;
@@ -35,12 +42,12 @@ public class CreateIncidentTypeView extends Composite implements
 		initWidget(verticalPanel);
 		verticalPanel.setSize("238px", "134px");
 
-		Label lblNeuenEreignistypAnlegen = new Label("Neuen Ereignis-Typ anlegen");
+		Label lblNeuenEreignistypAnlegen = new Label(TextConstants.CREATE_NEW_INCIDENTTYPE);
 		lblNeuenEreignistypAnlegen.setStyleName("bold");
 		verticalPanel.add(lblNeuenEreignistypAnlegen);
 		lblNeuenEreignistypAnlegen.setSize("201px", "24px");
 
-		Label label_1 = new Label("Name:");
+		Label label_1 = new Label(TextConstants.NAME);
 		label_1.setWordWrap(false);
 		label_1.setStyleName("TreeItem-leaf");
 		verticalPanel.add(label_1);
@@ -54,13 +61,13 @@ public class CreateIncidentTypeView extends Composite implements
 		verticalPanel.add(horizontalPanel);
 		horizontalPanel.setWidth("231px");
 
-		createBtn = new Button("Anlegen");
+		createBtn = new Button(TextConstants.CREATE);
 		horizontalPanel.add(createBtn);
-		createBtn.setText("Typ Anlegen");
+		createBtn.setText(TextConstants.CREATE_TYPE);
 		createBtn.setStyleName("taskboardButton");
 		createBtn.setWidth("102px");
 
-		Button btnAbbrechen = new Button("Abbrechen");
+		Button btnAbbrechen = new Button(TextConstants.ABORT);
 		btnAbbrechen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				CreateIncidentTypeView.this.cancelEvent.fire(
