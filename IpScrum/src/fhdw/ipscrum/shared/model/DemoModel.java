@@ -558,7 +558,546 @@ public class DemoModel {
 
 		model.getSearchManager().addSearch(nameFeatureSuche);
 		model.getSearchManager().addSearch(p4Suche);
+		
+		//******************************************************************
+		//******************************************************************
+		//******************************************************************
+		//******************************************************************
+		
+		// data for Velocity
+		
+		//******************************************************************
+		//******************************************************************
+		//******************************************************************
+		//******************************************************************
+		
+		// Initial Projects
+		final Project velocity1 = new Project("Velocity 1");
+		final Project velocity2 = new Project("Velocity 2");
+		
+		velocity1.addSystem(win7);
+		velocity1.addSystem(winxp);
+		velocity2.addSystem(anwendungen);
+		velocity2.addSystem(betriebssysteme);
+		velocity1.addSystem(browser);
+		velocity2.addSystem(applicationServer);
+		
+		// Initial Releases
+		final Release relV1R1 = new Release("0.9", new Date(2011 - 1900, 1 - 1, 31), velocity1);
+		final Release relV1R2 = new Release("1.0", new Date(2011 - 1900, 3 - 1, 28), velocity1);
+		final Release relV2R1 = new Release("0.5", new Date(2011 - 1900, 3 - 1, 21), velocity2);
 
+		// Initial Sprints for v1r1
+		final Sprint sprint1relV1R1 = new Sprint("Velocity1 Sprint1", "Beschreibung Sprint 1", 
+				new Date(2010 - 1900, 12 - 1, 20), new Date(2010 - 1900, 12 - 1, 30),
+				teamBackend);
+		final Sprint sprint2relV1R1 = new Sprint("Velocity1 Sprint2", "Beschreibung Sprint 2", 
+				new Date(2011 - 1900, 1 - 1, 3), new Date(2011 - 1900, 1 - 1, 18),
+				teamFrontend);
+		final Sprint sprint3relV1R1 = new Sprint("Velocity1 Sprint3", "Beschreibung Sprint 3", 
+				new Date(2011 - 1900, 1 - 1, 19), new Date(2011 - 1900, 1 - 1, 28),
+				teamTesting);
+		
+		// Initial Sprints for v1r2
+		final Sprint sprint1relV1R2 = new Sprint("Velocity1 Sprint4", "Beschreibung Sprint 4", 
+				new Date(2011 - 1900, 1 - 1, 31), new Date(2011 - 1900, 2 - 1, 8),
+				teamBackend);
+		final Sprint sprint2relV1R2 = new Sprint("Velocity1 Sprint5", "Beschreibung Sprint 5", 
+				new Date(2011 - 1900, 2 - 1, 9), new Date(2011 - 1900, 2 - 1, 16),
+				teamFrontend);
+		final Sprint sprint3relV1R2 = new Sprint("Velocity1 Sprint6", "Beschreibung Sprint 6", 
+				new Date(2011 - 1900, 2 - 1, 17), new Date(2011 - 1900, 2 - 1, 25),
+				teamReporting);
+		final Sprint sprint4relV1R2 = new Sprint("Velocity1 Sprint7", "Beschreibung Sprint 7", 
+				new Date(2011 - 1900, 2 - 1, 28), new Date(2011 - 1900, 3 - 1, 7),
+				teamTesting);
+		
+		// Initial Sprints for v2r1
+		final Sprint sprint1relV2R1 = new Sprint("Velocity2 Sprint1", "Beschreibung Sprint 1", 
+				new Date(2011 - 1900, 2 - 1, 9), new Date(2011 - 1900, 2 - 1, 23),
+				teamBackend);
+		final Sprint sprint2relV2R1 = new Sprint("Velocity2 Sprint2", "Beschreibung Sprint 2", 
+				new Date(2011 - 1900, 2 - 1, 24), new Date(2011 - 1900, 3 - 1, 7),
+				teamFrontend);
+		final Sprint sprint3relV2R1 = new Sprint("Velocity2 Sprint3", "Beschreibung Sprint 3", 
+				new Date(2011 - 1900, 3 - 1, 8), new Date(2011 - 1900, 3 - 1, 18),
+				teamTesting);
+		
+		// assigning sprints to projects
+		velocity1.addSprint(sprint1relV1R1);
+		velocity1.addSprint(sprint2relV1R1);
+		velocity1.addSprint(sprint3relV1R1);
+		
+		velocity1.addSprint(sprint1relV1R2);
+		velocity1.addSprint(sprint2relV1R2);
+		velocity1.addSprint(sprint3relV1R2);
+		velocity1.addSprint(sprint4relV1R2);
+
+		velocity2.addSprint(sprint1relV2R1);
+		velocity2.addSprint(sprint2relV2R1);
+		velocity2.addSprint(sprint3relV2R1);
+			
+		// assigning sprints to releases
+		relV1R1.addSprint(sprint1relV1R1);
+		relV1R1.addSprint(sprint2relV1R1);
+		relV1R1.addSprint(sprint3relV1R1);
+		
+		relV1R2.addSprint(sprint1relV1R2);
+		relV1R2.addSprint(sprint2relV1R2);
+		relV1R2.addSprint(sprint3relV1R2);
+		relV1R2.addSprint(sprint4relV1R2);
+
+		relV2R1.addSprint(sprint1relV2R1);
+		relV2R1.addSprint(sprint2relV2R1);
+		relV2R1.addSprint(sprint3relV2R1);
+		
+		root.addProject(velocity1);
+		root.addProject(velocity2);
+		
+		// Initial Features
+		final Feature v1r1f1 = new Feature("Feature 1", "Beschreibung Feature 1",
+				velocity1.getBacklog());
+		v1r1f1.setLastEditor(pNils);
+		v1r1f1.setManDayCosts(new Effort(9));
+		v1r1f1.setSprint(sprint1relV1R1);
+		v1r1f1.close();
+
+		final Feature v1r1f2 = new Feature("Feature 2", "Beschreibung Feature 2",
+				velocity1.getBacklog());
+		v1r1f2.setLastEditor(pChristin);
+		v1r1f2.setManDayCosts(new Effort(4));
+		v1r1f2.setSprint(sprint1relV1R1);
+		v1r1f2.close();
+
+		final Feature v1r1f3 = new Feature("Feature 3", "Beschreibung Feature 3",
+				velocity1.getBacklog());
+		v1r1f3.setLastEditor(pChristin);
+		v1r1f3.setManDayCosts(new Effort(5));
+		v1r1f3.setSprint(sprint1relV1R1);
+		v1r1f3.close();
+		
+		final Feature v1r1f4 = new Feature("Feature 4", "Beschreibung Feature 4",
+				velocity1.getBacklog());
+		v1r1f4.setLastEditor(pWilken);
+		v1r1f4.setManDayCosts(new Effort(8));
+		v1r1f4.setSprint(sprint2relV1R1);
+		v1r1f4.close();
+
+		final Feature v1r1f5 = new Feature("Feature 5", "Beschreibung Feature 5",
+				velocity1.getBacklog());
+		v1r1f5.setLastEditor(pSarah);
+		v1r1f5.setManDayCosts(new Effort(7));
+		v1r1f5.setSprint(sprint2relV1R1);
+		v1r1f5.close();
+
+		final Feature v1r1f6 = new Feature("Feature 6", "Beschreibung Feature 6",
+				velocity1.getBacklog());
+		v1r1f6.setLastEditor(pSarah);
+		v1r1f6.setManDayCosts(new Effort(5));
+		v1r1f6.setSprint(sprint2relV1R1);
+		v1r1f6.close();
+		
+		final Feature v1r1f7 = new Feature("Feature 7", "Beschreibung Feature 7",
+				velocity1.getBacklog());
+		v1r1f7.setLastEditor(pWilken);
+		v1r1f7.setManDayCosts(new Effort(4));
+		v1r1f7.setSprint(sprint2relV1R1);
+		v1r1f7.close();
+
+		final Feature v1r1f8 = new Feature("Feature 8", "Beschreibung Feature 8",
+				velocity1.getBacklog());
+		v1r1f8.setLastEditor(pNils);
+		v1r1f8.setManDayCosts(new Effort(8));
+		v1r1f8.setSprint(sprint3relV1R1);
+		v1r1f8.close();
+
+		final Feature v1r1f9 = new Feature("Feature 9", "Beschreibung Feature 9",
+				velocity1.getBacklog());
+		v1r1f9.setLastEditor(pChris);
+		v1r1f9.setManDayCosts(new Effort(8));
+		v1r1f9.setSprint(sprint3relV1R1);
+		v1r1f9.close();
+		
+		// adding features to projects
+		velocity1.getBacklog().addItem(v1r1f1);
+		velocity1.getBacklog().addItem(v1r1f2);
+		velocity1.getBacklog().addItem(v1r1f3);
+		velocity1.getBacklog().addItem(v1r1f4);
+		velocity1.getBacklog().addItem(v1r1f5);
+		velocity1.getBacklog().addItem(v1r1f6);
+		velocity1.getBacklog().addItem(v1r1f7);
+		velocity1.getBacklog().addItem(v1r1f8);
+		velocity1.getBacklog().addItem(v1r1f9);
+		
+		final Feature v1r2f1 = new Feature("Feature 10", "Beschreibung Feature 10",
+				velocity1.getBacklog());
+		v1r2f1.setLastEditor(pNils);
+		v1r2f1.setManDayCosts(new Effort(7));
+		v1r2f1.setSprint(sprint1relV1R2);
+		v1r2f1.close();
+
+		final Feature v1r2f2 = new Feature("Feature 11", "Beschreibung Feature 11",
+				velocity1.getBacklog());
+		v1r2f2.setLastEditor(pChristin);
+		v1r2f2.setManDayCosts(new Effort(7));
+		v1r2f2.setSprint(sprint1relV1R2);
+		v1r2f2.close();
+
+		final Feature v1r2f3 = new Feature("Feature 12", "Beschreibung Feature 12",
+				velocity1.getBacklog());
+		v1r2f3.setLastEditor(pWilken);
+		v1r2f3.setManDayCosts(new Effort(6));
+		v1r2f3.setSprint(sprint2relV1R2);
+		v1r2f3.close();
+		
+		final Feature v1r2f4 = new Feature("Feature 13", "Beschreibung Feature 13",
+				velocity1.getBacklog());
+		v1r2f4.setLastEditor(pTimo);
+		v1r2f4.setManDayCosts(new Effort(7));
+		v1r2f4.setSprint(sprint3relV1R2);
+		v1r2f4.close();
+
+		final Feature v1r2f5 = new Feature("Feature 14", "Beschreibung Feature 14",
+				velocity1.getBacklog());
+		v1r2f5.setLastEditor(pAngelina);
+		v1r2f5.setManDayCosts(new Effort(7));
+		v1r2f5.setSprint(sprint3relV1R2);
+		v1r2f5.close();
+
+		final Feature v1r2f6 = new Feature("Feature 15", "Beschreibung Feature 15",
+				velocity1.getBacklog());
+		v1r2f6.setLastEditor(pStefan);
+		v1r2f6.setManDayCosts(new Effort(7));
+		v1r2f6.setSprint(sprint3relV1R2);
+		v1r2f6.close();
+		
+		final Feature v1r2f7 = new Feature("Feature 16", "Beschreibung Feature 16",
+				velocity1.getBacklog());
+		v1r2f7.setLastEditor(pChris);
+		v1r2f7.setManDayCosts(new Effort(6));
+		v1r2f7.setSprint(sprint4relV1R2);
+		v1r2f7.close();
+
+		final Feature v1r2f8 = new Feature("Feature 17", "Beschreibung Feature 17",
+				velocity1.getBacklog());
+		v1r2f8.setLastEditor(pNils);
+		v1r2f8.setManDayCosts(new Effort(6));
+		v1r2f8.setSprint(sprint4relV1R2);
+		v1r2f8.close();
+		
+		// adding features to projects
+		velocity1.getBacklog().addItem(v1r2f1);
+		velocity1.getBacklog().addItem(v1r2f2);
+		velocity1.getBacklog().addItem(v1r2f3);
+		velocity1.getBacklog().addItem(v1r2f4);
+		velocity1.getBacklog().addItem(v1r2f5);
+		velocity1.getBacklog().addItem(v1r2f6);
+		velocity1.getBacklog().addItem(v1r2f7);
+		velocity1.getBacklog().addItem(v1r2f8);
+		
+		// Initial Features
+		final Feature v2r1f1 = new Feature("Feature 1", "Beschreibung Feature 1",
+				velocity2.getBacklog());
+		v2r1f1.setLastEditor(pNils);
+		v2r1f1.setManDayCosts(new Effort(5));
+		v2r1f1.setSprint(sprint1relV2R1);
+		v2r1f1.close();
+
+		final Feature v2r1f2 = new Feature("Feature 2", "Beschreibung Feature 2",
+				velocity2.getBacklog());
+		v2r1f2.setLastEditor(pChristin);
+		v2r1f2.setManDayCosts(new Effort(7));
+		v2r1f2.setSprint(sprint1relV2R1);
+		v2r1f2.close();
+
+		final Feature v2r1f3 = new Feature("Feature 3", "Beschreibung Feature 3",
+				velocity2.getBacklog());
+		v2r1f3.setLastEditor(pNils);
+		v2r1f3.setManDayCosts(new Effort(6));
+		v2r1f3.setSprint(sprint1relV2R1);
+		v2r1f3.close();
+		
+		final Feature v2r1f4 = new Feature("Feature 4", "Beschreibung Feature 4",
+				velocity2.getBacklog());
+		v2r1f4.setLastEditor(pChristin);
+		v2r1f4.setManDayCosts(new Effort(4));
+		v2r1f4.setSprint(sprint1relV2R1);
+		v2r1f4.close();
+
+		final Feature v2r1f5 = new Feature("Feature 5", "Beschreibung Feature 5",
+				velocity2.getBacklog());
+		v2r1f5.setLastEditor(pSarah);
+		v2r1f5.setManDayCosts(new Effort(8));
+		v2r1f5.setSprint(sprint2relV2R1);
+		v2r1f5.close();
+
+		final Feature v2r1f6 = new Feature("Feature 6", "Beschreibung Feature 6",
+				velocity2.getBacklog());
+		v2r1f6.setLastEditor(pWilken);
+		v2r1f6.setManDayCosts(new Effort(8));
+		v2r1f6.setSprint(sprint2relV2R1);
+		v2r1f6.close();
+		
+		final Feature v2r1f7 = new Feature("Feature 7", "Beschreibung Feature 7",
+				velocity2.getBacklog());
+		v2r1f7.setLastEditor(pNils);
+		v2r1f7.setManDayCosts(new Effort(5));
+		v2r1f7.setSprint(sprint3relV2R1);
+		v2r1f7.close();
+
+		final Feature v2r1f8 = new Feature("Feature 8", "Beschreibung Feature 8",
+				velocity2.getBacklog());
+		v2r1f8.setLastEditor(pNils);
+		v2r1f8.setManDayCosts(new Effort(4));
+		v2r1f8.setSprint(sprint3relV2R1);
+		v2r1f8.close();
+
+		final Feature v2r1f9 = new Feature("Feature 9", "Beschreibung Feature 9",
+				velocity2.getBacklog());
+		v2r1f9.setLastEditor(pChris);
+		v2r1f9.setManDayCosts(new Effort(8));
+		v2r1f9.setSprint(sprint3relV2R1);
+		v2r1f9.close();
+		
+		// adding features to projects
+		velocity2.getBacklog().addItem(v2r1f1);
+		velocity2.getBacklog().addItem(v2r1f2);
+		velocity2.getBacklog().addItem(v2r1f3);
+		velocity2.getBacklog().addItem(v2r1f4);
+		velocity2.getBacklog().addItem(v2r1f5);
+		velocity2.getBacklog().addItem(v2r1f6);
+		velocity2.getBacklog().addItem(v2r1f7);
+		velocity2.getBacklog().addItem(v2r1f8);
+		velocity2.getBacklog().addItem(v2r1f9);
+		
+		
+		// Initial Tasks v1r1s1
+		final Task task1 = new Task("Task 1","Beschreibung Task 1");
+			sprint1relV1R1.getSprintBacklog().addTask(task1);
+			task1.addPBI(v1r1f1);
+			task1.setPlanEffort(new Effort(3));
+			task1.setResponsibility(pNils);
+			task1.finish(new Date(2010 - 1900, 12 - 1, 22));
+			
+		final Task task2 = new Task("Task 2","Beschreibung Task 2");
+			sprint1relV1R1.getSprintBacklog().addTask(task2);
+			task2.addPBI(v1r1f2);
+			task2.setPlanEffort(new Effort(4));
+			task2.setResponsibility(pChristin);
+			task2.finish(new Date(2010 - 1900, 12 - 1, 23));
+			
+		final Task task3 = new Task("Task 3","Beschreibung Task 3");
+			sprint1relV1R1.getSprintBacklog().addTask(task3);
+			task3.addPBI(v1r1f1);
+			task3.setPlanEffort(new Effort(6));
+			task3.setResponsibility(pNils);
+			task3.finish(new Date(2010 - 1900, 12 - 1, 30));
+
+			
+		final Task task4 = new Task("Task 4","Beschreibung Task 4");
+			sprint1relV1R1.getSprintBacklog().addTask(task4);
+			task4.addPBI(v1r1f3);
+			task4.setPlanEffort(new Effort(5));
+			task4.setResponsibility(pChristin);
+			task4.finish(new Date(2011 - 1900, 12 - 1, 30));
+			
+		// Initial Tasks v1r1s2
+		final Task task5 = new Task("Task 5","Beschreibung Task 5");
+			sprint2relV1R1.getSprintBacklog().addTask(task5);
+			task5.addPBI(v1r1f4);
+			task5.setPlanEffort(new Effort(3));
+			task5.setResponsibility(pWilken);
+			task5.finish(new Date(2011 - 1900, 1 - 1, 5));
+			
+		final Task task6 = new Task("Task 6","Beschreibung Task 6");
+			sprint2relV1R1.getSprintBacklog().addTask(task6);
+			task6.addPBI(v1r1f5);
+			task6.setPlanEffort(new Effort(7));
+			task6.setResponsibility(pSarah);
+			task6.finish(new Date(2011 - 1900, 1 - 1, 11));
+			
+		final Task task7 = new Task("Task 7","Beschreibung Task 7");
+			sprint2relV1R1.getSprintBacklog().addTask(task7);
+			task7.addPBI(v1r1f4);
+			task7.setPlanEffort(new Effort(5));
+			task7.setResponsibility(pWilken);
+			task7.finish(new Date(2011 - 1900, 1 - 1, 12));
+			
+		final Task task8 = new Task("Task 8","Beschreibung Task 8");
+			sprint2relV1R1.getSprintBacklog().addTask(task8);
+			task8.addPBI(v1r1f7);
+			task8.setPlanEffort(new Effort(4));
+			task8.setResponsibility(pWilken);
+			task8.finish(new Date(2011 - 1900, 1 - 1, 18));
+		
+		final Task task9 = new Task("Task 9","Beschreibung Task 9");
+			sprint2relV1R1.getSprintBacklog().addTask(task9);
+			task9.addPBI(v1r1f6);
+			task9.setPlanEffort(new Effort(5));
+			task9.setResponsibility(pSarah);
+			task9.finish(new Date(2011 - 1900, 1 - 1, 18));
+		
+		// Initial Tasks v1r1s3
+		final Task task10 = new Task("Task 10","Beschreibung Task 10");
+			sprint3relV1R1.getSprintBacklog().addTask(task10);
+			task10.addPBI(v1r1f8);
+			task10.setPlanEffort(new Effort(8));
+			task10.setResponsibility(pNils);
+			task10.finish(new Date(2011 - 1900, 1 - 1, 28));
+			
+		final Task task11 = new Task("Task 11","Beschreibung Task 11");
+			sprint3relV1R1.getSprintBacklog().addTask(task11);
+			task11.addPBI(v1r1f9);
+			task11.setPlanEffort(new Effort(8));
+			task11.setResponsibility(pChris);
+			task11.finish(new Date(2011 - 1900, 1 - 1, 27));
+			
+			
+			
+			
+		// Initial Tasks v1r2s1
+		final Task r2task1 = new Task("Task 1","Beschreibung Task 1");
+			sprint1relV1R2.getSprintBacklog().addTask(r2task1);
+			r2task1.addPBI(v1r2f1);
+			r2task1.setPlanEffort(new Effort(7));
+			r2task1.setResponsibility(pNils);
+			r2task1.finish(new Date(2011 - 1900, 2 - 1, 7));
+			
+		final Task r2task2 = new Task("Task 2","Beschreibung Task 2");
+			sprint1relV1R2.getSprintBacklog().addTask(r2task2);
+			r2task2.addPBI(v1r2f2);
+			r2task2.setPlanEffort(new Effort(4));
+			r2task2.setResponsibility(pChristin);
+			r2task2.finish(new Date(2011 - 1900, 2 - 1, 3));
+			
+		final Task r2task3 = new Task("Task 3","Beschreibung Task 3");
+			sprint1relV1R2.getSprintBacklog().addTask(r2task3);
+			r2task3.addPBI(v1r2f2);
+			r2task3.setPlanEffort(new Effort(2));
+			r2task3.setResponsibility(pChristin);
+			r2task3.finish(new Date(2011 - 1900, 2 - 1, 8));
+
+		// Initial Tasks v1r2s2	
+		final Task r2task4 = new Task("Task 4","Beschreibung Task 4");
+			sprint2relV1R2.getSprintBacklog().addTask(r2task4);
+			r2task4.addPBI(v1r2f3);
+			r2task4.setPlanEffort(new Effort(6));
+			r2task4.setResponsibility(pWilken);
+			r2task4.finish(new Date(2011 - 1900, 2 - 1, 16));
+			
+	    // Initial Tasks v1r2s3
+		final Task r2task5 = new Task("Task 5","Beschreibung Task 5");
+			sprint3relV1R2.getSprintBacklog().addTask(r2task5);
+			r2task5.addPBI(v1r2f4);
+			r2task5.setPlanEffort(new Effort(3));
+			r2task5.setResponsibility(pTimo);
+			r2task5.finish(new Date(2011 - 1900, 2 - 1, 21));
+			
+		final Task r2task6 = new Task("Task 6","Beschreibung Task 6");
+			sprint3relV1R2.getSprintBacklog().addTask(r2task6);
+			r2task6.addPBI(v1r2f5);
+			r2task6.setPlanEffort(new Effort(7));
+			r2task6.setResponsibility(pAngelina);
+			r2task6.finish(new Date(2011 - 1900, 2 - 1, 25));
+			
+		final Task r2task7 = new Task("Task 7","Beschreibung Task 7");
+			sprint3relV1R2.getSprintBacklog().addTask(r2task7);
+			r2task7.addPBI(v1r2f6);
+			r2task7.setPlanEffort(new Effort(7));
+			r2task7.setResponsibility(pStefan);
+			r2task7.finish(new Date(2011 - 1900, 2 - 1, 23));
+			
+		final Task r2task8 = new Task("Task 8","Beschreibung Task 8");
+			sprint3relV1R2.getSprintBacklog().addTask(r2task8);
+			r2task8.addPBI(v1r2f4);
+			r2task8.setPlanEffort(new Effort(4));
+			r2task8.setResponsibility(pTimo);
+			r2task8.finish(new Date(2011 - 1900, 2 - 1, 25));
+		
+		// Initial Tasks v1r2s4			
+		final Task r2task9 = new Task("Task 9","Beschreibung Task 9");
+			sprint4relV1R2.getSprintBacklog().addTask(r2task9);
+			r2task9.addPBI(v1r2f7);
+			r2task9.setPlanEffort(new Effort(5));
+			r2task9.setResponsibility(pChris);
+			r2task9.finish(new Date(2011 - 1900, 3 - 1, 7));
+		
+		final Task r2task10 = new Task("Task 10","Beschreibung Task 10");
+			sprint4relV1R2.getSprintBacklog().addTask(r2task10);
+			r2task10.addPBI(v1r2f8);
+			r2task10.setPlanEffort(new Effort(6));
+			r2task10.setResponsibility(pNils);
+			r2task10.finish(new Date(2011 - 1900, 3 - 1, 6));	
+		
+			
+			
+		// Initial Tasks v2r1s1
+		final Task v2task1 = new Task("Task 1","Beschreibung Task 1");
+			sprint1relV2R1.getSprintBacklog().addTask(v2task1);
+			v2task1.addPBI(v2r1f1);
+			v2task1.setPlanEffort(new Effort(5));
+			v2task1.setResponsibility(pNils);
+			v2task1.finish(new Date(2011 - 1900, 2 - 1, 15));
+			
+		final Task v2task2 = new Task("Task 2","Beschreibung Task 2");
+			sprint1relV2R1.getSprintBacklog().addTask(v2task2);
+			v2task2.addPBI(v2r1f2);
+			v2task2.setPlanEffort(new Effort(7));
+			v2task2.setResponsibility(pChristin);
+			v2task2.finish(new Date(2011 - 1900, 2 - 1, 17));
+			
+		final Task v2task3 = new Task("Task 3","Beschreibung Task 3");
+			sprint1relV2R1.getSprintBacklog().addTask(v2task3);
+			v2task3.addPBI(v2r1f4);
+			v2task3.setPlanEffort(new Effort(4));
+			v2task3.setResponsibility(pChristin);
+			v2task3.finish(new Date(2011 - 1900, 2 - 1, 23));
+	
+		final Task v2task4 = new Task("Task 4","Beschreibung Task 4");
+			sprint1relV2R1.getSprintBacklog().addTask(v2task4);
+			v2task4.addPBI(v2r1f3);
+			v2task4.setPlanEffort(new Effort(6));
+			v2task4.setResponsibility(pNils);
+			v2task4.finish(new Date(2011 - 1900, 2 - 1, 23));
+			
+	    // Initial Tasks v2r1s2
+		final Task v2task5 = new Task("Task 5","Beschreibung Task 5");
+			sprint2relV2R1.getSprintBacklog().addTask(v2task5);
+			v2task5.addPBI(v2r1f5);
+			v2task5.setPlanEffort(new Effort(8));
+			v2task5.setResponsibility(pSarah);
+			v2task5.finish(new Date(2011 - 1900, 3 - 1, 6));
+			
+		final Task v2task6 = new Task("Task 6","Beschreibung Task 6");
+			sprint2relV2R1.getSprintBacklog().addTask(v2task6);
+			v2task6.addPBI(v2r1f6);
+			v2task6.setPlanEffort(new Effort(8));
+			v2task6.setResponsibility(pWilken);
+			v2task6.finish(new Date(2011 - 1900, 3 - 1, 7));
+		
+		// Initial Tasks v2r1s3
+		final Task v2task7 = new Task("Task 7","Beschreibung Task 7");
+			sprint3relV2R1.getSprintBacklog().addTask(v2task7);
+			v2task7.addPBI(v2r1f7);
+			v2task7.setPlanEffort(new Effort(5));
+			v2task7.setResponsibility(pNils);
+			v2task7.finish(new Date(2011 - 1900, 3 - 1, 14));
+			
+		final Task v2task8 = new Task("Task 8","Beschreibung Task 8");
+			sprint3relV2R1.getSprintBacklog().addTask(v2task8);
+			v2task8.addPBI(v2r1f9);
+			v2task8.setPlanEffort(new Effort(7));
+			v2task8.setResponsibility(pChris);
+			v2task8.finish(new Date(2011 - 1900, 3 - 1, 18));
+		
+		// Initial Tasks v1r2s4			
+		final Task v2task9 = new Task("Task 9","Beschreibung Task 9");
+			sprint3relV2R1.getSprintBacklog().addTask(v2task9);
+			v2task9.addPBI(v2r1f8);
+			v2task9.setPlanEffort(new Effort(4));
+			v2task9.setResponsibility(pNils);
+			v2task9.finish(new Date(2011 - 1900, 3 - 1, 18));
+	
 	}
 
 	public static void populateStandardIncidentTypes(final Root model) {
