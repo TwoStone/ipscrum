@@ -1,7 +1,5 @@
 package fhdw.ipscrum.shared.constants;
 
-import com.google.gwt.user.cellview.client.Header;
-
 public final class TextConstants {
 
 	/* [BEGIN SECTION] : VIEW CONSTANTS FOR TICKET GROUP */
@@ -191,7 +189,9 @@ public final class TextConstants {
 	public static final String TYPE = "Typ:";
 	public static final String PROJECTS = "Projekte:";
 	public static final String CREATE_NEW_INCIDENTTYPE = "Neuen Ereignis-Typ anlegen";
-
+	public static final String INCIDENT_WARNING_3 = "Bitte Eingaben vervollständigen";
+	public static final String INCIDENT_WARNING_4 = "Bitte einen Namen eintragen!";
+	public static final String CREATE_INCIDENT_ENG = "Incident erstellen";
 	/* [END SECTION] */
 
 	/* [BEGIN SECTION] : CONSTANTS FOR TASKBOARD GROUP */
