@@ -1,7 +1,5 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -23,14 +21,29 @@ import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.incidents.MultipleParticipantIncident;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
+/**
+ * Presenter for creating new {@link Incident}
+ * 
+ * @author Phase IV - Group Reporting II
+ * 
+ */
 public class CreateIncidentPresenter extends Presenter<ICreateIncidentView> {
 
+	/**
+	 * Creates a new instance of {@link CreateIncidentPresenter}
+	 * 
+	 * @param parent
+	 * @param parentPresenter
+	 */
 	public CreateIncidentPresenter(Panel parent, Presenter<?> parentPresenter) {
 		super(parent, parentPresenter);
 		this.addHandler();
 		this.initializeView();
 	}
 
+	/**
+	 * Initializes the View
+	 */
 	private void initializeView() {
 		getView()
 				.refreshPersons(
@@ -50,7 +63,11 @@ public class CreateIncidentPresenter extends Presenter<ICreateIncidentView> {
 		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME));
 		getView().refreshTypes(temp);
 	}
-
+	
+	/**
+	 * Adds the Handler for an event which creates a new {@link Incident}
+	 * and the Handler for an cancel event
+	 */
 	private void addHandler() {
 		this.getView().addCreateIncidentHandler(new EventHandler<EventArgs>() {
 
@@ -66,7 +83,7 @@ public class CreateIncidentPresenter extends Presenter<ICreateIncidentView> {
 
 				if (persons == null || type == null || startDate == null
 						|| endeDate == null) {
-					GwtUtils.displayError("Bitte Eingaben vervollständigen");
+					GwtUtils.displayError(TextConstants.INCIDENT_WARNING_3);
 				} else {
 					try {
 
