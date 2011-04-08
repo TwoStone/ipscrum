@@ -11,15 +11,28 @@ import fhdw.ipscrum.client.events.EventArgs;
 import fhdw.ipscrum.client.events.EventHandler;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.view.ProjectHistoryView;
+import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.Project;
 import fhdw.ipscrum.shared.model.incidents.Incident;
 import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.interfaces.IPerson;
 
+/**
+ * Presenter for creating a Project History
+ * 
+ * @author Phase IV - Group Reporting II
+ * 
+ */
 public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 
 	Project project;
 
+	/**
+	 * Creates a new instance of {@link ProjectHistoryPresenter}
+	 * 
+	 * @param parent
+	 * @param parentPresenter
+	 */
 	public ProjectHistoryPresenter(Panel parent, Presenter<?> parentPresenter,
 			Project project) {
 		super(parent, parentPresenter);
@@ -27,7 +40,10 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 		this.setupHandlers();
 		this.initialize();
 	}
-
+	
+	/**
+	 * Adds the Handlers
+	 */
 	private void setupHandlers() {
 
 		// Handler für das Hinzufügen eines neuen Typs
@@ -36,7 +52,7 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				final DialogBox diaBox = GwtUtils
-						.createDialog("Incident erstellen");
+						.createDialog(TextConstants.CREATE_INCIDENT_ENG);
 				CreateIncidentTypePresenter presenter = new CreateIncidentTypePresenter(
 						diaBox, ProjectHistoryPresenter.this);
 				diaBox.center();
@@ -66,7 +82,7 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 			@Override
 			public void onUpdate(Object sender, EventArgs eventArgs) {
 				final DialogBox diaBox = GwtUtils
-						.createDialog("Incident erstellen");
+						.createDialog(TextConstants.CREATE_INCIDENT_ENG);
 
 				CreateIncidentPresenter presenter = new CreateIncidentPresenter(
 						diaBox, ProjectHistoryPresenter.this);
@@ -106,7 +122,7 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 
 	/**
 	 * This method fills the view with standard informations like persons or
-	 * allready created incidents
+	 * already created incidents
 	 */
 	private void initialize() {
 
@@ -132,6 +148,9 @@ public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
 		this.getView().refreshTypes(incidentTypes);
 	}
 
+	/**
+	 * Use this method filter the created incidents
+	 */
 	private Vector<Incident> filterIncidents() {
 
 		Set<IncidentType> types = this.getView().getTypes();
