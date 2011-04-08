@@ -183,6 +183,14 @@ public final class TextConstants {
 	public static final String POINTS = "...";
 	public static final String INCIDENT_WARNING_1 = "Bitte ein Start- und Ende-Datum und eine Person auswählen!";
 	public static final String INCIDENT_WARNING_2 = "Bitte Start-, Ende-Datum, Namen und Beschreibung eingeben!";
+	public static final String CREATE_TYPE = "Typ anlegen";
+	public static final String CREATE_INCIDENT = "Ereignis anlegen";
+	public static final String FILTER = "Filter:";
+	public static final String SHOW = "Anzeigen";
+	public static final String CREATE_NEW_INCIDENT = "Neues Ereignis anlegen";
+	public static final String TYPE = "Typ:";
+	public static final String PROJECTS = "Projekte:";
+	public static final String CREATE_NEW_INCIDENTTYPE = "Neuen Ereignis-Typ anlegen";
 
 	/* [END SECTION] */
 
