@@ -28,7 +28,11 @@ public class Not extends SingleLogicSearchOperator {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
-		return !this.getArg().search(pbi);
+		if (this.getArg() == null) {
+			return true;
+		} else {
+			return !this.getArg().search(pbi);
+		}
 	}
 
 	@Override

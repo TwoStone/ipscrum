@@ -19,12 +19,14 @@ public class Or extends MultiLogicSearchOperator {
 
 	@Override
 	public boolean search(final ProductBacklogItem pbi) {
+		if (this.getArgs().size() == 0) {
+			return true;
+		}
 		for (final ISearchExpression current : this.getArgs()) {
 			if (current.search(pbi)) {
 				return true;
 			}
 		}
-
 		return false;
 	}
 

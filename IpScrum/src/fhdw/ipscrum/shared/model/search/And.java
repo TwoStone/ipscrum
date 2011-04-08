@@ -24,7 +24,6 @@ public class And extends MultiLogicSearchOperator {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
