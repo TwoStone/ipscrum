@@ -33,6 +33,11 @@ import fhdw.ipscrum.shared.model.incidents.IncidentType;
 import fhdw.ipscrum.shared.model.incidents.MultipleParticipantIncident;
 import fhdw.ipscrum.shared.model.incidents.OneParticipantIncident;
 
+/**
+ * This view class is used to represent the project history.
+ * 
+ * @author Phase IV - Group Reporting II 
+ */
 public class ProjectHistoryView extends Composite implements
 IProjectHistoryView {
 
@@ -145,7 +150,7 @@ IProjectHistoryView {
 		horizontalPanel.add(verticalPanel_1);
 		verticalPanel_1.setSize("154px", "96px");
 
-		createTypebutton = new Button("Anlegen");
+		createTypebutton = new Button(TextConstants.CREATE);
 		verticalPanel_1.add(createTypebutton);
 		createTypebutton.addClickHandler(new ClickHandler() {
 			@Override
@@ -155,14 +160,14 @@ IProjectHistoryView {
 
 			}
 		});
-		createTypebutton.setText("Typ Anlegen");
+		createTypebutton.setText(TextConstants.CREATE_TYPE);
 		createTypebutton.setStyleName("taskboardButton");
 		createTypebutton.setSize("138px", "35");
 
 		createIncidentbtn = new Button(TextConstants.CREATE);
 		verticalPanel_1.add(createIncidentbtn);
 		createIncidentbtn.setSize("138px", "35");
-		createIncidentbtn.setText("Ereignis Anlegen");
+		createIncidentbtn.setText(TextConstants.CREATE_INCIDENT);
 		createIncidentbtn.setStyleName("taskboardButton");
 		this.createIncidentbtn.addClickHandler(new ClickHandler() {
 			@Override
@@ -176,7 +181,7 @@ IProjectHistoryView {
 		horizontalPanel.add(verticalPanel);
 		verticalPanel.setHeight("157px");
 
-		Label lblFilter = new Label("Filter:");
+		Label lblFilter = new Label(TextConstants.FILTER);
 		verticalPanel.add(lblFilter);
 		lblFilter.setStyleName("LabelElement");
 
@@ -197,7 +202,7 @@ IProjectHistoryView {
 		typeCellList.setSelectionModel(new MultiSelectionModel<IncidentType>());
 		typeCellList.setSize("165px", "85px");
 
-		showBtn = new Button("Anzeigen");
+		showBtn = new Button(TextConstants.SHOW);
 		showBtn.setStyleName("taskboardButton");
 		verticalPanel.add(showBtn);
 		showBtn.setWidth("89px");
