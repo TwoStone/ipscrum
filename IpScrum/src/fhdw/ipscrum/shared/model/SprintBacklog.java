@@ -32,7 +32,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 	 */
 	private OneToMany<ManyToOne<?, ?>, SprintBacklog> taskAssoc;
 
-	public SprintBacklog(ISprint sprint) {
+	public SprintBacklog(final ISprint sprint) {
 		super();
 		this.sprintAssoc = new OneToOne<OneToOne<?, ?>, SprintBacklog>(this);
 		this.taskAssoc = new OneToMany<ManyToOne<?, ?>, SprintBacklog>(this);
@@ -52,7 +52,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		return this.indirectEquals(obj);
 	}
 
@@ -66,7 +66,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 	}
 
 	@Override
-	public boolean indirectEquals(Object obj) {
+	public boolean indirectEquals(final Object obj) {
 		// no base attributes
 		return obj == this;
 	}
@@ -144,7 +144,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 	 * @param pbi
 	 * @return true, if pbi is element of task.assignedPBIs
 	 */
-	public boolean hasPBI(ProductBacklogItem pbi) {
+	public boolean hasPBI(final ProductBacklogItem pbi) {
 		boolean result = false;
 		final Iterator<ITask> taskIterator = this.taskIterator();
 		while (taskIterator.hasNext()) {
@@ -163,7 +163,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 	 * @param pbi
 	 *            ProductBacklogItem to be deleted
 	 */
-	public void removePBIFromTasks(ProductBacklogItem pbi) {
+	public void removePBIFromTasks(final ProductBacklogItem pbi) {
 		final Iterator<ITask> taskIterator = this.taskIterator();
 		while (taskIterator.hasNext()) {
 			final ITask current = taskIterator.next();
@@ -180,11 +180,13 @@ public class SprintBacklog extends Observable implements BDACompare,
 	 *            the day to calculate the data-point for
 	 * @return the amount of effort that is left for this day.
 	 */
-	public int getEffortByDay(Date date) {
+	public int getEffortByDay(final Date date) {
 		int result = this.calculateOverallTaskEffort();
 		final Iterator<ITask> i = this.taskIterator();
 		while (i.hasNext()) {
 			final ITask current = i.next();
+			final boolean isFinished = current.isFinished();
+			final Date finishedDate = current.getFinishDate();
 			if (current.isFinished()
 					&& (current.getFinishDate().before(date) || current
 							.getFinishDate().equals(date))) {
@@ -211,14 +213,14 @@ public class SprintBacklog extends Observable implements BDACompare,
 	}
 
 	@Override
-	public void update(Observable observable, final Object argument) {
+	public void update(final Observable observable, final Object argument) {
 		if (!(argument instanceof Message)) {
 			return;
 		}
 		((Message) argument).accept(new MessageStandardVisitor() {
 			@Override
 			public void handleTaskCompletionMessage(
-					TaskCompletionMessage message) {
+					final TaskCompletionMessage message) {
 				SprintBacklog.this.task_update(message);
 			}
 
@@ -230,7 +232,7 @@ public class SprintBacklog extends Observable implements BDACompare,
 
 	}
 
-	private void task_update(TaskCompletionMessage message) {
+	private void task_update(final TaskCompletionMessage message) {
 		this.notifyObservers(message); // delegate message to sprint
 	}
 
