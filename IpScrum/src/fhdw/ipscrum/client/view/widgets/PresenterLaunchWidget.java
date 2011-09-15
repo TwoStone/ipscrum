@@ -17,10 +17,10 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.view.client.ListDataProvider;
 
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.EventRegistration;
-import fhdw.ipscrum.client.presenter.Presenter;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.presenter.Presenter;
 
 /**
  * Widget launch presenters. From out of business logic.
@@ -30,11 +30,11 @@ import fhdw.ipscrum.client.presenter.Presenter;
  */
 public class PresenterLaunchWidget extends DialogBox {
 	private DialogBox dialogBox;
-	private ListDataProvider<Presenter<?>> presenters;
+	private ListDataProvider<Presenter> presenters;
 
-	public PresenterLaunchWidget(Collection<Presenter<?>> presenters) {
+	public PresenterLaunchWidget(final Collection<Presenter> presenters) {
 		this();
-		this.presenters.setList(new ArrayList<Presenter<?>>(presenters));
+		this.presenters.setList(new ArrayList<Presenter>(presenters));
 	}
 
 	/**
@@ -43,75 +43,77 @@ public class PresenterLaunchWidget extends DialogBox {
 	public PresenterLaunchWidget() {
 		super(true);
 		if (!GWT.isProdMode()) {
-			Label launcher = new Label("Presenter Launcher");
+			final Label launcher = new Label("Presenter Launcher");
 			launcher.addClickHandler(new ClickHandler() {
 
 				@Override
-				public void onClick(ClickEvent event) {
-					show();
+				public void onClick(final ClickEvent event) {
+					PresenterLaunchWidget.this.show();
 				}
 			});
 			RootPanel.get("adminPanel").add(launcher);
 		}
 
-		this.presenters = new ListDataProvider<Presenter<?>>();
+		this.presenters = new ListDataProvider<Presenter>();
 
 		this.setText("Presenter Launcher");
 		this.setModal(false);
 
-		dialogBox = new DialogBox(true);
-		dialogBox.setGlassEnabled(true);
-		dialogBox.setModal(true);
+		this.dialogBox = new DialogBox(true);
+		this.dialogBox.setGlassEnabled(true);
+		this.dialogBox.setModal(true);
 
-		CellTable<Presenter<?>> cellTable = new CellTable<Presenter<?>>();
-		add(cellTable);
+		final CellTable<Presenter> cellTable = new CellTable<Presenter>();
+		this.add(cellTable);
 		cellTable.setSize("100%", "100%");
 
-		TextColumn<Presenter<?>> presenterName = new TextColumn<Presenter<?>>() {
+		final TextColumn<Presenter> presenterName = new TextColumn<Presenter>() {
 
 			@Override
-			public String getValue(Presenter<?> object) {
-				return object.getClass().getName();
+			public String getValue(final Presenter object) {
+				return object.getName();
 			}
 		};
 
-		Cell<Presenter<?>> launchCell = new ActionCell<Presenter<?>>("starten",
-				new ActionCell.Delegate<Presenter<?>>() {
-
-					@Override
-					public void execute(Presenter<?> object) {
-						dialogBox.clear();
-						dialogBox.add(object.getView());
-						dialogBox.center();
-						final List<EventRegistration> regs = new ArrayList<EventRegistration>();
-
-						class CloseHanlder implements EventHandler<EventArgs> {
+		final Cell<Presenter> launchCell =
+				new ActionCell<Presenter>("starten",
+						new ActionCell.Delegate<Presenter>() {
 
 							@Override
-							public void onUpdate(Object sender,
-									EventArgs eventArgs) {
-								dialogBox.hide();
-								dialogBox.clear();
-								for (EventRegistration eventRegistration : regs) {
-									eventRegistration.removeHandler();
+							public void execute(final Presenter object) {
+								PresenterLaunchWidget.this.dialogBox.clear();
+								PresenterLaunchWidget.this.dialogBox.add(object
+										.getView());
+								PresenterLaunchWidget.this.dialogBox.center();
+								final List<EventRegistration> regs =
+										new ArrayList<EventRegistration>();
+
+								class CloseHanlder implements EventHandler<EventArgs> {
+
+									@Override
+									public void onUpdate(final Object sender,
+											final EventArgs eventArgs) {
+										PresenterLaunchWidget.this.dialogBox.hide();
+										PresenterLaunchWidget.this.dialogBox.clear();
+										for (final EventRegistration eventRegistration : regs) {
+											eventRegistration.removeHandler();
+										}
+									}
+
 								}
+								final CloseHanlder handler = new CloseHanlder();
+								regs.add(object.registerCloseHandler(handler));
 							}
+						});
 
-						}
-						CloseHanlder handler = new CloseHanlder();
-						regs.add(object.getAborted().add(handler));
-						regs.add(object.getFinished().add(handler));
+		final Column<Presenter, Presenter> launchCol =
+				new Column<Presenter, Presenter>(launchCell) {
+
+					@Override
+					public Presenter getValue(final Presenter object) {
+						return object;
 					}
-				});
-
-		Column<Presenter<?>, Presenter<?>> launchCol = new Column<Presenter<?>, Presenter<?>>(
-				launchCell) {
-
-			@Override
-			public Presenter<?> getValue(Presenter<?> object) {
-				return object;
-			}
-		};
+				};
 
 		cellTable.addColumn(presenterName);
 		cellTable.addColumn(launchCol);
@@ -120,7 +122,7 @@ public class PresenterLaunchWidget extends DialogBox {
 
 	}
 
-	public void addPresenter(Presenter<?> presenter) {
+	public void addPresenter(final Presenter presenter) {
 		this.presenters.getList().add(presenter);
 	}
 }

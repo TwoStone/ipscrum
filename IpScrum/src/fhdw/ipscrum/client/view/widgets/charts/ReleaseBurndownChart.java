@@ -10,11 +10,11 @@ import com.googlecode.gchart.client.HoverUpdateable;
 
 import fhdw.ipscrum.client.view.widgets.charts.ReleaseChartData.ReleaseChartDataDetails;
 import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.nonMeta.Release;
 
 /**
- * This is to display a detailed burndown-chart for releases.
- * While presenting actual burndown-data this also includes an ideal-line and a trend-estimation.
+ * This is to display a detailed burndown-chart for releases. While presenting actual
+ * burndown-data this also includes an ideal-line and a trend-estimation.
  */
 public class ReleaseBurndownChart extends BurndownChart {
 
@@ -22,82 +22,92 @@ public class ReleaseBurndownChart extends BurndownChart {
 
 	/**
 	 * Simple constructor. This used the default chart-size of 500px x 250px.
-	 * @param release IRelease to display
+	 * 
+	 * @param release
+	 *            IRelease to display
 	 */
-	public ReleaseBurndownChart(IRelease release) {
-		this(release, 500, 250);
+	public ReleaseBurndownChart(final Release release) {
+		this(release, 500, 300);
 	}
 
 	/**
 	 * This is the default constructor.
-	 * @param release IRelease to display
-	 * @param width width of chart
-	 * @param height height of chart
+	 * 
+	 * @param release
+	 *            IRelease to display
+	 * @param width
+	 *            width of chart
+	 * @param height
+	 *            height of chart
 	 */
-	public ReleaseBurndownChart(IRelease release, int width, int height) {
+	public ReleaseBurndownChart(final Release release, final int width, final int height) {
 		this.data = new ReleaseChartData(release);
-		setChartWidth(width);
-		setChartHeight(height);
+		this.setChartWidth(width);
+		this.setChartHeight(height);
 		this.createChart();
 	}
 
 	/**
 	 * This is to generate and display the chart-display.
+	 * 
 	 * @return chart
 	 */
 	private void createChart() {
 		// GENERAL SETUP
-		setChartTitle("<h2>Release " + this.getData().getRelease().getVersion() + "</h2>");
-		setChartSize(getChartWidth(), getChartHeight());
+		this.setChartTitle("<h2>Release " + this.getData().getRelease().getVersion()
+				+ "</h2>");
+		this.setChartSize(this.getChartWidth(), this.getChartHeight());
 
 		// SETUP ACTUAL BURNDOWN CURVE
-		addCurve();
-		burndownCurve = getCurve();
-		burndownCurve.setYAxis(GChart.Y_AXIS);
-		burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		burndownCurve.getSymbol().setHoverWidget(new ReleaseChartHoverWidget());
-		burndownCurve.getSymbol().setBackgroundColor("GreenYellow");
-		burndownCurve.getSymbol().setBorderColor("Green");
-		burndownCurve.getSymbol().setBorderWidth(1);
+		this.addCurve();
+		this.burndownCurve = this.getCurve();
+		this.burndownCurve.setYAxis(GChart.Y_AXIS);
+		this.burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		this.burndownCurve.getSymbol().setHoverWidget(new ReleaseChartHoverWidget());
+		this.burndownCurve.getSymbol().setBackgroundColor("GreenYellow");
+		this.burndownCurve.getSymbol().setBorderColor("Green");
+		this.burndownCurve.getSymbol().setBorderWidth(1);
 
 		// SETUP IDEAL BURNDOWN CURVE
-		addCurve();
-		idealCurve = getCurve();
-		idealCurve.setYAxis(GChart.Y_AXIS);
-		idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		idealCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwände)"));
-		idealCurve.getSymbol().setBorderColor("black");
-		idealCurve.getSymbol().setBackgroundColor("yellow");
+		this.addCurve();
+		this.idealCurve = this.getCurve();
+		this.idealCurve.setYAxis(GChart.Y_AXIS);
+		this.idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
+		this.idealCurve
+				.getSymbol()
+				.setHovertextTemplate(
+						GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwände)"));
+		this.idealCurve.getSymbol().setBorderColor("black");
+		this.idealCurve.getSymbol().setBackgroundColor("yellow");
 
 		// SETUP TREND LINE
-		addCurve();
-		trendCurve = getCurve();
-		trendCurve.setYAxis(GChart.Y_AXIS);
-		trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		trendCurve.getSymbol().setHoverAnnotationEnabled(false);
-		trendCurve.getSymbol().setWidth(1);
-		trendCurve.getSymbol().setHeight(1);
-		trendCurve.getSymbol().setBorderColor("grey");
-		trendCurve.getSymbol().setBackgroundColor("grey");
+		this.addCurve();
+		this.trendCurve = this.getCurve();
+		this.trendCurve.setYAxis(GChart.Y_AXIS);
+		this.trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
+		this.trendCurve.getSymbol().setHoverAnnotationEnabled(false);
+		this.trendCurve.getSymbol().setWidth(1);
+		this.trendCurve.getSymbol().setHeight(1);
+		this.trendCurve.getSymbol().setBorderColor("grey");
+		this.trendCurve.getSymbol().setBackgroundColor("grey");
 
-		getXAxis().setAxisLabel(TextConstants.CHART_RELEASE_XAXIS_LABEL);
-		getYAxis().setAxisLabel(TextConstants.CHART_RELEASE_YAXIS_LABEL);
-		getYAxis().getAxisLabel().setStyleName("rotated");
-		getYAxis().setAxisLabelThickness(20);
-		getYAxis().setHasGridlines(true);
-		getYAxis().setTickLabelFormat("#");
-		getYAxis().setTickLength(25);
-		getYAxis().setAxisMin(0);
-
+		this.getXAxis().setAxisLabel(TextConstants.CHART_VELOCITY_XAXIS_LABEL);
+		this.getYAxis().setAxisLabel(TextConstants.CHART_RELEASE_YAXIS_LABEL);
+		this.getYAxis().getAxisLabel().setStyleName("rotated");
+		this.getYAxis().setAxisLabelThickness(20);
+		this.getYAxis().setHasGridlines(true);
+		this.getYAxis().setTickLabelFormat("#");
+		this.getYAxis().setTickLength(25);
+		this.getYAxis().setAxisMin(0);
 
 		this.populateChart();
 		this.generateTrendcurve(this.data.getTickData());
 
-		getXAxis().clearTicks();
+		this.getXAxis().clearTicks();
 		int counter = 0;
-		DateTimeFormat xAxisDateFormatter = DateTimeFormat.getFormat("d.M.");
-		for (Date endDate : this.getData().getData().keySet()) {
-			getXAxis().addTick(counter, xAxisDateFormatter.format(endDate));
+		final DateTimeFormat xAxisDateFormatter = DateTimeFormat.getFormat("d.M.");
+		for (final Date endDate : this.getData().getData().keySet()) {
+			this.getXAxis().addTick(counter, xAxisDateFormatter.format(endDate));
 			counter++;
 		}
 
@@ -109,15 +119,21 @@ public class ReleaseBurndownChart extends BurndownChart {
 	 */
 	private void populateChart() {
 		int counter = 0;
-		for (Date endDate : this.getData().getData().keySet()) {
-			ReleaseChartDataDetails currentData = getData().getData().get(endDate);
-			idealCurve.addPoint(counter, currentData.getIdealBurndownValue());
+		for (final Date endDate : this.getData().getData().keySet()) {
+			final ReleaseChartDataDetails currentData =
+					this.getData().getData().get(endDate);
+			this.idealCurve.addPoint(counter, currentData.getIdealBurndownValue());
 			if (currentData.getActualBurndownValue() != null) {
-				burndownCurve.addPoint(counter, currentData.getActualBurndownValue());
+				this.burndownCurve.addPoint(counter,
+						currentData.getActualBurndownValue());
 
-				String annotationText = currentData.getActualBurndownValue().intValue() + " ausstehende Aufwände<br />nach " + currentData.getSprints().toString();
-				burndownCurve.getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
-				burndownCurve.getPoint().setAnnotationVisible(false);
+				final String annotationText =
+						currentData.getActualBurndownValue().intValue()
+								+ " ausstehende Aufwände<br />nach "
+								+ currentData.getSprints().toString();
+				this.burndownCurve.getPoint().setAnnotationText(
+						GChart.formatAsHovertext(annotationText));
+				this.burndownCurve.getPoint().setAnnotationVisible(false);
 			}
 			counter++;
 		}
@@ -128,16 +144,17 @@ public class ReleaseBurndownChart extends BurndownChart {
 	}
 
 	/**
-	 *	This is to control the annotation-behaviour.
+	 * This is to control the annotation-behaviour.
 	 */
-	class ReleaseChartHoverWidget extends Label implements HoverUpdateable {
+	private static class ReleaseChartHoverWidget extends Label
+			implements HoverUpdateable {
 		@Override
-		public void hoverCleanup(Point hoveredAwayFrom) {
+		public void hoverCleanup(final Point hoveredAwayFrom) {
 			hoveredAwayFrom.setAnnotationVisible(false);
 		}
 
 		@Override
-		public void hoverUpdate(Point hoveredOver) {
+		public void hoverUpdate(final Point hoveredOver) {
 			hoveredOver.setAnnotationVisible(true);
 		}
 	}

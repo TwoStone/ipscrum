@@ -20,19 +20,20 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.client.events.args.SystemArgs;
-import fhdw.ipscrum.client.view.interfaces.ISelectSystemView;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.eventargs.SystemArgs;
+import fhdw.ipscrum.client.presenter.ProjectSelectSystemPresenter.ISelectSystemView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.System;
+import fhdw.ipscrum.shared.model.nonMeta.System;
 
 /**
- * view class for systems. this view is used to select systems of an amount of
- * available systems.
+ * view class for systems. this view is used to select systems of an amount of available
+ * systems.
  */
 public class SelectSystemView extends Composite implements ISelectSystemView {
 
@@ -45,12 +46,17 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 	private final Button btnOk;
 	private final Button btnAbbrechen;
+	private Button btnAddSystem;
+	private Button btnRemoveSystem;
 
+	/**
+	 * constructor of the SelectSystemView.
+	 */
 	public SelectSystemView() {
 
-		systemDataProvider = new ListDataProvider<System>();
-		systemSelectionModel = new SingleSelectionModel<System>(
-				systemDataProvider);
+		this.systemDataProvider = new ListDataProvider<System>();
+		this.systemSelectionModel =
+				new SingleSelectionModel<System>(this.systemDataProvider);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
@@ -67,11 +73,11 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		scrollPanel.setStyleName("tableBorder");
 		scrollPanel.setSize("250px", "425px");
 
-		CellTable<System> cellTableAusgewaehlteSysteme = new CellTable<System>();
+		final CellTable<System> cellTableAusgewaehlteSysteme = new CellTable<System>();
 		this.systemDataProvider.addDataDisplay(cellTableAusgewaehlteSysteme);
 		scrollPanel.setWidget(cellTableAusgewaehlteSysteme);
 		cellTableAusgewaehlteSysteme.setSize("100%", "100%");
-		cellTableAusgewaehlteSysteme.setSelectionModel(systemSelectionModel);
+		cellTableAusgewaehlteSysteme.setSelectionModel(this.systemSelectionModel);
 
 		final TextColumn<System> colSystemName = new TextColumn<System>() {
 			@Override
@@ -85,9 +91,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
 		horizontalPanel.add(verticalPanelAllocationButtons);
 
-		final Button btnRemoveSystem = new Button(
-				TextConstants.BUTTONLABEL_REMOVE);
-		btnRemoveSystem.addClickHandler(new ClickHandler() {
+		this.btnRemoveSystem = new Button(TextConstants.BUTTONLABEL_REMOVE);
+		this.btnRemoveSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (SelectSystemView.this.getSelectedOfSelectedSystems() != null) {
@@ -99,8 +104,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 			}
 		});
 
-		final Button btnAddSystem = new Button(TextConstants.BUTTONLABEL_ASSIGN);
-		btnAddSystem.addClickHandler(new ClickHandler() {
+		this.btnAddSystem = new Button(TextConstants.BUTTONLABEL_ASSIGN);
+		this.btnAddSystem.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (SelectSystemView.this.getSelectedOfAvailableSystems() != null) {
@@ -113,8 +118,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 				}
 			}
 		});
-		verticalPanelAllocationButtons.add(btnAddSystem);
-		verticalPanelAllocationButtons.add(btnRemoveSystem);
+		verticalPanelAllocationButtons.add(this.btnAddSystem);
+		verticalPanelAllocationButtons.add(this.btnRemoveSystem);
 
 		final VerticalPanel verticalPanelVerfuegbareSysteme = new VerticalPanel();
 		horizontalPanel.add(verticalPanelVerfuegbareSysteme);
@@ -133,16 +138,14 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		this.tree.setSize("100%", "100%");
 
 		final HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		horizontalPanel_1
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		horizontalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanelVerfuegbareSysteme.add(horizontalPanel_1);
 
 		this.btnOk = new Button("OK");
 		this.btnOk.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				SelectSystemView.this.save.fire(SelectSystemView.this,
-						new EventArgs());
+				SelectSystemView.this.save.fire(SelectSystemView.this, new EventArgs());
 			}
 		});
 		horizontalPanel_1.add(this.btnOk);
@@ -152,8 +155,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		this.btnAbbrechen.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				SelectSystemView.this.abort.fire(SelectSystemView.this,
-						new EventArgs());
+				SelectSystemView.this.abort
+						.fire(SelectSystemView.this, new EventArgs());
 			}
 		});
 		horizontalPanel_1.add(this.btnAbbrechen);
@@ -173,29 +176,17 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 
 	@Override
 	public System getSelectedOfSelectedSystems() {
-		return systemSelectionModel.getSelectedObject();
+		return this.systemSelectionModel.getSelectedObject();
 	}
 
 	@Override
-	public IEvent<EventArgs> getAborted() {
-		return this.abort;
-	}
-
-	@Override
-	public IEvent<EventArgs> getSave() {
-		return this.save;
-	}
-
-	@Override
-	public void updateSelectedSystemData(
-			final Collection<System> selectedSystems) {
+	public void updateSelectedSystemData(final Collection<System> selectedSystems) {
 		this.systemDataProvider.getList().clear();
-		systemDataProvider.getList().addAll(selectedSystems);
+		this.systemDataProvider.getList().addAll(selectedSystems);
 	}
 
 	@Override
-	public void updateAvailableSystemData(
-			final Collection<System> availableSystems,
+	public void updateAvailableSystemData(final Collection<System> availableSystems,
 			final Collection<System> selectedSystems) {
 		this.tree.clear();
 		for (final System system : availableSystems) {
@@ -216,6 +207,15 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		}
 	}
 
+	/**
+	 * checks if a system is selected.
+	 * 
+	 * @param system
+	 *            to check
+	 * @param selectedSystems
+	 *            are the selected systems
+	 * @return true id the system is selected
+	 */
 	private boolean isSelectedSystem(final System system,
 			final Collection<System> selectedSystems) {
 		if (selectedSystems.contains(system)) {
@@ -230,13 +230,46 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	}
 
 	@Override
-	public void defineRemoveSelectedSystemEvent(
-			final EventHandler<SystemArgs> args) {
-		this.removeSelectedSystem.add(args);
+	public void close() {
+		this.save.removeAllHandler();
+		this.abort.removeAllHandler();
+		this.addSelectedSystem.removeAllHandler();
+		this.removeSelectedSystem.removeAllHandler();
 	}
 
 	@Override
-	public void defineAddSelectedSystemEvent(final EventHandler<SystemArgs> args) {
-		this.addSelectedSystem.add(args);
+	public EventRegistration registerAbortHandler(final DefaultEventHandler handler) {
+		return this.abort.add(handler);
+	}
+
+	@Override
+	public EventRegistration registerSaveHandler(final DefaultEventHandler handler) {
+		return this.save.add(handler);
+	}
+
+	@Override
+	public EventRegistration removeRemoveSelectedSystemHandler(
+			final EventHandler<SystemArgs> handler) {
+		return this.removeSelectedSystem.add(handler);
+	}
+
+	@Override
+	public EventRegistration registerAddSelectedSystemHandler(
+			final EventHandler<SystemArgs> handler) {
+		return this.addSelectedSystem.add(handler);
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		this.getBtnAddSystem().setEnabled(value);
+		this.getBtnRemoveSystem().setEnabled(value);
+	}
+
+	protected Button getBtnAddSystem() {
+		return this.btnAddSystem;
+	}
+
+	protected Button getBtnRemoveSystem() {
+		return this.btnRemoveSystem;
 	}
 }

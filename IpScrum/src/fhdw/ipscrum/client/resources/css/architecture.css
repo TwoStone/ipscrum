@@ -1,0 +1,149 @@
+@def SHADOWCOLOR #5c5c5c;
+@def NAVIGATION_HEIGHT 30px;
+@def CONTENT_WIDTH 1000px;
+@def CONTENT_HEIGHT 650px;
+@def NAVI_SHADOW 0px 1px 1px 0px SHADOWCOLOR;
+@def CONTENT_SHADOW 1px 1px 1px 0px SHADOWCOLOR;
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: #DDD !important;
+	overflow: hidden;
+}
+
+#header {
+	width: 100%;
+	top: 0px;
+	position: relative;
+	height: 80px;
+	background-image: url("images/logoSmall.png");
+	background-position: right NAVIGATION_HEIGHT;
+	background-repeat: no-repeat;
+}
+
+#navigation {
+	background: #444;
+	width: 100%;
+	height: NAVIGATION_HEIGHT;
+	color: #EEE !important;
+	vertical-align: middle !important;
+	overflow: hidden;
+	-webkit-box-shadow: NAVI_SHADOW;
+	-moz-box-shadow: NAVI_SHADOW;
+	box-shadow: NAVI_SHADOW;
+}
+
+#content {
+	margin: 10px auto;
+	width: CONTENT_WIDTH;
+	height: CONTENT_HEIGHT;
+	position: relative;
+	background-color: white;
+	border: 1px solid silver;
+	/*-webkit-box-shadow: CONTENT_SHADOW;
+	-moz-box-shadow: CONTENT_SHADOW;
+	box-shadow: CONTENT_SHADOW;*/
+	overflow: visible;
+	padding: 10px;
+	top: 30px;
+}
+
+.breadcrumb {
+	height: 30px;
+	margin: 10px;
+	color: darkgrey;
+	/*background: white;
+	-webkit-box-shadow: 1px 1px 1px 1px SHADOWCOLOR;
+	-moz-box-shadow: 1px 1px 1px 1px SHADOWCOLOR;
+	box-shadow: 1px 1px 1px 1px SHADOWCOLOR;*/
+}
+
+.breadcrumb:HOVER {
+	color: black;
+}
+
+.breadcrumbItem:HOVER {
+	color: black;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#breadcrumb {
+	line-height: 30px;
+	height: 30px;
+	text-align: left;
+}
+
+.gwt-Button {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5),
+		to(#f1f1f1) );
+	background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
+	-webkit-border-radius: 2px;
+	-webkit-user-select: none;
+	background-color: whiteSmoke;
+	background-image: linear-gradient(top, #f5f5f5, #f1f1f1);
+	background-image: -o-linear-gradient(top, #f5f5f5, #f1f1f1);
+	border: 1px solid gainsboro;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	color: #666;
+	cursor: pointer;
+	min-width: 54px;
+	padding: 5px;
+	text-align: center;
+}
+
+.gwt-Button:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8),
+		to(#f1f1f1) );
+	background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	background-color: #F8F8F8;
+	background-image: linear-gradient(top, #f8f8f8, #f1f1f1);
+	background-image: -o-linear-gradient(top, #f8f8f8, #f1f1f1);
+	border: 1px solid #C6C6C6;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	color: #333;
+}
+
+.gwt-Button[disabled]:hover {
+	box-shadow: none !important;
+}
+
+.gwt-Button[disabled] {
+	-webkit-border-radius: 2px;
+	-webkit-user-select: none;
+	background-color: #EEE !important;
+	border: 1px solid gainsboro;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	color: #666 !important;
+	cursor: pointer !important;
+	min-width: 54px;
+	padding: 5px;
+	text-align: center;
+}
+
+.gwt-TextBox {
+	padding: 9px 7px 10px 7px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	margin-bottom: 8px;
+	opacity: 1 !important;
+	border: none !important;
+	background-color: white;
+	opacity: .7;
+	-webkit-transition: opacity 1s;
+	-moz-transition: opacity 1s;
+	-o-transition: opacity 1s;
+	-webkit-box-shadow: 0 -1px 0 rgba(0, 0, 0, .3), inset 0 1px 2px
+		rgba(0, 0, 0, .3);
+	-moz-box-shadow: 0 -1px 0 rgba(0, 0, 0, .3), inset 0 1px 2px
+		rgba(0, 0, 0, .3);
+	box-shadow: 0 -1px 0 rgba(0, 0, 0, .3), inset 0 1px 2px
+		rgba(0, 0, 0, .3);
+}

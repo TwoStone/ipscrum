@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
+  <local-check-config name="SourceStyle" location="config/checkstyle.xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <local-check-config name="TestStyle" location="config/checkstyle-test.xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <local-check-config name="ClientStyle" location="config/checkstyle-view.xml" type="project" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <fileset name="TestFiles" enabled="true" check-config-name="TestStyle" local="true">
+    <file-match-pattern match-pattern="test/.*\.java$" include-pattern="true"/>
+  </fileset>
+  <fileset name="ViewFiles" enabled="true" check-config-name="ClientStyle" local="true">
+    <file-match-pattern match-pattern="src/fhdw/ipscrum/client/view/.*\.java$" include-pattern="true"/>
+    <file-match-pattern match-pattern="src/fhdw/ipscrum/client/architecture/widgets/.*\.java$" include-pattern="true"/>
+  </fileset>
+  <fileset name="SourceFiles" enabled="true" check-config-name="SourceStyle" local="true">
+    <file-match-pattern match-pattern="src/.*\.java$" include-pattern="true"/>
+    <file-match-pattern match-pattern="src/fhdw/ipscrum/client/view/.*\.java$" include-pattern="false"/>
+    <file-match-pattern match-pattern="src/fhdw/ipscrum/client/architecture/widgets/.*\.java$" include-pattern="false"/>
+  </fileset>
+</fileset-config>

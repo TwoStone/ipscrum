@@ -1,25 +1,39 @@
 package fhdw.ipscrum.shared.model.messages;
 
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 
+/**
+ * Represents the PBICompletionMessage.
+ */
 public class PBICompletionMessage implements Message {
-	
+
+	/**
+	 * represents the affected pbi.
+	 */
 	private final ProductBacklogItem pbi;
-	
-	public PBICompletionMessage(ProductBacklogItem pbi){
+
+	/**
+	 * constructor of the PBICompletionMessage.
+	 * 
+	 * @param pbi
+	 *            that is affected
+	 */
+	public PBICompletionMessage(final ProductBacklogItem pbi) {
 		this.pbi = pbi;
 	}
+
 	@Override
-	public void accept(MessageVisitor v) {
+	public void accept(final MessageVisitor v) {
 		v.handlePBICompletionMessage(this);
 	}
-	
-	public final ProductBacklogItem getPBI(){
+
+	/**
+	 * Getter of the affected pbi.
+	 * 
+	 * @return the affected pbi
+	 */
+	public final ProductBacklogItem getPBI() {
 		return this.pbi;
-	}
-	@Override
-	public void accept(MessageStandardVisitor v) {
-		v.handlePBICompletionMessage(this);
 	}
 
 }

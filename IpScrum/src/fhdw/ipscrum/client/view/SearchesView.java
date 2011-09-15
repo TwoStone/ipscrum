@@ -6,8 +6,6 @@ import java.util.Comparator;
 import com.google.gwt.cell.client.ActionCell;
 import com.google.gwt.cell.client.ActionCell.Delegate;
 import com.google.gwt.cell.client.ImageResourceCell;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
@@ -16,16 +14,21 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.SearchEventArgs;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.eventargs.SearchEventArgs;
 import fhdw.ipscrum.client.resources.MyResources;
-import fhdw.ipscrum.client.view.interfaces.ISearchesView;
-import fhdw.ipscrum.client.view.widgets.QuestionDialog;
-import fhdw.ipscrum.shared.model.search.Search;
+import fhdw.ipscrum.client.viewinterfaces.ISearchesView;
+import fhdw.ipscrum.shared.model.metamodel.search.Search;
 
+/**
+ * represents the view of the searches.
+ */
 public class SearchesView extends Composite implements ISearchesView {
 
 	protected final Event<SearchEventArgs> doSearchEvent;
@@ -34,88 +37,91 @@ public class SearchesView extends Composite implements ISearchesView {
 	protected final Event<SearchEventArgs> doDeleteSearchEvent;
 	protected final Event<SearchEventArgs> doEditSearchEvent;
 
+	/**
+	 * constructor of the SearchesView.
+	 */
 	public SearchesView() {
 		super();
 		this.doDeleteSearchEvent = new Event<SearchEventArgs>();
 		this.doEditSearchEvent = new Event<SearchEventArgs>();
 		this.doSearchEvent = new Event<SearchEventArgs>();
 		this.savedSearches = new ListDataProvider<Search>();
-		final ListHandler<Search> sortHandler = new ListHandler<Search>(
-				this.savedSearches.getList());
+		final ListHandler<Search> sortHandler =
+				new ListHandler<Search>(this.savedSearches.getList());
 
-		final ActionCell<Search> executeCell = new ActionCell<Search>(
-				"Ausführen", new Delegate<Search>() {
+		final ActionCell<Search> executeCell =
+				new ActionCell<Search>("Ausführen", new Delegate<Search>() {
 
 					@Override
-					public void execute(Search object) {
+					public void execute(final Search object) {
 						SearchesView.this.doSearchEvent.fire(SearchesView.this,
 								new SearchEventArgs(object));
 					}
 				});
 
-		final ActionCell<Search> deleteCell = new ActionCell<Search>("Löschen",
-				new Delegate<Search>() {
+		final ActionCell<Search> deleteCell =
+				new ActionCell<Search>("Löschen", new Delegate<Search>() {
 
 					@Override
 					public void execute(final Search object) {
-						final QuestionDialog questionDialog = new QuestionDialog(
-								"Frage", object.getName()
-										+ " wirklich löschen?");
-						questionDialog.getOkayButton().addClickHandler(
-								new ClickHandler() {
-
-									@Override
-									public void onClick(ClickEvent event) {
-										SearchesView.this.doDeleteSearchEvent
-												.fire(SearchesView.this,
-														new SearchEventArgs(
-																object));
-									}
-								});
-						questionDialog.center();
+						SearchesView.this.doDeleteSearchEvent.fire(SearchesView.this,
+								new SearchEventArgs(object));
 					}
 				});
 
+		final VerticalPanel verticalPanel = new VerticalPanel();
+		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setSize("750px", "400px");
+		this.initWidget(verticalPanel);
+
+		final Label lblSearches = new Label("Gespeicherte Suchen");
+		lblSearches.setStyleName("LabelElement");
+		verticalPanel.add(lblSearches);
+		lblSearches.setSize("750px", "25px");
+
+		final ScrollPanel scrollPanel = new ScrollPanel();
+		verticalPanel.add(scrollPanel);
+		scrollPanel.setSize("740px", "450px");
+
 		this.savedSearchesTable = new CellTable<Search>();
-		this.initWidget(this.savedSearchesTable);
+		scrollPanel.setWidget(this.savedSearchesTable);
 		this.savedSearchesTable.setSize("100%", "100%");
 
-		final Column<Search, ImageResource> iconColumn = new Column<Search, ImageResource>(
-				new ImageResourceCell()) {
+		final Column<Search, ImageResource> iconColumn =
+				new Column<Search, ImageResource>(new ImageResourceCell()) {
 
-			@Override
-			public ImageResource getValue(Search object) {
-				return MyResources.INSTANCE.searchIcon();
-			}
-		};
+					@Override
+					public ImageResource getValue(final Search object) {
+						return MyResources.INSTANCE.searchIcon();
+					}
+				};
 		iconColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final TextColumn<Search> nameColumn = new TextColumn<Search>() {
 			@Override
-			public String getValue(Search object) {
+			public String getValue(final Search object) {
 				return object.getName();
 			}
 		};
 
-		final Column<Search, Search> executeColumn = new Column<Search, Search>(
-				executeCell) {
+		final Column<Search, Search> executeColumn =
+				new Column<Search, Search>(executeCell) {
 
-			@Override
-			public Search getValue(Search object) {
-				return object;
-			}
-		};
-		executeColumn
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+					@Override
+					public Search getValue(final Search object) {
+						return object;
+					}
+				};
+		executeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-		final Column<Search, Search> deleteColumn = new Column<Search, Search>(
-				deleteCell) {
+		final Column<Search, Search> deleteColumn =
+				new Column<Search, Search>(deleteCell) {
 
-			@Override
-			public Search getValue(Search object) {
-				return object;
-			}
-		};
+					@Override
+					public Search getValue(final Search object) {
+						return object;
+					}
+				};
 		deleteColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		deleteColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 
@@ -130,26 +136,38 @@ public class SearchesView extends Composite implements ISearchesView {
 		sortHandler.setComparator(nameColumn, new Comparator<Search>() {
 
 			@Override
-			public int compare(Search arg0, Search arg1) {
+			public int compare(final Search arg0, final Search arg1) {
 				return arg0.getName().compareToIgnoreCase(arg1.getName());
 			}
 		});
 	}
 
 	@Override
-	public void registerDoSavedSearch(EventHandler<SearchEventArgs> handler) {
+	public void registerDoSavedSearch(final EventHandler<SearchEventArgs> handler) {
 		this.doSearchEvent.add(handler);
 	}
 
 	@Override
-	public void setSavedSeaches(Collection<Search> searches) {
+	public void setSavedSeaches(final Collection<Search> searches) {
 		this.savedSearches.getList().clear();
 		this.savedSearches.getList().addAll(searches);
 	}
 
 	@Override
-	public void registerDoDeleteSearch(EventHandler<SearchEventArgs> handler) {
+	public void registerDoDeleteSearch(final EventHandler<SearchEventArgs> handler) {
 		this.doDeleteSearchEvent.add(handler);
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		// No widgets to hide
+
 	}
 
 }

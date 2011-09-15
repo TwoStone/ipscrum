@@ -1,21 +1,38 @@
 package fhdw.ipscrum.shared.model.messages;
 
-import fhdw.ipscrum.shared.model.interfaces.IRelease;
+import fhdw.ipscrum.shared.model.nonMeta.Release;
 
+/**
+ * represent the ReleaseCompletionMessage.
+ */
 public class ReleaseCompletionMessage implements Message {
-	private final IRelease release;
-	public ReleaseCompletionMessage(final IRelease release){
+
+	/**
+	 * represents the affected release.
+	 */
+	private final Release release;
+
+	/**
+	 * Constructor of the ReleaseCompletionMessage.
+	 * 
+	 * @param release
+	 *            that is affected
+	 */
+	public ReleaseCompletionMessage(final Release release) {
 		this.release = release;
 	}
-	public final IRelease getRelease(){
+
+	/**
+	 * Getter of the affected release.
+	 * 
+	 * @return the affected release
+	 */
+	public final Release getRelease() {
 		return this.release;
 	}
+
 	@Override
-	public void accept(MessageVisitor v) {
-		v.handleReleaseCompletionMessage(this);
-	}
-	@Override
-	public void accept(MessageStandardVisitor v) {
+	public void accept(final MessageVisitor v) {
 		v.handleReleaseCompletionMessage(this);
 	}
 

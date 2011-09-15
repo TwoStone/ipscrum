@@ -1,476 +1,238 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Set;
-import java.util.Vector;
+import java.util.List;
 
-import com.google.gwt.cell.client.AbstractCell;
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.cellview.client.CellList;
-import com.google.gwt.user.cellview.client.CellTree;
-import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DecoratedStackPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.MultiSelectionModel;
-import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.MultiplePBIArgs;
-import fhdw.ipscrum.client.events.args.SprintArgs;
-import fhdw.ipscrum.client.events.args.TaskArgs;
-import fhdw.ipscrum.client.utils.ToolTipListener;
-import fhdw.ipscrum.client.view.interfaces.ITaskboardView;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import fhdw.ipscrum.shared.model.interfaces.ITask;
+import fhdw.ipscrum.client.architecture.events.DefaultEvent;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.viewinterfaces.ITaskboardView;
+import fhdw.ipscrum.shared.model.nonMeta.Task;
 
 /**
- * This class is used to represent taskboards.
- * 
- * @author Phase III / Group I
- * 
+ * taskboard gui for inspecting and managing tasks of a sprint.
  */
 public class TaskboardView extends Composite implements ITaskboardView {
 
-	// ####### Events ###############
-	private final Event<SprintArgs> selectSprint = new Event<SprintArgs>();
-	private final Event<MultiplePBIArgs> newTaskEvent = new Event<MultiplePBIArgs>();
-	private final Event<TaskArgs> deleteTaskEvent = new Event<TaskArgs>();
-	private final Event<TaskArgs> editToDoTaskEvent = new Event<TaskArgs>();
-	private final Event<TaskArgs> editInProgressTaskEvent = new Event<TaskArgs>();
-	private final Event<TaskArgs> detailsFinishTaskEvent = new Event<TaskArgs>();
-	private final Event<EventArgs> taskboardHelp = new Event<EventArgs>();
-	// ##### Ende ##################
+	private final DefaultEvent newTaskEvent = new DefaultEvent();
+	private final Event<TypedEventArg<Task>> detailsEvent =
+			new Event<TypedEventArg<Task>>();
+	private final SingleSelectionModel<Task> taskSelModel =
+			new SingleSelectionModel<Task>();
 
-	// ####### View Elements ###############
-	private SingleSelectionModel<ISprint> sprintSelectionModel;
-	private final HorizontalPanel contentPanel;
-	private final Button btnEditInProgressTask;
-	private final CellList<ProductBacklogItem> pbiCellList;
-	private final Button btnNewTask;
-	private final Button btnEditDoneTask;
-	private final Button btnEditTodoTask;
-	private final CellList<ITask> todoCellList;
-	private final CellList<ITask> doneCellList;
-	private final CellList<ITask> inProgressCellList;
-	private final Button btnDeleteTodoTask;
-	private final AbsolutePanel concreteTaskboardPanel;
-
-	// ####### Ende View Elements ###############
+	private CellTable<Task> cellTableOpen;
+	private CellTable<Task> cellTableInProgress;
+	private CellTable<Task> cellTableDone;
+	private Button btnCreateNewTask;
 
 	/**
-	 * Constructor for {@link TaskboardView}. Creates all View-Elements for the
-	 * taskboard and calls the initTreeSelectionModel().
+	 * constructor of the TaskboardView.
 	 */
-	@SuppressWarnings("deprecation")
 	public TaskboardView() {
 
-		this.initTreeSelectionModel();
+		final VerticalPanel pnlLayout = new VerticalPanel();
+		this.initWidget(pnlLayout);
+		pnlLayout.setSize("700px", "300px");
 
-		contentPanel = new HorizontalPanel();
-		contentPanel.setSpacing(5);
-		initWidget(contentPanel);
-		contentPanel.setSize("1000px", "600px");
+		final HorizontalPanel pnlButtons = new HorizontalPanel();
+		pnlButtons.setSpacing(10);
+		pnlLayout.add(pnlButtons);
 
-		ScrollPanel scrollPanel = new ScrollPanel();
-		contentPanel.add(scrollPanel);
-		scrollPanel.setSize("225px", "600px");
+		this.btnCreateNewTask = new Button("Neuen Task erstellen");
+		this.btnCreateNewTask.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				TaskboardView.this.newTaskEvent.fire(TaskboardView.this);
+			}
+		});
+		pnlButtons.add(this.btnCreateNewTask);
 
-		DecoratedStackPanel stackPanel = new DecoratedStackPanel();
-		scrollPanel.setWidget(stackPanel);
-		stackPanel.setSize("100%", "100%");
+		final Button btnDetails =
+				new Button("Details des selektierten Tasks anzeigen/bearbeiten");
+		btnDetails.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				TaskboardView.this.detailsEvent
+						.fire(TaskboardView.this, new TypedEventArg<Task>(
+								TaskboardView.this.getSelectedElement()));
+			}
+		});
+		pnlButtons.add(btnDetails);
 
-		CellTree projectCellTree = new CellTree(
-				new SprintSelectionTreeViewModel(sprintSelectionModel), null);
-		projectCellTree.setAnimationEnabled(true);
+		final HTML htmlSeparator = new HTML("<hr />", true);
+		pnlLayout.add(htmlSeparator);
 
-		stackPanel.add(projectCellTree, TextConstants.CHART_SPRINTSTACK_TITLE,
-				false);
-		projectCellTree.setSize("100%", "100%");
+		final HorizontalPanel pnlMainContent = new HorizontalPanel();
+		pnlMainContent.setSpacing(10);
+		pnlLayout.add(pnlMainContent);
+		pnlMainContent.setSize("100%", "100%");
+		pnlLayout.setCellHeight(pnlMainContent, "100%");
+		pnlLayout.setCellWidth(pnlMainContent, "100%");
 
-		concreteTaskboardPanel = new AbsolutePanel();
-		contentPanel.add(concreteTaskboardPanel);
-		concreteTaskboardPanel.setSize("775px", "600px");
+		final VerticalPanel pnlOpenTasks = new VerticalPanel();
+		pnlMainContent.add(pnlOpenTasks);
 
-		VerticalPanel newTasklPanel = new VerticalPanel();
-		newTasklPanel.setSpacing(3);
-		concreteTaskboardPanel.add(newTasklPanel, 25, 25);
-		newTasklPanel.setSize("160px", "300px");
+		final Label lblOpen = new Label("Unbearbeitet");
+		lblOpen.setStyleName("bold");
+		pnlOpenTasks.add(lblOpen);
 
-		Label lblPBI = new Label(TextConstants.PBIS);
-		lblPBI.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		newTasklPanel.add(lblPBI);
-		lblPBI.setSize("", "");
-		lblPBI.setStyleName("taskboardLabel");
-		lblPBI.addMouseListener(new ToolTipListener(
-				TextConstants.PBI_MOUSEOVER, 9999999, "taskboardLabel"));
+		final ScrollPanel scrlpnlOpen = new ScrollPanel();
+		pnlOpenTasks.add(scrlpnlOpen);
+		scrlpnlOpen.setHeight("");
 
-		ScrollPanel newTaskScrollPanel = new ScrollPanel();
-		newTaskScrollPanel.setStyleName("smallborder");
-		newTasklPanel.add(newTaskScrollPanel);
-		newTaskScrollPanel.setSize("160px", "250px");
+		this.cellTableOpen = new CellTable<Task>();
+		this.cellTableOpen.setSelectionModel(this.taskSelModel);
+		scrlpnlOpen.setWidget(this.cellTableOpen);
+		this.cellTableOpen.setSize("100%", "100%");
 
-		pbiCellList = new CellList<ProductBacklogItem>(
-				new AbstractCell<ProductBacklogItem>() {
+		final Column<Task, String> colDescriptionOpen =
+				new Column<Task, String>(new TextCell()) {
 					@Override
-					public void render(Context context,
-							ProductBacklogItem value, SafeHtmlBuilder sb) {
-						sb.appendEscaped(value.getName());
+					public String getValue(final Task object) {
+						return object.getName();
 					}
-				});
-		newTaskScrollPanel.setWidget(pbiCellList);
-		pbiCellList.setSize("100%", "100%");
-		pbiCellList
-				.setSelectionModel(new MultiSelectionModel<ProductBacklogItem>());
+				};
+		this.cellTableOpen.addColumn(colDescriptionOpen, "Bezeichnung");
 
-		btnNewTask = new Button(TextConstants.NEW_BUTTON);
-		btnNewTask.setStyleName("taskboardButton");
-		newTasklPanel.add(btnNewTask);
-		btnNewTask.setText(TextConstants.NEW_TASK);
-		btnNewTask.setSize("100%", "30px");
-
-		VerticalPanel toDoTaskPanel = new VerticalPanel();
-		toDoTaskPanel.setSpacing(3);
-		concreteTaskboardPanel.add(toDoTaskPanel, 242, 25);
-		toDoTaskPanel.setSize("140px", "300px");
-
-		Label lblZuErledigen = new Label(TextConstants.TO_FINISH);
-		lblZuErledigen
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		toDoTaskPanel.add(lblZuErledigen);
-		lblZuErledigen.setStyleName("taskboardLabel");
-
-		ScrollPanel toDoTaskScrollPanel = new ScrollPanel();
-		toDoTaskScrollPanel.setStyleName("smallborder");
-		toDoTaskPanel.add(toDoTaskScrollPanel);
-		toDoTaskScrollPanel.setSize("130px", "250px");
-
-		this.todoCellList = new CellList<ITask>(new AbstractCell<ITask>() {
-			@Override
-			public void render(Context context, ITask value, SafeHtmlBuilder sb) {
-				sb.appendEscaped(value.getName());
-			}
-		});
-		toDoTaskScrollPanel.setWidget(todoCellList);
-		todoCellList.setSize("100%", "100%");
-
-		btnEditTodoTask = new Button(TextConstants.TASK_EDIT);
-		btnEditTodoTask.setStyleName("taskboardButton");
-		toDoTaskPanel.add(btnEditTodoTask);
-		btnEditTodoTask.setText(TextConstants.TASK_EDIT);
-		btnEditTodoTask.setSize("100%", "28px");
-
-		btnDeleteTodoTask = new Button(TextConstants.DELETE_TASK);
-		btnDeleteTodoTask.setStyleName("taskboardButton");
-		toDoTaskPanel.add(btnDeleteTodoTask);
-		btnDeleteTodoTask.setSize("100%", "28px");
-
-		VerticalPanel inProgressTaskPanel = new VerticalPanel();
-		inProgressTaskPanel.setSpacing(3);
-		concreteTaskboardPanel.add(inProgressTaskPanel, 408, 25);
-		inProgressTaskPanel.setSize("140px", "300px");
-
-		Label lblInArbeit = new Label(TextConstants.IN_PROGRESS);
-		lblInArbeit.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		inProgressTaskPanel.add(lblInArbeit);
-		lblInArbeit.setStyleName("taskboardLabel");
-
-		ScrollPanel inProgressScrollPanel = new ScrollPanel();
-		inProgressScrollPanel.setStyleName("smallborder");
-		inProgressTaskPanel.add(inProgressScrollPanel);
-		inProgressScrollPanel.setSize("130px", "250px");
-
-		inProgressCellList = new CellList<ITask>(new AbstractCell<ITask>() {
-			@Override
-			public void render(Context context, ITask value, SafeHtmlBuilder sb) {
-				sb.appendEscaped(value.getName());
-			}
-		});
-		inProgressScrollPanel.setWidget(inProgressCellList);
-		inProgressCellList.setSize("100%", "100%");
-
-		btnEditInProgressTask = new Button(TextConstants.TASK_EDIT);
-		btnEditInProgressTask.setStyleName("taskboardButton");
-		inProgressTaskPanel.add(btnEditInProgressTask);
-		btnEditInProgressTask.setText("Task bearbeiten");
-		btnEditInProgressTask.setSize("100%", "28px");
-		btnEditInProgressTask.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				editInProgressTaskEvent.fire(TaskboardView.this, new TaskArgs(
-						getSelectedInProgressTask()));
-			}
-		});
-
-		VerticalPanel finishTaskPanel = new VerticalPanel();
-		finishTaskPanel.setSpacing(3);
-		concreteTaskboardPanel.add(finishTaskPanel, 574, 25);
-		finishTaskPanel.setSize("140px", "300px");
-
-		Label lblErledigt = new Label(TextConstants.COMPLETED);
-		lblErledigt.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		finishTaskPanel.add(lblErledigt);
-		lblErledigt.setStyleName("taskboardLabel");
-
-		ScrollPanel finishScrollPanel = new ScrollPanel();
-		finishScrollPanel.setStyleName("smallborder");
-		finishTaskPanel.add(finishScrollPanel);
-		finishScrollPanel.setSize("130px", "250px");
-
-		doneCellList = new CellList<ITask>(new AbstractCell<ITask>() {
-			@Override
-			public void render(Context context, ITask value, SafeHtmlBuilder sb) {
-				sb.appendEscaped(value.getName());
-			}
-		});
-		finishScrollPanel.setWidget(doneCellList);
-		doneCellList.setSize("100%", "100%");
-
-		btnEditDoneTask = new Button(TextConstants.DETAILS);
-		btnEditDoneTask.setStyleName("taskboardButton");
-		finishTaskPanel.add(btnEditDoneTask);
-		btnEditDoneTask.setSize("100%", "28px");
-
-		Image imgHelp = new Image("images/icon_hilfe.gif");
-		concreteTaskboardPanel.add(imgHelp, 682, 548);
-
-		AbsolutePanel absolutePanel = new AbsolutePanel();
-		absolutePanel.setStyleName("taskboardLabel");
-		concreteTaskboardPanel.add(absolutePanel, 220, 25);
-		absolutePanel.setSize("1px", "350px");
-
-		imgHelp.addMouseListener(new ToolTipListener(TextConstants.HELP,
-				99999999, "taskboardLabel"));
-
-		imgHelp.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				taskboardHelp.fire(TaskboardView.this, new EventArgs());
-			}
-		});
-
-		btnEditDoneTask.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				detailsFinishTaskEvent.fire(TaskboardView.this, new TaskArgs(
-						getSelectedDoneTask()));
-			}
-		});
-		btnDeleteTodoTask.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				deleteTaskEvent.fire(TaskboardView.this, new TaskArgs(
-						getSelectedTodoTask()));
-			}
-		});
-		btnEditTodoTask.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				editToDoTaskEvent.fire(TaskboardView.this, new TaskArgs(
-						getSelectedTodoTask()));
-			}
-		});
-		btnNewTask.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				TaskboardView.this.newTaskEvent.fire(TaskboardView.this,
-						new MultiplePBIArgs(getSelectedPBIs()));
-			}
-		});
-
-		concreteTaskboardPanel.setVisible(false);
-	}
-
-	/**
-	 * This methode initializes the sprint-tree-selection-modell- Fires the
-	 * selectSprint-Event if an sprint get selected.
-	 */
-	private void initTreeSelectionModel() {
-		this.sprintSelectionModel = new SingleSelectionModel<ISprint>();
-		this.sprintSelectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		final Column<Task, String> colStateOpen =
+				new Column<Task, String>(new TextCell()) {
 					@Override
-					public void onSelectionChange(SelectionChangeEvent event) {
-						TaskboardView.this.selectSprint.fire(
-								TaskboardView.this,
-								new SprintArgs(
-										TaskboardView.this.sprintSelectionModel
-												.getSelectedObject()));
+					public String getValue(final Task object) {
+						return object.getCurrentState().getName();
 					}
-				});
-	}
+				};
+		this.cellTableOpen.addColumn(colStateOpen, "Zustand");
 
-	// Methods to register EventHandler
+		final VerticalPanel pnlInProgress = new VerticalPanel();
+		pnlMainContent.add(pnlInProgress);
 
-	@Override
-	public void addSelectSprintEventHandler(EventHandler<SprintArgs> arg) {
-		selectSprint.add(arg);
-	}
+		final Label lblInProgress = new Label("In Arbeit");
+		lblInProgress.setStyleName("bold");
+		pnlInProgress.add(lblInProgress);
 
-	@Override
-	public void addNewTaskEventHandler(EventHandler<MultiplePBIArgs> arg) {
-		newTaskEvent.add(arg);
-	}
+		final ScrollPanel scrlpnlInProgress = new ScrollPanel();
+		pnlInProgress.add(scrlpnlInProgress);
 
-	@Override
-	public void addDeleteTaskEventHandler(EventHandler<TaskArgs> arg) {
-		deleteTaskEvent.add(arg);
-	}
+		this.cellTableInProgress = new CellTable<Task>();
+		this.cellTableInProgress.setSelectionModel(this.taskSelModel);
+		scrlpnlInProgress.setWidget(this.cellTableInProgress);
+		this.cellTableInProgress.setSize("100%", "100%");
 
-	@Override
-	public void addEditToDoTaskEventHandler(EventHandler<TaskArgs> arg) {
-		editToDoTaskEvent.add(arg);
-	}
+		final Column<Task, String> colDescriptionInProgress =
+				new Column<Task, String>(new TextCell()) {
+					@Override
+					public String getValue(final Task object) {
+						return object.getName();
+					}
 
-	@Override
-	public void addEditInProgressTaskEventHandler(EventHandler<TaskArgs> arg) {
-		editInProgressTaskEvent.add(arg);
-	}
+				};
+		this.cellTableInProgress.addColumn(colDescriptionInProgress, "Bezeichnung");
 
-	@Override
-	public void addDetailsFinishTaskEventHandler(EventHandler<TaskArgs> arg) {
-		detailsFinishTaskEvent.add(arg);
-	}
+		final Column<Task, String> colStateInProgress =
+				new Column<Task, String>(new TextCell()) {
+					@Override
+					public String getValue(final Task object) {
+						return object.getCurrentState().getName();
+					}
+				};
+		this.cellTableInProgress.addColumn(colStateInProgress, "Zustand");
 
-	@Override
-	public void addTaskboardHelpEventHandler(EventHandler<EventArgs> arg) {
-		taskboardHelp.add(arg);
+		final VerticalPanel pnlDone = new VerticalPanel();
+		pnlMainContent.add(pnlDone);
 
-	}
+		final Label lblDone = new Label("Abgeschlossen");
+		lblDone.setStyleName("bold");
+		pnlDone.add(lblDone);
 
-	// Methods for refreshing / filling the cell-Lists
+		final ScrollPanel scrlpnlDone = new ScrollPanel();
+		pnlDone.add(scrlpnlDone);
 
-	@Override
-	public void refreshPBIs(Vector<ProductBacklogItem> pbis) {
-		this.getPbiCellList().setRowData(pbis);
-		int counter = 0;
-		for (ProductBacklogItem pbi : pbis) {
-			Element current = this.getPbiCellList().getRowElement(counter);
-			current.setTitle(pbi.getDescription());
-			counter++;
-		}
-	}
+		this.cellTableDone = new CellTable<Task>();
+		this.cellTableDone.setSelectionModel(this.taskSelModel);
+		scrlpnlDone.setWidget(this.cellTableDone);
+		this.cellTableDone.setSize("100%", "100%");
 
-	@Override
-	public void refreshTodoTasks(Vector<ITask> tasks) {
-		this.getTodoCellList().setRowData(tasks);
-		int counter = 0;
-		for (ITask task : tasks) {
-			Element current = this.getTodoCellList().getRowElement(counter);
-			current.setTitle(task.getDescription());
-			counter++;
-		}
-		this.getTodoCellList().setSelectionModel(
-				new SingleSelectionModel<ITask>());
-	}
+		final Column<Task, String> colDescriptionDone =
+				new Column<Task, String>(new TextCell()) {
+					@Override
+					public String getValue(final Task object) {
+						return object.getName();
+					}
+				};
+		this.cellTableDone.addColumn(colDescriptionDone, "Bezeichnung");
 
-	@Override
-	public void refreshInProgressTasks(Vector<ITask> tasks) {
-		this.getInProgresscellList().setRowData(tasks);
+		final Column<Task, String> colStateDone =
+				new Column<Task, String>(new TextCell()) {
+					@Override
+					public String getValue(final Task object) {
+						return object.getCurrentState().getName();
+					}
+				};
+		this.cellTableDone.addColumn(colStateDone, "Zustand");
 
-		int counter = 0;
-		for (ITask task : tasks) {
-			Element current = this.getInProgresscellList().getRowElement(
-					counter);
-			current.setTitle(task.getDescription());
-			counter++;
-
-		}
-
-		this.getInProgresscellList().setSelectionModel(
-				new SingleSelectionModel<ITask>());
 	}
 
 	@Override
-	public void refreshDoneTasks(Vector<ITask> tasks) {
-		this.getDoneCellList().setRowData(tasks);
-
-		int counter = 0;
-		for (ITask task : tasks) {
-			Element current = this.getDoneCellList().getRowElement(counter);
-			current.setTitle(task.getDescription());
-			counter++;
-		}
-
-		this.getDoneCellList().setSelectionModel(
-				new SingleSelectionModel<ITask>());
+	public Task getSelectedElement() {
+		return this.taskSelModel.getSelectedObject();
 	}
 
-	// Setter / Getter Methods
-	// Private because only needed inside of the TaskboardView
-
-	// Getter for selected Objects
-
-	private AbsolutePanel getConcreteTaskboardPanel() {
-		return concreteTaskboardPanel;
-	}
-
-	private Set<ProductBacklogItem> getSelectedPBIs() {
-		@SuppressWarnings("unchecked")
-		MultiSelectionModel<ProductBacklogItem> selPBIModel = (MultiSelectionModel<ProductBacklogItem>) this
-				.getPbiCellList().getSelectionModel();
-		Set<ProductBacklogItem> selectedPBIs = selPBIModel.getSelectedSet();
-		return selectedPBIs;
-	}
-
-	@SuppressWarnings("unchecked")
-	private ITask getSelectedTodoTask() {
-		return ((SingleSelectionModel<ITask>) this.getTodoCellList()
-				.getSelectionModel()).getSelectedObject();
-	}
-
-	@SuppressWarnings("unchecked")
-	private ITask getSelectedInProgressTask() {
-		return ((SingleSelectionModel<ITask>) this.getInProgresscellList()
-				.getSelectionModel()).getSelectedObject();
-	}
-
-	@SuppressWarnings("unchecked")
-	private ITask getSelectedDoneTask() {
-		return ((SingleSelectionModel<ITask>) this.getDoneCellList()
-				.getSelectionModel()).getSelectedObject();
-
-	}
-
-	// Getter for the Widgets
-	private CellList<ITask> getTodoCellList() {
-		return todoCellList;
-	}
-
-	private CellList<ProductBacklogItem> getPbiCellList() {
-		return pbiCellList;
-	}
-
-	private CellList<ITask> getDoneCellList() {
-		return doneCellList;
-	}
-
-	private CellList<ITask> getInProgresscellList() {
-		return inProgressCellList;
-	}
-
-	// Makes the taskboard visible or not
 	@Override
-	public void setTaskboardVisibility(Boolean visible) {
-		this.getConcreteTaskboardPanel().setVisible(visible);
+	public EventRegistration registerNewTaskEventHandler(
+			final DefaultEventHandler handler) {
+		return this.newTaskEvent.add(handler);
+	}
+
+	@Override
+	public EventRegistration registerDetailsEventHandler(
+			final EventHandler<TypedEventArg<Task>> handler) {
+		return this.detailsEvent.add(handler);
+	}
+
+	@Override
+	public void fillOpenTaskTable(final List<Task> tasklist) {
+		this.cellTableOpen.setRowData(tasklist);
+	}
+
+	@Override
+	public void fillInProgressTaskTable(final List<Task> tasklist) {
+		this.cellTableInProgress.setRowData(tasklist);
+	}
+
+	@Override
+	public void fillDoneTaskTable(final List<Task> tasklist) {
+		this.cellTableDone.setRowData(tasklist);
+	}
+
+	@Override
+	public void close() {
+		this.newTaskEvent.removeAllHandler();
+		this.detailsEvent.removeAllHandler();
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		this.getBtnCreateNewTask().setEnabled(value);
+
+	}
+
+	protected Button getBtnCreateNewTask() {
+		return this.btnCreateNewTask;
 	}
 }

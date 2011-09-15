@@ -1,153 +1,107 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.Vector;
-
-import com.google.gwt.user.client.ui.Panel;
-
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.CreateIncidentView;
-import fhdw.ipscrum.client.view.interfaces.ICreateIncidentView;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.exceptions.DoubleDefinitionException;
-import fhdw.ipscrum.shared.exceptions.NoValidValueException;
-import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.incidents.Incident;
-import fhdw.ipscrum.shared.model.incidents.IncidentType;
-import fhdw.ipscrum.shared.model.incidents.MultipleParticipantIncident;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.architecture.widgets.Answer;
+import fhdw.ipscrum.client.architecture.widgets.QuestionDialog;
+import fhdw.ipscrum.client.viewinterfaces.ICreateIncidentView;
+import fhdw.ipscrum.shared.commands.projectHistory.IncidentOtherIssueCreateCommand;
+import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 
 /**
- * Presenter for creating new {@link Incident}
- * 
- * @author Phase IV - Group Reporting II
- * 
+ * This class represents the presenter which controls the view to create Incidents.
  */
-public class CreateIncidentPresenter extends Presenter<ICreateIncidentView> {
+public class CreateIncidentPresenter extends WritePresenter {
 
 	/**
-	 * Creates a new instance of {@link CreateIncidentPresenter}
+	 * Represents the view which is related to and controlled by this presenter.
+	 */
+	private ICreateIncidentView view;
+
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.CreateIncidentPresenter).
 	 * 
-	 * @param parent
-	 * @param parentPresenter
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
 	 */
-	public CreateIncidentPresenter(Panel parent, Presenter<?> parentPresenter) {
-		super(parent, parentPresenter);
-		this.addHandler();
-		this.initializeView();
-	}
-
-	/**
-	 * Initializes the View
-	 */
-	private void initializeView() {
-		getView()
-				.refreshPersons(
-						new Vector<IPerson>(getSessionManager().getModel()
-								.getPersons()));
-		getView().refreshProjects(
-				new Vector<Project>(getSessionManager().getModel()
-						.getProjects()));
-		
-		// You shall only be able to create Incidents with non-automatic incident-types. So these are filtered here first.
-		Vector<IncidentType> temp = new Vector<IncidentType>();
-		temp.addAll(getSessionManager().getModel().getIncidentTypes());
-		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_TASKCOMPLETION_NAME));
-		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_PBICOMPLETION_NAME1));
-		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_PBICOMPLETION_NAME2));
-		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_RELEASECOMPLETION_NAME));
-		temp.remove(getSessionManager().getModel().getIncidentTypeByName(TextConstants.INCIDENT_SPRINTCOMPLETION_NAME));
-		getView().refreshTypes(temp);
-	}
-	
-	/**
-	 * Adds the Handler for an event which creates a new {@link Incident}
-	 * and the Handler for an cancel event
-	 */
-	private void addHandler() {
-		this.getView().addCreateIncidentHandler(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-
-				Set<IPerson> persons = getView().getPersons();
-				Set<Project> projects = getView().getProjects();
-				IncidentType type = getView().getType();
-				String description = getView().getDescription();
-				Date startDate = getView().getStartDate();
-				Date endeDate = getView().getEndDate();
-
-				if (persons == null || type == null || startDate == null
-						|| endeDate == null) {
-					GwtUtils.displayError(TextConstants.INCIDENT_WARNING_3);
-				} else {
-					try {
-
-						Incident newInci = null;
-
-						if (type.equals(getSessionManager().getModel()
-								.getIncidentTypeByName(
-										TextConstants.INCIDENT_ILLNESS_NAME))) {
-							newInci = Incident.createIllnessIncident(persons
-									.iterator().next(), startDate, endeDate);
-							getSessionManager().getModel().addIncident(newInci);
-						} else if (type.equals(getSessionManager().getModel()
-								.getIncidentTypeByName(
-										TextConstants.INCIDENT_VACATION_NAME))) {
-							newInci = Incident.createVacationIncident(persons
-									.iterator().next(), startDate, endeDate);
-							getSessionManager().getModel().addIncident(newInci);
-						} else {
-							newInci = Incident.createOtherIssueIncident(type,
-									description, startDate, endeDate);
-							Iterator<IPerson> persIt = persons.iterator();
-
-							while (persIt.hasNext()) {
-								((MultipleParticipantIncident) newInci)
-										.addParticipant(persIt.next());
-							}
-							if (projects.size() == 0) {
-								newInci.setGlobal(true);
-								getSessionManager().getModel().addIncident(
-										newInci);
-							} else {
-
-								Iterator<Project> it = projects.iterator();
-
-								while (it.hasNext()) {
-									it.next().addIncident(newInci);
-								}
-							}
-
-						}
-
-					} catch (DoubleDefinitionException e) {
-						GwtUtils.displayError(e);
-					} catch (NoValidValueException e) {
-						GwtUtils.displayError(e);
-					}
-
-					CreateIncidentPresenter.this.finish();
-				}
-
-			}
-		});
-
-		this.getView().addCancelEventHandler(new EventHandler<EventArgs>() {
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				CreateIncidentPresenter.this.abort();
-			}
-		});
+	public CreateIncidentPresenter(final ClientContext context) {
+		super(context);
+		this.beginTransaction();
 	}
 
 	@Override
-	protected ICreateIncidentView createView() {
-		return new CreateIncidentView();
+	public String getName() {
+		return "Neues Ereignis erstellen";
+	}
+
+	@Override
+	public ICreateIncidentView getView() {
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createCreateIncidentView();
+			this.view.registerSave(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					CreateIncidentPresenter.this.save();
+					CreateIncidentPresenter.this.close();
+				}
+			});
+			this.view.registetAbort(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					CreateIncidentPresenter.this.showQuestion("Änderungen verwerfen?",
+							new Answer("Ja") {
+
+								@Override
+								public void onAction(final QuestionDialog widget) {
+									widget.hide();
+									CreateIncidentPresenter.this.close();
+								}
+							}, new Answer("Nein") {
+
+								@Override
+								public void onAction(final QuestionDialog widget) {
+									widget.hide();
+								}
+							});
+				}
+			});
+		}
+
+		return this.view;
+	}
+
+	@Override
+	public Boolean onSave() {
+		try {
+			// this.doCommand(new IncidentIllnessCreateCommand(this.view.getStartDate(),
+			// this.view.getEndDate(), ));
+			this.doCommand(new IncidentOtherIssueCreateCommand(
+					this.view.getStartDate(), this.view.getEndDate(), this.view
+							.getType().getId(), this.view.getDescription(), this.view
+							.getPersons(), this.view.getProjects()));
+			this.commitTransaction();
+			return super.onSave();
+		} catch (final IPScrumGeneralException e) {
+			return false;
+		}
+	}
+
+	@Override
+	public void updateView() {
+		this.view.refreshPersons(this.getContext().getModel().getAllPersons());
+		this.view.refreshProjects(this.getContext().getModel().getAllProjects());
+		this.view.refreshTypes(this.getContext().getModel().getAllIncidentTypes());
+
+	}
+
+	@Override
+	public void onModelUpdate() {
+
 	}
 
 }

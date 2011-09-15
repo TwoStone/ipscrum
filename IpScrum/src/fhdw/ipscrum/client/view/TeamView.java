@@ -1,7 +1,6 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.Cell.Context;
@@ -24,56 +23,73 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.MultiSelectionModel;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.PersonTeamArgs;
-import fhdw.ipscrum.client.view.interfaces.ITeamView;
+import fhdw.ipscrum.client.architecture.events.DefaultEvent;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.eventargs.PersonTeamArgs;
+import fhdw.ipscrum.client.viewinterfaces.ITeamView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import fhdw.ipscrum.shared.model.interfaces.IRole;
-import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.shared.model.nonMeta.Person;
+import fhdw.ipscrum.shared.model.nonMeta.Role;
+import fhdw.ipscrum.shared.model.nonMeta.Team;
 
 /**
- * view class of the team interface. this composes the team management gui. this
- * view is used to inspect, create and modify teams as well as adding and
- * removing persons to teams.
+ * view class of the team interface. this composes the team management gui. this view is
+ * used to inspect, create and modify teams as well as adding and removing persons to
+ * teams.
  */
 public class TeamView extends Composite implements ITeamView {
 
 	private Tree tree;
-	private final Event<EventArgs> newTeamEvent = new Event<EventArgs>();
+	private final DefaultEvent newTeamEvent = new DefaultEvent();
 	private final Event<PersonTeamArgs> modifyTeamEvent = new Event<PersonTeamArgs>();
-	private final Event<PersonTeamArgs> removePersonFromTeamEvent = new Event<PersonTeamArgs>();
-	private final Event<PersonTeamArgs> addPersonToTeamEvent = new Event<PersonTeamArgs>();
-	private MultiSelectionModel<IPerson> selModelPersonTable;
-	private ListDataProvider<IPerson> personDataProvider;
-	private Collection<IPerson> originalPersonList;
+	private final Event<TypedEventArg<Team>> velocityChartEvent =
+			new Event<TypedEventArg<Team>>();
+	private final Event<PersonTeamArgs> addPersonToTeamEvent =
+			new Event<PersonTeamArgs>();
+	private final Event<PersonTeamArgs> removePersonFromTeamEvent =
+			new Event<PersonTeamArgs>();
+	private final Event<TypedEventArg<Team>> addProjects =
+			new Event<TypedEventArg<Team>>();
 
+	private MultiSelectionModel<Person> selModelPersonTable;
+
+	private ListDataProvider<Person> personDataProvider;
+	private List<Person> originalPersonList;
+	private Button btnTeamBearbeiten;
+	private Button btnNeuesTeamAnlegen;
+	private Button btnProjects;
+
+	/**
+	 * constructor of the TeamView.
+	 */
 	public TeamView() {
 
-		personDataProvider = new ListDataProvider<IPerson>();
+		this.personDataProvider = new ListDataProvider<Person>();
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
-		initWidget(horizontalPanel);
+		this.initWidget(horizontalPanel);
 
-		VerticalPanel verticalPanelTeams = new VerticalPanel();
+		final VerticalPanel verticalPanelTeams = new VerticalPanel();
 		horizontalPanel.add(verticalPanelTeams);
 
-		Label lblTeams = new Label(TextConstants.TEAMVIEW_TEAMTABLEHEADER);
+		final Label lblTeams = new Label(TextConstants.TEAMVIEW_TEAMTABLEHEADER);
 		verticalPanelTeams.add(lblTeams);
 
-		ScrollPanel scrollPanelTeamTree = new ScrollPanel();
+		final ScrollPanel scrollPanelTeamTree = new ScrollPanel();
 		scrollPanelTeamTree.setStyleName("tableBorder");
 		verticalPanelTeams.add(scrollPanelTeamTree);
 		scrollPanelTeamTree.setSize("256px", "400px");
 
 		this.tree = new Tree();
-		tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
+		this.tree.addSelectionHandler(new SelectionHandler<TreeItem>() {
 			@Override
-			public void onSelection(SelectionEvent<TreeItem> event) {
+			public void onSelection(final SelectionEvent<TreeItem> event) {
 				TeamView.this.updateGuiToSelectionChange();
 			}
 		});
@@ -81,73 +97,101 @@ public class TeamView extends Composite implements ITeamView {
 		this.tree.setAnimationEnabled(true);
 		this.tree.setSize("100%", "100%");
 
-		HorizontalPanel horizontalPanelTeamButtons = new HorizontalPanel();
+		final HorizontalPanel horizontalPanelTeamButtons = new HorizontalPanel();
 		verticalPanelTeams.add(horizontalPanelTeamButtons);
 		horizontalPanelTeamButtons.setWidth("100%");
 
-		Button btnNeuesTeamAnlegen = new Button(
-				TextConstants.TEAMVIEW_BUTTONLABEL_CREATENEWTEAM);
-		btnNeuesTeamAnlegen.addClickHandler(new ClickHandler() {
+		this.btnNeuesTeamAnlegen =
+				new Button(TextConstants.TEAMVIEW_BUTTONLABEL_CREATENEWTEAM);
+		this.btnNeuesTeamAnlegen.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				TeamView.this.newTeamEvent.fire(TeamView.this, new EventArgs());
 			}
 		});
-		horizontalPanelTeamButtons.add(btnNeuesTeamAnlegen);
-		btnNeuesTeamAnlegen.setWidth("100%");
+		horizontalPanelTeamButtons.add(this.btnNeuesTeamAnlegen);
+		this.btnNeuesTeamAnlegen.setWidth("100%");
 
-		Button btnTeamBearbeiten = new Button(
-				TextConstants.TEAMVIEW_BUTTONLABEL_MODIFYTEAM);
-		btnTeamBearbeiten.addClickHandler(new ClickHandler() {
+		this.btnTeamBearbeiten =
+				new Button(TextConstants.TEAMVIEW_BUTTONLABEL_MODIFYTEAM);
+		this.btnTeamBearbeiten.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				if (TeamView.this.getSelectedTeamOfTree() != null) {
-					TeamView.this.modifyTeamEvent.fire(
+					TeamView.this.modifyTeamEvent.fire(TeamView.this,
+							new PersonTeamArgs(TeamView.this.getSelectedTeamOfTree()));
+				}
+			}
+		});
+		horizontalPanelTeamButtons.add(this.btnTeamBearbeiten);
+		this.btnTeamBearbeiten.setWidth("100%");
+
+		final HorizontalPanel team2Buttons = new HorizontalPanel();
+		verticalPanelTeams.add(team2Buttons);
+		team2Buttons.setWidth("100%");
+
+		final Button btnVelocity = new Button("Velocity-Analyse");
+		team2Buttons.add(btnVelocity);
+		btnVelocity.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+				if (TeamView.this.getSelectedTeamOfTree() != null) {
+					TeamView.this.velocityChartEvent.fire(
 							TeamView.this,
-							new PersonTeamArgs(TeamView.this
+							new TypedEventArg<Team>(TeamView.this
 									.getSelectedTeamOfTree()));
 				}
 			}
 		});
-		horizontalPanelTeamButtons.add(btnTeamBearbeiten);
-		btnTeamBearbeiten.setWidth("100%");
+		btnVelocity.setWidth("100%");
 
-		VerticalPanel verticalPanelAllocationButtons = new VerticalPanel();
+		this.btnProjects = new Button("Projekte zuordnen");
+		team2Buttons.add(this.btnProjects);
+		this.btnProjects.setWidth("100%");
+		this.btnProjects.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(final ClickEvent event) {
+
+				TeamView.this.addProjects.fire(TeamView.this, new TypedEventArg<Team>(
+						TeamView.this.getSelectedTeamOfTree()));
+
+			}
+		});
+
+		final VerticalPanel verticalPanelAllocationButtons = new VerticalPanel();
 		verticalPanelAllocationButtons.setStyleName("allocationButtonPanel");
 		horizontalPanel.add(verticalPanelAllocationButtons);
 
-		Button btnRemovePersonFromTeam = new Button(
-				TextConstants.BUTTONLABEL_REMOVE);
+		final Button btnRemovePersonFromTeam =
+				new Button(TextConstants.BUTTONLABEL_REMOVE);
 		btnRemovePersonFromTeam.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				if (TeamView.this.getSelectedPersonOfTree() != null
 						&& TeamView.this.getSelectedTeamOfTree() != null) { // does
 																			// not
 																			// work
 																			// sometimes..
-					TeamView.this.removePersonFromTeamEvent.fire(
-							TeamView.this,
-							new PersonTeamArgs(TeamView.this
-									.getSelectedPersonOfTree(), TeamView.this
-									.getSelectedTeamOfTree()));
+					TeamView.this.removePersonFromTeamEvent.fire(TeamView.this,
+							new PersonTeamArgs(TeamView.this.getSelectedPersonOfTree(),
+									TeamView.this.getSelectedTeamOfTree()));
 				}
 			}
 		});
 		verticalPanelAllocationButtons.add(btnRemovePersonFromTeam);
 
-		Button btnAddPersonToTeam = new Button(TextConstants.BUTTONLABEL_ASSIGN);
+		final Button btnAddPersonToTeam = new Button(TextConstants.BUTTONLABEL_ASSIGN);
 		btnAddPersonToTeam.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				if (TeamView.this.selModelPersonTable.getSelectedSet().size() > 0
 						&& TeamView.this.getSelectedTeamOfTree() != null) {
 					TeamView.this.addPersonToTeamEvent.fire(
 							TeamView.this,
-							new PersonTeamArgs(
-									TeamView.this.selModelPersonTable
-											.getSelectedSet(), TeamView.this
-											.getSelectedTeamOfTree()));
+							new PersonTeamArgs(TeamView.this.selModelPersonTable
+									.getSelectedSet(), TeamView.this
+									.getSelectedTeamOfTree()));
 				} else {
 					Window.alert(ExceptionConstants.GUI_TEAMVIEW_ASSIGNERROR);
 				}
@@ -155,130 +199,114 @@ public class TeamView extends Composite implements ITeamView {
 		});
 		verticalPanelAllocationButtons.add(btnAddPersonToTeam);
 
-		VerticalPanel verticalPanelPersons = new VerticalPanel();
+		final VerticalPanel verticalPanelPersons = new VerticalPanel();
 		horizontalPanel.add(verticalPanelPersons);
 
-		Label lblVerfgbarePersonen = new Label(
-				TextConstants.TEAMVIEW_PERSONTABLEHEADER);
+		final Label lblVerfgbarePersonen =
+				new Label(TextConstants.TEAMVIEW_PERSONTABLEHEADER);
 		verticalPanelPersons.add(lblVerfgbarePersonen);
 
-		ScrollPanel scrollPanel = new ScrollPanel();
+		final ScrollPanel scrollPanel = new ScrollPanel();
 		scrollPanel.setStyleName("tableBorder");
 		verticalPanelPersons.add(scrollPanel);
-		scrollPanel.setSize("450px", "425px");
+		scrollPanel.setSize("450px", "456px");
 
-		CellTable<IPerson> cellTablePersons = new CellTable<IPerson>();
-		personDataProvider.addDataDisplay(cellTablePersons);
+		final CellTable<Person> cellTablePersons = new CellTable<Person>();
+		this.personDataProvider.addDataDisplay(cellTablePersons);
 		scrollPanel.setWidget(cellTablePersons);
 		cellTablePersons.setSize("100%", "100%");
-		this.selModelPersonTable = new MultiSelectionModel<IPerson>(
-				personDataProvider);
+		this.selModelPersonTable =
+				new MultiSelectionModel<Person>(this.personDataProvider);
 		cellTablePersons.setSelectionModel(this.selModelPersonTable);
 
-		TextColumn<IPerson> colFirstname = new TextColumn<IPerson>() {
+		final TextColumn<Person> colFirstname = new TextColumn<Person>() {
 			@Override
-			public String getValue(IPerson object) {
+			public String getValue(final Person object) {
 				return object.getFirstname();
 			}
 		};
 		cellTablePersons.addColumn(colFirstname,
-				TextConstants.TEAMVIEW_FIRSTNAMEHEADER);
+				TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_FIRSTNAME);
 
-		TextColumn<IPerson> colLastname = new TextColumn<IPerson>() {
+		final TextColumn<Person> colLastname = new TextColumn<Person>() {
 			@Override
-			public String getValue(IPerson object) {
+			public String getValue(final Person object) {
 				return object.getLastname();
 			}
 		};
 		cellTablePersons.addColumn(colLastname,
-				TextConstants.TEAMVIEW_LASTNAMEHEADER);
+				TextConstants.PERSROLEMNGMT_PERSONTABLE_COL_LASTNAME);
 
-		TextColumn<IPerson> colRoles = new TextColumn<IPerson>() {
+		final TextColumn<Person> colRoles = new TextColumn<Person>() {
 			@Override
-			public void render(Context context, IPerson object,
-					SafeHtmlBuilder sb) {
-				for (IRole role : object.getRoles()) {
+			public void render(final Context context, final Person object,
+					final SafeHtmlBuilder sb) {
+				for (final Role role : object.getRoles()) {
 					sb.appendHtmlConstant(role.toString() + "<br />");
 				}
 			}
 
 			@Override
-			public String getValue(IPerson object) {
+			public String getValue(final Person object) {
 				return object.getRoles().toString();
 			}
 		};
-		cellTablePersons
-				.addColumn(colRoles, TextConstants.TEAMVIEW_ROLESHEADER);
+		cellTablePersons.addColumn(colRoles, TextConstants.TEAMVIEW_ROLESHEADER);
 	}
 
 	/**
-	 * This method is called when the team-selection changes. It updates the
-	 * person-table to just show availabe persons.
+	 * This method is called when the team-selection changes. It updates the person-table
+	 * to just show availabe persons.
 	 */
 	private void updateGuiToSelectionChange() {
-		Vector<IPerson> personsToHide = this.getSelectedTeamOfTree()
-				.getMembers();
-		personDataProvider.getList().clear();
-		personDataProvider.getList().addAll(originalPersonList);
-		personDataProvider.getList().removeAll(personsToHide);
+		final Vector<Person> personsToHide = this.getSelectedTeamOfTree().getMembers();
+		this.personDataProvider.getList().clear();
+		this.personDataProvider.getList().addAll(this.originalPersonList);
+		this.personDataProvider.getList().removeAll(personsToHide);
 		// personsToShow.removeAll(personsToHide);
 		//
 		// this.cellTablePersons.setRowData(new
-		// ArrayList<IPerson>(personsToShow));
+		// ArrayList<Person>(personsToShow));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fhdw.ipscrum.client.view.ITeamView#getSelectedPersonOfTree()
-	 */
 	@Override
-	public IPerson getSelectedPersonOfTree() {
+	public Person getSelectedPersonOfTree() {
 		if (this.tree.getSelectedItem() != null) {
-			Object selItem = this.tree.getSelectedItem().getUserObject();
-			if (selItem instanceof IPerson) {
-				return (IPerson) selItem;
+			final Object selItem = this.tree.getSelectedItem().getUserObject();
+			if (selItem instanceof Person) {
+				return (Person) selItem;
 			}
 		}
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fhdw.ipscrum.client.view.ITeamView#getSelectedTeamOfTree()
-	 */
 	@Override
-	public ITeam getSelectedTeamOfTree() {
+	public Team getSelectedTeamOfTree() {
 		if (this.tree.getSelectedItem() != null) {
-			Object selItem = this.tree.getSelectedItem().getUserObject();
-			if (selItem instanceof ITeam) {
-				return (ITeam) selItem;
-			} else if (selItem instanceof IPerson
-					&& this.tree.getSelectedItem().getParentItem()
-							.getUserObject() instanceof ITeam) {
-				return (ITeam) this.tree.getSelectedItem().getParentItem()
-						.getUserObject();
+			final Object selItem = this.tree.getSelectedItem().getUserObject();
+			Team result = null;
+			if (selItem instanceof Team) {
+				result = (Team) selItem;
+			} else if (selItem instanceof Person
+					&& this.tree.getSelectedItem().getParentItem().getUserObject() instanceof Team) {
+				result =
+						(Team) this.tree.getSelectedItem().getParentItem()
+								.getUserObject();
 			}
+			return result;
 		}
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ITeamView#updateTeamTreeData(java.util.HashSet)
-	 */
 	@Override
-	public void updateTeamTreeData(HashSet<ITeam> teamSet) {
+	public void updateTeamTreeData(final List<Team> teamSet) {
 		this.tree.clear();
-		for (ITeam team : teamSet) {
-			TreeItem tItem = new TreeItem(team.toString());
+		for (final Team team : teamSet) {
+			final TreeItem tItem = new TreeItem(team.toString());
 			tItem.setUserObject(team);
 			this.tree.addItem(tItem);
-			for (IPerson person : team.getMembers()) {
-				TreeItem pItem = new TreeItem(person.toString());
+			for (final Person person : team.getMembers()) {
+				final TreeItem pItem = new TreeItem(person.toString());
 				pItem.setUserObject(person);
 				pItem.setStyleName("TreeItem-leaf");
 				tItem.addItem(pItem);
@@ -288,67 +316,72 @@ public class TeamView extends Composite implements ITeamView {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ITeamView#updatePersonTableData(java.util.HashSet
-	 * )
-	 */
 	@Override
-	public void updatePersonTableData(HashSet<IPerson> personSet) {
+	public void updatePersonTableData(final List<Person> personSet) {
 		this.originalPersonList = personSet;
 		this.personDataProvider.getList().clear();
 		this.personDataProvider.getList().addAll(personSet);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ITeamView#defineNewTeamEvent(fhdw.ipscrum.client
-	 * .events.EventHandler)
-	 */
 	@Override
-	public void defineNewTeamEvent(EventHandler<EventArgs> args) {
-		this.newTeamEvent.add(args);
+	public void defineNewTeamEvent(final DefaultEventHandler handler) {
+		this.newTeamEvent.add(handler);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ITeamView#defineModifyTeamEvent(fhdw.ipscrum
-	 * .client.events.EventHandler)
-	 */
 	@Override
-	public void defineModifyTeamEvent(EventHandler<PersonTeamArgs> args) {
+	public void defineModifyTeamEvent(final EventHandler<PersonTeamArgs> args) {
 		this.modifyTeamEvent.add(args);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ITeamView#defineRemovePersonFromTeamEvent(fhdw
-	 * .ipscrum.client.events.EventHandler)
-	 */
 	@Override
-	public void defineRemovePersonFromTeamEvent(
-			EventHandler<PersonTeamArgs> args) {
-		this.removePersonFromTeamEvent.add(args);
+	public void
+			defineVelocityChartEvent(final EventHandler<TypedEventArg<Team>> handler) {
+		this.velocityChartEvent.add(handler);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ITeamView#defineAddPersonToTeamEvent(fhdw.ipscrum
-	 * .client.events.EventHandler)
-	 */
 	@Override
-	public void defineAddPersonToTeamEvent(EventHandler<PersonTeamArgs> args) {
+	public void defineAddPersonToTeamEvent(final EventHandler<PersonTeamArgs> args) {
 		this.addPersonToTeamEvent.add(args);
 	}
 
+	@Override
+	public void
+			defineRemovePersonFromTeamEvent(final EventHandler<PersonTeamArgs> args) {
+		this.removePersonFromTeamEvent.add(args);
+	}
+
+	@Override
+	public void close() {
+		this.addPersonToTeamEvent.removeAllHandler();
+		this.modifyTeamEvent.removeAllHandler();
+		this.newTeamEvent.removeAllHandler();
+		this.removePersonFromTeamEvent.removeAllHandler();
+
+	}
+
+	@Override
+	public void defineAddProjectsEvent(final EventHandler<TypedEventArg<Team>> handler) {
+		this.addProjects.add(handler);
+
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		this.getBtnNeuesTeamAnlegen().setEnabled(value);
+		this.getBtnTeamBearbeiten().setEnabled(value);
+		this.getBtnProjects().setEnabled(value);
+
+	}
+
+	protected Button getBtnTeamBearbeiten() {
+		return this.btnTeamBearbeiten;
+	}
+
+	protected Button getBtnNeuesTeamAnlegen() {
+		return this.btnNeuesTeamAnlegen;
+	}
+
+	protected Button getBtnProjects() {
+		return this.btnProjects;
+	}
 }

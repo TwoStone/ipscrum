@@ -1,0 +1,76 @@
+@CHARSET "ISO-8859-1";
+@def NAVIGATION_HEIGHT value('architecture.NAVIGATION_HEIGHT');
+@def SHADOWCOLOR value('architecture.SHADOWCOLOR');
+
+
+
+
+
+.navigation-widget {
+	
+}
+
+.navigation-widget .navbar {
+	background: none;
+	color: white;
+	border: none;
+	padding: 0;
+}
+
+.navbar table,.navbar tr,.navbar tbody {
+	padding: 0;
+	margin: 0;
+}
+
+.navbar .gwt-MenuItem {
+	padding: 0px 10px;
+	line-height: 26px;
+}
+
+.navbar .gwt-MenuItem-selected {
+	background-color: #555;
+}
+
+.navigation-widget .rightPanel .gwt-Button {
+	margin: 0;
+	text-decoration: none;
+	font-size: 15px;
+	cursor: hand;
+	background: none;
+	border: none;
+	height: NAVIGATION_HEIGHT;
+	color: #EEE;
+}
+
+.navigation-widget .rightPanel .gwt-Button:hover {
+	background-color: #555;
+}
+
+.navigation-widget .rightPanel {
+	position: absolute;
+	right: 0px;
+	width: auto;
+	line-height: NAVIGATION_HEIGHT;
+	color: #EEE !important;
+	font-size: 15px;
+}
+
+.navigation-widget .username {
+	color: #EEE !important;
+	font-size: 15px;
+	padding: 0px 10px;
+}
+
+.navigation-widget .refresh-button {
+	padding: 0;
+	margin: 0;
+	height: NAVIGATION_HEIGHT;
+	width: NAVIGATION_HEIGHT;
+	border: none;
+	background-color: none;
+	background: none url("images/refresh_30.png") top center;
+}
+
+.navigation-widget .refresh-button:hover {
+	background-color: #111;
+}

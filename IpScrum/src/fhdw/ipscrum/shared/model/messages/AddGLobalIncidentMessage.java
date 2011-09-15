@@ -1,25 +1,40 @@
 package fhdw.ipscrum.shared.model.messages;
 
-import fhdw.ipscrum.shared.model.incidents.Incident;
+import fhdw.ipscrum.shared.model.nonMeta.incidents.Incident;
 
-public class AddGLobalIncidentMessage implements Message{
+/**
+ * Represents the message if a global incident occured.
+ * 
+ */
+public class AddGLobalIncidentMessage implements Message {
+
+	/**
+	 * Represents the incident the message is related to.
+	 */
 	private final Incident incident;
-	
-	public AddGLobalIncidentMessage(final Incident incident){
+
+	/**
+	 * Adds the massage to the project history.
+	 * 
+	 * @param incident
+	 *            related to the added massage
+	 */
+	public AddGLobalIncidentMessage(final Incident incident) {
 		this.incident = incident;
 	}
-	
-	public final Incident getIncident(){
+
+	/**
+	 * Gets the incident related to the message.
+	 * 
+	 * @return the current Incident
+	 */
+	public final Incident getIncident() {
 		return this.incident;
 	}
 
 	@Override
-	public void accept(MessageVisitor v) {
-		v.handleAddGlobalIncidentMessage(this);		
-	}
-
-	@Override
-	public void accept(MessageStandardVisitor v) {
+	public void accept(final MessageVisitor v) {
 		v.handleAddGlobalIncidentMessage(this);
 	}
+
 }

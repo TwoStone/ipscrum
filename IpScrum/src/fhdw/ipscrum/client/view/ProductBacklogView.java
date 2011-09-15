@@ -1,43 +1,40 @@
 package fhdw.ipscrum.client.view;
 
-import java.util.Vector;
+import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.PBIArgs;
-import fhdw.ipscrum.client.view.interfaces.IProductBacklogView;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.constants.TextConstants_FilePaths;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.eventargs.PBIArgs;
+import fhdw.ipscrum.client.view.widgets.ProductBacklogTable;
+import fhdw.ipscrum.client.viewinterfaces.IProductBacklogView;
+import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * This view class is used to represent ProductBacklogs.
- * 
- * @author Phase II / Gruppe I
+ * view class of the team interface. this composes the team management gui. this view is
+ * used to inspect, create and modify teams as well as adding and removing persons to
+ * teams.
  */
 public class ProductBacklogView extends Composite implements IProductBacklogView {
-
 	// ########## Events #############
-	private final Event<EventArgs> newFeatureEvent = new Event<EventArgs>();
-	private final Event<EventArgs> newBugEvent = new Event<EventArgs>();
+	private final Event<EventArgs> newTicketEvent = new Event<EventArgs>();
 	private final Event<PBIArgs> detailPBIEvent = new Event<PBIArgs>();
+	private final Event<PBIArgs> editPBIEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiSelectedEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> deleteSelectedEvent = new Event<PBIArgs>();
 	private final Event<PBIArgs> pbiDownEvent = new Event<PBIArgs>();
@@ -46,283 +43,330 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 	private final Event<PBIArgs> pbiTopEvent = new Event<PBIArgs>();
 	// ###### Ende Events ###########
 
-	// TMP Arguments
-	private ProductBacklogItem currentlySelected;
+	private Project project;
 
-	private Image imgDoubleArrowUp;
-	private Image imgArrowDown;
-	private Image imgDoubleArrowDown;
-	private Image imgDetails;
-	private Image imgNewFeature;
-	private Image imgNewBug;
-	private Image imgDelete;
-	private Image imgArrowUp;
-	private CellTable<ProductBacklogItem> tableProductbacklog;
-	private Label lblAktionen;
-	private ScrollPanel scrollPanel;
-	private TextColumn<ProductBacklogItem> sprint;
-	private TextColumn<ProductBacklogItem> release;
-	private Grid grid;
-
-	public static IProductBacklogView createView() {
-		return new ProductBacklogView();
+	@Override
+	public void setProject(final Project project) {
+		this.project = project;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private final Event<TypedEventArg<Project>> gotoProjectEvent =
+			new Event<TypedEventArg<Project>>();
+
+	private final SingleSelectionModel<ProductBacklogItem> selModelPBITable;
+
+	private final ProductBacklogTable productBacklogTableAktive;
+
+	private final ProductBacklogTable productBacklogTableInactive;
+	private final Button btnEditPBI;
+	private final Button btnNeuesAddNewPBI;
+	private final Button btnHigherPrio;
+	private final Button btnLowerPrio;
+
+	/**
+	 * constructor of the ProductBacklogView.
+	 */
 	public ProductBacklogView() {
+		this.selModelPBITable = new SingleSelectionModel<ProductBacklogItem>();
 
-		FlowPanel concreteProductBacklogPanel = new FlowPanel();
-		initWidget(concreteProductBacklogPanel);
-		concreteProductBacklogPanel.setSize("600px", "300px");
+		final VerticalPanel outerPanel = new VerticalPanel();
+		this.initWidget(outerPanel);
 
-		AbsolutePanel horizontalPanel = new AbsolutePanel();
-		horizontalPanel.setSize("600px", "300px");
-		concreteProductBacklogPanel.add(horizontalPanel);
+		final VerticalPanel firstPanel = new VerticalPanel();
+		firstPanel.setSpacing(5);
+		firstPanel.setSize("500px", "440px");
+		outerPanel.add(firstPanel);
 
-		Label lblProductBacklog = new Label(TextConstants.PRODUCTBACKLOG);
-		lblProductBacklog.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		lblProductBacklog.setStyleName(TextConstants.LABELELEMENT);
-		horizontalPanel.add(lblProductBacklog, 10, 10);
+		final HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
+		firstPanel.add(horizontalPanel_2);
 
-		lblAktionen = new Label(TextConstants.ACTION);
-		lblAktionen.setStyleName(TextConstants.LABELELEMENT);
-		horizontalPanel.add(lblAktionen, 522, 10);
-		lblAktionen.setSize("59px", "23px");
+		final VerticalPanel verticalPanelTeams = new VerticalPanel();
+		horizontalPanel_2.add(verticalPanelTeams);
+		verticalPanelTeams.setWidth("100%");
 
-		scrollPanel = new ScrollPanel();
-		horizontalPanel.add(scrollPanel, 10, 40);
-		scrollPanel.setSize("500px", "250px");
+		final Label lblTeams = new Label("Aktiver ProductBacklog");
+		verticalPanelTeams.add(lblTeams);
 
-		tableProductbacklog = new CellTable<ProductBacklogItem>();
+		this.productBacklogTableAktive = new ProductBacklogTable();
+		// activeProductBacklogDataProvider.addDataDisplay(productBacklogTableAktive);
+		verticalPanelTeams.add(this.productBacklogTableAktive);
+		this.productBacklogTableAktive.setSize("100%", "80%");
+		this.productBacklogTableAktive.setSelectionModel(this.selModelPBITable);
 
-		TextColumn<ProductBacklogItem> bezeichnung = new TextColumn<ProductBacklogItem>() {
+		final HorizontalPanel horizontalPanelTeamButtons = new HorizontalPanel();
+		verticalPanelTeams.add(horizontalPanelTeamButtons);
+		horizontalPanelTeamButtons.setWidth("100%");
+
+		this.btnNeuesAddNewPBI = new Button("Ticket erstellen");
+		horizontalPanelTeamButtons.add(this.btnNeuesAddNewPBI);
+		this.btnNeuesAddNewPBI.addClickHandler(new ClickHandler() {
 			@Override
-			public String getValue(ProductBacklogItem pbi) {
-				return pbi.getName();
-			}
-		};
-		bezeichnung.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		bezeichnung.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProductbacklog.addColumn(bezeichnung, TextConstants.PRODUCTBACKLOG_TEXT);
-
-		TextColumn<ProductBacklogItem> aufwand = new TextColumn<ProductBacklogItem>() {
-			@Override
-			public String getValue(ProductBacklogItem pbi) {
-				if (pbi.getManDayCosts() != null) {
-					return pbi.getManDayCosts().toString();
-				} else {
-					return TextConstants.LINE;
-				}
-			}
-		};
-		aufwand.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		aufwand.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		tableProductbacklog.addColumn(aufwand, TextConstants.MAN_DAYS);
-
-		sprint = new TextColumn<ProductBacklogItem>() {
-			@Override
-			public String getValue(ProductBacklogItem pbi) {
-				if (pbi.getSprint() != null) {
-					return pbi.getSprint().getName();
-				} else {
-					return TextConstants.LINE;
-				}
-			}
-		};
-		tableProductbacklog.addColumn(sprint, TextConstants.SPRINT_TEXT);
-
-		release = new TextColumn<ProductBacklogItem>() {
-			@Override
-			public String getValue(ProductBacklogItem pbi) {
-				if (pbi.getSprint() != null && pbi.getSprint().getRelease() != null) {
-					return pbi.getSprint().getRelease().getVersion();
-				} else {
-					return TextConstants.LINE;
-				}
-			}
-		};
-		tableProductbacklog.addColumn(release, TextConstants.RELEASE);
-		scrollPanel.setWidget(tableProductbacklog);
-		tableProductbacklog.setSize("100%", "100%");
-		tableProductbacklog.setSelectionModel(new SingleSelectionModel());
-
-		Grid pbMenu = new Grid(4, 1);
-		pbMenu.setStyleName("box");
-		pbMenu.setCellSpacing(1);
-		horizontalPanel.add(pbMenu, 550, 39);
-		pbMenu.setSize("30px", "250px");
-
-		imgNewFeature = new Image(TextConstants_FilePaths.NEW_FILE_PATH);
-		imgNewFeature.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				newFeatureEvent.fire(ProductBacklogView.this, new EventArgs());
+			public void onClick(final ClickEvent event) {
+				ProductBacklogView.this.newTicketEvent.fire(ProductBacklogView.this,
+						new EventArgs());
 			}
 		});
-		pbMenu.setWidget(0, 0, imgNewFeature);
+		horizontalPanelTeamButtons.setCellVerticalAlignment(this.btnNeuesAddNewPBI,
+				HasVerticalAlignment.ALIGN_MIDDLE);
+		this.btnNeuesAddNewPBI.setWidth("100%");
 
-		imgNewBug = new Image(TextConstants_FilePaths.NEW_FILE_PATH); // TODO Christin: Anderes Icon suchen
-		imgNewBug.addClickHandler(new ClickHandler() {
+		final HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
+		horizontalPanelTeamButtons.add(horizontalPanel_4);
+		horizontalPanelTeamButtons.setCellHorizontalAlignment(horizontalPanel_4,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+
+		this.btnEditPBI = new Button("Bearbeiten");
+		horizontalPanel_4.add(this.btnEditPBI);
+		this.btnEditPBI.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
-				newBugEvent.fire(ProductBacklogView.this, new EventArgs());
+			public void onClick(final ClickEvent event) {
+				// TeamView.this.newTeamEvent.fire(TeamView.this, new
+				// EventArgs());
+				ProductBacklogView.this.detailPBIEvent.fire(
+						ProductBacklogView.this,
+						new PBIArgs(ProductBacklogView.this.selModelPBITable
+								.getSelectedObject()));
 			}
 		});
-		pbMenu.setWidget(1, 0, imgNewBug);
+		horizontalPanelTeamButtons.setCellHorizontalAlignment(this.btnEditPBI,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		this.btnEditPBI.setWidth("98px");
 
-		imgDetails = new Image(TextConstants_FilePaths.DETAILS_PATH);
-		imgDetails.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(ProductBacklogView.this.currentlySelected));
-			}
-		});
-		pbMenu.setWidget(2, 0, imgDetails);
-
-		imgDelete = new Image(TextConstants_FilePaths.DELETE_PATH);
-		imgDelete.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				if (currentlySelected != null) {
-					deleteSelectedEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-				}
-			}
-		});
-		pbMenu.setWidget(3, 0, imgDelete);
-
-		pbMenu.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		pbMenu.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		pbMenu.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		pbMenu.getCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		pbMenu.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		pbMenu.getCellFormatter().setVerticalAlignment(2, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		pbMenu.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		pbMenu.getCellFormatter().setVerticalAlignment(3, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-
-		grid = new Grid(4, 1);
-		grid.setStyleName("box");
-		grid.setCellSpacing(1);
-		horizontalPanel.add(grid, 513, 39);
-		grid.setSize("30px", "250px");
-
-		imgDoubleArrowUp = new Image(TextConstants_FilePaths.TOP_ARROW_PATH);
-		imgDoubleArrowUp.addClickHandler(new ClickHandler() {
+		this.btnHigherPrio = new Button("Priorität eröhen");
+		horizontalPanel_4.add(this.btnHigherPrio);
+		this.btnHigherPrio.setWidth("");
+		this.btnHigherPrio.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onClick(ClickEvent event) {
-				if (currentlySelected != null) {
-					pbiTopEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-				}
-
-			}
-		});
-		grid.setWidget(0, 0, imgDoubleArrowUp);
-
-		imgArrowUp = new Image(TextConstants_FilePaths.UP_ARROW_PATH);
-		imgArrowUp.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				if (currentlySelected != null) {
-					pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-				}
-
-			}
-		});
-		grid.setWidget(1, 0, imgArrowUp);
-
-		imgArrowDown = new Image(TextConstants_FilePaths.DOWN_ARROW_PATH);
-		grid.setWidget(2, 0, imgArrowDown);
-		imgArrowDown.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
+			public void onClick(final ClickEvent event) {
+				ProductBacklogView.this.pbiUpEvent.fire(
+						ProductBacklogView.this,
+						new PBIArgs(ProductBacklogView.this.selModelPBITable
+								.getSelectedObject()));
 			}
 		});
 
-		imgDoubleArrowDown = new Image(TextConstants_FilePaths.BOTTOM_ARROW_PATH);
-		grid.setWidget(3, 0, imgDoubleArrowDown);
-		imgDoubleArrowDown.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				if (currentlySelected != null) {
-					pbiBottomEvent.fire(ProductBacklogView.this, new PBIArgs(currentlySelected));
-				}
-			}
-		});
-		tableProductbacklog.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.btnLowerPrio = new Button("Priorität verringern");
+		horizontalPanel_4.add(this.btnLowerPrio);
+		this.btnLowerPrio.setWidth("");
+
+		this.btnLowerPrio.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onSelectionChange(SelectionChangeEvent event) {
-				SingleSelectionModel<ProductBacklogItem> model = (SingleSelectionModel<ProductBacklogItem>) tableProductbacklog.getSelectionModel();
-				currentlySelected = model.getSelectedObject();
+			public void onClick(final ClickEvent event) {
+				ProductBacklogView.this.pbiDownEvent.fire(
+						ProductBacklogView.this,
+						new PBIArgs(ProductBacklogView.this.selModelPBITable
+								.getSelectedObject()));
 			}
 		});
-		grid.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setVerticalAlignment(0, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		grid.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setVerticalAlignment(1, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		grid.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setVerticalAlignment(2, 0, HasVerticalAlignment.ALIGN_MIDDLE);
-		grid.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_CENTER);
-		grid.getCellFormatter().setVerticalAlignment(3, 0, HasVerticalAlignment.ALIGN_MIDDLE);
+
+		final HTML htmlNewHtml = new HTML("<hr/>", true);
+		firstPanel.add(htmlNewHtml);
+
+		final VerticalPanel verticalPanel = new VerticalPanel();
+		firstPanel.add(verticalPanel);
+		verticalPanel.setWidth("100%");
+
+		final Label lblInaktiverProductbacklog = new Label("Inaktiver ProductBacklog");
+		verticalPanel.add(lblInaktiverProductbacklog);
+
+		this.productBacklogTableInactive = new ProductBacklogTable();
+		// inactiveProductBacklogDataProvider.addDataDisplay(productBacklogTableInactive);
+		verticalPanel.add(this.productBacklogTableInactive);
+		this.productBacklogTableInactive.setSize("100%", "80%");
+
+		final Button btnViewDetails = new Button("Details");
+		verticalPanel.add(btnViewDetails);
+		verticalPanel.setCellHorizontalAlignment(btnViewDetails,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		btnViewDetails.setWidth("98px");
+
+		final Button btnClose = new Button("Schließen");
+		outerPanel.add(btnClose);
+		outerPanel.setCellHorizontalAlignment(btnClose,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		btnClose.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(final ClickEvent event) {
+				ProductBacklogView.this.gotoProjectEvent.fire(ProductBacklogView.this,
+						new TypedEventArg<Project>(ProductBacklogView.this.project));
+			}
+		});
+		btnViewDetails.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(final ClickEvent event) {
+				ProductBacklogView.this.detailPBIEvent.fire(
+						ProductBacklogView.this,
+						new PBIArgs(ProductBacklogView.this.selModelPBITable
+								.getSelectedObject()));
+
+			}
+		});
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addDeletePBIEventHandler(
+	 * fhdw.ipscrum.client.architecture.events.EventHandler)
+	 */
 	@Override
-	public void addDeletePBIEventHandler(EventHandler<PBIArgs> arg) {
-		deleteSelectedEvent.add(arg);
+	public void deletePBIEventHandler(final EventHandler<PBIArgs> arg) {
+		this.deleteSelectedEvent.add(arg);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addNewTicketEventHandler(
+	 * fhdw.ipscrum.client.architecture.events.EventHandler)
+	 */
 	@Override
-	public void addNewFeatureEventHandler(EventHandler<EventArgs> arg) {
-		newFeatureEvent.add(arg);
+	public void addNewTicketEventHandler(final EventHandler<EventArgs> arg) {
+		this.newTicketEvent.add(arg);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addPBIBottomEventHandler(
+	 * fhdw.ipscrum.client.architecture.events.EventHandler)
+	 */
 	@Override
-	public void addNewBugEventHandler(EventHandler<EventArgs> arg) {
-		newBugEvent.add(arg);
+	public void addPBIBottomEventHandler(final EventHandler<PBIArgs> arg) {
+		this.pbiBottomEvent.add(arg);
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addPBIDetailsEventHandler
+	 * (fhdw.ipscrum.client.architecture.events.EventHandler)
+	 */
 	@Override
-	public void addPBIBottomEventHandler(EventHandler<PBIArgs> arg) {
-		pbiBottomEvent.add(arg);
-
-	}
-
-	@Override
-	public void addPBIDetailsEventHandler(fhdw.ipscrum.client.events.EventHandler<PBIArgs> arg) {
-		detailPBIEvent.add(arg);
+	public void addPBIDetailsEventHandler(
+			final fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg) {
+		this.editPBIEvent.add(arg);
 	};
 
 	@Override
-	public void addPBIDownEventHandler(EventHandler<PBIArgs> arg) {
-		pbiDownEvent.add(arg);
+	public void addPBIEditEventHandler(
+			final fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg) {
+		this.detailPBIEvent.add(arg);
+	};
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addPBIDownEventHandler(fhdw
+	 * .ipscrum.client.architecture.events.EventHandler)
+	 */
+	@Override
+	public void addPBIDownEventHandler(final EventHandler<PBIArgs> arg) {
+		this.pbiDownEvent.add(arg);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addPBITopEventHandler(fhdw
+	 * .ipscrum.client.architecture.events.EventHandler)
+	 */
+	@Override
+	public void addPBITopEventHandler(final EventHandler<PBIArgs> arg) {
+		this.pbiTopEvent.add(arg);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addPBIUpEventHandler(fhdw
+	 * .ipscrum.client.architecture.events.EventHandler)
+	 */
+	@Override
+	public void addPBIUpEventHandler(final EventHandler<PBIArgs> arg) {
+		this.pbiUpEvent.add(arg);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fhdw.ipscrum.client.view.IProductBaclogView#addPBISelectedEventHandler
+	 * (fhdw.ipscrum.client.architecture.events.EventHandler)
+	 */
+	@Override
+	public void addPBISelectedEventHandler(final EventHandler<PBIArgs> arg) {
+		this.pbiSelectedEvent.add(arg);
+	}
+
+	@SuppressWarnings("unused")
+	private ProductBacklogItem getSelected() {
+		return this.selModelPBITable.getSelectedObject();
+
 	}
 
 	@Override
-	public void addPBITopEventHandler(EventHandler<PBIArgs> arg) {
-		pbiTopEvent.add(arg);
+	public void updateActiveProductBacklogTable(final List<ProductBacklogItem> pbiSet) {
+		this.productBacklogTableAktive.setRowData(pbiSet);
+	}
+
+	@Override
+	public void
+			updateInactiveProductBacklogTable(final List<ProductBacklogItem> pbiSet) {
+		this.productBacklogTableInactive.setRowData(pbiSet);
 
 	}
 
 	@Override
-	public void addPBIUpEventHandler(EventHandler<PBIArgs> arg) {
-		pbiUpEvent.add(arg);
+	public void close() {
+		this.deleteSelectedEvent.removeAllHandler();
+		this.detailPBIEvent.removeAllHandler();
+		this.newTicketEvent.removeAllHandler();
+		this.pbiBottomEvent.removeAllHandler();
+		this.pbiDownEvent.removeAllHandler();
+		this.pbiSelectedEvent.removeAllHandler();
+		this.pbiTopEvent.removeAllHandler();
+		this.pbiUpEvent.removeAllHandler();
 	}
 
 	@Override
-	public void addPBISelectedEventHandler(EventHandler<PBIArgs> arg) {
-		pbiSelectedEvent.add(arg);
+	public ProductBacklogItem getSelectedPBI() {
+		return this.selModelPBITable.getSelectedObject();
 	}
 
 	@Override
-	public void refreshProductBacklog(Vector<ProductBacklogItem> ProductBacklogItem) {
-		this.getTableProductBacklog().setRowData(ProductBacklogItem);
+	public EventRegistration registerGotoProjectHandler(
+			final EventHandler<TypedEventArg<Project>> handler) {
+		return this.gotoProjectEvent.add(handler);
 	}
 
-	private CellTable<ProductBacklogItem> getTableProductBacklog() {
-		return this.tableProductbacklog;
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		this.getBtnEditPBI().setEnabled(value);
+		this.getBtnNeuesAddNewPBI().setEnabled(value);
+		this.getBtnHigherPrio().setEnabled(value);
+		this.getBtnLowerPrio().setEnabled(value);
+	}
+
+	protected Button getBtnEditPBI() {
+		return this.btnEditPBI;
+	}
+
+	protected Button getBtnNeuesAddNewPBI() {
+		return this.btnNeuesAddNewPBI;
+	}
+
+	protected Button getBtnHigherPrio() {
+		return this.btnHigherPrio;
+	}
+
+	protected Button getBtnLowerPrio() {
+		return this.btnLowerPrio;
 	}
 }

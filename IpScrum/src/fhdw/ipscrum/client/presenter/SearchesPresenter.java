@@ -1,77 +1,97 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.user.client.ui.Panel;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.eventargs.SearchEventArgs;
+import fhdw.ipscrum.client.viewinterfaces.ISearchesView;
+import fhdw.ipscrum.shared.commands.search.SearchDeleteCommand;
+import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.SearchEventArgs;
-import fhdw.ipscrum.client.view.SearchesView;
-import fhdw.ipscrum.client.view.interfaces.ISearchesView;
-import fhdw.ipscrum.shared.model.search.Search;
-import fhdw.ipscrum.shared.model.search.SearchManager;
-import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.TransientObserver;
+/**
+ * This class represents the presenter which controls the view to show saved searches.
+ */
+public class SearchesPresenter extends WritePresenter {
 
-public class SearchesPresenter extends Presenter<ISearchesView> implements
-		TransientObserver {
+	/**
+	 * Represents the view which is related to and controlled from this presenter.
+	 */
+	private ISearchesView view;
 
-	private final Event<SearchEventArgs> doSearch;
-	private final SearchManager manager;
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter).
+	 * 
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
+	 */
+	public SearchesPresenter(final ClientContext context) {
+		super(context);
 
-	public SearchesPresenter(Panel parent, Presenter<?> parentPresenter) {
-		super(parent, parentPresenter);
-		this.doSearch = new Event<SearchEventArgs>();
-		this.manager = this.getSessionManager().getModel().getSearchManager();
-		this.manager.addObserver(this);
+		this.beginTransaction();
 
-		this.updateView();
 	}
 
 	@Override
-	protected ISearchesView createView() {
-		final ISearchesView view = new SearchesView();
-		this.registerEvents(view);
-		return view;
-	}
-
-	private void registerEvents(ISearchesView view) {
-		view.registerDoSavedSearch(new EventHandler<SearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
-				SearchesPresenter.this.doSavedSearch(eventArgs);
-			}
-		});
-
-		view.registerDoDeleteSearch(new EventHandler<SearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, SearchEventArgs eventArgs) {
-				SearchesPresenter.this.deleteSearch(eventArgs.getSearch());
-			}
-		});
-
-	}
-
-	private void deleteSearch(final Search search) {
-		this.getSessionManager().getModel().getSearchManager()
-				.removeSearch(search);
-	}
-
-	private void doSavedSearch(final SearchEventArgs search) {
-		this.doSearch.fire(this, search);
+	public String getName() {
+		return "Gespeicherte Suchen";
 	}
 
 	@Override
-	public void update(Observable observable, Object argument) {
-		this.updateView();
+	public ISearchesView getView() {
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createSearchesView();
+		}
+
+		this.view.registerDoSavedSearch(new EventHandler<SearchEventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
+
+				final SearchResultPresenter presenter =
+						new SearchResultPresenter(SearchesPresenter.this.getContext(),
+								SearchesPresenter.this
+										.getContext()
+										.getModel()
+										.getSearchManager()
+										.search(SearchesPresenter.this.getContext()
+												.getModel().getAllTickets(),
+												eventArgs.getSearch().getExpression()));
+				SearchesPresenter.this.startPresenter(presenter);
+			}
+		});
+
+		this.view.registerDoDeleteSearch(new EventHandler<SearchEventArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
+
+				try {
+					SearchesPresenter.this.doCommand(new SearchDeleteCommand(eventArgs
+							.getSearch()));
+					SearchesPresenter.this.commitTransaction();
+					SearchesPresenter.this.updateView();
+				} catch (final IPScrumGeneralException e) {
+					SearchesPresenter.this.getContext().getToastMessageController()
+							.toastMessage(e.getMessage());
+				}
+
+				SearchesPresenter.this.updateView();
+			}
+		});
+
+		return this.view;
 	}
 
-	private void updateView() {
-		this.getView().setSavedSeaches(this.manager.getSearching());
+	@Override
+	public void updateView() {
+		this.getView().setSavedSeaches(this.getContext().getModel().getSearching());
+
 	}
 
-	public void registerDoSearch(EventHandler<SearchEventArgs> handler) {
-		this.doSearch.add(handler);
+	@Override
+	public void onModelUpdate() {
+
 	}
+
 }

@@ -1,253 +1,238 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.List;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Panel;
-
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.AssociatePersonAndRoleArgs;
-import fhdw.ipscrum.client.events.args.MultipleRoleArgs;
-import fhdw.ipscrum.client.events.args.PersonArgs;
-import fhdw.ipscrum.client.view.PersonRoleView;
-import fhdw.ipscrum.client.view.interfaces.IPersonRoleView;
-import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.model.Person;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import fhdw.ipscrum.shared.model.interfaces.IRole;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.architecture.view.IView;
+import fhdw.ipscrum.client.eventargs.AssociatePersonAndRoleArgs;
+import fhdw.ipscrum.client.eventargs.MultipleRoleArgs;
+import fhdw.ipscrum.client.viewinterfaces.IPersonRoleView;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.PersonAddRoleCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.PersonRemoveRoleCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleDeleteCommand;
+import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
+import fhdw.ipscrum.shared.model.nonMeta.Person;
+import fhdw.ipscrum.shared.model.nonMeta.Role;
 
 /**
- * Presenter for PersonRoleView. PRView is intended to be a central management
- * console for persons and roles. It provides controls for creating, modifying
- * and deleting persons and roles as well associate roles to persons or remove
- * associations.
+ * This class represents the presenter which controls the view to administer Roles and
+ * Persons.
  */
-public class PersonRolePresenter extends Presenter<IPersonRoleView> {
-
-	private IPersonRoleView concreteView;
+public class PersonRolePresenter extends WritePresenter {
 
 	/**
-	 * Constructor for PersonRolePresenter.
-	 * 
-	 * @param parent
-	 *            Panel
-	 * @param parentPresenter
+	 * Represents the view which is related to and controlled by this presenter.
 	 */
-	public PersonRolePresenter(final Panel parent,
-			final Presenter<?> parentPresenter) {
-		super(parent, parentPresenter);
+	private IPersonRoleView view;
+
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.PersonRolePresenter).
+	 * 
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
+	 */
+	public PersonRolePresenter(final ClientContext context) {
+		super(context);
 	}
 
-	/**
-	 * Method createView.
-	 * 
-	 * @return IPersonRoleView
-	 */
 	@Override
-	protected IPersonRoleView createView() {
-		this.concreteView = new PersonRoleView();
-
-		this.updateGuiTables();
-		this.setupEventHandlers();
-
-		return this.concreteView;
+	public String getName() {
+		return "Personen- und Rollenübersicht";
 	}
 
-	/**
-	 * This method is called to set up the algorithms for each button of the
-	 * GUI.
-	 */
-	private void setupEventHandlers() {
+	@Override
+	public IView getView() {
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createPersonRoleView();
 
-		this.concreteView
-				.defineNewPersonEventHandler(new EventHandler<EventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final EventArgs eventArgs) {
-						final DialogBox box = new DialogBox();
-						final PersonDialogPresenter presenter = new PersonDialogPresenter(
-								box, PersonRolePresenter.this);
-						box.setAnimationEnabled(true);
-						box.setGlassEnabled(true);
-						box.setText(TextConstants.PERSONDIALOG_TITLE_CREATE);
+			this.view.defineNewPersonEventHandler(new DefaultEventHandler() {
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					PersonRolePresenter.this.newPerson();
+				}
+			});
 
-						presenter.getFinished().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										PersonRolePresenter.this
-												.updateGuiTables();
-										box.hide();
-									}
-								});
-
-						presenter.getAborted().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										box.hide();
-									}
-								});
-						box.center();
-					}
-				});
-
-		this.concreteView
-				.defineModifyPersonEventHandler(new EventHandler<PersonArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final PersonArgs eventArgs) {
-						final DialogBox box = new DialogBox();
-						final PersonDialogPresenter presenter = new PersonDialogPresenter(
-								box, eventArgs.getPerson(),
-								PersonRolePresenter.this);
-						box.setAnimationEnabled(true);
-						box.setGlassEnabled(true);
-						box.setText(eventArgs.getPerson().getFirstname()
-								+ " bearbeiten");
-						box.center();
-
-						presenter.getFinished().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										PersonRolePresenter.this
-												.updateGuiTables();
-										box.hide();
-									}
-								});
-
-						presenter.getAborted().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										box.hide();
-									}
-								});
-					}
-				});
-
-		this.concreteView
-				.defineRemoveRoleFromPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final AssociatePersonAndRoleArgs eventArgs) {
-						if (eventArgs != null && eventArgs.getPerson() != null
-								&& eventArgs.getRoles().size() > 0) {
-							try {
-								eventArgs.getPerson().removeRole(
-										eventArgs.getSingleRole());
-							} catch (final ConsistencyException e) {
-								PersonRolePresenter.this.abort();
-							}
-							PersonRolePresenter.this.updateGuiTables();
+			this.view
+					.defineModifyPersonEventHandler(new EventHandler<TypedEventArg<Person>>() {
+						@Override
+						public void onUpdate(final Object sender,
+								final TypedEventArg<Person> eventArgs) {
+							PersonRolePresenter.this.modifyPerson(eventArgs.getObject());
 						}
-					}
-				});
+					});
 
-		this.concreteView
-				.defineAddRoleToPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final AssociatePersonAndRoleArgs eventArgs) {
-						if (eventArgs != null && eventArgs.getPerson() != null
-								&& eventArgs.getRoles().size() > 0) {
-							final Iterator<IRole> i = eventArgs.getRoles()
-									.iterator();
-							while (i.hasNext()) {
-								final IRole current = i.next();
-								try {
-									eventArgs.getPerson().addRole(current);
-								} catch (final ConsistencyException e) {
-									PersonRolePresenter.this.abort();
-								}
-							}
+			this.view.defineNewRoleEventHandler(new DefaultEventHandler() {
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					PersonRolePresenter.this.newRole();
+				}
+			});
+
+			this.view
+					.defineRemoveRoleEventHandler(new EventHandler<MultipleRoleArgs>() {
+						@Override
+						public void onUpdate(final Object sender,
+								final MultipleRoleArgs eventArgs) {
+							PersonRolePresenter.this.deleteRoles(eventArgs.getRoles());
 						}
-						PersonRolePresenter.this.updateGuiTables();
-					}
-				});
+					});
 
-		this.concreteView
-				.defineNewRoleEventHandler(new EventHandler<EventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final EventArgs eventArgs) {
-						final DialogBox box = new DialogBox();
-						final RoleDialogPresenter presenter = new RoleDialogPresenter(
-								box, PersonRolePresenter.this);
-						box.setAnimationEnabled(true);
-						box.setGlassEnabled(true);
-						box.setText(TextConstants.ROLEDIALOG_TITLE_CREATE);
-
-						presenter.getFinished().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										PersonRolePresenter.this
-												.updateGuiTables();
-										box.hide();
-									}
-								});
-
-						presenter.getAborted().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										box.hide();
-									}
-								});
-
-						box.center();
-					}
-				});
-
-		this.concreteView
-				.defineRemoveRoleEventHandler(new EventHandler<MultipleRoleArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final MultipleRoleArgs eventArgs) {
-						for (final IRole role : eventArgs.getRoles()) {
-							try {
-								SessionManager.getInstance().getModel()
-										.removeRole(role);
-							} catch (final ConsistencyException e) {
-								Window.alert(e.getMessage());
-							}
+			this.view
+					.defineAddRoleToPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
+						@Override
+						public void onUpdate(final Object sender,
+								final AssociatePersonAndRoleArgs eventArgs) {
+							PersonRolePresenter.this.addRoleToPerson(
+									eventArgs.getPerson(), eventArgs.getRoles());
 						}
-						PersonRolePresenter.this.updateGuiTables();
-					}
-				});
-	}
+					});
 
-	/**
-	 * This method is called to update or fill the GUI with the model-data.
-	 */
-	private void updateGuiTables() {
-		final HashSet<IPerson> personSet = SessionManager.getInstance()
-				.getModel().getPersons();
-		this.concreteView.updatePersonTable(personSet);
+			this.view
+					.defineRemoveRoleFromPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
+						@Override
+						public void onUpdate(final Object sender,
+								final AssociatePersonAndRoleArgs eventArgs) {
+							PersonRolePresenter.this.removeRoleFromPerson(
+									eventArgs.getPerson(), eventArgs.getRoles());
+						}
+					});
+			this.view
+					.defineEditRightsEventHander(new EventHandler<TypedEventArg<Role>>() {
 
-		final Person selPerson = this.concreteView.getSelectedPerson();
-		if (selPerson != null) {
-			this.concreteView.updateAssignedRoles(selPerson.getRoles());
-		} else {
-			this.concreteView.updateAssignedRoles(new Vector<IRole>());
+						@Override
+						public void onUpdate(final Object sender,
+								final TypedEventArg<Role> eventArgs) {
+							PersonRolePresenter.this
+									.startPresenter(new AddRightsToRolePresenter(
+											PersonRolePresenter.this.getContext(),
+											eventArgs.getObject()));
+						}
+					});
+
 		}
 
-		final HashSet<IRole> roleSet = SessionManager.getInstance().getModel()
-				.getRoles();
-		this.concreteView.updateAvailRoleList(roleSet);
+		return this.view;
 	}
+
+	/**
+	 * this method opens the function to create a new person. The creation is done in the
+	 * {@link} fhdw.ipscrum.client.presenter.PersonCreatePresenter .
+	 */
+	private void newPerson() {
+		final PersonCreatePresenter personCreatePresenter =
+				new PersonCreatePresenter(this.getContext());
+		this.startPresenter(personCreatePresenter);
+	}
+
+	/**
+	 * this method opens the function to edit a person. The edit is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.PersonEditPresenter .
+	 * 
+	 * @param person
+	 *            to edit
+	 */
+	private void modifyPerson(final Person person) {
+		final PersonEditPresenter personEditPresenter =
+				new PersonEditPresenter(this.getContext(), person);
+		this.startPresenter(personEditPresenter);
+	}
+
+	/**
+	 * this method opens the function to create a new role. The creation is done in the
+	 * {@link} fhdw.ipscrum.client.presenter.RoleCreatePresenter .
+	 */
+	private void newRole() {
+		final RoleCreatePresenter roleCreatePresenter =
+				new RoleCreatePresenter(this.getContext());
+		this.startPresenter(roleCreatePresenter);
+	}
+
+	/**
+	 * this method opens the function to delete a role.
+	 * 
+	 * @param roles
+	 *            to delete
+	 */
+	private void deleteRoles(final List<Role> roles) {
+		try {
+			this.beginTransaction();
+			for (final Role role : roles) {
+				final RoleDeleteCommand command = new RoleDeleteCommand(role);
+				this.doCommand(command);
+			}
+			this.commitTransaction();
+		} catch (final IPScrumGeneralException e) {
+			this.toastMessage(e.getMessage());
+			this.rollbackTransaction();
+		}
+	}
+
+	/**
+	 * this method opens the function to add roles to a person.
+	 * 
+	 * @param person
+	 *            to add the roles to
+	 * @param roles
+	 *            the roles to add to the person
+	 * 
+	 */
+	private void addRoleToPerson(final Person person, final List<Role> roles) {
+		try {
+			this.beginTransaction();
+			for (final Role role : roles) {
+				final PersonAddRoleCommand command =
+						new PersonAddRoleCommand(person, role);
+				this.doCommand(command);
+			}
+			this.commitTransaction();
+		} catch (final IPScrumGeneralException e) {
+			this.toastMessage(e.getMessage());
+			this.rollbackTransaction();
+		}
+	}
+
+	/**
+	 * this method opens the function to remove roles from a person.
+	 * 
+	 * @param person
+	 *            to remove the roles from
+	 * @param roles
+	 *            the roles to remove from the person
+	 * 
+	 */
+	private void removeRoleFromPerson(final Person person, final List<Role> roles) {
+		try {
+			this.beginTransaction();
+			for (final Role role : roles) {
+				final PersonRemoveRoleCommand command =
+						new PersonRemoveRoleCommand(person, role);
+				this.doCommand(command);
+			}
+			this.commitTransaction();
+		} catch (final IPScrumGeneralException e) {
+			this.toastMessage(e.getMessage());
+			this.rollbackTransaction();
+		}
+	}
+
+	@Override
+	public void updateView() {
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
+				.getPersonRoleAdminRight());
+		this.view.updatePersonTable(this.getContext().getModel().getAllPersons());
+		this.view.updateAvailRoleList(this.getContext().getModel().getAllRoles());
+		this.view.updateAssignedRoleDisplay();
+	}
+
+	@Override
+	public void onModelUpdate() {
+		this.updateView();
+	}
+
 }

@@ -25,51 +25,67 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.IEvent;
-import fhdw.ipscrum.client.events.args.CreateLogicalOperatorArgs;
-import fhdw.ipscrum.client.events.args.DeleteEventArgs;
-import fhdw.ipscrum.client.events.args.EffortSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.LastEditorSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.PBITypSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.ProjectSearchCriterionEventArgs;
-import fhdw.ipscrum.client.events.args.RelationTypeSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.ReleaseSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.SearchEventArgs;
-import fhdw.ipscrum.client.events.args.StatusSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.SystemSearchCriterionArgs;
-import fhdw.ipscrum.client.events.args.TextSearchCriterionArgs;
-import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
-import fhdw.ipscrum.client.view.interfaces.ISearchView;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.IEvent;
+import fhdw.ipscrum.client.eventargs.CreateLogicalOperatorArgs;
+import fhdw.ipscrum.client.eventargs.DeleteEventArgs;
+import fhdw.ipscrum.client.eventargs.EffortSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.LastEditorSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.PBITypSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.ProjectSearchCriterionEventArgs;
+import fhdw.ipscrum.client.eventargs.RelationTypeSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.ReleaseSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.SearchEventArgs;
+import fhdw.ipscrum.client.eventargs.StatusSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.SystemSearchCriterionArgs;
+import fhdw.ipscrum.client.eventargs.TextSearchCriterionArgs;
+import fhdw.ipscrum.client.viewinterfaces.ISearchView;
 import fhdw.ipscrum.shared.constants.TextConstantsForLists;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.RelationType;
-import fhdw.ipscrum.shared.model.System;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import fhdw.ipscrum.shared.model.interfaces.IRelease;
-import fhdw.ipscrum.shared.model.search.ISearchExpression;
-import fhdw.ipscrum.shared.model.search.ISearchTypeVisitor;
-import fhdw.ipscrum.shared.model.search.MultiLogicSearchOperator;
-import fhdw.ipscrum.shared.model.search.Search;
-import fhdw.ipscrum.shared.model.search.SearchCriteria;
-import fhdw.ipscrum.shared.model.search.SingleLogicSearchOperator;
+import fhdw.ipscrum.shared.model.metamodel.search.ISearchExpression;
+import fhdw.ipscrum.shared.model.metamodel.search.ISearchTypeVisitor;
+import fhdw.ipscrum.shared.model.metamodel.search.MultiLogicSearchOperator;
+import fhdw.ipscrum.shared.model.metamodel.search.Search;
+import fhdw.ipscrum.shared.model.metamodel.search.SearchCriteria;
+import fhdw.ipscrum.shared.model.metamodel.search.SingleLogicSearchOperator;
+import fhdw.ipscrum.shared.model.nonMeta.Person;
+import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
+import fhdw.ipscrum.shared.model.nonMeta.Project;
+import fhdw.ipscrum.shared.model.nonMeta.RelationType;
+import fhdw.ipscrum.shared.model.nonMeta.Release;
+import fhdw.ipscrum.shared.model.nonMeta.System;
 
+/**
+ * represents the search view.
+ */
+@SuppressWarnings("deprecation")
 public class SearchView extends Composite implements ISearchView {
-	private final Event<PBITypSearchCriterionArgs> addPbiTypSearchCriterion = new Event<PBITypSearchCriterionArgs>();
-	private final Event<ProjectSearchCriterionEventArgs> addProjektSearchCriterion = new Event<ProjectSearchCriterionEventArgs>();
-	private final Event<ReleaseSearchCriterionArgs> addReleaseSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
-	private final Event<EffortSearchCriterionArgs> addAufwandSearchCriterion = new Event<EffortSearchCriterionArgs>();
-	private final Event<StatusSearchCriterionArgs> addStatusSearchCriterion = new Event<StatusSearchCriterionArgs>();
-	private final Event<LastEditorSearchCriterionArgs> addLetzterBearbeiterSearchCriterion = new Event<LastEditorSearchCriterionArgs>();
-	private final Event<RelationTypeSearchCriterionArgs> addBeziehungTypSearchCriterion = new Event<RelationTypeSearchCriterionArgs>();
-	private final Event<TextSearchCriterionArgs> addBeziehungZielSearchCriterion = new Event<TextSearchCriterionArgs>();
-	private final Event<SystemSearchCriterionArgs> addSystemSearchCriterion = new Event<SystemSearchCriterionArgs>();
-	private final Event<ReleaseSearchCriterionArgs> addVersionSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
-	private final Event<TextSearchCriterionArgs> addTextSearchCriterion = new Event<TextSearchCriterionArgs>();
+	private final Event<PBITypSearchCriterionArgs> addPbiTypSearchCriterion =
+			new Event<PBITypSearchCriterionArgs>();
+	private final Event<ProjectSearchCriterionEventArgs> addProjektSearchCriterion =
+			new Event<ProjectSearchCriterionEventArgs>();
+	private final Event<ReleaseSearchCriterionArgs> addReleaseSearchCriterion =
+			new Event<ReleaseSearchCriterionArgs>();
+	private final Event<EffortSearchCriterionArgs> addAufwandSearchCriterion =
+			new Event<EffortSearchCriterionArgs>();
+	private final Event<StatusSearchCriterionArgs> addStatusSearchCriterion =
+			new Event<StatusSearchCriterionArgs>();
+	private final Event<LastEditorSearchCriterionArgs> addLetzterBearbeiterSearchCriterion =
+			new Event<LastEditorSearchCriterionArgs>();
+	private final Event<RelationTypeSearchCriterionArgs> addBeziehungTypSearchCriterion =
+			new Event<RelationTypeSearchCriterionArgs>();
+	private final Event<TextSearchCriterionArgs> addBeziehungZielSearchCriterion =
+			new Event<TextSearchCriterionArgs>();
+	private final Event<SystemSearchCriterionArgs> addSystemSearchCriterion =
+			new Event<SystemSearchCriterionArgs>();
+	private final Event<ReleaseSearchCriterionArgs> addVersionSearchCriterion =
+			new Event<ReleaseSearchCriterionArgs>();
+	private final Event<TextSearchCriterionArgs> addTextSearchCriterion =
+			new Event<TextSearchCriterionArgs>();
 	private final Event<EventArgs> changeSearchName = new Event<EventArgs>();
-	private final Event<CreateLogicalOperatorArgs> addLogicalOperator = new Event<CreateLogicalOperatorArgs>();
+	private final Event<CreateLogicalOperatorArgs> addLogicalOperator =
+			new Event<CreateLogicalOperatorArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 	private final Event<SearchEventArgs> doSearch = new Event<SearchEventArgs>();
 	private final Event<SearchEventArgs> save = new Event<SearchEventArgs>();
@@ -80,12 +96,11 @@ public class SearchView extends Composite implements ISearchView {
 	private List<Project> projects;
 	private List<ProductBacklogItem> pbis;
 	private List<System> systems;
-	private List<IPerson> persons;
+	private List<Person> persons;
 	private List<RelationType> relationtypes;
 	private CellTree cellTree;
 	private final VerticalPanel mainPanel;
 	private final ScrollPanel scrollPanelSearch;
-	private final ScrollPanel scrollPanelResult;
 	private final VerticalPanel valuePanel;
 	private final VerticalPanel thirdLevelPanel;
 	private final ListBox cboTyp1;
@@ -113,17 +128,18 @@ public class SearchView extends Composite implements ISearchView {
 	private final Button btnLschen;
 	private HandlerRegistration deleteRegistration;
 
+	/**
+	 * constructor of the SearchView.
+	 */
 	public SearchView() {
 		this.lblAddText = new Label("Hinzufügen:");
 		this.mainPanel = new VerticalPanel();
 		this.initWidget(this.mainPanel);
+		this.mainPanel.setSize("990px", "380px");
 		this.mainPanel.setSpacing(5);
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		this.mainPanel.add(horizontalPanel);
-
-		this.scrollPanelResult = new ScrollPanel();
-		this.mainPanel.add(this.scrollPanelResult);
 		this.buttonPanel = new HorizontalPanel();
 
 		this.verticalPanel = new VerticalPanel();
@@ -146,7 +162,7 @@ public class SearchView extends Composite implements ISearchView {
 		this.btnSpeichern = new Button("Suche speichern");
 		this.btnSpeichern.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				SearchView.this.save.fire(SearchView.this, new SearchEventArgs(
 						SearchView.this.search));
 			}
@@ -157,7 +173,7 @@ public class SearchView extends Composite implements ISearchView {
 		this.btnAbbrechen.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				SearchView.this.abort.fire(SearchView.this, new EventArgs());
 			}
 		});
@@ -167,14 +183,13 @@ public class SearchView extends Composite implements ISearchView {
 		this.btnAusfuehren.addClickHandler(new ClickHandler() {
 
 			@Override
-			public void onClick(ClickEvent event) {
-				SearchView.this.doSearch.fire(SearchView.this,
-						new SearchEventArgs(SearchView.this.search));
+			public void onClick(final ClickEvent event) {
+				SearchView.this.doSearch.fire(SearchView.this, new SearchEventArgs(
+						SearchView.this.search));
 			}
 		});
 		this.buttonPanel.add(this.btnAusfuehren);
 		this.scrollPanelSearch.setSize("600px", "300px");
-		this.scrollPanelResult.setSize("980px", "270px");
 
 		this.valuePanel = new VerticalPanel();
 
@@ -182,11 +197,9 @@ public class SearchView extends Composite implements ISearchView {
 		this.txtSearchName.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
-				SearchView.this.search.setName(SearchView.this.txtSearchName
-						.getText());
-				SearchView.this.changeSearchName.fire(SearchView.this,
-						new EventArgs());
+			public void onChange(final ChangeEvent event) {
+				SearchView.this.search.setName(SearchView.this.txtSearchName.getText());
+				SearchView.this.changeSearchName.fire(SearchView.this, new EventArgs());
 			}
 		});
 		horizontalPanel.add(this.valuePanel);
@@ -195,20 +208,18 @@ public class SearchView extends Composite implements ISearchView {
 		this.btnHinzu = new Button("Hinzufügen");
 		this.btnHinzu.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
+			public void onClick(final ClickEvent event) {
 				if (SearchView.this.cboTyp1.getSelectedIndex() == 0) {
-					SearchView.this.addLogicalOperator
-							.fire(SearchView.this,
-									new CreateLogicalOperatorArgs(
-											SearchView.this.cboTyp2
-													.getSelectedIndex() + 1,
-											SearchView.this.selectionModel
-													.getSelectedObject()));
+					SearchView.this.addLogicalOperator.fire(
+							SearchView.this,
+							new CreateLogicalOperatorArgs(SearchView.this.cboTyp2
+									.getSelectedIndex() + 1,
+									SearchView.this.selectionModel.getSelectedObject()));
 				} else if (SearchView.this.cboTyp1.getSelectedIndex() == 1
 						&& !SearchView.this.fireEventForTextSearchCriterion()) {
 					final int i = SearchView.this.cboTyp2.getSelectedIndex();
-					final ISearchExpression se = SearchView.this.selectionModel
-							.getSelectedObject();
+					final ISearchExpression se =
+							SearchView.this.selectionModel.getSelectedObject();
 					switch (i) {
 					case 0:
 						SearchView.this.addPbiTypSearchCriterion.fire(
@@ -218,21 +229,21 @@ public class SearchView extends Composite implements ISearchView {
 												.getSelectedIndex() + 1));
 						break;
 					case 1:
-						SearchView.this.addProjektSearchCriterion
-								.fire(this,
-										new ProjectSearchCriterionEventArgs(
-												se,
-												SearchView.this.projects
-														.get(SearchView.this.cboThirdLevel
-																.getSelectedIndex())));
+						SearchView.this.addProjektSearchCriterion.fire(
+								this,
+								new ProjectSearchCriterionEventArgs(se,
+										SearchView.this.projects
+												.get(SearchView.this.cboThirdLevel
+														.getSelectedIndex())));
 						break;
 					case 2:
-						final IRelease r = SearchView.this.projects
-								.get(SearchView.this.cboThirdPreselection
-										.getSelectedIndex())
-								.getReleasePlan()
-								.get(SearchView.this.cboThirdLevel
-										.getSelectedIndex());
+						final Release r =
+								SearchView.this.projects
+										.get(SearchView.this.cboThirdPreselection
+												.getSelectedIndex())
+										.getReleasePlan()
+										.get(SearchView.this.cboThirdLevel
+												.getSelectedIndex());
 						SearchView.this.addReleaseSearchCriterion.fire(this,
 								new ReleaseSearchCriterionArgs(se, r));
 						break;
@@ -252,40 +263,37 @@ public class SearchView extends Composite implements ISearchView {
 					case 8:
 						SearchView.this.addLetzterBearbeiterSearchCriterion.fire(
 								this,
-								new LastEditorSearchCriterionArgs(
-										se,
+								new LastEditorSearchCriterionArgs(se,
 										SearchView.this.persons
 												.get(SearchView.this.cboThirdLevel
 														.getSelectedIndex())));
 						break;
 					case 10:
-						if (SearchView.this.cboThirdPreselection
-								.getSelectedIndex() == 0) {
-							SearchView.this.addBeziehungTypSearchCriterion
-									.fire(this,
-											new RelationTypeSearchCriterionArgs(
-													se,
-													SearchView.this.relationtypes
-															.get(SearchView.this.cboThirdLevel
-																	.getSelectedIndex())));
+						if (SearchView.this.cboThirdPreselection.getSelectedIndex() == 0) {
+							SearchView.this.addBeziehungTypSearchCriterion.fire(
+									this,
+									new RelationTypeSearchCriterionArgs(se,
+											SearchView.this.relationtypes
+													.get(SearchView.this.cboThirdLevel
+															.getSelectedIndex())));
 						}
 						break;
 					case 13:
-						SearchView.this.addSystemSearchCriterion
-								.fire(this,
-										new SystemSearchCriterionArgs(
-												se,
-												SearchView.this.systems
-														.get(SearchView.this.cboThirdLevel
-																.getSelectedIndex())));
+						SearchView.this.addSystemSearchCriterion.fire(
+								this,
+								new SystemSearchCriterionArgs(se,
+										SearchView.this.systems
+												.get(SearchView.this.cboThirdLevel
+														.getSelectedIndex())));
 						break;
 					case 14:
-						final IRelease v = SearchView.this.projects
-								.get(SearchView.this.cboThirdPreselection
-										.getSelectedIndex())
-								.getReleasePlan()
-								.get(SearchView.this.cboThirdLevel
-										.getSelectedIndex());
+						final Release v =
+								SearchView.this.projects
+										.get(SearchView.this.cboThirdPreselection
+												.getSelectedIndex())
+										.getReleasePlan()
+										.get(SearchView.this.cboThirdLevel
+												.getSelectedIndex());
 						SearchView.this.addVersionSearchCriterion.fire(this,
 								new ReleaseSearchCriterionArgs(se, v));
 						break;
@@ -310,25 +318,23 @@ public class SearchView extends Composite implements ISearchView {
 		this.cboTyp1.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
+			public void onChange(final ChangeEvent event) {
 				if (SearchView.this.cboTyp1.getSelectedIndex() == 0) {
 					SearchView.this.showCboTyp2(true,
 							TextConstantsForLists.SEARCH_LOGICALS);
-					SearchView.this.lblTyp2
-							.setText(TextConstantsForLists.SEARCH_TYPES.get(1));
-					SearchView.this.valuePanel
-							.remove(SearchView.this.thirdLevelPanel);
+					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES
+							.get(1));
+					SearchView.this.valuePanel.remove(SearchView.this.thirdLevelPanel);
 				} else if (SearchView.this.cboTyp1.getSelectedIndex() == 1) {
 					SearchView.this.showCboTyp2(true,
 							TextConstantsForLists.SEARCH_CRITERIA);
-					SearchView.this.lblTyp2
-							.setText(TextConstantsForLists.SEARCH_TYPES.get(2));
-					SearchView.this.valuePanel
-							.remove(SearchView.this.thirdLevelPanel);
+					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES
+							.get(2));
+					SearchView.this.valuePanel.remove(SearchView.this.thirdLevelPanel);
 				} else {
 					SearchView.this.showCboTyp2(false, null);
-					SearchView.this.lblTyp2
-							.setText(TextConstantsForLists.SEARCH_TYPES.get(2));
+					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES
+							.get(2));
 				}
 			}
 		});
@@ -338,16 +344,13 @@ public class SearchView extends Composite implements ISearchView {
 		this.cboTyp2.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
+			public void onChange(final ChangeEvent event) {
 				if (SearchView.this.cboTyp1.getSelectedIndex() == 0) {
 					SearchView.this.thirdLevelPanel.clear();
-					SearchView.this.valuePanel
-							.add(SearchView.this.thirdLevelPanel);
-					SearchView.this.thirdLevelPanel
-							.add(SearchView.this.btnHinzu);
+					SearchView.this.valuePanel.add(SearchView.this.thirdLevelPanel);
+					SearchView.this.thirdLevelPanel.add(SearchView.this.btnHinzu);
 				} else if (SearchView.this.cboTyp1.getSelectedIndex() == 1) {
-					SearchView.this.valuePanel
-							.add(SearchView.this.thirdLevelPanel);
+					SearchView.this.valuePanel.add(SearchView.this.thirdLevelPanel);
 					SearchView.this.showThirdLevel(SearchView.this.cboTyp2
 							.getSelectedIndex());
 				}
@@ -363,7 +366,7 @@ public class SearchView extends Composite implements ISearchView {
 		this.intBoxFrom.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
+			public void onChange(final ChangeEvent event) {
 				SearchView.this.checkAufwand();
 			}
 		});
@@ -371,14 +374,14 @@ public class SearchView extends Composite implements ISearchView {
 		this.intBoxTo.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
+			public void onChange(final ChangeEvent event) {
 				SearchView.this.checkAufwand();
 			}
 		});
 		this.cboThirdLevel.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
+			public void onChange(final ChangeEvent event) {
 				SearchView.this.thirdLevelPanel.add(SearchView.this.btnHinzu);
 			}
 		});
@@ -387,12 +390,11 @@ public class SearchView extends Composite implements ISearchView {
 		this.searchSelectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 					@Override
-					public void onSelectionChange(SelectionChangeEvent event) {
-						if (SearchView.this.searchSelectionModel
-								.getSelectedObject() != null) {
+					public void onSelectionChange(final SelectionChangeEvent event) {
+						if (SearchView.this.searchSelectionModel.getSelectedObject() != null) {
 							SearchView.this.selectionModel.setSelected(
-									SearchView.this.selectionModel
-											.getSelectedObject(), false);
+									SearchView.this.selectionModel.getSelectedObject(),
+									false);
 							SearchView.this.valuePanel
 									.add(SearchView.this.lblSearchName);
 							SearchView.this.txtSearchName
@@ -412,38 +414,43 @@ public class SearchView extends Composite implements ISearchView {
 		this.selectionModel
 				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 					@Override
-					public void onSelectionChange(SelectionChangeEvent event) {
+					public void onSelectionChange(final SelectionChangeEvent event) {
 						SearchView.this.disableDeleteButton();
 
-						final ISearchExpression se = SearchView.this.selectionModel
-								.getSelectedObject();
+						final ISearchExpression se =
+								SearchView.this.selectionModel.getSelectedObject();
 						if (se != null) {
 							SearchView.this.searchSelectionModel.setSelected(
 									SearchView.this.searchSelectionModel
 											.getSelectedObject(), false);
 							SearchView.this.enableDeleteButton(se);
 
-							final ISearchTypeVisitor searchTypeVisitor = new ISearchTypeVisitor() {
+							final ISearchTypeVisitor searchTypeVisitor =
+									new ISearchTypeVisitor() {
 
-								@Override
-								public void handleMultiLogicSearchOperator(
-										MultiLogicSearchOperator multiLogicSearchOperator) {
-									SearchView.this.enableAdd();
-								}
+										@Override
+										public
+												void
+												handleMultiLogicSearchOperator(
+														final MultiLogicSearchOperator multiLogicSearchOperator) {
+											SearchView.this.enableAdd();
+										}
 
-								@Override
-								public void handleSearchCriteria(
-										SearchCriteria searchCriteria) {
-									SearchView.this.disableAdd();
-								}
+										@Override
+										public void handleSearchCriteria(
+												final SearchCriteria searchCriteria) {
+											SearchView.this.disableAdd();
+										}
 
-								@Override
-								public void handleSingleLogicSearchOperator(
-										SingleLogicSearchOperator singleLogicSearchOperator) {
-									SearchView.this.enableAdd();
-								}
+										@Override
+										public
+												void
+												handleSingleLogicSearchOperator(
+														final SingleLogicSearchOperator singleLogicSearchOperator) {
+											SearchView.this.enableAdd();
+										}
 
-							};
+									};
 							se.accept(searchTypeVisitor);
 						} else {
 							SearchView.this.disableAdd();
@@ -454,9 +461,8 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	private void checkAufwand() {
-		if ((this.intBoxFrom.getValue() != null && this.intBoxFrom.getValue() > 0)
-				|| (this.intBoxTo.getValue() != null && this.intBoxTo
-						.getValue() > 0)) {
+		if (this.intBoxFrom.getValue() != null && this.intBoxFrom.getValue() > 0
+				|| this.intBoxTo.getValue() != null && this.intBoxTo.getValue() > 0) {
 			this.thirdLevelPanel.add(this.btnHinzu);
 		} else {
 			this.thirdLevelPanel.remove(this.btnHinzu);
@@ -466,52 +472,50 @@ public class SearchView extends Composite implements ISearchView {
 	private boolean fireEventForTextSearchCriterion() {
 		switch (this.cboTyp2.getSelectedIndex()) {
 		case 3:
-			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(
-					this.txtThirdLevel.getText(),
-					SearchView.this.selectionModel.getSelectedObject(),
-					this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+							SearchView.this.selectionModel.getSelectedObject(),
+							this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 4:
-			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(
-					this.txtThirdLevel.getText(),
-					SearchView.this.selectionModel.getSelectedObject(),
-					this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+							SearchView.this.selectionModel.getSelectedObject(),
+							this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 5:
-			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(
-					this.txtThirdLevel.getText(),
-					SearchView.this.selectionModel.getSelectedObject(),
-					this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+							SearchView.this.selectionModel.getSelectedObject(),
+							this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 9:
-			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(
-					this.txtThirdLevel.getText(),
-					SearchView.this.selectionModel.getSelectedObject(),
-					this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+							SearchView.this.selectionModel.getSelectedObject(),
+							this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 10:
 			if (this.cboThirdPreselection.getSelectedIndex() == 1) {
-				this.addTextSearchCriterion.fire(
-						this,
-						new TextSearchCriterionArgs(this.txtThirdLevel
-								.getText(), SearchView.this.selectionModel
-								.getSelectedObject(), this.cboTyp2
-								.getSelectedIndex() + 1));
+				this.addTextSearchCriterion.fire(this,
+						new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+								SearchView.this.selectionModel.getSelectedObject(),
+								this.cboTyp2.getSelectedIndex() + 1));
 			} else {
 				return false;
 			}
 			break;
 		case 11:
-			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(
-					this.txtThirdLevel.getText(),
-					SearchView.this.selectionModel.getSelectedObject(),
-					this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+							SearchView.this.selectionModel.getSelectedObject(),
+							this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 12:
-			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(
-					this.txtThirdLevel.getText(),
-					SearchView.this.selectionModel.getSelectedObject(),
-					this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this,
+					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+							SearchView.this.selectionModel.getSelectedObject(),
+							this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		default:
 			return false;
@@ -519,14 +523,14 @@ public class SearchView extends Composite implements ISearchView {
 		return true;
 	}
 
-	private void fillCombobox(ListBox cbo, Map<Integer, String> map) {
+	private void fillCombobox(final ListBox cbo, final Map<Integer, String> map) {
 		cbo.clear();
 		for (int i = 1; i <= map.size(); i++) {
 			cbo.addItem(map.get(i));
 		}
 	}
 
-	private void showCboTyp1(boolean b) {
+	private void showCboTyp1(final boolean b) {
 		if (b) {
 			this.valuePanel.add(this.lblAddText);
 			this.valuePanel.add(this.lblTyp1);
@@ -539,7 +543,7 @@ public class SearchView extends Composite implements ISearchView {
 		}
 	}
 
-	private void showCboTyp2(boolean b, Map<Integer, String> map) {
+	private void showCboTyp2(final boolean b, final Map<Integer, String> map) {
 		if (b) {
 			this.fillCombobox(this.cboTyp2, map);
 			this.valuePanel.add(this.lblTyp2);
@@ -552,7 +556,7 @@ public class SearchView extends Composite implements ISearchView {
 		}
 	}
 
-	private void showThirdLevel(int selection) {
+	private void showThirdLevel(final int selection) {
 		this.thirdLevelPanel.clear();
 		this.lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA
 				.get(selection + 1));
@@ -560,8 +564,7 @@ public class SearchView extends Composite implements ISearchView {
 
 		switch (selection) {
 		case 0:
-			this.fillCombobox(this.cboThirdLevel,
-					TextConstantsForLists.SEARCH_PBI_TYPE);
+			this.fillCombobox(this.cboThirdLevel, TextConstantsForLists.SEARCH_PBI_TYPE);
 			this.thirdLevelPanel.add(this.cboThirdLevel);
 			this.cboThirdLevel.setSelectedIndex(-1);
 			break;
@@ -575,8 +578,7 @@ public class SearchView extends Composite implements ISearchView {
 			break;
 		case 2:
 			this.lblThirdLevel.setText("Projekt");
-			this.lblThirdLevel2.setText(TextConstantsForLists.SEARCH_CRITERIA
-					.get(3));
+			this.lblThirdLevel2.setText(TextConstantsForLists.SEARCH_CRITERIA.get(3));
 			this.showReleaseSelection();
 			break;
 		case 3:
@@ -613,7 +615,7 @@ public class SearchView extends Composite implements ISearchView {
 			break;
 		case 8:
 			this.cboThirdLevel.clear();
-			for (final IPerson t : this.persons) {
+			for (final Person t : this.persons) {
 				this.cboThirdLevel.addItem(t.toString());
 			}
 			this.thirdLevelPanel.add(this.cboThirdLevel);
@@ -635,36 +637,31 @@ public class SearchView extends Composite implements ISearchView {
 			this.cboThirdPreselection.setSelectedIndex(-1);
 			this.cboThirdPreselection.addChangeHandler(new ChangeHandler() {
 				@Override
-				public void onChange(ChangeEvent event) {
-					SearchView.this.thirdLevelPanel
-							.remove(SearchView.this.btnHinzu);
+				public void onChange(final ChangeEvent event) {
+					SearchView.this.thirdLevelPanel.remove(SearchView.this.btnHinzu);
 					SearchView.this.cboThirdLevel.clear();
 					SearchView.this.lblThirdLevel2
 							.setText(TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE
 									.get(SearchView.this.cboThirdPreselection
 											.getSelectedIndex() + 1));
-					SearchView.this.thirdLevelPanel
-							.add(SearchView.this.lblThirdLevel2);
+					SearchView.this.thirdLevelPanel.add(SearchView.this.lblThirdLevel2);
 
 					if (SearchView.this.cboThirdPreselection.getSelectedIndex() == 0) {
 						SearchView.this.thirdLevelPanel
 								.remove(SearchView.this.txtThirdLevel);
 						for (final RelationType t : SearchView.this.relationtypes) {
-							SearchView.this.cboThirdLevel.addItem(t
-									.getDescription());
+							SearchView.this.cboThirdLevel.addItem(t.getDescription());
 						}
 						SearchView.this.cboThirdLevel.setSelectedIndex(-1);
 						SearchView.this.thirdLevelPanel
 								.add(SearchView.this.cboThirdLevel);
-					} else if (SearchView.this.cboThirdPreselection
-							.getSelectedIndex() == 1) {
+					} else if (SearchView.this.cboThirdPreselection.getSelectedIndex() == 1) {
 						SearchView.this.txtThirdLevel.setText("");
 						SearchView.this.thirdLevelPanel
 								.remove(SearchView.this.cboThirdLevel);
 						SearchView.this.thirdLevelPanel
 								.add(SearchView.this.txtThirdLevel);
-						SearchView.this.thirdLevelPanel
-								.add(SearchView.this.btnHinzu);
+						SearchView.this.thirdLevelPanel.add(SearchView.this.btnHinzu);
 					}
 				}
 			});
@@ -712,9 +709,8 @@ public class SearchView extends Composite implements ISearchView {
 		this.cboThirdPreselection.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
-				final Iterator<Project> it = SearchView.this.projects
-						.iterator();
+			public void onChange(final ChangeEvent event) {
+				final Iterator<Project> it = SearchView.this.projects.iterator();
 				Project project = null;
 				for (int i = 0; i <= SearchView.this.cboThirdPreselection
 						.getSelectedIndex(); i++) {
@@ -722,13 +718,11 @@ public class SearchView extends Composite implements ISearchView {
 				}
 
 				SearchView.this.cboThirdLevel.clear();
-				for (final IRelease t : project.getReleasePlan()) {
+				for (final Release t : project.getReleasePlan()) {
 					SearchView.this.cboThirdLevel.addItem(t.getVersion());
 				}
-				SearchView.this.thirdLevelPanel
-						.add(SearchView.this.lblThirdLevel2);
-				SearchView.this.thirdLevelPanel
-						.add(SearchView.this.cboThirdLevel);
+				SearchView.this.thirdLevelPanel.add(SearchView.this.lblThirdLevel2);
+				SearchView.this.thirdLevelPanel.add(SearchView.this.cboThirdLevel);
 				SearchView.this.cboThirdLevel.setSelectedIndex(-1);
 			}
 		});
@@ -755,7 +749,7 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public void setSearch(Search search) {
+	public void setSearch(final Search search) {
 		this.search = search;
 
 		this.updateTree();
@@ -764,9 +758,10 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public void updateTree() {
 		this.valuePanel.clear();
-		this.cellTree = new CellTree(new SearchExpressionTreeViewModel(
-				this.searchSelectionModel, this.selectionModel, this.search),
-				null);
+		this.cellTree =
+				new CellTree(new SearchExpressionTreeViewModel(
+						this.searchSelectionModel, this.selectionModel, this.search),
+						null);
 		this.scrollPanelSearch.setWidget(this.cellTree);
 		this.cellTree.setSize("600px", "300px");
 		this.cellTree.setVisible(true);
@@ -774,7 +769,7 @@ public class SearchView extends Composite implements ISearchView {
 
 	}
 
-	private void openTree(TreeNode node) {
+	private void openTree(final TreeNode node) {
 		if (node != null) {
 			for (int i = 0; i < node.getChildCount(); i++) {
 				this.openTree(node.setChildOpen(i, true));
@@ -784,7 +779,7 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public void setProjects(List<Project> projects) {
+	public void setProjects(final List<Project> projects) {
 		this.projects = projects;
 		this.pbis = new ArrayList<ProductBacklogItem>();
 		for (final Project t : projects) {
@@ -795,18 +790,18 @@ public class SearchView extends Composite implements ISearchView {
 	}
 
 	@Override
-	public void setSystems(List<System> systems) {
+	public void setSystems(final List<System> systems) {
 		this.systems = systems;
 	}
 
 	@Override
-	public void setPersons(List<IPerson> persons) {
+	public void setPersons(final List<Person> persons) {
 		this.persons = persons;
 	}
 
 	@Override
-	public void setRelationTypes(List<RelationType> relationtypes) {
-		this.relationtypes = relationtypes;
+	public void setRelationTypes(final List<RelationType> newRelationtypes) {
+		this.relationtypes = newRelationtypes;
 	}
 
 	@Override
@@ -817,12 +812,6 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public IEvent<SearchEventArgs> getDoSearch() {
 		return this.doSearch;
-	}
-
-	@Override
-	public void updateResults(ISearchResultView resultView) {
-		this.scrollPanelResult.clear();
-		this.scrollPanelResult.add(resultView);
 	}
 
 	@Override
@@ -885,11 +874,11 @@ public class SearchView extends Composite implements ISearchView {
 
 	private void enableDeleteButton(final ISearchExpression se) {
 		final DeleteEventArgs deleteEventArgs = new DeleteEventArgs(se);
-		SearchView.this.deleteRegistration = SearchView.this.btnLschen
-				.addClickHandler(new ClickHandler() {
+		SearchView.this.deleteRegistration =
+				SearchView.this.btnLschen.addClickHandler(new ClickHandler() {
 
 					@Override
-					public void onClick(ClickEvent event) {
+					public void onClick(final ClickEvent event) {
 						SearchView.this.deleteEvent.fire(SearchView.this,
 								deleteEventArgs);
 					}
@@ -910,5 +899,29 @@ public class SearchView extends Composite implements ISearchView {
 	@Override
 	public IEvent<DeleteEventArgs> getDeleteEventArgs() {
 		return this.deleteEvent;
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void registerSaveHandler(final EventHandler<SearchEventArgs> handler) {
+		this.save.add(handler);
+
+	}
+
+	@Override
+	public void registerDoSearchHandler(final EventHandler<SearchEventArgs> handler) {
+
+		this.doSearch.add(handler);
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		// No widgets to hide
+
 	}
 }

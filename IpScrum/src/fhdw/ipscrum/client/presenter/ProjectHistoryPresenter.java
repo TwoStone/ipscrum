@@ -1,190 +1,122 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.Vector;
-
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Panel;
-
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.ProjectHistoryView;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.model.Project;
-import fhdw.ipscrum.shared.model.incidents.Incident;
-import fhdw.ipscrum.shared.model.incidents.IncidentType;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.architecture.view.IView;
+import fhdw.ipscrum.client.viewinterfaces.IProjectHistoryView;
+import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * Presenter for creating a Project History
- * 
- * @author Phase IV - Group Reporting II
- * 
+ * This class represents the presenter which controls the view to show the project history
+ * and administer incidents.
  */
-public class ProjectHistoryPresenter extends Presenter<ProjectHistoryView> {
-
-	Project project;
+public class ProjectHistoryPresenter extends WritePresenter {
 
 	/**
-	 * Creates a new instance of {@link ProjectHistoryPresenter}
+	 * Represents the view which is related to and controlled by this presenter.
+	 */
+	private IProjectHistoryView view;
+
+	/**
+	 * represents the project related to this view. It is needed to make clear for which
+	 * project this is the project history.
+	 */
+	private final Project project;
+
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProjectHistoryPresenter).
 	 * 
-	 * @param parent
-	 * @param parentPresenter
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
+	 * @param project
+	 *            is the related project to which the project history is related
 	 */
-	public ProjectHistoryPresenter(Panel parent, Presenter<?> parentPresenter,
-			Project project) {
-		super(parent, parentPresenter);
+	public ProjectHistoryPresenter(final ClientContext context, final Project project) {
+		super(context);
 		this.project = project;
-		this.setupHandlers();
-		this.initialize();
-	}
-	
-	/**
-	 * Adds the Handlers
-	 */
-	private void setupHandlers() {
-
-		// Handler für das Hinzufügen eines neuen Typs
-		this.getView().addcreateTypeHandler(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				final DialogBox diaBox = GwtUtils
-						.createDialog(TextConstants.CREATE_INCIDENT_ENG);
-				CreateIncidentTypePresenter presenter = new CreateIncidentTypePresenter(
-						diaBox, ProjectHistoryPresenter.this);
-				diaBox.center();
-
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						initialize();
-						diaBox.hide();
-					}
-				});
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-
-						diaBox.hide();
-					}
-				});
-			}
-		});
-
-		// Handler für das hinzufügen eines Incidents
-		this.getView().addcreateIncidentHandler(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				final DialogBox diaBox = GwtUtils
-						.createDialog(TextConstants.CREATE_INCIDENT_ENG);
-
-				CreateIncidentPresenter presenter = new CreateIncidentPresenter(
-						diaBox, ProjectHistoryPresenter.this);
-
-				diaBox.center();
-
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						diaBox.hide();
-					}
-
-				});
-
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						initialize();
-						diaBox.hide();
-					}
-				});
-
-			}
-		});
-
-		getView().addShowIncidentsHandler(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				initialize();
-			}
-		});
-
-	}
-
-	/**
-	 * This method fills the view with standard informations like persons or
-	 * already created incidents
-	 */
-	private void initialize() {
-
-		Vector<Incident> incidents = this.project.getProjectIncidents();
-		incidents.addAll(this.getSessionManager().getModel()
-				.getGlobalIncidents());
-
-		Set<IncidentType> types = this.getView().getTypes();
-
-		if (types.size() != 0) {
-
-			incidents = filterIncidents();
-
-		}
-
-		this.getView().refreshProjectHistoryTable(incidents);
-
-		Vector<IPerson> persons = new Vector<IPerson>();
-		persons.addAll(this.getSessionManager().getModel().getPersons());
-		Vector<IncidentType> incidentTypes = new Vector<IncidentType>();
-		incidentTypes.addAll(this.getSessionManager().getModel()
-				.getIncidentTypes());
-		this.getView().refreshTypes(incidentTypes);
-	}
-
-	/**
-	 * Use this method filter the created incidents
-	 */
-	private Vector<Incident> filterIncidents() {
-
-		Set<IncidentType> types = this.getView().getTypes();
-
-		Vector<Incident> incis = new Vector<Incident>();
-
-		Iterator<Incident> globalIncisIt = this.getSessionManager().getModel()
-				.getGlobalIncidentsIterator();
-
-		while (globalIncisIt.hasNext()) {
-			Incident currentIncident = globalIncisIt.next();
-
-			if (types.contains(currentIncident.getIncidentType())) {
-				incis.add(currentIncident);
-			}
-		}
-
-		Iterator<Incident> projectIncis = this.project.getProjectIncidents()
-				.iterator();
-
-		while (projectIncis.hasNext()) {
-			Incident currentIncident = projectIncis.next();
-
-			if (types.contains(currentIncident.getIncidentType())) {
-				incis.add(currentIncident);
-			}
-		}
-		return incis;
 	}
 
 	@Override
-	protected ProjectHistoryView createView() {
-		return new ProjectHistoryView();
+	public String getName() {
+		return "Projekthistorie";
+	}
 
+	@Override
+	public IView getView() {
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createProjectHistoryView();
+
+			this.view.addcreateIncidentHandler(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					ProjectHistoryPresenter.this.createIncident();
+				}
+			});
+
+			this.view.addcreateTypeHandler(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					ProjectHistoryPresenter.this.createType();
+				}
+			});
+
+			this.view.addchangeTypHandler(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					ProjectHistoryPresenter.this.changeType();
+				}
+			});
+
+		}
+
+		return this.view;
+	}
+
+	/**
+	 * this method is needed to change the type of an incident in the project history.
+	 */
+	private void changeType() {
+		this.toastMessage("Ändern von Ereignis-Typen ist bisher noch nicht vorgesehen.");
+	}
+
+	/**
+	 * this method opens the function to create a new incident type. The creation is done
+	 * in the {@link} fhdw.ipscrum.client.presenter.IncidentTypeCreatePresenter .
+	 */
+	private void createType() {
+		final IncidentTypeCreatePresenter presenter =
+				new IncidentTypeCreatePresenter(this.getContext());
+		this.startPresenter(presenter);
+	}
+
+	/**
+	 * this method opens the function to create a new incident. The creation is done in
+	 * the {@link} fhdw.ipscrum.client.presenter.CreateIncidentPresenter .
+	 */
+	private void createIncident() {
+		final CreateIncidentPresenter presenter =
+				new CreateIncidentPresenter(this.getContext());
+		this.startPresenter(presenter);
+	}
+
+	@Override
+	public void updateView() {
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
+				.getProjectHistoryRight());
+		this.view.refreshProjectHistoryTable(this.getContext().getModel()
+				.getIncidentsByProject(this.project));
+		this.view.refreshTypes(this.getContext().getModel().getAllIncidentTypes());
+	}
+
+	@Override
+	public void onModelUpdate() {
+		this.updateView();
 	}
 
 }

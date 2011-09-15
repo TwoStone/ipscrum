@@ -1,33 +1,38 @@
 package fhdw.ipscrum.shared.model.messages;
 
-import fhdw.ipscrum.shared.model.incidents.Incident;
+import fhdw.ipscrum.shared.model.nonMeta.incidents.Incident;
 
+/**
+ * represents the RemoveGlobalIncidentMessage.
+ */
 public class RemoveGlobalIncidentMessage implements Message {
-	
+
 	/**
-	 * incident to remove
+	 * incident to remove.
 	 */
 	private final Incident incident;
-	
-	public RemoveGlobalIncidentMessage(final Incident incident){
+
+	/**
+	 * Constructor of the RemoveGlobalIncidentMessage.
+	 * 
+	 * @param incident
+	 *            to remove
+	 */
+	public RemoveGlobalIncidentMessage(final Incident incident) {
 		this.incident = incident;
 	}
-	
-	public final Incident getIncident(){
+
+	/**
+	 * Getter of the affected incident.
+	 * 
+	 * @return the incident to remove
+	 */
+	public final Incident getIncident() {
 		return this.incident;
 	}
-	
-	
-	@Override
-	public void accept(MessageVisitor v) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
-	public void accept(MessageStandardVisitor v) {
-		// TODO Auto-generated method stub
-
+	public void accept(final MessageVisitor v) {
 	}
 
 }

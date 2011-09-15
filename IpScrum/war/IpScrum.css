@@ -6,6 +6,10 @@ body {
 	text-align: center;
 }
 
+#middle {
+	overflow: auto;
+}
+
 #mainPanel {
 	width:1000px; 
 	height:700px; 
@@ -19,9 +23,8 @@ body {
 	position: absolute;
 	left: 5px;
 	bottom: 5px;
-	color: silver;
-	
-	}
+	color: #888;
+}
 
 .GALD-WONE {
 display: none;
@@ -161,4 +164,28 @@ margin: 0 auto;
 	border: silver 1px solid;
 	padding: 5px;
     background-color: White;
+}
+.nameField {
+	padding: 5px 5px 5px 0px;
+	font-size: 14pt;
+}
+
+.nameField:hover {
+	background-color: #E1F5A9;
+	border-radius: 5px;
+}
+.whitebox {
+	border: 1px solid back;
+	background-color: White;
+}
+
+.hoverEffect {
+	-webkit-transform: scale(1);
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-duration: 250ms;
+}
+.hoverEffect:hover{
+	-webkit-transform: scale(2);
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-duration: 250ms;
 }

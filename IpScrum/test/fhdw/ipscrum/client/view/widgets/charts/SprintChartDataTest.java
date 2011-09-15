@@ -1,16 +1,14 @@
 package fhdw.ipscrum.client.view.widgets.charts;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.Date;
 import java.util.List;
 import java.util.SortedMap;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import fhdw.ipscrum.shared.model.SetUpTestData;
-import fhdw.ipscrum.shared.model.interfaces.ISprint;
+import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
 /**
  * The class <code>SprintChartDataTest</code> contains tests for the class
@@ -19,342 +17,369 @@ import fhdw.ipscrum.shared.model.interfaces.ISprint;
 public class SprintChartDataTest extends SetUpTestData {
 
 	/**
-	 * Run the SprintChartData(ISprint) constructor test.
+	 * Run the SprintChartData(Sprint) constructor test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testSprintChartData_1() throws Exception {
-		ISprint sprint = this.pro1rel1spr1;
+	public void testSprintChartData1() throws Exception {
+		final Sprint sprint = this.pro1rel1spr1;
 
-		SprintChartData result = new SprintChartData(sprint);
-		assertNotNull(result);
+		final SprintChartData result = new SprintChartData(sprint);
+		Assert.assertNotNull(result);
 	}
 
 	/**
-	 * Run the TreeMap<Date, SprintChartData.SprintChartDataDetails> getData()
-	 * method test.
+	 * Run the TreeMap<Date, SprintChartData.SprintChartDataDetails> getData() method
+	 * test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
+
 	@Test
-	public void testGetData_1() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
+	public void testGetData1() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
 
-		SortedMap<Date, SprintChartData.SprintChartDataDetails> result = fixture.getData();
+		final SortedMap<Date, SprintChartData.SprintChartDataDetails> result =
+				fixture.getData();
 
-		assertNotNull(result);
+		Assert.assertNotNull(result);
 	}
 
 	/**
-	 * Run the ISprint getSprint() method test.
-	 */
-	@Test
-	public void testGetSprint_1() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
-
-		ISprint result = fixture.getSprint();
-
-		assertNotNull(result);
-	}
-
-	/**
-	 * Run the List<Double> getTickData() method test.
+	 * Run the Sprint getSprint() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_1() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr1);
+	public void testGetSprint1() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
 
-		List<Double> result = fixture.getTickData();
+		final Sprint result = fixture.getSprint();
 
-		assertNotNull(result);
-		assertEquals(28, result.size());
+		Assert.assertNotNull(result);
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_2() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
+	public void testGetTickData1() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr1);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(28, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_3() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
+	public void testGetTickData2() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_4() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr4);
+	public void testGetTickData3() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(59, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_5() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel1spr5);
+	public void testGetTickData4() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr4);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(59, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_6() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel2spr1);
+	public void testGetTickData5() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr5);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_7() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel2spr2);
+	public void testGetTickData6() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr1);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(59, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_8() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel2spr3);
+	public void testGetTickData7() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr2);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(59, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_9() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel2spr4);
+	public void testGetTickData8() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr3);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_10() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro1rel2spr5);
+	public void testGetTickData9() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr4);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(30, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_11() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel1spr1);
+	public void testGetTickData10() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr5);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(89, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(30, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_12() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel1spr2);
+	public void testGetTickData11() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr1);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(89, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_13() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel1spr3);
+	public void testGetTickData12() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr2);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(61, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_14() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel1spr4);
+	public void testGetTickData13() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr3);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(61, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_15() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel1spr5);
+	public void testGetTickData14() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr4);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_16() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel2spr1);
+	public void testGetTickData15() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr5);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(30, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_17() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel2spr2);
+	public void testGetTickData16() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr1);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(59, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(30, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_18() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel2spr3);
+	public void testGetTickData17() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr2);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(59, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_19() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel2spr4);
+	public void testGetTickData18() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr3);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(31, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
 	}
 
 	/**
 	 * Run the List<Double> getTickData() method test.
 	 * 
 	 * @throws Exception
+	 *             if the use of one of the methods fails
 	 */
 	@Test
-	public void testGetTickData_20() throws Exception {
-		SprintChartData fixture = new SprintChartData(this.pro2rel2spr5);
+	public void testGetTickData19() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr4);
 
-		List<Double> result = fixture.getTickData();
+		final List<Double> result = fixture.getTickData();
 
-		assertNotNull(result);
-		assertEquals(59, result.size());
+		Assert.assertNotNull(result);
+		Assert.assertEquals(31, result.size());
+	}
+
+	/**
+	 * Run the List<Double> getTickData() method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetTickData20() throws Exception {
+		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr5);
+
+		final List<Double> result = fixture.getTickData();
+
+		Assert.assertNotNull(result);
+		Assert.assertEquals(59, result.size());
 	}
 }

@@ -1,36 +1,44 @@
 package fhdw.ipscrum.shared.model.messages;
 
+/**
+ * Represents the Visitor for standard messages.
+ * 
+ */
 public abstract class MessageStandardVisitor implements MessageVisitor {
-	
+
+	/**
+	 * Represents the standard handling of the visitor.
+	 */
 	public abstract void standardHandling();
-	
+
 	@Override
-	public void handleTaskCompletionMessage(TaskCompletionMessage message) {
+	public void handleTaskCompletionMessage(final TaskCompletionMessage message) {
 		this.standardHandling();
 	}
 
 	@Override
-	public void handlePBICompletionMessage(PBICompletionMessage message) {
+	public void handlePBICompletionMessage(final PBICompletionMessage message) {
 		this.standardHandling();
 	}
 
 	@Override
-	public void handleReleaseCompletionMessage(ReleaseCompletionMessage message) {
+	public void handleReleaseCompletionMessage(final ReleaseCompletionMessage message) {
 		this.standardHandling();
 	}
 
 	@Override
-	public void handleSprintCompletionMessage(SprintCompletionMessage message) {
+	public void handleSprintCompletionMessage(final SprintCompletionMessage message) {
 		this.standardHandling();
 	}
 
 	@Override
-	public void handleAddGlobalIncidentMessage(AddGLobalIncidentMessage message) {
+	public void handleAddGlobalIncidentMessage(final AddGLobalIncidentMessage message) {
 		this.standardHandling();
 	}
-	
+
 	@Override
-	public void handleRemoveGlobalIncidentMessage(RemoveGlobalIncidentMessage message){
+	public void handleRemoveGlobalIncidentMessage(
+			final RemoveGlobalIncidentMessage message) {
 		this.standardHandling();
 	}
 

@@ -11,46 +11,41 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import fhdw.ipscrum.client.events.Event;
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.DoScruumleSearchEventArgs;
-import fhdw.ipscrum.client.view.interfaces.ISearchAllView;
+import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.eventargs.DoScruumleSearchEventArgs;
+import fhdw.ipscrum.client.viewinterfaces.ISearchAllView;
 
+/**
+ * Represents the view for the scruumle search.
+ */
 public class SearchAllView extends Composite implements ISearchAllView {
 	private final Event<DoScruumleSearchEventArgs> doScruumleSearchEvent;
-	private final ScrollPanel bottomPanel;
 	private final TextBox searchExpression;
-	private final Event<EventArgs> toDetailedSearchEvent;
-	private final Event<EventArgs> showSearches;
 
+	/**
+	 * constructor of the SearchAllView.
+	 */
 	public SearchAllView() {
 		super();
 
 		this.doScruumleSearchEvent = new Event<DoScruumleSearchEventArgs>();
-		this.toDetailedSearchEvent = new Event<EventArgs>();
-		this.showSearches = new Event<EventArgs>();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		this.initWidget(verticalPanel);
-		verticalPanel.setSize("100%", "100%");
+		verticalPanel.setSize("750px", "200px");
 
 		final VerticalPanel verticalPanel_1 = new VerticalPanel();
 		verticalPanel_1.setSpacing(10);
-		verticalPanel_1
-				.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.add(verticalPanel_1);
 		verticalPanel_1.setSize("100%", "200px");
 
-		final Image imgScruumle = new Image("images/Scruumle.gif");
-		// TODO [WICHTIG] Hier könnte Ihr Suchlogo stehen!!!
+		final Image imgScruumle = new Image("images/Scruumle.png");
 		verticalPanel_1.add(imgScruumle);
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
@@ -61,9 +56,9 @@ public class SearchAllView extends Composite implements ISearchAllView {
 		this.searchExpression.addChangeHandler(new ChangeHandler() {
 
 			@Override
-			public void onChange(ChangeEvent event) {
-				SearchAllView.this.doScruumleSearchEvent.fire(
-						SearchAllView.this, new DoScruumleSearchEventArgs(
+			public void onChange(final ChangeEvent event) {
+				SearchAllView.this.doScruumleSearchEvent.fire(SearchAllView.this,
+						new DoScruumleSearchEventArgs(
 								SearchAllView.this.searchExpression.getText()));
 			}
 		});
@@ -81,64 +76,32 @@ public class SearchAllView extends Composite implements ISearchAllView {
 		final Button search = new Button("Suchen");
 		search.addClickHandler(new ClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
-				SearchAllView.this.doScruumleSearchEvent.fire(
-						SearchAllView.this, new DoScruumleSearchEventArgs(
+			public void onClick(final ClickEvent event) {
+				SearchAllView.this.doScruumleSearchEvent.fire(SearchAllView.this,
+						new DoScruumleSearchEventArgs(
 								SearchAllView.this.searchExpression.getText()));
 			}
 		});
 		horizontalPanel.add(search);
 
-		final HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		horizontalPanel_1.setSpacing(5);
-		verticalPanel_1.add(horizontalPanel_1);
-
-		final Button savedSearchesButton = new Button("Gespeicherte Suchen");
-		savedSearchesButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				SearchAllView.this.showSearches.fire(SearchAllView.this,
-						new EventArgs());
-			}
-		});
-		horizontalPanel_1.add(savedSearchesButton);
-
-		final Button detailedSearch = new Button("Zur detailierten Suche");
-		detailedSearch.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				SearchAllView.this.toDetailedSearchEvent.fire(
-						SearchAllView.this, new EventArgs());
-			}
-		});
-		horizontalPanel_1.add(detailedSearch);
-
-		this.bottomPanel = new ScrollPanel();
-		this.bottomPanel.setStyleName("searchBottom");
-		verticalPanel.add(this.bottomPanel);
-		this.bottomPanel.setSize("100%", "420px");
-
 	}
 
 	@Override
 	public void registerDoScruumleSearch(
-			EventHandler<DoScruumleSearchEventArgs> handler) {
+			final EventHandler<DoScruumleSearchEventArgs> handler) {
 		this.doScruumleSearchEvent.add(handler);
 	}
 
 	@Override
-	public void registerDetailedSearch(EventHandler<EventArgs> handler) {
-		this.toDetailedSearchEvent.add(handler);
+	public void close() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public Panel getDisplayPanel() {
-		return this.bottomPanel;
-	}
+	public void setRightVisibility(final Boolean value) {
+		// No widgets to hide
 
-	@Override
-	public void registerShowSearches(EventHandler<EventArgs> handler) {
-		this.showSearches.add(handler);
 	}
 
 }

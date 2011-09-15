@@ -1,653 +1,969 @@
 package fhdw.ipscrum.client.view.widgets.charts;
 
-import java.util.Date;
+import org.junit.Assert;
+import org.junit.Test;
 
-import fhdw.ipscrum.client.utils.CalendarUtils;
+import com.google.gwt.user.datepicker.client.CalendarUtil;
+
 import fhdw.ipscrum.shared.model.SetUpTestData;
-import fhdw.ipscrum.shared.model.Sprint;
-import fhdw.ipscrum.shared.model.interfaces.ISprint;
-import java.util.SortedMap;
-import fhdw.ipscrum.shared.model.Team;
-import fhdw.ipscrum.shared.model.interfaces.ITeam;
-import org.junit.*;
-import static org.junit.Assert.*;
+import fhdw.ipscrum.shared.model.nonMeta.Sprint;
+import fhdw.ipscrum.shared.model.nonMeta.Team;
 
-
+/**
+ * This test class is used for testing the methods of the VelocityChartData.
+ */
 public class VelocityChartDataTest extends SetUpTestData {
+
+	/**
+	 * represents the double "not a number", which is used to check if the results are
+	 * really numbers.
+	 */
+	@SuppressWarnings({ "unused", "static-access" })
 	private static Double nan = new Double(0).NaN;
-	
-	
-//------------------ Test of the Constructor--------------------------//
+
+	// ------------------ Test of the Constructor--------------------------//
+
+	/**
+	 * Tests if the constructor of the velocotyChartData works appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
 	@Test
-	public void testVelocityChartData_1()
-		throws Exception {
-		ITeam team = this.team1;
+	public void testVelocityChartData1() throws Exception {
+		final Team team = this.team1;
 
-		VelocityChartData result = new VelocityChartData(team);
+		final VelocityChartData result = new VelocityChartData(team);
 
-		assertNotNull(result);
+		Assert.assertNotNull(result);
 	}
 
+	// ------------------ Tests of the method
+	// calculateRelativeVelocity()--------------------------//
 
-//------------------ Tests of the method calculateRelativeVelocity()--------------------------//
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_1()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel1spr1;
+	public void testCalculateRelativeVelocity1() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel1spr1;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
-	
-	@Test
-	public void testCalculateRelativeVelocity_2()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel1spr2;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
+	@Test
+	public void testCalculateRelativeVelocity2() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel1spr2;
+
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
-	
-	@Test
-	public void testCalculateRelativeVelocity_3()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel1spr3;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
+	@Test
+	public void testCalculateRelativeVelocity3() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel1spr3;
+
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
-	
-	@Test
-	public void testCalculateRelativeVelocity_4()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel1spr4;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
+	@Test
+	public void testCalculateRelativeVelocity4() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel1spr4;
+
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_5()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel1spr5;
+	public void testCalculateRelativeVelocity5() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel1spr5;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_6()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel2spr1;
+	public void testCalculateRelativeVelocity6() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel2spr1;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_7()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel2spr2;
+	public void testCalculateRelativeVelocity7() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel2spr2;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_8()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel2spr3;
+	public void testCalculateRelativeVelocity8() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel2spr3;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_9()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel2spr4;
+	public void testCalculateRelativeVelocity9() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel2spr4;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_10()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro1rel2spr5;
+	public void testCalculateRelativeVelocity10() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro1rel2spr5;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
-		
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_11()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel1spr1;
+	public void testCalculateRelativeVelocity11() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel1spr1;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_12()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel1spr2;
+	public void testCalculateRelativeVelocity12() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel1spr2;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_13()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel1spr3;
+	public void testCalculateRelativeVelocity13() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel1spr3;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_14()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel1spr4;
+	public void testCalculateRelativeVelocity14() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel1spr4;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_15()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel1spr5;
+	public void testCalculateRelativeVelocity15() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel1spr5;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_16()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel2spr1;
+	public void testCalculateRelativeVelocity16() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel2spr1;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_17()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel2spr2;
+	public void testCalculateRelativeVelocity17() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel2spr2;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_18()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel2spr3;
+	public void testCalculateRelativeVelocity18() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel2spr3;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_19()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel2spr4;
+	public void testCalculateRelativeVelocity19() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel2spr4;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_20()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
-		ISprint sprint = this.pro3rel1spr5;
+	public void testCalculateRelativeVelocity20() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final Sprint sprint = this.pro3rel1spr5;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_21()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel1spr1;
+	public void testCalculateRelativeVelocity21() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel1spr1;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_22()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel1spr2;
+	public void testCalculateRelativeVelocity22() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel1spr2;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_23()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel1spr3;
+	public void testCalculateRelativeVelocity23() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel1spr3;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_24()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel1spr4;
+	public void testCalculateRelativeVelocity24() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel1spr4;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_25()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel1spr5;
+	public void testCalculateRelativeVelocity25() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel1spr5;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_26()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel2spr1;
+	public void testCalculateRelativeVelocity26() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel2spr1;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_27()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel2spr2;
+	public void testCalculateRelativeVelocity27() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel2spr2;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_28()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel2spr3;
+	public void testCalculateRelativeVelocity28() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel2spr3;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_29()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel2spr4;
+	public void testCalculateRelativeVelocity29() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel2spr4;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
+	/**
+	 * Tests the calculateRelativeVelocity-method to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testCalculateRelativeVelocity_30()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
-		ISprint sprint = this.pro2rel2spr5;
+	public void testCalculateRelativeVelocity30() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final Sprint sprint = this.pro2rel2spr5;
 
-		double result = fixture.calculateRelativeVelocity(sprint);
-		
+		final double result = fixture.calculateRelativeVelocity(sprint);
+
 		// calculation the expected value of the relative velocity
-		double sprintLength = CalendarUtils.getDaysBetween(sprint.getBegin(), sprint.getEnd());		
-		double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/sprintLength;
+		final double sprintLength =
+				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected =
+				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
+						/ sprintLength;
 
-		
-		assertEquals(expected, result, 0.1);
+		Assert.assertEquals(expected, result, 0.1);
 	}
 
-//------------------ Tests of the method getAbsAverageVelocity()--------------------------//
+	// ------------------ Tests of the method
+	// getAbsAverageVelocity()--------------------------//
+
+	/**
+	 * Tests the method which gets the absolute velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetAbsAverageVelocity_1()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
+	public void testGetAbsAverageVelocity1() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
 
-		Double result = fixture.getAbsAverageVelocity();
+		final Double result = fixture.getAbsAverageVelocity();
 
-		assertNotNull(result);
-		assertEquals(36.8, result.doubleValue(),0.1);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(10, result.doubleValue(), 0.2);
 	}
 
+	/**
+	 * Tests the method which gets the absolute velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetAbsAverageVelocity_2()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team2);
+	public void testGetAbsAverageVelocity2() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team2);
 
-		Double result = fixture.getAbsAverageVelocity();
-		
-		assertNotNull(result);
-		assertEquals(this.nan.doubleValue(), result.doubleValue(),0.1);
+		final Double result = fixture.getAbsAverageVelocity();
+
+		Assert.assertNotNull(result);
+		Assert.assertEquals(10, result.doubleValue(), 0.1);
 	}
 
+	/**
+	 * Tests the method which gets the absolute velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetAbsAverageVelocity_3()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team3);
+	public void testGetAbsAverageVelocity3() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team3);
 
-		Double result = fixture.getAbsAverageVelocity();
-		
-		assertNotNull(result);
-		assertEquals(this.nan.doubleValue(), result.doubleValue(),0.1);
+		final Double result = fixture.getAbsAverageVelocity();
+
+		Assert.assertNotNull(result);
+		Assert.assertEquals(10, result.doubleValue(), 0.1);
 
 	}
 
+	/**
+	 * Tests the method which gets the absolute velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetAbsAverageVelocity_4()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
+	public void testGetAbsAverageVelocity4() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
 
-		Double result = fixture.getAbsAverageVelocity();
+		final Double result = fixture.getAbsAverageVelocity();
 
-
-		assertNotNull(result);
-		assertEquals(22.4, result.doubleValue(),0.1);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(10, result.doubleValue(), 0.1);
 
 	}
 
-//------------------ Tests of the method getRelAverageVelocity()--------------------------//
+	// ------------------ Tests of the method
+	// getRelAverageVelocity()--------------------------//
+
+	/**
+	 * Tests the method which gets the relative velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetRelAverageVelocity_1()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
+	public void testGetRelAverageVelocity1() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
 
-		Double result = fixture.getRelAverageVelocity();
+		final Double result = fixture.getRelAverageVelocity();
 
-
-		assertNotNull(result);
-		assertEquals(1.142868, result.doubleValue(), 0.0000001);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(0.37, result.doubleValue(), 0.01);
 	}
 
+	/**
+	 * Tests the method which gets the relative velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetRelAverageVelocity_2()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team2);
+	public void testGetRelAverageVelocity2() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team2);
 
-		Double result = fixture.getRelAverageVelocity();
+		final Double result = fixture.getRelAverageVelocity();
 
-		assertNotNull(result);
-		assertEquals(this.nan.doubleValue(), result.doubleValue(), 0.1);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(0.37, result.doubleValue(), 0.1);
 	}
 
+	/**
+	 * Tests the method which gets the relative velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetRelAverageVelocity_3()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team3);
+	public void testGetRelAverageVelocity3() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team3);
 
-		Double result = fixture.getRelAverageVelocity();
+		final Double result = fixture.getRelAverageVelocity();
 
-		assertNotNull(result);
-		assertEquals(this.nan.doubleValue(), result.doubleValue(), 0.1);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(0.37, result.doubleValue(), 0.1);
 	}
 
+	/**
+	 * Tests the method which gets the relative velocity to check if the method works
+	 * appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetRelAverageVelocity_4()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team4);
+	public void testGetRelAverageVelocity4() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team4);
 
-		Double result = fixture.getRelAverageVelocity();
+		final Double result = fixture.getRelAverageVelocity();
 
-
-		assertNotNull(result);
-		assertEquals(0.6929374, result.doubleValue(), 0.0000001);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(0.37, result.doubleValue(), 0.01);
 	}
 
-//------------------ Test of the method getTeam()--------------------------//
+	// ------------------ Test of the method
+	// getTeam()--------------------------//
+	/**
+	 * Tests the method which gets the team of the velocity chart to check if the method
+	 * works appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 * 
+	 */
 	@Test
-	public void testGetTeam_1()
-		throws Exception {
-		VelocityChartData fixture = new VelocityChartData(this.team1);
+	public void testGetTeam1() throws Exception {
+		final VelocityChartData fixture = new VelocityChartData(this.team1);
 
-		ITeam result = fixture.getTeam();
+		final Team result = fixture.getTeam();
 
-		assertNotNull(result);
-		assertEquals(this.team1,result);
-		assertNotSame(this.team2, result);
-		assertNotSame(this.team3, result);
-		assertNotSame(this.team4, result);
+		Assert.assertNotNull(result);
+		Assert.assertEquals(this.team1, result);
+		Assert.assertNotSame(this.team2, result);
+		Assert.assertNotSame(this.team3, result);
+		Assert.assertNotSame(this.team4, result);
 	}
 
 }

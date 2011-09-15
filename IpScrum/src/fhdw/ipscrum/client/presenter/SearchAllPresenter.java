@@ -1,115 +1,111 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import com.google.gwt.user.client.ui.Panel;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.presenter.ReadPresenter;
+import fhdw.ipscrum.client.eventargs.DoScruumleSearchEventArgs;
+import fhdw.ipscrum.client.viewinterfaces.ISearchAllView;
+import fhdw.ipscrum.shared.model.metamodel.search.SearchManager;
+import fhdw.ipscrum.shared.model.metamodel.search.criteria.ScruumleCriterion;
+import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.DoScruumleSearchEventArgs;
-import fhdw.ipscrum.client.events.args.SearchEventArgs;
-import fhdw.ipscrum.client.view.SearchAllView;
-import fhdw.ipscrum.client.view.interfaces.ISearchAllView;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.search.ISearchExpression;
-import fhdw.ipscrum.shared.model.search.SearchCriteria;
-import fhdw.ipscrum.shared.model.search.SearchManager;
-import fhdw.ipscrum.shared.model.search.criteria.ScruumleCriterion;
+/**
+ * This class represents the presenter which controls the view to do the scruumle search.
+ */
+public class SearchAllPresenter extends ReadPresenter {
 
-public class SearchAllPresenter extends Presenter<ISearchAllView> {
-	private final SearchResultPresenter resultPresenter;
-	private final SearchesPresenter searchesPresenter;
-	private final SearchManager manager;
+	/**
+	 * represents the search manager to save searches in.
+	 */
+	private final SearchManager searchManager;
 
-	public SearchAllPresenter(Panel panel, Presenter<?> parentPresenter) {
-		super(panel, parentPresenter);
+	/**
+	 * represents the list of tickets which are the results of the search.
+	 */
+	private List<Ticket> result;
 
-		this.manager = this.getSessionManager().getModel().getSearchManager();
+	/**
+	 * Represents the view which is related to and controlled from this presenter.
+	 */
+	private ISearchAllView view;
 
-		final List<ProductBacklogItem> lastFoundItems = Collections.emptyList();
-		this.resultPresenter = new SearchResultPresenter(lastFoundItems, null,
-				this);
-		this.searchesPresenter = new SearchesPresenter(this.getView()
-				.getDisplayPanel(), this);
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.SearchAllPresenter).
+	 * 
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
+	 */
+	public SearchAllPresenter(final ClientContext context) {
+		super(context);
 
-		this.searchesPresenter
-				.registerDoSearch(new EventHandler<SearchEventArgs>() {
+		this.searchManager = context.getModel().getSearchManager();
 
-					@Override
-					public void onUpdate(Object sender,
-							SearchEventArgs eventArgs) {
-						SearchAllPresenter.this.doSearch(eventArgs.getSearch()
-								.getExpression());
-
-					}
-				});
 	}
 
 	@Override
-	protected ISearchAllView createView() {
-		final ISearchAllView view = new SearchAllView();
-		this.registerEvents(view);
-		return view;
+	public String getName() {
+		return "Scruumle";
 	}
 
-	private void registerEvents(ISearchAllView view) {
-		view.registerDoScruumleSearch(new EventHandler<DoScruumleSearchEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender,
-					DoScruumleSearchEventArgs eventArgs) {
-				SearchAllPresenter.this.doScruumleSearch(eventArgs
-						.getSearchExpression());
-			}
-		});
-
-		view.registerDetailedSearch(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				SearchAllPresenter.this.switchToDetailedSearch();
-			}
-		});
-
-		view.registerShowSearches(new EventHandler<EventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, EventArgs eventArgs) {
-				SearchAllPresenter.this.showSearches();
-
-			}
-		});
-	}
-
-	private void showSearches() {
-		this.getView().getDisplayPanel().clear();
-		this.getView().getDisplayPanel().add(this.searchesPresenter.getView());
-	}
-
-	private void switchToDetailedSearch() {
-
-		if (this.getParent() != null) {
-			this.getParent().clear();
-			new SearchPresenter(this.getParent(), this.getParentPresenter());
-			this.finish();
+	@Override
+	public ISearchAllView getView() {
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createSearchAllView();
 		}
+
+		this.addHandler();
+
+		return this.view;
 	}
 
-	private void doScruumleSearch(String searchExpression) {
-		final SearchCriteria criterion = new ScruumleCriterion(searchExpression);
-		this.doSearch(criterion);
+	/**
+	 * this method is neeeded to do the scruuumle search.
+	 */
+	private void addHandler() {
+
+		// handler für das ausführen der scruumle suche
+		this.view
+				.registerDoScruumleSearch(new EventHandler<DoScruumleSearchEventArgs>() {
+
+					@Override
+					public void onUpdate(final Object sender,
+							final DoScruumleSearchEventArgs eventArgs) {
+						SearchAllPresenter.this.result =
+								SearchAllPresenter.this.searchManager.search(
+										SearchAllPresenter.this.getContext().getModel()
+												.getAllTickets(),
+										new ScruumleCriterion(SearchAllPresenter.this
+												.getContext().getModel(), eventArgs
+												.getSearchExpression()));
+						SearchAllPresenter.this.showResults();
+					}
+
+				});
+
 	}
 
-	private void doSearch(ISearchExpression searchExpression) {
-		final Collection<ProductBacklogItem> results = this.manager.search(this
-				.getSessionManager().getModel().getAllTickets(),
-				searchExpression);
+	/**
+	 * this method opens the function to show search results. The search results are shown
+	 * in the {@link} fhdw.ipscrum.client.presenter.SearchResultPresenter .
+	 */
+	private void showResults() {
+		final SearchResultPresenter presenter =
+				new SearchResultPresenter(this.getContext(), this.result);
+		this.startPresenter(presenter);
+	}
 
-		this.getView().getDisplayPanel().clear();
-		this.resultPresenter.setResultList(results);
-		this.getView().getDisplayPanel().add(this.resultPresenter.getView());
+	@Override
+	public void updateView() {
+
+	}
+
+	@Override
+	public void onModelUpdate() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

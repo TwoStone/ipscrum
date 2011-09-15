@@ -1,170 +1,200 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.HashSet;
+import java.util.Collection;
 
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.Panel;
-
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.PersonTeamArgs;
-import fhdw.ipscrum.client.view.TeamView;
-import fhdw.ipscrum.client.view.interfaces.ITeamView;
-import fhdw.ipscrum.shared.SessionManager;
-import fhdw.ipscrum.shared.constants.TextConstants;
-import fhdw.ipscrum.shared.exceptions.ConsistencyException;
-import fhdw.ipscrum.shared.model.interfaces.IPerson;
-import fhdw.ipscrum.shared.model.interfaces.ITeam;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.architecture.view.IView;
+import fhdw.ipscrum.client.eventargs.PersonTeamArgs;
+import fhdw.ipscrum.client.view.widgets.charts.VelocityChart;
+import fhdw.ipscrum.client.viewinterfaces.ITeamView;
+import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAddMemberCommand;
+import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamRemoveMemberCommand;
+import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
+import fhdw.ipscrum.shared.model.nonMeta.Person;
+import fhdw.ipscrum.shared.model.nonMeta.Team;
 
 /**
- * presenter class of the team interface. this interface is used to inspect,
- * create and modify teams as well as adding and removing persons to teams.
+ * This class represents the presenter which controls the view to administer teams and
+ * persons in teams.
  */
-public class TeamPresenter extends Presenter<ITeamView> {
-
-	private ITeamView concreteView;
+public class TeamPresenter extends WritePresenter {
 
 	/**
-	 * Constructor for TeamPresenter.
-	 * 
-	 * @param parent
-	 *            Panel
-	 * @param parentPresenter
+	 * Represents the view which is related to and controlled from this presenter.
 	 */
-	public TeamPresenter(final Panel parent, final Presenter<?> parentPresenter) {
-		super(parent, parentPresenter);
+	private ITeamView view;
+
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamPresenter).
+	 * 
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
+	 */
+	public TeamPresenter(final ClientContext context) {
+		super(context);
 	}
 
-	/**
-	 * Method createView.
-	 * 
-	 * @return ITeamView
-	 */
 	@Override
-	protected ITeamView createView() {
-		this.concreteView = new TeamView();
-		this.updateGuiData();
-		this.setupEventHandlers();
-		return this.concreteView;
+	public String getName() {
+		return "Teamübersicht";
+	}
+
+	@Override
+	public IView getView() {
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createTeamView();
+
+			this.view.defineAddPersonToTeamEvent(new EventHandler<PersonTeamArgs>() {
+				@Override
+				public void
+						onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
+					TeamPresenter.this.addPersonToTeam(eventArgs.getTeam(),
+							eventArgs.getPersons());
+				}
+			});
+
+			this.view
+					.defineRemovePersonFromTeamEvent(new EventHandler<PersonTeamArgs>() {
+						@Override
+						public void onUpdate(final Object sender,
+								final PersonTeamArgs eventArgs) {
+							TeamPresenter.this.removePersonFromTeam(
+									eventArgs.getTeam(), eventArgs.getPersons());
+						}
+					});
+
+			this.view.defineNewTeamEvent(new DefaultEventHandler() {
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					TeamPresenter.this.newTeam();
+				}
+			});
+
+			this.view.defineModifyTeamEvent(new EventHandler<PersonTeamArgs>() {
+				@Override
+				public void
+						onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
+					TeamPresenter.this.editTeam(eventArgs.getTeam());
+				}
+			});
+
+			this.view.defineVelocityChartEvent(new EventHandler<TypedEventArg<Team>>() {
+				@Override
+				public void onUpdate(final Object sender,
+						final TypedEventArg<Team> eventArgs) {
+					TeamPresenter.this.startPresenter(new WidgetPresenter(
+							TeamPresenter.this.getContext(), new VelocityChart(
+									eventArgs.getObject()), "Velocitychart"));
+				}
+			});
+
+			this.view.defineAddProjectsEvent(new EventHandler<TypedEventArg<Team>>() {
+
+				@Override
+				public void onUpdate(final Object sender,
+						final TypedEventArg<Team> eventArgs) {
+					if (eventArgs.getObject() != null) {
+						TeamPresenter.this
+								.startPresenter(new AddProjectToTeamPresenter(
+										TeamPresenter.this.getContext(), eventArgs
+												.getObject()));
+					}
+				}
+			});
+		}
+
+		return this.view;
 	}
 
 	/**
-	 * this is called to set up the behaviour of all interaction widgets of this
-	 * view.
+	 * this method opens the function to create a new team. The creation is done in the
+	 * {@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter .
 	 */
-	private void setupEventHandlers() {
+	private void newTeam() {
+		final TeamCreatePresenter teamCreatePresenter =
+				new TeamCreatePresenter(this.getContext());
+		this.startPresenter(teamCreatePresenter);
+	}
 
-		this.concreteView.defineNewTeamEvent(new EventHandler<EventArgs>() {
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				final DialogBox box = new DialogBox();
-				final TeamDialogPresenter presenter = new TeamDialogPresenter(
-						box, TeamPresenter.this);
-				box.setAnimationEnabled(true);
-				box.setGlassEnabled(true);
-				box.setText(TextConstants.TEAMDIALOG_TITLE_CREATE);
+	/**
+	 * this method opens the function to edit a team. The edit is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.TeamEditPresenter .
+	 * 
+	 * @param team
+	 *            to edit
+	 */
+	private void editTeam(final Team team) {
+		final TeamEditPresenter teamEditPresenter =
+				new TeamEditPresenter(this.getContext(), team);
+		this.startPresenter(teamEditPresenter);
+	}
 
-				presenter.getFinished().add(new EventHandler<EventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final EventArgs eventArgs) {
-						TeamPresenter.this.updateGuiData();
-						box.hide();
-					}
-				});
-
-				presenter.getAborted().add(new EventHandler<EventArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final EventArgs eventArgs) {
-						box.hide();
-					}
-				});
-				box.center();
+	/**
+	 * this method opens the function to add persons to a team.
+	 * 
+	 * @param team
+	 *            to add the persons to
+	 * @param collection
+	 *            the persons to add to the team
+	 * 
+	 */
+	private void addPersonToTeam(final Team team, final Collection<Person> collection) {
+		try {
+			this.beginTransaction();
+			for (final Person person : collection) {
+				final TeamAddMemberCommand command =
+						new TeamAddMemberCommand(team, person);
+				this.doCommand(command);
 			}
-		});
-
-		this.concreteView
-				.defineModifyTeamEvent(new EventHandler<PersonTeamArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final PersonTeamArgs eventArgs) {
-						final DialogBox box = new DialogBox();
-						final TeamDialogPresenter presenter = new TeamDialogPresenter(
-								box, eventArgs.getTeam(), TeamPresenter.this);
-						box.setAnimationEnabled(true);
-						box.setGlassEnabled(true);
-						box.setText("Team "
-								+ eventArgs.getTeam().getDescription()
-								+ " bearbeiten");
-
-						presenter.getFinished().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										TeamPresenter.this.updateGuiData();
-										box.hide();
-									}
-								});
-
-						presenter.getAborted().add(
-								new EventHandler<EventArgs>() {
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										box.hide();
-									}
-								});
-						box.center();
-					}
-				});
-
-		this.concreteView
-				.defineRemovePersonFromTeamEvent(new EventHandler<PersonTeamArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final PersonTeamArgs eventArgs) {
-						for (final IPerson person : eventArgs.getPersons()) {
-							try {
-								eventArgs.getTeam().removeMember(person);
-							} catch (final ConsistencyException e) {
-								TeamPresenter.this.abort();
-							}
-							TeamPresenter.this.updateGuiData();
-						}
-					}
-				});
-
-		this.concreteView
-				.defineAddPersonToTeamEvent(new EventHandler<PersonTeamArgs>() {
-					@Override
-					public void onUpdate(final Object sender,
-							final PersonTeamArgs eventArgs) {
-						for (final IPerson person : eventArgs.getPersons()) {
-							try {
-								eventArgs.getTeam().addMember(person);
-							} catch (final ConsistencyException e) {
-								TeamPresenter.this.abort();
-							}
-							TeamPresenter.this.updateGuiData();
-						}
-					}
-				});
+			this.commitTransaction();
+		} catch (final IPScrumGeneralException e) {
+			this.toastMessage(e.getMessage());
+			this.rollbackTransaction();
+		}
 	}
 
 	/**
-	 * this is called to update or fill the entries in the
-	 * gui-tables/tree-display.
+	 * this method opens the function to remove persons from a team.
+	 * 
+	 * @param team
+	 *            to remove the persons from
+	 * @param collection
+	 *            the persons to remove from the team
+	 * 
 	 */
-	private void updateGuiData() {
-		final HashSet<IPerson> personSet = SessionManager.getInstance()
-				.getModel().getPersons();
-		this.concreteView.updatePersonTableData(personSet);
-
-		final HashSet<ITeam> teamSet = SessionManager.getInstance().getModel()
-				.getTeams();
-		this.concreteView.updateTeamTreeData(teamSet);
-
+	private void removePersonFromTeam(final Team team,
+			final Collection<Person> collection) {
+		try {
+			this.beginTransaction();
+			for (final Person person : collection) {
+				final TeamRemoveMemberCommand command =
+						new TeamRemoveMemberCommand(team, person);
+				this.doCommand(command);
+			}
+			this.commitTransaction();
+		} catch (final IPScrumGeneralException e) {
+			this.toastMessage(e.getMessage());
+			this.rollbackTransaction();
+		}
 	}
+
+	@Override
+	public void updateView() {
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
+				.getTeamAdminRight());
+		this.view.updatePersonTableData(this.getContext().getModel().getAllPersons());
+		this.view.updateTeamTreeData(this.getContext().getModel().getAllTeams());
+	}
+
+	@Override
+	public void onModelUpdate() {
+		this.updateView();
+	}
+
 }

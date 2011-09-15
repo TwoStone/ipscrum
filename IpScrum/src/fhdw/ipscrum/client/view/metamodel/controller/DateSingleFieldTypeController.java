@@ -1,0 +1,33 @@
+package fhdw.ipscrum.client.view.metamodel.controller;
+
+import java.util.Date;
+
+import fhdw.ipscrum.client.presenter.GenericTicketPresenter;
+import fhdw.ipscrum.client.view.metamodel.DateSingleFieldWidget;
+import fhdw.ipscrum.shared.model.Model;
+import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
+import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
+
+public class DateSingleFieldTypeController extends SingleFieldTypeController<Date> {
+
+	private final DateSingleFieldWidget widget;
+
+	public DateSingleFieldTypeController(final Ticket ticket,
+			final GenericTicketPresenter presenter, final SingleField<Date> field) {
+		super(ticket, presenter, field);
+
+		this.widget = new DateSingleFieldWidget();
+		this.initialize();
+	}
+
+	@Override
+	public void updateWidget(final Model model) {
+		this.getWidget().setValue(this.getField().getValue());
+	}
+
+	@Override
+	public DateSingleFieldWidget getWidget() {
+		return this.widget;
+	}
+
+}

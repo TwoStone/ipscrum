@@ -1,117 +1,83 @@
 package fhdw.ipscrum.client.presenter;
 
-import java.util.Collection;
+import java.util.List;
 
-import com.google.gwt.user.client.ui.Panel;
+import fhdw.ipscrum.client.architecture.ClientContext;
+import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.presenter.ReadPresenter;
+import fhdw.ipscrum.client.viewinterfaces.ISearchResultView;
+import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
-import fhdw.ipscrum.client.events.EventArgs;
-import fhdw.ipscrum.client.events.EventHandler;
-import fhdw.ipscrum.client.events.args.ShowTicketEventArgs;
-import fhdw.ipscrum.client.utils.GwtUtils;
-import fhdw.ipscrum.client.view.SearchResultView;
-import fhdw.ipscrum.client.view.interfaces.ISearchResultView;
-import fhdw.ipscrum.shared.exceptions.NoPBISelectedException;
-import fhdw.ipscrum.shared.model.Bug;
-import fhdw.ipscrum.shared.model.Feature;
-import fhdw.ipscrum.shared.model.ProductBacklogItem;
-import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
-import fhdw.ipscrum.shared.observer.Observable;
-import fhdw.ipscrum.shared.observer.TransientObserver;
+/**
+ * This class represents the presenter which controls the view to show search results.
+ */
+public class SearchResultPresenter extends ReadPresenter {
 
-public class SearchResultPresenter extends Presenter<ISearchResultView>
-		implements TransientObserver {
+	/**
+	 * Represents the view which is related to and controlled from this presenter.
+	 */
+	private ISearchResultView view;
 
-	private Collection<ProductBacklogItem> resultList;
+	/**
+	 * represents the list of tickets which are the results of the search.
+	 */
+	private final List<Ticket> result;
 
-	public SearchResultPresenter(Collection<ProductBacklogItem> resultList,
-			Panel parent, Presenter<?> parentPresenter) {
-		super(parent, parentPresenter);
-		this.setResultList(resultList);
+	/**
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.SearchResultPresenter).
+	 * 
+	 * @param context
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
+	 *            needed to get the model and other related classes.
+	 * @param result
+	 *            are all existing Tickets
+	 */
+	public SearchResultPresenter(final ClientContext context, final List<Ticket> result) {
+		super(context);
+
+		this.result = result;
 	}
 
-	public void setResultList(Collection<ProductBacklogItem> resultList) {
+	@Override
+	public String getName() {
+		return "Suchergebnisse";
+	}
 
-		if (this.resultList != null) {
-			for (final ProductBacklogItem oldItem : this.resultList) {
-				oldItem.deleteObserver(this);
-			}
+	@Override
+	public ISearchResultView getView() {
+
+		if (this.view == null) {
+			this.view = this.getContext().getViewFactory().createSearchResultView();
+
+			this.view.registerDetailHandler(new EventHandler<TypedEventArg<Ticket>>() {
+
+				@Override
+				public void onUpdate(final Object sender,
+						final TypedEventArg<Ticket> eventArgs) {
+					SearchResultPresenter.this
+							.startPresenter(new GenericTicketPresenter(eventArgs
+									.getObject(), SearchResultPresenter.this
+									.getContext()));
+
+				}
+			});
+
 		}
 
-		this.resultList = resultList;
-		for (final ProductBacklogItem item : resultList) {
-			item.addObserver(this);
-		}
-		this.updateView();
+		return this.view;
+	}
+
+	@Override
+	public void updateView() {
+		this.getView().setSearchResult(this.result);
 
 	}
 
 	@Override
-	protected ISearchResultView createView() {
-		final ISearchResultView view = new SearchResultView();
-		this.registerEvents(view);
-		return view;
+	public void onModelUpdate() {
+		// TODO Auto-generated method stub
+
 	}
 
-	private void registerEvents(final ISearchResultView view) {
-		view.registerShowTicket(new EventHandler<ShowTicketEventArgs>() {
-
-			@Override
-			public void onUpdate(Object sender, ShowTicketEventArgs eventArgs) {
-				final ProductBacklogItem item = eventArgs.getTicket();
-				class EditPresenterChooser implements
-						IProductBacklogItemVisitor {
-
-					EditPBIPresenter presenter;
-
-					@Override
-					public void handleFeature(Feature feature) {
-						try {
-							this.presenter = new EditFeaturePresenter(null,
-									feature, SearchResultPresenter.this);
-						} catch (final NoPBISelectedException e) {
-							GwtUtils.displayError(e);
-						}
-					}
-
-					@Override
-					public void handleBug(Bug bug) {
-						try {
-							this.presenter = new EditBugPresenter(null, bug,
-									SearchResultPresenter.this);
-
-						} catch (final NoPBISelectedException e) {
-							GwtUtils.displayError(e);
-						}
-
-					}
-				}
-				class CloseHandler implements EventHandler<EventArgs> {
-
-					@Override
-					public void onUpdate(Object sender, EventArgs eventArgs) {
-						view.hideDetails();
-					}
-				}
-
-				final EditPresenterChooser chooser = new EditPresenterChooser();
-				item.accept(chooser);
-
-				view.displayDetails(chooser.presenter.getView());
-
-				final CloseHandler handler = new CloseHandler();
-				chooser.presenter.getAborted().add(handler);
-				chooser.presenter.getFinished().add(handler);
-			}
-
-		});
-	}
-
-	@Override
-	public void update(Observable observable, Object argument) {
-		this.updateView();
-	}
-
-	private void updateView() {
-		this.getView().setSearchResult(this.resultList);
-	}
 }

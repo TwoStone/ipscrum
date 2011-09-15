@@ -1,0 +1,50 @@
+@CHARSET "ISO-8859-1";
+@def SHADOWCOLOR value('architecture.SHADOWCOLOR');
+@def PANEL_WIDTH 400px;
+
+.toast-panel {
+	width: PANEL_WIDTH;
+	height: auto;
+	background-color: white;
+	-webkit-box-shadow: 1px 1px 2px 0px SHADOWCOLOR;
+	-moz-box-shadow: 1px 1px 2px 0px SHADOWCOLOR;
+	box-shadow: 1px 1px 2px 0px SHADOWCOLOR;
+	opacity: 0.95;
+}
+
+.toast-panel .toast-message-container {
+	min-height: 100px;
+}
+
+.toast-panel .gwt-Button {
+	background: url("images/closeToast_gray.png") no-repeat center;
+	border: 0px solid black;
+	width: 15px;
+	height: 15px;
+	padding: 0;
+	margin: 0;
+	font-size:12px;
+	line-height: 15px;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-box-shadow: 0px 0px 1px 0px SHADOWCOLOR;
+	-moz-box-shadow: 0px 0px 1px 0px SHADOWCOLOR;
+	box-shadow: 0px 0px 1px 0px SHADOWCOLOR;
+}
+
+.toast-panel .gwt-Button:hover {
+	background: url("images/closeToast.png") no-repeat center;
+	-webkit-box-shadow: 0px 0px 1px 1px black;
+	-moz-box-shadow: 0px 0px 1px 1px black;
+	box-shadow: 0px 0px 1px 1px black;
+}
+.toast-panel .state-label {
+	font-size: 9px;
+	position: relative;
+	top: 15px;
+}
+
+.toast-panel .message {
+	margin: 20px auto;
+	margin-bottom: 0px;
+}
