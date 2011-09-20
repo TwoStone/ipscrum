@@ -19,6 +19,12 @@ public class SprintChartData {
 	private final ArrayList<Date> daysInvolved;
 	private final TreeMap<Date, SprintChartDataDetails> data;
 
+	/**
+	 * Constructor of the SprintChartData.
+	 * 
+	 * @param sprint
+	 *            related to the chart
+	 */
 	public SprintChartData(final Sprint sprint) {
 		this.sprint = sprint;
 		this.data = new TreeMap<Date, SprintChartData.SprintChartDataDetails>();
@@ -76,10 +82,20 @@ public class SprintChartData {
 		}
 	}
 
+	/**
+	 * Getter of the Sprint related to the Data and the Chart.
+	 * 
+	 * @return the related sprint
+	 */
 	public Sprint getSprint() {
 		return this.sprint;
 	}
 
+	/**
+	 * Getter of the data related to every date of the sprint.
+	 * 
+	 * @return the data related to the day of the sprint
+	 */
 	public SortedMap<Date, SprintChartDataDetails> getData() {
 		return this.data;
 	}

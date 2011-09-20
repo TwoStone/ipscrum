@@ -23,7 +23,7 @@ public class RoleChooserView extends Composite implements IRoleChoser {
 	private final SingleSelectionModel<Role> selModel =
 			new SingleSelectionModel<Role>();
 
-	final Button btnGo;
+	private final Button btnGo;
 	private final Label lbFailure;
 
 	/**

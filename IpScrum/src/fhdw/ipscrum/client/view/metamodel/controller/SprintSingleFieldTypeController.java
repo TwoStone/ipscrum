@@ -8,15 +8,28 @@ import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
+/**
+ * Represents the SprintSingleFieldTypeController needed for editing tickets.
+ */
 public class SprintSingleFieldTypeController extends SingleFieldTypeController<Sprint> {
 
 	private final ComplexSingleFieldWidget<Sprint> widget;
 
+	/**
+	 * Constructor of the SprintSingleFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public SprintSingleFieldTypeController(final Ticket ticket,
 			final GenericTicketPresenter presenter, final SingleField<Sprint> field) {
 		super(ticket, presenter, field);
 
-		this.widget = new ComplexSingleFieldWidget<Sprint>(TypeRenderes.SprintRenderer);
+		this.widget = new ComplexSingleFieldWidget<Sprint>(TypeRenderes.SPRINTRENDERER);
 		this.initialize();
 	}
 

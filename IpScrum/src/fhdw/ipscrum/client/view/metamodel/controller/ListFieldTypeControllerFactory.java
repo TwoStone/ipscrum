@@ -27,8 +27,14 @@ import fhdw.ipscrum.shared.model.nonMeta.Release;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
+/**
+ * Represents the Factory of the ListFieldTypeController.
+ */
 public class ListFieldTypeControllerFactory {
 
+	/**
+	 * Represents the Visitor for the implementation of FieldTypes.
+	 */
 	private final class FieldTypeVisitorImplementation implements FieldTypeVisitor {
 		@SuppressWarnings("unchecked")
 		@Override
@@ -148,6 +154,16 @@ public class ListFieldTypeControllerFactory {
 	private ListFieldTypeController<?> controller;
 	private final ListField<?> field;
 
+	/**
+	 * Constructor of the ListFieldTypeControllerFactory.
+	 * 
+	 * @param field
+	 *            related to the controller
+	 * @param genericTicketPresenter
+	 *            related to the controller
+	 * @param ticket
+	 *            related to the controller
+	 */
 	public ListFieldTypeControllerFactory(final ListField<?> field,
 			final GenericTicketPresenter genericTicketPresenter, final Ticket ticket) {
 		this.field = field;
@@ -157,6 +173,11 @@ public class ListFieldTypeControllerFactory {
 
 	}
 
+	/**
+	 * Creates a ListFieldTypeController of the chosen type.
+	 * 
+	 * @return the controller created
+	 */
 	public ListFieldTypeController<?> create() {
 		this.type.accept(this.typeVisitor);
 		return this.controller;

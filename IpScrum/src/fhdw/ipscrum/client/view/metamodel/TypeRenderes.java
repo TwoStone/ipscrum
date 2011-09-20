@@ -11,6 +11,9 @@ import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Release;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
+/**
+ * Represents the TypeRenderers for all possible fieldTypes.
+ */
 public final class TypeRenderes {
 
 	/**
@@ -20,7 +23,7 @@ public final class TypeRenderes {
 
 	}
 
-	public static final TypeRendere<fhdw.ipscrum.shared.model.nonMeta.System> SystemRenderer =
+	public static final TypeRendere<fhdw.ipscrum.shared.model.nonMeta.System> SYSTEMRENDERER =
 			new TypeRendere<fhdw.ipscrum.shared.model.nonMeta.System>() {
 
 				@Override
@@ -29,14 +32,14 @@ public final class TypeRenderes {
 					return object.getName();
 				}
 			};
-	public static final TypeRendere<Sprint> SprintRenderer = new TypeRendere<Sprint>() {
+	public static final TypeRendere<Sprint> SPRINTRENDERER = new TypeRendere<Sprint>() {
 
 		@Override
 		public String render(final Sprint object) {
 			return object.getName();
 		}
 	};
-	public static final TypeRendere<Release> ReleaseRenderer =
+	public static final TypeRendere<Release> RELEASERENDERER =
 			new TypeRendere<Release>() {
 
 				@Override
@@ -44,14 +47,14 @@ public final class TypeRenderes {
 					return object.getVersion();
 				}
 			};
-	public static final TypeRendere<Person> PersonRenderer = new TypeRendere<Person>() {
+	public static final TypeRendere<Person> PERSONRENDERER = new TypeRendere<Person>() {
 
 		@Override
 		public String render(final Person object) {
 			return object.getFirstname() + " " + object.getLastname();
 		}
 	};
-	public static final TypeRendere<ProductBacklogItem> PbiRenderer =
+	public static final TypeRendere<ProductBacklogItem> PBIRENDERER =
 			new TypeRendere<ProductBacklogItem>() {
 
 				@Override
@@ -59,21 +62,21 @@ public final class TypeRenderes {
 					return object.getName();
 				}
 			};
-	public static final TypeRendere<Hint> HintRenderer = new TypeRendere<Hint>() {
+	public static final TypeRendere<Hint> HINTRENDERER = new TypeRendere<Hint>() {
 
 		@Override
 		public String render(final Hint object) {
 			return object.getContent();
 		}
 	};
-	public static final TypeRendere<Effort> EffortRenderer = new TypeRendere<Effort>() {
+	public static final TypeRendere<Effort> EFFORTRENDERER = new TypeRendere<Effort>() {
 
 		@Override
 		public String render(final Effort object) {
 			return object.toString();
 		}
 	};
-	public static final TypeRendere<AcceptanceCriterion> AcceptanceCriterionRenderer =
+	public static final TypeRendere<AcceptanceCriterion> ACCEPTANCECRITERIONRENDERER =
 			new TypeRendere<AcceptanceCriterion>() {
 
 				@Override
@@ -81,21 +84,21 @@ public final class TypeRenderes {
 					return object.getContent();
 				}
 			};
-	static TypeRendere<String> StringRenderer = new TypeRendere<String>() {
+	public static final TypeRendere<String> STRINGRENDERER = new TypeRendere<String>() {
 
 		@Override
 		public String render(final String object) {
 			return object;
 		}
 	};
-	static TypeRendere<Long> LongRenderer = new TypeRendere<Long>() {
+	public static final TypeRendere<Long> LONGRENDERER = new TypeRendere<Long>() {
 
 		@Override
 		public String render(final Long object) {
 			return object.toString();
 		}
 	};
-	static TypeRendere<Date> DateRenderer = new TypeRendere<Date>() {
+	public static final TypeRendere<Date> DATERENDERER = new TypeRendere<Date>() {
 
 		@Override
 		public String render(final Date object) {

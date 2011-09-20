@@ -51,16 +51,19 @@ public class Rootsystem extends AbstractSystem {
 
 	@Override
 	public boolean containsAction(final System system) {
+		boolean result = false;
 		for (final System current : this.getSystems()) {
 			if (current.getName().equals(system.getName())) {
-				return true;
+				result = true;
+				break;
 			} else {
 				if (current.containsAction(system)) {
-					return true;
+					result = true;
+					break;
 				}
 			}
 		}
-		return false;
+		return result;
 	}
 
 	/**

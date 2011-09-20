@@ -13,6 +13,12 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
+/**
+ * Represents the ListFieldTypeController needed for editing tickets in the generic GUI.
+ * 
+ * @param <T>
+ *            is the type of the listFieldTypeController
+ */
 public abstract class ListFieldTypeController<T extends Serializable>
 		implements FieldTypeController<T> {
 
@@ -41,6 +47,12 @@ public abstract class ListFieldTypeController<T extends Serializable>
 	@Override
 	public abstract ListFieldWidget<T> getWidget();
 
+	/**
+	 * Adds an object to the field using the controller.
+	 * 
+	 * @param object
+	 *            to add
+	 */
 	public void addObject(final T object) {
 		final ListFieldAddValueCommand<T> command =
 				ListFieldAddValueCommand.createCommand(this.getField(), object,
@@ -48,6 +60,12 @@ public abstract class ListFieldTypeController<T extends Serializable>
 		this.getPresenter().addCommand(this, command);
 	}
 
+	/**
+	 * Removes an object to the field using the controller.
+	 * 
+	 * @param object
+	 *            to remove
+	 */
 	public void removeObject(final T object) {
 		final ListFieldRemoveValueCommand<T> command =
 				ListFieldRemoveValueCommand.createCommand(this.getField(), object,
@@ -58,6 +76,16 @@ public abstract class ListFieldTypeController<T extends Serializable>
 	@Override
 	public abstract void updateWidget(Model model);
 
+	/**
+	 * Constructor of the ListFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public ListFieldTypeController(final GenericTicketPresenter presenter,
 			final ListField<T> field, final Ticket ticket) {
 		this.presenter = presenter;
@@ -75,10 +103,20 @@ public abstract class ListFieldTypeController<T extends Serializable>
 		return this.field;
 	}
 
+	/**
+	 * Getter of the presenter the ListFieldTypeController is related to.
+	 * 
+	 * @return the presenter
+	 */
 	public GenericTicketPresenter getPresenter() {
 		return this.presenter;
 	}
 
+	/**
+	 * Getter of the ticket related to the controller.
+	 * 
+	 * @return the related ticket
+	 */
 	public Ticket getTicket() {
 		return this.ticket;
 	}

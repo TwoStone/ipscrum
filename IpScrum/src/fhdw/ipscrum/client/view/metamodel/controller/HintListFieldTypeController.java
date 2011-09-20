@@ -9,14 +9,27 @@ import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.Hint;
 
+/**
+ * Represents the HintListFieldTypeController which is needed for editing tickets.
+ */
 public class HintListFieldTypeController extends ListFieldTypeController<Hint> {
 
+	/**
+	 * Constructor of the HintListFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public HintListFieldTypeController(final GenericTicketPresenter presenter,
 			final ListField<Hint> field, final Ticket ticket) {
 		super(presenter, field, ticket);
 		this.widget =
 				new ComplexTextListFieldWidget<Hint>(this.getField(),
-						TypeRenderes.HintRenderer, this.parser);
+						TypeRenderes.HINTRENDERER, this.parser);
 		this.initialize();
 	}
 

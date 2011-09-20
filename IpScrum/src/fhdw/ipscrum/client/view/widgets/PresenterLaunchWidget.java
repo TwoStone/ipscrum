@@ -32,6 +32,12 @@ public class PresenterLaunchWidget extends DialogBox {
 	private DialogBox dialogBox;
 	private ListDataProvider<Presenter> presenters;
 
+	/**
+	 * Constructor of the PresenterLaunchWidget.
+	 * 
+	 * @param presenters
+	 *            to be launched
+	 */
 	public PresenterLaunchWidget(final Collection<Presenter> presenters) {
 		this();
 		this.presenters.setList(new ArrayList<Presenter>(presenters));
@@ -122,6 +128,12 @@ public class PresenterLaunchWidget extends DialogBox {
 
 	}
 
+	/**
+	 * Adds a presenter.
+	 * 
+	 * @param presenter
+	 *            to be added
+	 */
 	public void addPresenter(final Presenter presenter) {
 		this.presenters.getList().add(presenter);
 	}

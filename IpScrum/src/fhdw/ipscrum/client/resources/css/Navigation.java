@@ -2,6 +2,9 @@ package fhdw.ipscrum.client.resources.css;
 
 import com.google.gwt.resources.client.CssResource;
 
+/**
+ * Represents the ccs resource of the navigation.
+ */
 public interface Navigation extends CssResource {
 
 	// String username();

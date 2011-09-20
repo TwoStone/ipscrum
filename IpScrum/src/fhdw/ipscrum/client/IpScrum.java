@@ -84,6 +84,12 @@ public class IpScrum implements EntryPoint {
 		});
 	}
 
+	/**
+	 * Represents the handler to handle the resize event.
+	 * 
+	 * @param eventBus
+	 *            representing the eventBus needed for handling
+	 */
 	private void registerResizeHandler(final EventBus eventBus) {
 		Window.addResizeHandler(new ResizeHandler() {
 

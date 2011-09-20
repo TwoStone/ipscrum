@@ -12,11 +12,20 @@ import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
 
+/**
+ * Represents the Widget of the SingleField.
+ * 
+ * @param <T>
+ *            is the type related to the widget
+ */
 public abstract class SingleFieldWidget<T> extends Composite {
 
 	private final Event<TypedEventArg<T>> selectionChangedEvent =
 			new Event<TypedEventArg<T>>();
 
+	/**
+	 * Constructor of the SingleFieldWidget.
+	 */
 	public SingleFieldWidget() {
 
 	}
@@ -38,16 +47,39 @@ public abstract class SingleFieldWidget<T> extends Composite {
 		horizontalPanel.add(this.getValueInputWidget());
 	}
 
+	/**
+	 * Represents the event to handle the change.
+	 * 
+	 * @param handler
+	 *            needed for handling the event
+	 * @return the event to handle the change
+	 */
 	public EventRegistration registerChangeHandler(
 			final EventHandler<TypedEventArg<T>> handler) {
 		return this.selectionChangedEvent.add(handler);
 	}
 
+	/**
+	 * sets the value of the widget.
+	 * 
+	 * @param value
+	 *            to set
+	 */
 	public void setValue(final T value) {
 		this.getValues().setValue(value);
 	}
 
+	/**
+	 * Getter of the values in the widgets.
+	 * 
+	 * @return the values
+	 */
 	public abstract HasValue<T> getValues();
 
+	/**
+	 * Getter of the value input widget.
+	 * 
+	 * @return the Widget
+	 */
 	public abstract Widget getValueInputWidget();
 }

@@ -10,6 +10,9 @@ import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.Effort;
 
+/**
+ * Represents the EffortListFieldTypeControler needed for editing tickets.
+ */
 public class EffortListFieldTypeController extends ListFieldTypeController<Effort> {
 
 	private final TypeParser<Effort, Integer> parser =
@@ -27,12 +30,22 @@ public class EffortListFieldTypeController extends ListFieldTypeController<Effor
 
 	private final ComplexNumberListFieldWidget<Effort> widget;
 
+	/**
+	 * Constructor of the EffortListFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public EffortListFieldTypeController(final GenericTicketPresenter presenter,
 			final ListField<Effort> field, final Ticket ticket) {
 		super(presenter, field, ticket);
 		this.widget =
 				new ComplexNumberListFieldWidget<Effort>(this.getField(),
-						TypeRenderes.EffortRenderer, this.parser);
+						TypeRenderes.EFFORTRENDERER, this.parser);
 		this.initialize();
 	}
 

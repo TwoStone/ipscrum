@@ -139,6 +139,11 @@ public class ReleaseBurndownChart extends BurndownChart {
 		}
 	}
 
+	/**
+	 * Getter of the data needed to fill the chart.
+	 * 
+	 * @return the releaseChartData
+	 */
 	public ReleaseChartData getData() {
 		return this.data;
 	}

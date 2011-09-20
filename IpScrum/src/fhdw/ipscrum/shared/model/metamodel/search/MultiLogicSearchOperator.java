@@ -101,18 +101,21 @@ public abstract class MultiLogicSearchOperator extends Operator
 
 	@Override
 	public boolean contains(final ISearchExpression expression) {
+		boolean result = false;
 		if (this.equals(expression)) {
-			return true;
+			result = true;
 		} else {
 			for (final ISearchExpression current : this.args) {
 				if (current.equals(expression)) {
-					return true;
+					result = true;
+					break;
 				} else {
 					return current.contains(expression);
 				}
 			}
-			return false;
+			result = false;
 		}
+		return result;
 	}
 
 	@Override

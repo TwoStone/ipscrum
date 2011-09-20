@@ -6,12 +6,21 @@ import com.google.gwt.user.client.ui.Widget;
 import fhdw.ipscrum.shared.exceptions.model.NothingSelectedException;
 import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 
+/**
+ * Represents the Widget of the TextListField.
+ */
 public class TextListFieldWidget extends ListFieldWidget<String> {
 
 	private final TextBox textBox;
 
+	/**
+	 * Constructor of the TextListFieldWidget.
+	 * 
+	 * @param field
+	 *            is the field related to the widget
+	 */
 	public TextListFieldWidget(final ListField<String> field) {
-		super(field, TypeRenderes.StringRenderer);
+		super(field, TypeRenderes.STRINGRENDERER);
 		this.textBox = new TextBox();
 		this.initialize();
 	}

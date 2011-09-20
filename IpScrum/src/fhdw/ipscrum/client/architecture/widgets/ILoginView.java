@@ -23,6 +23,8 @@ public interface ILoginView {
 		 * 
 		 * @param user
 		 *            to log in
+		 * @param activeRole
+		 *            is the role with which the user is logged in
 		 */
 		public LoggedInEventArgs(final User user, final Role activeRole) {
 			super();

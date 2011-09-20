@@ -8,15 +8,28 @@ import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
+/**
+ * Represents the SystemSingleFieldTypeController needed for editing tickets.
+ */
 public class SystemSingleFieldTypeController extends SingleFieldTypeController<System> {
 
 	private final ComplexSingleFieldWidget<System> widget;
 
+	/**
+	 * Constructor of the SystemSingleFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public SystemSingleFieldTypeController(final Ticket ticket,
 			final GenericTicketPresenter presenter, final SingleField<System> field) {
 		super(ticket, presenter, field);
 
-		this.widget = new ComplexSingleFieldWidget<System>(TypeRenderes.SystemRenderer);
+		this.widget = new ComplexSingleFieldWidget<System>(TypeRenderes.SYSTEMRENDERER);
 		this.initialize();
 	}
 

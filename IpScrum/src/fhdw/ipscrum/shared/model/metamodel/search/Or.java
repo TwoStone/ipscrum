@@ -33,15 +33,17 @@ public class Or extends MultiLogicSearchOperator {
 
 	@Override
 	public boolean search(final Ticket ticket) {
+		boolean result = false;
 		if (this.getArgs().size() == 0) {
-			return true;
+			result = true;
 		}
 		for (final ISearchExpression current : this.getArgs()) {
 			if (current.search(ticket)) {
-				return true;
+				result = true;
+				break;
 			}
 		}
-		return false;
+		return result;
 	}
 
 	@Override

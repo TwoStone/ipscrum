@@ -24,6 +24,12 @@ public class VelocityChartData {
 	private Double absAverageVelocity;
 	private Double relAverageVelocity;
 
+	/**
+	 * Constructor of the VelocityChartData.
+	 * 
+	 * @param team
+	 *            to show the velocity of
+	 */
 	public VelocityChartData(final Team team) {
 		this.team = team;
 		this.data =
@@ -84,18 +90,38 @@ public class VelocityChartData {
 		this.relAverageVelocity = resultRel / sprintList.size();
 	}
 
+	/**
+	 * Getter of the team of the chart.
+	 * 
+	 * @return the related team
+	 */
 	public Team getTeam() {
 		return this.team;
 	}
 
+	/**
+	 * Getter of the data of the team attached to a sprint, sorted by the sprints.
+	 * 
+	 * @return the data
+	 */
 	public SortedMap<Sprint, VelocityChartDataDetails> getData() {
 		return this.data;
 	}
 
+	/**
+	 * Getter of the average of the absolute velocity.
+	 * 
+	 * @return the average of the absolute velocity
+	 */
 	public Double getAbsAverageVelocity() {
 		return this.absAverageVelocity;
 	}
 
+	/**
+	 * Getter of the average of the relative velocity.
+	 * 
+	 * @return the average of the relative velocity
+	 */
 	public Double getRelAverageVelocity() {
 		return this.relAverageVelocity;
 	}
@@ -129,16 +155,34 @@ public class VelocityChartData {
 		private final Double absoluteVelocity;
 		private final Double relativeVelocity;
 
+		/**
+		 * Constructor of the VelocityChartDataDetails.
+		 * 
+		 * @param absVelocity
+		 *            is the absolute velocity of the team
+		 * @param relVelocity
+		 *            is the relative velocity of the team
+		 */
 		public VelocityChartDataDetails(final Double absVelocity,
 				final Double relVelocity) {
 			this.absoluteVelocity = absVelocity;
 			this.relativeVelocity = relVelocity;
 		}
 
+		/**
+		 * Getter of the absolute velocity.
+		 * 
+		 * @return the absolute velocity
+		 */
 		public Double getAbsoluteVelocity() {
 			return this.absoluteVelocity;
 		}
 
+		/**
+		 * Getter of the relative velocity.
+		 * 
+		 * @return the relative velocity
+		 */
 		public Double getRelativeVelocity() {
 			return this.relativeVelocity;
 		}

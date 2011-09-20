@@ -9,6 +9,10 @@ import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.AcceptanceCriterion;
 
+/**
+ * Represents the Controller of the AcceptanceCriterilaListField needed for editing
+ * tickets.
+ */
 public class AcceptanceCriteriaListFieldTypeController
 		extends ListFieldTypeController<AcceptanceCriterion> {
 
@@ -25,6 +29,16 @@ public class AcceptanceCriteriaListFieldTypeController
 			};
 	private ComplexTextListFieldWidget<AcceptanceCriterion> widget;
 
+	/**
+	 * Constructor of the AcceptanceCriterialListFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public AcceptanceCriteriaListFieldTypeController(
 			final GenericTicketPresenter presenter,
 			final ListField<AcceptanceCriterion> field, final Ticket ticket) {
@@ -38,7 +52,7 @@ public class AcceptanceCriteriaListFieldTypeController
 		if (this.widget == null) {
 			this.widget =
 					new ComplexTextListFieldWidget<AcceptanceCriterion>(
-							this.getField(), TypeRenderes.AcceptanceCriterionRenderer,
+							this.getField(), TypeRenderes.ACCEPTANCECRITERIONRENDERER,
 							this.parser);
 		}
 

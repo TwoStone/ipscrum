@@ -23,21 +23,22 @@ public final class ClassUtils {
 	 */
 	public static boolean
 			isAssignableFrom(final Class<?> clazz1, final Class<?> clazz2) {
+		boolean result = false;
 		if (clazz2 == null) {
-			return false;
+			result = false;
 		}
 
 		if (clazz2.equals(clazz1)) {
-			return true;
+			result = true;
 		}
 
 		Class<?> currentSuperClass = clazz1.getSuperclass();
 		while (currentSuperClass != null) {
 			if (currentSuperClass.equals(clazz2)) {
-				return true;
+				result = true;
 			}
 			currentSuperClass = currentSuperClass.getSuperclass();
 		}
-		return false;
+		return result;
 	}
 }

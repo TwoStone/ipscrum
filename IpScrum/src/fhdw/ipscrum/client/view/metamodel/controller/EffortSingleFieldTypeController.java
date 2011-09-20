@@ -15,6 +15,9 @@ import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.Effort;
 
+/**
+ * Represents the EffortSingleFieldTypeController needed for editing tickets.
+ */
 public class EffortSingleFieldTypeController extends SingleFieldTypeController<Effort> {
 
 	private final ComplexSingleValueFieldWidget<Effort> widget;
@@ -48,6 +51,16 @@ public class EffortSingleFieldTypeController extends SingleFieldTypeController<E
 		}
 	};
 
+	/**
+	 * Constructor of the EffortSingleFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public EffortSingleFieldTypeController(final Ticket ticket,
 			final GenericTicketPresenter presenter, final SingleField<Effort> field) {
 		super(ticket, presenter, field);

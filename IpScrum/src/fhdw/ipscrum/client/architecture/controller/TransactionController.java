@@ -68,8 +68,6 @@ public class TransactionController extends ClientController {
 	/**
 	 * begins the transaction.
 	 * 
-	 * @param presenter
-	 *            is the presenter which triggers the transaction
 	 * @throws PendingCommitException
 	 *             if the last transaction isn't already send to the server
 	 */

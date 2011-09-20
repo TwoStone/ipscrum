@@ -127,21 +127,24 @@ public class System extends AbstractSystem {
 
 	@Override
 	public boolean containsAction(final System system) {
+		boolean result = false;
 		if (this.getName().equals(system.getName())) {
-			return true;
+			result = true;
 		}
 
 		final Vector<System> systems = this.getSystems();
 		for (final System current : systems) {
 			if (current.equals(system)) {
-				return true;
+				result = true;
+				break;
 			} else {
 				if (current.containsAction(system)) {
-					return true;
+					result = true;
+					break;
 				}
 			}
 		}
-		return false;
+		return result;
 	}
 
 	@Override

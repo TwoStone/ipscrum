@@ -25,8 +25,14 @@ import fhdw.ipscrum.shared.model.nonMeta.Release;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
+/**
+ * Represents the Factory of the SingleFieldTypeController.
+ */
 public class SingleFieldTypeControllerFactory {
 
+	/**
+	 * Represents the FieldTypeVisitor for the implementation of a fieldType.
+	 */
 	private final class FieldTypeVisitorImplementation implements FieldTypeVisitor {
 		@SuppressWarnings("unchecked")
 		@Override
@@ -135,6 +141,18 @@ public class SingleFieldTypeControllerFactory {
 	private final Ticket ticket;
 	private SingleFieldTypeController<?> controller;
 
+	/**
+	 * Constructor of the SingleFieldTypeControllerFactory.
+	 * 
+	 * @param <T>
+	 *            is the related type
+	 * @param singleField
+	 *            is the single field related to the controller
+	 * @param genericTicketPresenter
+	 *            is the related presenter
+	 * @param ticket
+	 *            is the related ticket
+	 */
 	public <T extends Serializable> SingleFieldTypeControllerFactory(
 			final SingleField<T> singleField,
 			final GenericTicketPresenter genericTicketPresenter, final Ticket ticket) {
@@ -143,6 +161,11 @@ public class SingleFieldTypeControllerFactory {
 		this.ticket = ticket;
 	}
 
+	/**
+	 * creates a SingleFieldTypeCreator.
+	 * 
+	 * @return the singleFieldTypeCreator with the chosen type.
+	 */
 	public SingleFieldTypeController<?> create() {
 		this.singleField.getType().accept(this.visitor);
 		return this.controller;

@@ -93,6 +93,7 @@ public class TypedListBox<T> extends Composite
 					ValueChangeEvent.fire(TypedListBox.this,
 							TypedListBox.this.getValue());
 				} catch (final NothingSelectedException e) {
+
 				}
 			}
 		});

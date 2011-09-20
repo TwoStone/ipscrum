@@ -19,6 +19,12 @@ import fhdw.ipscrum.client.architecture.widgets.TypedListBox.TypeRendere;
 import fhdw.ipscrum.shared.exceptions.model.NothingSelectedException;
 import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 
+/**
+ * Represents the Widget of the ListFields.
+ * 
+ * @param <T>
+ *            is the type if the widget
+ */
 public abstract class ListFieldWidget<T extends Serializable> extends Composite {
 
 	private final Event<FieldEventArgs<T>> addEvent = new Event<FieldEventArgs<T>>();
@@ -27,6 +33,14 @@ public abstract class ListFieldWidget<T extends Serializable> extends Composite 
 	private final ListField<T> field;
 	private final TypeRendere<T> typeRendere;
 
+	/**
+	 * Constructor of the ListFieldWidget.
+	 * 
+	 * @param field
+	 *            related to the widget
+	 * @param typeRendere
+	 *            needed to render the field for the chosen type
+	 */
 	public ListFieldWidget(final ListField<T> field, final TypeRendere<T> typeRendere) {
 
 		this.field = field;
@@ -89,23 +103,55 @@ public abstract class ListFieldWidget<T extends Serializable> extends Composite 
 		verticalPanel.add(removeButton);
 	}
 
+	/**
+	 * Represents the event needed for handling the add event.
+	 * 
+	 * @param handler
+	 *            the handle the event
+	 * @return the event needed for handling the add event
+	 */
 	public EventRegistration registerAddHandler(
 			final EventHandler<FieldEventArgs<T>> handler) {
 		return this.addEvent.add(handler);
 	}
 
+	/**
+	 * Represents the event needed for handling the remove event.
+	 * 
+	 * @param handler
+	 *            the handle the event
+	 * @return the event needed for handling the remove event
+	 */
 	public EventRegistration registerRemoveHandler(
 			final EventHandler<FieldEventArgs<T>> handler) {
 		return this.removeEvent.add(handler);
 	}
 
+	/**
+	 * Sets the items of the widget.
+	 * 
+	 * @param referencedItems
+	 *            to set in the widget
+	 */
 	public void setItems(final List<T> referencedItems) {
 		this.currentObjectsListBox.clear();
 		this.currentObjectsListBox.addItems(referencedItems);
 	}
 
+	/**
+	 * Getter of the valueInputWidget.
+	 * 
+	 * @return the widget
+	 */
 	public abstract Widget getValueInputWidget();
 
+	/**
+	 * Getter of the value related to the widget.
+	 * 
+	 * @return the related value
+	 * @throws NothingSelectedException
+	 *             if no value is selected
+	 */
 	public abstract T getValue() throws NothingSelectedException;
 
 	protected List<T> getReferencedObjects() {

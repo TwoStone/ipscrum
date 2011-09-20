@@ -8,17 +8,30 @@ import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
+/**
+ * Represents the SystemListFieldTypeController needed for editing tickets.
+ */
 public class SystemListFieldTypeController extends ListFieldTypeController<System> {
 
 	private final ComplexListFieldWidget<System> widget;
 
+	/**
+	 * Constructor of the SystemListFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public SystemListFieldTypeController(final GenericTicketPresenter presenter,
 			final ListField<System> field, final Ticket ticket) {
 		super(presenter, field, ticket);
 
 		this.widget =
 				new ComplexListFieldWidget<System>(this.getField(),
-						TypeRenderes.SystemRenderer);
+						TypeRenderes.SYSTEMRENDERER);
 		this.initialize();
 	}
 

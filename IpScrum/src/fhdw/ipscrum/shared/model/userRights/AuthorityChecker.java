@@ -8,9 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 import fhdw.ipscrum.shared.commands.interfaces.ICommand;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
-import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException;
-import fhdw.ipscrum.shared.exceptions.model.ConsistencyException;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
@@ -58,12 +56,8 @@ public class AuthorityChecker implements IsSerializable, Serializable {
 	 *            Command that shall be executed.
 	 * @param activeRole
 	 *            role of the person that executes the command.
-	 * @throws NotAuthorizedException
-	 *             Will be thrown when the user isn't authorized.
-	 * @throws ConsistencyException
-	 *             if a command depends on a project, but the depending project is null.
-	 * @throws NoObjectFindException
-	 *             if something went wrong in the persistence layer.
+	 * @throws IPScrumGeneralException
+	 *             is something fails
 	 */
 	public void canBeExecuted(final ICommand command, final Role activeRole)
 			throws IPScrumGeneralException {

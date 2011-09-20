@@ -259,6 +259,11 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 				.animate("left: '+=" + pixel + "px'", animationDuration);
 	}
 
+	/**
+	 * Represents the vertical panel representing a part of the view.
+	 * 
+	 * @return the vertical panel
+	 */
 	public VerticalPanel getVerticalPanel() {
 		return this.verticalPanel;
 	}

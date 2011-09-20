@@ -11,6 +11,16 @@ public class CompactReleaseBurndownChart extends Composite {
 
 	private final ReleaseBurndownChart chart;
 
+	/**
+	 * constructor of the CompactReleaseBurndownChart.
+	 * 
+	 * @param release
+	 *            for which the burndown is
+	 * @param width
+	 *            of the chart
+	 * @param height
+	 *            of the chart
+	 */
 	public CompactReleaseBurndownChart(final Release release, final int width,
 			final int height) {
 		this.chart = new ReleaseBurndownChart(release, width, height);

@@ -6,10 +6,23 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
+/**
+ * Represents the NumberSingleFieldTypeController needed for editing tickets.
+ */
 public class NumberSingleFieldTypeController extends SingleFieldTypeController<Long> {
 
 	private final NumberSingleFieldWidget widget;
 
+	/**
+	 * Constructor of the NumberSingleFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public NumberSingleFieldTypeController(final Ticket ticket,
 			final GenericTicketPresenter presenter, final SingleField<Long> field) {
 		super(ticket, presenter, field);

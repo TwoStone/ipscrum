@@ -16,9 +16,20 @@ public interface HeartBeatService extends RemoteService {
 	 */
 	void pulse();
 
+	/**
+	 * Utility class for simplifying access to the instance of heart beat service.
+	 */
 	public static class Util {
+		/**
+		 * Represents the instance of the async heart beat service.
+		 */
 		private static HeartBeatServiceAsync instance;
 
+		/**
+		 * Getter of the instance of the heart beat service.
+		 * 
+		 * @return the instance
+		 */
 		public static HeartBeatServiceAsync getInstance() {
 			if (HeartBeatService.Util.instance == null) {
 				HeartBeatService.Util.instance = GWT.create(HeartBeatService.class);

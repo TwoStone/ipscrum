@@ -15,12 +15,12 @@ import com.googlecode.gchart.client.GChartCanvasLite;
 public final class GWTCanvasBasedCanvasFactory implements GChartCanvasFactory {
 
 	/**
-	 * Set the chart to use the GWT Canvas
+	 * Set the chart to use the GWT Canvas.
 	 */
 	static final class GWTCanvasBasedCanvasLite extends Widget
 			implements GChartCanvasLite {
-		Canvas canvas;
-		Context2d canvasContext;
+		private final Canvas canvas;
+		private final Context2d canvasContext;
 
 		public GWTCanvasBasedCanvasLite() {
 			this.canvas = Canvas.createIfSupported();

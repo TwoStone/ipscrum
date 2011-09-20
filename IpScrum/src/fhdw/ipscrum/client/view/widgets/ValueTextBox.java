@@ -11,6 +11,12 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBox;
 
+/**
+ * Represents the ValueTextBox.
+ * 
+ * @param <T>
+ *            is the type of the box
+ */
 public class ValueTextBox<T> extends Composite implements HasValue<T> {
 
 	private final TextBox textBox;
@@ -18,6 +24,14 @@ public class ValueTextBox<T> extends Composite implements HasValue<T> {
 	private final Renderer<T> renderer;
 	private final Parser<T> parser;
 
+	/**
+	 * Constructor of the ValueTextBox.
+	 * 
+	 * @param renderer
+	 *            of the box
+	 * @param parser
+	 *            of the box
+	 */
 	public ValueTextBox(final Renderer<T> renderer, final Parser<T> parser) {
 		super();
 		this.renderer = renderer;

@@ -7,8 +7,14 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.nonMeta.ProductBacklog;
 import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 
+/**
+ * Represents the Table representing the productBacklog in the GUI.
+ */
 public class ProductBacklogTable extends CellTable<ProductBacklogItem> {
 
+	/**
+	 * Constructor of the ProductBacklogTable.
+	 */
 	public ProductBacklogTable() {
 		final TextColumn<ProductBacklogItem> colName =
 				new TextColumn<ProductBacklogItem>() {
@@ -61,6 +67,12 @@ public class ProductBacklogTable extends CellTable<ProductBacklogItem> {
 		this.addColumn(colType, TextConstants.PBI_TYPE);
 	}
 
+	/**
+	 * Sets the rows of the table.
+	 * 
+	 * @param backlog
+	 *            to set in the table which represents it
+	 */
 	public void setProductBacklog(final ProductBacklog backlog) {
 		this.setRowData(backlog.getItems());
 	}

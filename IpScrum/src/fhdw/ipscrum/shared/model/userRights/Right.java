@@ -86,6 +86,7 @@ public abstract class Right extends IdentifiableObject {
 	 *            Command which is asked to be executed
 	 * @return true if the action is allowed
 	 * @throws IPScrumGeneralException
+	 *             if something fails
 	 */
 	public boolean canBeExecuted(final ICommand command) throws IPScrumGeneralException {
 		this.notAllowed();

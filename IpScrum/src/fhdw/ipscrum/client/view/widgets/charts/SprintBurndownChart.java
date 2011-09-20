@@ -16,10 +16,26 @@ public class SprintBurndownChart extends BurndownChart {
 
 	private final SprintChartData data;
 
+	/**
+	 * Constructor of the SprintBurndwonChart.
+	 * 
+	 * @param sprint
+	 *            related to the chart
+	 */
 	public SprintBurndownChart(final Sprint sprint) {
 		this(sprint, 500, 300);
 	}
 
+	/**
+	 * Constructor of the SprintBurndownChart.
+	 * 
+	 * @param sprint
+	 *            related to the chart
+	 * @param width
+	 *            of the chart
+	 * @param height
+	 *            of the chart
+	 */
 	public SprintBurndownChart(final Sprint sprint, final int width, final int height) {
 		this.data = new SprintChartData(sprint);
 		this.setChartWidth(width);

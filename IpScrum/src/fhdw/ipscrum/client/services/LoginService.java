@@ -11,34 +11,64 @@ import fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.session.User;
 
-@RemoteServiceRelativePath("LoginService")
 /**
  * Interface for login anf logout services.
  */
+@RemoteServiceRelativePath("LoginService")
 public interface LoginService extends RemoteService {
 
+	/**
+	 * Represents the session which should be resumed.
+	 */
 	public static class ResumedSession implements Serializable {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 6439125308535009788L;
+		/**
+		 * Represents the related user.
+		 */
 		protected User user;
+		/**
+		 * Represents the related role.
+		 */
 		protected Role role;
 
+		/**
+		 * constructor without parameters. Needed for serilaization.
+		 */
 		private ResumedSession() {
 
 		}
 
+		/**
+		 * Constructor of the ResumedSession.
+		 * 
+		 * @param user
+		 *            related to the session
+		 * @param role
+		 *            related to the session
+		 */
 		public ResumedSession(final User user, final Role role) {
 			this();
 			this.user = user;
 			this.role = role;
 		}
 
+		/**
+		 * Getter of the user.
+		 * 
+		 * @return the user
+		 */
 		public User getUser() {
 			return this.user;
 		}
 
+		/**
+		 * Getter of the role.
+		 * 
+		 * @return the role
+		 */
 		public Role getRole() {
 			return this.role;
 		}
@@ -49,8 +79,16 @@ public interface LoginService extends RemoteService {
 	 * Utility class for simplifying access to the instance of async service.
 	 */
 	public static class Util {
+		/**
+		 * Represents the instance of the asynchrony login service.
+		 */
 		private static LoginServiceAsync instance;
 
+		/**
+		 * Represents the getter of the asynchrony login service.
+		 * 
+		 * @return the instance
+		 */
 		public static LoginServiceAsync getInstance() {
 			if (LoginService.Util.instance == null) {
 				LoginService.Util.instance = GWT.create(LoginService.class);
@@ -78,6 +116,8 @@ public interface LoginService extends RemoteService {
 	 * 
 	 * @param username
 	 *            Name of the User.
+	 * @param roleId
+	 *            represented the active role of the user
 	 * @return the logged in user
 	 * @throws NotAuthorizedException
 	 *             If resuming was not possible

@@ -23,16 +23,32 @@ public class ReleaseChartData {
 	private final Release release;
 	private final TreeMap<Date, ReleaseChartDataDetails> data;
 
+	/**
+	 * Constructor of the ReleaseChartData.
+	 * 
+	 * @param release
+	 *            related to the chart
+	 */
 	public ReleaseChartData(final Release release) {
 		this.release = release;
 		this.data = new TreeMap<Date, ReleaseChartDataDetails>();
 		this.calculateData();
 	}
 
+	/**
+	 * Getter of the release related to the chart.
+	 * 
+	 * @return the related release
+	 */
 	public Release getRelease() {
 		return this.release;
 	}
 
+	/**
+	 * Getter of the data of every sprint end date in related to this release.
+	 * 
+	 * @return the data
+	 */
 	public SortedMap<Date, ReleaseChartDataDetails> getData() {
 		return this.data;
 	}

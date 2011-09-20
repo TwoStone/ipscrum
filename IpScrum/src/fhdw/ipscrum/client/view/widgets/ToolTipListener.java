@@ -17,6 +17,9 @@ public class ToolTipListener extends MouseListenerAdapter {
 	private static final int DEFAULT_OFFSET_X = 10;
 	private static final int DEFAULT_OFFSET_Y = 35;
 
+	/**
+	 * Constructor of the Tooltip.
+	 */
 	private static class Tooltip extends PopupPanel {
 		private final int delay;
 
@@ -59,10 +62,28 @@ public class ToolTipListener extends MouseListenerAdapter {
 	private int offsetX = ToolTipListener.DEFAULT_OFFSET_X;
 	private int offsetY = ToolTipListener.DEFAULT_OFFSET_Y;
 
+	/**
+	 * Constructor of the ToolTipListener.
+	 * 
+	 * @param text
+	 *            related to the listener
+	 * @param delay
+	 *            of the listener
+	 */
 	public ToolTipListener(final String text, final int delay) {
 		this(text, delay, ToolTipListener.DEFAULT_TOOLTIP_STYLE);
 	}
 
+	/**
+	 * Constructor of the ToolTipListener.
+	 * 
+	 * @param text
+	 *            related to the listener
+	 * @param delay
+	 *            of the listener
+	 * @param styleName
+	 *            of the lsitener
+	 */
 	public ToolTipListener(final String text, final int delay, final String styleName) {
 		this.text = text;
 		this.delay = delay;
@@ -87,26 +108,59 @@ public class ToolTipListener extends MouseListenerAdapter {
 		}
 	}
 
+	/**
+	 * Getter of the styleName.
+	 * 
+	 * @return the styleName
+	 */
 	public String getStyleName() {
 		return this.styleName;
 	}
 
+	/**
+	 * Sets the styleName.
+	 * 
+	 * @param styleName
+	 *            to set
+	 */
 	public void setStyleName(final String styleName) {
 		this.styleName = styleName;
 	}
 
+	/**
+	 * Getter of the x offset.
+	 * 
+	 * @return the x offset
+	 */
 	public int getOffsetX() {
 		return this.offsetX;
 	}
 
+	/**
+	 * Sets the x offset.
+	 * 
+	 * @param offsetX
+	 *            to set
+	 */
 	public void setOffsetX(final int offsetX) {
 		this.offsetX = offsetX;
 	}
 
+	/**
+	 * Getter of the y offset.
+	 * 
+	 * @return the y offset
+	 */
 	public int getOffsetY() {
 		return this.offsetY;
 	}
 
+	/**
+	 * Sets the y offset.
+	 * 
+	 * @param offsetY
+	 *            to set
+	 */
 	public void setOffsetY(final int offsetY) {
 		this.offsetY = offsetY;
 	}

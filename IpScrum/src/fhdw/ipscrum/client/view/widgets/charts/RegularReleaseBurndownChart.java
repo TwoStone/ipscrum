@@ -12,6 +12,12 @@ public class RegularReleaseBurndownChart extends Composite {
 
 	private final ReleaseBurndownChart chart;
 
+	/**
+	 * Constructor of the RegularReleaseBurndwonChart.
+	 * 
+	 * @param release
+	 *            realted to the chart
+	 */
 	public RegularReleaseBurndownChart(final Release release) {
 		this.chart = new ReleaseBurndownChart(release);
 

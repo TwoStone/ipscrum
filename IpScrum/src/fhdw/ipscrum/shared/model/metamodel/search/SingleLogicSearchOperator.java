@@ -91,15 +91,17 @@ public abstract class SingleLogicSearchOperator extends Operator
 
 	@Override
 	public boolean contains(final ISearchExpression expression) {
+		boolean result = false;
 		if (this.equals(expression)) {
-			return true;
+			result = true;
 		} else {
 			if (this.arg != null) {
 				return this.arg.contains(expression);
 			} else {
-				return false;
+				result = false;
 			}
 		}
+		return result;
 	}
 
 	@Override

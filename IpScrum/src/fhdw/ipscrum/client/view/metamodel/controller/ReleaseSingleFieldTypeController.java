@@ -8,17 +8,30 @@ import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.Release;
 
+/**
+ * Represents the ReleaseSingleFieldTypeController needed for editing tickets.
+ */
 public class ReleaseSingleFieldTypeController
 		extends SingleFieldTypeController<Release> {
 
 	private final ComplexSingleFieldWidget<Release> widget;
 
+	/**
+	 * Constructor of the ReleaseSingleFieldTypeController.
+	 * 
+	 * @param presenter
+	 *            the controller is created in
+	 * @param field
+	 *            the controller is related to
+	 * @param ticket
+	 *            the controller is related to
+	 */
 	public ReleaseSingleFieldTypeController(final Ticket ticket,
 			final GenericTicketPresenter presenter, final SingleField<Release> field) {
 		super(ticket, presenter, field);
 
 		this.widget =
-				new ComplexSingleFieldWidget<Release>(TypeRenderes.ReleaseRenderer);
+				new ComplexSingleFieldWidget<Release>(TypeRenderes.RELEASERENDERER);
 		this.initialize();
 	}
 

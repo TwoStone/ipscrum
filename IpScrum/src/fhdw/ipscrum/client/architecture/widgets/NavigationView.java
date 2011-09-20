@@ -22,6 +22,9 @@ import fhdw.ipscrum.client.architecture.menu.NavigationMenu;
 import fhdw.ipscrum.client.architecture.menu.NavigationMenuItem;
 import fhdw.ipscrum.client.resources.MyResources;
 
+/**
+ * Represents the view which represents the view needed for the navigation.
+ */
 public class NavigationView extends Composite implements INavigationView {
 
 	static {
@@ -36,6 +39,9 @@ public class NavigationView extends Composite implements INavigationView {
 	private final Label revisionLabel;
 	private final Label roleLabel;
 
+	/**
+	 * Constructor of the NavigationView.
+	 */
 	public NavigationView() {
 
 		final HorizontalPanel layoutPanel = new HorizontalPanel();
@@ -137,6 +143,11 @@ public class NavigationView extends Composite implements INavigationView {
 		this.usernameLable.setText(name);
 	}
 
+	/**
+	 * Getter of the name related to the user which uses the IPScrum.
+	 * 
+	 * @return the related name
+	 */
 	public String getUserName() {
 		return this.usernameLable.getText();
 	}

@@ -309,11 +309,14 @@ public class Project extends IdentifiableObject
 		return "Project [name=" + this.name + "]";
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Removes a system from a project.
+	 * 
+	 * @param system
+	 *            is the system to remove
 	 * 
 	 * @see fhdw.ipscrum.shared.model.HasSystems#removeSystem(fhdw.ipscrum.shared
-	 * .model.System)
+	 *      .model.System)
 	 */
 	public void removeSystem(final System system) {
 		this.possibleSystems.remove(system);

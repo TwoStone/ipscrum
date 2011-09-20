@@ -131,15 +131,36 @@ public class ToastMessageBox extends PopupPanel {
 	// return this.closeEvent.add(handler);
 	// }
 
+	/**
+	 * Represents the event needed for handle the click event.
+	 * 
+	 * @param handler
+	 *            is the handler needed to handle the event
+	 * @return the event needed for handling the click event.
+	 */
 	public EventRegistration registerClickHandler(final DefaultEventHandler handler) {
 		return this.clickedEvent.add(handler);
 	}
 
+	/**
+	 * Represents the event needed for handle the mouse over effect.
+	 * 
+	 * @param handler
+	 *            is the handler needed to handle the event
+	 * @return the event needed for handling the mouse over effect.
+	 */
 	public EventRegistration
 			registerMouseOverHandler(final DefaultEventHandler handler) {
 		return this.mouseOverEvent.add(handler);
 	}
 
+	/**
+	 * Represents the event needed for handle the mouse out effect.
+	 * 
+	 * @param handler
+	 *            is the handler needed to handle the event
+	 * @return the event needed for handling the mouse out effect.
+	 */
 	public EventRegistration registerMouseOutHandler(final DefaultEventHandler handler) {
 		return this.mouseOutEvent.add(handler);
 	}

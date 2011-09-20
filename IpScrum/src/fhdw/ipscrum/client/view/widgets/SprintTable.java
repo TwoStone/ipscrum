@@ -11,10 +11,19 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
+/**
+ * Represents the table in which the sprints are shown.
+ */
 public class SprintTable extends CellTable<Sprint> {
 
-	DateTimeFormat format = DateTimeFormat.getFormat("dd.MM.yyyy");
+	/**
+	 * Represents the format in which the Date should be shown.
+	 */
+	private final DateTimeFormat format = DateTimeFormat.getFormat("dd.MM.yyyy");
 
+	/**
+	 * Constructor of the SprintTable.
+	 */
 	public SprintTable() {
 
 		final TextColumn<Sprint> clmnName = new TextColumn<Sprint>() {

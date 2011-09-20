@@ -12,17 +12,25 @@ import fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException;
 import fhdw.ipscrum.shared.infrastructure.Revision;
 import fhdw.ipscrum.shared.model.Model;
 
-@RemoteServiceRelativePath("ReceiveModelService")
 /**
  * Service for receiving data from the server.
  */
+@RemoteServiceRelativePath("ReceiveModelService")
 public interface ReceiveModelService extends RemoteService {
 	/**
 	 * Utility class for simplifying access to the instance of async service.
 	 */
 	public static class Util {
+		/**
+		 * Represents the instance of the asynchrony ReceiverModelService.
+		 */
 		private static ReceiveModelServiceAsync instance;
 
+		/**
+		 * Represents the getter of the instance of the asynchrony ReceiverModelService.
+		 * 
+		 * @return the instance
+		 */
 		public static ReceiveModelServiceAsync getInstance() {
 			if (ReceiveModelService.Util.instance == null) {
 				ReceiveModelService.Util.instance =
@@ -33,7 +41,7 @@ public interface ReceiveModelService extends RemoteService {
 	}
 
 	/**
-	 * Returns the latest Model to the client.
+	 * @return the latest Model to the client.
 	 * 
 	 * @throws NotAuthorizedException
 	 *             If the User is not authorized.
@@ -41,7 +49,7 @@ public interface ReceiveModelService extends RemoteService {
 	Model getCurrentModel() throws NotAuthorizedException;
 
 	/**
-	 * Returns all revisions to the client.
+	 * @return all revisions to the client.
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             If the User is not authorized.

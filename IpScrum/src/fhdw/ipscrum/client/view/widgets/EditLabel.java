@@ -19,13 +19,22 @@ import com.google.gwt.user.client.ui.TextBox;
 
 import fhdw.ipscrum.client.utils.GwtUtils;
 
+/**
+ * Represents the EditLable Widget.
+ */
 public class EditLabel extends Composite
 		implements HasText, HasValueChangeHandlers<String> {
 
+	/**
+	 * Represents the interface which represents the state.
+	 */
 	private interface State {
 		void setWidget(SimplePanel panel);
 	}
 
+	/**
+	 * Represents the view state.
+	 */
 	private class ViewState implements EditLabel.State {
 
 		@Override
@@ -35,6 +44,9 @@ public class EditLabel extends Composite
 		}
 	}
 
+	/**
+	 * represents the edit state.
+	 */
 	private class EditState implements EditLabel.State {
 
 		@Override
@@ -74,6 +86,9 @@ public class EditLabel extends Composite
 		}
 	};
 
+	/**
+	 * Constructor of the EditLabel.
+	 */
 	public EditLabel() {
 		this.state = new ViewState();
 		this.panel = new SimplePanel();
