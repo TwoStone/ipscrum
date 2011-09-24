@@ -3,6 +3,7 @@
  */
 package fhdw.ipscrum.shared.model.userRights;
 
+import fhdw.ipscrum.shared.commands.admin.SystemCreateCommand;
 import fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand;
 import fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand;
 import fhdw.ipscrum.shared.commands.project.ProjectCreateCommand;
@@ -173,6 +174,12 @@ class ProjectRightHandler extends RightHandler {
 	@Override
 	public void
 			handleSprintCreateCommand(final SprintCreateCommand sprintCreateCommand) {
+		this.allowed();
+	}
+
+	@Override
+	public void
+			handleSystemCreateCommand(final SystemCreateCommand systemCreateCommand) {
 		this.allowed();
 	}
 
