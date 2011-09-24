@@ -77,7 +77,7 @@ public class StateTypeCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IStateCreateView getView() {
+	public IStateCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createStateCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

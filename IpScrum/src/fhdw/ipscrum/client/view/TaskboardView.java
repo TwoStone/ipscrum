@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -22,19 +21,18 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.ITaskboardView;
 import fhdw.ipscrum.shared.model.nonMeta.Task;
 
 /**
  * taskboard gui for inspecting and managing tasks of a sprint.
  */
-public class TaskboardView extends Composite implements ITaskboardView {
+public class TaskboardView extends MasterView implements ITaskboardView {
 
 	private final DefaultEvent newTaskEvent = new DefaultEvent();
-	private final Event<TypedEventArg<Task>> detailsEvent =
-			new Event<TypedEventArg<Task>>();
-	private final SingleSelectionModel<Task> taskSelModel =
-			new SingleSelectionModel<Task>();
+	private final Event<TypedEventArg<Task>> detailsEvent = new Event<TypedEventArg<Task>>();
+	private final SingleSelectionModel<Task> taskSelModel = new SingleSelectionModel<Task>();
 
 	private CellTable<Task> cellTableOpen;
 	private CellTable<Task> cellTableInProgress;
@@ -45,9 +43,10 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	 * constructor of the TaskboardView.
 	 */
 	public TaskboardView() {
+		super();
 
 		final VerticalPanel pnlLayout = new VerticalPanel();
-		this.initWidget(pnlLayout);
+		this.add(pnlLayout);
 		pnlLayout.setSize("700px", "300px");
 
 		final HorizontalPanel pnlButtons = new HorizontalPanel();
@@ -63,14 +62,12 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		});
 		pnlButtons.add(this.btnCreateNewTask);
 
-		final Button btnDetails =
-				new Button("Details des selektierten Tasks anzeigen/bearbeiten");
+		final Button btnDetails = new Button("Details des selektierten Tasks anzeigen/bearbeiten");
 		btnDetails.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				TaskboardView.this.detailsEvent
-						.fire(TaskboardView.this, new TypedEventArg<Task>(
-								TaskboardView.this.getSelectedElement()));
+				TaskboardView.this.detailsEvent.fire(TaskboardView.this,
+						new TypedEventArg<Task>(TaskboardView.this.getSelectedElement()));
 			}
 		});
 		pnlButtons.add(btnDetails);
@@ -101,22 +98,20 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		scrlpnlOpen.setWidget(this.cellTableOpen);
 		this.cellTableOpen.setSize("100%", "100%");
 
-		final Column<Task, String> colDescriptionOpen =
-				new Column<Task, String>(new TextCell()) {
-					@Override
-					public String getValue(final Task object) {
-						return object.getName();
-					}
-				};
+		final Column<Task, String> colDescriptionOpen = new Column<Task, String>(new TextCell()) {
+			@Override
+			public String getValue(final Task object) {
+				return object.getName();
+			}
+		};
 		this.cellTableOpen.addColumn(colDescriptionOpen, "Bezeichnung");
 
-		final Column<Task, String> colStateOpen =
-				new Column<Task, String>(new TextCell()) {
-					@Override
-					public String getValue(final Task object) {
-						return object.getCurrentState().getName();
-					}
-				};
+		final Column<Task, String> colStateOpen = new Column<Task, String>(new TextCell()) {
+			@Override
+			public String getValue(final Task object) {
+				return object.getCurrentState().getName();
+			}
+		};
 		this.cellTableOpen.addColumn(colStateOpen, "Zustand");
 
 		final VerticalPanel pnlInProgress = new VerticalPanel();
@@ -134,23 +129,21 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		scrlpnlInProgress.setWidget(this.cellTableInProgress);
 		this.cellTableInProgress.setSize("100%", "100%");
 
-		final Column<Task, String> colDescriptionInProgress =
-				new Column<Task, String>(new TextCell()) {
-					@Override
-					public String getValue(final Task object) {
-						return object.getName();
-					}
+		final Column<Task, String> colDescriptionInProgress = new Column<Task, String>(new TextCell()) {
+			@Override
+			public String getValue(final Task object) {
+				return object.getName();
+			}
 
-				};
+		};
 		this.cellTableInProgress.addColumn(colDescriptionInProgress, "Bezeichnung");
 
-		final Column<Task, String> colStateInProgress =
-				new Column<Task, String>(new TextCell()) {
-					@Override
-					public String getValue(final Task object) {
-						return object.getCurrentState().getName();
-					}
-				};
+		final Column<Task, String> colStateInProgress = new Column<Task, String>(new TextCell()) {
+			@Override
+			public String getValue(final Task object) {
+				return object.getCurrentState().getName();
+			}
+		};
 		this.cellTableInProgress.addColumn(colStateInProgress, "Zustand");
 
 		final VerticalPanel pnlDone = new VerticalPanel();
@@ -168,22 +161,20 @@ public class TaskboardView extends Composite implements ITaskboardView {
 		scrlpnlDone.setWidget(this.cellTableDone);
 		this.cellTableDone.setSize("100%", "100%");
 
-		final Column<Task, String> colDescriptionDone =
-				new Column<Task, String>(new TextCell()) {
-					@Override
-					public String getValue(final Task object) {
-						return object.getName();
-					}
-				};
+		final Column<Task, String> colDescriptionDone = new Column<Task, String>(new TextCell()) {
+			@Override
+			public String getValue(final Task object) {
+				return object.getName();
+			}
+		};
 		this.cellTableDone.addColumn(colDescriptionDone, "Bezeichnung");
 
-		final Column<Task, String> colStateDone =
-				new Column<Task, String>(new TextCell()) {
-					@Override
-					public String getValue(final Task object) {
-						return object.getCurrentState().getName();
-					}
-				};
+		final Column<Task, String> colStateDone = new Column<Task, String>(new TextCell()) {
+			@Override
+			public String getValue(final Task object) {
+				return object.getCurrentState().getName();
+			}
+		};
 		this.cellTableDone.addColumn(colStateDone, "Zustand");
 
 	}
@@ -194,14 +185,12 @@ public class TaskboardView extends Composite implements ITaskboardView {
 	}
 
 	@Override
-	public EventRegistration registerNewTaskEventHandler(
-			final DefaultEventHandler handler) {
+	public EventRegistration registerNewTaskEventHandler(final DefaultEventHandler handler) {
 		return this.newTaskEvent.add(handler);
 	}
 
 	@Override
-	public EventRegistration registerDetailsEventHandler(
-			final EventHandler<TypedEventArg<Task>> handler) {
+	public EventRegistration registerDetailsEventHandler(final EventHandler<TypedEventArg<Task>> handler) {
 		return this.detailsEvent.add(handler);
 	}
 

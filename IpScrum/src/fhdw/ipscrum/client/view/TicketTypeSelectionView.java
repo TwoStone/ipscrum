@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -16,14 +15,14 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.TicketTypeSelectionPresenter.ITicketTypeSelectionView;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
  * represents the view to select a ticket type.
  */
-public class TicketTypeSelectionView extends Composite
-		implements ITicketTypeSelectionView {
+public class TicketTypeSelectionView extends MasterView implements ITicketTypeSelectionView {
 
 	private final Event<TypedEventArg<TicketType>> gotoTicketTypeAdministrationEvent =
 			new Event<TypedEventArg<TicketType>>();
@@ -34,25 +33,23 @@ public class TicketTypeSelectionView extends Composite
 	 * constructor of the TicketTypeSelectionView.
 	 */
 	public TicketTypeSelectionView() {
-		this.selectionModel = new SingleSelectionModel<TicketType>();
-		this.selectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		super();
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						final TicketType selectedObject =
-								TicketTypeSelectionView.this.selectionModel
-										.getSelectedObject();
-						TicketTypeSelectionView.this.gotoTicketTypeAdministrationEvent
-								.fire(TicketTypeSelectionView.this,
-										new TypedEventArg<TicketType>(selectedObject));
-					}
-				});
+		this.selectionModel = new SingleSelectionModel<TicketType>();
+		this.selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				final TicketType selectedObject = TicketTypeSelectionView.this.selectionModel.getSelectedObject();
+				TicketTypeSelectionView.this.gotoTicketTypeAdministrationEvent.fire(TicketTypeSelectionView.this,
+						new TypedEventArg<TicketType>(selectedObject));
+			}
+		});
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setSpacing(10);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("", "");
 
 		final Label lblNewLabel = new Label("Bitte wählen Sie einen Tickettypen aus!");
@@ -100,8 +97,7 @@ public class TicketTypeSelectionView extends Composite
 	}
 
 	@Override
-	public EventRegistration registerGotoProjectHandler(
-			final EventHandler<TypedEventArg<TicketType>> handler) {
+	public EventRegistration registerGotoProjectHandler(final EventHandler<TypedEventArg<TicketType>> handler) {
 		return this.gotoTicketTypeAdministrationEvent.add(handler);
 	}
 

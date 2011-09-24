@@ -9,13 +9,20 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import fhdw.ipscrum.client.architecture.events.DefaultEvent;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.resources.MyResources;
 
 /**
- * represents the breadcrumb which shows where in the IPScrum you are and where you come
- * from.
+ * represents the breadcrumb which shows where in the IPScrum you are and where you come from.
  */
 public class BreadcrumbView extends Composite implements IBreadcrumbView {
+
+	/**
+	 * Event that is raised when a user requests assistance.
+	 */
+	private final DefaultEvent helpEvent = new DefaultEvent();
 
 	private final HorizontalPanel lablePanel;
 
@@ -66,5 +73,10 @@ public class BreadcrumbView extends Composite implements IBreadcrumbView {
 	public void setRightVisibility(final Boolean value) {
 		// No widgets to hide
 
+	}
+
+	@Override
+	public EventRegistration registerHelpHandler(final DefaultEventHandler handler) {
+		return this.helpEvent.add(handler);
 	}
 }

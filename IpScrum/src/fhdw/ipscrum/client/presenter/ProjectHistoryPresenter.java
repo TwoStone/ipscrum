@@ -9,8 +9,7 @@ import fhdw.ipscrum.client.viewinterfaces.IProjectHistoryView;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * This class represents the presenter which controls the view to show the project history
- * and administer incidents.
+ * This class represents the presenter which controls the view to show the project history and administer incidents.
  */
 public class ProjectHistoryPresenter extends WritePresenter {
 
@@ -20,8 +19,8 @@ public class ProjectHistoryPresenter extends WritePresenter {
 	private IProjectHistoryView view;
 
 	/**
-	 * represents the project related to this view. It is needed to make clear for which
-	 * project this is the project history.
+	 * represents the project related to this view. It is needed to make clear for which project this is the project
+	 * history.
 	 */
 	private final Project project;
 
@@ -29,8 +28,8 @@ public class ProjectHistoryPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProjectHistoryPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project to which the project history is related
 	 */
@@ -45,7 +44,7 @@ public class ProjectHistoryPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IView getView() {
+	public IView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectHistoryView();
 
@@ -86,31 +85,27 @@ public class ProjectHistoryPresenter extends WritePresenter {
 	}
 
 	/**
-	 * this method opens the function to create a new incident type. The creation is done
-	 * in the {@link} fhdw.ipscrum.client.presenter.IncidentTypeCreatePresenter .
+	 * this method opens the function to create a new incident type. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.IncidentTypeCreatePresenter .
 	 */
 	private void createType() {
-		final IncidentTypeCreatePresenter presenter =
-				new IncidentTypeCreatePresenter(this.getContext());
+		final IncidentTypeCreatePresenter presenter = new IncidentTypeCreatePresenter(this.getContext());
 		this.startPresenter(presenter);
 	}
 
 	/**
-	 * this method opens the function to create a new incident. The creation is done in
-	 * the {@link} fhdw.ipscrum.client.presenter.CreateIncidentPresenter .
+	 * this method opens the function to create a new incident. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.CreateIncidentPresenter .
 	 */
 	private void createIncident() {
-		final CreateIncidentPresenter presenter =
-				new CreateIncidentPresenter(this.getContext());
+		final CreateIncidentPresenter presenter = new CreateIncidentPresenter(this.getContext());
 		this.startPresenter(presenter);
 	}
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getProjectHistoryRight());
-		this.view.refreshProjectHistoryTable(this.getContext().getModel()
-				.getIncidentsByProject(this.project));
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getProjectHistoryRight());
+		this.view.refreshProjectHistoryTable(this.getContext().getModel().getIncidentsByProject(this.project));
 		this.view.refreshTypes(this.getContext().getModel().getAllIncidentTypes());
 	}
 

@@ -13,7 +13,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IntegerBox;
@@ -29,6 +28,7 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.IEvent;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.CreateLogicalOperatorArgs;
 import fhdw.ipscrum.client.eventargs.DeleteEventArgs;
 import fhdw.ipscrum.client.eventargs.EffortSearchCriterionArgs;
@@ -60,32 +60,23 @@ import fhdw.ipscrum.shared.model.nonMeta.System;
  * represents the search view.
  */
 @SuppressWarnings("deprecation")
-public class SearchView extends Composite implements ISearchView {
-	private final Event<PBITypSearchCriterionArgs> addPbiTypSearchCriterion =
-			new Event<PBITypSearchCriterionArgs>();
+public class SearchView extends MasterView implements ISearchView {
+	private final Event<PBITypSearchCriterionArgs> addPbiTypSearchCriterion = new Event<PBITypSearchCriterionArgs>();
 	private final Event<ProjectSearchCriterionEventArgs> addProjektSearchCriterion =
 			new Event<ProjectSearchCriterionEventArgs>();
-	private final Event<ReleaseSearchCriterionArgs> addReleaseSearchCriterion =
-			new Event<ReleaseSearchCriterionArgs>();
-	private final Event<EffortSearchCriterionArgs> addAufwandSearchCriterion =
-			new Event<EffortSearchCriterionArgs>();
-	private final Event<StatusSearchCriterionArgs> addStatusSearchCriterion =
-			new Event<StatusSearchCriterionArgs>();
+	private final Event<ReleaseSearchCriterionArgs> addReleaseSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
+	private final Event<EffortSearchCriterionArgs> addAufwandSearchCriterion = new Event<EffortSearchCriterionArgs>();
+	private final Event<StatusSearchCriterionArgs> addStatusSearchCriterion = new Event<StatusSearchCriterionArgs>();
 	private final Event<LastEditorSearchCriterionArgs> addLetzterBearbeiterSearchCriterion =
 			new Event<LastEditorSearchCriterionArgs>();
 	private final Event<RelationTypeSearchCriterionArgs> addBeziehungTypSearchCriterion =
 			new Event<RelationTypeSearchCriterionArgs>();
-	private final Event<TextSearchCriterionArgs> addBeziehungZielSearchCriterion =
-			new Event<TextSearchCriterionArgs>();
-	private final Event<SystemSearchCriterionArgs> addSystemSearchCriterion =
-			new Event<SystemSearchCriterionArgs>();
-	private final Event<ReleaseSearchCriterionArgs> addVersionSearchCriterion =
-			new Event<ReleaseSearchCriterionArgs>();
-	private final Event<TextSearchCriterionArgs> addTextSearchCriterion =
-			new Event<TextSearchCriterionArgs>();
+	private final Event<TextSearchCriterionArgs> addBeziehungZielSearchCriterion = new Event<TextSearchCriterionArgs>();
+	private final Event<SystemSearchCriterionArgs> addSystemSearchCriterion = new Event<SystemSearchCriterionArgs>();
+	private final Event<ReleaseSearchCriterionArgs> addVersionSearchCriterion = new Event<ReleaseSearchCriterionArgs>();
+	private final Event<TextSearchCriterionArgs> addTextSearchCriterion = new Event<TextSearchCriterionArgs>();
 	private final Event<EventArgs> changeSearchName = new Event<EventArgs>();
-	private final Event<CreateLogicalOperatorArgs> addLogicalOperator =
-			new Event<CreateLogicalOperatorArgs>();
+	private final Event<CreateLogicalOperatorArgs> addLogicalOperator = new Event<CreateLogicalOperatorArgs>();
 	private final Event<EventArgs> abort = new Event<EventArgs>();
 	private final Event<SearchEventArgs> doSearch = new Event<SearchEventArgs>();
 	private final Event<SearchEventArgs> save = new Event<SearchEventArgs>();
@@ -132,9 +123,11 @@ public class SearchView extends Composite implements ISearchView {
 	 * constructor of the SearchView.
 	 */
 	public SearchView() {
+		super();
+
 		this.lblAddText = new Label("Hinzufügen:");
 		this.mainPanel = new VerticalPanel();
-		this.initWidget(this.mainPanel);
+		this.add(this.mainPanel);
 		this.mainPanel.setSize("990px", "380px");
 		this.mainPanel.setSpacing(5);
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
@@ -150,8 +143,7 @@ public class SearchView extends Composite implements ISearchView {
 
 		this.horizontalPanel_1 = new HorizontalPanel();
 		this.verticalPanel.add(this.horizontalPanel_1);
-		this.verticalPanel.setCellHorizontalAlignment(this.horizontalPanel_1,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		this.verticalPanel.setCellHorizontalAlignment(this.horizontalPanel_1, HasHorizontalAlignment.ALIGN_RIGHT);
 		this.horizontalPanel_1.setWidth("");
 
 		this.btnLschen = new Button("Löschen");
@@ -163,8 +155,7 @@ public class SearchView extends Composite implements ISearchView {
 		this.btnSpeichern.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				SearchView.this.save.fire(SearchView.this, new SearchEventArgs(
-						SearchView.this.search));
+				SearchView.this.save.fire(SearchView.this, new SearchEventArgs(SearchView.this.search));
 			}
 		});
 		this.buttonPanel.add(this.btnSpeichern);
@@ -184,8 +175,7 @@ public class SearchView extends Composite implements ISearchView {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				SearchView.this.doSearch.fire(SearchView.this, new SearchEventArgs(
-						SearchView.this.search));
+				SearchView.this.doSearch.fire(SearchView.this, new SearchEventArgs(SearchView.this.search));
 			}
 		});
 		this.buttonPanel.add(this.btnAusfuehren);
@@ -210,92 +200,59 @@ public class SearchView extends Composite implements ISearchView {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (SearchView.this.cboTyp1.getSelectedIndex() == 0) {
-					SearchView.this.addLogicalOperator.fire(
-							SearchView.this,
-							new CreateLogicalOperatorArgs(SearchView.this.cboTyp2
-									.getSelectedIndex() + 1,
+					SearchView.this.addLogicalOperator.fire(SearchView.this,
+							new CreateLogicalOperatorArgs(SearchView.this.cboTyp2.getSelectedIndex() + 1,
 									SearchView.this.selectionModel.getSelectedObject()));
 				} else if (SearchView.this.cboTyp1.getSelectedIndex() == 1
 						&& !SearchView.this.fireEventForTextSearchCriterion()) {
 					final int i = SearchView.this.cboTyp2.getSelectedIndex();
-					final ISearchExpression se =
-							SearchView.this.selectionModel.getSelectedObject();
+					final ISearchExpression se = SearchView.this.selectionModel.getSelectedObject();
 					switch (i) {
 					case 0:
-						SearchView.this.addPbiTypSearchCriterion.fire(
-								this,
-								new PBITypSearchCriterionArgs(se,
-										SearchView.this.cboThirdLevel
-												.getSelectedIndex() + 1));
+						SearchView.this.addPbiTypSearchCriterion.fire(this, new PBITypSearchCriterionArgs(se,
+								SearchView.this.cboThirdLevel.getSelectedIndex() + 1));
 						break;
 					case 1:
-						SearchView.this.addProjektSearchCriterion.fire(
-								this,
-								new ProjectSearchCriterionEventArgs(se,
-										SearchView.this.projects
-												.get(SearchView.this.cboThirdLevel
-														.getSelectedIndex())));
+						SearchView.this.addProjektSearchCriterion.fire(this, new ProjectSearchCriterionEventArgs(se,
+								SearchView.this.projects.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 2:
 						final Release r =
-								SearchView.this.projects
-										.get(SearchView.this.cboThirdPreselection
-												.getSelectedIndex())
-										.getReleasePlan()
-										.get(SearchView.this.cboThirdLevel
-												.getSelectedIndex());
-						SearchView.this.addReleaseSearchCriterion.fire(this,
-								new ReleaseSearchCriterionArgs(se, r));
+								SearchView.this.projects.get(SearchView.this.cboThirdPreselection.getSelectedIndex())
+										.getReleasePlan().get(SearchView.this.cboThirdLevel.getSelectedIndex());
+						SearchView.this.addReleaseSearchCriterion.fire(this, new ReleaseSearchCriterionArgs(se, r));
 						break;
 					case 6:
-						SearchView.this.addAufwandSearchCriterion.fire(this,
-								new EffortSearchCriterionArgs(se,
-										SearchView.this.intBoxFrom.getValue(),
-										SearchView.this.intBoxTo.getValue()));
+						SearchView.this.addAufwandSearchCriterion.fire(this, new EffortSearchCriterionArgs(se,
+								SearchView.this.intBoxFrom.getValue(), SearchView.this.intBoxTo.getValue()));
 						break;
 					case 7:
-						SearchView.this.addStatusSearchCriterion.fire(
-								this,
-								new StatusSearchCriterionArgs(se,
-										SearchView.this.cboThirdLevel
-												.getSelectedIndex() + 1));
+						SearchView.this.addStatusSearchCriterion.fire(this, new StatusSearchCriterionArgs(se,
+								SearchView.this.cboThirdLevel.getSelectedIndex() + 1));
 						break;
 					case 8:
 						SearchView.this.addLetzterBearbeiterSearchCriterion.fire(
 								this,
-								new LastEditorSearchCriterionArgs(se,
-										SearchView.this.persons
-												.get(SearchView.this.cboThirdLevel
-														.getSelectedIndex())));
+								new LastEditorSearchCriterionArgs(se, SearchView.this.persons
+										.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 10:
 						if (SearchView.this.cboThirdPreselection.getSelectedIndex() == 0) {
 							SearchView.this.addBeziehungTypSearchCriterion.fire(
 									this,
-									new RelationTypeSearchCriterionArgs(se,
-											SearchView.this.relationtypes
-													.get(SearchView.this.cboThirdLevel
-															.getSelectedIndex())));
+									new RelationTypeSearchCriterionArgs(se, SearchView.this.relationtypes
+											.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						}
 						break;
 					case 13:
-						SearchView.this.addSystemSearchCriterion.fire(
-								this,
-								new SystemSearchCriterionArgs(se,
-										SearchView.this.systems
-												.get(SearchView.this.cboThirdLevel
-														.getSelectedIndex())));
+						SearchView.this.addSystemSearchCriterion.fire(this, new SystemSearchCriterionArgs(se,
+								SearchView.this.systems.get(SearchView.this.cboThirdLevel.getSelectedIndex())));
 						break;
 					case 14:
 						final Release v =
-								SearchView.this.projects
-										.get(SearchView.this.cboThirdPreselection
-												.getSelectedIndex())
-										.getReleasePlan()
-										.get(SearchView.this.cboThirdLevel
-												.getSelectedIndex());
-						SearchView.this.addVersionSearchCriterion.fire(this,
-								new ReleaseSearchCriterionArgs(se, v));
+								SearchView.this.projects.get(SearchView.this.cboThirdPreselection.getSelectedIndex())
+										.getReleasePlan().get(SearchView.this.cboThirdLevel.getSelectedIndex());
+						SearchView.this.addVersionSearchCriterion.fire(this, new ReleaseSearchCriterionArgs(se, v));
 						break;
 					default:
 						break;
@@ -320,21 +277,16 @@ public class SearchView extends Composite implements ISearchView {
 			@Override
 			public void onChange(final ChangeEvent event) {
 				if (SearchView.this.cboTyp1.getSelectedIndex() == 0) {
-					SearchView.this.showCboTyp2(true,
-							TextConstantsForLists.SEARCH_LOGICALS);
-					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES
-							.get(1));
+					SearchView.this.showCboTyp2(true, TextConstantsForLists.SEARCH_LOGICALS);
+					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES.get(1));
 					SearchView.this.valuePanel.remove(SearchView.this.thirdLevelPanel);
 				} else if (SearchView.this.cboTyp1.getSelectedIndex() == 1) {
-					SearchView.this.showCboTyp2(true,
-							TextConstantsForLists.SEARCH_CRITERIA);
-					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES
-							.get(2));
+					SearchView.this.showCboTyp2(true, TextConstantsForLists.SEARCH_CRITERIA);
+					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES.get(2));
 					SearchView.this.valuePanel.remove(SearchView.this.thirdLevelPanel);
 				} else {
 					SearchView.this.showCboTyp2(false, null);
-					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES
-							.get(2));
+					SearchView.this.lblTyp2.setText(TextConstantsForLists.SEARCH_TYPES.get(2));
 				}
 			}
 		});
@@ -351,8 +303,7 @@ public class SearchView extends Composite implements ISearchView {
 					SearchView.this.thirdLevelPanel.add(SearchView.this.btnHinzu);
 				} else if (SearchView.this.cboTyp1.getSelectedIndex() == 1) {
 					SearchView.this.valuePanel.add(SearchView.this.thirdLevelPanel);
-					SearchView.this.showThirdLevel(SearchView.this.cboTyp2
-							.getSelectedIndex());
+					SearchView.this.showThirdLevel(SearchView.this.cboTyp2.getSelectedIndex());
 				}
 			}
 
@@ -387,82 +338,66 @@ public class SearchView extends Composite implements ISearchView {
 		});
 
 		this.searchSelectionModel = new SingleSelectionModel<Search>();
-		this.searchSelectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						if (SearchView.this.searchSelectionModel.getSelectedObject() != null) {
-							SearchView.this.selectionModel.setSelected(
-									SearchView.this.selectionModel.getSelectedObject(),
-									false);
-							SearchView.this.valuePanel
-									.add(SearchView.this.lblSearchName);
-							SearchView.this.txtSearchName
-									.setText(SearchView.this.search.getName());
-							SearchView.this.valuePanel
-									.add(SearchView.this.txtSearchName);
-						} else {
-							SearchView.this.valuePanel
-									.remove(SearchView.this.lblSearchName);
-							SearchView.this.valuePanel
-									.remove(SearchView.this.txtSearchName);
-						}
-					}
-				});
+		this.searchSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				if (SearchView.this.searchSelectionModel.getSelectedObject() != null) {
+					SearchView.this.selectionModel.setSelected(SearchView.this.selectionModel.getSelectedObject(),
+							false);
+					SearchView.this.valuePanel.add(SearchView.this.lblSearchName);
+					SearchView.this.txtSearchName.setText(SearchView.this.search.getName());
+					SearchView.this.valuePanel.add(SearchView.this.txtSearchName);
+				} else {
+					SearchView.this.valuePanel.remove(SearchView.this.lblSearchName);
+					SearchView.this.valuePanel.remove(SearchView.this.txtSearchName);
+				}
+			}
+		});
 
 		this.selectionModel = new SingleSelectionModel<ISearchExpression>();
-		this.selectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						SearchView.this.disableDeleteButton();
+		this.selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				SearchView.this.disableDeleteButton();
 
-						final ISearchExpression se =
-								SearchView.this.selectionModel.getSelectedObject();
-						if (se != null) {
-							SearchView.this.searchSelectionModel.setSelected(
-									SearchView.this.searchSelectionModel
-											.getSelectedObject(), false);
-							SearchView.this.enableDeleteButton(se);
+				final ISearchExpression se = SearchView.this.selectionModel.getSelectedObject();
+				if (se != null) {
+					SearchView.this.searchSelectionModel.setSelected(
+							SearchView.this.searchSelectionModel.getSelectedObject(), false);
+					SearchView.this.enableDeleteButton(se);
 
-							final ISearchTypeVisitor searchTypeVisitor =
-									new ISearchTypeVisitor() {
+					final ISearchTypeVisitor searchTypeVisitor = new ISearchTypeVisitor() {
 
-										@Override
-										public
-												void
-												handleMultiLogicSearchOperator(
-														final MultiLogicSearchOperator multiLogicSearchOperator) {
-											SearchView.this.enableAdd();
-										}
+						@Override
+						public void handleMultiLogicSearchOperator(
+								final MultiLogicSearchOperator multiLogicSearchOperator) {
+							SearchView.this.enableAdd();
+						}
 
-										@Override
-										public void handleSearchCriteria(
-												final SearchCriteria searchCriteria) {
-											SearchView.this.disableAdd();
-										}
-
-										@Override
-										public
-												void
-												handleSingleLogicSearchOperator(
-														final SingleLogicSearchOperator singleLogicSearchOperator) {
-											SearchView.this.enableAdd();
-										}
-
-									};
-							se.accept(searchTypeVisitor);
-						} else {
+						@Override
+						public void handleSearchCriteria(final SearchCriteria searchCriteria) {
 							SearchView.this.disableAdd();
 						}
 
-					}
-				});
+						@Override
+						public void handleSingleLogicSearchOperator(
+								final SingleLogicSearchOperator singleLogicSearchOperator) {
+							SearchView.this.enableAdd();
+						}
+
+					};
+					se.accept(searchTypeVisitor);
+				} else {
+					SearchView.this.disableAdd();
+				}
+
+			}
+		});
 	}
 
 	private void checkAufwand() {
-		if (this.intBoxFrom.getValue() != null && this.intBoxFrom.getValue() > 0
-				|| this.intBoxTo.getValue() != null && this.intBoxTo.getValue() > 0) {
+		if (this.intBoxFrom.getValue() != null && this.intBoxFrom.getValue() > 0 || this.intBoxTo.getValue() != null
+				&& this.intBoxTo.getValue() > 0) {
 			this.thirdLevelPanel.add(this.btnHinzu);
 		} else {
 			this.thirdLevelPanel.remove(this.btnHinzu);
@@ -472,50 +407,36 @@ public class SearchView extends Composite implements ISearchView {
 	private boolean fireEventForTextSearchCriterion() {
 		switch (this.cboTyp2.getSelectedIndex()) {
 		case 3:
-			this.addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-							SearchView.this.selectionModel.getSelectedObject(),
-							this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 4:
-			this.addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-							SearchView.this.selectionModel.getSelectedObject(),
-							this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 5:
-			this.addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-							SearchView.this.selectionModel.getSelectedObject(),
-							this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 9:
-			this.addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-							SearchView.this.selectionModel.getSelectedObject(),
-							this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 10:
 			if (this.cboThirdPreselection.getSelectedIndex() == 1) {
-				this.addTextSearchCriterion.fire(this,
-						new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-								SearchView.this.selectionModel.getSelectedObject(),
-								this.cboTyp2.getSelectedIndex() + 1));
+				this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+						SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			} else {
 				return false;
 			}
 			break;
 		case 11:
-			this.addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-							SearchView.this.selectionModel.getSelectedObject(),
-							this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		case 12:
-			this.addTextSearchCriterion.fire(this,
-					new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
-							SearchView.this.selectionModel.getSelectedObject(),
-							this.cboTyp2.getSelectedIndex() + 1));
+			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
+					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		default:
 			return false;
@@ -558,8 +479,7 @@ public class SearchView extends Composite implements ISearchView {
 
 	private void showThirdLevel(final int selection) {
 		this.thirdLevelPanel.clear();
-		this.lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA
-				.get(selection + 1));
+		this.lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA.get(selection + 1));
 		this.thirdLevelPanel.add(this.lblThirdLevel);
 
 		switch (selection) {
@@ -597,19 +517,16 @@ public class SearchView extends Composite implements ISearchView {
 			this.thirdLevelPanel.add(this.btnHinzu);
 			break;
 		case 6:
-			this.lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA
-					.get(selection + 1) + " von");
+			this.lblThirdLevel.setText(TextConstantsForLists.SEARCH_CRITERIA.get(selection + 1) + " von");
 			this.intBoxFrom.setValue(null);
 			this.intBoxTo.setValue(null);
 			this.thirdLevelPanel.add(this.intBoxFrom);
-			this.lblThirdLevel2.setText(TextConstantsForLists.SEARCH_CRITERIA
-					.get(selection + 1) + " bis");
+			this.lblThirdLevel2.setText(TextConstantsForLists.SEARCH_CRITERIA.get(selection + 1) + " bis");
 			this.thirdLevelPanel.add(this.lblThirdLevel2);
 			this.thirdLevelPanel.add(this.intBoxTo);
 			break;
 		case 7:
-			this.fillCombobox(this.cboThirdLevel,
-					TextConstantsForLists.SEARCH_PBI_STATE);
+			this.fillCombobox(this.cboThirdLevel, TextConstantsForLists.SEARCH_PBI_STATE);
 			this.thirdLevelPanel.add(this.cboThirdLevel);
 			this.cboThirdLevel.setSelectedIndex(-1);
 			break;
@@ -631,8 +548,7 @@ public class SearchView extends Composite implements ISearchView {
 			this.cboThirdLevel.clear();
 			this.thirdLevelPanel.add(this.lblThirdLevel);
 			this.cboThirdPreselection = new ListBox();
-			this.fillCombobox(this.cboThirdPreselection,
-					TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE);
+			this.fillCombobox(this.cboThirdPreselection, TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE);
 			this.thirdLevelPanel.add(this.cboThirdPreselection);
 			this.cboThirdPreselection.setSelectedIndex(-1);
 			this.cboThirdPreselection.addChangeHandler(new ChangeHandler() {
@@ -640,27 +556,21 @@ public class SearchView extends Composite implements ISearchView {
 				public void onChange(final ChangeEvent event) {
 					SearchView.this.thirdLevelPanel.remove(SearchView.this.btnHinzu);
 					SearchView.this.cboThirdLevel.clear();
-					SearchView.this.lblThirdLevel2
-							.setText(TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE
-									.get(SearchView.this.cboThirdPreselection
-											.getSelectedIndex() + 1));
+					SearchView.this.lblThirdLevel2.setText(TextConstantsForLists.SEARCH_RELATIONSEARCHTYPE
+							.get(SearchView.this.cboThirdPreselection.getSelectedIndex() + 1));
 					SearchView.this.thirdLevelPanel.add(SearchView.this.lblThirdLevel2);
 
 					if (SearchView.this.cboThirdPreselection.getSelectedIndex() == 0) {
-						SearchView.this.thirdLevelPanel
-								.remove(SearchView.this.txtThirdLevel);
+						SearchView.this.thirdLevelPanel.remove(SearchView.this.txtThirdLevel);
 						for (final RelationType t : SearchView.this.relationtypes) {
 							SearchView.this.cboThirdLevel.addItem(t.getDescription());
 						}
 						SearchView.this.cboThirdLevel.setSelectedIndex(-1);
-						SearchView.this.thirdLevelPanel
-								.add(SearchView.this.cboThirdLevel);
+						SearchView.this.thirdLevelPanel.add(SearchView.this.cboThirdLevel);
 					} else if (SearchView.this.cboThirdPreselection.getSelectedIndex() == 1) {
 						SearchView.this.txtThirdLevel.setText("");
-						SearchView.this.thirdLevelPanel
-								.remove(SearchView.this.cboThirdLevel);
-						SearchView.this.thirdLevelPanel
-								.add(SearchView.this.txtThirdLevel);
+						SearchView.this.thirdLevelPanel.remove(SearchView.this.cboThirdLevel);
+						SearchView.this.thirdLevelPanel.add(SearchView.this.txtThirdLevel);
 						SearchView.this.thirdLevelPanel.add(SearchView.this.btnHinzu);
 					}
 				}
@@ -712,8 +622,7 @@ public class SearchView extends Composite implements ISearchView {
 			public void onChange(final ChangeEvent event) {
 				final Iterator<Project> it = SearchView.this.projects.iterator();
 				Project project = null;
-				for (int i = 0; i <= SearchView.this.cboThirdPreselection
-						.getSelectedIndex(); i++) {
+				for (int i = 0; i <= SearchView.this.cboThirdPreselection.getSelectedIndex(); i++) {
 					project = it.next();
 				}
 
@@ -759,9 +668,8 @@ public class SearchView extends Composite implements ISearchView {
 	public void updateTree() {
 		this.valuePanel.clear();
 		this.cellTree =
-				new CellTree(new SearchExpressionTreeViewModel(
-						this.searchSelectionModel, this.selectionModel, this.search),
-						null);
+				new CellTree(new SearchExpressionTreeViewModel(this.searchSelectionModel, this.selectionModel,
+						this.search), null);
 		this.scrollPanelSearch.setWidget(this.cellTree);
 		this.cellTree.setSize("600px", "300px");
 		this.cellTree.setVisible(true);
@@ -874,15 +782,13 @@ public class SearchView extends Composite implements ISearchView {
 
 	private void enableDeleteButton(final ISearchExpression se) {
 		final DeleteEventArgs deleteEventArgs = new DeleteEventArgs(se);
-		SearchView.this.deleteRegistration =
-				SearchView.this.btnLschen.addClickHandler(new ClickHandler() {
+		SearchView.this.deleteRegistration = SearchView.this.btnLschen.addClickHandler(new ClickHandler() {
 
-					@Override
-					public void onClick(final ClickEvent event) {
-						SearchView.this.deleteEvent.fire(SearchView.this,
-								deleteEventArgs);
-					}
-				});
+			@Override
+			public void onClick(final ClickEvent event) {
+				SearchView.this.deleteEvent.fire(SearchView.this, deleteEventArgs);
+			}
+		});
 		this.btnLschen.setEnabled(true);
 	}
 

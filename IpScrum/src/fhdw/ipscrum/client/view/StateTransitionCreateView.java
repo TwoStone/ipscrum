@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,14 +19,14 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.StateTransitionCreatePresenter.IStateTransitionCreateView;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 
 /**
  * represents the view to create state transitions.
  */
-public class StateTransitionCreateView extends Composite
-		implements IStateTransitionCreateView {
+public class StateTransitionCreateView extends MasterView implements IStateTransitionCreateView {
 
 	private final DefaultEvent saveEvent = new DefaultEvent();
 	private final DefaultEvent abortEvent = new DefaultEvent();
@@ -43,17 +42,17 @@ public class StateTransitionCreateView extends Composite
 	 * constructor of the StateTransitionCreateView.
 	 */
 	public StateTransitionCreateView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("598px", "325px");
 
 		final HTML header = new HTML("<h3>Neuen Zustandsübergang erzeugen</h3>", true);
 		verticalPanel.add(header);
-		verticalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel_1);
@@ -68,8 +67,8 @@ public class StateTransitionCreateView extends Composite
 		this.cellList = new CellList<StateType>(new AbstractCell<StateType>() {
 
 			@Override
-			public void render(final com.google.gwt.cell.client.Cell.Context context,
-					final StateType value, final SafeHtmlBuilder sb) {
+			public void render(final com.google.gwt.cell.client.Cell.Context context, final StateType value,
+					final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 
 			}
@@ -85,8 +84,8 @@ public class StateTransitionCreateView extends Composite
 		this.cellList2 = new CellList<StateType>(new AbstractCell<StateType>() {
 
 			@Override
-			public void render(final com.google.gwt.cell.client.Cell.Context context,
-					final StateType value, final SafeHtmlBuilder sb) {
+			public void render(final com.google.gwt.cell.client.Cell.Context context, final StateType value,
+					final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 
 			}
@@ -100,15 +99,13 @@ public class StateTransitionCreateView extends Composite
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button saveButton = new Button("Speichern");
 		saveButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				StateTransitionCreateView.this.saveEvent
-						.fire(StateTransitionCreateView.this);
+				StateTransitionCreateView.this.saveEvent.fire(StateTransitionCreateView.this);
 			}
 		});
 		horizontalPanel.add(saveButton);
@@ -118,8 +115,7 @@ public class StateTransitionCreateView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				StateTransitionCreateView.this.abortEvent
-						.fire(StateTransitionCreateView.this);
+				StateTransitionCreateView.this.abortEvent.fire(StateTransitionCreateView.this);
 			}
 		});
 		horizontalPanel.add(abortButton);
@@ -145,15 +141,13 @@ public class StateTransitionCreateView extends Composite
 	@SuppressWarnings("unchecked")
 	@Override
 	public StateType getOriginalState() {
-		return ((SingleSelectionModel<StateType>) this.cellList.getSelectionModel())
-				.getSelectedObject();
+		return ((SingleSelectionModel<StateType>) this.cellList.getSelectionModel()).getSelectedObject();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public StateType getSubSequentState() {
-		return ((SingleSelectionModel<StateType>) this.cellList2.getSelectionModel())
-				.getSelectedObject();
+		return ((SingleSelectionModel<StateType>) this.cellList2.getSelectionModel()).getSelectedObject();
 	}
 
 	@Override

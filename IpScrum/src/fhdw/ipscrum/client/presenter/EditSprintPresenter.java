@@ -48,7 +48,7 @@ public class EditSprintPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IEditSprintView getView() {
+	public IEditSprintView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createEditSprintView();
 			this.view.registerSave(new DefaultEventHandler() {

@@ -18,7 +18,6 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
@@ -37,6 +36,7 @@ import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.IRevisionControlView;
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.infrastructure.Revision;
@@ -45,12 +45,11 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.utils.CalendarUtils;
 
 /**
- * This view is intended as an editing history and provides the possibility to reset the
- * (local) model to a custom state of the past.
+ * This view is intended as an editing history and provides the possibility to reset the (local) model to a custom state
+ * of the past.
  */
-public class RevisionControlView extends Composite implements IRevisionControlView {
-	private final ListHandler<Revision> sortHandler = new ListHandler<Revision>(
-			Collections.<Revision> emptyList());
+public class RevisionControlView extends MasterView implements IRevisionControlView {
+	private final ListHandler<Revision> sortHandler = new ListHandler<Revision>(Collections.<Revision> emptyList());
 
 	/**
 	 * Inner class for event-argument transmission (MVC).
@@ -70,8 +69,7 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 		 * @param editors
 		 *            are the editors
 		 */
-		public RevFilterArgs(final Date fromDate, final Date toDate,
-				final Set<Person> editors) {
+		public RevFilterArgs(final Date fromDate, final Date toDate, final Set<Person> editors) {
 			super();
 			this.fromDate = CalendarUtils.copy(fromDate);
 			this.toDate = CalendarUtils.copy(toDate);
@@ -106,8 +104,7 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 		}
 	}
 
-	private final DateTimeFormat format = DateTimeFormat
-			.getFormat("dd.MM.yyyy, HH:mm:ss");
+	private final DateTimeFormat format = DateTimeFormat.getFormat("dd.MM.yyyy, HH:mm:ss");
 
 	private CellTable<Revision> revisionTable;
 	private CellList<Person> editorList;
@@ -115,15 +112,11 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 	private DateBox dateBoxTo;
 	private Button btnFilterReset;
 
-	private final SingleSelectionModel<Revision> revSelModel =
-			new SingleSelectionModel<Revision>();
-	private final MultiSelectionModel<Person> editorsSelModel =
-			new MultiSelectionModel<Person>();
+	private final SingleSelectionModel<Revision> revSelModel = new SingleSelectionModel<Revision>();
+	private final MultiSelectionModel<Person> editorsSelModel = new MultiSelectionModel<Person>();
 
-	private final Event<TypedEventArg<Revision>> rewindEvent =
-			new Event<TypedEventArg<Revision>>();
-	private final Event<RevisionControlView.RevFilterArgs> filterEvent =
-			new Event<RevisionControlView.RevFilterArgs>();
+	private final Event<TypedEventArg<Revision>> rewindEvent = new Event<TypedEventArg<Revision>>();
+	private final Event<RevisionControlView.RevFilterArgs> filterEvent = new Event<RevisionControlView.RevFilterArgs>();
 	private final DefaultEvent removeFilterEvent = new DefaultEvent();
 
 	private Model model;
@@ -132,24 +125,23 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 	 * constructor of the RevisionControlView.
 	 */
 	public RevisionControlView() {
+		super();
 
 		final VerticalPanel mainPanel = new VerticalPanel();
-		this.initWidget(mainPanel);
+		this.add(mainPanel);
 		mainPanel.setSize("800px", "500px");
 
 		final HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.setSpacing(5);
 		mainPanel.add(buttonPanel);
 
-		final Button btnLoadSelected =
-				new Button("Selektierte Revision zur Ansicht laden");
+		final Button btnLoadSelected = new Button("Selektierte Revision zur Ansicht laden");
 		btnLoadSelected.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				final Revision selected =
-						RevisionControlView.this.revSelModel.getSelectedObject();
-				RevisionControlView.this.rewindEvent.fire(RevisionControlView.this,
-						new TypedEventArg<Revision>(selected));
+				final Revision selected = RevisionControlView.this.revSelModel.getSelectedObject();
+				RevisionControlView.this.rewindEvent.fire(RevisionControlView.this, new TypedEventArg<Revision>(
+						selected));
 			}
 		});
 		buttonPanel.add(btnLoadSelected);
@@ -166,13 +158,12 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 		this.revisionTable.addColumnSortHandler(this.sortHandler);
 		RevisionScrollPanel.setWidget(this.revisionTable);
 		this.revisionTable.setSelectionModel(this.revSelModel);
-		final Column<Revision, Date> columnTime =
-				new Column<Revision, Date>(new DateCell(this.format)) {
-					@Override
-					public Date getValue(final Revision object) {
-						return object.getRevisionDate();
-					}
-				};
+		final Column<Revision, Date> columnTime = new Column<Revision, Date>(new DateCell(this.format)) {
+			@Override
+			public Date getValue(final Revision object) {
+				return object.getRevisionDate();
+			}
+		};
 		columnTime.setSortable(true);
 		this.revisionTable.addColumn(columnTime, "Zeitpunkt");
 		this.revisionTable.setColumnWidth(columnTime, "160px");
@@ -199,8 +190,7 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 		final TextColumn<Revision> columnAction = new TextColumn<Revision>() {
 
 			@Override
-			public void render(final Context context, final Revision object,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Revision object, final SafeHtmlBuilder sb) {
 				final String actions = object.toString();
 				final String actionsHTML = actions.replaceAll("\\n", "<br />"); // Performance-Hog
 				sb.appendHtmlConstant(actionsHTML);
@@ -262,8 +252,7 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 
 		this.editorList = new CellList<Person>(new AbstractCell<Person>() {
 			@Override
-			public void render(final Context context, final Person value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Person value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.toString());
 			}
 		});
@@ -280,10 +269,9 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 			public void onClick(final ClickEvent event) {
 				final Date fromDate = RevisionControlView.this.dateBoxFrom.getValue();
 				final Date toDate = RevisionControlView.this.dateBoxTo.getValue();
-				final Set<Person> editors =
-						RevisionControlView.this.editorsSelModel.getSelectedSet();
-				RevisionControlView.this.filterEvent.fire(RevisionControlView.this,
-						new RevFilterArgs(fromDate, toDate, editors));
+				final Set<Person> editors = RevisionControlView.this.editorsSelModel.getSelectedSet();
+				RevisionControlView.this.filterEvent.fire(RevisionControlView.this, new RevFilterArgs(fromDate, toDate,
+						editors));
 			}
 		});
 		FilterButtonFltrPanel.add(btnFilter);
@@ -294,8 +282,7 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 		this.btnFilterReset.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				RevisionControlView.this.removeFilterEvent
-						.fire(RevisionControlView.this);
+				RevisionControlView.this.removeFilterEvent.fire(RevisionControlView.this);
 			}
 		});
 		FilterButtonFltrPanel.add(this.btnFilterReset);
@@ -324,20 +311,17 @@ public class RevisionControlView extends Composite implements IRevisionControlVi
 	}
 
 	@Override
-	public EventRegistration registerFilterEventHandler(
-			final EventHandler<RevisionControlView.RevFilterArgs> handler) {
+	public EventRegistration registerFilterEventHandler(final EventHandler<RevisionControlView.RevFilterArgs> handler) {
 		return this.filterEvent.add(handler);
 	}
 
 	@Override
-	public EventRegistration registerRemoveFilterEventHandler(
-			final DefaultEventHandler handler) {
+	public EventRegistration registerRemoveFilterEventHandler(final DefaultEventHandler handler) {
 		return this.removeFilterEvent.add(handler);
 	}
 
 	@Override
-	public EventRegistration registerRewindEventHandler(
-			final EventHandler<TypedEventArg<Revision>> handler) {
+	public EventRegistration registerRewindEventHandler(final EventHandler<TypedEventArg<Revision>> handler) {
 		return this.rewindEvent.add(handler);
 	}
 

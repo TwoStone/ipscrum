@@ -21,8 +21,7 @@ public final class ClassUtils {
 	 *            second class to check
 	 * @return true, if the classes are identical
 	 */
-	public static boolean
-			isAssignableFrom(final Class<?> clazz1, final Class<?> clazz2) {
+	public static boolean isAssignableFrom(final Class<?> clazz1, final Class<?> clazz2) {
 		boolean result = false;
 		if (clazz2 == null) {
 			result = false;
@@ -40,5 +39,18 @@ public final class ClassUtils {
 			currentSuperClass = currentSuperClass.getSuperclass();
 		}
 		return result;
+	}
+
+	/**
+	 * Obtains the classname of a class.
+	 * 
+	 * @param clazz
+	 *            java-class
+	 * @return String
+	 */
+	public static String getClassName(final Class<?> clazz) {
+		final String cl = clazz.toString();
+		final int i = cl.lastIndexOf(".");
+		return cl.substring(i + 1, cl.length());
 	}
 }

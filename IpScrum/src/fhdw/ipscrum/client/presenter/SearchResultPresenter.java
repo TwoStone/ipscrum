@@ -45,7 +45,7 @@ public class SearchResultPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public ISearchResultView getView() {
+	public ISearchResultView doGetView() {
 
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSearchResultView();
@@ -70,7 +70,7 @@ public class SearchResultPresenter extends ReadPresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setSearchResult(this.result);
+		this.doGetView().setSearchResult(this.result);
 
 	}
 

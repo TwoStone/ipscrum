@@ -14,7 +14,6 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
@@ -28,6 +27,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.SystemManagementPresenter.ISystemManagementView;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.utils.SystemTreeItem;
@@ -38,10 +38,9 @@ import fhdw.ipscrum.shared.model.nonMeta.System;
  * @author Niklas
  * 
  */
-public class SystemManagementView extends Composite implements ISystemManagementView {
+public class SystemManagementView extends MasterView implements ISystemManagementView {
 
-	private final Event<NewSystemEventArgs> createSystemEvent =
-			new Event<NewSystemEventArgs>();
+	private final Event<NewSystemEventArgs> createSystemEvent = new Event<NewSystemEventArgs>();
 	private List<System> possibleParents;
 	private final Tree systemTree;
 	private final ListBox parentComboBox;
@@ -53,12 +52,11 @@ public class SystemManagementView extends Composite implements ISystemManagement
 			System parent = null;
 			if (SystemManagementView.this.parentComboBox.getSelectedIndex() > 0) {
 				parent =
-						SystemManagementView.this.possibleParents
-								.get(SystemManagementView.this.parentComboBox
-										.getSelectedIndex() - 1);
+						SystemManagementView.this.possibleParents.get(SystemManagementView.this.parentComboBox
+								.getSelectedIndex() - 1);
 			}
-			SystemManagementView.this.createSystemEvent.fire(SystemManagementView.this,
-					new NewSystemEventArgs(name, parent));
+			SystemManagementView.this.createSystemEvent.fire(SystemManagementView.this, new NewSystemEventArgs(name,
+					parent));
 			SystemManagementView.this.nameTextBox.setText(TextConstants.EMPTY_TEXT);
 		}
 	};
@@ -69,14 +67,14 @@ public class SystemManagementView extends Composite implements ISystemManagement
 	 * constructor of the SystemManagementView.
 	 */
 	public SystemManagementView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setStyleName("center");
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("500px", "500px");
 
-		final HTML htmlNewHtml =
-				new HTML("<h3>" + TextConstants.SYSTEMEVERWALTUNG + "</h3>", true);
+		final HTML htmlNewHtml = new HTML("<h3>" + TextConstants.SYSTEMEVERWALTUNG + "</h3>", true);
 		verticalPanel.add(htmlNewHtml);
 
 		final ScrollPanel scrollPanel = new ScrollPanel();
@@ -89,8 +87,7 @@ public class SystemManagementView extends Composite implements ISystemManagement
 		scrollPanel.setWidget(this.systemTree);
 		this.systemTree.setSize("100%", "");
 
-		final DisclosurePanel createSystemPanel =
-				new DisclosurePanel(TextConstants.NEUES_SYSTEM_ANLEGEN);
+		final DisclosurePanel createSystemPanel = new DisclosurePanel(TextConstants.NEUES_SYSTEM_ANLEGEN);
 		createSystemPanel.setOpen(true);
 		createSystemPanel.setAnimationEnabled(true);
 		verticalPanel.add(createSystemPanel);
@@ -140,8 +137,8 @@ public class SystemManagementView extends Composite implements ISystemManagement
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.client.viewOLD.interfaces.ISystemManagementView#
-	 * setRootSystemGroup (fhdw.ipscrum.shared.model.interfaces.IHasChildren)
+	 * @see fhdw.ipscrum.client.viewOLD.interfaces.ISystemManagementView# setRootSystemGroup
+	 * (fhdw.ipscrum.shared.model.interfaces.IHasChildren)
 	 */
 	@Override
 	public void setRootSystemGroup(final List<System> systems) {
@@ -169,8 +166,7 @@ public class SystemManagementView extends Composite implements ISystemManagement
 			}
 
 			private String getCompString(final System system) {
-				return system.getParent() == system.getRoot() ? system.getName()
-						: system.getParent().getName();
+				return system.getParent() == system.getRoot() ? system.getName() : system.getParent().getName();
 			}
 		});
 		this.possibleParents = parents;
@@ -191,8 +187,7 @@ public class SystemManagementView extends Composite implements ISystemManagement
 	}
 
 	@Override
-	public EventRegistration registerCreateSystemHandler(
-			final EventHandler<NewSystemEventArgs> handler) {
+	public EventRegistration registerCreateSystemHandler(final EventHandler<NewSystemEventArgs> handler) {
 		return this.createSystemEvent.add(handler);
 	}
 

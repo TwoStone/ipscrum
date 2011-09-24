@@ -2,7 +2,6 @@ package fhdw.ipscrum.client.view;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -14,12 +13,13 @@ import com.google.gwt.user.client.ui.Widget;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.IWidgetView;
 
 /**
  * Simple view for displaying custom widgets (i.e. charts).
  */
-public class WidgetView extends Composite implements IWidgetView {
+public class WidgetView extends MasterView implements IWidgetView {
 
 	private final DefaultEvent closeEvent = new DefaultEvent();
 
@@ -32,10 +32,10 @@ public class WidgetView extends Composite implements IWidgetView {
 	 *            is the title of the view.
 	 */
 	public WidgetView(final Widget widget, final String title) {
-
+		super();
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(5);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
@@ -45,8 +45,7 @@ public class WidgetView extends Composite implements IWidgetView {
 		final Label header = new Label(title);
 		header.setStyleName("header3");
 		horizontalPanel.add(header);
-		horizontalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		horizontalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setCellWidth(header, "100%");
 		header.setWidth("100%");
 
@@ -74,8 +73,7 @@ public class WidgetView extends Composite implements IWidgetView {
 	}
 
 	@Override
-	public EventRegistration
-			registerCloseEventHandler(final DefaultEventHandler handler) {
+	public EventRegistration registerCloseEventHandler(final DefaultEventHandler handler) {
 		return this.closeEvent.add(handler);
 	}
 

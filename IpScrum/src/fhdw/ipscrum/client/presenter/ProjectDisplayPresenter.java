@@ -233,7 +233,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IProjectDisplayView getView() {
+	public IProjectDisplayView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectDisplayView();
 			this.view
@@ -518,10 +518,10 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	public void updateView() {
 		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
 				.getProjectRight());
-		this.getView().setProject(this.project);
-		this.getView().updateSprintTable(this.project.getSprints());
-		this.getView().updateReleaseTable(this.project.getReleases());
-		this.getView().setProject(this.project);
+		this.doGetView().setProject(this.project);
+		this.doGetView().updateSprintTable(this.project.getSprints());
+		this.doGetView().updateReleaseTable(this.project.getReleases());
+		this.doGetView().setProject(this.project);
 	}
 
 	@Override

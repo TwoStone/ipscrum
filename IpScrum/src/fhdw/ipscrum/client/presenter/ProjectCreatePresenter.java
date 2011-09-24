@@ -17,8 +17,8 @@ import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 public class ProjectCreatePresenter extends WritePresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.ProjectCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.ProjectCreateView).
 	 */
 	public static interface IProjectCreateView extends IView {
 
@@ -54,8 +54,7 @@ public class ProjectCreatePresenter extends WritePresenter {
 	private IProjectCreateView view;
 
 	/**
-	 * represents a flag to check if the question asking if the view should been left
-	 * without saving should be asked.
+	 * represents a flag to check if the question asking if the view should been left without saving should be asked.
 	 */
 	private boolean saved = false;
 
@@ -63,8 +62,8 @@ public class ProjectCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProjectCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public ProjectCreatePresenter(final ClientContext context) {
 		super(context);
@@ -76,7 +75,7 @@ public class ProjectCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IProjectCreateView getView() {
+	public IProjectCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectCreateView();
 			this.view.registerSave(new DefaultEventHandler() {
@@ -116,22 +115,21 @@ public class ProjectCreatePresenter extends WritePresenter {
 	@Override
 	protected void onClose(final CloseCallback callback) {
 		if (!this.saved) {
-			this.showQuestion("Möchten sie den Vorgang wirklich abbrechen?",
-					new Answer("Ja!") {
+			this.showQuestion("Möchten sie den Vorgang wirklich abbrechen?", new Answer("Ja!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							widget.hide();
-							callback.closed();
-						}
-					}, new Answer("Nein!") {
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					widget.hide();
+					callback.closed();
+				}
+			}, new Answer("Nein!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							widget.hide();
-							callback.closeAborted();
-						}
-					});
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					widget.hide();
+					callback.closeAborted();
+				}
+			});
 		} else {
 			callback.closed();
 		}

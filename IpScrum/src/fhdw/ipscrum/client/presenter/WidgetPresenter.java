@@ -32,15 +32,14 @@ public class WidgetPresenter extends ReadPresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.WidgetPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param widget
 	 *            is the related widget to handle through this presenter
 	 * @param title
 	 *            is the title of the related widget
 	 */
-	public WidgetPresenter(final ClientContext context, final Widget widget,
-			final String title) {
+	public WidgetPresenter(final ClientContext context, final Widget widget, final String title) {
 		super(context);
 		this.title = title;
 		this.widget = widget;
@@ -52,11 +51,9 @@ public class WidgetPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public IView getView() {
+	public IView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory()
-							.createWidgetView(this.widget, this.title);
+			this.view = this.getContext().getViewFactory().createWidgetView(this.widget, this.title);
 
 			this.view.registerCloseEventHandler(new DefaultEventHandler() {
 				@Override

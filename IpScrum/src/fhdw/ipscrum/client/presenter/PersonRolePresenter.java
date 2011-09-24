@@ -20,8 +20,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 
 /**
- * This class represents the presenter which controls the view to administer Roles and
- * Persons.
+ * This class represents the presenter which controls the view to administer Roles and Persons.
  */
 public class PersonRolePresenter extends WritePresenter {
 
@@ -34,8 +33,8 @@ public class PersonRolePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.PersonRolePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public PersonRolePresenter(final ClientContext context) {
 		super(context);
@@ -47,7 +46,7 @@ public class PersonRolePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IView getView() {
+	public IView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createPersonRoleView();
 
@@ -58,14 +57,12 @@ public class PersonRolePresenter extends WritePresenter {
 				}
 			});
 
-			this.view
-					.defineModifyPersonEventHandler(new EventHandler<TypedEventArg<Person>>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Person> eventArgs) {
-							PersonRolePresenter.this.modifyPerson(eventArgs.getObject());
-						}
-					});
+			this.view.defineModifyPersonEventHandler(new EventHandler<TypedEventArg<Person>>() {
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Person> eventArgs) {
+					PersonRolePresenter.this.modifyPerson(eventArgs.getObject());
+				}
+			});
 
 			this.view.defineNewRoleEventHandler(new DefaultEventHandler() {
 				@Override
@@ -74,46 +71,34 @@ public class PersonRolePresenter extends WritePresenter {
 				}
 			});
 
-			this.view
-					.defineRemoveRoleEventHandler(new EventHandler<MultipleRoleArgs>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final MultipleRoleArgs eventArgs) {
-							PersonRolePresenter.this.deleteRoles(eventArgs.getRoles());
-						}
-					});
+			this.view.defineRemoveRoleEventHandler(new EventHandler<MultipleRoleArgs>() {
+				@Override
+				public void onUpdate(final Object sender, final MultipleRoleArgs eventArgs) {
+					PersonRolePresenter.this.deleteRoles(eventArgs.getRoles());
+				}
+			});
 
-			this.view
-					.defineAddRoleToPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final AssociatePersonAndRoleArgs eventArgs) {
-							PersonRolePresenter.this.addRoleToPerson(
-									eventArgs.getPerson(), eventArgs.getRoles());
-						}
-					});
+			this.view.defineAddRoleToPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
+				@Override
+				public void onUpdate(final Object sender, final AssociatePersonAndRoleArgs eventArgs) {
+					PersonRolePresenter.this.addRoleToPerson(eventArgs.getPerson(), eventArgs.getRoles());
+				}
+			});
 
-			this.view
-					.defineRemoveRoleFromPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final AssociatePersonAndRoleArgs eventArgs) {
-							PersonRolePresenter.this.removeRoleFromPerson(
-									eventArgs.getPerson(), eventArgs.getRoles());
-						}
-					});
-			this.view
-					.defineEditRightsEventHander(new EventHandler<TypedEventArg<Role>>() {
+			this.view.defineRemoveRoleFromPersonEventHandler(new EventHandler<AssociatePersonAndRoleArgs>() {
+				@Override
+				public void onUpdate(final Object sender, final AssociatePersonAndRoleArgs eventArgs) {
+					PersonRolePresenter.this.removeRoleFromPerson(eventArgs.getPerson(), eventArgs.getRoles());
+				}
+			});
+			this.view.defineEditRightsEventHander(new EventHandler<TypedEventArg<Role>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Role> eventArgs) {
-							PersonRolePresenter.this
-									.startPresenter(new AddRightsToRolePresenter(
-											PersonRolePresenter.this.getContext(),
-											eventArgs.getObject()));
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Role> eventArgs) {
+					PersonRolePresenter.this.startPresenter(new AddRightsToRolePresenter(PersonRolePresenter.this
+							.getContext(), eventArgs.getObject()));
+				}
+			});
 
 		}
 
@@ -121,12 +106,11 @@ public class PersonRolePresenter extends WritePresenter {
 	}
 
 	/**
-	 * this method opens the function to create a new person. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.PersonCreatePresenter .
+	 * this method opens the function to create a new person. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.PersonCreatePresenter .
 	 */
 	private void newPerson() {
-		final PersonCreatePresenter personCreatePresenter =
-				new PersonCreatePresenter(this.getContext());
+		final PersonCreatePresenter personCreatePresenter = new PersonCreatePresenter(this.getContext());
 		this.startPresenter(personCreatePresenter);
 	}
 
@@ -138,18 +122,16 @@ public class PersonRolePresenter extends WritePresenter {
 	 *            to edit
 	 */
 	private void modifyPerson(final Person person) {
-		final PersonEditPresenter personEditPresenter =
-				new PersonEditPresenter(this.getContext(), person);
+		final PersonEditPresenter personEditPresenter = new PersonEditPresenter(this.getContext(), person);
 		this.startPresenter(personEditPresenter);
 	}
 
 	/**
-	 * this method opens the function to create a new role. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.RoleCreatePresenter .
+	 * this method opens the function to create a new role. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.RoleCreatePresenter .
 	 */
 	private void newRole() {
-		final RoleCreatePresenter roleCreatePresenter =
-				new RoleCreatePresenter(this.getContext());
+		final RoleCreatePresenter roleCreatePresenter = new RoleCreatePresenter(this.getContext());
 		this.startPresenter(roleCreatePresenter);
 	}
 
@@ -186,8 +168,7 @@ public class PersonRolePresenter extends WritePresenter {
 		try {
 			this.beginTransaction();
 			for (final Role role : roles) {
-				final PersonAddRoleCommand command =
-						new PersonAddRoleCommand(person, role);
+				final PersonAddRoleCommand command = new PersonAddRoleCommand(person, role);
 				this.doCommand(command);
 			}
 			this.commitTransaction();
@@ -210,8 +191,7 @@ public class PersonRolePresenter extends WritePresenter {
 		try {
 			this.beginTransaction();
 			for (final Role role : roles) {
-				final PersonRemoveRoleCommand command =
-						new PersonRemoveRoleCommand(person, role);
+				final PersonRemoveRoleCommand command = new PersonRemoveRoleCommand(person, role);
 				this.doCommand(command);
 			}
 			this.commitTransaction();
@@ -223,8 +203,7 @@ public class PersonRolePresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getPersonRoleAdminRight());
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getPersonRoleAdminRight());
 		this.view.updatePersonTable(this.getContext().getModel().getAllPersons());
 		this.view.updateAvailRoleList(this.getContext().getModel().getAllRoles());
 		this.view.updateAssignedRoleDisplay();

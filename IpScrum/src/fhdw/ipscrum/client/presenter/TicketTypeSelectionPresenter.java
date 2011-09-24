@@ -66,7 +66,7 @@ public class TicketTypeSelectionPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public ITicketTypeSelectionView getView() {
+	public ITicketTypeSelectionView doGetView() {
 		if (this.view == null) {
 			this.view =
 					this.getContext().getViewFactory().createTicketTypeSelectionView();
@@ -106,7 +106,7 @@ public class TicketTypeSelectionPresenter extends ReadPresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setTicketTypes(this.getContext().getModel().getAllTicketTypes());
+		this.doGetView().setTicketTypes(this.getContext().getModel().getAllTicketTypes());
 	}
 
 	@Override

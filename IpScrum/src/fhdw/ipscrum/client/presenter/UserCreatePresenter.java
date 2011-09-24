@@ -241,7 +241,7 @@ public class UserCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IUserCreateView getView() {
+	public IUserCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createUserCreateView();
 			this.view
@@ -334,7 +334,7 @@ public class UserCreatePresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setPersons(this.getContext().getModel().getAllPersons());
+		this.doGetView().setPersons(this.getContext().getModel().getAllPersons());
 	}
 
 	@Override

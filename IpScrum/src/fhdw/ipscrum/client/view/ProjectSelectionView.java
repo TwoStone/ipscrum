@@ -10,7 +10,6 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -24,6 +23,7 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.ProjectSelectionPresenter.IProjectSelectionView;
 import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
@@ -31,10 +31,9 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 /**
  * View for selecting a project.
  */
-public class ProjectSelectionView extends Composite implements IProjectSelectionView {
+public class ProjectSelectionView extends MasterView implements IProjectSelectionView {
 
-	private final Event<TypedEventArg<Project>> gotoProjectEvent =
-			new Event<TypedEventArg<Project>>();
+	private final Event<TypedEventArg<Project>> gotoProjectEvent = new Event<TypedEventArg<Project>>();
 	private SingleSelectionModel<Project> selectionModel;
 	private CellTable<Project> cellTable;
 	private final DefaultEvent newProjectEvent = new DefaultEvent();
@@ -44,28 +43,26 @@ public class ProjectSelectionView extends Composite implements IProjectSelection
 	 * Creates a new {@link ProjectSelectionView} object.
 	 */
 	public ProjectSelectionView() {
+		super();
+
 		this.selectionModel = new SingleSelectionModel<Project>();
 
-		this.selectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						final Project selectedObject =
-								ProjectSelectionView.this.selectionModel
-										.getSelectedObject();
-						if (selectedObject != null) {
-							ProjectSelectionView.this.gotoProjectEvent.fire(
-									ProjectSelectionView.this,
-									new TypedEventArg<Project>(selectedObject));
-						}
-					}
-				});
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				final Project selectedObject = ProjectSelectionView.this.selectionModel.getSelectedObject();
+				if (selectedObject != null) {
+					ProjectSelectionView.this.gotoProjectEvent.fire(ProjectSelectionView.this,
+							new TypedEventArg<Project>(selectedObject));
+				}
+			}
+		});
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setSpacing(10);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("", "");
 
 		final Label lblNewLabel = new Label("Bitte wählen Sie ein Projekt aus!");
@@ -75,13 +72,11 @@ public class ProjectSelectionView extends Composite implements IProjectSelection
 		this.newProjectButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProjectSelectionView.this.newProjectEvent
-						.fire(ProjectSelectionView.this);
+				ProjectSelectionView.this.newProjectEvent.fire(ProjectSelectionView.this);
 			}
 		});
 		verticalPanel.add(this.newProjectButton);
-		verticalPanel.setCellHorizontalAlignment(this.newProjectButton,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(this.newProjectButton, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final ScrollPanel scrollPanel = new ScrollPanel();
 		verticalPanel.add(scrollPanel);
@@ -93,14 +88,13 @@ public class ProjectSelectionView extends Composite implements IProjectSelection
 		this.cellTable.setPageSize(0);
 		this.cellTable.setSize("100%", "");
 
-		final Column<Project, ImageResource> iconColumn =
-				new Column<Project, ImageResource>(new ImageResourceCell()) {
+		final Column<Project, ImageResource> iconColumn = new Column<Project, ImageResource>(new ImageResourceCell()) {
 
-					@Override
-					public ImageResource getValue(final Project object) {
-						return MyResources.INSTANCE.product();
-					}
-				};
+			@Override
+			public ImageResource getValue(final Project object) {
+				return MyResources.INSTANCE.product();
+			}
+		};
 		this.cellTable.addColumn(iconColumn);
 		this.cellTable.setColumnWidth(iconColumn, "30%");
 
@@ -138,14 +132,12 @@ public class ProjectSelectionView extends Composite implements IProjectSelection
 	}
 
 	@Override
-	public EventRegistration registerGotoProjectHandler(
-			final EventHandler<TypedEventArg<Project>> handler) {
+	public EventRegistration registerGotoProjectHandler(final EventHandler<TypedEventArg<Project>> handler) {
 		return this.gotoProjectEvent.add(handler);
 	}
 
 	@Override
-	public EventRegistration
-			registerNewProjectHandler(final DefaultEventHandler handler) {
+	public EventRegistration registerNewProjectHandler(final DefaultEventHandler handler) {
 		return this.newProjectEvent.add(handler);
 	}
 

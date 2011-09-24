@@ -75,7 +75,7 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public IProjectSelectionView getView() {
+	public IProjectSelectionView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectSelectionView();
 			this.view
@@ -123,7 +123,7 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 	public void updateView() {
 		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
 				.getProjectRight());
-		this.getView().setProjects(this.getContext().getModel().getProjects());
+		this.doGetView().setProjects(this.getContext().getModel().getProjects());
 	}
 
 	@Override

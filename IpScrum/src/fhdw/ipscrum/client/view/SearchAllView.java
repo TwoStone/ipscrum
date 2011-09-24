@@ -7,7 +7,6 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -16,13 +15,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.DoScruumleSearchEventArgs;
 import fhdw.ipscrum.client.viewinterfaces.ISearchAllView;
 
 /**
  * Represents the view for the scruumle search.
  */
-public class SearchAllView extends Composite implements ISearchAllView {
+public class SearchAllView extends MasterView implements ISearchAllView {
 	private final Event<DoScruumleSearchEventArgs> doScruumleSearchEvent;
 	private final TextBox searchExpression;
 
@@ -36,7 +36,7 @@ public class SearchAllView extends Composite implements ISearchAllView {
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("750px", "200px");
 
 		final VerticalPanel verticalPanel_1 = new VerticalPanel();

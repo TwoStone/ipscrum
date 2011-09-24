@@ -13,7 +13,6 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -21,6 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.UserManagementPresenter.IUserManagementView;
 import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.shared.session.User;
@@ -28,22 +28,20 @@ import fhdw.ipscrum.shared.session.User;
 /**
  * representst the view to manage users.
  */
-public class UserManagementView extends Composite implements IUserManagementView {
-	private final ListHandler<User> sortHandler_2 = new ListHandler<User>(
-			Collections.<User> emptyList());
-	private final ListHandler<User> sortHandler_1 = new ListHandler<User>(
-			Collections.<User> emptyList());
-	private final ListHandler<User> sortHandler = new ListHandler<User>(
-			Collections.<User> emptyList());
+public class UserManagementView extends MasterView implements IUserManagementView {
+	private final ListHandler<User> sortHandler_2 = new ListHandler<User>(Collections.<User> emptyList());
+	private final ListHandler<User> sortHandler_1 = new ListHandler<User>(Collections.<User> emptyList());
+	private final ListHandler<User> sortHandler = new ListHandler<User>(Collections.<User> emptyList());
 
 	/**
 	 * constructor of the UserManagementView.
 	 */
 	public UserManagementView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
 		final Button newUserButton = new Button("Neuen Benutzer anlegen");
 		newUserButton.addClickHandler(new ClickHandler() {
@@ -53,8 +51,7 @@ public class UserManagementView extends Composite implements IUserManagementView
 			}
 		});
 		verticalPanel.add(newUserButton);
-		verticalPanel.setCellHorizontalAlignment(newUserButton,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(newUserButton, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final ScrollPanel scrollPanel = new ScrollPanel();
 		verticalPanel.add(scrollPanel);
@@ -67,14 +64,13 @@ public class UserManagementView extends Composite implements IUserManagementView
 		scrollPanel.setWidget(this.userTable);
 		this.userTable.setSize("100%", "100%");
 
-		final Column<User, ImageResource> iconCol =
-				new Column<User, ImageResource>(new ImageResourceCell()) {
+		final Column<User, ImageResource> iconCol = new Column<User, ImageResource>(new ImageResourceCell()) {
 
-					@Override
-					public ImageResource getValue(final User object) {
-						return MyResources.INSTANCE.user();
-					}
-				};
+			@Override
+			public ImageResource getValue(final User object) {
+				return MyResources.INSTANCE.user();
+			}
+		};
 		this.userTable.addColumn(iconCol);
 
 		final TextColumn<User> accountNameCol = new TextColumn<User>() {
@@ -103,8 +99,7 @@ public class UserManagementView extends Composite implements IUserManagementView
 		this.sortHandler_1.setComparator(foreNameCol, new Comparator<User>() {
 			@Override
 			public int compare(final User o1, final User o2) {
-				return o1.getPerson().getFirstname()
-						.compareTo(o2.getPerson().getFirstname());
+				return o1.getPerson().getFirstname().compareTo(o2.getPerson().getFirstname());
 			}
 		});
 
@@ -119,8 +114,7 @@ public class UserManagementView extends Composite implements IUserManagementView
 		this.sortHandler_2.setComparator(nameCol, new Comparator<User>() {
 			@Override
 			public int compare(final User o1, final User o2) {
-				return o1.getPerson().getLastname()
-						.compareTo(o2.getPerson().getLastname());
+				return o1.getPerson().getLastname().compareTo(o2.getPerson().getLastname());
 			}
 		});
 	}

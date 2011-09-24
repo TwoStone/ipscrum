@@ -94,7 +94,7 @@ public class AddStatesToTicketTypePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IAddStatesToTicketTypeView getView() {
+	public IAddStatesToTicketTypeView doGetView() {
 		if (this.view == null) {
 			this.view =
 					this.getContext().getViewFactory()

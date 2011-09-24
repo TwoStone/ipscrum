@@ -128,7 +128,7 @@ public class RevisionControlPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public IRevisionControlView getView() {
+	public IRevisionControlView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createRevisionControlView();
 
@@ -230,7 +230,7 @@ public class RevisionControlPresenter extends ReadPresenter {
 
 							RevisionControlPresenter.this
 									.updateRevTableData(filterList);
-							RevisionControlPresenter.this.getView()
+							RevisionControlPresenter.this.doGetView()
 									.setFilterResetButtonStatus(true);
 						}
 
@@ -280,8 +280,8 @@ public class RevisionControlPresenter extends ReadPresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().updateEditorList(this.getContext().getModel().getAllPersons());
-		this.getView().setFilterResetButtonStatus(false);
+		this.doGetView().updateEditorList(this.getContext().getModel().getAllPersons());
+		this.doGetView().setFilterResetButtonStatus(false);
 
 		ReceiveModelService.Util.getInstance().getAllRevisions(
 				new AsyncCallback<Map<Date, Revision>>() {
@@ -314,7 +314,7 @@ public class RevisionControlPresenter extends ReadPresenter {
 			}
 		});
 
-		this.getView().updateRevisionTable(revList, this.getContext().getModel());
+		this.doGetView().updateRevisionTable(revList, this.getContext().getModel());
 
 	}
 

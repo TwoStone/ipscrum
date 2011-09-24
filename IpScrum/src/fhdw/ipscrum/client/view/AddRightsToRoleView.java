@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -19,35 +18,33 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.shared.model.userRights.Right;
 
 /**
  * represents the view in which rights could be added to a role.
  */
-public class AddRightsToRoleView extends Composite implements IAddRightsToRoleView {
+public class AddRightsToRoleView extends MasterView implements IAddRightsToRoleView {
 	private final CellList<Right> RightsToAdd;
 	private final CellList<Right> addedRights;
-	private final Event<TypedEventArg<Right>> addRight =
-			new Event<TypedEventArg<Right>>();
-	private final Event<TypedEventArg<Right>> removeRight =
-			new Event<TypedEventArg<Right>>();
+	private final Event<TypedEventArg<Right>> addRight = new Event<TypedEventArg<Right>>();
+	private final Event<TypedEventArg<Right>> removeRight = new Event<TypedEventArg<Right>>();
 
-	private final SingleSelectionModel<Right> selModelAdded =
-			new SingleSelectionModel<Right>();
+	private final SingleSelectionModel<Right> selModelAdded = new SingleSelectionModel<Right>();
 
-	private final SingleSelectionModel<Right> selModel =
-			new SingleSelectionModel<Right>();
+	private final SingleSelectionModel<Right> selModel = new SingleSelectionModel<Right>();
 
 	/**
 	 * constructor of the AddRightsToRoleView.
 	 */
 	public AddRightsToRoleView() {
+		super();
 
 		final VerticalPanel horizontalPanel = new VerticalPanel();
 		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setSpacing(5);
-		this.initWidget(horizontalPanel);
+		this.add(horizontalPanel);
 		horizontalPanel.setSize("500px", "300px");
 
 		final Label lblHeader = new Label("Berechtigungen zuordnen");
@@ -73,8 +70,7 @@ public class AddRightsToRoleView extends Composite implements IAddRightsToRoleVi
 
 		this.addedRights = new CellList<Right>(new AbstractCell<Right>() {
 			@Override
-			public void render(final Context context, final Right value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Right value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.toString());
 			}
 		});
@@ -98,10 +94,8 @@ public class AddRightsToRoleView extends Composite implements IAddRightsToRoleVi
 			@Override
 			public void onClick(final ClickEvent event) {
 
-				AddRightsToRoleView.this.removeRight.fire(
-						AddRightsToRoleView.this,
-						new TypedEventArg<Right>(AddRightsToRoleView.this.selModelAdded
-								.getSelectedObject()));
+				AddRightsToRoleView.this.removeRight.fire(AddRightsToRoleView.this, new TypedEventArg<Right>(
+						AddRightsToRoleView.this.selModelAdded.getSelectedObject()));
 
 			}
 		});
@@ -111,10 +105,8 @@ public class AddRightsToRoleView extends Composite implements IAddRightsToRoleVi
 			@Override
 			public void onClick(final ClickEvent event) {
 
-				AddRightsToRoleView.this.addRight.fire(
-						AddRightsToRoleView.this,
-						new TypedEventArg<Right>(AddRightsToRoleView.this.selModel
-								.getSelectedObject()));
+				AddRightsToRoleView.this.addRight.fire(AddRightsToRoleView.this, new TypedEventArg<Right>(
+						AddRightsToRoleView.this.selModel.getSelectedObject()));
 
 			}
 		});
@@ -131,8 +123,7 @@ public class AddRightsToRoleView extends Composite implements IAddRightsToRoleVi
 
 		this.RightsToAdd = new CellList<Right>(new AbstractCell<Right>() {
 			@Override
-			public void render(final Context context, final Right value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Right value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.toString());
 			}
 		});

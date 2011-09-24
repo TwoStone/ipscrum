@@ -144,7 +144,7 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ISelectSystemView getView() {
+	public ISelectSystemView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSelectSystemView();
 			this.view.registerAddSelectedSystemHandler(new EventHandler<SystemArgs>() {
@@ -249,10 +249,10 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 	public void updateView() {
 		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
 				.getProjectRight());
-		this.getView().updateAvailableSystemData(
+		this.doGetView().updateAvailableSystemData(
 				this.getContext().getModel().getSystems().getSystems(),
 				this.project.getSystems());
-		this.getView().updateSelectedSystemData(this.project.getSystems());
+		this.doGetView().updateSelectedSystemData(this.project.getSystems());
 	}
 
 	@Override

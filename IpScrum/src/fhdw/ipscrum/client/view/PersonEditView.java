@@ -3,7 +3,6 @@ package fhdw.ipscrum.client.view;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -15,13 +14,14 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.PersonEditPresenter.IPersonEditView;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 
 /**
  * represents the view to edit persons.
  */
-public class PersonEditView extends Composite implements IPersonEditView {
+public class PersonEditView extends MasterView implements IPersonEditView {
 
 	private final DefaultEvent saveEvent = new DefaultEvent();
 	private final DefaultEvent abortEvent = new DefaultEvent();
@@ -32,22 +32,21 @@ public class PersonEditView extends Composite implements IPersonEditView {
 	 * constructor of the PersonEditView.
 	 */
 	public PersonEditView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
 		final HTML header = new HTML("<h3>Person bearbeiten</h3>", true);
 		verticalPanel.add(header);
-		verticalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Grid grid = new Grid(2, 2);
 		grid.setCellPadding(5);
 		verticalPanel.add(grid);
-		verticalPanel.setCellHorizontalAlignment(grid,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(grid, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Label firstNameLabel = new Label("Vorname");
 		grid.setWidget(0, 0, firstNameLabel);
@@ -64,8 +63,7 @@ public class PersonEditView extends Composite implements IPersonEditView {
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button saveButton = new Button("Speichern");
 		saveButton.addClickHandler(new ClickHandler() {

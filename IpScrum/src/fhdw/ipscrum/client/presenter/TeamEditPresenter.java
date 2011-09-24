@@ -88,7 +88,7 @@ public class TeamEditPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITeamEditView getView() {
+	public ITeamEditView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTeamEditView();
 			this.view.registerSave(new DefaultEventHandler() {

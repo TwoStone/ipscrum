@@ -51,7 +51,7 @@ public class ReleaseEditPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IReleaseEditView getView() {
+	public IReleaseEditView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createReleaseEditView();
 

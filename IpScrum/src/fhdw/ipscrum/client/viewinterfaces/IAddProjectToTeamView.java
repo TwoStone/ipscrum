@@ -8,8 +8,7 @@ import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * View interface required by
- * {@link fhdw.ipscrum.client.presenter.AddProjectToTeamPresenter}.
+ * View interface required by {@link fhdw.ipscrum.client.presenter.AddProjectToTeamPresenter}.
  */
 public interface IAddProjectToTeamView extends IView {
 

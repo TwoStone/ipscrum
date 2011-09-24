@@ -98,7 +98,7 @@ public class FieldTypeCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IFieldTypeCreateView getView() {
+	public IFieldTypeCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createFieldTypeCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

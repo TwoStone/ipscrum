@@ -51,7 +51,7 @@ public class SearchAllPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public ISearchAllView getView() {
+	public ISearchAllView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSearchAllView();
 		}

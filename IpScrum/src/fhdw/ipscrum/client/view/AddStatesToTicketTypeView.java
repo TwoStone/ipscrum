@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,14 +19,14 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.AddStatesToTicketTypePresenter.IAddStatesToTicketTypeView;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 
 /**
  * represents the view in which states could be added to a ticket type.
  */
-public class AddStatesToTicketTypeView extends Composite
-		implements IAddStatesToTicketTypeView {
+public class AddStatesToTicketTypeView extends MasterView implements IAddStatesToTicketTypeView {
 
 	private final DefaultEvent saveEvent = new DefaultEvent();
 	private final DefaultEvent abortEvent = new DefaultEvent();
@@ -37,17 +36,17 @@ public class AddStatesToTicketTypeView extends Composite
 	 * constructor of the AddStatesToTicketTypeView.
 	 */
 	public AddStatesToTicketTypeView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setHeight("283px");
 
 		final HTML header = new HTML("<h3Zustände zu Tickettyp hinzufügen</h3>", true);
 		verticalPanel.add(header);
-		verticalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Label firstNameLabel = new Label("Wählbare Zustände");
 		verticalPanel.add(firstNameLabel);
@@ -58,8 +57,7 @@ public class AddStatesToTicketTypeView extends Composite
 
 		this.cellList = new CellList<StateType>(new AbstractCell<StateType>() {
 			@Override
-			public void render(final Context context, final StateType value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final StateType value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 			}
 		});
@@ -71,15 +69,13 @@ public class AddStatesToTicketTypeView extends Composite
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button saveButton = new Button("Speichern");
 		saveButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				AddStatesToTicketTypeView.this.saveEvent
-						.fire(AddStatesToTicketTypeView.this);
+				AddStatesToTicketTypeView.this.saveEvent.fire(AddStatesToTicketTypeView.this);
 			}
 		});
 		horizontalPanel.add(saveButton);
@@ -89,8 +85,7 @@ public class AddStatesToTicketTypeView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				AddStatesToTicketTypeView.this.abortEvent
-						.fire(AddStatesToTicketTypeView.this);
+				AddStatesToTicketTypeView.this.abortEvent.fire(AddStatesToTicketTypeView.this);
 			}
 		});
 		horizontalPanel.add(abortButton);
@@ -116,8 +111,7 @@ public class AddStatesToTicketTypeView extends Composite
 	@Override
 	@SuppressWarnings("unchecked")
 	public StateType getSelectedStateType() {
-		return ((SingleSelectionModel<StateType>) this.cellList.getSelectionModel())
-				.getSelectedObject();
+		return ((SingleSelectionModel<StateType>) this.cellList.getSelectionModel()).getSelectedObject();
 	}
 
 	/*

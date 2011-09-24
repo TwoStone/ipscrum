@@ -76,7 +76,7 @@ public class UserManagementPresenter extends ReadPresenter {
 	}
 
 	@Override
-	public IUserManagementView getView() {
+	public IUserManagementView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createUserManagementView();
 			this.view.registerNewUserHandler(new DefaultEventHandler() {
@@ -108,7 +108,7 @@ public class UserManagementPresenter extends ReadPresenter {
 
 			@Override
 			public void onSuccess(final List<User> result) {
-				UserManagementPresenter.this.getView().setUsers(result);
+				UserManagementPresenter.this.doGetView().setUsers(result);
 			}
 		});
 	}

@@ -8,7 +8,6 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasTreeItems;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -25,6 +24,7 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.SystemArgs;
 import fhdw.ipscrum.client.presenter.ProjectSelectSystemPresenter.ISelectSystemView;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
@@ -32,10 +32,9 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
 /**
- * view class for systems. this view is used to select systems of an amount of available
- * systems.
+ * view class for systems. this view is used to select systems of an amount of available systems.
  */
-public class SelectSystemView extends Composite implements ISelectSystemView {
+public class SelectSystemView extends MasterView implements ISelectSystemView {
 
 	private ListDataProvider<System> systemDataProvider;
 	private SingleSelectionModel<System> systemSelectionModel;
@@ -53,14 +52,14 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	 * constructor of the SelectSystemView.
 	 */
 	public SelectSystemView() {
+		super();
 
 		this.systemDataProvider = new ListDataProvider<System>();
-		this.systemSelectionModel =
-				new SingleSelectionModel<System>(this.systemDataProvider);
+		this.systemSelectionModel = new SingleSelectionModel<System>(this.systemDataProvider);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
-		this.initWidget(horizontalPanel);
+		this.add(horizontalPanel);
 
 		final VerticalPanel verticalPanelAusgewaehlteSysteme = new VerticalPanel();
 		horizontalPanel.add(verticalPanelAusgewaehlteSysteme);
@@ -96,10 +95,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (SelectSystemView.this.getSelectedOfSelectedSystems() != null) {
-					SelectSystemView.this.removeSelectedSystem.fire(
-							SelectSystemView.this,
-							new SystemArgs(SelectSystemView.this
-									.getSelectedOfSelectedSystems()));
+					SelectSystemView.this.removeSelectedSystem.fire(SelectSystemView.this, new SystemArgs(
+							SelectSystemView.this.getSelectedOfSelectedSystems()));
 				}
 			}
 		});
@@ -109,10 +106,8 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (SelectSystemView.this.getSelectedOfAvailableSystems() != null) {
-					SelectSystemView.this.addSelectedSystem.fire(
-							SelectSystemView.this,
-							new SystemArgs(SelectSystemView.this
-									.getSelectedOfAvailableSystems()));
+					SelectSystemView.this.addSelectedSystem.fire(SelectSystemView.this, new SystemArgs(
+							SelectSystemView.this.getSelectedOfAvailableSystems()));
 				} else {
 					Window.alert(ExceptionConstants.GUI_SYSTEMVIEW_ASSIGNERROR);
 				}
@@ -155,8 +150,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		this.btnAbbrechen.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				SelectSystemView.this.abort
-						.fire(SelectSystemView.this, new EventArgs());
+				SelectSystemView.this.abort.fire(SelectSystemView.this, new EventArgs());
 			}
 		});
 		horizontalPanel_1.add(this.btnAbbrechen);
@@ -194,8 +188,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 		}
 	}
 
-	private void buildTree(final System system, final HasTreeItems parent,
-			final Collection<System> selectedSystems) {
+	private void buildTree(final System system, final HasTreeItems parent, final Collection<System> selectedSystems) {
 		if (!this.isSelectedSystem(system, selectedSystems)) {
 			final TreeItem item = new TreeItem();
 			item.setUserObject(system);
@@ -216,8 +209,7 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	 *            are the selected systems
 	 * @return true id the system is selected
 	 */
-	private boolean isSelectedSystem(final System system,
-			final Collection<System> selectedSystems) {
+	private boolean isSelectedSystem(final System system, final Collection<System> selectedSystems) {
 		if (selectedSystems.contains(system)) {
 			return true;
 		}
@@ -248,14 +240,12 @@ public class SelectSystemView extends Composite implements ISelectSystemView {
 	}
 
 	@Override
-	public EventRegistration removeRemoveSelectedSystemHandler(
-			final EventHandler<SystemArgs> handler) {
+	public EventRegistration removeRemoveSelectedSystemHandler(final EventHandler<SystemArgs> handler) {
 		return this.removeSelectedSystem.add(handler);
 	}
 
 	@Override
-	public EventRegistration registerAddSelectedSystemHandler(
-			final EventHandler<SystemArgs> handler) {
+	public EventRegistration registerAddSelectedSystemHandler(final EventHandler<SystemArgs> handler) {
 		return this.addSelectedSystem.add(handler);
 	}
 

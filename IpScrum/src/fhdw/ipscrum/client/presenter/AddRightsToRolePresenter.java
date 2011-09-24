@@ -4,6 +4,7 @@ import fhdw.ipscrum.client.architecture.ClientContext;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
 import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.client.view.IAddRightsToRoleView;
 import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleAddRightCommand;
 import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleRemoveRightCommand;
@@ -28,7 +29,7 @@ public class AddRightsToRolePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IAddRightsToRoleView getView() {
+	public IView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createAddRightsToRoleView();
 

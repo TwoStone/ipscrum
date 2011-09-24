@@ -48,7 +48,7 @@ public class AddProjectToTeamPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IAddProjectToTeamView getView() {
+	public IAddProjectToTeamView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createAddProjectToTeamView();
 

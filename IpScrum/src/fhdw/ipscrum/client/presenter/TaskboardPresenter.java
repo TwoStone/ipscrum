@@ -62,7 +62,7 @@ public class TaskboardPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITaskboardView getView() {
+	public ITaskboardView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTaskboardView();
 

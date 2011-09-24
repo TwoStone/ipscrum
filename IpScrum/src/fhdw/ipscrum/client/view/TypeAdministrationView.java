@@ -10,7 +10,6 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -27,6 +26,7 @@ import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.TicketTypeArgs;
 import fhdw.ipscrum.client.viewinterfaces.ITypeAdministrationView;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.BugTicketType;
@@ -37,8 +37,7 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 /**
  * represents a view to administer ticket types.
  */
-public class TypeAdministrationView extends Composite
-		implements ITypeAdministrationView {
+public class TypeAdministrationView extends MasterView implements ITypeAdministrationView {
 
 	private final DefaultEvent addTypeEvent = new DefaultEvent();
 	private final Event<TicketTypeArgs> deleteTypeEvent = new Event<TicketTypeArgs>();
@@ -55,10 +54,11 @@ public class TypeAdministrationView extends Composite
 	 * constructor of the TypeAdministrationView.
 	 */
 	public TypeAdministrationView() {
+		super();
 
 		final VerticalPanel panel = new VerticalPanel();
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(panel);
+		this.add(panel);
 		panel.setSize("900px", "600px");
 
 		final Label lblHeader = new Label("Tickettypen Administration");
@@ -70,8 +70,7 @@ public class TypeAdministrationView extends Composite
 
 		final FlowPanel createPanel = new FlowPanel();
 		panel.add(createPanel);
-		panel.setCellHorizontalAlignment(createPanel,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setCellHorizontalAlignment(createPanel, HasHorizontalAlignment.ALIGN_CENTER);
 		panel.setCellVerticalAlignment(createPanel, HasVerticalAlignment.ALIGN_MIDDLE);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
@@ -81,8 +80,7 @@ public class TypeAdministrationView extends Composite
 
 		final Label lblName = new Label("Bezeichnung");
 		horizontalPanel.add(lblName);
-		horizontalPanel.setCellVerticalAlignment(lblName,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel.setCellVerticalAlignment(lblName, HasVerticalAlignment.ALIGN_MIDDLE);
 		lblName.setSize("120px", "30px");
 		lblName.setStyleName("LabelElement");
 		lblName.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -90,11 +88,9 @@ public class TypeAdministrationView extends Composite
 		this.textBox = new TextBox();
 		this.textBox.setStyleName("tableBorder");
 		horizontalPanel.add(this.textBox);
-		horizontalPanel.setCellVerticalAlignment(this.textBox,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel.setCellVerticalAlignment(this.textBox, HasVerticalAlignment.ALIGN_MIDDLE);
 		this.textBox.setSize("160px", "20px");
-		horizontalPanel.setCellHorizontalAlignment(this.textBox,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		horizontalPanel.setCellHorizontalAlignment(this.textBox, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
 		horizontalPanel_4.setSpacing(5);
@@ -104,18 +100,15 @@ public class TypeAdministrationView extends Composite
 		final Label lblDescription = new Label("Beschreibung");
 		lblDescription.setStyleName("LabelElement");
 		horizontalPanel_4.add(lblDescription);
-		horizontalPanel_4.setCellVerticalAlignment(lblDescription,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel_4.setCellVerticalAlignment(lblDescription, HasVerticalAlignment.ALIGN_MIDDLE);
 		lblDescription.setSize("168px", "30px");
 
 		this.textArea = new TextArea();
 		this.textArea.setStyleName("tableBorder");
 		horizontalPanel_4.add(this.textArea);
-		horizontalPanel_4.setCellVerticalAlignment(this.textArea,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel_4.setCellVerticalAlignment(this.textArea, HasVerticalAlignment.ALIGN_MIDDLE);
 		this.textArea.setSize("160px", "60px");
-		horizontalPanel_4.setCellHorizontalAlignment(this.textArea,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		horizontalPanel_4.setCellHorizontalAlignment(this.textArea, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		horizontalPanel_1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
@@ -126,15 +119,13 @@ public class TypeAdministrationView extends Composite
 		final Label lblType = new Label("Grundtyp");
 		lblType.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		horizontalPanel_1.add(lblType);
-		horizontalPanel_1.setCellVerticalAlignment(lblType,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel_1.setCellVerticalAlignment(lblType, HasVerticalAlignment.ALIGN_MIDDLE);
 		lblType.setSize("220px", "30px");
 		lblType.setStyleName("LabelElement");
 
 		this.cellList = new CellList<TicketType>(new AbstractCell<TicketType>() {
 			@Override
-			public void render(final Context context, final TicketType value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final TicketType value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getTypeName());
 			}
 		});
@@ -142,10 +133,8 @@ public class TypeAdministrationView extends Composite
 		horizontalPanel_1.add(this.cellList);
 		horizontalPanel_1.setCellHeight(this.cellList, "100%");
 		horizontalPanel_1.setCellWidth(this.cellList, "100%");
-		horizontalPanel_1.setCellVerticalAlignment(this.cellList,
-				HasVerticalAlignment.ALIGN_MIDDLE);
-		horizontalPanel_1.setCellHorizontalAlignment(this.cellList,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		horizontalPanel_1.setCellVerticalAlignment(this.cellList, HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel_1.setCellHorizontalAlignment(this.cellList, HasHorizontalAlignment.ALIGN_CENTER);
 		this.cellList.setSize("160px", "55px");
 
 		final HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
@@ -160,8 +149,7 @@ public class TypeAdministrationView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				TypeAdministrationView.this.addTypeEvent
-						.fire(TypeAdministrationView.this);
+				TypeAdministrationView.this.addTypeEvent.fire(TypeAdministrationView.this);
 			}
 		});
 		horizontalPanel_2.add(btnCreate);
@@ -199,16 +187,14 @@ public class TypeAdministrationView extends Composite
 		this.typeTable.addColumn(typeColumn, "Beschreibung");
 
 		this.tableSelectionModel = new SingleSelectionModel<TicketType>();
-		this.tableSelectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.tableSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						TypeAdministrationView.this.selectedType =
-								TypeAdministrationView.this.tableSelectionModel
-										.getSelectedObject();
-					}
-				});
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				TypeAdministrationView.this.selectedType =
+						TypeAdministrationView.this.tableSelectionModel.getSelectedObject();
+			}
+		});
 
 		this.typeTable.setSelectionModel(this.tableSelectionModel);
 
@@ -230,16 +216,14 @@ public class TypeAdministrationView extends Composite
 		this.typeTable.addColumn(textColumn, "Grundtyp");
 
 		this.listSelectionModel = new SingleSelectionModel<TicketType>();
-		this.listSelectionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.listSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						TypeAdministrationView.this.selectedMainType =
-								TypeAdministrationView.this.listSelectionModel
-										.getSelectedObject();
-					}
-				});
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				TypeAdministrationView.this.selectedMainType =
+						TypeAdministrationView.this.listSelectionModel.getSelectedObject();
+			}
+		});
 
 		this.cellList.setSelectionModel(this.listSelectionModel);
 
@@ -248,8 +232,7 @@ public class TypeAdministrationView extends Composite
 		horizontalPanel_3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		verticalPanel.add(horizontalPanel_3);
 		horizontalPanel_3.setWidth("850px");
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel_3,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel_3, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button btnDelete = new Button("Löschen");
 		btnDelete.addClickHandler(new ClickHandler() {
@@ -257,9 +240,8 @@ public class TypeAdministrationView extends Composite
 			@Override
 			public void onClick(final ClickEvent event) {
 
-				TypeAdministrationView.this.deleteTypeEvent.fire(
-						TypeAdministrationView.this, new TicketTypeArgs(
-								TypeAdministrationView.this.selectedType));
+				TypeAdministrationView.this.deleteTypeEvent.fire(TypeAdministrationView.this, new TicketTypeArgs(
+						TypeAdministrationView.this.selectedType));
 
 			}
 		});

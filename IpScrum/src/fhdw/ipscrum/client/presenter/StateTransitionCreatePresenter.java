@@ -109,7 +109,7 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IStateTransitionCreateView getView() {
+	public IStateTransitionCreateView doGetView() {
 		if (this.view == null) {
 			this.view =
 					this.getContext().getViewFactory()

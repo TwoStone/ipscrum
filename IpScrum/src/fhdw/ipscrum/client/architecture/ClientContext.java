@@ -7,6 +7,7 @@ import fhdw.ipscrum.client.IDGenerator;
 import fhdw.ipscrum.client.architecture.controller.ApplicationController;
 import fhdw.ipscrum.client.architecture.controller.BreadcrumbController;
 import fhdw.ipscrum.client.architecture.controller.HeartBeatController;
+import fhdw.ipscrum.client.architecture.controller.HelpController;
 import fhdw.ipscrum.client.architecture.controller.HistoryController;
 import fhdw.ipscrum.client.architecture.controller.NavigationController;
 import fhdw.ipscrum.client.architecture.controller.QuestionController;
@@ -41,8 +42,7 @@ public class ClientContext {
 		}
 	}
 
-	public abstract static class ModelUpdateHandler
-			implements Handler<ClientContext.ModelUpdateEvent> {
+	public abstract static class ModelUpdateHandler implements Handler<ClientContext.ModelUpdateEvent> {
 		@Override
 		public void handle(final ModelUpdateEvent event) {
 			this.handleModelUpdated(event);
@@ -54,6 +54,18 @@ public class ClientContext {
 	private ApplicationController applicationController;
 
 	private ToastMessageController toastMessageController;
+
+	/**
+	 * Setter.
+	 * 
+	 * @param helpController
+	 *            HelpController
+	 */
+	public void setHelpController(final HelpController helpController) {
+		this.helpController = helpController;
+	}
+
+	private HelpController helpController;
 
 	private HeartBeatController heartBeatController;
 
@@ -77,13 +89,11 @@ public class ClientContext {
 
 	private BreadcrumbController breadcrumbController;
 
-	protected void setNavigationController(
-			final NavigationController navigationController) {
+	protected void setNavigationController(final NavigationController navigationController) {
 		this.navigationController = navigationController;
 	}
 
-	protected void setWindowTitleController(
-			final WindowTitleController windowTitleController) {
+	protected void setWindowTitleController(final WindowTitleController windowTitleController) {
 		this.windowTitleController = windowTitleController;
 	}
 
@@ -91,8 +101,7 @@ public class ClientContext {
 		this.historyController = historyController;
 	}
 
-	protected void setBreadcrumbController(
-			final BreadcrumbController breadcrumbController) {
+	protected void setBreadcrumbController(final BreadcrumbController breadcrumbController) {
 		this.breadcrumbController = breadcrumbController;
 	}
 
@@ -100,18 +109,15 @@ public class ClientContext {
 		return this.model;
 	}
 
-	protected void setApplicationController(
-			final ApplicationController applicationController) {
+	protected void setApplicationController(final ApplicationController applicationController) {
 		this.applicationController = applicationController;
 	}
 
-	protected void setToastMessageController(
-			final ToastMessageController toastMessageController) {
+	protected void setToastMessageController(final ToastMessageController toastMessageController) {
 		this.toastMessageController = toastMessageController;
 	}
 
-	protected void
-			setHeartBeatController(final HeartBeatController heartBeatController) {
+	protected void setHeartBeatController(final HeartBeatController heartBeatController) {
 		this.heartBeatController = heartBeatController;
 	}
 
@@ -119,8 +125,7 @@ public class ClientContext {
 		this.questionController = questionController;
 	}
 
-	protected void setTransactionController(
-			final TransactionController transactionController) {
+	protected void setTransactionController(final TransactionController transactionController) {
 		this.transactionController = transactionController;
 	}
 
@@ -153,6 +158,15 @@ public class ClientContext {
 
 	public ToastMessageController getToastMessageController() {
 		return this.toastMessageController;
+	}
+
+	/**
+	 * Getter.
+	 * 
+	 * @return HelpController
+	 */
+	public HelpController getHelpController() {
+		return this.helpController;
 	}
 
 	public HeartBeatController getHeartBeatController() {
@@ -205,24 +219,23 @@ public class ClientContext {
 	public void updateModel(final AsyncCallback<Model> callback) {
 		GWT.log("[Context] Updating model");
 		this.applicationController.showLoadingIndicator();
-		ReceiveModelService.Util.getInstance().getCurrentModel(
-				new AsyncCallback<Model>() {
+		ReceiveModelService.Util.getInstance().getCurrentModel(new AsyncCallback<Model>() {
 
-					@Override
-					public void onSuccess(final Model result) {
-						GWT.log("[Context] Model updated");
-						ClientContext.this.setModel(result);
-						callback.onSuccess(result);
-						ClientContext.this.applicationController.hideLoadingIndicator();
-					}
+			@Override
+			public void onSuccess(final Model result) {
+				GWT.log("[Context] Model updated");
+				ClientContext.this.setModel(result);
+				callback.onSuccess(result);
+				ClientContext.this.applicationController.hideLoadingIndicator();
+			}
 
-					@Override
-					public void onFailure(final Throwable caught) {
-						GWT.log("[Context] Error on update", caught);
-						callback.onFailure(caught);
-						ClientContext.this.applicationController.hideLoadingIndicator();
-					}
-				});
+			@Override
+			public void onFailure(final Throwable caught) {
+				GWT.log("[Context] Error on update", caught);
+				callback.onFailure(caught);
+				ClientContext.this.applicationController.hideLoadingIndicator();
+			}
+		});
 		this.applicationController.updatePresenters();
 	}
 
@@ -235,31 +248,26 @@ public class ClientContext {
 	public static class ClientContextBuilder {
 		private final ClientContext context;
 
-		public ClientContextBuilder(final ViewFactory viewFactory,
-				final Presenter startPresenter, final NavigationMenu items,
-				final SessionController sessionController, final EventBus eventBus) {
+		public ClientContextBuilder(final ViewFactory viewFactory, final Presenter startPresenter,
+				final NavigationMenu items, final SessionController sessionController, final EventBus eventBus) {
 			this.context = new ClientContext(eventBus);
 
 			startPresenter.setContext(this.context);
 
 			this.context.setHeartBeatController(new HeartBeatController(eventBus));
-			this.context.setTransactionController(new TransactionController(
-					this.context));
+			this.context.setTransactionController(new TransactionController(this.context));
 			this.context.setViewFactory(viewFactory);
 
 			this.context.setSessionController(sessionController);
 
-			this.context.setApplicationController(new ApplicationController(
-					this.context, startPresenter));
+			this.context.setApplicationController(new ApplicationController(this.context, startPresenter));
 			this.context.setToastMessageController(new ToastMessageController());
+			this.context.setHelpController(new HelpController());
 			this.context.setQuestionController(new QuestionController());
 			this.context.setHistoryController(new HistoryController(this.context));
-			this.context.setNavigationController(new NavigationController(this.context,
-					items));
-			this.context.setWindowTitleController(new WindowTitleController(
-					this.context));
-			this.context
-					.setBreadcrumbController(new BreadcrumbController(this.context));
+			this.context.setNavigationController(new NavigationController(this.context, items));
+			this.context.setWindowTitleController(new WindowTitleController(this.context));
+			this.context.setBreadcrumbController(new BreadcrumbController(this.context));
 		}
 
 		public ClientContext getContext() {
@@ -281,8 +289,7 @@ public class ClientContext {
 	}
 
 	/**
-	 * Assigns the active role of the current user. Pre-condition: A current User is
-	 * assigned (logged in).
+	 * Assigns the active role of the current user. Pre-condition: A current User is assigned (logged in).
 	 * 
 	 * @param activeRole
 	 *            active role.

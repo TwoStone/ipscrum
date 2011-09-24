@@ -19,8 +19,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
 
 /**
- * This class represents the presenter which controls the view to administer teams and
- * persons in teams.
+ * This class represents the presenter which controls the view to administer teams and persons in teams.
  */
 public class TeamPresenter extends WritePresenter {
 
@@ -33,8 +32,8 @@ public class TeamPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public TeamPresenter(final ClientContext context) {
 		super(context);
@@ -46,28 +45,23 @@ public class TeamPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IView getView() {
+	public IView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTeamView();
 
 			this.view.defineAddPersonToTeamEvent(new EventHandler<PersonTeamArgs>() {
 				@Override
-				public void
-						onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
-					TeamPresenter.this.addPersonToTeam(eventArgs.getTeam(),
-							eventArgs.getPersons());
+				public void onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
+					TeamPresenter.this.addPersonToTeam(eventArgs.getTeam(), eventArgs.getPersons());
 				}
 			});
 
-			this.view
-					.defineRemovePersonFromTeamEvent(new EventHandler<PersonTeamArgs>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final PersonTeamArgs eventArgs) {
-							TeamPresenter.this.removePersonFromTeam(
-									eventArgs.getTeam(), eventArgs.getPersons());
-						}
-					});
+			this.view.defineRemovePersonFromTeamEvent(new EventHandler<PersonTeamArgs>() {
+				@Override
+				public void onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
+					TeamPresenter.this.removePersonFromTeam(eventArgs.getTeam(), eventArgs.getPersons());
+				}
+			});
 
 			this.view.defineNewTeamEvent(new DefaultEventHandler() {
 				@Override
@@ -78,32 +72,26 @@ public class TeamPresenter extends WritePresenter {
 
 			this.view.defineModifyTeamEvent(new EventHandler<PersonTeamArgs>() {
 				@Override
-				public void
-						onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
+				public void onUpdate(final Object sender, final PersonTeamArgs eventArgs) {
 					TeamPresenter.this.editTeam(eventArgs.getTeam());
 				}
 			});
 
 			this.view.defineVelocityChartEvent(new EventHandler<TypedEventArg<Team>>() {
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Team> eventArgs) {
-					TeamPresenter.this.startPresenter(new WidgetPresenter(
-							TeamPresenter.this.getContext(), new VelocityChart(
-									eventArgs.getObject()), "Velocitychart"));
+				public void onUpdate(final Object sender, final TypedEventArg<Team> eventArgs) {
+					TeamPresenter.this.startPresenter(new WidgetPresenter(TeamPresenter.this.getContext(),
+							new VelocityChart(eventArgs.getObject()), "Velocitychart"));
 				}
 			});
 
 			this.view.defineAddProjectsEvent(new EventHandler<TypedEventArg<Team>>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Team> eventArgs) {
+				public void onUpdate(final Object sender, final TypedEventArg<Team> eventArgs) {
 					if (eventArgs.getObject() != null) {
-						TeamPresenter.this
-								.startPresenter(new AddProjectToTeamPresenter(
-										TeamPresenter.this.getContext(), eventArgs
-												.getObject()));
+						TeamPresenter.this.startPresenter(new AddProjectToTeamPresenter(
+								TeamPresenter.this.getContext(), eventArgs.getObject()));
 					}
 				}
 			});
@@ -113,12 +101,11 @@ public class TeamPresenter extends WritePresenter {
 	}
 
 	/**
-	 * this method opens the function to create a new team. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter .
+	 * this method opens the function to create a new team. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.TeamCreatePresenter .
 	 */
 	private void newTeam() {
-		final TeamCreatePresenter teamCreatePresenter =
-				new TeamCreatePresenter(this.getContext());
+		final TeamCreatePresenter teamCreatePresenter = new TeamCreatePresenter(this.getContext());
 		this.startPresenter(teamCreatePresenter);
 	}
 
@@ -130,8 +117,7 @@ public class TeamPresenter extends WritePresenter {
 	 *            to edit
 	 */
 	private void editTeam(final Team team) {
-		final TeamEditPresenter teamEditPresenter =
-				new TeamEditPresenter(this.getContext(), team);
+		final TeamEditPresenter teamEditPresenter = new TeamEditPresenter(this.getContext(), team);
 		this.startPresenter(teamEditPresenter);
 	}
 
@@ -148,8 +134,7 @@ public class TeamPresenter extends WritePresenter {
 		try {
 			this.beginTransaction();
 			for (final Person person : collection) {
-				final TeamAddMemberCommand command =
-						new TeamAddMemberCommand(team, person);
+				final TeamAddMemberCommand command = new TeamAddMemberCommand(team, person);
 				this.doCommand(command);
 			}
 			this.commitTransaction();
@@ -168,13 +153,11 @@ public class TeamPresenter extends WritePresenter {
 	 *            the persons to remove from the team
 	 * 
 	 */
-	private void removePersonFromTeam(final Team team,
-			final Collection<Person> collection) {
+	private void removePersonFromTeam(final Team team, final Collection<Person> collection) {
 		try {
 			this.beginTransaction();
 			for (final Person person : collection) {
-				final TeamRemoveMemberCommand command =
-						new TeamRemoveMemberCommand(team, person);
+				final TeamRemoveMemberCommand command = new TeamRemoveMemberCommand(team, person);
 				this.doCommand(command);
 			}
 			this.commitTransaction();
@@ -186,8 +169,7 @@ public class TeamPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getTeamAdminRight());
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getTeamAdminRight());
 		this.view.updatePersonTableData(this.getContext().getModel().getAllPersons());
 		this.view.updateTeamTreeData(this.getContext().getModel().getAllTeams());
 	}

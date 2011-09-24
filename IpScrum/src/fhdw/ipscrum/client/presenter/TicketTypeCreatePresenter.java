@@ -103,7 +103,7 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITicketTypeCreateView getView() {
+	public ITicketTypeCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTicketTypeCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

@@ -8,8 +8,7 @@ import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.client.viewinterfaces.IStateFieldAndTickettypeAdministrationView;
 
 /**
- * This class represents the presenter which controls the view to create new FieldTypes,
- * StatTypes and TicketTypes.
+ * This class represents the presenter which controls the view to create new FieldTypes, StatTypes and TicketTypes.
  */
 public class StateFieldAndTickettypeAdministrationPresenter extends ReadPresenter {
 
@@ -19,12 +18,11 @@ public class StateFieldAndTickettypeAdministrationPresenter extends ReadPresente
 	private IStateFieldAndTickettypeAdministrationView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.StateFieldAndTickettypeAdministrationPresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.StateFieldAndTickettypeAdministrationPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public StateFieldAndTickettypeAdministrationPresenter(final ClientContext context) {
 		super(context);
@@ -36,11 +34,9 @@ public class StateFieldAndTickettypeAdministrationPresenter extends ReadPresente
 	}
 
 	@Override
-	public IView getView() {
+	public IView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory()
-							.createStateFieldAndTickettypeAdministrationView();
+			this.view = this.getContext().getViewFactory().createStateFieldAndTickettypeAdministrationView();
 
 			this.view.defineNewStateTypeEvent(new DefaultEventHandler() {
 
@@ -72,44 +68,38 @@ public class StateFieldAndTickettypeAdministrationPresenter extends ReadPresente
 	}
 
 	/**
-	 * this method opens the function to create a new state type. The creation is done in
-	 * the {@link} fhdw.ipscrum.client.presenter.StateTypeCreatePresenter.
+	 * this method opens the function to create a new state type. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.StateTypeCreatePresenter.
 	 */
 	private void newStateType() {
-		final StateTypeCreatePresenter stateTypeCreatePresenter =
-				new StateTypeCreatePresenter(this.getContext());
+		final StateTypeCreatePresenter stateTypeCreatePresenter = new StateTypeCreatePresenter(this.getContext());
 		this.startPresenter(stateTypeCreatePresenter);
 	}
 
 	/**
-	 * this method opens the function to create a new ticket type. The creation is done in
-	 * the {@link} fhdw.ipscrum.client.presenter.TicketTypeCreatePresenter.
+	 * this method opens the function to create a new ticket type. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.TicketTypeCreatePresenter.
 	 */
 	private void newTicketType() {
-		final TicketTypeCreatePresenter ticketTypeCreatePresenter =
-				new TicketTypeCreatePresenter(this.getContext());
+		final TicketTypeCreatePresenter ticketTypeCreatePresenter = new TicketTypeCreatePresenter(this.getContext());
 		this.startPresenter(ticketTypeCreatePresenter);
 	}
 
 	/**
-	 * this method opens the function to create a new field type. The creation is done in
-	 * the {@link} fhdw.ipscrum.client.presenter.FieldTypeCreatePresenter.
+	 * this method opens the function to create a new field type. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.FieldTypeCreatePresenter.
 	 */
 	private void newFieldType() {
-		final FieldTypeCreatePresenter fieldTypeCreatePresenter =
-				new FieldTypeCreatePresenter(this.getContext());
+		final FieldTypeCreatePresenter fieldTypeCreatePresenter = new FieldTypeCreatePresenter(this.getContext());
 		this.startPresenter(fieldTypeCreatePresenter);
 	}
 
 	@Override
 	public void updateView() {
 
-		this.view.updateStateTypeTableData(this.getContext().getModel()
-				.getAllStateTypes());
-		this.view.updateFieldTypeTableData(this.getContext().getModel()
-				.getAllFieldTypes());
-		this.view.updateTicketTypeTableData(this.getContext().getModel()
-				.getAllTicketTypes());
+		this.view.updateStateTypeTableData(this.getContext().getModel().getAllStateTypes());
+		this.view.updateFieldTypeTableData(this.getContext().getModel().getAllFieldTypes());
+		this.view.updateTicketTypeTableData(this.getContext().getModel().getAllTicketTypes());
 	}
 
 	@Override

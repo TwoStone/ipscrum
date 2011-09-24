@@ -38,7 +38,7 @@ public class SearchesPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ISearchesView getView() {
+	public ISearchesView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSearchesView();
 		}
@@ -85,7 +85,7 @@ public class SearchesPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setSavedSeaches(this.getContext().getModel().getSearching());
+		this.doGetView().setSavedSeaches(this.getContext().getModel().getSearching());
 
 	}
 

@@ -10,7 +10,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -26,6 +25,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.ICreateIncidentView;
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
@@ -37,7 +37,7 @@ import fhdw.ipscrum.shared.model.nonMeta.incidents.IncidentType;
  * 
  * @author Phase IV - Group Reporting II
  */
-public class CreateIncidentView extends Composite implements ICreateIncidentView {
+public class CreateIncidentView extends MasterView implements ICreateIncidentView {
 
 	// Events
 	private final DefaultEvent createIncident = new DefaultEvent();
@@ -58,12 +58,14 @@ public class CreateIncidentView extends Composite implements ICreateIncidentView
 	 * constructor of the CreateIncidentView.
 	 */
 	public CreateIncidentView() {
+		super();
+
 		this.selModelPersons = new MultiSelectionModel<Person>();
 		this.selModelProjects = new MultiSelectionModel<Project>();
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(3);
-		this.initWidget(horizontalPanel);
+		this.add(horizontalPanel);
 		horizontalPanel.setSize("644px", "234px");
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
@@ -73,8 +75,7 @@ public class CreateIncidentView extends Composite implements ICreateIncidentView
 
 		final HTML header = new HTML("<h3>Neues Ereignis erstellen</h3>", true);
 		verticalPanel.add(header);
-		verticalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 
 		this.createBtn = new Button(TextConstants.CREATE);
 		this.createBtn.setText(TextConstants.CREATE_INCIDENT);
@@ -127,14 +128,12 @@ public class CreateIncidentView extends Composite implements ICreateIncidentView
 		scrollPanel.setSize("183px", "70px");
 		scrollPanel.setStyleName("smallborderWithWhiteBG");
 
-		this.typeCellList =
-				new CellList<IncidentType>(new AbstractCell<IncidentType>() {
-					@Override
-					public void render(final Context context, final IncidentType value,
-							final SafeHtmlBuilder sb) {
-						sb.appendEscaped(value.getName());
-					}
-				});
+		this.typeCellList = new CellList<IncidentType>(new AbstractCell<IncidentType>() {
+			@Override
+			public void render(final Context context, final IncidentType value, final SafeHtmlBuilder sb) {
+				sb.appendEscaped(value.getName());
+			}
+		});
 		scrollPanel.setWidget(this.typeCellList);
 		this.typeCellList.setSize("161px", "60px");
 		this.typeCellList.setSelectionModel(new SingleSelectionModel<IncidentType>());
@@ -164,10 +163,8 @@ public class CreateIncidentView extends Composite implements ICreateIncidentView
 
 		this.personCellList = new CellList<Person>(new AbstractCell<Person>() {
 			@Override
-			public void render(final Context context, final Person value,
-					final SafeHtmlBuilder sb) {
-				sb.appendEscaped(value.getFirstname() + TextConstants.SPACE
-						+ value.getLastname());
+			public void render(final Context context, final Person value, final SafeHtmlBuilder sb) {
+				sb.appendEscaped(value.getFirstname() + TextConstants.SPACE + value.getLastname());
 			}
 		});
 		scrollPanel_2.setWidget(this.personCellList);
@@ -184,8 +181,7 @@ public class CreateIncidentView extends Composite implements ICreateIncidentView
 
 		this.projectsCellList = new CellList<Project>(new AbstractCell<Project>() {
 			@Override
-			public void render(final Context context, final Project value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Project value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 			}
 		});
@@ -324,8 +320,7 @@ public class CreateIncidentView extends Composite implements ICreateIncidentView
 	@Override
 	@SuppressWarnings("unchecked")
 	public IncidentType getType() {
-		return ((SingleSelectionModel<IncidentType>) this.typeCellList
-				.getSelectionModel()).getSelectedObject();
+		return ((SingleSelectionModel<IncidentType>) this.typeCellList.getSelectionModel()).getSelectedObject();
 	}
 
 	@Override

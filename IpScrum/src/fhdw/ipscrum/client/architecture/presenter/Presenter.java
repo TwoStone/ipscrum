@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.architecture.presenter;
 import fhdw.ipscrum.client.architecture.ClientContext;
 import fhdw.ipscrum.client.architecture.controller.ToastMessageController.DisplayDuration;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
@@ -53,8 +54,7 @@ public abstract class Presenter {
 	/**
 	 * Class that handles {@link PresenterCloseEvent}s.
 	 */
-	public abstract static class PresenterCloseHandler
-			implements Handler<Presenter.PresenterCloseEvent> {
+	public abstract static class PresenterCloseHandler implements Handler<Presenter.PresenterCloseEvent> {
 
 		@Override
 		public void handle(final PresenterCloseEvent event) {
@@ -110,7 +110,24 @@ public abstract class Presenter {
 	 * 
 	 * @return the view of the presenter
 	 */
-	public abstract IView getView();
+	public IView getView() {
+		final IView view = this.doGetView();
+		view.registerHelpHandler(new DefaultEventHandler() {
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				Presenter.this.getContext().getHelpController().showHelp(Presenter.this);
+			}
+		});
+
+		return view;
+	}
+
+	/**
+	 * Returns the view object of the presenter.
+	 * 
+	 * @return the view of the presenter
+	 */
+	public abstract IView doGetView();
 
 	/**
 	 * Updates the view of the presenter.
@@ -118,29 +135,26 @@ public abstract class Presenter {
 	public abstract void updateView();
 
 	/**
-	 * Tells the presenter that it is resumed after it was send to sleep. This method will
-	 * be called by the
-	 * {@link fhdw.ipscrum.client.architecture.controller.ApplicationController} when
-	 * resuming a presenter.
+	 * Tells the presenter that it is resumed after it was send to sleep. This method will be called by the
+	 * {@link fhdw.ipscrum.client.architecture.controller.ApplicationController} when resuming a presenter.
 	 */
 	public void resume() {
 		this.onResume();
 	}
 
 	/**
-	 * Template for the resume method. Deriving presenter can do their own stuff here!
-	 * Default implementation is to call {@link Presenter#updateView()}.
+	 * Template for the resume method. Deriving presenter can do their own stuff here! Default implementation is to call
+	 * {@link Presenter#updateView()}.
 	 */
 	protected void onResume() {
 		this.updateView();
 	}
 
 	/**
-	 * Closes the presenter. This will fire the close event, removes the view of the
-	 * presenter from the GUI and removes the presenter from the current stack.
-	 * 
+	 * Closes the presenter. This will fire the close event, removes the view of the presenter from the GUI and removes
+	 * the presenter from the current stack. TODO später wieder auf final setzen
 	 */
-	public final void close() {
+	public void close() {
 		this.close(new CloseCallback() {
 
 			@Override
@@ -154,13 +168,12 @@ public abstract class Presenter {
 	}
 
 	/**
-	 * Closes the presenter. This will fire the close event, removes the view of the
-	 * presenter from the GUI and removes the presenter from the current stack.
+	 * Closes the presenter. This will fire the close event, removes the view of the presenter from the GUI and removes
+	 * the presenter from the current stack.
 	 * 
 	 * @param callback
-	 *            The callback that is called after asynchronous execution. If the close
-	 *            procedure was successful {@link CloseCallback#closed()} is called,
-	 *            otherwise {@link CloseCallback#closeAborted()}.
+	 *            The callback that is called after asynchronous execution. If the close procedure was successful
+	 *            {@link CloseCallback#closed()} is called, otherwise {@link CloseCallback#closeAborted()}.
 	 */
 	public final void close(final CloseCallback callback) {
 		this.onClose(new CloseCallback() {
@@ -169,8 +182,7 @@ public abstract class Presenter {
 			public void closed() {
 				Presenter.this.closePresenter();
 				Presenter.this.closeEvent.fire(this, new EventArgs());
-				Presenter.this.getContext().getEventBus()
-						.publish(new PresenterCloseEvent(Presenter.this));
+				Presenter.this.getContext().getEventBus().publish(new PresenterCloseEvent(Presenter.this));
 				callback.closed();
 			}
 
@@ -184,7 +196,7 @@ public abstract class Presenter {
 	/**
 	 * Callback that handles asynchronous execution of the close procedure.
 	 */
-	public static interface CloseCallback {
+	public interface CloseCallback {
 		/**
 		 * Will be called when the close procedure was successful.
 		 */
@@ -197,12 +209,10 @@ public abstract class Presenter {
 	}
 
 	/**
-	 * Template method for doing own stuff onClose. The close procedure can be aborted by
-	 * returning <code>false</code>.
+	 * Template method for doing own stuff onClose. The close procedure can be aborted by returning <code>false</code>.
 	 * 
 	 * @param callback
-	 *            Callback that is called after execution, because the method call is
-	 *            ansychronous.
+	 *            Callback that is called after execution, because the method call is ansychronous.
 	 * 
 	 * @return
 	 * 
@@ -220,15 +230,14 @@ public abstract class Presenter {
 	}
 
 	/**
-	 * Registers an external handler to the close event of the presenter. The close event
-	 * will be raised after close was called.
+	 * Registers an external handler to the close event of the presenter. The close event will be raised after close was
+	 * called.
 	 * 
 	 * @param handler
 	 *            The handler that should be registered.
 	 * @return {@link EventRegistration} object for the registration.
 	 */
-	public EventRegistration
-			registerCloseHandler(final EventHandler<EventArgs> handler) {
+	public EventRegistration registerCloseHandler(final EventHandler<EventArgs> handler) {
 		return this.closeEvent.add(handler);
 	}
 
@@ -242,8 +251,8 @@ public abstract class Presenter {
 	}
 
 	/**
-	 * Starts a new presenter. This will add the presenter to the current presenter stack
-	 * and displays the view in the content panel.
+	 * Starts a new presenter. This will add the presenter to the current presenter stack and displays the view in the
+	 * content panel.
 	 * 
 	 * @param presenter
 	 *            The presenter that should be started.
@@ -268,8 +277,7 @@ public abstract class Presenter {
 	 * @param message
 	 *            Message to be displayed.
 	 * @param milliseconds
-	 *            Duration in milliseconds after that the message will disappear. Set to 0
-	 *            for infinite display!
+	 *            Duration in milliseconds after that the message will disappear. Set to 0 for infinite display!
 	 */
 	protected void toastMessage(final String message, final int milliseconds) {
 		this.context.getToastMessageController().toastMessage(message, milliseconds);
@@ -281,11 +289,9 @@ public abstract class Presenter {
 	 * @param message
 	 *            Message to be displayed.
 	 * @param milliseconds
-	 *            Duration in milliseconds after that the message will disappear. Set to 0
-	 *            for infinite display!
+	 *            Duration in milliseconds after that the message will disappear. Set to 0 for infinite display!
 	 */
-	protected void
-			toastMessage(final String message, final DisplayDuration milliseconds) {
+	protected void toastMessage(final String message, final DisplayDuration milliseconds) {
 		this.context.getToastMessageController().toastMessage(message, milliseconds);
 	}
 
@@ -351,15 +357,14 @@ public abstract class Presenter {
 	}
 
 	/**
-	 * Sets the visibility of view-elements. If the active role don´t contains the need
-	 * right, the elements for change operations will be disabled
+	 * Sets the visibility of view-elements. If the active role don´t contains the need right, the elements for change
+	 * operations will be disabled
 	 * 
 	 * @param right
 	 *            the needed right change operations
 	 */
 	public void setViewRightVisibility(final Right right) {
-		this.getView().setRightVisibility(
-				this.getContext().getActiveRole().getRights().contains(right));
+		this.getView().setRightVisibility(this.getContext().getActiveRole().getRights().contains(right));
 	}
 
 	/**

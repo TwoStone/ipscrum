@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,6 +19,7 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.view.widgets.SprintTable;
 import fhdw.ipscrum.client.viewinterfaces.IReleaseEditView;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
@@ -27,42 +27,37 @@ import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 /**
  * represents the view to edit releases.
  */
-public class ReleaseEditView extends Composite implements IReleaseEditView {
+public class ReleaseEditView extends MasterView implements IReleaseEditView {
 
-	private final SingleSelectionModel<Sprint> selModelAssignedSprints =
-			new SingleSelectionModel<Sprint>();
-	private final SingleSelectionModel<Sprint> selModelAvailableSprints =
-			new SingleSelectionModel<Sprint>();
+	private final SingleSelectionModel<Sprint> selModelAssignedSprints = new SingleSelectionModel<Sprint>();
+	private final SingleSelectionModel<Sprint> selModelAvailableSprints = new SingleSelectionModel<Sprint>();
 	private final SprintTable sprintTableAssigned;
 	private final SprintTable sprintTableAvailable;
 
-	private final Event<TypedEventArg<Sprint>> assignEvent =
-			new Event<TypedEventArg<Sprint>>();
-	private final Event<TypedEventArg<Sprint>> removeEvent =
-			new Event<TypedEventArg<Sprint>>();
+	private final Event<TypedEventArg<Sprint>> assignEvent = new Event<TypedEventArg<Sprint>>();
+	private final Event<TypedEventArg<Sprint>> removeEvent = new Event<TypedEventArg<Sprint>>();
 	private final DefaultEvent closeEvent = new DefaultEvent();
 
 	/**
 	 * constructor of the ReleaseEditView.
 	 */
 	public ReleaseEditView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(5);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("900px", "350px");
 
 		final Label lblHeader = new Label("Sprintzuordnung");
 		lblHeader.setStyleName("header3");
 		verticalPanel.add(lblHeader);
-		verticalPanel.setCellHorizontalAlignment(lblHeader,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(lblHeader, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(10);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setCellHeight(horizontalPanel, "100%");
 		horizontalPanel.setHeight("100%");
 
@@ -85,18 +80,15 @@ public class ReleaseEditView extends Composite implements IReleaseEditView {
 
 		final VerticalPanel pnlButtons = new VerticalPanel();
 		horizontalPanel.add(pnlButtons);
-		horizontalPanel.setCellVerticalAlignment(pnlButtons,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel.setCellVerticalAlignment(pnlButtons, HasVerticalAlignment.ALIGN_MIDDLE);
 
 		final Button button = new Button("<-");
 		button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (ReleaseEditView.this.getSelectedSprintAvailableSprints() != null) {
-					ReleaseEditView.this.assignEvent.fire(
-							ReleaseEditView.this,
-							new TypedEventArg<Sprint>(ReleaseEditView.this
-									.getSelectedSprintAvailableSprints()));
+					ReleaseEditView.this.assignEvent.fire(ReleaseEditView.this, new TypedEventArg<Sprint>(
+							ReleaseEditView.this.getSelectedSprintAvailableSprints()));
 				}
 			}
 		});
@@ -107,10 +99,8 @@ public class ReleaseEditView extends Composite implements IReleaseEditView {
 			@Override
 			public void onClick(final ClickEvent event) {
 				if (ReleaseEditView.this.getSelectedSprintAssignedSprints() != null) {
-					ReleaseEditView.this.removeEvent.fire(
-							ReleaseEditView.this,
-							new TypedEventArg<Sprint>(ReleaseEditView.this
-									.getSelectedSprintAssignedSprints()));
+					ReleaseEditView.this.removeEvent.fire(ReleaseEditView.this, new TypedEventArg<Sprint>(
+							ReleaseEditView.this.getSelectedSprintAssignedSprints()));
 				}
 			}
 		});
@@ -143,8 +133,7 @@ public class ReleaseEditView extends Composite implements IReleaseEditView {
 			}
 		});
 		verticalPanel.add(btnClose);
-		verticalPanel.setCellHorizontalAlignment(btnClose,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(btnClose, HasHorizontalAlignment.ALIGN_RIGHT);
 	}
 
 	@Override
@@ -157,39 +146,33 @@ public class ReleaseEditView extends Composite implements IReleaseEditView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IReleaseView#registerAssignEventHandler(fhdw.ipscrum.client
+	 * @see fhdw.ipscrum.client.view.IReleaseView#registerAssignEventHandler(fhdw.ipscrum.client
 	 * .architecture.events.EventHandler)
 	 */
 	@Override
-	public EventRegistration registerAssignEventHandler(
-			final EventHandler<TypedEventArg<Sprint>> handler) {
+	public EventRegistration registerAssignEventHandler(final EventHandler<TypedEventArg<Sprint>> handler) {
 		return this.assignEvent.add(handler);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IReleaseView#registerRemoveEventHandler(fhdw.ipscrum.client
+	 * @see fhdw.ipscrum.client.view.IReleaseView#registerRemoveEventHandler(fhdw.ipscrum.client
 	 * .architecture.events.EventHandler)
 	 */
 	@Override
-	public EventRegistration registerRemoveEventHandler(
-			final EventHandler<TypedEventArg<Sprint>> handler) {
+	public EventRegistration registerRemoveEventHandler(final EventHandler<TypedEventArg<Sprint>> handler) {
 		return this.removeEvent.add(handler);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IReleaseView#registerCloseEventHandler(fhdw.ipscrum.client
+	 * @see fhdw.ipscrum.client.view.IReleaseView#registerCloseEventHandler(fhdw.ipscrum.client
 	 * .architecture.events.DefaultEventHandler)
 	 */
 	@Override
-	public EventRegistration
-			registerCloseEventHandler(final DefaultEventHandler handler) {
+	public EventRegistration registerCloseEventHandler(final DefaultEventHandler handler) {
 		return this.closeEvent.add(handler);
 	}
 
@@ -216,8 +199,7 @@ public class ReleaseEditView extends Composite implements IReleaseEditView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IReleaseView#updateAssignedSprintTable(java.util.List)
+	 * @see fhdw.ipscrum.client.view.IReleaseView#updateAssignedSprintTable(java.util.List)
 	 */
 	@Override
 	public void updateAssignedSprintTable(final List<Sprint> sprints) {
@@ -227,8 +209,7 @@ public class ReleaseEditView extends Composite implements IReleaseEditView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IReleaseView#updateAvailableSprintsTable(java.util.List)
+	 * @see fhdw.ipscrum.client.view.IReleaseView#updateAvailableSprintsTable(java.util.List)
 	 */
 	@Override
 	public void updateAvailableSprintsTable(final List<Sprint> sprints) {

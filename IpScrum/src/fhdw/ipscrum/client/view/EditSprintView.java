@@ -7,7 +7,6 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -21,6 +20,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.SprintDetailArgs;
 import fhdw.ipscrum.client.viewinterfaces.IEditSprintView;
 import fhdw.ipscrum.shared.constants.TextConstants;
@@ -30,7 +30,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
 /**
  * This view is used as a dialog box for creating or modifying sprints.
  */
-public class EditSprintView extends Composite implements IEditSprintView {
+public class EditSprintView extends MasterView implements IEditSprintView {
 
 	/**
 	 * Box for Sprint start.
@@ -90,9 +90,10 @@ public class EditSprintView extends Composite implements IEditSprintView {
 	 * Creates a new instance.
 	 */
 	public EditSprintView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("320px", "200px");
 
 		final VerticalPanel topPanel = new VerticalPanel();
@@ -145,8 +146,7 @@ public class EditSprintView extends Composite implements IEditSprintView {
 		teamZuordnenPanel.add(teamPanel);
 		teamPanel.setSize("180px", "60px");
 
-		final Label lblZugeordnetesTeam =
-				new Label(TextConstants.SPRINTDIALOG_CHOSENTEAM);
+		final Label lblZugeordnetesTeam = new Label(TextConstants.SPRINTDIALOG_CHOSENTEAM);
 		teamPanel.add(lblZugeordnetesTeam);
 
 		this.teams = new ListBox();
@@ -184,10 +184,8 @@ public class EditSprintView extends Composite implements IEditSprintView {
 			@Override
 			public void onClick(final ClickEvent event) {
 				final SprintDetailArgs sprintDetails =
-						new SprintDetailArgs(EditSprintView.this.name.getText(),
-								EditSprintView.this.start.getValue(),
-								EditSprintView.this.end.getValue(), EditSprintView.this
-										.getSelectedTeam(),
+						new SprintDetailArgs(EditSprintView.this.name.getText(), EditSprintView.this.start.getValue(),
+								EditSprintView.this.end.getValue(), EditSprintView.this.getSelectedTeam(),
 								EditSprintView.this.description.getText());
 				EditSprintView.this.okEvent.fire(EditSprintView.this, sprintDetails);
 			}
@@ -199,8 +197,7 @@ public class EditSprintView extends Composite implements IEditSprintView {
 		this.abbButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				EditSprintView.this.cancelEvent.fire(EditSprintView.this,
-						new EventArgs());
+				EditSprintView.this.cancelEvent.fire(EditSprintView.this, new EventArgs());
 			}
 		});
 	}
@@ -218,9 +215,7 @@ public class EditSprintView extends Composite implements IEditSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IEditSprintView#setSelectedTeam(fhdw.ipscrum.shared.model
-	 * .nonMeta.Team)
+	 * @see fhdw.ipscrum.client.view.IEditSprintView#setSelectedTeam(fhdw.ipscrum.shared.model .nonMeta.Team)
 	 */
 	@Override
 	public void setSelectedTeam(final Team team) {
@@ -245,8 +240,7 @@ public class EditSprintView extends Composite implements IEditSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IEditSprintView#registerSave(fhdw.ipscrum.client.architecture
+	 * @see fhdw.ipscrum.client.view.IEditSprintView#registerSave(fhdw.ipscrum.client.architecture
 	 * .events.DefaultEventHandler)
 	 */
 	@Override
@@ -257,8 +251,7 @@ public class EditSprintView extends Composite implements IEditSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IEditSprintView#registetAbort(fhdw.ipscrum.client.architecture
+	 * @see fhdw.ipscrum.client.view.IEditSprintView#registetAbort(fhdw.ipscrum.client.architecture
 	 * .events.DefaultEventHandler)
 	 */
 	@Override
@@ -316,9 +309,7 @@ public class EditSprintView extends Composite implements IEditSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.IEditSprintView#updateFields(fhdw.ipscrum.shared.model
-	 * .nonMeta.Sprint)
+	 * @see fhdw.ipscrum.client.view.IEditSprintView#updateFields(fhdw.ipscrum.shared.model .nonMeta.Sprint)
 	 */
 	@Override
 	public void updateFields(final Sprint sprint) {

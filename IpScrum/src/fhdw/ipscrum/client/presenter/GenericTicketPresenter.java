@@ -92,7 +92,7 @@ public class GenericTicketPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IGenericTicketView getView() {
+	public IGenericTicketView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createGenericTicktView();
 			this.view.registerSaveHandler(new DefaultEventHandler() {
@@ -309,10 +309,10 @@ public class GenericTicketPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setName(this.ticket.getName());
-		this.getView().setDescription(this.ticket.getDescription());
-		this.getView().setCurrentState(this.ticket.getCurrentState());
-		this.getView().setPossibleStates(this.getPossibleStates());
+		this.doGetView().setName(this.ticket.getName());
+		this.doGetView().setDescription(this.ticket.getDescription());
+		this.doGetView().setCurrentState(this.ticket.getCurrentState());
+		this.doGetView().setPossibleStates(this.getPossibleStates());
 
 		for (final FieldTypeController<?> controller : this.controllers) {
 			controller.updateWidget(this.getContext().getModel());
@@ -421,7 +421,7 @@ public class GenericTicketPresenter extends WritePresenter {
 				new ListFieldTypeControllerFactory(listField, this, this.ticket);
 		final ListFieldTypeController<?> controller = factory.create();
 		if (controller != null) {
-			this.getView().add(controller);
+			this.doGetView().add(controller);
 			this.controllers.add(controller);
 		}
 	}
@@ -440,7 +440,7 @@ public class GenericTicketPresenter extends WritePresenter {
 				new SingleFieldTypeControllerFactory(singleField, this, this.ticket);
 		final SingleFieldTypeController<?> controller = factory.create();
 		if (controller != null) {
-			this.getView().add(controller);
+			this.doGetView().add(controller);
 			this.controllers.add(controller);
 		}
 	}

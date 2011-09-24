@@ -70,7 +70,7 @@ public class RoleCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IRoleCreateView getView() {
+	public IRoleCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createRoleCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

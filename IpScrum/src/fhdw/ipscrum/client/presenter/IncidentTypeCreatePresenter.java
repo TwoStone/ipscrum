@@ -70,7 +70,7 @@ public class IncidentTypeCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IIncidentTypeCreateView getView() {
+	public IIncidentTypeCreateView doGetView() {
 		if (this.view == null) {
 			this.view =
 					this.getContext().getViewFactory().createIncidentTypeCreateView();

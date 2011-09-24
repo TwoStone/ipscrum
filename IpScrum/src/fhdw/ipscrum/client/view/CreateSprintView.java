@@ -7,7 +7,6 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -21,6 +20,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.SprintDetailArgs;
 import fhdw.ipscrum.client.viewinterfaces.ICreateSprintView;
 import fhdw.ipscrum.shared.constants.TextConstants;
@@ -29,7 +29,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
 /**
  * This view is used as a dialog box for creating or modifying sprints.
  */
-public class CreateSprintView extends Composite implements ICreateSprintView {
+public class CreateSprintView extends MasterView implements ICreateSprintView {
 
 	private final DateBox start;
 	private final DateBox end;
@@ -48,9 +48,10 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 	 * constructor of the CreateSprintView.
 	 */
 	public CreateSprintView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("320px", "200px");
 
 		final VerticalPanel topPanel = new VerticalPanel();
@@ -103,8 +104,7 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 		teamZuordnenPanel.add(teamPanel);
 		teamPanel.setSize("180px", "60px");
 
-		final Label lblZugeordnetesTeam =
-				new Label(TextConstants.SPRINTDIALOG_CHOSENTEAM);
+		final Label lblZugeordnetesTeam = new Label(TextConstants.SPRINTDIALOG_CHOSENTEAM);
 		teamPanel.add(lblZugeordnetesTeam);
 
 		this.teams = new ListBox();
@@ -142,13 +142,10 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 			@Override
 			public void onClick(final ClickEvent event) {
 				final SprintDetailArgs sprintDetails =
-						new SprintDetailArgs(CreateSprintView.this.name.getText(),
-								CreateSprintView.this.start.getValue(),
-								CreateSprintView.this.end.getValue(),
-								CreateSprintView.this.getSelectedTeam(),
-								CreateSprintView.this.description.getText());
-				CreateSprintView.this.okEvent
-						.fire(CreateSprintView.this, sprintDetails);
+						new SprintDetailArgs(CreateSprintView.this.name.getText(), CreateSprintView.this.start
+								.getValue(), CreateSprintView.this.end.getValue(), CreateSprintView.this
+								.getSelectedTeam(), CreateSprintView.this.description.getText());
+				CreateSprintView.this.okEvent.fire(CreateSprintView.this, sprintDetails);
 			}
 		});
 
@@ -158,8 +155,7 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 		this.abb_button.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				CreateSprintView.this.cancelEvent.fire(CreateSprintView.this,
-						new EventArgs());
+				CreateSprintView.this.cancelEvent.fire(CreateSprintView.this, new EventArgs());
 			}
 		});
 	}
@@ -177,9 +173,7 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ICreateSprintView#setSelectedTeam(fhdw.ipscrum.shared.
-	 * model.nonMeta.Team)
+	 * @see fhdw.ipscrum.client.view.ICreateSprintView#setSelectedTeam(fhdw.ipscrum.shared. model.nonMeta.Team)
 	 */
 	@Override
 	public void setSelectedTeam(final Team team) {
@@ -189,8 +183,7 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ICreateSprintView#fillComboBoxTeams(java.util.ArrayList)
+	 * @see fhdw.ipscrum.client.view.ICreateSprintView#fillComboBoxTeams(java.util.ArrayList)
 	 */
 	@Override
 	public void fillComboBoxTeams(final List<Team> teamList) {
@@ -216,8 +209,7 @@ public class CreateSprintView extends Composite implements ICreateSprintView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.client.view.ICreateSprintView#addCancelHandler(fhdw.ipscrum.client
+	 * @see fhdw.ipscrum.client.view.ICreateSprintView#addCancelHandler(fhdw.ipscrum.client
 	 * .architecture.events.EventHandler)
 	 */
 	@Override

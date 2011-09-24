@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -19,6 +18,7 @@ import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.PBIArgs;
 import fhdw.ipscrum.client.view.widgets.ProductBacklogTable;
 import fhdw.ipscrum.client.viewinterfaces.IProductBacklogView;
@@ -26,11 +26,10 @@ import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * view class of the team interface. this composes the team management gui. this view is
- * used to inspect, create and modify teams as well as adding and removing persons to
- * teams.
+ * view class of the team interface. this composes the team management gui. this view is used to inspect, create and
+ * modify teams as well as adding and removing persons to teams.
  */
-public class ProductBacklogView extends Composite implements IProductBacklogView {
+public class ProductBacklogView extends MasterView implements IProductBacklogView {
 	// ########## Events #############
 	private final Event<EventArgs> newTicketEvent = new Event<EventArgs>();
 	private final Event<PBIArgs> detailPBIEvent = new Event<PBIArgs>();
@@ -50,8 +49,7 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 		this.project = project;
 	}
 
-	private final Event<TypedEventArg<Project>> gotoProjectEvent =
-			new Event<TypedEventArg<Project>>();
+	private final Event<TypedEventArg<Project>> gotoProjectEvent = new Event<TypedEventArg<Project>>();
 
 	private final SingleSelectionModel<ProductBacklogItem> selModelPBITable;
 
@@ -67,10 +65,12 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 	 * constructor of the ProductBacklogView.
 	 */
 	public ProductBacklogView() {
+		super();
+
 		this.selModelPBITable = new SingleSelectionModel<ProductBacklogItem>();
 
 		final VerticalPanel outerPanel = new VerticalPanel();
-		this.initWidget(outerPanel);
+		this.add(outerPanel);
 
 		final VerticalPanel firstPanel = new VerticalPanel();
 		firstPanel.setSpacing(5);
@@ -102,18 +102,15 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 		this.btnNeuesAddNewPBI.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogView.this.newTicketEvent.fire(ProductBacklogView.this,
-						new EventArgs());
+				ProductBacklogView.this.newTicketEvent.fire(ProductBacklogView.this, new EventArgs());
 			}
 		});
-		horizontalPanelTeamButtons.setCellVerticalAlignment(this.btnNeuesAddNewPBI,
-				HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanelTeamButtons.setCellVerticalAlignment(this.btnNeuesAddNewPBI, HasVerticalAlignment.ALIGN_MIDDLE);
 		this.btnNeuesAddNewPBI.setWidth("100%");
 
 		final HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
 		horizontalPanelTeamButtons.add(horizontalPanel_4);
-		horizontalPanelTeamButtons.setCellHorizontalAlignment(horizontalPanel_4,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		horizontalPanelTeamButtons.setCellHorizontalAlignment(horizontalPanel_4, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		this.btnEditPBI = new Button("Bearbeiten");
 		horizontalPanel_4.add(this.btnEditPBI);
@@ -122,14 +119,11 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 			public void onClick(final ClickEvent event) {
 				// TeamView.this.newTeamEvent.fire(TeamView.this, new
 				// EventArgs());
-				ProductBacklogView.this.detailPBIEvent.fire(
-						ProductBacklogView.this,
-						new PBIArgs(ProductBacklogView.this.selModelPBITable
-								.getSelectedObject()));
+				ProductBacklogView.this.detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(
+						ProductBacklogView.this.selModelPBITable.getSelectedObject()));
 			}
 		});
-		horizontalPanelTeamButtons.setCellHorizontalAlignment(this.btnEditPBI,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		horizontalPanelTeamButtons.setCellHorizontalAlignment(this.btnEditPBI, HasHorizontalAlignment.ALIGN_RIGHT);
 		this.btnEditPBI.setWidth("98px");
 
 		this.btnHigherPrio = new Button("Priorität eröhen");
@@ -139,10 +133,8 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogView.this.pbiUpEvent.fire(
-						ProductBacklogView.this,
-						new PBIArgs(ProductBacklogView.this.selModelPBITable
-								.getSelectedObject()));
+				ProductBacklogView.this.pbiUpEvent.fire(ProductBacklogView.this, new PBIArgs(
+						ProductBacklogView.this.selModelPBITable.getSelectedObject()));
 			}
 		});
 
@@ -154,10 +146,8 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogView.this.pbiDownEvent.fire(
-						ProductBacklogView.this,
-						new PBIArgs(ProductBacklogView.this.selModelPBITable
-								.getSelectedObject()));
+				ProductBacklogView.this.pbiDownEvent.fire(ProductBacklogView.this, new PBIArgs(
+						ProductBacklogView.this.selModelPBITable.getSelectedObject()));
 			}
 		});
 
@@ -178,30 +168,26 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 
 		final Button btnViewDetails = new Button("Details");
 		verticalPanel.add(btnViewDetails);
-		verticalPanel.setCellHorizontalAlignment(btnViewDetails,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(btnViewDetails, HasHorizontalAlignment.ALIGN_RIGHT);
 		btnViewDetails.setWidth("98px");
 
 		final Button btnClose = new Button("Schließen");
 		outerPanel.add(btnClose);
-		outerPanel.setCellHorizontalAlignment(btnClose,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		outerPanel.setCellHorizontalAlignment(btnClose, HasHorizontalAlignment.ALIGN_RIGHT);
 		btnClose.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogView.this.gotoProjectEvent.fire(ProductBacklogView.this,
-						new TypedEventArg<Project>(ProductBacklogView.this.project));
+				ProductBacklogView.this.gotoProjectEvent.fire(ProductBacklogView.this, new TypedEventArg<Project>(
+						ProductBacklogView.this.project));
 			}
 		});
 		btnViewDetails.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogView.this.detailPBIEvent.fire(
-						ProductBacklogView.this,
-						new PBIArgs(ProductBacklogView.this.selModelPBITable
-								.getSelectedObject()));
+				ProductBacklogView.this.detailPBIEvent.fire(ProductBacklogView.this, new PBIArgs(
+						ProductBacklogView.this.selModelPBITable.getSelectedObject()));
 
 			}
 		});
@@ -249,14 +235,12 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 	 * (fhdw.ipscrum.client.architecture.events.EventHandler)
 	 */
 	@Override
-	public void addPBIDetailsEventHandler(
-			final fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg) {
+	public void addPBIDetailsEventHandler(final fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg) {
 		this.editPBIEvent.add(arg);
 	};
 
 	@Override
-	public void addPBIEditEventHandler(
-			final fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg) {
+	public void addPBIEditEventHandler(final fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg) {
 		this.detailPBIEvent.add(arg);
 	};
 
@@ -317,8 +301,7 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 	}
 
 	@Override
-	public void
-			updateInactiveProductBacklogTable(final List<ProductBacklogItem> pbiSet) {
+	public void updateInactiveProductBacklogTable(final List<ProductBacklogItem> pbiSet) {
 		this.productBacklogTableInactive.setRowData(pbiSet);
 
 	}
@@ -341,8 +324,7 @@ public class ProductBacklogView extends Composite implements IProductBacklogView
 	}
 
 	@Override
-	public EventRegistration registerGotoProjectHandler(
-			final EventHandler<TypedEventArg<Project>> handler) {
+	public EventRegistration registerGotoProjectHandler(final EventHandler<TypedEventArg<Project>> handler) {
 		return this.gotoProjectEvent.add(handler);
 	}
 

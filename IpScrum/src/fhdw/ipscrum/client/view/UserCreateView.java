@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -26,23 +25,25 @@ import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.UserCreatePresenter.IUserCreateView;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 
 /**
  * represents the view to create Users.
  */
-public class UserCreateView extends Composite implements IUserCreateView {
+public class UserCreateView extends MasterView implements IUserCreateView {
 	/**
 	 * constructor of the UserCreateView.
 	 */
 	public UserCreateView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("500px", "500px");
 
 		final FlexTable flexTable = new FlexTable();
@@ -101,8 +102,7 @@ public class UserCreateView extends Composite implements IUserCreateView {
 
 		this.personList = new CellList<Person>(new AbstractCell<Person>() {
 			@Override
-			public void render(final Context context, final Person value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Person value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getFirstname() + " " + value.getLastname());
 			}
 		});
@@ -130,10 +130,8 @@ public class UserCreateView extends Composite implements IUserCreateView {
 		this.horizontalPanel = new HorizontalPanel();
 		this.horizontalPanel.setSpacing(5);
 		verticalPanel.add(this.horizontalPanel);
-		verticalPanel.setCellVerticalAlignment(this.horizontalPanel,
-				HasVerticalAlignment.ALIGN_BOTTOM);
-		verticalPanel.setCellHorizontalAlignment(this.horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellVerticalAlignment(this.horizontalPanel, HasVerticalAlignment.ALIGN_BOTTOM);
+		verticalPanel.setCellHorizontalAlignment(this.horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		this.btnSpeichern = new Button("Speichern");
 		this.btnSpeichern.addClickHandler(new ClickHandler() {
@@ -141,19 +139,16 @@ public class UserCreateView extends Composite implements IUserCreateView {
 			public void onClick(final ClickEvent event) {
 				if (UserCreateView.this.checkPasswords()) {
 					if (UserCreateView.this.simpleCheckBox.getValue()) {
-						UserCreateView.this.createUserAndPersonEvent.fire(
-								UserCreateView.this, new NewUserAndPersonEventArgs(
-										UserCreateView.this.nameTextBox.getText(),
+						UserCreateView.this.createUserAndPersonEvent.fire(UserCreateView.this,
+								new NewUserAndPersonEventArgs(UserCreateView.this.nameTextBox.getText(),
 										UserCreateView.this.passwordTextBox.getText(),
 										UserCreateView.this.personFirstName.getText(),
 										UserCreateView.this.personLastName.getText()));
 					} else {
-						UserCreateView.this.createUserEvent.fire(
-								UserCreateView.this,
-								new NewUserEventArgs(UserCreateView.this.nameTextBox
-										.getText(), UserCreateView.this.passwordTextBox
-										.getText(), UserCreateView.this.selectionModel
-										.getSelectedObject()));
+						UserCreateView.this.createUserEvent.fire(UserCreateView.this,
+								new NewUserEventArgs(UserCreateView.this.nameTextBox.getText(),
+										UserCreateView.this.passwordTextBox.getText(),
+										UserCreateView.this.selectionModel.getSelectedObject()));
 					}
 				}
 			}
@@ -171,10 +166,8 @@ public class UserCreateView extends Composite implements IUserCreateView {
 		this.horizontalPanel.add(this.btnAbbrechen);
 	}
 
-	private final Event<NewUserEventArgs> createUserEvent =
-			new Event<NewUserEventArgs>();
-	private final Event<NewUserAndPersonEventArgs> createUserAndPersonEvent =
-			new Event<NewUserAndPersonEventArgs>();
+	private final Event<NewUserEventArgs> createUserEvent = new Event<NewUserEventArgs>();
+	private final Event<NewUserAndPersonEventArgs> createUserAndPersonEvent = new Event<NewUserAndPersonEventArgs>();
 	private final DefaultEvent abortEvent = new DefaultEvent();
 	private final Label lblVorname;
 	private final Label lblNachname;
@@ -188,8 +181,7 @@ public class UserCreateView extends Composite implements IUserCreateView {
 	private final HorizontalPanel horizontalPanel;
 	private final Button btnSpeichern;
 	private final Button btnAbbrechen;
-	private final SingleSelectionModel<Person> selectionModel =
-			new SingleSelectionModel<Person>();
+	private final SingleSelectionModel<Person> selectionModel = new SingleSelectionModel<Person>();
 	private final ScrollPanel scrollPanel;
 
 	@Override
@@ -205,20 +197,17 @@ public class UserCreateView extends Composite implements IUserCreateView {
 	}
 
 	@Override
-	public EventRegistration registerCreateNewUser(
-			final EventHandler<NewUserEventArgs> handler) {
+	public EventRegistration registerCreateNewUser(final EventHandler<NewUserEventArgs> handler) {
 		return this.createUserEvent.add(handler);
 	}
 
 	@Override
-	public EventRegistration registerCreateNewUserAndPerson(
-			final EventHandler<NewUserAndPersonEventArgs> handler) {
+	public EventRegistration registerCreateNewUserAndPerson(final EventHandler<NewUserAndPersonEventArgs> handler) {
 		return this.createUserAndPersonEvent.add(handler);
 	}
 
 	private boolean checkPasswords() {
-		return this.passwordTextBox.getText().equals(
-				this.passwordRepeatTextBox.getText());
+		return this.passwordTextBox.getText().equals(this.passwordRepeatTextBox.getText());
 	}
 
 	@Override

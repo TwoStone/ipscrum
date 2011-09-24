@@ -50,7 +50,7 @@ public class CreateSprintPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ICreateSprintView getView() {
+	public ICreateSprintView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createCreateSprintView();
 			this.view.registerSave(new DefaultEventHandler() {
@@ -89,11 +89,11 @@ public class CreateSprintPresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			final String name = this.getView().getName();
-			final String description = this.getView().getDescription();
-			final Date startDate = this.getView().getStart();
-			final Date endDate = this.getView().getEnd();
-			final Team selectedTeam = this.getView().getSelectedTeam();
+			final String name = this.doGetView().getName();
+			final String description = this.doGetView().getDescription();
+			final Date startDate = this.doGetView().getStart();
+			final Date endDate = this.doGetView().getEnd();
+			final Team selectedTeam = this.doGetView().getSelectedTeam();
 
 			if (selectedTeam == null) {
 				this.toastMessage("Bitte wählen Sie ein Team aus!");

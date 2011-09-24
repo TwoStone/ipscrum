@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -20,14 +19,14 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.AddFieldsToTicketTypePresenter.IAddFieldsToTicketTypeView;
 import fhdw.ipscrum.shared.model.metamodel.fields.FieldType;
 
 /**
  * represents the view in which field types could be added to a ticket type.
  */
-public class AddFieldsToTicketTypeView extends Composite
-		implements IAddFieldsToTicketTypeView {
+public class AddFieldsToTicketTypeView extends MasterView implements IAddFieldsToTicketTypeView {
 
 	/**
 	 * represents the save event which is fired to save.
@@ -50,17 +49,17 @@ public class AddFieldsToTicketTypeView extends Composite
 	 * constructor of the AddFieldsToTicketView.
 	 */
 	public AddFieldsToTicketTypeView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setHeight("361px");
 
 		final HTML header = new HTML("<Felder zu Tickettyp hinzufügen</h3>", true);
 		verticalPanel.add(header);
-		verticalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Label firstNameLabel = new Label("Wählbare Felder");
 		verticalPanel.add(firstNameLabel);
@@ -71,8 +70,7 @@ public class AddFieldsToTicketTypeView extends Composite
 
 		this.cellList = new CellList<FieldType>(new AbstractCell<FieldType>() {
 			@Override
-			public void render(final Context context, final FieldType value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final FieldType value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 			}
 		});
@@ -84,15 +82,13 @@ public class AddFieldsToTicketTypeView extends Composite
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button saveButton = new Button("Speichern");
 		saveButton.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				AddFieldsToTicketTypeView.this.saveEvent
-						.fire(AddFieldsToTicketTypeView.this);
+				AddFieldsToTicketTypeView.this.saveEvent.fire(AddFieldsToTicketTypeView.this);
 			}
 		});
 		horizontalPanel.add(saveButton);
@@ -102,8 +98,7 @@ public class AddFieldsToTicketTypeView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				AddFieldsToTicketTypeView.this.abortEvent
-						.fire(AddFieldsToTicketTypeView.this);
+				AddFieldsToTicketTypeView.this.abortEvent.fire(AddFieldsToTicketTypeView.this);
 			}
 		});
 		horizontalPanel.add(abortButton);
@@ -129,8 +124,7 @@ public class AddFieldsToTicketTypeView extends Composite
 	@Override
 	@SuppressWarnings("unchecked")
 	public FieldType getSelectedFieldType() {
-		return ((SingleSelectionModel<FieldType>) this.cellList.getSelectionModel())
-				.getSelectedObject();
+		return ((SingleSelectionModel<FieldType>) this.cellList.getSelectionModel()).getSelectedObject();
 	}
 
 	/*

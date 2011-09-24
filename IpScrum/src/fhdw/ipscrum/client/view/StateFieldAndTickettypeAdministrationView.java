@@ -7,7 +7,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -18,6 +17,7 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.IStateFieldAndTickettypeAdministrationView;
 import fhdw.ipscrum.shared.model.metamodel.fields.FieldType;
 import fhdw.ipscrum.shared.model.metamodel.fields.Many;
@@ -27,11 +27,10 @@ import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
- * view class of the team interface. this composes the team management gui. this view is
- * used to inspect, create and modify teams as well as adding and removing persons to
- * teams.
+ * view class of the team interface. this composes the team management gui. this view is used to inspect, create and
+ * modify teams as well as adding and removing persons to teams.
  */
-public class StateFieldAndTickettypeAdministrationView extends Composite
+public class StateFieldAndTickettypeAdministrationView extends MasterView
 		implements IStateFieldAndTickettypeAdministrationView {
 	private final Event<EventArgs> newStateTypeEvent = new Event<EventArgs>();
 	private final Event<EventArgs> newFieldTypeEvent = new Event<EventArgs>();
@@ -54,6 +53,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 	 * constructor of the StateFieldAndTickettypeAdministrationView.
 	 */
 	public StateFieldAndTickettypeAdministrationView() {
+		super();
 
 		this.stateTypeDataProvider = new ListDataProvider<StateType>();
 		this.ticketTypeDataProvider = new ListDataProvider<TicketType>();
@@ -61,7 +61,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
-		this.initWidget(horizontalPanel);
+		this.add(horizontalPanel);
 
 		final VerticalPanel verticalPanelTeams = new VerticalPanel();
 		horizontalPanel.add(verticalPanelTeams);
@@ -78,8 +78,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 		this.ticketTypeDataProvider.addDataDisplay(cellTableTicketTypes);
 		scrollPanel_1.setWidget(cellTableTicketTypes);
 		cellTableTicketTypes.setSize("100%", "100%");
-		this.selModelTicketTypesTable =
-				new MultiSelectionModel<TicketType>(this.ticketTypeDataProvider);
+		this.selModelTicketTypesTable = new MultiSelectionModel<TicketType>(this.ticketTypeDataProvider);
 		cellTableTicketTypes.setSelectionModel(this.selModelTicketTypesTable);
 
 		final TextColumn<TicketType> colName = new TextColumn<TicketType>() {
@@ -110,9 +109,8 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 		this.btnNeuenTicketTypenAnlegen.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				StateFieldAndTickettypeAdministrationView.this.newTicketTypeEvent
-						.fire(StateFieldAndTickettypeAdministrationView.this,
-								new EventArgs());
+				StateFieldAndTickettypeAdministrationView.this.newTicketTypeEvent.fire(
+						StateFieldAndTickettypeAdministrationView.this, new EventArgs());
 			}
 		});
 		horizontalPanelTeamButtons.add(this.btnNeuenTicketTypenAnlegen);
@@ -126,8 +124,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 		final VerticalPanel verticalPanelPersons = new VerticalPanel();
 		horizontalPanel.add(verticalPanelPersons);
 		verticalPanelPersons.setHeight("479px");
-		this.selModelFieldTypeTable =
-				new MultiSelectionModel<FieldType>(this.fieldTypeDataProvider);
+		this.selModelFieldTypeTable = new MultiSelectionModel<FieldType>(this.fieldTypeDataProvider);
 
 		final Label lblStates = new Label("Zustände");
 		verticalPanelPersons.add(lblStates);
@@ -141,8 +138,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 		this.stateTypeDataProvider.addDataDisplay(cellTableStates);
 		scrollPanel.setWidget(cellTableStates);
 		cellTableStates.setSize("100%", "100%");
-		this.selModelStateTypeTable =
-				new MultiSelectionModel<StateType>(this.stateTypeDataProvider);
+		this.selModelStateTypeTable = new MultiSelectionModel<StateType>(this.stateTypeDataProvider);
 		cellTableStates.setSelectionModel(this.selModelStateTypeTable);
 
 		final HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
@@ -155,9 +151,8 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				StateFieldAndTickettypeAdministrationView.this.newStateTypeEvent
-						.fire(StateFieldAndTickettypeAdministrationView.this,
-								new EventArgs());
+				StateFieldAndTickettypeAdministrationView.this.newStateTypeEvent.fire(
+						StateFieldAndTickettypeAdministrationView.this, new EventArgs());
 
 			}
 
@@ -210,8 +205,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 		this.fieldTypeDataProvider.addDataDisplay(this.cellTableFieldTypes);
 		scrollPanel_2.setWidget(this.cellTableFieldTypes);
 		this.cellTableFieldTypes.setSize("100%", "100%");
-		this.selModelFieldTypeTable =
-				new MultiSelectionModel<FieldType>(this.fieldTypeDataProvider);
+		this.selModelFieldTypeTable = new MultiSelectionModel<FieldType>(this.fieldTypeDataProvider);
 		this.cellTableFieldTypes.setSelectionModel(this.selModelFieldTypeTable);
 
 		final TextColumn<FieldType> textColumn = new TextColumn<FieldType>() {
@@ -229,15 +223,13 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 				object.getMultiplicity().accept(new MultiplicityVisitor() {
 					@Override
 					public void handleOne(final One one) {
-						StateFieldAndTickettypeAdministrationView.this.multiplicity =
-								"1";
+						StateFieldAndTickettypeAdministrationView.this.multiplicity = "1";
 
 					}
 
 					@Override
 					public void handleMany(final Many many) {
-						StateFieldAndTickettypeAdministrationView.this.multiplicity =
-								"*";
+						StateFieldAndTickettypeAdministrationView.this.multiplicity = "*";
 					}
 
 				});
@@ -258,9 +250,8 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				StateFieldAndTickettypeAdministrationView.this.newFieldTypeEvent
-						.fire(StateFieldAndTickettypeAdministrationView.this,
-								new EventArgs());
+				StateFieldAndTickettypeAdministrationView.this.newFieldTypeEvent.fire(
+						StateFieldAndTickettypeAdministrationView.this, new EventArgs());
 
 			}
 		});
@@ -270,8 +261,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.client.view.IStateFieldAndTickettypeAdministrationView#
-	 * defineNewStateTypeEvent
+	 * @see fhdw.ipscrum.client.view.IStateFieldAndTickettypeAdministrationView# defineNewStateTypeEvent
 	 * (fhdw.ipscrum.client.architecture.events.DefaultEventHandler)
 	 */
 	@Override
@@ -282,8 +272,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.client.view.IStateFieldAndTickettypeAdministrationView#
-	 * defineNewFieldTypeEvent
+	 * @see fhdw.ipscrum.client.view.IStateFieldAndTickettypeAdministrationView# defineNewFieldTypeEvent
 	 * (fhdw.ipscrum.client.architecture.events.DefaultEventHandler)
 	 */
 
@@ -295,8 +284,7 @@ public class StateFieldAndTickettypeAdministrationView extends Composite
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.client.view.IStateFieldAndTickettypeAdministrationView#
-	 * defineNewTickettypeEvent
+	 * @see fhdw.ipscrum.client.view.IStateFieldAndTickettypeAdministrationView# defineNewTickettypeEvent
 	 * (fhdw.ipscrum.client.architecture.events.DefaultEventHandler)
 	 */
 

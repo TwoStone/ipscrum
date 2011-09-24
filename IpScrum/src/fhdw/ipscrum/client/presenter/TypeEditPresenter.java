@@ -62,7 +62,7 @@ public class TypeEditPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITypeEditView getView() {
+	public ITypeEditView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTypeEditView();
 

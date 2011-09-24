@@ -364,7 +364,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IProductBacklogItemCreateView getView() {
+	public IProductBacklogItemCreateView doGetView() {
 		if (this.view == null) {
 			this.view =
 					this.getContext().getViewFactory()
@@ -450,10 +450,10 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setBugType(this.getContext().getModel().getAllBugTicketTypes());
-		this.getView().setFeatureTypes(
+		this.doGetView().setBugType(this.getContext().getModel().getAllBugTicketTypes());
+		this.doGetView().setFeatureTypes(
 				this.getContext().getModel().getAllFeatureTicketTypes());
-		this.getView().setReleases(this.project.getReleases());
+		this.doGetView().setReleases(this.project.getReleases());
 	}
 
 }

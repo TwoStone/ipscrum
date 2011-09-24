@@ -7,7 +7,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DisclosurePanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
@@ -24,6 +23,7 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.ProjectDisplayPresenter.IProjectDisplayView;
 import fhdw.ipscrum.client.view.widgets.EditLabel;
 import fhdw.ipscrum.client.view.widgets.ProductBacklogTable;
@@ -37,15 +37,16 @@ import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 /**
  * represents the view to disply projects.
  */
-public class ProjectDisplayView extends Composite implements IProjectDisplayView {
+public class ProjectDisplayView extends MasterView implements IProjectDisplayView {
 	/**
 	 * constructor of the ProjectDisplayView.
 	 */
 	public ProjectDisplayView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(5);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 		verticalPanel.setSize("600px", "441px");
 
 		final HorizontalPanel upper = new HorizontalPanel();
@@ -130,8 +131,7 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProjectDisplayView.this.gotoProductBacklogEvent
-						.fire(ProjectDisplayView.this);
+				ProjectDisplayView.this.gotoProductBacklogEvent.fire(ProjectDisplayView.this);
 			}
 		});
 
@@ -228,9 +228,8 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 		btnRelBurndownchart.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProjectDisplayView.this.releaseBurndownChartEvent.fire(
-						ProjectDisplayView.this, new TypedEventArg<Release>(
-								ProjectDisplayView.this.getSelectedRelease()));
+				ProjectDisplayView.this.releaseBurndownChartEvent.fire(ProjectDisplayView.this,
+						new TypedEventArg<Release>(ProjectDisplayView.this.getSelectedRelease()));
 			}
 		});
 		buttonPanelRelease.add(btnRelBurndownchart);
@@ -239,9 +238,8 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 		btnSprintBurndownchart.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProjectDisplayView.this.sprintBurndownChartEvent.fire(
-						ProjectDisplayView.this, new TypedEventArg<Sprint>(
-								ProjectDisplayView.this.getSelectedSprint()));
+				ProjectDisplayView.this.sprintBurndownChartEvent.fire(ProjectDisplayView.this,
+						new TypedEventArg<Sprint>(ProjectDisplayView.this.getSelectedSprint()));
 			}
 		});
 		buttonPanel.add(btnSprintBurndownchart);
@@ -251,9 +249,8 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 		btnTaskboard.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProjectDisplayView.this.gotoTaskboardEvent.fire(
-						ProjectDisplayView.this, new TypedEventArg<Sprint>(
-								ProjectDisplayView.this.getSelectedSprint()));
+				ProjectDisplayView.this.gotoTaskboardEvent.fire(ProjectDisplayView.this, new TypedEventArg<Sprint>(
+						ProjectDisplayView.this.getSelectedSprint()));
 			}
 		});
 		this.bntRemoveRelease.addClickHandler(new ClickHandler() {
@@ -266,15 +263,11 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 
 	}
 
-	private final Event<TypedEventArg<String>> changeNameEvent =
-			new Event<TypedEventArg<String>>();
+	private final Event<TypedEventArg<String>> changeNameEvent = new Event<TypedEventArg<String>>();
 	private final DefaultEvent gotoSystemsEvent = new DefaultEvent();
-	private final Event<TypedEventArg<Sprint>> gotoTaskboardEvent =
-			new Event<TypedEventArg<Sprint>>();
-	private final Event<TypedEventArg<Sprint>> sprintBurndownChartEvent =
-			new Event<TypedEventArg<Sprint>>();
-	private final Event<TypedEventArg<Release>> releaseBurndownChartEvent =
-			new Event<TypedEventArg<Release>>();
+	private final Event<TypedEventArg<Sprint>> gotoTaskboardEvent = new Event<TypedEventArg<Sprint>>();
+	private final Event<TypedEventArg<Sprint>> sprintBurndownChartEvent = new Event<TypedEventArg<Sprint>>();
+	private final Event<TypedEventArg<Release>> releaseBurndownChartEvent = new Event<TypedEventArg<Release>>();
 	private final DefaultEvent gotoHistoryEvent = new DefaultEvent();
 	private final DefaultEvent createSprint = new DefaultEvent();
 	private final DefaultEvent createRelease = new DefaultEvent();
@@ -318,8 +311,7 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 	}
 
 	@Override
-	public EventRegistration registerChangeNameHandler(
-			final EventHandler<TypedEventArg<String>> handler) {
+	public EventRegistration registerChangeNameHandler(final EventHandler<TypedEventArg<String>> handler) {
 		return this.changeNameEvent.add(handler);
 	}
 
@@ -329,8 +321,7 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 	}
 
 	@Override
-	public EventRegistration registerGotoTaskboard(
-			final EventHandler<TypedEventArg<Sprint>> handler) {
+	public EventRegistration registerGotoTaskboard(final EventHandler<TypedEventArg<Sprint>> handler) {
 		return this.gotoTaskboardEvent.add(handler);
 	}
 
@@ -350,8 +341,7 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 	}
 
 	@Override
-	public EventRegistration registerGotoProdcutBacklog(
-			final DefaultEventHandler handler) {
+	public EventRegistration registerGotoProdcutBacklog(final DefaultEventHandler handler) {
 		return this.gotoProductBacklogEvent.add(handler);
 	}
 
@@ -366,14 +356,12 @@ public class ProjectDisplayView extends Composite implements IProjectDisplayView
 	}
 
 	@Override
-	public EventRegistration registerSprintBurndownChartEvent(
-			final EventHandler<TypedEventArg<Sprint>> handler) {
+	public EventRegistration registerSprintBurndownChartEvent(final EventHandler<TypedEventArg<Sprint>> handler) {
 		return this.sprintBurndownChartEvent.add(handler);
 	}
 
 	@Override
-	public EventRegistration registerReleaseBurndownChartEvent(
-			final EventHandler<TypedEventArg<Release>> handler) {
+	public EventRegistration registerReleaseBurndownChartEvent(final EventHandler<TypedEventArg<Release>> handler) {
 		return this.releaseBurndownChartEvent.add(handler);
 	}
 

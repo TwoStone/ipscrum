@@ -89,7 +89,7 @@ public class ReleaseCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IReleaseCreateView getView() {
+	public IReleaseCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createReleaseCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

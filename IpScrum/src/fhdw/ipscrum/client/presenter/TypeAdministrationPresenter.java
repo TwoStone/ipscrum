@@ -48,7 +48,7 @@ public class TypeAdministrationPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITypeAdministrationView getView() {
+	public ITypeAdministrationView doGetView() {
 		if (this.view == null) {
 			this.view =
 					this.getContext().getViewFactory().createTypeAdministrationView();

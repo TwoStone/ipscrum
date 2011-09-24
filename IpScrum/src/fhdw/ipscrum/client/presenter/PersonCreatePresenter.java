@@ -76,7 +76,7 @@ public class PersonCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IPersonCreateView getView() {
+	public IPersonCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createPersonCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

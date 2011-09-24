@@ -6,7 +6,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -22,6 +21,7 @@ import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.architecture.widgets.TypedListBox;
 import fhdw.ipscrum.client.architecture.widgets.TypedListBox.TypeRendere;
 import fhdw.ipscrum.client.presenter.ProductBacklogItemCreatePresenter.CreateBugEvent;
@@ -35,8 +35,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Release;
 /**
  * represents the view to create PBIs.
  */
-public class ProductBacklogItemCreateView extends Composite
-		implements IProductBacklogItemCreateView {
+public class ProductBacklogItemCreateView extends MasterView implements IProductBacklogItemCreateView {
 
 	/**
 	 * represents the state of the view if the PBI to create is a bug.
@@ -44,17 +43,16 @@ public class ProductBacklogItemCreateView extends Composite
 	private class BugState extends ViewState {
 
 		private Label lblRelease;
-		private final TypedListBox<Release> releaseListBox = new TypedListBox<Release>(
-				new TypeRendere<Release>() {
+		private final TypedListBox<Release> releaseListBox = new TypedListBox<Release>(new TypeRendere<Release>() {
 
-					@Override
-					public String render(final Release object) {
-						return object.getVersion();
-					}
-				});
+			@Override
+			public String render(final Release object) {
+				return object.getVersion();
+			}
+		});
 
-		private final TypedListBox<BugTicketType> typeListBox =
-				new TypedListBox<BugTicketType>(new TypeRendere<BugTicketType>() {
+		private final TypedListBox<BugTicketType> typeListBox = new TypedListBox<BugTicketType>(
+				new TypeRendere<BugTicketType>() {
 
 					@Override
 					public String render(final BugTicketType object) {
@@ -65,17 +63,14 @@ public class ProductBacklogItemCreateView extends Composite
 		@Override
 		public void onSetup() {
 			this.typeListBox.setVisibleItemCount(1);
-			ProductBacklogItemCreateView.this.flexTable.setWidget(4, 1,
-					this.typeListBox);
+			ProductBacklogItemCreateView.this.flexTable.setWidget(4, 1, this.typeListBox);
 			this.typeListBox.setWidth("100%");
 
 			this.lblRelease = new Label("Version");
-			ProductBacklogItemCreateView.this.flexTable
-					.setWidget(5, 0, this.lblRelease);
+			ProductBacklogItemCreateView.this.flexTable.setWidget(5, 0, this.lblRelease);
 
 			this.releaseListBox.setVisibleItemCount(1);
-			ProductBacklogItemCreateView.this.flexTable.setWidget(5, 1,
-					this.releaseListBox);
+			ProductBacklogItemCreateView.this.flexTable.setWidget(5, 1, this.releaseListBox);
 			this.releaseListBox.setWidth("100%");
 		}
 
@@ -88,14 +83,12 @@ public class ProductBacklogItemCreateView extends Composite
 		@Override
 		public void save() {
 			final String name = ProductBacklogItemCreateView.this.nameTextBox.getText();
-			final String description =
-					ProductBacklogItemCreateView.this.descriptionText.getText();
+			final String description = ProductBacklogItemCreateView.this.descriptionText.getText();
 
 			final Release release = this.releaseListBox.getSelectedItemOrNull();
 			final BugTicketType type = this.typeListBox.getSelectedItemOrNull();
-			ProductBacklogItemCreateView.this.createTicketEvent.fire(
-					ProductBacklogItemCreateView.this, new CreateBugEvent(name,
-							description, type, release));
+			ProductBacklogItemCreateView.this.createTicketEvent.fire(ProductBacklogItemCreateView.this,
+					new CreateBugEvent(name, description, type, release));
 		}
 
 		public void setBugTypes(final List<BugTicketType> bugTicketTypes) {
@@ -115,21 +108,19 @@ public class ProductBacklogItemCreateView extends Composite
 	 */
 	private class FeatureState extends ViewState {
 
-		private final TypedListBox<FeatureTicketType> typeListBox =
-				new TypedListBox<FeatureTicketType>(
-						new TypeRendere<FeatureTicketType>() {
+		private final TypedListBox<FeatureTicketType> typeListBox = new TypedListBox<FeatureTicketType>(
+				new TypeRendere<FeatureTicketType>() {
 
-							@Override
-							public String render(final FeatureTicketType object) {
-								return object.getTypeName();
-							}
-						});
+					@Override
+					public String render(final FeatureTicketType object) {
+						return object.getTypeName();
+					}
+				});
 
 		@Override
 		public void onSetup() {
 			this.typeListBox.setVisibleItemCount(1);
-			ProductBacklogItemCreateView.this.flexTable.setWidget(4, 1,
-					this.typeListBox);
+			ProductBacklogItemCreateView.this.flexTable.setWidget(4, 1, this.typeListBox);
 			this.typeListBox.setWidth("100%");
 		}
 
@@ -141,13 +132,11 @@ public class ProductBacklogItemCreateView extends Composite
 		@Override
 		public void save() {
 			final String name = ProductBacklogItemCreateView.this.nameTextBox.getText();
-			final String description =
-					ProductBacklogItemCreateView.this.descriptionText.getText();
+			final String description = ProductBacklogItemCreateView.this.descriptionText.getText();
 
 			final FeatureTicketType type = this.typeListBox.getSelectedItemOrNull();
-			ProductBacklogItemCreateView.this.createTicketEvent.fire(
-					ProductBacklogItemCreateView.this, new CreateFeatureEvent(name,
-							description, type));
+			ProductBacklogItemCreateView.this.createTicketEvent.fire(ProductBacklogItemCreateView.this,
+					new CreateFeatureEvent(name, description, type));
 
 		}
 
@@ -171,15 +160,13 @@ public class ProductBacklogItemCreateView extends Composite
 		public abstract void save();
 
 		public void setup() {
-			this.handler =
-					ProductBacklogItemCreateView.this.btnSpeichern
-							.addClickHandler(new ClickHandler() {
+			this.handler = ProductBacklogItemCreateView.this.btnSpeichern.addClickHandler(new ClickHandler() {
 
-								@Override
-								public void onClick(final ClickEvent event) {
-									ProductBacklogItemCreateView.ViewState.this.save();
-								}
-							});
+				@Override
+				public void onClick(final ClickEvent event) {
+					ProductBacklogItemCreateView.ViewState.this.save();
+				}
+			});
 			this.onSetup();
 			FlexTableHelper.fixRowSpan(ProductBacklogItemCreateView.this.flexTable);
 		}
@@ -198,8 +185,7 @@ public class ProductBacklogItemCreateView extends Composite
 	private final Button btnSpeichern;
 	private final BugState bugState = new BugState();
 
-	private final Event<CreateTicketEvent> createTicketEvent =
-			new Event<CreateTicketEvent>();
+	private final Event<CreateTicketEvent> createTicketEvent = new Event<CreateTicketEvent>();
 	private final TextArea descriptionText;
 	private final FeatureState featureState = new FeatureState();
 	private final FlexTable flexTable;
@@ -210,14 +196,14 @@ public class ProductBacklogItemCreateView extends Composite
 	 * constructor of the ProductBacklogItemCreateView.
 	 */
 	public ProductBacklogItemCreateView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setSpacing(10);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
-		final HTML htmlNewHtml =
-				new HTML("<h3>ProductBacklog Eintrag erstellen</h3>", true);
+		final HTML htmlNewHtml = new HTML("<h3>ProductBacklog Eintrag erstellen</h3>", true);
 		verticalPanel.add(htmlNewHtml);
 
 		this.flexTable = new FlexTable();
@@ -243,8 +229,7 @@ public class ProductBacklogItemCreateView extends Composite
 		rdbtnFeature.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogItemCreateView.this
-						.setState(ProductBacklogItemCreateView.this.featureState);
+				ProductBacklogItemCreateView.this.setState(ProductBacklogItemCreateView.this.featureState);
 			}
 		});
 		rdbtnFeature.setValue(true, false);
@@ -255,8 +240,7 @@ public class ProductBacklogItemCreateView extends Composite
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogItemCreateView.this
-						.setState(ProductBacklogItemCreateView.this.bugState);
+				ProductBacklogItemCreateView.this.setState(ProductBacklogItemCreateView.this.bugState);
 			}
 		});
 		this.flexTable.setWidget(3, 1, rdbtnBug);
@@ -269,8 +253,7 @@ public class ProductBacklogItemCreateView extends Composite
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		this.btnSpeichern = new Button("Speichern");
 		horizontalPanel.add(this.btnSpeichern);
@@ -279,8 +262,7 @@ public class ProductBacklogItemCreateView extends Composite
 		btnAbbrechen.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				ProductBacklogItemCreateView.this.abortEvent
-						.fire(ProductBacklogItemCreateView.this);
+				ProductBacklogItemCreateView.this.abortEvent.fire(ProductBacklogItemCreateView.this);
 			}
 		});
 		horizontalPanel.add(btnAbbrechen);
@@ -299,8 +281,7 @@ public class ProductBacklogItemCreateView extends Composite
 	}
 
 	@Override
-	public EventRegistration registerSaveHandler(
-			final EventHandler<CreateTicketEvent> handler) {
+	public EventRegistration registerSaveHandler(final EventHandler<CreateTicketEvent> handler) {
 		return this.createTicketEvent.add(handler);
 	}
 

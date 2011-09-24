@@ -11,7 +11,6 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
@@ -21,6 +20,7 @@ import com.google.gwt.view.client.ListDataProvider;
 
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.eventargs.SearchEventArgs;
 import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.viewinterfaces.ISearchesView;
@@ -29,7 +29,7 @@ import fhdw.ipscrum.shared.model.metamodel.search.Search;
 /**
  * represents the view of the searches.
  */
-public class SearchesView extends Composite implements ISearchesView {
+public class SearchesView extends MasterView implements ISearchesView {
 
 	protected final Event<SearchEventArgs> doSearchEvent;
 	protected final ListDataProvider<Search> savedSearches;
@@ -72,7 +72,7 @@ public class SearchesView extends Composite implements ISearchesView {
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setSize("750px", "400px");
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
 		final Label lblSearches = new Label("Gespeicherte Suchen");
 		lblSearches.setStyleName("LabelElement");

@@ -16,13 +16,12 @@ import fhdw.ipscrum.shared.model.metamodel.fields.FieldType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
- * This class represents the presenter which controls the view to add field types to
- * ticket types.
+ * This class represents the presenter which controls the view to add field types to ticket types.
  */
 public class AddFieldsToTicketTypePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.AddFieldsToTicketTypeView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.AddFieldsToTicketTypeView).
 	 */
 	public static interface IAddFieldsToTicketTypeView extends IView {
 		/**
@@ -44,8 +43,7 @@ public class AddFieldsToTicketTypePresenter extends WritePresenter {
 		EventRegistration registetAbort(DefaultEventHandler handler);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the known
-		 * field types.
+		 * this method is needed to fill the list in the view with the data of the known field types.
 		 * 
 		 * @param states
 		 *            are the known field types
@@ -66,23 +64,21 @@ public class AddFieldsToTicketTypePresenter extends WritePresenter {
 	 */
 	private IAddFieldsToTicketTypeView view;
 	/**
-	 * represents the ticket type related to this view. It is needed to make clear to
-	 * which ticket type the field type should be added.
+	 * represents the ticket type related to this view. It is needed to make clear to which ticket type the field type
+	 * should be added.
 	 */
 	private TicketType ticketType;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.AddFieldsToTicketTypePresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.AddFieldsToTicketTypePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param ticketType
 	 *            is the related ticketType which should be edited
 	 */
-	public AddFieldsToTicketTypePresenter(final ClientContext context,
-			final TicketType ticketType) {
+	public AddFieldsToTicketTypePresenter(final ClientContext context, final TicketType ticketType) {
 		super(context);
 		this.ticketType = ticketType;
 		this.beginTransaction();
@@ -94,11 +90,9 @@ public class AddFieldsToTicketTypePresenter extends WritePresenter {
 	}
 
 	@Override
-	public IAddFieldsToTicketTypeView getView() {
+	public IAddFieldsToTicketTypeView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory()
-							.createAddFieldsToTicketTypeView();
+			this.view = this.getContext().getViewFactory().createAddFieldsToTicketTypeView();
 			this.view.registerSave(new DefaultEventHandler() {
 
 				@Override
@@ -111,21 +105,20 @@ public class AddFieldsToTicketTypePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					AddFieldsToTicketTypePresenter.this.showQuestion(
-							"Änderungen verwerfen?", new Answer("Ja") {
+					AddFieldsToTicketTypePresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									AddFieldsToTicketTypePresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							AddFieldsToTicketTypePresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -136,8 +129,7 @@ public class AddFieldsToTicketTypePresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new TicketTypeAddFieldTypeCommand(this.ticketType, this.view
-					.getSelectedFieldType()));
+			this.doCommand(new TicketTypeAddFieldTypeCommand(this.ticketType, this.view.getSelectedFieldType()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

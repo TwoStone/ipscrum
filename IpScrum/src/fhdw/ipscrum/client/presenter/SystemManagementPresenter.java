@@ -110,7 +110,7 @@ public class SystemManagementPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ISystemManagementView getView() {
+	public ISystemManagementView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSystemManagementView();
 			this.view
@@ -155,8 +155,8 @@ public class SystemManagementPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.getView().setPossibleParents(this.getContext().getModel().getAllSystems());
-		this.getView().setRootSystemGroup(
+		this.doGetView().setPossibleParents(this.getContext().getModel().getAllSystems());
+		this.doGetView().setRootSystemGroup(
 				this.getContext().getModel().getSystems().getSystems());
 	}
 

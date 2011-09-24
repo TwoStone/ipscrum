@@ -71,7 +71,7 @@ public class TeamCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITeamCreateView getView() {
+	public ITeamCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTeamCreateView();
 			this.view.registerSave(new DefaultEventHandler() {

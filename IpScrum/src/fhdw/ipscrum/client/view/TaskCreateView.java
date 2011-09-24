@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -22,14 +21,14 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
-import fhdw.ipscrum.client.architecture.view.IView;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.ITaskCreateView;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 
 /**
  * this is a simple gui for creating tasks.
  */
-public class TaskCreateView extends Composite implements IView, ITaskCreateView {
+public class TaskCreateView extends MasterView implements ITaskCreateView {
 
 	/**
 	 * Inner class for event-argument transmission (MVC).
@@ -50,8 +49,7 @@ public class TaskCreateView extends Composite implements IView, ITaskCreateView 
 		 * @param selectedTaskTicketType
 		 *            of the task
 		 */
-		public TaskCreateArgs(final String name, final String description,
-				final String selectedTaskTicketType) {
+		public TaskCreateArgs(final String name, final String description, final String selectedTaskTicketType) {
 			super();
 			this.name = name;
 			this.description = description;
@@ -87,8 +85,7 @@ public class TaskCreateView extends Composite implements IView, ITaskCreateView 
 
 	}
 
-	private final Event<TaskCreateView.TaskCreateArgs> saveEvent =
-			new Event<TaskCreateView.TaskCreateArgs>();
+	private final Event<TaskCreateView.TaskCreateArgs> saveEvent = new Event<TaskCreateView.TaskCreateArgs>();
 	private final DefaultEvent cancelEvent = new DefaultEvent();
 
 	private final TextBox textBoxName;
@@ -99,20 +96,19 @@ public class TaskCreateView extends Composite implements IView, ITaskCreateView 
 	 * constructor of the TaskCreateView.
 	 */
 	public TaskCreateView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
 		final HTML htmlHeader = new HTML("<h3>Neuen Task erstellen</h3>", true);
 		verticalPanel.add(htmlHeader);
-		verticalPanel.setCellHorizontalAlignment(htmlHeader,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(htmlHeader, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Grid grid = new Grid(3, 4);
 		grid.setCellPadding(10);
 		verticalPanel.add(grid);
-		verticalPanel.setCellHorizontalAlignment(grid,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(grid, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Label lblName = new Label("Bezeichnung:");
 		grid.setWidget(0, 0, lblName);
@@ -136,8 +132,7 @@ public class TaskCreateView extends Composite implements IView, ITaskCreateView 
 		final HorizontalPanel pnlButton = new HorizontalPanel();
 		pnlButton.setSpacing(5);
 		verticalPanel.add(pnlButton);
-		verticalPanel.setCellHorizontalAlignment(pnlButton,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(pnlButton, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button btnSave = new Button("Speichern");
 		btnSave.addClickHandler(new ClickHandler() {
@@ -145,10 +140,8 @@ public class TaskCreateView extends Composite implements IView, ITaskCreateView 
 			public void onClick(final ClickEvent event) {
 				final TaskCreateArgs args =
 						new TaskCreateArgs(TaskCreateView.this.textBoxName.getValue(),
-								TaskCreateView.this.textAreaDescription.getValue(),
-								TaskCreateView.this.comboBoxTypes
-										.getValue(TaskCreateView.this.comboBoxTypes
-												.getSelectedIndex()));
+								TaskCreateView.this.textAreaDescription.getValue(), TaskCreateView.this.comboBoxTypes
+										.getValue(TaskCreateView.this.comboBoxTypes.getSelectedIndex()));
 				TaskCreateView.this.saveEvent.fire(TaskCreateView.this, args);
 			}
 		});
@@ -172,8 +165,7 @@ public class TaskCreateView extends Composite implements IView, ITaskCreateView 
 	}
 
 	@Override
-	public EventRegistration registerSaveEvent(
-			final EventHandler<TaskCreateView.TaskCreateArgs> handler) {
+	public EventRegistration registerSaveEvent(final EventHandler<TaskCreateView.TaskCreateArgs> handler) {
 		return this.saveEvent.add(handler);
 	}
 

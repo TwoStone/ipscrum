@@ -3,7 +3,6 @@ package fhdw.ipscrum.client.view;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -15,12 +14,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.client.architecture.events.DefaultEvent;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.presenter.RoleCreatePresenter.IRoleCreateView;
 
 /**
  * represents the view to create roles.
  */
-public class RoleCreateView extends Composite implements IRoleCreateView {
+public class RoleCreateView extends MasterView implements IRoleCreateView {
 
 	private final DefaultEvent saveEvent = new DefaultEvent();
 	private final DefaultEvent abortEvent = new DefaultEvent();
@@ -30,22 +30,21 @@ public class RoleCreateView extends Composite implements IRoleCreateView {
 	 * constructor of the RoleCreateView.
 	 */
 	public RoleCreateView() {
+		super();
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setSpacing(10);
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		this.initWidget(verticalPanel);
+		this.add(verticalPanel);
 
 		final HTML header = new HTML("<h3>Neue Rolle erstellen</h3>", true);
 		verticalPanel.add(header);
-		verticalPanel.setCellHorizontalAlignment(header,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Grid grid = new Grid(1, 2);
 		grid.setCellPadding(5);
 		verticalPanel.add(grid);
-		verticalPanel.setCellHorizontalAlignment(grid,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(grid, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Label descriptionLabel = new Label("Beschreibung");
 		grid.setWidget(0, 0, descriptionLabel);
@@ -56,8 +55,7 @@ public class RoleCreateView extends Composite implements IRoleCreateView {
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setSpacing(5);
 		verticalPanel.add(horizontalPanel);
-		verticalPanel.setCellHorizontalAlignment(horizontalPanel,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(horizontalPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Button saveButton = new Button("Speichern");
 		saveButton.addClickHandler(new ClickHandler() {

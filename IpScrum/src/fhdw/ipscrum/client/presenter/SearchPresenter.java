@@ -52,7 +52,7 @@ public class SearchPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ISearchView getView() {
+	public ISearchView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSearchView();
 			this.view.setSearch(new Search(this.getContext().getModel(),

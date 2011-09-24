@@ -55,7 +55,7 @@ public class ProductBacklogPresenter extends WritePresenter {
 	}
 
 	@Override
-	public IProductBacklogView getView() {
+	public IProductBacklogView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProductBacklogView();
 
@@ -259,9 +259,9 @@ public class ProductBacklogPresenter extends WritePresenter {
 			}
 		}
 
-		this.getView().updateActiveProductBacklogTable(activePBIs);
+		this.doGetView().updateActiveProductBacklogTable(activePBIs);
 
-		this.getView().updateInactiveProductBacklogTable(inactivePBIs);
+		this.doGetView().updateInactiveProductBacklogTable(inactivePBIs);
 	}
 
 	@Override

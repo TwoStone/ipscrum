@@ -14,6 +14,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.MenuItem;
 
+import fhdw.ipscrum.client.architecture.events.DefaultEvent;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
@@ -26,6 +28,11 @@ import fhdw.ipscrum.client.resources.MyResources;
  * Represents the view which represents the view needed for the navigation.
  */
 public class NavigationView extends Composite implements INavigationView {
+
+	/**
+	 * Event that is raised when a user requests assistance.
+	 */
+	private final DefaultEvent helpEvent = new DefaultEvent();
 
 	static {
 		MyResources.INSTANCE.navigation().ensureInjected();
@@ -83,8 +90,7 @@ public class NavigationView extends Composite implements INavigationView {
 		refreshImage.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				NavigationView.this.refreshClicked.fire(NavigationView.this,
-						new EventArgs());
+				NavigationView.this.refreshClicked.fire(NavigationView.this, new EventArgs());
 			}
 		});
 
@@ -108,8 +114,19 @@ public class NavigationView extends Composite implements INavigationView {
 
 			@Override
 			public void onClick(final ClickEvent event) {
-				NavigationView.this.logoutClicked.fire(NavigationView.this,
-						new EventArgs());
+				NavigationView.this.logoutClicked.fire(NavigationView.this, new EventArgs());
+			}
+		});
+
+		final Image image = new Image("images/.svn/text-base/icon_hilfe.gif.svn-base");
+		rightPanel.add(image);
+		image.setSize("30px", "32px");
+
+		image.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(final ClickEvent event) {
+				NavigationView.this.helpEvent.fire(NavigationView.this);
 			}
 		});
 	}
@@ -135,8 +152,7 @@ public class NavigationView extends Composite implements INavigationView {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.architecture.client.widgets.INavigationView#setUserName(
-	 * java.lang.String)
+	 * @see fhdw.ipscrum.architecture.client.widgets.INavigationView#setUserName( java.lang.String)
 	 */
 	@Override
 	public void setUserName(final String name) {
@@ -197,5 +213,10 @@ public class NavigationView extends Composite implements INavigationView {
 	public void setRightVisibility(final Boolean value) {
 		// No widgets to hide
 
+	}
+
+	@Override
+	public EventRegistration registerHelpHandler(final DefaultEventHandler handler) {
+		return this.helpEvent.add(handler);
 	}
 }

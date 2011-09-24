@@ -63,7 +63,7 @@ public class TaskCreatePresenter extends WritePresenter {
 	}
 
 	@Override
-	public ITaskCreateView getView() {
+	public ITaskCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTaskCreateView();
 

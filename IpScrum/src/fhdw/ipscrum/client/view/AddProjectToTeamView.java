@@ -8,7 +8,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -19,30 +18,30 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.IAddProjectToTeamView;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
  * represents the view in which a project could be added to a team.
  */
-public class AddProjectToTeamView extends Composite implements IAddProjectToTeamView {
+public class AddProjectToTeamView extends MasterView implements IAddProjectToTeamView {
 	private final CellList<Project> projectsToAdd;
 	private final CellList<Project> addedProjects;
-	private final Event<TypedEventArg<Project>> addProject =
-			new Event<TypedEventArg<Project>>();
-	private final SingleSelectionModel<Project> selModel =
-			new SingleSelectionModel<Project>();
+	private final Event<TypedEventArg<Project>> addProject = new Event<TypedEventArg<Project>>();
+	private final SingleSelectionModel<Project> selModel = new SingleSelectionModel<Project>();
 
 	/**
 	 * constructor of the AddProjectToteamView.
 	 */
 	public AddProjectToTeamView() {
+		super();
 
 		final VerticalPanel horizontalPanel = new VerticalPanel();
 		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setSpacing(5);
-		this.initWidget(horizontalPanel);
+		this.add(horizontalPanel);
 		horizontalPanel.setSize("500px", "300px");
 
 		final Label lblHeader = new Label("Projekte zuordnen");
@@ -67,8 +66,7 @@ public class AddProjectToTeamView extends Composite implements IAddProjectToTeam
 
 		this.addedProjects = new CellList<Project>(new AbstractCell<Project>() {
 			@Override
-			public void render(final Context context, final Project value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Project value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 			}
 		});
@@ -89,10 +87,8 @@ public class AddProjectToTeamView extends Composite implements IAddProjectToTeam
 			@Override
 			public void onClick(final ClickEvent event) {
 
-				AddProjectToTeamView.this.addProject.fire(
-						AddProjectToTeamView.this,
-						new TypedEventArg<Project>(AddProjectToTeamView.this.selModel
-								.getSelectedObject()));
+				AddProjectToTeamView.this.addProject.fire(AddProjectToTeamView.this, new TypedEventArg<Project>(
+						AddProjectToTeamView.this.selModel.getSelectedObject()));
 
 			}
 		});
@@ -108,8 +104,7 @@ public class AddProjectToTeamView extends Composite implements IAddProjectToTeam
 
 		this.projectsToAdd = new CellList<Project>(new AbstractCell<Project>() {
 			@Override
-			public void render(final Context context, final Project value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Project value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getName());
 			}
 		});
@@ -148,8 +143,7 @@ public class AddProjectToTeamView extends Composite implements IAddProjectToTeam
 	}
 
 	@Override
-	public void
-			registerDeleteProject(final EventHandler<TypedEventArg<Project>> handler) {
+	public void registerDeleteProject(final EventHandler<TypedEventArg<Project>> handler) {
 		this.addProject.add(handler);
 
 	}

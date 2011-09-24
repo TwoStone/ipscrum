@@ -38,7 +38,7 @@ public class CreateIncidentPresenter extends WritePresenter {
 	}
 
 	@Override
-	public ICreateIncidentView getView() {
+	public ICreateIncidentView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createCreateIncidentView();
 			this.view.registerSave(new DefaultEventHandler() {

@@ -10,7 +10,6 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -25,6 +24,7 @@ import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.viewinterfaces.ITypeEditView;
 import fhdw.ipscrum.shared.model.metamodel.fields.AcceptanceCriteriaFieldType;
 import fhdw.ipscrum.shared.model.metamodel.fields.DateFieldType;
@@ -45,7 +45,7 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 /**
  * represents the view to edit ticket types.
  */
-public class TypeEditView extends Composite implements ITypeEditView {
+public class TypeEditView extends MasterView implements ITypeEditView {
 
 	// EVENTS!!!!!!!!!!!!
 	/**
@@ -78,11 +78,9 @@ public class TypeEditView extends Composite implements ITypeEditView {
 	private SingleSelectionModel<TransitionRule> TransitionModel;
 	private TicketType ticketType;
 	private String typeString;
-	private final Event<StateTypeArgs> changeStateStartValue =
-			new Event<StateTypeArgs>();
+	private final Event<StateTypeArgs> changeStateStartValue = new Event<StateTypeArgs>();
 	private final Event<StateTypeArgs> changeEndStateValue = new Event<StateTypeArgs>();
-	private final Event<FieldTypeArgs> changeActivationValue =
-			new Event<FieldTypeArgs>();
+	private final Event<FieldTypeArgs> changeActivationValue = new Event<FieldTypeArgs>();
 	private Label lblheader;
 	private CellTable<TransitionRule> transitionTable;
 	private final DefaultEvent addTransition = new DefaultEvent();
@@ -174,70 +172,57 @@ public class TypeEditView extends Composite implements ITypeEditView {
 	 * constructor of the TypeEditView.
 	 */
 	public TypeEditView() {
+		super();
 
 		final VerticalPanel mainPanel = new VerticalPanel();
 		mainPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		mainPanel.setSpacing(5);
-		this.initWidget(mainPanel);
+		this.add(mainPanel);
 		mainPanel.setSize("800px", "700px");
-		final FieldUpdater<StateTableData, Boolean> startStateUpdater =
-				new FieldUpdater<StateTableData, Boolean>() {
-					@Override
-					public void update(final int index, final StateTableData object,
-							final Boolean value) {
-						TypeEditView.this.changeStateStartValue.fire(TypeEditView.this,
-								new StateTypeArgs(object, value));
-					}
-				};
+		final FieldUpdater<StateTableData, Boolean> startStateUpdater = new FieldUpdater<StateTableData, Boolean>() {
+			@Override
+			public void update(final int index, final StateTableData object, final Boolean value) {
+				TypeEditView.this.changeStateStartValue.fire(TypeEditView.this, new StateTypeArgs(object, value));
+			}
+		};
 
-		final FieldUpdater<StateTableData, Boolean> endStateUpdater =
-				new FieldUpdater<StateTableData, Boolean>() {
-					@Override
-					public void update(final int index, final StateTableData object,
-							final Boolean value) {
-						TypeEditView.this.changeEndStateValue.fire(TypeEditView.this,
-								new StateTypeArgs(object, value));
-					}
-				};
-		final FieldUpdater<FieldTableData, Boolean> checkboxUpdater =
-				new FieldUpdater<FieldTableData, Boolean>() {
+		final FieldUpdater<StateTableData, Boolean> endStateUpdater = new FieldUpdater<StateTableData, Boolean>() {
+			@Override
+			public void update(final int index, final StateTableData object, final Boolean value) {
+				TypeEditView.this.changeEndStateValue.fire(TypeEditView.this, new StateTypeArgs(object, value));
+			}
+		};
+		final FieldUpdater<FieldTableData, Boolean> checkboxUpdater = new FieldUpdater<FieldTableData, Boolean>() {
 
-					@Override
-					public void update(final int index, final FieldTableData object,
-							final Boolean value) {
-						TypeEditView.this.changeActivationValue.fire(TypeEditView.this,
-								new FieldTypeArgs(object, value));
+			@Override
+			public void update(final int index, final FieldTableData object, final Boolean value) {
+				TypeEditView.this.changeActivationValue.fire(TypeEditView.this, new FieldTypeArgs(object, value));
 
-					}
-				};
+			}
+		};
 
 		this.fieldTypeModel = new SingleSelectionModel<FieldTableData>();
 
-		this.fieldTypeModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.fieldTypeModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
-						TypeEditView.this.selectedField =
-								TypeEditView.this.fieldTypeModel.getSelectedObject()
-										.getFieldType();
-					}
-				});
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				TypeEditView.this.selectedField = TypeEditView.this.fieldTypeModel.getSelectedObject().getFieldType();
+			}
+		});
 
 		this.stateTypeModel = new SingleSelectionModel<StateTableData>();
 
-		this.stateTypeModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.stateTypeModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
 
-						TypeEditView.this.selectedState =
-								TypeEditView.this.stateTypeModel.getSelectedObject();
-						TypeEditView.this.selectState.fire(TypeEditView.this);
+				TypeEditView.this.selectedState = TypeEditView.this.stateTypeModel.getSelectedObject();
+				TypeEditView.this.selectState.fire(TypeEditView.this);
 
-					}
-				});
+			}
+		});
 
 		this.lblheader = new Label("New label");
 		this.lblheader.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -270,32 +255,29 @@ public class TypeEditView extends Composite implements ITypeEditView {
 		scrollPanel.setWidget(this.stateTable);
 		this.stateTable.setSize("100%", "100%");
 
-		final TextColumn<StateTableData> stateNameColumn =
-				new TextColumn<StateTableData>() {
-					@Override
-					public String getValue(final StateTableData object) {
-						return object.getState().getName();
-					}
-				};
+		final TextColumn<StateTableData> stateNameColumn = new TextColumn<StateTableData>() {
+			@Override
+			public String getValue(final StateTableData object) {
+				return object.getState().getName();
+			}
+		};
 		this.stateTable.addColumn(stateNameColumn, "Zustand");
 
-		final Column<StateTableData, Boolean> columnStart =
-				new Column<StateTableData, Boolean>(new CheckboxCell()) {
-					@Override
-					public Boolean getValue(final StateTableData object) {
-						return object.getStartState();
-					}
-				};
+		final Column<StateTableData, Boolean> columnStart = new Column<StateTableData, Boolean>(new CheckboxCell()) {
+			@Override
+			public Boolean getValue(final StateTableData object) {
+				return object.getStartState();
+			}
+		};
 		columnStart.setFieldUpdater(startStateUpdater);
 		this.stateTable.addColumn(columnStart, "Startzustand");
 
-		final Column<StateTableData, Boolean> columnEnd =
-				new Column<StateTableData, Boolean>(new CheckboxCell()) {
-					@Override
-					public Boolean getValue(final StateTableData object) {
-						return object.getEndState();
-					}
-				};
+		final Column<StateTableData, Boolean> columnEnd = new Column<StateTableData, Boolean>(new CheckboxCell()) {
+			@Override
+			public Boolean getValue(final StateTableData object) {
+				return object.getEndState();
+			}
+		};
 		columnEnd.setFieldUpdater(endStateUpdater);
 
 		this.stateTable.addColumn(columnEnd, "Endzustand");
@@ -358,103 +340,88 @@ public class TypeEditView extends Composite implements ITypeEditView {
 
 		this.fieldTable.addColumn(textColumn, "Bezeichnung");
 
-		final TextColumn<FieldTableData> columnFieldType =
-				new TextColumn<FieldTableData>() {
+		final TextColumn<FieldTableData> columnFieldType = new TextColumn<FieldTableData>() {
+			@Override
+			public String getValue(final FieldTableData object) {
+				object.getFieldType().accept(new FieldTypeVisitor() {
+
 					@Override
-					public String getValue(final FieldTableData object) {
-						object.getFieldType().accept(new FieldTypeVisitor() {
+					public void handleTextFieldType(final TextFieldType textFieldType) {
+						TypeEditView.this.typeString = textFieldType.getName();
+						TypeEditView.this.typeString = "Text Feld";
 
-							@Override
-							public void handleTextFieldType(
-									final TextFieldType textFieldType) {
-								TypeEditView.this.typeString = textFieldType.getName();
-								TypeEditView.this.typeString = "Text Feld";
-
-							}
-
-							@Override
-							public void handleSystemFieldType(
-									final SystemFieldType systemFieldType) {
-								TypeEditView.this.typeString = "System Feld";
-							}
-
-							@Override
-							public void handleSprintFieldType(
-									final SprintFieldType sprintFieldType) {
-								TypeEditView.this.typeString = "Sprint Feld";
-							}
-
-							@Override
-							public void handleReleaseFieldType(
-									final ReleaseFieldType releaseFieldType) {
-
-								TypeEditView.this.typeString = "Release Feld";
-							}
-
-							@Override
-							public void handlePersonFieldType(
-									final PersonFieldType personFieldType) {
-
-								TypeEditView.this.typeString = "Person Feld";
-							}
-
-							@Override
-							public void handlePBIFieldType(
-									final PBIFieldType pbiFieldType) {
-
-								TypeEditView.this.typeString = "PBI Feld";
-							}
-
-							@Override
-							public void handleNumberFieldType(
-									final NumberFieldType numberFieldType) {
-
-								TypeEditView.this.typeString = "Number Feld";
-							}
-
-							@Override
-							public void handleHintFieldType(
-									final HintFieldType hintFieldType) {
-								TypeEditView.this.typeString = "Hint Feld";
-							}
-
-							@Override
-							public void handleEffortFieldType(
-									final EffortFieldType effortFieldType) {
-
-								TypeEditView.this.typeString = "Effort Feld";
-							}
-
-							@Override
-							public void handleDateFieldType(
-									final DateFieldType dateFieldType) {
-
-								TypeEditView.this.typeString = "Date Feld";
-							}
-
-							@Override
-							public
-									void
-									handleAcceptanceCriterionFieldType(
-											final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
-
-								TypeEditView.this.typeString =
-										"Acceptance Criteria Feld";
-							}
-						});
-						return TypeEditView.this.typeString;
 					}
 
-				};
+					@Override
+					public void handleSystemFieldType(final SystemFieldType systemFieldType) {
+						TypeEditView.this.typeString = "System Feld";
+					}
+
+					@Override
+					public void handleSprintFieldType(final SprintFieldType sprintFieldType) {
+						TypeEditView.this.typeString = "Sprint Feld";
+					}
+
+					@Override
+					public void handleReleaseFieldType(final ReleaseFieldType releaseFieldType) {
+
+						TypeEditView.this.typeString = "Release Feld";
+					}
+
+					@Override
+					public void handlePersonFieldType(final PersonFieldType personFieldType) {
+
+						TypeEditView.this.typeString = "Person Feld";
+					}
+
+					@Override
+					public void handlePBIFieldType(final PBIFieldType pbiFieldType) {
+
+						TypeEditView.this.typeString = "PBI Feld";
+					}
+
+					@Override
+					public void handleNumberFieldType(final NumberFieldType numberFieldType) {
+
+						TypeEditView.this.typeString = "Number Feld";
+					}
+
+					@Override
+					public void handleHintFieldType(final HintFieldType hintFieldType) {
+						TypeEditView.this.typeString = "Hint Feld";
+					}
+
+					@Override
+					public void handleEffortFieldType(final EffortFieldType effortFieldType) {
+
+						TypeEditView.this.typeString = "Effort Feld";
+					}
+
+					@Override
+					public void handleDateFieldType(final DateFieldType dateFieldType) {
+
+						TypeEditView.this.typeString = "Date Feld";
+					}
+
+					@Override
+					public void handleAcceptanceCriterionFieldType(
+							final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
+
+						TypeEditView.this.typeString = "Acceptance Criteria Feld";
+					}
+				});
+				return TypeEditView.this.typeString;
+			}
+
+		};
 		this.fieldTable.addColumn(columnFieldType, "Typ");
 
-		final Column<FieldTableData, Boolean> columnActiv =
-				new Column<FieldTableData, Boolean>(new CheckboxCell()) {
-					@Override
-					public Boolean getValue(final FieldTableData object) {
-						return object.getActive();
-					}
-				};
+		final Column<FieldTableData, Boolean> columnActiv = new Column<FieldTableData, Boolean>(new CheckboxCell()) {
+			@Override
+			public Boolean getValue(final FieldTableData object) {
+				return object.getActive();
+			}
+		};
 		this.fieldTable.addColumn(columnActiv, "Aktiv");
 		columnActiv.setFieldUpdater(checkboxUpdater);
 		this.fieldTable.setSelectionModel(this.fieldTypeModel);
@@ -492,37 +459,33 @@ public class TypeEditView extends Composite implements ITypeEditView {
 		scrollPanel_2.setWidget(this.transitionTable);
 		this.transitionTable.setSize("100%", "100%");
 
-		final TextColumn<TransitionRule> columnBefore =
-				new TextColumn<TransitionRule>() {
-					@Override
-					public String getValue(final TransitionRule object) {
-						return object.getFrom().getName();
-					}
-				};
+		final TextColumn<TransitionRule> columnBefore = new TextColumn<TransitionRule>() {
+			@Override
+			public String getValue(final TransitionRule object) {
+				return object.getFrom().getName();
+			}
+		};
 		this.transitionTable.addColumn(columnBefore, "Ausgangszustand");
 
-		final TextColumn<TransitionRule> columnAfter =
-				new TextColumn<TransitionRule>() {
-					@Override
-					public String getValue(final TransitionRule object) {
-						return object.getTo().getName();
-					}
-				};
+		final TextColumn<TransitionRule> columnAfter = new TextColumn<TransitionRule>() {
+			@Override
+			public String getValue(final TransitionRule object) {
+				return object.getTo().getName();
+			}
+		};
 		this.transitionTable.addColumn(columnAfter, "Folgezustand");
 
 		this.TransitionModel = new SingleSelectionModel<TransitionRule>();
 
-		this.TransitionModel
-				.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+		this.TransitionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 
-					@Override
-					public void onSelectionChange(final SelectionChangeEvent event) {
+			@Override
+			public void onSelectionChange(final SelectionChangeEvent event) {
 
-						TypeEditView.this.selectedTransition =
-								TypeEditView.this.TransitionModel.getSelectedObject();
+				TypeEditView.this.selectedTransition = TypeEditView.this.TransitionModel.getSelectedObject();
 
-					}
-				});
+			}
+		});
 
 		this.transitionTable.setSelectionModel(this.TransitionModel);
 
@@ -584,8 +547,7 @@ public class TypeEditView extends Composite implements ITypeEditView {
 	 *            to handle the event, which nows the stateTypeData
 	 * @return event needed for handling the change of the start state
 	 */
-	public EventRegistration registerChangeStartStateEvent(
-			final EventHandler<TypeEditView.StateTypeArgs> handler) {
+	public EventRegistration registerChangeStartStateEvent(final EventHandler<TypeEditView.StateTypeArgs> handler) {
 		return this.changeStateStartValue.add(handler);
 	}
 
@@ -595,8 +557,7 @@ public class TypeEditView extends Composite implements ITypeEditView {
 	 * @param handler
 	 *            to handle the event, which nows the stateTypeData
 	 */
-	public void registerChangeEndStateEvent(
-			final EventHandler<TypeEditView.StateTypeArgs> handler) {
+	public void registerChangeEndStateEvent(final EventHandler<TypeEditView.StateTypeArgs> handler) {
 		this.changeEndStateValue.add(handler);
 	}
 
@@ -606,8 +567,7 @@ public class TypeEditView extends Composite implements ITypeEditView {
 	 * @param handler
 	 *            to handle the event, which nows the fieldTypeData
 	 */
-	public void registerChangeActivationEvent(
-			final EventHandler<TypeEditView.FieldTypeArgs> handler) {
+	public void registerChangeActivationEvent(final EventHandler<TypeEditView.FieldTypeArgs> handler) {
 		this.changeActivationValue.add(handler);
 	}
 
