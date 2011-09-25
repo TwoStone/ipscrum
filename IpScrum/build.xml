@@ -194,6 +194,7 @@
 
 
 	<target name="testc" depends="javac">
+		<mkdir dir="${tests.output.dir}"/>
 		<javac destdir="${tests.output.dir}" source="1.6" target="1.6" debug="true" encoding="${source.encoding}" includeantruntime="false">
 			<compilerarg value="-Xlint" />
 			<compilerarg value="-Xlint:-path" />
