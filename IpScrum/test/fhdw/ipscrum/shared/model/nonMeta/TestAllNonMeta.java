@@ -17,7 +17,7 @@ import fhdw.ipscrum.shared.model.nonMeta.incidents.TestAllIncidents;
 		AcceptanceCriterionTest.class,
 		BugTest.class,
 		FeatureTest.class,
-		Hint.class,
+		HintTest.class,
 		PersonTest.class,
 		ProductBacklogTest.class,
 		ProjectTest.class,
