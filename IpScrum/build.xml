@@ -2,7 +2,7 @@
 <project name="IpScrum" default="build" basedir=".">
 
 	<!-- Arguments to gwtc and devmode targets -->
-	<property name="gwt.args" value="" />
+	<property name="gwt.args" value="-logLevel ERROR" />
 
 	<!-- Source encoding -->
 	<property name="source.encoding" value="utf-8" />
@@ -124,6 +124,7 @@
 	</target>
 
 	<target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
+		<echo>Okay, let us build some javascript files!</echo>
 		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
 			<classpath>
 				<pathelement location="${source.dir}" />
@@ -133,7 +134,7 @@
 			</classpath>
 			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
 			<jvmarg value="-Xmx512M" />
-			<jvmarg value="-Xss16M"/>
+			<jvmarg value="-Xss16M" />
 			<arg line="-war" />
 			<arg value="war" />
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
@@ -168,9 +169,13 @@
 	</target>
 
 	<target name="clean" description="Cleans this project">
-		<delete dir="${source.output.dir}" failonerror="false" />
-		<delete dir="war/ipscrum" failonerror="false" />
 		<delete dir="${reports.dir}" includeemptydirs="true" />
+
+	</target>
+	<target name="cleanCompiled" description="Cleans up the compiled files">
+		<echo>Cleaning up the compiled class files!</echo>
+		<delete dir="${source.output.dir}" failonerror="false" includeemptydirs="true" />
+		<delete dir="war/ipscrum" failonerror="false" includeemptydirs="true" />
 		<delete dir="${tests.output.dir}" includeemptydirs="true" />
 		<delete dir="${coverage.output.dir}" includeemptydirs="true" />
 	</target>
@@ -350,6 +355,6 @@
 
 	<target name="analyze" depends="cobertura-test, checkstyle, findbugs" description="Compiles the java code and execudes all analysis tools and testcases" />
 
-	<target name="all" depends="build, analyze, javadoc" description="builds the whole project and generates analyze and test reports" />
+	<target name="all" depends="cleanCompiled, build, analyze, javadoc" description="builds the whole project and generates analyze and test reports" />
 
 </project>
