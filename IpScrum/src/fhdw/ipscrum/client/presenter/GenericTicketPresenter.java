@@ -13,6 +13,7 @@ import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.TypedEventArg;
 import fhdw.ipscrum.client.architecture.presenter.WritePresenter;
+import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.client.architecture.widgets.Answer;
 import fhdw.ipscrum.client.architecture.widgets.QuestionDialog;
 import fhdw.ipscrum.client.view.metamodel.controller.FieldTypeController;
@@ -23,6 +24,7 @@ import fhdw.ipscrum.client.view.metamodel.controller.SingleFieldTypeControllerFa
 import fhdw.ipscrum.client.viewinterfaces.IGenericTicketView;
 import fhdw.ipscrum.shared.commands.ticketsGeneral.SingleFieldChangeCommand;
 import fhdw.ipscrum.shared.commands.ticketsGeneral.TicketChangeStateCommand;
+import fhdw.ipscrum.shared.constants.HelpResources;
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.infrastructure.Command;
@@ -43,11 +45,36 @@ import fhdw.ipscrum.shared.model.nonMeta.Task;
 import fhdw.ipscrum.shared.model.visitor.TicketVisitor;
 
 /**
- * This class is responsible for displaying any kind of {@link Ticket} object. The
- * elements of the correspondent view will be chosen at runtime by analyzing the ticket
- * object and its type.
+ * This class is responsible for displaying any kind of {@link Ticket} object. The elements of the correspondent view
+ * will be chosen at runtime by analyzing the ticket object and its type.
  */
 public class GenericTicketPresenter extends WritePresenter {
+
+	@Override
+	public IView getView() {
+		final IView conView = this.doGetView();
+		conView.registerHelpHandler(new DefaultEventHandler() {
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				GenericTicketPresenter.this.ticket.accept(new TicketVisitor() {
+
+					@Override
+					public void handleTask(final Task task) {
+						GenericTicketPresenter.this.getContext().getHelpController()
+								.showHelp(HelpResources.TASKBOARDVERWALTEN1);
+					}
+
+					@Override
+					public void handlePBI(final ProductBacklogItem pbi) {
+						GenericTicketPresenter.this.getContext().getHelpController()
+								.showHelp(HelpResources.GENERICTICKETPRESENTER);
+					}
+				});
+			}
+		});
+
+		return this.view;
+	}
 
 	/**
 	 * The ticket displayed by the presenter and its view.
@@ -109,36 +136,27 @@ public class GenericTicketPresenter extends WritePresenter {
 					GenericTicketPresenter.this.close();
 				}
 			});
-			this.view
-					.registerNameChangedHandler(new EventHandler<TypedEventArg<String>>() {
+			this.view.registerNameChangedHandler(new EventHandler<TypedEventArg<String>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<String> eventArgs) {
-							GenericTicketPresenter.this.changeName(eventArgs
-									.getObject());
-						}
-					});
-			this.view
-					.registerDescriptionChangeHandler(new EventHandler<TypedEventArg<String>>() {
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<String> eventArgs) {
+					GenericTicketPresenter.this.changeName(eventArgs.getObject());
+				}
+			});
+			this.view.registerDescriptionChangeHandler(new EventHandler<TypedEventArg<String>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<String> eventArgs) {
-							GenericTicketPresenter.this.changeDescription(eventArgs
-									.getObject());
-						}
-					});
-			this.view
-					.regsiterChangeStateHandler(new EventHandler<TypedEventArg<StateType>>() {
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<String> eventArgs) {
+					GenericTicketPresenter.this.changeDescription(eventArgs.getObject());
+				}
+			});
+			this.view.regsiterChangeStateHandler(new EventHandler<TypedEventArg<StateType>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<StateType> eventArgs) {
-							GenericTicketPresenter.this.changeState(eventArgs
-									.getObject());
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<StateType> eventArgs) {
+					GenericTicketPresenter.this.changeState(eventArgs.getObject());
+				}
+			});
 		}
 
 		return this.view;
@@ -151,8 +169,7 @@ public class GenericTicketPresenter extends WritePresenter {
 	 *            the new state
 	 */
 	private void changeState(final StateType newState) {
-		final TicketChangeStateCommand command =
-				new TicketChangeStateCommand(this.ticket, newState);
+		final TicketChangeStateCommand command = new TicketChangeStateCommand(this.ticket, newState);
 		this.doCommandHandling(command);
 		this.updateView();
 	}
@@ -184,12 +201,9 @@ public class GenericTicketPresenter extends WritePresenter {
 	 */
 	@SuppressWarnings("unchecked")
 	private void changeDescription(final String object) {
-		final TextFieldType descriptionType =
-				this.ticket.getTicketType().getDescriptionType();
-		final SingleField<String> descriptionField =
-				(SingleField<String>) this.findField(this.ticket, descriptionType);
-		this.doCommandHandling(SingleFieldChangeCommand.createCommand(descriptionField,
-				object, this.ticket));
+		final TextFieldType descriptionType = this.ticket.getTicketType().getDescriptionType();
+		final SingleField<String> descriptionField = (SingleField<String>) this.findField(this.ticket, descriptionType);
+		this.doCommandHandling(SingleFieldChangeCommand.createCommand(descriptionField, object, this.ticket));
 		this.updateView();
 	}
 
@@ -202,10 +216,8 @@ public class GenericTicketPresenter extends WritePresenter {
 	@SuppressWarnings("unchecked")
 	private void changeName(final String object) {
 		final TextFieldType nameType = this.ticket.getTicketType().getNameType();
-		final SingleField<String> field =
-				(SingleField<String>) this.findField(this.ticket, nameType);
-		this.doCommandHandling(SingleFieldChangeCommand.createCommand(field, object,
-				this.ticket));
+		final SingleField<String> field = (SingleField<String>) this.findField(this.ticket, nameType);
+		this.doCommandHandling(SingleFieldChangeCommand.createCommand(field, object, this.ticket));
 		this.updateView();
 	}
 
@@ -262,18 +274,14 @@ public class GenericTicketPresenter extends WritePresenter {
 
 			@Override
 			public void handlePBI(final ProductBacklogItem pbi) {
-				final Person currentEditor =
-						GenericTicketPresenter.this.getContext().getCurrentUser()
-								.getPerson();
-				final PersonFieldType lastEditorType =
-						pbi.getTicketType().getLastEditorType();
+				final Person currentEditor = GenericTicketPresenter.this.getContext().getCurrentUser().getPerson();
+				final PersonFieldType lastEditorType = pbi.getTicketType().getLastEditorType();
 				@SuppressWarnings("unchecked")
 				final SingleField<Person> lastEditorField =
-						(SingleField<Person>) GenericTicketPresenter.this.findField(
-								pbi, lastEditorType);
+						(SingleField<Person>) GenericTicketPresenter.this.findField(pbi, lastEditorType);
 				final SingleFieldChangeCommand<Person> createCommand =
-						SingleFieldChangeCommand.createCommand(lastEditorField,
-								currentEditor, GenericTicketPresenter.this.ticket);
+						SingleFieldChangeCommand.createCommand(lastEditorField, currentEditor,
+								GenericTicketPresenter.this.ticket);
 
 				try {
 					GenericTicketPresenter.this.doCommand(createCommand);
@@ -287,21 +295,20 @@ public class GenericTicketPresenter extends WritePresenter {
 	@Override
 	protected void onClose(final CloseCallback callback) {
 		if (!this.saved && this.hasPendingChanges()) {
-			this.showQuestion("Wollen sie die Oberfläche ohne Speichern verlassen?",
-					new Answer("Ja!") {
+			this.showQuestion("Wollen sie die Oberfläche ohne Speichern verlassen?", new Answer("Ja!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							GenericTicketPresenter.this.rollbackTransaction();
-							callback.closed();
-						}
-					}, new Answer("Nein!") {
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					GenericTicketPresenter.this.rollbackTransaction();
+					callback.closed();
+				}
+			}, new Answer("Nein!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							callback.closeAborted();
-						}
-					});
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					callback.closeAborted();
+				}
+			});
 		} else {
 			callback.closed();
 		}
@@ -320,16 +327,14 @@ public class GenericTicketPresenter extends WritePresenter {
 	}
 
 	/**
-	 * Gets all possible states for the ticket of the presenter that can be reached from
-	 * the current state.
+	 * Gets all possible states for the ticket of the presenter that can be reached from the current state.
 	 * 
 	 * @return all possible states
 	 */
 	private List<StateType> getPossibleStates() {
 		final StateType currentState = this.ticket.getCurrentState();
 		final List<StateType> result = new ArrayList<StateType>();
-		final List<TransitionRule> transitionRules =
-				this.ticket.getTicketType().getStateProfile().getTransitionRules();
+		final List<TransitionRule> transitionRules = this.ticket.getTicketType().getStateProfile().getTransitionRules();
 		for (final TransitionRule transitionRule : transitionRules) {
 			if (transitionRule.getFrom().equals(currentState)) {
 				result.add(transitionRule.getTo());
@@ -353,8 +358,7 @@ public class GenericTicketPresenter extends WritePresenter {
 	}
 
 	/**
-	 * Executes and adds a command to the current transaction and updates the responsible
-	 * widget in the view.
+	 * Executes and adds a command to the current transaction and updates the responsible widget in the view.
 	 * 
 	 * @param fieldTypeController
 	 *            the controller for the field
@@ -363,11 +367,9 @@ public class GenericTicketPresenter extends WritePresenter {
 	 * 
 	 * @param <T>
 	 *            the return type of the command
-	 * @return The result returned by the
-	 *         {@link Command#execute(fhdw.ipscrum.shared.model.Model, Person)} method.
+	 * @return The result returned by the {@link Command#execute(fhdw.ipscrum.shared.model.Model, Person)} method.
 	 */
-	public <T> T addCommand(final FieldTypeController<?> fieldTypeController,
-			final Command<T> command) {
+	public <T> T addCommand(final FieldTypeController<?> fieldTypeController, final Command<T> command) {
 		try {
 			final T result = this.doCommand(command);
 			fieldTypeController.updateWidget(this.getContext().getModel());
@@ -417,8 +419,7 @@ public class GenericTicketPresenter extends WritePresenter {
 	 *            the generic argument of the field.
 	 */
 	private <T extends Serializable> void addListField(final ListField<T> listField) {
-		final ListFieldTypeControllerFactory factory =
-				new ListFieldTypeControllerFactory(listField, this, this.ticket);
+		final ListFieldTypeControllerFactory factory = new ListFieldTypeControllerFactory(listField, this, this.ticket);
 		final ListFieldTypeController<?> controller = factory.create();
 		if (controller != null) {
 			this.doGetView().add(controller);
@@ -434,8 +435,7 @@ public class GenericTicketPresenter extends WritePresenter {
 	 * @param <T>
 	 *            the generic argument of the field.
 	 */
-	private <T extends Serializable> void addSingleField(
-			final SingleField<T> singleField) {
+	private <T extends Serializable> void addSingleField(final SingleField<T> singleField) {
 		final SingleFieldTypeControllerFactory factory =
 				new SingleFieldTypeControllerFactory(singleField, this, this.ticket);
 		final SingleFieldTypeController<?> controller = factory.create();
