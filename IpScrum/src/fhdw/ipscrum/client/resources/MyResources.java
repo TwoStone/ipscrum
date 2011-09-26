@@ -12,6 +12,7 @@ import fhdw.ipscrum.client.resources.css.Login;
 import fhdw.ipscrum.client.resources.css.Navigation;
 import fhdw.ipscrum.client.resources.css.QuestionWidget;
 import fhdw.ipscrum.client.resources.css.Toast;
+import fhdw.ipscrum.shared.constants.TextConstants;
 
 /**
  * Represents a container of all images used in the IPScrum.
@@ -187,7 +188,7 @@ public interface MyResources extends ClientBundle {
 	/**
 	 * @return the icon for the user.
 	 */
-	@ImageOptions(height = 32, width = 32)
+	@ImageOptions(height = TextConstants.THIRTYTWO, width = TextConstants.THIRTYTWO)
 	@Source("fhdw/ipscrum/client/resources/images/User.png")
 	ImageResource user();
 

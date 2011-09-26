@@ -10,15 +10,15 @@ public abstract class MenuCommand {
 	/**
 	 * represents the client context in which the menu command is used.
 	 */
-	private ClientContext context;
+	private static ClientContext context;
 
 	/**
 	 * getter of the application controller.
 	 * 
 	 * @return the application controller
 	 */
-	public ApplicationController getApplicationController() {
-		return this.context.getApplicationController();
+	public static ApplicationController getApplicationController() {
+		return MenuCommand.context.getApplicationController();
 	}
 
 	/**
@@ -28,7 +28,7 @@ public abstract class MenuCommand {
 	 *            to set
 	 */
 	public void setContext(final ClientContext context) {
-		this.context = context;
+		MenuCommand.context = context;
 	}
 
 	/**
@@ -36,8 +36,8 @@ public abstract class MenuCommand {
 	 * 
 	 * @return the current client context
 	 */
-	public ClientContext getContext() {
-		return this.context;
+	public static ClientContext getContext() {
+		return MenuCommand.context;
 	}
 
 	/**

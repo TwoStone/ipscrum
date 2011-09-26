@@ -39,8 +39,7 @@ public final class TextConstants {
 	public static final String ADD_CRITERION = "Kriterium hinzufügen";
 
 	/**
-	 * Represents the text shown on the label that declares that this is the field for the
-	 * acceptance criterion.
+	 * Represents the text shown on the label that declares that this is the field for the acceptance criterion.
 	 */
 	public static final String CRITERIA_HEADER = "Akzptanzkriterien:";
 
@@ -50,8 +49,7 @@ public final class TextConstants {
 	public static final String ADD_HINT = "Hinweis hinzufügen";
 
 	/**
-	 * Represents the text shown on the label that declares that this is the field for the
-	 * hint.
+	 * Represents the text shown on the label that declares that this is the field for the hint.
 	 */
 	public static final String HINT = "Hinweise:";
 
@@ -66,38 +64,32 @@ public final class TextConstants {
 	public static final String DELETE_BUTTON_TEXT = "x";
 
 	/**
-	 * Represents the text shown on the label that declares that this is the field for the
-	 * relation.
+	 * Represents the text shown on the label that declares that this is the field for the relation.
 	 */
 	public static final String RELATION_HEADER = "Beziehungen:";
 
 	/**
-	 * Represents the text shown on the label that declares that this is the field for the
-	 * description.
+	 * Represents the text shown on the label that declares that this is the field for the description.
 	 */
 	public static final String DESCRIPTION = "Beschreibung";
 
 	/**
-	 * Represents the text shown on the label that declares that this is the field for the
-	 * sprint.
+	 * Represents the text shown on the label that declares that this is the field for the sprint.
 	 */
 	public static final String SPRINT = "Sprint:";
 
 	/**
-	 * Represents the text shown on the label that declares that this is the field for the
-	 * name.
+	 * Represents the text shown on the label that declares that this is the field for the name.
 	 */
 	public static final String NAME = "Name:";
 
 	/**
-	 * Represents the text shown on the trigger that declares that this is the field to
-	 * open.
+	 * Represents the text shown on the trigger that declares that this is the field to open.
 	 */
 	public static final String OPEN = "Offen";
 
 	/**
-	 * Represents the text shown on the trigger that declares that this is the field to
-	 * open the feature.
+	 * Represents the text shown on the trigger that declares that this is the field to open the feature.
 	 */
 	public static final String OPEN_FEATURE = "Feature oeffnen";
 
@@ -133,8 +125,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Wollen sie den Vorgang wirklich abbrechen?".
 	 */
-	public static final String ABORT_QUESTION_LONG =
-			"Wollen sie den Vorgang wirklich abbrechen?";
+	public static final String ABORT_QUESTION_LONG = "Wollen sie den Vorgang wirklich abbrechen?";
 
 	/**
 	 * Represents the text "Fehler".
@@ -312,32 +303,27 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Person anlegen".
 	 */
-	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON =
-			"Person anlegen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWPERSON = "Person anlegen";
 
 	/**
 	 * Represents the text "Person editieren".
 	 */
-	public static final String PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON =
-			"Person editieren";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_MODIFYPERSON = "Person editieren";
 
 	/**
 	 * Represents the text "Zuordnung entfernen".
 	 */
-	public static final String PERSROLEMNGMT_BUTTONLABEL_REMOVEROLEFROMPERSON =
-			"Zuordnung entfernen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_REMOVEROLEFROMPERSON = "Zuordnung entfernen";
 
 	/**
 	 * Represents the text "Zuordnung hinzufügen".
 	 */
-	public static final String PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON =
-			"Zuordnung hinzufügen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_ASSIGNROLETOPERSON = "Zuordnung hinzufügen";
 
 	/**
 	 * Represents the text "Zugeordnete Rollen".
 	 */
-	public static final String PERSROLEMNGMT_ASSIGNEDROLELIST_HEADER =
-			"Zugeordnete Rollen";
+	public static final String PERSROLEMNGMT_ASSIGNEDROLELIST_HEADER = "Zugeordnete Rollen";
 
 	/**
 	 * Represents the text "Rollenverzeichnis".
@@ -347,8 +333,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Rolle anlegen".
 	 */
-	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE =
-			"Rolle anlegen";
+	public static final String PERSROLEMNGMT_BUTTONLABEL_CREATENEWROLE = "Rolle anlegen";
 
 	/**
 	 * Represents the text "Rolle entfernen".
@@ -466,13 +451,11 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Ein PBI mit diesem Namen existiert bereits!".
 	 */
-	public static final String DOUBLE_DEFINITION_PBI =
-			"Ein PBI mit diesem Namen existiert bereits!";
+	public static final String DOUBLE_DEFINITION_PBI = "Ein PBI mit diesem Namen existiert bereits!";
 
 	/**
 	 * Represents the text
-	 * "Das PBI kann dem Backlog nicht hinzugefügt werden, da es bereits einem anderen Backlog gehört"
-	 * .
+	 * "Das PBI kann dem Backlog nicht hinzugefügt werden, da es bereits einem anderen Backlog gehört" .
 	 */
 	public static final String PBI_ERROR =
 			"Das PBI kann dem Backlog nicht hinzugefügt werden, da es bereits einem anderen Backlog gehört";
@@ -485,8 +468,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Es muss eine Bezeichnung angegeben werden!".
 	 */
-	public static final String MISSING_TEXT_ERROR =
-			"Es muss eine Bezeichnung angegeben werden!";
+	public static final String MISSING_TEXT_ERROR = "Es muss eine Bezeichnung angegeben werden!";
 
 	/**
 	 * Represents the text "Feature erstellen".
@@ -511,26 +493,22 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Es muss ein Projektname angegeben werden!".
 	 */
-	public static final String MISSING_PROJECT_NAME =
-			"Es muss ein Projektname angegeben werden!";
+	public static final String MISSING_PROJECT_NAME = "Es muss ein Projektname angegeben werden!";
 
 	/**
 	 * Represents the text "Der angegebene Sprint ist nicht im Projekt definiert!".
 	 */
-	public static final String SPRINT_ERROR =
-			"Der angegebene Sprint ist nicht im Projekt definiert!";
+	public static final String SPRINT_ERROR = "Der angegebene Sprint ist nicht im Projekt definiert!";
 
 	/**
 	 * Represents the text "Release existiert bereits und kann nicht hinzugefüht werden!".
 	 */
-	public static final String RELEASE_ERROR =
-			"Release existiert bereits und kann nicht hinzugef�gt werden!";
+	public static final String RELEASE_ERROR = "Release existiert bereits und kann nicht hinzugef�gt werden!";
 
 	/**
 	 * Represents the text "Projekt mit diesem Namen bereits vorhanden!".
 	 */
-	public static final String PROJECT_ERROR =
-			"Projekt mit diesem Namen bereits vorhanden!";
+	public static final String PROJECT_ERROR = "Projekt mit diesem Namen bereits vorhanden!";
 
 	/**
 	 * Represents the text "Root".
@@ -538,8 +516,7 @@ public final class TextConstants {
 	public static final String ROOT = "Root";
 
 	/**
-	 * Represents the text
-	 * "Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!".
+	 * Represents the text "Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!".
 	 */
 	public static final String MANDAYS_ERROR =
 			"Es muss eine gültige Aufwandsschätzung in Manntagen (>=0) angegeben werden!";
@@ -547,8 +524,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Das PBI muss zunächst mit dem Backlog verbunden werden".
 	 */
-	public static final String PBL_PBI_ERROR =
-			"Das PBI muss zunächst mit dem Backlog verbunden werden";
+	public static final String PBL_PBI_ERROR = "Das PBI muss zunächst mit dem Backlog verbunden werden";
 
 	/**
 	 * Represents the text "Kein Sprint ausgewählt!".
@@ -563,8 +539,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Entfernen von Sprints ist derzeit noch nciht vorgesehen!".
 	 */
-	public static final String SPRINT_DELETE_NOT_ALLOWED =
-			"Entfernen von Sprints ist derzeit noch nicht vorgesehen!";
+	public static final String SPRINT_DELETE_NOT_ALLOWED = "Entfernen von Sprints ist derzeit noch nicht vorgesehen!";
 
 	/**
 	 * Represents the text "Kein Release ausgewählt!".
@@ -601,8 +576,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Bitte treffen Sie eine Auswahl.".
 	 */
-	public static final String CHART_USAGETIP =
-			"<h1>Bitte treffen Sie eine Auswahl.</h1>";
+	public static final String CHART_USAGETIP = "<h1>Bitte treffen Sie eine Auswahl.</h1>";
 
 	/**
 	 * Represents the text "Burndown-Chart".
@@ -617,14 +591,12 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Arbeitstage".
 	 */
-	public static final String CHART_SPRINT_XAXIS_LABEL =
-			"<i>A r b e i t s t a g e</i>";
+	public static final String CHART_SPRINT_XAXIS_LABEL = "<i>A r b e i t s t a g e</i>";
 
 	/**
 	 * Represents the text "offene Aufwände".
 	 */
-	public static final String CHART_RELEASE_YAXIS_LABEL =
-			"<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>";
+	public static final String CHART_RELEASE_YAXIS_LABEL = "<i>o f f e n e&nbsp;&nbsp;&nbsp;A u f w ä n d e</i>";
 
 	/**
 	 * Represents the text "Endtermin Sprints".
@@ -666,8 +638,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "befindet sich im Urlaub.".
 	 */
-	public static final String INCIDENT_VACATION_DESCR_SUFFIX =
-			" befindet sich im Urlaub.";
+	public static final String INCIDENT_VACATION_DESCR_SUFFIX = " befindet sich im Urlaub.";
 
 	/**
 	 * Represents the text "Krankheit".
@@ -677,8 +648,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "ist aus gesundheitlichen Gründen abwesend.".
 	 */
-	public static final String INCIDENT_ILLNESS_DESCR_SUFFIX =
-			" ist aus gesundheitlichen Gründen abwesend.";
+	public static final String INCIDENT_ILLNESS_DESCR_SUFFIX = " ist aus gesundheitlichen Gründen abwesend.";
 
 	/**
 	 * Represents the text "Task erledigt".
@@ -713,8 +683,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "' wurde von Product Owner ".
 	 */
-	public static final String INCIDENT_PBICOMPLETION_DESCR_INFIX1 =
-			"' wurde von Product Owner ";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_INFIX1 = "' wurde von Product Owner ";
 
 	/**
 	 * Represents the text " abgenommen.".
@@ -734,8 +703,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text " als behoben akzeptiert".
 	 */
-	public static final String INCIDENT_PBICOMPLETION_DESCR_SUFFIX2 =
-			" als behoben akzeptiert";
+	public static final String INCIDENT_PBICOMPLETION_DESCR_SUFFIX2 = " als behoben akzeptiert";
 
 	/**
 	 * Represents the text "Sprint beendet".
@@ -750,8 +718,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "' wurde von dem Team ".
 	 */
-	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_INFIX =
-			"' wurde von dem Team ";
+	public static final String INCIDENT_SPRINTCOMPLETION_DESCR_INFIX = "' wurde von dem Team ";
 
 	/**
 	 * Represents the text " beendet.".
@@ -766,14 +733,12 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Das geplante Release '".
 	 */
-	public static final String INCIDENT_RELEASECOMPLETION_DESCR_PREFIX =
-			"Das geplante Release '";
+	public static final String INCIDENT_RELEASECOMPLETION_DESCR_PREFIX = "Das geplante Release '";
 
 	/**
 	 * Represents the text "' wurde ausgerollt".
 	 */
-	public static final String INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX =
-			"' wurde ausgerollt";
+	public static final String INCIDENT_RELEASECOMPLETION_DESCR_SUFFIX = "' wurde ausgerollt";
 
 	/**
 	 * Represents the text "Sonstiges Ereignis".
@@ -813,14 +778,12 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Bitte ein Start - und End-Datum und eine Person auswählen!".
 	 */
-	public static final String INCIDENT_WARNING_1 =
-			"Bitte ein Start- und Ende-Datum und eine Person auswählen!";
+	public static final String INCIDENT_WARNING_1 = "Bitte ein Start- und Ende-Datum und eine Person auswählen!";
 
 	/**
 	 * Represents the text "Bitte ein Start, End-Datum, namen und Beschreibung eingebn!".
 	 */
-	public static final String INCIDENT_WARNING_2 =
-			"Bitte Start-, Ende-Datum, Namen und Beschreibung eingeben!";
+	public static final String INCIDENT_WARNING_2 = "Bitte Start-, Ende-Datum, Namen und Beschreibung eingeben!";
 
 	/**
 	 * Represents the text "Typ anlegen".
@@ -898,8 +861,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Bitte Namen und Beschreibung eingeben.".
 	 */
-	public static final String INSERT_NAME_DESCRIPTION =
-			"Bitte Namen und Beschreibung eingeben.";
+	public static final String INSERT_NAME_DESCRIPTION = "Bitte Namen und Beschreibung eingeben.";
 
 	/**
 	 * Represents the text "Operation ist nicht erlaubt.".
@@ -1027,8 +989,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Zum Selektieren mehrerer PBIs Strg+Klick".
 	 */
-	public static final String PBI_MOUSEOVER =
-			"Zum Selektieren mehrerer PBIs Strg + Klick";
+	public static final String PBI_MOUSEOVER = "Zum Selektieren mehrerer PBIs Strg + Klick";
 
 	/**
 	 * Represents the text "Neues System anlegen".
@@ -1159,8 +1120,7 @@ public final class TextConstants {
 	/**
 	 * Represents the text "Incident-Type doppelt erstellt.".
 	 */
-	public static final String INCIDENTTYPE_DOUBLEDEFINITION =
-			"Incident-Type doppelt erstellt.";
+	public static final String INCIDENTTYPE_DOUBLEDEFINITION = "Incident-Type doppelt erstellt.";
 
 	/**
 	 * Represents th max length of the name of a sprint.
@@ -1226,4 +1186,14 @@ public final class TextConstants {
 	 * represents the term 0x3 which is needed for creating a UUID.
 	 */
 	public static final Integer TERM1 = 0x3;
+
+	/**
+	 * represents the term 0xf which is needed for creating a UUID.
+	 */
+	public static final Integer TERM3 = 0xf;
+
+	/**
+	 * represents the number 32 which is needed to represent the with and height of an image.
+	 */
+	public static final int THIRTYTWO = 32;
 }

@@ -27,16 +27,18 @@ public final class ClassUtils {
 			result = false;
 		}
 
-		if (clazz2.equals(clazz1)) {
-			result = true;
-		}
-
-		Class<?> currentSuperClass = clazz1.getSuperclass();
-		while (currentSuperClass != null) {
-			if (currentSuperClass.equals(clazz2)) {
+		if (clazz2 != null) {
+			if (clazz2.equals(clazz1)) {
 				result = true;
 			}
-			currentSuperClass = currentSuperClass.getSuperclass();
+
+			Class<?> currentSuperClass = clazz1.getSuperclass();
+			while (currentSuperClass != null) {
+				if (currentSuperClass.equals(clazz2)) {
+					result = true;
+				}
+				currentSuperClass = currentSuperClass.getSuperclass();
+			}
 		}
 		return result;
 	}
