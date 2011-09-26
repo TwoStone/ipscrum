@@ -17,10 +17,10 @@ import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 public class TeamCreatePresenter extends WritePresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.TeamCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.TeamCreateView).
 	 */
-	public static interface ITeamCreateView extends IView {
+	public interface ITeamCreateView extends IView {
 
 		/**
 		 * Represents the Event to handle the save.
@@ -57,8 +57,8 @@ public class TeamCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public TeamCreatePresenter(final ClientContext context) {
 		super(context);
@@ -86,21 +86,20 @@ public class TeamCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					TeamCreatePresenter.this.showQuestion("Änderungen verwergen?",
-							new Answer("Ja") {
+					TeamCreatePresenter.this.showQuestion("Änderungen verwergen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									TeamCreatePresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							TeamCreatePresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}

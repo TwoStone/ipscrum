@@ -17,10 +17,10 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
  */
 public class PersonEditPresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.PersonEditView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.PersonEditView).
 	 */
-	public static interface IPersonEditView extends IView {
+	public interface IPersonEditView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -54,8 +54,7 @@ public class PersonEditPresenter extends WritePresenter {
 		String getLastName();
 
 		/**
-		 * this method is needed to fill the fields in the view with the data of the
-		 * person to edit.
+		 * this method is needed to fill the fields in the view with the data of the person to edit.
 		 * 
 		 * @param person
 		 *            to edit
@@ -64,8 +63,7 @@ public class PersonEditPresenter extends WritePresenter {
 	}
 
 	/**
-	 * represents the person related to this view. It is needed to make clear which person
-	 * should be edited.
+	 * represents the person related to this view. It is needed to make clear which person should be edited.
 	 */
 	private final Person person;
 	/**
@@ -77,8 +75,8 @@ public class PersonEditPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.PersonEditPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param person
 	 *            is the related person which should be edited
 	 */
@@ -109,21 +107,20 @@ public class PersonEditPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					PersonEditPresenter.this.showQuestion("Änderungen verwerfen?",
-							new Answer("Ja") {
+					PersonEditPresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									PersonEditPresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							PersonEditPresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -134,8 +131,7 @@ public class PersonEditPresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new PersonChangeNameCommand(this.person, this.view
-					.getFirstName(), this.view.getLastName()));
+			this.doCommand(new PersonChangeNameCommand(this.person, this.view.getFirstName(), this.view.getLastName()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

@@ -25,10 +25,10 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketTypeVisitor;
  */
 public class TicketTypeCreatePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.TicketTypeCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.TicketTypeCreateView).
 	 */
-	public static interface ITicketTypeCreateView extends IView {
+	public interface ITicketTypeCreateView extends IView {
 
 		/**
 		 * Represents the Event to handle the save.
@@ -70,8 +70,7 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 		String getName();
 
 		/**
-		 * this method is needed to fill the list in the view with the existing standard
-		 * ticketTypes.
+		 * this method is needed to fill the list in the view with the existing standard ticketTypes.
 		 * 
 		 * @param types
 		 *            are the existing standard ticketTypes
@@ -85,12 +84,11 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 	private ITicketTypeCreateView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.TicketTypeCreatePresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TicketTypeCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public TicketTypeCreatePresenter(final ClientContext context) {
 		super(context);
@@ -118,21 +116,21 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					TicketTypeCreatePresenter.this.showQuestion(
-							"Do you want to leave without saving?", new Answer("Yes!") {
+					TicketTypeCreatePresenter.this.showQuestion("Do you want to leave without saving?", new Answer(
+							"Yes!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									TicketTypeCreatePresenter.this.close();
-								}
-							}, new Answer("No!") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							TicketTypeCreatePresenter.this.close();
+						}
+					}, new Answer("No!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -147,30 +145,25 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 			@Override
 			public void handleTaskTicketType(final TaskTicketType taskTicketType) {
 				try {
-					TicketTypeCreatePresenter.this
-							.doCommand(new TaskTicketTypeCreateCommand(
-									TicketTypeCreatePresenter.this.view.getName(),
-									TicketTypeCreatePresenter.this.view
-											.getDescription()));
+					TicketTypeCreatePresenter.this.doCommand(new TaskTicketTypeCreateCommand(
+							TicketTypeCreatePresenter.this.view.getName(), TicketTypeCreatePresenter.this.view
+									.getDescription()));
 				} catch (final IPScrumGeneralException e) {
-					TicketTypeCreatePresenter.this.getContext()
-							.getToastMessageController().toastMessage(e.getMessage());
+					TicketTypeCreatePresenter.this.getContext().getToastMessageController()
+							.toastMessage(e.getMessage());
 				}
 
 			}
 
 			@Override
-			public void handleFeatureTicketType(
-					final FeatureTicketType featureTicketType) {
+			public void handleFeatureTicketType(final FeatureTicketType featureTicketType) {
 				try {
-					TicketTypeCreatePresenter.this
-							.doCommand(new FeatureTicketTypeCreateCommand(
-									TicketTypeCreatePresenter.this.view.getName(),
-									TicketTypeCreatePresenter.this.view
-											.getDescription()));
+					TicketTypeCreatePresenter.this.doCommand(new FeatureTicketTypeCreateCommand(
+							TicketTypeCreatePresenter.this.view.getName(), TicketTypeCreatePresenter.this.view
+									.getDescription()));
 				} catch (final IPScrumGeneralException e) {
-					TicketTypeCreatePresenter.this.getContext()
-							.getToastMessageController().toastMessage(e.getMessage());
+					TicketTypeCreatePresenter.this.getContext().getToastMessageController()
+							.toastMessage(e.getMessage());
 
 				}
 
@@ -179,14 +172,12 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 			@Override
 			public void handleBugTicketType(final BugTicketType bugTicketType) {
 				try {
-					TicketTypeCreatePresenter.this
-							.doCommand(new BugTicketTypeCreateCommand(
-									TicketTypeCreatePresenter.this.view.getName(),
-									TicketTypeCreatePresenter.this.view
-											.getDescription()));
+					TicketTypeCreatePresenter.this.doCommand(new BugTicketTypeCreateCommand(
+							TicketTypeCreatePresenter.this.view.getName(), TicketTypeCreatePresenter.this.view
+									.getDescription()));
 				} catch (final IPScrumGeneralException e) {
-					TicketTypeCreatePresenter.this.getContext()
-							.getToastMessageController().toastMessage(e.getMessage());
+					TicketTypeCreatePresenter.this.getContext().getToastMessageController()
+							.toastMessage(e.getMessage());
 
 				}
 
@@ -199,8 +190,7 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.view.refreshMainTypes(this.getContext().getModel().getTypeManager()
-				.fetchStandardTicketTypes());
+		this.view.refreshMainTypes(this.getContext().getModel().getTypeManager().fetchStandardTicketTypes());
 	}
 
 	@Override

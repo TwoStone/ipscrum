@@ -11,31 +11,27 @@ import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
- * This class represents the presenter which controls the view to switch to the ticketType
- * details.
+ * This class represents the presenter which controls the view to switch to the ticketType details.
  */
 public class TicketTypeSelectionPresenter extends ReadPresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.TicketTypeSelectionView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.TicketTypeSelectionView).
 	 */
-	public static interface ITicketTypeSelectionView extends IView {
+	public interface ITicketTypeSelectionView extends IView {
 
 		/**
 		 * Represents the Event to handle the switch to the ticketType details.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, and also knows the ticketType to switch
-		 *            to
+		 *            needed to handle the event, and also knows the ticketType to switch to
 		 * @return the event which handles the switch
 		 */
-		EventRegistration registerGotoProjectHandler(
-				EventHandler<TypedEventArg<TicketType>> handler);
+		EventRegistration registerGotoProjectHandler(EventHandler<TypedEventArg<TicketType>> handler);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing ticketTypes.
+		 * this method is needed to fill the list in the view with the data of the existing ticketTypes.
 		 * 
 		 * @param ticketTypes
 		 *            are the existing ticketTypes
@@ -49,12 +45,11 @@ public class TicketTypeSelectionPresenter extends ReadPresenter {
 	private ITicketTypeSelectionView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.TicketTypeSelectionPresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TicketTypeSelectionPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public TicketTypeSelectionPresenter(final ClientContext context) {
 		super(context);
@@ -68,27 +63,20 @@ public class TicketTypeSelectionPresenter extends ReadPresenter {
 	@Override
 	public ITicketTypeSelectionView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory().createTicketTypeSelectionView();
-			this.view
-					.registerGotoProjectHandler(new EventHandler<TypedEventArg<TicketType>>() {
+			this.view = this.getContext().getViewFactory().createTicketTypeSelectionView();
+			this.view.registerGotoProjectHandler(new EventHandler<TypedEventArg<TicketType>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<TicketType> eventArgs) {
-							if (eventArgs.getObject().isStandardTicketType()) {
-								TicketTypeSelectionPresenter.this
-										.getContext()
-										.getToastMessageController()
-										.toastMessage(
-												"Standardtickettypen dürfen nicht verändert werden!");
-							} else {
-								TicketTypeSelectionPresenter.this.gotoProject(eventArgs
-										.getObject());
-							}
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<TicketType> eventArgs) {
+					if (eventArgs.getObject().isStandardTicketType()) {
+						TicketTypeSelectionPresenter.this.getContext().getToastMessageController()
+								.toastMessage("Standardtickettypen dürfen nicht verändert werden!");
+					} else {
+						TicketTypeSelectionPresenter.this.gotoProject(eventArgs.getObject());
+					}
 
-						}
-					});
+				}
+			});
 
 		}
 		return this.view;

@@ -23,19 +23,17 @@ import fhdw.ipscrum.shared.model.nonMeta.Release;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
 /**
- * This class represents the presenter which controls the view to see details of a project
- * and change things of it.
+ * This class represents the presenter which controls the view to see details of a project and change things of it.
  */
 public class ProjectDisplayPresenter extends WritePresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.ProjectDisplayView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.ProjectDisplayView).
 	 */
-	public static interface IProjectDisplayView extends IView {
+	public interface IProjectDisplayView extends IView {
 		/**
-		 * this method is needed to the project in the view with the data of the selected
-		 * projects.
+		 * this method is needed to the project in the view with the data of the selected projects.
 		 * 
 		 * @param project
 		 *            is the project to set
@@ -49,8 +47,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		 *            needed to handle the event and knows the new name
 		 * @return the event which handles the change
 		 */
-		EventRegistration registerChangeNameHandler(
-				EventHandler<TypedEventArg<String>> handler);
+		EventRegistration registerChangeNameHandler(EventHandler<TypedEventArg<String>> handler);
 
 		/**
 		 * Represents the Event to handle the switch to the system selection.
@@ -65,12 +62,10 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		 * Represents the Event to handle the switch to the taskboard.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, and also knows the sprint to which
-		 *            taskboard should be switch to
+		 *            needed to handle the event, and also knows the sprint to which taskboard should be switch to
 		 * @return the event which handles the switch
 		 */
-		EventRegistration registerGotoTaskboard(
-				EventHandler<TypedEventArg<Sprint>> handler);
+		EventRegistration registerGotoTaskboard(EventHandler<TypedEventArg<Sprint>> handler);
 
 		/**
 		 * Represents the Event to handle the switch to the project hitory.
@@ -100,8 +95,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		EventRegistration registerCreateSprint(DefaultEventHandler handler);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing sprints of the project.
+		 * this method is needed to fill the list in the view with the data of the existing sprints of the project.
 		 * 
 		 * @param sprintList
 		 *            are the existing sprints of the project
@@ -127,8 +121,8 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		EventRegistration registerEditRelease(DefaultEventHandler handler);
 
 		/**
-		 * gets the selected sprint of the sprint display, which is needed to switch to
-		 * the taskboard or show the right burndown.
+		 * gets the selected sprint of the sprint display, which is needed to switch to the taskboard or show the right
+		 * burndown.
 		 * 
 		 * @return the current selected sprint
 		 */
@@ -153,8 +147,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		EventRegistration registerCreateRelease(DefaultEventHandler handler);
 
 		/**
-		 * gets the selected release of the release display, which is needed to switch to
-		 * show the right burndown.
+		 * gets the selected release of the release display, which is needed to switch to show the right burndown.
 		 * 
 		 * @return the current selected release
 		 */
@@ -170,8 +163,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		EventRegistration removeRelease(DefaultEventHandler handler);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing releases of the projects.
+		 * this method is needed to fill the list in the view with the data of the existing releases of the projects.
 		 * 
 		 * @param releaseList
 		 *            are the existing releases of the project
@@ -182,23 +174,19 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		 * Represents the Event to handle the switch to the ReleaseBurndownChart.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, which knows the release of which the
-		 *            burndwon should be shown
+		 *            needed to handle the event, which knows the release of which the burndwon should be shown
 		 * @return the event which handles the switch
 		 */
-		EventRegistration registerReleaseBurndownChartEvent(
-				EventHandler<TypedEventArg<Release>> handler);
+		EventRegistration registerReleaseBurndownChartEvent(EventHandler<TypedEventArg<Release>> handler);
 
 		/**
 		 * Represents the Event to handle the switch to the SprintBurndownChart.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, which knows the sprint of which the
-		 *            burndwon should be shown
+		 *            needed to handle the event, which knows the sprint of which the burndwon should be shown
 		 * @return the event which handles the switch
 		 */
-		EventRegistration registerSprintBurndownChartEvent(
-				EventHandler<TypedEventArg<Sprint>> handler);
+		EventRegistration registerSprintBurndownChartEvent(EventHandler<TypedEventArg<Sprint>> handler);
 
 	}
 
@@ -208,8 +196,8 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	private IProjectDisplayView view;
 
 	/**
-	 * represents the project related to this view. It is needed to make clear for which
-	 * project this release should be created.
+	 * represents the project related to this view. It is needed to make clear for which project this release should be
+	 * created.
 	 */
 	private Project project;
 
@@ -217,8 +205,8 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProjectDisplayPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project from which the details are shown
 	 */
@@ -236,16 +224,13 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	public IProjectDisplayView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectDisplayView();
-			this.view
-					.registerChangeNameHandler(new EventHandler<TypedEventArg<String>>() {
+			this.view.registerChangeNameHandler(new EventHandler<TypedEventArg<String>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<String> eventArgs) {
-							ProjectDisplayPresenter.this.changeName(eventArgs
-									.getObject());
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<String> eventArgs) {
+					ProjectDisplayPresenter.this.changeName(eventArgs.getObject());
+				}
+			});
 			this.view.registerGotoSystems(new DefaultEventHandler() {
 
 				@Override
@@ -263,16 +248,13 @@ public class ProjectDisplayPresenter extends WritePresenter {
 			this.view.registerGotoTaskboard(new EventHandler<TypedEventArg<Sprint>>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Sprint> eventArgs) {
+				public void onUpdate(final Object sender, final TypedEventArg<Sprint> eventArgs) {
 
 					final Sprint selSprint = eventArgs.getObject();
 					if (selSprint == null) {
-						ProjectDisplayPresenter.this
-								.toastMessage(ExceptionConstants.NO_RELEASE_SELECTED);
+						ProjectDisplayPresenter.this.toastMessage(ExceptionConstants.NO_RELEASE_SELECTED);
 					} else {
-						ProjectDisplayPresenter.this.gotoTaskboard(eventArgs
-								.getObject());
+						ProjectDisplayPresenter.this.gotoTaskboard(eventArgs.getObject());
 					}
 				}
 			});
@@ -333,42 +315,30 @@ public class ProjectDisplayPresenter extends WritePresenter {
 				}
 			});
 
-			this.view
-					.registerSprintBurndownChartEvent(new EventHandler<TypedEventArg<Sprint>>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Sprint> eventArgs) {
-							if (eventArgs.getObject() != null) {
-								ProjectDisplayPresenter.this
-										.startPresenter(new WidgetPresenter(
-												ProjectDisplayPresenter.this
-														.getContext(),
-												new SprintBurndownChart(eventArgs
-														.getObject()),
-												TextConstants.CHARTPOPUP_TITLE));
-							} else {
-								ProjectDisplayPresenter.this
-										.toastMessage(ExceptionConstants.NO_SPRINT_SELECTED);
-							}
-						}
-					});
+			this.view.registerSprintBurndownChartEvent(new EventHandler<TypedEventArg<Sprint>>() {
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Sprint> eventArgs) {
+					if (eventArgs.getObject() != null) {
+						ProjectDisplayPresenter.this.startPresenter(new WidgetPresenter(ProjectDisplayPresenter.this
+								.getContext(), new SprintBurndownChart(eventArgs.getObject()),
+								TextConstants.CHARTPOPUP_TITLE));
+					} else {
+						ProjectDisplayPresenter.this.toastMessage(ExceptionConstants.NO_SPRINT_SELECTED);
+					}
+				}
+			});
 
-			this.view
-					.registerReleaseBurndownChartEvent(new EventHandler<TypedEventArg<Release>>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Release> eventArgs) {
-							if (eventArgs.getObject() != null) {
-								ProjectDisplayPresenter.this.startPresenter(new WidgetPresenter(
-										ProjectDisplayPresenter.this.getContext(),
-										new ReleaseBurndownChart(eventArgs.getObject()),
-										"Burndown-Chart"));
-							} else {
-								ProjectDisplayPresenter.this
-										.toastMessage(ExceptionConstants.NO_RELEASE_SELECTED);
-							}
-						}
-					});
+			this.view.registerReleaseBurndownChartEvent(new EventHandler<TypedEventArg<Release>>() {
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Release> eventArgs) {
+					if (eventArgs.getObject() != null) {
+						ProjectDisplayPresenter.this.startPresenter(new WidgetPresenter(ProjectDisplayPresenter.this
+								.getContext(), new ReleaseBurndownChart(eventArgs.getObject()), "Burndown-Chart"));
+					} else {
+						ProjectDisplayPresenter.this.toastMessage(ExceptionConstants.NO_RELEASE_SELECTED);
+					}
+				}
+			});
 
 		}
 		return this.view;
@@ -382,8 +352,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	 */
 	private void gotoTaskboard(final Sprint sprint) {
 		if (sprint != null) {
-			this.startPresenter(new TaskboardPresenter(this.getContext(), this.project,
-					sprint));
+			this.startPresenter(new TaskboardPresenter(this.getContext(), this.project, sprint));
 		} else {
 			this.toastMessage(ExceptionConstants.NO_SPRINT_SELECTED);
 		}
@@ -411,28 +380,25 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	 * this method is needed to switch to the productBacklog of the project.
 	 */
 	private void gotoProductBacklog() {
-		final ProductBacklogPresenter presenter =
-				new ProductBacklogPresenter(this.getContext(), this.project);
+		final ProductBacklogPresenter presenter = new ProductBacklogPresenter(this.getContext(), this.project);
 		this.startPresenter(presenter);
 	}
 
 	/**
-	 * this method opens the function to create a new sprint. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.CreateSprintPresenter .
+	 * this method opens the function to create a new sprint. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.CreateSprintPresenter .
 	 */
 	private void createSprint() {
-		final CreateSprintPresenter presenter =
-				new CreateSprintPresenter(this.getContext(), this.project);
+		final CreateSprintPresenter presenter = new CreateSprintPresenter(this.getContext(), this.project);
 		this.startPresenter(presenter);
 	}
 
 	/**
-	 * this method opens the function to create a new release. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.ReleaseCreatePresenter .
+	 * this method opens the function to create a new release. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.ReleaseCreatePresenter .
 	 */
 	private void createRelease() {
-		final ReleaseCreatePresenter presenter =
-				new ReleaseCreatePresenter(this.getContext(), this.project);
+		final ReleaseCreatePresenter presenter = new ReleaseCreatePresenter(this.getContext(), this.project);
 		this.startPresenter(presenter);
 	}
 
@@ -443,8 +409,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	private void editSprint() {
 		final Sprint selSprint = this.view.getSelectedSprint();
 		if (selSprint != null) {
-			final EditSprintPresenter presenter =
-					new EditSprintPresenter(this.getContext(), selSprint);
+			final EditSprintPresenter presenter = new EditSprintPresenter(this.getContext(), selSprint);
 			this.startPresenter(presenter);
 		} else {
 			this.toastMessage(ExceptionConstants.NO_SPRINT_SELECTED);
@@ -459,8 +424,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		final Release selRelease = this.view.getSelectedRelease();
 		if (selRelease != null) {
 			final ReleaseEditPresenter presenter =
-					new ReleaseEditPresenter(this.getContext(),
-							this.view.getSelectedRelease());
+					new ReleaseEditPresenter(this.getContext(), this.view.getSelectedRelease());
 			this.startPresenter(presenter);
 		} else {
 			this.toastMessage(ExceptionConstants.NO_RELEASE_SELECTED);
@@ -482,8 +446,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 		if (selRelease != null) {
 			try {
 				this.beginTransaction();
-				final ReleaseDeleteCommand command =
-						new ReleaseDeleteCommand(selRelease);
+				final ReleaseDeleteCommand command = new ReleaseDeleteCommand(selRelease);
 				this.doCommand(command);
 				this.commitTransaction();
 			} catch (final IPScrumGeneralException e) {
@@ -504,8 +467,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	private void changeName(final String object) {
 		try {
 			this.beginTransaction();
-			final ProjectChangeNameCommand command =
-					new ProjectChangeNameCommand(this.project, object);
+			final ProjectChangeNameCommand command = new ProjectChangeNameCommand(this.project, object);
 			this.doCommand(command);
 			this.commitTransaction();
 		} catch (final IPScrumGeneralException e) {
@@ -516,8 +478,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getProjectRight());
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getProjectRight());
 		this.doGetView().setProject(this.project);
 		this.doGetView().updateSprintTable(this.project.getSprints());
 		this.doGetView().updateReleaseTable(this.project.getReleases());

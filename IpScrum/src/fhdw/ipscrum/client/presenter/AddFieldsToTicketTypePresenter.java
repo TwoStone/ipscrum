@@ -23,7 +23,7 @@ public class AddFieldsToTicketTypePresenter extends WritePresenter {
 	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
 	 * fhdw.ipscrum.client.view.AddFieldsToTicketTypeView).
 	 */
-	public static interface IAddFieldsToTicketTypeView extends IView {
+	public interface IAddFieldsToTicketTypeView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 

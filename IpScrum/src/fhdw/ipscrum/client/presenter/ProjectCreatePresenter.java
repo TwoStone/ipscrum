@@ -20,7 +20,7 @@ public class ProjectCreatePresenter extends WritePresenter {
 	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
 	 * fhdw.ipscrum.client.view.ProjectCreateView).
 	 */
-	public static interface IProjectCreateView extends IView {
+	public interface IProjectCreateView extends IView {
 
 		/**
 		 * Represents the Event to handle the save.

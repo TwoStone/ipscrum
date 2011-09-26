@@ -22,10 +22,10 @@ import fhdw.ipscrum.shared.model.nonMeta.System;
 public class SystemManagementPresenter extends WritePresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.SystemManagementView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.SystemManagementView).
 	 */
-	public static interface ISystemManagementView extends IView {
+	public interface ISystemManagementView extends IView {
 
 		/**
 		 * Represents new EvetnArgs which contains data for a new system (name, parent).
@@ -61,16 +61,13 @@ public class SystemManagementPresenter extends WritePresenter {
 		 * Represents the Event to handle to create a new system.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, which also knows the data of the new
-		 *            system
+		 *            needed to handle the event, which also knows the data of the new system
 		 * @return the event which handles to create the new system
 		 */
-		EventRegistration registerCreateSystemHandler(
-				EventHandler<SystemManagementView.NewSystemEventArgs> handler);
+		EventRegistration registerCreateSystemHandler(EventHandler<SystemManagementView.NewSystemEventArgs> handler);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing rootSystems.
+		 * this method is needed to fill the list in the view with the data of the existing rootSystems.
 		 * 
 		 * @param group
 		 *            are the existing rootSystems
@@ -78,8 +75,7 @@ public class SystemManagementPresenter extends WritePresenter {
 		void setRootSystemGroup(List<System> group);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * possible parentSystems.
+		 * this method is needed to fill the list in the view with the data of the possible parentSystems.
 		 * 
 		 * @param parents
 		 *            are the possible parentSystems
@@ -93,12 +89,11 @@ public class SystemManagementPresenter extends WritePresenter {
 	private ISystemManagementView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.StateFieldAndTickettypeAdministrationPresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.StateFieldAndTickettypeAdministrationPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public SystemManagementPresenter(final ClientContext context) {
 		super(context);
@@ -117,10 +112,8 @@ public class SystemManagementPresenter extends WritePresenter {
 					.registerCreateSystemHandler(new EventHandler<SystemManagementPresenter.ISystemManagementView.NewSystemEventArgs>() {
 
 						@Override
-						public void onUpdate(final Object sender,
-								final NewSystemEventArgs eventArgs) {
-							SystemManagementPresenter.this.createSystem(eventArgs.name,
-									eventArgs.parent);
+						public void onUpdate(final Object sender, final NewSystemEventArgs eventArgs) {
+							SystemManagementPresenter.this.createSystem(eventArgs.name, eventArgs.parent);
 						}
 					});
 		}
@@ -156,8 +149,7 @@ public class SystemManagementPresenter extends WritePresenter {
 	@Override
 	public void updateView() {
 		this.doGetView().setPossibleParents(this.getContext().getModel().getAllSystems());
-		this.doGetView().setRootSystemGroup(
-				this.getContext().getModel().getSystems().getSystems());
+		this.doGetView().setRootSystemGroup(this.getContext().getModel().getSystems().getSystems());
 	}
 
 	@Override

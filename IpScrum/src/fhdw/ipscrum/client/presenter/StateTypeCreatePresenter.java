@@ -16,10 +16,10 @@ import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
  */
 public class StateTypeCreatePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.StateCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.StateCreateView).
 	 */
-	public static interface IStateCreateView extends IView {
+	public interface IStateCreateView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -59,12 +59,11 @@ public class StateTypeCreatePresenter extends WritePresenter {
 	private IStateCreateView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.StateTypeCreatePresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.StateTypeCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public StateTypeCreatePresenter(final ClientContext context) {
 		super(context);
@@ -92,21 +91,21 @@ public class StateTypeCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					StateTypeCreatePresenter.this.showQuestion(
-							"Do you want to leave without saving?", new Answer("Yes!") {
+					StateTypeCreatePresenter.this.showQuestion("Do you want to leave without saving?", new Answer(
+							"Yes!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									StateTypeCreatePresenter.this.close();
-								}
-							}, new Answer("No!") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							StateTypeCreatePresenter.this.close();
+						}
+					}, new Answer("No!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -117,8 +116,7 @@ public class StateTypeCreatePresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new StateTypeCreateCommand(this.view.getName(), this.view
-					.getDescription()));
+			this.doCommand(new StateTypeCreateCommand(this.view.getName(), this.view.getDescription()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

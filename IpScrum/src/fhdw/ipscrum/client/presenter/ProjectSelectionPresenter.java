@@ -13,19 +13,17 @@ import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * This class represents the presenter which controls the view to create and switch to
- * projects.
+ * This class represents the presenter which controls the view to create and switch to projects.
  */
 public class ProjectSelectionPresenter extends ReadPresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.ProjectSelectionView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.ProjectSelectionView).
 	 */
-	public static interface IProjectSelectionView extends IView {
+	public interface IProjectSelectionView extends IView {
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing projects.
+		 * this method is needed to fill the list in the view with the data of the existing projects.
 		 * 
 		 * @param projects
 		 *            are the existing projects
@@ -37,11 +35,9 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 		 * 
 		 * @param handler
 		 *            needed to handle the event
-		 * @return the event which handles the switch, and also knows the project to
-		 *         switch to
+		 * @return the event which handles the switch, and also knows the project to switch to
 		 */
-		EventRegistration registerGotoProjectHandler(
-				EventHandler<TypedEventArg<Project>> handler);
+		EventRegistration registerGotoProjectHandler(EventHandler<TypedEventArg<Project>> handler);
 
 		/**
 		 * Represents the Event to handle the creation of a new project.
@@ -62,8 +58,8 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.PersonRolePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public ProjectSelectionPresenter(final ClientContext context) {
 		super(context);
@@ -78,16 +74,13 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 	public IProjectSelectionView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectSelectionView();
-			this.view
-					.registerGotoProjectHandler(new EventHandler<TypedEventArg<Project>>() {
+			this.view.registerGotoProjectHandler(new EventHandler<TypedEventArg<Project>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Project> eventArgs) {
-							ProjectSelectionPresenter.this.gotoProject(eventArgs
-									.getObject());
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Project> eventArgs) {
+					ProjectSelectionPresenter.this.gotoProject(eventArgs.getObject());
+				}
+			});
 			this.view.registerNewProjectHandler(new DefaultEventHandler() {
 
 				@Override
@@ -100,12 +93,11 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 	}
 
 	/**
-	 * this method opens the function to create a new project. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.ProjectCreatePresenter .
+	 * this method opens the function to create a new project. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.ProjectCreatePresenter .
 	 */
 	private void newProject() {
-		final ProjectCreatePresenter projectCreatePresenter =
-				new ProjectCreatePresenter(this.getContext());
+		final ProjectCreatePresenter projectCreatePresenter = new ProjectCreatePresenter(this.getContext());
 		this.startPresenter(projectCreatePresenter);
 	}
 
@@ -121,8 +113,7 @@ public class ProjectSelectionPresenter extends ReadPresenter {
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getProjectRight());
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getProjectRight());
 		this.doGetView().setProjects(this.getContext().getModel().getProjects());
 	}
 

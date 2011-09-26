@@ -20,10 +20,10 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 public class ReleaseCreatePresenter extends WritePresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.ReleaseCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.ReleaseCreateView).
 	 */
-	public static interface IReleaseCreateView extends IView {
+	public interface IReleaseCreateView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -63,8 +63,8 @@ public class ReleaseCreatePresenter extends WritePresenter {
 	private IReleaseCreateView view;
 
 	/**
-	 * represents the project related to this view. It is needed to make clear for which
-	 * project this release should be created.
+	 * represents the project related to this view. It is needed to make clear for which project this release should be
+	 * created.
 	 */
 	private final Project project;
 
@@ -72,8 +72,8 @@ public class ReleaseCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ReleaseCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project in which the release should be created
 	 */
@@ -104,21 +104,20 @@ public class ReleaseCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					ReleaseCreatePresenter.this.showQuestion("Änderungen verwerfen?",
-							new Answer("Ja") {
+					ReleaseCreatePresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									ReleaseCreatePresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							ReleaseCreatePresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -129,8 +128,8 @@ public class ReleaseCreatePresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new ReleaseCreateCommand(this.project, this.view
-					.getDescription(), this.view.getReleaseDateBox()));
+			this.doCommand(new ReleaseCreateCommand(this.project, this.view.getDescription(), this.view
+					.getReleaseDateBox()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

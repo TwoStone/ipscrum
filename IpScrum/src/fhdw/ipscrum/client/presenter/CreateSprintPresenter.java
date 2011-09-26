@@ -46,7 +46,7 @@ public class CreateSprintPresenter extends WritePresenter {
 
 	@Override
 	public String getName() {
-		return "Rolle erstellen";
+		return "Sprint erstellen";
 	}
 
 	@Override

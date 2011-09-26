@@ -16,10 +16,10 @@ import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
  */
 public class PersonCreatePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.PersonCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.PersonCreateView).
 	 */
-	public static interface IPersonCreateView extends IView {
+	public interface IPersonCreateView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -62,8 +62,8 @@ public class PersonCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public PersonCreatePresenter(final ClientContext context) {
 		super(context);
@@ -91,21 +91,20 @@ public class PersonCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					PersonCreatePresenter.this.showQuestion("Änderungen verwerfen?",
-							new Answer("Ja") {
+					PersonCreatePresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									PersonCreatePresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							PersonCreatePresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -116,8 +115,7 @@ public class PersonCreatePresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new PersonCreateCommand(this.view.getLastName(), this.view
-					.getFirstName()));
+			this.doCommand(new PersonCreateCommand(this.view.getLastName(), this.view.getFirstName()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

@@ -29,10 +29,10 @@ import fhdw.ipscrum.shared.model.metamodel.fields.One;
  */
 public class FieldTypeCreatePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.FieldTypeCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.FieldTypeCreateView).
 	 */
-	public static interface IFieldTypeCreateView extends IView {
+	public interface IFieldTypeCreateView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -80,12 +80,11 @@ public class FieldTypeCreatePresenter extends WritePresenter {
 	private IFieldTypeCreateView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.FieldTypeCreatePresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.FieldTypeCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public FieldTypeCreatePresenter(final ClientContext context) {
 		super(context);
@@ -113,21 +112,21 @@ public class FieldTypeCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					FieldTypeCreatePresenter.this.showQuestion(
-							"Do you want to leave without saving?", new Answer("Yes!") {
+					FieldTypeCreatePresenter.this.showQuestion("Do you want to leave without saving?", new Answer(
+							"Yes!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									FieldTypeCreatePresenter.this.close();
-								}
-							}, new Answer("No!") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							FieldTypeCreatePresenter.this.close();
+						}
+					}, new Answer("No!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -172,112 +171,90 @@ public class FieldTypeCreatePresenter extends WritePresenter {
 
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_ACCEPTANCECRITERIAL)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new AcceptanceCriteriaFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new AcceptanceCriteriaFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new AcceptanceCriteriaFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new AcceptanceCriteriaFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_DATE)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new DateFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new DateFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new DateFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new DateFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_EFFORD)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new EffortFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new EffortFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new EffortFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new EffortFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_HINT)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new HintFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new HintFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new HintFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new HintFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_NUMBER)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new NumberFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new NumberFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new NumberFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new NumberFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_PBI)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new PBIFieldTypeCreateCommand(
-						this.view.getDescription(), one));
+				this.doCommand(new PBIFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new PBIFieldTypeCreateCommand(
-						this.view.getDescription(), many));
+				this.doCommand(new PBIFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_PERSON)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new PersonFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new PersonFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new PersonFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new PersonFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_RELEASE)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new ReleaseFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new ReleaseFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new ReleaseFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new ReleaseFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_SPRINT)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new SprintFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new SprintFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new SprintFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new SprintFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_SYSTEM)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new SystemFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new SystemFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new SystemFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new SystemFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 		if (this.view.getType().equals(TextConstants.FIELDTYPE_TEXT)) {
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_ONE)) {
-				this.doCommand(new TextFieldTypeCreateCommand(this.view
-						.getDescription(), one));
+				this.doCommand(new TextFieldTypeCreateCommand(this.view.getDescription(), one));
 			}
 			if (this.view.getMultiplicity().equals(TextConstants.FIELDTYPE_MANY)) {
-				this.doCommand(new TextFieldTypeCreateCommand(this.view
-						.getDescription(), many));
+				this.doCommand(new TextFieldTypeCreateCommand(this.view.getDescription(), many));
 			}
 		}
 	}

@@ -16,15 +16,14 @@ import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
- * This class represents the presenter which controls the view to create
- * StateTransistions.
+ * This class represents the presenter which controls the view to create StateTransistions.
  */
 public class StateTransitionCreatePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.StateTransitionCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.StateTransitionCreateView).
 	 */
-	public static interface IStateTransitionCreateView extends IView {
+	public interface IStateTransitionCreateView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -58,8 +57,8 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 		StateType getSubSequentState();
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the known
-		 * state types for the original state.
+		 * this method is needed to fill the list in the view with the data of the known state types for the original
+		 * state.
 		 * 
 		 * @param statetype
 		 *            are the known state types
@@ -67,8 +66,8 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 		void updateComboBoxType(List<StateType> statetype);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the known
-		 * state types for the subsequnet state.
+		 * this method is needed to fill the list in the view with the data of the known state types for the subsequnet
+		 * state.
 		 * 
 		 * @param statetype
 		 *            are the known state types
@@ -82,8 +81,8 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 	 */
 	private IStateTransitionCreateView view;
 	/**
-	 * represents the ticket type related to this view. It is needed to make clear to
-	 * which ticket type the transition should be created.
+	 * represents the ticket type related to this view. It is needed to make clear to which ticket type the transition
+	 * should be created.
 	 */
 	private final TicketType ticketType;
 
@@ -91,13 +90,12 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param ticketType
 	 *            is the ticketType to which the new transition is related
 	 */
-	public StateTransitionCreatePresenter(final ClientContext context,
-			final TicketType ticketType) {
+	public StateTransitionCreatePresenter(final ClientContext context, final TicketType ticketType) {
 		super(context);
 		this.ticketType = ticketType;
 		this.beginTransaction();
@@ -111,9 +109,7 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 	@Override
 	public IStateTransitionCreateView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory()
-							.createStateTransitionCreateView();
+			this.view = this.getContext().getViewFactory().createStateTransitionCreateView();
 			this.view.registerSave(new DefaultEventHandler() {
 
 				@Override
@@ -126,8 +122,7 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					StateTransitionCreatePresenter.this.showQuestion(
-							"Möchten sie die Seite ohne Speichern verlassen?",
+					StateTransitionCreatePresenter.this.showQuestion("Möchten sie die Seite ohne Speichern verlassen?",
 							new Answer("Ja!") {
 
 								@Override
@@ -152,8 +147,8 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new TransitionRuleCreateCommand(this.ticketType, this.view
-					.getOriginalState(), this.view.getSubSequentState()));
+			this.doCommand(new TransitionRuleCreateCommand(this.ticketType, this.view.getOriginalState(), this.view
+					.getSubSequentState()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {
@@ -164,10 +159,8 @@ public class StateTransitionCreatePresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.view.updateComboBoxMultiplicity(this.ticketType.getStateProfile()
-				.getPossibleStates());
-		this.view.updateComboBoxType(this.ticketType.getStateProfile()
-				.getPossibleStates());
+		this.view.updateComboBoxMultiplicity(this.ticketType.getStateProfile().getPossibleStates());
+		this.view.updateComboBoxType(this.ticketType.getStateProfile().getPossibleStates());
 	}
 
 	@Override

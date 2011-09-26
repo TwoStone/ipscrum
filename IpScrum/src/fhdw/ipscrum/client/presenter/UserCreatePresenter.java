@@ -25,13 +25,12 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 public class UserCreatePresenter extends WritePresenter {
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.UserCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.UserCreateView).
 	 */
-	public static interface IUserCreateView extends IView {
+	public interface IUserCreateView extends IView {
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing persons.
+		 * this method is needed to fill the list in the view with the data of the existing persons.
 		 * 
 		 * @param person
 		 *            are the existing persons
@@ -39,8 +38,8 @@ public class UserCreatePresenter extends WritePresenter {
 		void setPersons(List<Person> person);
 
 		/**
-		 * Represents new EvetnArgs which contains data for a new user with a related
-		 * person to create(name, password, personFirstName and personLastName).
+		 * Represents new EvetnArgs which contains data for a new user with a related person to create(name, password,
+		 * personFirstName and personLastName).
 		 */
 		public static class NewUserAndPersonEventArgs extends EventArgs {
 			/**
@@ -73,8 +72,8 @@ public class UserCreatePresenter extends WritePresenter {
 			 * @param personLastName
 			 *            of the person related to the user
 			 */
-			public NewUserAndPersonEventArgs(final String name, final String password,
-					final String personFirstName, final String personLastName) {
+			public NewUserAndPersonEventArgs(final String name, final String password, final String personFirstName,
+					final String personLastName) {
 				super();
 				this.name = name;
 				this.password = password;
@@ -101,8 +100,7 @@ public class UserCreatePresenter extends WritePresenter {
 			}
 
 			/**
-			 * getter of the first name of the person related to the user to create with
-			 * this args.
+			 * getter of the first name of the person related to the user to create with this args.
 			 * 
 			 * @return the first name of the person
 			 */
@@ -111,8 +109,7 @@ public class UserCreatePresenter extends WritePresenter {
 			}
 
 			/**
-			 * getter of the last name of the person related to the user to create with
-			 * this args.
+			 * getter of the last name of the person related to the user to create with this args.
 			 * 
 			 * @return the last name of the person
 			 */
@@ -122,8 +119,7 @@ public class UserCreatePresenter extends WritePresenter {
 		}
 
 		/**
-		 * Represents new EvetnArgs which contains data for a new user with a related
-		 * person(name, password).
+		 * Represents new EvetnArgs which contains data for a new user with a related person(name, password).
 		 */
 		public static class NewUserEventArgs extends EventArgs {
 			/**
@@ -149,8 +145,7 @@ public class UserCreatePresenter extends WritePresenter {
 			 * @param person
 			 *            may related to the user
 			 */
-			public NewUserEventArgs(final String name, final String password,
-					final Person person) {
+			public NewUserEventArgs(final String name, final String password, final Person person) {
 				super();
 				this.name = name;
 				this.password = password;
@@ -190,23 +185,20 @@ public class UserCreatePresenter extends WritePresenter {
 		 * Represents the Event to handle the create of a new user.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, which also knows the args to create the
-		 *            new user
+		 *            needed to handle the event, which also knows the args to create the new user
 		 * @return the event which handles the create
 		 */
-		EventRegistration registerCreateNewUser(
-				EventHandler<UserCreateView.NewUserEventArgs> handler);
+		EventRegistration registerCreateNewUser(EventHandler<UserCreateView.NewUserEventArgs> handler);
 
 		/**
 		 * Represents the Event to handle the create of a new user and also a person.
 		 * 
 		 * @param handler
-		 *            needed to handle the event, which also knows the args to create the
-		 *            new user and the person
+		 *            needed to handle the event, which also knows the args to create the new user and the person
 		 * @return the event which handles the create
 		 */
-		EventRegistration registerCreateNewUserAndPerson(
-				EventHandler<UserCreateView.NewUserAndPersonEventArgs> handler);
+		EventRegistration
+				registerCreateNewUserAndPerson(EventHandler<UserCreateView.NewUserAndPersonEventArgs> handler);
 
 		/**
 		 * Represents the Event to handle the abort.
@@ -227,8 +219,8 @@ public class UserCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.UserCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public UserCreatePresenter(final ClientContext context) {
 		super(context);
@@ -244,25 +236,21 @@ public class UserCreatePresenter extends WritePresenter {
 	public IUserCreateView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createUserCreateView();
-			this.view
-					.registerCreateNewUser(new EventHandler<UserCreatePresenter.IUserCreateView.NewUserEventArgs>() {
+			this.view.registerCreateNewUser(new EventHandler<UserCreatePresenter.IUserCreateView.NewUserEventArgs>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final NewUserEventArgs eventArgs) {
-							UserCreatePresenter.this.createNewUser(eventArgs.getName(),
-									eventArgs.getPassword(), eventArgs.getPerson());
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final NewUserEventArgs eventArgs) {
+					UserCreatePresenter.this.createNewUser(eventArgs.getName(), eventArgs.getPassword(),
+							eventArgs.getPerson());
+				}
+			});
 			this.view
 					.registerCreateNewUserAndPerson(new EventHandler<UserCreatePresenter.IUserCreateView.NewUserAndPersonEventArgs>() {
 
 						@Override
-						public void onUpdate(final Object sender,
-								final NewUserAndPersonEventArgs eventArgs) {
-							UserCreatePresenter.this.createNewUserAndPerson(
-									eventArgs.getName(), eventArgs.getPassword(),
-									eventArgs.getPersonFirstName(),
+						public void onUpdate(final Object sender, final NewUserAndPersonEventArgs eventArgs) {
+							UserCreatePresenter.this.createNewUserAndPerson(eventArgs.getName(),
+									eventArgs.getPassword(), eventArgs.getPersonFirstName(),
 									eventArgs.getPersonLastName());
 						}
 					});
@@ -290,11 +278,10 @@ public class UserCreatePresenter extends WritePresenter {
 	 * @param personLastName
 	 *            of the person
 	 */
-	private void createNewUserAndPerson(final String name, final String password,
-			final String personFirstName, final String personLastName) {
+	private void createNewUserAndPerson(final String name, final String password, final String personFirstName,
+			final String personLastName) {
 		try {
-			final PersonCreateCommand command =
-					new PersonCreateCommand(personLastName, personFirstName);
+			final PersonCreateCommand command = new PersonCreateCommand(personLastName, personFirstName);
 			this.beginTransaction();
 			final Person person = this.doCommand(command);
 			this.createNewUser(name, password, person);
@@ -314,10 +301,9 @@ public class UserCreatePresenter extends WritePresenter {
 	 * @param person
 	 *            already existing which should be related to the user
 	 */
-	private void createNewUser(final String name, final String password,
-			final Person person) {
-		AccountService.Util.getInstance().createAccount(name, password, person,
-				this.getContext().getActiveRole(), new AsyncCallback<Void>() {
+	private void createNewUser(final String name, final String password, final Person person) {
+		AccountService.Util.getInstance().createAccount(name, password, person, this.getContext().getActiveRole(),
+				new AsyncCallback<Void>() {
 
 					@Override
 					public void onSuccess(final Void result) {

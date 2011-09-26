@@ -16,10 +16,10 @@ import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
  */
 public class IncidentTypeCreatePresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.IncidentTyoeCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.IncidentTyoeCreateView).
 	 */
-	public static interface IIncidentTypeCreateView extends IView {
+	public interface IIncidentTypeCreateView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -52,12 +52,11 @@ public class IncidentTypeCreatePresenter extends WritePresenter {
 	private IIncidentTypeCreateView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.IncidentTypeCreatePresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.IncidentTypeCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public IncidentTypeCreatePresenter(final ClientContext context) {
 		super(context);
@@ -72,8 +71,7 @@ public class IncidentTypeCreatePresenter extends WritePresenter {
 	@Override
 	public IIncidentTypeCreateView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory().createIncidentTypeCreateView();
+			this.view = this.getContext().getViewFactory().createIncidentTypeCreateView();
 			this.view.registerSave(new DefaultEventHandler() {
 
 				@Override
@@ -86,21 +84,20 @@ public class IncidentTypeCreatePresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					IncidentTypeCreatePresenter.this.showQuestion(
-							"Änderungen verwerfen?", new Answer("Ja") {
+					IncidentTypeCreatePresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									IncidentTypeCreatePresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							IncidentTypeCreatePresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}

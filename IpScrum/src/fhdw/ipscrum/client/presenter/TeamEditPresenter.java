@@ -17,10 +17,10 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
  */
 public class TeamEditPresenter extends WritePresenter {
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.TeamEditView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.TeamEditView).
 	 */
-	public static interface ITeamEditView extends IView {
+	public interface ITeamEditView extends IView {
 		/**
 		 * Represents the Event to handle the save.
 		 * 
@@ -47,8 +47,7 @@ public class TeamEditPresenter extends WritePresenter {
 		String getName();
 
 		/**
-		 * this method is needed to fill the fields in the view with the data of the team
-		 * to edit.
+		 * this method is needed to fill the fields in the view with the data of the team to edit.
 		 * 
 		 * @param team
 		 *            to edit
@@ -62,8 +61,7 @@ public class TeamEditPresenter extends WritePresenter {
 	private ITeamEditView view;
 
 	/**
-	 * represents the team related to this view. It is needed to make clear which team
-	 * should be edited.
+	 * represents the team related to this view. It is needed to make clear which team should be edited.
 	 */
 	private final Team team;
 
@@ -71,8 +69,8 @@ public class TeamEditPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamEditPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param team
 	 *            is the related team which should be edited
 	 */
@@ -103,21 +101,20 @@ public class TeamEditPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					TeamEditPresenter.this.showQuestion("Änderungen verwerfen?",
-							new Answer("Ja") {
+					TeamEditPresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									TeamEditPresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							TeamEditPresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
