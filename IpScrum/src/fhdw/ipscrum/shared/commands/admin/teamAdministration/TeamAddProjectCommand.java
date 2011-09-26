@@ -19,12 +19,11 @@ public class TeamAddProjectCommand extends Command<Void> implements ITeamCommand
 	 */
 	private String projectID;
 
-	// TODO: implement TeamAddProjectCommand.
-
 	/**
 	 * default constructor for serialization.
 	 */
-	protected TeamAddProjectCommand() {
+	@SuppressWarnings("unused")
+	private TeamAddProjectCommand() {
 		super();
 	}
 
@@ -46,8 +45,7 @@ public class TeamAddProjectCommand extends Command<Void> implements ITeamCommand
 		final Project p = (Project) model.getObject(this.projectID);
 		final Team t = (Team) model.getObject(this.getReceiverGuid());
 		t.addProject(p);
-		this.setStringValue(StringUtils.format(
-				"Dem Team %s wurde das Projekt %s zugewiesen", t.getDescription(),
+		this.setStringValue(StringUtils.format("Dem Team %s wurde das Projekt %s zugewiesen", t.getDescription(),
 				p.getName()));
 		return null;
 	}

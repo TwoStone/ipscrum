@@ -23,11 +23,9 @@ public class ProjectRemoveSystemCommandTest extends ProjectTestBase {
 	private System system;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
-		this.system =
-				new System(this.getModel(), "Test System", this.getModel()
-						.getRootsystem());
+		this.system = new System(this.getModel(), "Test System", this.getModel().getRootsystem());
 	}
 
 	/**
@@ -50,21 +48,17 @@ public class ProjectRemoveSystemCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
-		final ProjectRemoveSystemCommand command =
-				new ProjectRemoveSystemCommand(this.getProject(), this.system);
+		final ProjectRemoveSystemCommand command = new ProjectRemoveSystemCommand(this.getProject(), this.system);
 		command.onExecute(this.getModel());
 		Assert.assertFalse(this.getProject().getSystems().contains(this.system));
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectRemoveSystemCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.ProjectRemoveSystemCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
-		final ProjectRemoveSystemCommand command =
-				new ProjectRemoveSystemCommand(this.getProject(), this.system);
+		final ProjectRemoveSystemCommand command = new ProjectRemoveSystemCommand(this.getProject(), this.system);
 		Assert.assertTrue(command.dependsOnProject());
 	}
 
@@ -78,10 +72,8 @@ public class ProjectRemoveSystemCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testGetDependingProject() throws NoObjectFindException {
-		final ProjectRemoveSystemCommand command =
-				new ProjectRemoveSystemCommand(this.getProject(), this.system);
-		Assert.assertEquals(this.getProject(),
-				command.getDependingProject(this.getModel()));
+		final ProjectRemoveSystemCommand command = new ProjectRemoveSystemCommand(this.getProject(), this.system);
+		Assert.assertEquals(this.getProject(), command.getDependingProject(this.getModel()));
 	}
 
 	/**
@@ -94,8 +86,7 @@ public class ProjectRemoveSystemCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
-		final ProjectRemoveSystemCommand command =
-				new ProjectRemoveSystemCommand(this.getProject(), this.system);
+		final ProjectRemoveSystemCommand command = new ProjectRemoveSystemCommand(this.getProject(), this.system);
 		command.execute(this.getModel());
 		Assert.assertFalse(this.getProject().getSystems().contains(this.system));
 	}
@@ -110,8 +101,7 @@ public class ProjectRemoveSystemCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testAccept() throws NoObjectFindException {
-		final ProjectRemoveSystemCommand command =
-				new ProjectRemoveSystemCommand(this.getProject(), this.system);
+		final ProjectRemoveSystemCommand command = new ProjectRemoveSystemCommand(this.getProject(), this.system);
 		command.accept(new CommandStandardVisitor() {
 
 			@Override

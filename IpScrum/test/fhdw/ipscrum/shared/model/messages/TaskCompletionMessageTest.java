@@ -8,7 +8,6 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
@@ -26,20 +25,18 @@ public class TaskCompletionMessageTest extends ModelTestBase {
 	private Task task;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 
 		final Project project = new Project(this.getModel(), "Test project");
 		final Team team = new Team(this.getModel(), "Test team");
 		team.addProject(project);
 		final Sprint sprint =
-				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!",
-						new Date(), new Date(new Date().getTime() + 50000), team,
-						project);
+				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!", new Date(), new Date(
+						new Date().getTime() + 50000), team, project);
 		this.task =
-				new Task(this.getModel(), new TaskTicketType(this.getModel(),
-						"TestTaskType", "This is a test task type!"), "TestTask",
-						"This is a test task", sprint.getSprintBacklog());
+				new Task(this.getModel(), new TaskTicketType(this.getModel(), "TestTaskType",
+						"This is a test task type!"), "TestTask", "This is a test task", sprint.getSprintBacklog());
 	}
 
 	/**
@@ -53,8 +50,7 @@ public class TaskCompletionMessageTest extends ModelTestBase {
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.model.messages.TaskCompletionMessage#getTask()}.
+	 * Test method for {@link fhdw.ipscrum.shared.model.messages.TaskCompletionMessage#getTask()}.
 	 */
 	@Test
 	public final void testGetTask() {

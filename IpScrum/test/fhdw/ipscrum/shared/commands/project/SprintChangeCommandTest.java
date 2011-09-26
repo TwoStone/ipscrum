@@ -25,12 +25,11 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 	private Sprint sprint;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		this.sprint =
-				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!",
-						new Date(), new Date(new Date().getTime() + 50000),
-						this.getTeam(), this.getProject());
+				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!", new Date(), new Date(
+						new Date().getTime() + 50000), this.getTeam(), this.getProject());
 	}
 
 	/**
@@ -40,15 +39,13 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testSprintChangeCommand() {
-		new SprintChangeCommand(this.sprint, "new name", "new description", new Date(
-				new Date().getTime() + 100000),
+		new SprintChangeCommand(this.sprint, "new name", "new description", new Date(new Date().getTime() + 100000),
 				new Date(new Date().getTime() + 200000), this.getTeam());
 	}
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.SprintChangeCommand#onExecute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.SprintChangeCommand#onExecute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
@@ -56,24 +53,20 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
 		final SprintChangeCommand command =
-				new SprintChangeCommand(this.sprint, "new name", "new description",
-						new Date(new Date().getTime() + 100000), new Date(
-								new Date().getTime() + 200000), this.getTeam());
+				new SprintChangeCommand(this.sprint, "new name", "new description", new Date(
+						new Date().getTime() + 100000), new Date(new Date().getTime() + 200000), this.getTeam());
 		command.onExecute(this.getModel());
 		Assert.assertEquals("new name", this.sprint.getName());
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.SprintChangeCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.SprintChangeCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
 		final SprintChangeCommand command =
-				new SprintChangeCommand(this.sprint, "new name", "new description",
-						new Date(new Date().getTime() + 100000), new Date(
-								new Date().getTime() + 200000), this.getTeam());
+				new SprintChangeCommand(this.sprint, "new name", "new description", new Date(
+						new Date().getTime() + 100000), new Date(new Date().getTime() + 200000), this.getTeam());
 		Assert.assertTrue(command.dependsOnProject());
 	}
 
@@ -88,17 +81,14 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 	@Test
 	public final void testGetDependingProject() throws IPScrumGeneralException {
 		final SprintChangeCommand command =
-				new SprintChangeCommand(this.sprint, "new name", "new description",
-						new Date(new Date().getTime() + 100000), new Date(
-								new Date().getTime() + 200000), this.getTeam());
-		Assert.assertEquals(this.getProject(),
-				command.getDependingProject(this.getModel()));
+				new SprintChangeCommand(this.sprint, "new name", "new description", new Date(
+						new Date().getTime() + 100000), new Date(new Date().getTime() + 200000), this.getTeam());
+		Assert.assertEquals(this.getProject(), command.getDependingProject(this.getModel()));
 	}
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.SprintChangeCommand#execute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.SprintChangeCommand#execute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
@@ -106,9 +96,8 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
 		final SprintChangeCommand command =
-				new SprintChangeCommand(this.sprint, "new name", "new description",
-						new Date(new Date().getTime() + 100000), new Date(
-								new Date().getTime() + 200000), this.getTeam());
+				new SprintChangeCommand(this.sprint, "new name", "new description", new Date(
+						new Date().getTime() + 100000), new Date(new Date().getTime() + 200000), this.getTeam());
 		command.execute(this.getModel());
 		Assert.assertEquals("new name", this.sprint.getName());
 	}
@@ -124,9 +113,8 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 	@Test
 	public final void testAccept() throws NoObjectFindException {
 		final SprintChangeCommand command =
-				new SprintChangeCommand(this.sprint, "new name", "new description",
-						new Date(new Date().getTime() + 100000), new Date(
-								new Date().getTime() + 200000), this.getTeam());
+				new SprintChangeCommand(this.sprint, "new name", "new description", new Date(
+						new Date().getTime() + 100000), new Date(new Date().getTime() + 200000), this.getTeam());
 		command.accept(new CommandStandardVisitor() {
 
 			@Override

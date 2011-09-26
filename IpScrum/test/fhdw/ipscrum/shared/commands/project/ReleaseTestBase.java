@@ -5,7 +5,6 @@ package fhdw.ipscrum.shared.commands.project;
 
 import java.util.Date;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.model.nonMeta.Release;
 
 /**
@@ -19,11 +18,9 @@ public class ReleaseTestBase extends ProjectTestBase {
 	private Release release;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
-		this.release =
-				new Release(this.getModel(), "Beta Project", new Date(),
-						this.getProject());
+		this.release = new Release(this.getModel(), "Beta Project", new Date(), this.getProject());
 	}
 
 	/**

@@ -5,7 +5,6 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Release;
 
@@ -20,7 +19,7 @@ public class ReleaseCompletionMessageTest extends ModelTestBase {
 	private Release release;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		final Project project = new Project(this.getModel(), "Test Project");
 		this.release = new Release(this.getModel(), "RC1", new Date(), project);
@@ -39,8 +38,7 @@ public class ReleaseCompletionMessageTest extends ModelTestBase {
 	 */
 	@Test
 	public void testGetRelease() {
-		final ReleaseCompletionMessage message =
-				new ReleaseCompletionMessage(this.release);
+		final ReleaseCompletionMessage message = new ReleaseCompletionMessage(this.release);
 		Assert.assertEquals(this.release, message.getRelease());
 	}
 
@@ -49,8 +47,7 @@ public class ReleaseCompletionMessageTest extends ModelTestBase {
 	 */
 	@Test
 	public void testAccept() {
-		final ReleaseCompletionMessage message =
-				new ReleaseCompletionMessage(this.release);
+		final ReleaseCompletionMessage message = new ReleaseCompletionMessage(this.release);
 		message.accept(new MessageStandardVisitor() {
 
 			@Override

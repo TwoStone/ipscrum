@@ -25,12 +25,11 @@ public class ReleaseRemoveSprintCommandTest extends ReleaseTestBase {
 	private Sprint sprint;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		this.sprint =
-				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!",
-						new Date(), new Date(new Date().getTime() + 50000),
-						this.getTeam(), this.getProject());
+				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!", new Date(), new Date(
+						new Date().getTime() + 50000), this.getTeam(), this.getProject());
 	}
 
 	/**
@@ -53,21 +52,17 @@ public class ReleaseRemoveSprintCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
-		final ReleaseRemoveSprintCommand command =
-				new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseRemoveSprintCommand command = new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
 		command.onExecute(this.getModel());
 		Assert.assertFalse(this.getRelease().getSprints().contains(this.sprint));
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ReleaseRemoveSprintCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.ReleaseRemoveSprintCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
-		final ReleaseRemoveSprintCommand command =
-				new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseRemoveSprintCommand command = new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
 		Assert.assertTrue(command.dependsOnProject());
 	}
 
@@ -81,10 +76,8 @@ public class ReleaseRemoveSprintCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testGetDependingProject() throws IPScrumGeneralException {
-		final ReleaseRemoveSprintCommand command =
-				new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
-		Assert.assertEquals(this.getProject(),
-				command.getDependingProject(this.getModel()));
+		final ReleaseRemoveSprintCommand command = new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
+		Assert.assertEquals(this.getProject(), command.getDependingProject(this.getModel()));
 	}
 
 	/**
@@ -97,8 +90,7 @@ public class ReleaseRemoveSprintCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
-		final ReleaseRemoveSprintCommand command =
-				new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseRemoveSprintCommand command = new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
 		command.execute(this.getModel());
 		Assert.assertFalse(this.getRelease().getSprints().contains(this.sprint));
 	}
@@ -113,8 +105,7 @@ public class ReleaseRemoveSprintCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testAccept() throws NoObjectFindException {
-		final ReleaseRemoveSprintCommand command =
-				new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseRemoveSprintCommand command = new ReleaseRemoveSprintCommand(this.getRelease(), this.sprint);
 		command.accept(new CommandStandardVisitor() {
 
 			@Override

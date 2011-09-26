@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model.messages;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
 import fhdw.ipscrum.shared.model.nonMeta.Feature;
 import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
@@ -20,18 +19,16 @@ public class PBICompletionMessageTest extends ModelTestBase {
 	private ProductBacklogItem item;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		final Project project = new Project(this.getModel(), "TestProject");
 		this.item =
-				new Feature(this.getModel(), new FeatureTicketType(this.getModel(),
-						"TestFeatureType", "A Feature for testing!"), "TestFeature",
-						"This is a test feature!", project.getBacklog());
+				new Feature(this.getModel(), new FeatureTicketType(this.getModel(), "TestFeatureType",
+						"A Feature for testing!"), "TestFeature", "This is a test feature!", project.getBacklog());
 	}
 
 	/**
-	 * Tests the method
-	 * {@link PBICompletionMessage#PBICompletionMessage(ProductBacklogItem)}.
+	 * Tests the method {@link PBICompletionMessage#PBICompletionMessage(ProductBacklogItem)}.
 	 */
 	@Test
 	public void testPBICompletionMessage() {

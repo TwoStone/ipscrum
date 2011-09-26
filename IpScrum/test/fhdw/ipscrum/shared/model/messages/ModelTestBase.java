@@ -31,9 +31,11 @@ public class ModelTestBase {
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if any error occurs
+	 * @throws Exception
+	 *             if any error occurs
 	 */
 	@Before
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws IPScrumGeneralException, Exception {
 		this.model = new Model(new Date());
 		this.model.setUuidManager(new IDGenerator());
 		final InitialCommand command = new InitialCommand();

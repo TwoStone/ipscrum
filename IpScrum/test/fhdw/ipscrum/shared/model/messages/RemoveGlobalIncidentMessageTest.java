@@ -8,7 +8,6 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.incidents.OneParticipantIncident;
 
@@ -23,12 +22,12 @@ public class RemoveGlobalIncidentMessageTest extends ModelTestBase {
 	private OneParticipantIncident incident;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		final Person participant = new Person(this.getModel(), "Jack", "O'Neil");
 		this.incident =
-				new OneParticipantIncident(this.getModel(), new Date(), new Date(
-						new Date().getTime() + 50000), participant);
+				new OneParticipantIncident(this.getModel(), new Date(), new Date(new Date().getTime() + 50000),
+						participant);
 	}
 
 	/**
@@ -42,14 +41,11 @@ public class RemoveGlobalIncidentMessageTest extends ModelTestBase {
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.model.messages.RemoveGlobalIncidentMessage#getIncident()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.model.messages.RemoveGlobalIncidentMessage#getIncident()} .
 	 */
 	@Test
 	public final void testGetIncident() {
-		final RemoveGlobalIncidentMessage message =
-				new RemoveGlobalIncidentMessage(this.incident);
+		final RemoveGlobalIncidentMessage message = new RemoveGlobalIncidentMessage(this.incident);
 		Assert.assertEquals(this.incident, message.getIncident());
 
 	}
@@ -61,14 +57,13 @@ public class RemoveGlobalIncidentMessageTest extends ModelTestBase {
 	 */
 	@Test
 	public final void testAccept() {
-		new RemoveGlobalIncidentMessage(this.incident)
-				.accept(new MessageStandardVisitor() {
+		new RemoveGlobalIncidentMessage(this.incident).accept(new MessageStandardVisitor() {
 
-					@Override
-					public void standardHandling() {
+			@Override
+			public void standardHandling() {
 
-					}
-				});
+			}
+		});
 	}
 
 }

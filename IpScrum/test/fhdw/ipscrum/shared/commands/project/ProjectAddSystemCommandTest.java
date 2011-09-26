@@ -23,11 +23,9 @@ public class ProjectAddSystemCommandTest extends ProjectTestBase {
 	private System system;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
-		this.system =
-				new System(this.getModel(), "Test System", this.getModel()
-						.getRootsystem());
+		this.system = new System(this.getModel(), "Test System", this.getModel().getRootsystem());
 	}
 
 	/**
@@ -42,28 +40,23 @@ public class ProjectAddSystemCommandTest extends ProjectTestBase {
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand#onExecute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand#onExecute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
 	 */
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
-		final ProjectAddSystemCommand command =
-				new ProjectAddSystemCommand(this.getProject(), this.system);
+		final ProjectAddSystemCommand command = new ProjectAddSystemCommand(this.getProject(), this.system);
 		command.onExecute(this.getModel());
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
-		final ProjectAddSystemCommand command =
-				new ProjectAddSystemCommand(this.getProject(), this.system);
+		final ProjectAddSystemCommand command = new ProjectAddSystemCommand(this.getProject(), this.system);
 		Assert.assertTrue(command.dependsOnProject());
 	}
 
@@ -77,10 +70,8 @@ public class ProjectAddSystemCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testGetDependingProject() throws NoObjectFindException {
-		final ProjectAddSystemCommand command =
-				new ProjectAddSystemCommand(this.getProject(), this.system);
-		Assert.assertEquals(this.getProject(),
-				command.getDependingProject(this.getModel()));
+		final ProjectAddSystemCommand command = new ProjectAddSystemCommand(this.getProject(), this.system);
+		Assert.assertEquals(this.getProject(), command.getDependingProject(this.getModel()));
 	}
 
 	/**
@@ -93,8 +84,7 @@ public class ProjectAddSystemCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testAccept() throws NoObjectFindException {
-		final ProjectAddSystemCommand command =
-				new ProjectAddSystemCommand(this.getProject(), this.system);
+		final ProjectAddSystemCommand command = new ProjectAddSystemCommand(this.getProject(), this.system);
 		command.accept(new CommandStandardVisitor() {
 
 			@Override
@@ -106,16 +96,14 @@ public class ProjectAddSystemCommandTest extends ProjectTestBase {
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand#execute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand#execute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
 	 */
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
-		final ProjectAddSystemCommand command =
-				new ProjectAddSystemCommand(this.getProject(), this.system);
+		final ProjectAddSystemCommand command = new ProjectAddSystemCommand(this.getProject(), this.system);
 		command.execute(this.getModel());
 		Assert.assertTrue(this.getProject().getSystems().contains(this.system));
 	}

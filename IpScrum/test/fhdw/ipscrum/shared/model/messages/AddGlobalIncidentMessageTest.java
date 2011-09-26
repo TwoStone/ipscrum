@@ -26,12 +26,12 @@ public class AddGlobalIncidentMessageTest extends ModelTestBase {
 
 	@Before
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		final Person participant = new Person(this.getModel(), "Jack", "O'Neil");
 		this.incident =
-				new OneParticipantIncident(this.getModel(), new Date(), new Date(
-						new Date().getTime() + 50000), participant);
+				new OneParticipantIncident(this.getModel(), new Date(), new Date(new Date().getTime() + 50000),
+						participant);
 	}
 
 	/**
@@ -49,8 +49,7 @@ public class AddGlobalIncidentMessageTest extends ModelTestBase {
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.model.messages.AddGLobalIncidentMessage#getIncident()}.
+	 * Test method for {@link fhdw.ipscrum.shared.model.messages.AddGLobalIncidentMessage#getIncident()}.
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if any error occurs
@@ -58,8 +57,7 @@ public class AddGlobalIncidentMessageTest extends ModelTestBase {
 	@Test
 	public void testGetIncident() throws IPScrumGeneralException {
 
-		final AddGLobalIncidentMessage message =
-				new AddGLobalIncidentMessage(this.incident);
+		final AddGLobalIncidentMessage message = new AddGLobalIncidentMessage(this.incident);
 		Assert.assertEquals(this.incident, message.getIncident());
 
 	}
@@ -71,8 +69,7 @@ public class AddGlobalIncidentMessageTest extends ModelTestBase {
 	 */
 	@Test
 	public void testAcceptMessageVisitor() {
-		final AddGLobalIncidentMessage message =
-				new AddGLobalIncidentMessage(this.incident);
+		final AddGLobalIncidentMessage message = new AddGLobalIncidentMessage(this.incident);
 		message.accept(new MessageStandardVisitor() {
 
 			@Override

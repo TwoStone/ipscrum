@@ -25,12 +25,11 @@ public class ReleaseAddSprintCommandTest extends ReleaseTestBase {
 	private Sprint sprint;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		this.sprint =
-				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!",
-						new Date(), new Date(new Date().getTime() + 50000),
-						this.getTeam(), this.getProject());
+				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!", new Date(), new Date(
+						new Date().getTime() + 50000), this.getTeam(), this.getProject());
 	}
 
 	/**
@@ -45,29 +44,24 @@ public class ReleaseAddSprintCommandTest extends ReleaseTestBase {
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand#onExecute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand#onExecute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
 	 */
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
-		final ReleaseAddSprintCommand command =
-				new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseAddSprintCommand command = new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
 		command.onExecute(this.getModel());
 		Assert.assertTrue(this.getRelease().getSprints().contains(this.sprint));
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
-		final ReleaseAddSprintCommand command =
-				new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseAddSprintCommand command = new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
 		Assert.assertTrue(command.dependsOnProject());
 	}
 
@@ -81,24 +75,20 @@ public class ReleaseAddSprintCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testGetDependingProject() throws IPScrumGeneralException {
-		final ReleaseAddSprintCommand command =
-				new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
-		Assert.assertEquals(this.getProject(),
-				command.getDependingProject(this.getModel()));
+		final ReleaseAddSprintCommand command = new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
+		Assert.assertEquals(this.getProject(), command.getDependingProject(this.getModel()));
 	}
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand#execute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand#execute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
 	 */
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
-		final ReleaseAddSprintCommand command =
-				new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseAddSprintCommand command = new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
 		command.execute(this.getModel());
 		Assert.assertTrue(this.getRelease().getSprints().contains(this.sprint));
 	}
@@ -113,8 +103,7 @@ public class ReleaseAddSprintCommandTest extends ReleaseTestBase {
 	 */
 	@Test
 	public final void testAccept() throws NoObjectFindException {
-		final ReleaseAddSprintCommand command =
-				new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
+		final ReleaseAddSprintCommand command = new ReleaseAddSprintCommand(this.getRelease(), this.sprint);
 		command.accept(new CommandStandardVisitor() {
 
 			@Override

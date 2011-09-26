@@ -8,7 +8,6 @@ import java.util.Date;
 import org.junit.Assert;
 import org.junit.Test;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
@@ -24,15 +23,14 @@ public class SprintCompletionMessageTest extends ModelTestBase {
 	private Sprint sprint;
 
 	@Override
-	public void setUp() throws IPScrumGeneralException {
+	public void setUp() throws Exception {
 		super.setUp();
 		final Project project = new Project(this.getModel(), "Test project");
 		final Team team = new Team(this.getModel(), "Test team");
 		team.addProject(project);
 		this.sprint =
-				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!",
-						new Date(), new Date(new Date().getTime() + 50000), team,
-						project);
+				new Sprint(this.getModel(), "Test Sprint", "This is a test sprint!", new Date(), new Date(
+						new Date().getTime() + 50000), team, project);
 	}
 
 	/**
@@ -46,13 +44,11 @@ public class SprintCompletionMessageTest extends ModelTestBase {
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.model.messages.SprintCompletionMessage#getSprint()}.
+	 * Test method for {@link fhdw.ipscrum.shared.model.messages.SprintCompletionMessage#getSprint()}.
 	 */
 	@Test
 	public final void testGetSprint() {
-		final SprintCompletionMessage message =
-				new SprintCompletionMessage(this.sprint);
+		final SprintCompletionMessage message = new SprintCompletionMessage(this.sprint);
 		Assert.assertEquals(this.sprint, message.getSprint());
 	}
 
