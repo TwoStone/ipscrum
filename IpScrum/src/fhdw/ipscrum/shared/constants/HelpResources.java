@@ -590,8 +590,12 @@ public abstract class HelpResources {
 	 * @return Path to presenter-specific documentation
 	 */
 	public static String getPresenterHelp(final Presenter presenter) {
-		return HelpResources.PRESENTER_HELP.get(ClassUtils.getClassName(presenter.getClass()).substring(0,
-				HelpResources.HNDMAXIDLENGTH));
+		final String classname = ClassUtils.getClassName(presenter.getClass());
+		if (classname.length() > HelpResources.HNDMAXIDLENGTH) {
+			return HelpResources.PRESENTER_HELP.get(classname.substring(0, HelpResources.HNDMAXIDLENGTH));
+		} else {
+			return HelpResources.PRESENTER_HELP.get(classname);
+		}
 	}
 
 }
