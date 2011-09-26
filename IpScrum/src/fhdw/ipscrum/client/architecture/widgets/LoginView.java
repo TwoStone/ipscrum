@@ -78,8 +78,7 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 		this.usernameTextBox.addKeyPressHandler(this);
 		this.usernameTextBox.setStyleName(this.resource.loginWidgetTextbox());
 		this.verticalPanel.add(this.usernameTextBox);
-		this.verticalPanel.setCellHorizontalAlignment(this.usernameTextBox,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		this.verticalPanel.setCellHorizontalAlignment(this.usernameTextBox, HasHorizontalAlignment.ALIGN_CENTER);
 		this.usernameTextBox.setSize("", "");
 
 		final Label passwordLabel = new Label("Passwort");
@@ -89,8 +88,7 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 		this.passwordTextBox = new PasswordTextBox();
 		this.passwordTextBox.setStyleName(this.resource.loginWidgetTextbox());
 		this.verticalPanel.add(this.passwordTextBox);
-		this.verticalPanel.setCellHorizontalAlignment(this.passwordTextBox,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		this.verticalPanel.setCellHorizontalAlignment(this.passwordTextBox, HasHorizontalAlignment.ALIGN_CENTER);
 		this.passwordTextBox.addKeyPressHandler(this);
 
 		this.messageLabel = new Label("");
@@ -107,8 +105,7 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 			}
 		});
 		this.verticalPanel.add(btnNewButton);
-		this.verticalPanel.setCellHorizontalAlignment(btnNewButton,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		this.verticalPanel.setCellHorizontalAlignment(btnNewButton, HasHorizontalAlignment.ALIGN_CENTER);
 
 		GwtUtils.setFocus(this.usernameTextBox);
 		this.setStyleName(this.resource.loginWidgetContainer());
@@ -118,55 +115,53 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 		final String name = this.usernameTextBox.getText();
 		final String password = this.passwordTextBox.getText();
 
-		LoginService.Util.getInstance().login(name, password,
-				new AsyncCallback<User>() {
+		LoginService.Util.getInstance().login(name, password, new AsyncCallback<User>() {
 
-					@Override
-					public void onSuccess(final User result) {
+			@Override
+			public void onSuccess(final User result) {
 
-						final List<Role> userRoles = result.getPerson().getRoles();
+				final List<Role> userRoles = result.getPerson().getRoles();
 
-						if (userRoles.size() == 1) {
-							LoginView.this.loggedInEvent.fire(LoginView.this,
-									new LoggedInEventArgs(result, userRoles.get(0)));
-						} else {
+				if (userRoles.size() == 1) {
+					LoginView.this.loggedInEvent.fire(LoginView.this, new LoggedInEventArgs(result, userRoles.get(0)));
+				} else {
 
-							final RoleChooserView roleView = new RoleChooserView();
+					final RoleChooserView roleView = new RoleChooserView();
 
-							roleView.refreshRoles(result.getPerson().getRoles());
+					// TODO: Help-Button
 
-							LoginView.this.getVerticalPanel().clear();
+					roleView.refreshRoles(result.getPerson().getRoles());
 
-							LoginView.this.getVerticalPanel().setHorizontalAlignment(
-									HasHorizontalAlignment.ALIGN_CENTER);
+					LoginView.this.getVerticalPanel().clear();
 
-							LoginView.this.getVerticalPanel().add(roleView);
+					LoginView.this.getVerticalPanel().setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
-							roleView.registerGo(new ClickHandler() {
+					LoginView.this.getVerticalPanel().add(roleView);
 
-								@Override
-								public void onClick(final ClickEvent event) {
+					roleView.registerGo(new ClickHandler() {
 
-									final Role activeRole = roleView.getSelRole();
-									if (activeRole != null) {
-										LoginView.this.getVerticalPanel().clear();
-										LoginView.this.loggedInEvent.fire(
-												LoginView.this, new LoggedInEventArgs(
-														result, activeRole));
-									} else {
-										roleView.setFailure("Keine Rolle selektiert!");
-									}
-								}
-							});
+						@Override
+						public void onClick(final ClickEvent event) {
+
+							final Role activeRole = roleView.getSelRole();
+							if (activeRole != null) {
+								LoginView.this.getVerticalPanel().clear();
+								LoginView.this.loggedInEvent.fire(LoginView.this, new LoggedInEventArgs(result,
+										activeRole));
+							} else {
+								roleView.setFailure("Keine Rolle selektiert!");
+							}
 						}
-					}
+					});
+				}
+			}
 
-					@Override
-					public void onFailure(final Throwable caught) {
-						LoginView.this.showMessage(caught.getMessage());
-						LoginView.this.passwordTextBox.setText("");
-					}
-				});
+			@Override
+			public void onFailure(final Throwable caught) {
+				LoginView.this.showMessage(caught.getMessage());
+				LoginView.this.passwordTextBox.setText("");
+			}
+		});
 
 	}
 
@@ -177,8 +172,7 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 	 * (fhdw.ipscrum.architecture.client.events.EventHandler)
 	 */
 	@Override
-	public EventRegistration registerLoginHandler(
-			final EventHandler<LoggedInEventArgs> handler) {
+	public EventRegistration registerLoginHandler(final EventHandler<LoggedInEventArgs> handler) {
 		return this.loggedInEvent.add(handler);
 	}
 

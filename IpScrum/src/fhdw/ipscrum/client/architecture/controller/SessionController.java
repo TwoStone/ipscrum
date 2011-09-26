@@ -59,8 +59,7 @@ public class SessionController {
 	/**
 	 * Base class for handler that handle login events.
 	 */
-	public abstract static class LoginEventHandler
-			implements Handler<SessionController.LoginEvent> {
+	public abstract static class LoginEventHandler implements Handler<SessionController.LoginEvent> {
 		@Override
 		public void handle(final LoginEvent event) {
 			this.handleLogin(event);
@@ -84,8 +83,7 @@ public class SessionController {
 	/**
 	 * Base class for handler that handle logout events.
 	 */
-	public abstract static class LogoutEventHandler
-			implements Handler<SessionController.LogoutEvent> {
+	public abstract static class LogoutEventHandler implements Handler<SessionController.LogoutEvent> {
 		@Override
 		public void handle(final LogoutEvent event) {
 			this.handleLogout(event);
@@ -126,8 +124,7 @@ public class SessionController {
 	private final EventBus eventBus;
 
 	/**
-	 * Handles updates of the model and refresh the reference of the current user to his
-	 * person.
+	 * Handles updates of the model and refresh the reference of the current user to his person.
 	 */
 	private final ModelUpdateHandler modelUpdateHandler = new ModelUpdateHandler() {
 
@@ -136,8 +133,8 @@ public class SessionController {
 			if (SessionController.this.currentUser != null) {
 				final Model model = event.getObject();
 				try {
-					SessionController.this.currentUser.updatePerson(model
-							.getObject(SessionController.this.currentUser.getPerson()));
+					SessionController.this.currentUser.updatePerson(model.getObject(SessionController.this.currentUser
+							.getPerson()));
 				} catch (final NoObjectFindException e) {
 					SessionController.this.logout();
 				}
@@ -168,25 +165,23 @@ public class SessionController {
 	private ILoginView getLoginWidget() {
 		if (this.loginWidget == null) {
 			this.loginWidget = this.factory.createLoginView();
-			this.loginWidget
-					.registerLoginHandler(new EventHandler<LoggedInEventArgs>() {
+			this.loginWidget.registerLoginHandler(new EventHandler<LoggedInEventArgs>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final LoggedInEventArgs eventArgs) {
-							SessionController.this.loginWidget.hidePopup();
+				@Override
+				public void onUpdate(final Object sender, final LoggedInEventArgs eventArgs) {
+					SessionController.this.loginWidget.hidePopup();
 
-							SessionController.this.doLogin(eventArgs.getUser(),
-									eventArgs.getRole());
-							try {
-								SessionController.this.setActiveRole(eventArgs
-										.getRole());
-							} catch (final ConsistencyException e) {
-								SessionController.this.logout();
-							}
-						}
+					SessionController.this.doLogin(eventArgs.getUser(), eventArgs.getRole());
+					try {
+						SessionController.this.setActiveRole(eventArgs.getRole());
+					} catch (final ConsistencyException e) {
+						SessionController.this.logout();
+					}
+				}
 
-					});
+			});
+
+			// TODO: Help-Button
 		}
 
 		return this.loginWidget;
@@ -196,16 +191,14 @@ public class SessionController {
 	 * Starts the login procedure for the client.
 	 */
 	public void login() {
-		final String currentUsername =
-				Cookies.getCookie(SessionController.CURRENT_USER);
+		final String currentUsername = Cookies.getCookie(SessionController.CURRENT_USER);
 		final String currentRoleId = Cookies.getCookie(SessionController.CURRENT_ROLE);
-		LoginService.Util.getInstance().tryResumeSession(currentUsername,
-				currentRoleId, new AsyncCallback<ResumedSession>() {
+		LoginService.Util.getInstance().tryResumeSession(currentUsername, currentRoleId,
+				new AsyncCallback<ResumedSession>() {
 
 					@Override
 					public void onSuccess(final ResumedSession result) {
-						SessionController.this.doLogin(result.getUser(),
-								result.getRole());
+						SessionController.this.doLogin(result.getUser(), result.getRole());
 					}
 
 					@Override
@@ -274,8 +267,7 @@ public class SessionController {
 	}
 
 	/**
-	 * Assigns the active role of the current user. Pre-condition: A current User is
-	 * assigned (logged in).
+	 * Assigns the active role of the current user. Pre-condition: A current User is assigned (logged in).
 	 * 
 	 * @param activeRole
 	 *            active role.
@@ -291,8 +283,7 @@ public class SessionController {
 	}
 
 	/**
-	 * Returns the active role of the current user. Pre-condition: A current User is
-	 * assigned (logged in).
+	 * Returns the active role of the current user. Pre-condition: A current User is assigned (logged in).
 	 * 
 	 * @return the active role.
 	 */
