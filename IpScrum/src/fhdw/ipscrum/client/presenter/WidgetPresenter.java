@@ -8,6 +8,7 @@ import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.presenter.ReadPresenter;
 import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.client.viewinterfaces.IWidgetView;
+import fhdw.ipscrum.shared.constants.HelpResources;
 
 /**
  * This class represents the presenter which controls the view of various widgets.
@@ -18,6 +19,23 @@ public class WidgetPresenter extends ReadPresenter {
 	 * represents the title of the presenter.
 	 */
 	private final String title;
+
+	@Override
+	public IView getView() {
+		final IView conView = this.doGetView();
+		conView.registerHelpHandler(new DefaultEventHandler() {
+			@Override
+			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+
+				// TODO Fallunterscheidung je nach WidgetType -> ChartWidgetVisitor
+				WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.RELEASEBURNDOWNCHART);
+				WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.SPRINTBURNDOWNCHART);
+				WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.VELOCITYANALYSE);
+			}
+		});
+
+		return this.view;
+	}
 
 	/**
 	 * represents the widget to handle trough this presenter.
