@@ -13,8 +13,8 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.nonMeta.Release;
 
 /**
- * This is to display a detailed burndown-chart for releases. While presenting actual
- * burndown-data this also includes an ideal-line and a trend-estimation.
+ * This is to display a detailed burndown-chart for releases. While presenting actual burndown-data this also includes
+ * an ideal-line and a trend-estimation.
  */
 public class ReleaseBurndownChart extends BurndownChart {
 
@@ -54,8 +54,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 	 */
 	private void createChart() {
 		// GENERAL SETUP
-		this.setChartTitle("<h2>Release " + this.getData().getRelease().getVersion()
-				+ "</h2>");
+		this.setChartTitle("<h2>Release " + this.getData().getRelease().getVersion() + "</h2>");
 		this.setChartSize(this.getChartWidth(), this.getChartHeight());
 
 		// SETUP ACTUAL BURNDOWN CURVE
@@ -73,10 +72,8 @@ public class ReleaseBurndownChart extends BurndownChart {
 		this.setIdealCurve(this.getCurve());
 		this.getIdealCurve().setYAxis(GChart.Y_AXIS);
 		this.getIdealCurve().getSymbol().setSymbolType(SymbolType.LINE);
-		this.getIdealCurve()
-				.getSymbol()
-				.setHovertextTemplate(
-						GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwände)"));
+		this.getIdealCurve().getSymbol()
+				.setHovertextTemplate(GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwände)"));
 		this.getIdealCurve().getSymbol().setBorderColor("black");
 		this.getIdealCurve().getSymbol().setBackgroundColor("yellow");
 
@@ -120,19 +117,15 @@ public class ReleaseBurndownChart extends BurndownChart {
 	private void populateChart() {
 		int counter = 0;
 		for (final Date endDate : this.getData().getData().keySet()) {
-			final ReleaseChartDataDetails currentData =
-					this.getData().getData().get(endDate);
+			final ReleaseChartDataDetails currentData = this.getData().getData().get(endDate);
 			this.getIdealCurve().addPoint(counter, currentData.getIdealBurndownValue());
 			if (currentData.getActualBurndownValue() != null) {
-				this.getBurndownCurve().addPoint(counter,
-						currentData.getActualBurndownValue());
+				this.getBurndownCurve().addPoint(counter, currentData.getActualBurndownValue());
 
 				final String annotationText =
-						currentData.getActualBurndownValue().intValue()
-								+ " ausstehende Aufwände<br />nach "
+						currentData.getActualBurndownValue().intValue() + " ausstehende Aufwände<br />nach "
 								+ currentData.getSprints().toString();
-				this.getBurndownCurve().getPoint().setAnnotationText(
-						GChart.formatAsHovertext(annotationText));
+				this.getBurndownCurve().getPoint().setAnnotationText(GChart.formatAsHovertext(annotationText));
 				this.getBurndownCurve().getPoint().setAnnotationVisible(false);
 			}
 			counter++;
@@ -151,8 +144,7 @@ public class ReleaseBurndownChart extends BurndownChart {
 	/**
 	 * This is to control the annotation-behaviour.
 	 */
-	private static class ReleaseChartHoverWidget extends Label
-			implements HoverUpdateable {
+	private static class ReleaseChartHoverWidget extends Label implements HoverUpdateable {
 		@Override
 		public void hoverCleanup(final Point hoveredAwayFrom) {
 			hoveredAwayFrom.setAnnotationVisible(false);
@@ -162,5 +154,10 @@ public class ReleaseBurndownChart extends BurndownChart {
 		public void hoverUpdate(final Point hoveredOver) {
 			hoveredOver.setAnnotationVisible(true);
 		}
+	}
+
+	@Override
+	public void accept(final ChartWidgetVisitor visitor) {
+		visitor.handleReleaseBurndownChart(this);
 	}
 }

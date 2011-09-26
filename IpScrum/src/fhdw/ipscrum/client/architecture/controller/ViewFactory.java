@@ -76,6 +76,7 @@ import fhdw.ipscrum.client.view.TypeEditView;
 import fhdw.ipscrum.client.view.UserCreateView;
 import fhdw.ipscrum.client.view.UserManagementView;
 import fhdw.ipscrum.client.view.WidgetView;
+import fhdw.ipscrum.client.view.widgets.charts.ChartWidget;
 import fhdw.ipscrum.client.viewinterfaces.IAddProjectToTeamView;
 import fhdw.ipscrum.client.viewinterfaces.ICreateIncidentView;
 import fhdw.ipscrum.client.viewinterfaces.ICreateSprintView;
@@ -232,8 +233,7 @@ public final class ViewFactory {
 	 * 
 	 * @return the concrete view
 	 */
-	public IStateFieldAndTickettypeAdministrationView
-			createStateFieldAndTickettypeAdministrationView() {
+	public IStateFieldAndTickettypeAdministrationView createStateFieldAndTickettypeAdministrationView() {
 		return new StateFieldAndTickettypeAdministrationView();
 	}
 
@@ -364,8 +364,8 @@ public final class ViewFactory {
 	 *            of the widget
 	 * @return the concrete view
 	 */
-	public IWidgetView createWidgetView(final Widget widget, final String title) {
-		return new WidgetView(widget, title);
+	public IWidgetView createWidgetView(final ChartWidget widget, final String title) {
+		return new WidgetView((Widget) widget, title);
 	}
 
 	/**

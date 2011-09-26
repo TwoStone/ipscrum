@@ -1,12 +1,15 @@
 package fhdw.ipscrum.client.presenter;
 
-import com.google.gwt.user.client.ui.Widget;
-
 import fhdw.ipscrum.client.architecture.ClientContext;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.presenter.ReadPresenter;
 import fhdw.ipscrum.client.architecture.view.IView;
+import fhdw.ipscrum.client.view.widgets.charts.ChartWidget;
+import fhdw.ipscrum.client.view.widgets.charts.ChartWidgetVisitor;
+import fhdw.ipscrum.client.view.widgets.charts.ReleaseBurndownChart;
+import fhdw.ipscrum.client.view.widgets.charts.SprintBurndownChart;
+import fhdw.ipscrum.client.view.widgets.charts.VelocityChart;
 import fhdw.ipscrum.client.viewinterfaces.IWidgetView;
 import fhdw.ipscrum.shared.constants.HelpResources;
 
@@ -26,11 +29,26 @@ public class WidgetPresenter extends ReadPresenter {
 		conView.registerHelpHandler(new DefaultEventHandler() {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
+				WidgetPresenter.this.widget.accept(new ChartWidgetVisitor() {
 
-				// TODO Fallunterscheidung je nach WidgetType -> ChartWidgetVisitor
-				WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.RELEASEBURNDOWNCHART);
-				WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.SPRINTBURNDOWNCHART);
-				WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.VELOCITYANALYSE);
+					@Override
+					public void handleVelocityChart(final VelocityChart velocityChart) {
+						WidgetPresenter.this.getContext().getHelpController().showHelp(HelpResources.VELOCITYANALYSE);
+
+					}
+
+					@Override
+					public void handleSprintBurndownChart(final SprintBurndownChart sprintBurndownChart) {
+						WidgetPresenter.this.getContext().getHelpController()
+								.showHelp(HelpResources.SPRINTBURNDOWNCHART);
+					}
+
+					@Override
+					public void handleReleaseBurndownChart(final ReleaseBurndownChart releaseBurndownChart) {
+						WidgetPresenter.this.getContext().getHelpController()
+								.showHelp(HelpResources.RELEASEBURNDOWNCHART);
+					}
+				});
 			}
 		});
 
@@ -40,7 +58,7 @@ public class WidgetPresenter extends ReadPresenter {
 	/**
 	 * represents the widget to handle trough this presenter.
 	 */
-	private final Widget widget;
+	private final ChartWidget widget;
 	/**
 	 * Represents the view which is related to and controlled from this presenter.
 	 */
@@ -57,7 +75,7 @@ public class WidgetPresenter extends ReadPresenter {
 	 * @param title
 	 *            is the title of the related widget
 	 */
-	public WidgetPresenter(final ClientContext context, final Widget widget, final String title) {
+	public WidgetPresenter(final ClientContext context, final ChartWidget widget, final String title) {
 		super(context);
 		this.title = title;
 		this.widget = widget;

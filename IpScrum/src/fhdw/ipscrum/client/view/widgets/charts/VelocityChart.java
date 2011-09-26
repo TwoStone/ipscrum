@@ -9,7 +9,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
 /**
  * This is to display a velocity-chart for a specified team.
  */
-public class VelocityChart extends GChart {
+public class VelocityChart extends GChart implements ChartWidget {
 
 	private final VelocityChartData data;
 	private Curve absVelocityCurve;
@@ -35,8 +35,7 @@ public class VelocityChart extends GChart {
 	 */
 	private void createChart() {
 		// GENERAL SETUP
-		this.setChartTitle("<h2>Team '" + this.data.getTeam().getDescription()
-				+ "'</h2>");
+		this.setChartTitle("<h2>Team '" + this.data.getTeam().getDescription() + "'</h2>");
 		this.setChartSize(500, 300);
 
 		// SETUP ABSOLUTE-VELOCITY CURVE
@@ -44,8 +43,7 @@ public class VelocityChart extends GChart {
 		this.absVelocityCurve = this.getCurve();
 		this.absVelocityCurve.setYAxis(GChart.Y_AXIS);
 		this.absVelocityCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		this.absVelocityCurve.getSymbol().setHovertextTemplate(
-				GChart.formatAsHovertext("geleistete Aufwände: ${y}"));
+		this.absVelocityCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("geleistete Aufwände: ${y}"));
 		this.absVelocityCurve.getSymbol().setBackgroundColor("dodgerblue");
 		this.absVelocityCurve.getSymbol().setBorderColor("papayawhip");
 		this.absVelocityCurve.getSymbol().setBorderWidth(1);
@@ -55,21 +53,18 @@ public class VelocityChart extends GChart {
 		this.relVelocityCurve = this.getCurve();
 		this.relVelocityCurve.setYAxis(GChart.Y_AXIS);
 		this.relVelocityCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		this.relVelocityCurve.getSymbol().setHovertextTemplate(
-				GChart.formatAsHovertext("relative Velocity: ${y}"));
+		this.relVelocityCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("relative Velocity: ${y}"));
 		this.relVelocityCurve.getSymbol().setBackgroundColor("skyblue");
 		this.relVelocityCurve.getSymbol().setBorderColor("papayawhip");
 		this.relVelocityCurve.getSymbol().setBorderWidth(1);
-		this.absVelocityCurve.getSymbol().setWidth(
-				this.relVelocityCurve.getSymbol().getWidth() + 8);
+		this.absVelocityCurve.getSymbol().setWidth(this.relVelocityCurve.getSymbol().getWidth() + 8);
 
 		// SETUP ABSOLUTE-AVERAGE CURVE
 		this.addCurve();
 		this.absAverageCurve = this.getCurve();
 		this.absAverageCurve.setYAxis(GChart.Y_AXIS);
 		this.absAverageCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		this.absAverageCurve.getSymbol().setHovertextTemplate(
-				GChart.formatAsHovertext("Durchschnitt (absolut): ${y}"));
+		this.absAverageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt (absolut): ${y}"));
 		this.absAverageCurve.getSymbol().setBorderColor("firebrick");
 		this.absAverageCurve.getSymbol().setBackgroundColor("white");
 
@@ -78,8 +73,7 @@ public class VelocityChart extends GChart {
 		this.relAverageCurve = this.getCurve();
 		this.relAverageCurve.setYAxis(GChart.Y_AXIS);
 		this.relAverageCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		this.relAverageCurve.getSymbol().setHovertextTemplate(
-				GChart.formatAsHovertext("Durchschnitt (relativ): ${y}"));
+		this.relAverageCurve.getSymbol().setHovertextTemplate(GChart.formatAsHovertext("Durchschnitt (relativ): ${y}"));
 		this.relAverageCurve.getSymbol().setBorderColor("firebrick");
 		this.relAverageCurve.getSymbol().setBackgroundColor("white");
 
@@ -109,13 +103,16 @@ public class VelocityChart extends GChart {
 	private void populateChart() {
 		int xPosition = 0;
 		for (final Sprint sprint : this.data.getData().keySet()) {
-			this.absVelocityCurve.addPoint(xPosition, this.data.getData().get(sprint)
-					.getAbsoluteVelocity());
-			this.relVelocityCurve.addPoint(xPosition, this.data.getData().get(sprint)
-					.getRelativeVelocity());
+			this.absVelocityCurve.addPoint(xPosition, this.data.getData().get(sprint).getAbsoluteVelocity());
+			this.relVelocityCurve.addPoint(xPosition, this.data.getData().get(sprint).getRelativeVelocity());
 			this.absAverageCurve.addPoint(xPosition, this.data.getAbsAverageVelocity());
 			this.relAverageCurve.addPoint(xPosition, this.data.getRelAverageVelocity());
 			xPosition++;
 		}
+	}
+
+	@Override
+	public void accept(final ChartWidgetVisitor visitor) {
+		visitor.handleVelocityChart(this);
 	}
 }

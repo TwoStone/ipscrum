@@ -9,8 +9,8 @@ import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
 /**
- * This is to display a detailed burndown-chart for releases. While presenting actual
- * burndown-data this also includes an ideal-line and a trend-estimation.
+ * This is to display a detailed burndown-chart for releases. While presenting actual burndown-data this also includes
+ * an ideal-line and a trend-estimation.
  */
 public class SprintBurndownChart extends BurndownChart {
 
@@ -53,18 +53,18 @@ public class SprintBurndownChart extends BurndownChart {
 		this.setBurndownCurve(this.getCurve());
 		this.getBurndownCurve().setYAxis(GChart.Y_AXIS);
 		this.getBurndownCurve().getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		this.getBurndownCurve().getSymbol().setHovertextTemplate(
-				GChart.formatAsHovertext("${y} ausstehende Aufwaende am ${x}"));
+		this.getBurndownCurve().getSymbol()
+				.setHovertextTemplate(GChart.formatAsHovertext("${y} ausstehende Aufwaende am ${x}"));
 		this.getBurndownCurve().getSymbol().setBackgroundColor("orange");
 		this.getBurndownCurve().getSymbol().setBorderColor("red");
 		this.getBurndownCurve().getSymbol().setBorderWidth(1);
 		this.getBurndownCurve().getSymbol().setModelWidth(50000000); // high value is
-																// caused by
-																// using a date
-																// as x-value.
-																// normally 0.5
-																// would be
-																// sufficient.
+		// caused by
+		// using a date
+		// as x-value.
+		// normally 0.5
+		// would be
+		// sufficient.
 
 		// SETUP IDEAL BURNDOWN CURVE
 		this.addCurve();
@@ -103,9 +103,7 @@ public class SprintBurndownChart extends BurndownChart {
 
 		// set x-axis ticks
 		if (this.getChartWidth() > 400) {
-			this.getXAxis().setTickCount(
-					this.data.getTickData().size() < 26 ? this.data.getTickData()
-							.size() : 25);
+			this.getXAxis().setTickCount(this.data.getTickData().size() < 26 ? this.data.getTickData().size() : 25);
 		}
 
 		this.update();
@@ -114,12 +112,15 @@ public class SprintBurndownChart extends BurndownChart {
 	private void populateChart() {
 		for (final Date date : this.data.getData().keySet()) {
 			final SprintChartDataDetails currentData = this.data.getData().get(date);
-			this.getIdealCurve().addPoint(date.getTime(),
-					currentData.getIdealBurndownValue());
+			this.getIdealCurve().addPoint(date.getTime(), currentData.getIdealBurndownValue());
 			if (currentData.getActualBurndownValue() != null) {
-				this.getBurndownCurve().addPoint(date.getTime(),
-						currentData.getActualBurndownValue());
+				this.getBurndownCurve().addPoint(date.getTime(), currentData.getActualBurndownValue());
 			}
 		}
+	}
+
+	@Override
+	public void accept(final ChartWidgetVisitor visitor) {
+		visitor.handleSprintBurndownChart(this);
 	}
 }

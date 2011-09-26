@@ -8,7 +8,7 @@ import com.googlecode.gchart.client.GChart;
  * This is to display a detailed burndown-chart. While presenting actual burndown-data this also includes an ideal-line
  * and a trend-estimation.
  */
-public abstract class BurndownChart extends GChart {
+public abstract class BurndownChart extends GChart implements ChartWidget {
 
 	/**
 	 * Represents the burndown curve.
