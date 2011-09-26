@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 
-@def SHADOWCOLOR value('architecture.SHADOWCOLOR');
+@def shadowcolor value('architecture.shadowcolor');
 .question-widget {
 	border-radius: 10px;
 	padding: 5px;
@@ -8,9 +8,9 @@
 	background: white;
 	min-height: 100px;
 	width: 300px;
-	-webkit-box-shadow: 2px 2px 2px 1px SHADOWCOLOR;
-	-moz-box-shadow: 2px 2px 2px 1px SHADOWCOLOR;
-	box-shadow: 2px 2px 2px 1px SHADOWCOLOR;
+	-webkit-box-shadow: 2px 2px 2px 1px shadowcolor;
+	-moz-box-shadow: 2px 2px 2px 1px shadowcolor;
+	box-shadow: 2px 2px 2px 1px shadowcolor;
 	padding: 10px;
 	opacity: 0.95;
 	
@@ -31,9 +31,9 @@
 	width: 280px;
 	padding: 10px;
 	border-radius: 4px;
-	-webkit-box-shadow: 0px 0px 1px 1px SHADOWCOLOR;
-	-moz-box-shadow: 0px 0px 1px 1px SHADOWCOLOR;
-	box-shadow: 0px 0px 1px 1px SHADOWCOLOR;
+	-webkit-box-shadow: 0px 0px 1px 1px shadowcolor;
+	-moz-box-shadow: 0px 0px 1px 1px shadowcolor;
+	box-shadow: 0px 0px 1px 1px shadowcolor;
 	background: #ffffff; /* Old browsers */
 	background: -moz-linear-gradient(top, #ffffff 0%, #cccccc 100%);
 	/* FF3.6+ */

@@ -1,14 +1,14 @@
 @CHARSET "ISO-8859-1";
-@def SHADOWCOLOR value('architecture.SHADOWCOLOR');
+@def shadowcolor value('architecture.shadowcolor');
 @def PANEL_WIDTH 400px;
 
 .toast-panel {
 	width: PANEL_WIDTH;
 	height: auto;
 	background-color: white;
-	-webkit-box-shadow: 1px 1px 2px 0px SHADOWCOLOR;
-	-moz-box-shadow: 1px 1px 2px 0px SHADOWCOLOR;
-	box-shadow: 1px 1px 2px 0px SHADOWCOLOR;
+	-webkit-box-shadow: 1px 1px 2px 0px shadowcolor;
+	-moz-box-shadow: 1px 1px 2px 0px shadowcolor;
+	box-shadow: 1px 1px 2px 0px shadowcolor;
 	opacity: 0.95;
 }
 
@@ -27,9 +27,9 @@
 	line-height: 15px;
 	text-align: center;
 	vertical-align: middle;
-	-webkit-box-shadow: 0px 0px 1px 0px SHADOWCOLOR;
-	-moz-box-shadow: 0px 0px 1px 0px SHADOWCOLOR;
-	box-shadow: 0px 0px 1px 0px SHADOWCOLOR;
+	-webkit-box-shadow: 0px 0px 1px 0px shadowcolor;
+	-moz-box-shadow: 0px 0px 1px 0px shadowcolor;
+	box-shadow: 0px 0px 1px 0px shadowcolor;
 }
 
 .toast-panel .gwt-Button:hover {

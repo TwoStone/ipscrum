@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
-@def NAVIGATION_HEIGHT value('architecture.NAVIGATION_HEIGHT');
-@def SHADOWCOLOR value('architecture.SHADOWCOLOR');
+@def navigationHeight value('architecture.navigationHeight');
+@def shadowcolor value('architecture.shadowcolor');
 
 
 
@@ -38,7 +38,7 @@
 	cursor: hand;
 	background: none;
 	border: none;
-	height: NAVIGATION_HEIGHT;
+	height: navigationHeight;
 	color: #EEE;
 }
 
@@ -50,7 +50,7 @@
 	position: absolute;
 	right: 0px;
 	width: auto;
-	line-height: NAVIGATION_HEIGHT;
+	line-height: navigationHeight;
 	color: #EEE !important;
 	font-size: 15px;
 }
@@ -64,8 +64,8 @@
 .navigation-widget .refresh-button {
 	padding: 0;
 	margin: 0;
-	height: NAVIGATION_HEIGHT;
-	width: NAVIGATION_HEIGHT;
+	height: navigationHeight;
+	width: navigationHeight;
 	border: none;
 	background-color: none;
 	background: none url("images/refresh_30.png") top center;

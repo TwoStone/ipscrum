@@ -1,9 +1,9 @@
-@def SHADOWCOLOR #5c5c5c;
-@def NAVIGATION_HEIGHT 30px;
+@def shadowcolor #5c5c5c;
+@def navigationHeight 30px;
 @def CONTENT_WIDTH 1000px;
 @def CONTENT_HEIGHT 650px;
-@def NAVI_SHADOW 0px 1px 1px 0px SHADOWCOLOR;
-@def CONTENT_SHADOW 1px 1px 1px 0px SHADOWCOLOR;
+@def NAVI_SHADOW 0px 1px 1px 0px shadowcolor;
+@def CONTENT_SHADOW 1px 1px 1px 0px shadowcolor;
 * {
 	margin: 0px;
 	padding: 0px;
@@ -20,14 +20,14 @@ body {
 	position: relative;
 	height: 80px;
 	background-image: url("images/logoSmall.png");
-	background-position: right NAVIGATION_HEIGHT;
+	background-position: right navigationHeight;
 	background-repeat: no-repeat;
 }
 
 #navigation {
 	background: #444;
 	width: 100%;
-	height: NAVIGATION_HEIGHT;
+	height: navigationHeight;
 	color: #EEE !important;
 	vertical-align: middle !important;
 	overflow: hidden;
@@ -56,9 +56,9 @@ body {
 	margin: 10px;
 	color: darkgrey;
 	/*background: white;
-	-webkit-box-shadow: 1px 1px 1px 1px SHADOWCOLOR;
-	-moz-box-shadow: 1px 1px 1px 1px SHADOWCOLOR;
-	box-shadow: 1px 1px 1px 1px SHADOWCOLOR;*/
+	-webkit-box-shadow: 1px 1px 1px 1px shadowcolor;
+	-moz-box-shadow: 1px 1px 1px 1px shadowcolor;
+	box-shadow: 1px 1px 1px 1px shadowcolor;*/
 }
 
 .breadcrumb:HOVER {

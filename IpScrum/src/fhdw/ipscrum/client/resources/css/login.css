@@ -1,5 +1,5 @@
 @CHARSET "ISO-8859-1";
-@def SHADOWCOLOR value('architecture.SHADOWCOLOR');
+@def shadowcolor value('architecture.shadowcolor');
 
 .login-widget-textbox {
 	padding: 9px 7px 10px 7px;
@@ -83,9 +83,9 @@
 	border-radius: 10px;
 	border: none;
 	background-color: #EEE;
-	-webkit-box-shadow: 1px 2px 4px 2px SHADOWCOLOR;
-	-moz-box-shadow: 1px 2px 4px 2px SHADOWCOLOR;
-	box-shadow: 1px 2px 4px 2px SHADOWCOLOR;
+	-webkit-box-shadow: 1px 2px 4px 2px shadowcolor;
+	-moz-box-shadow: 1px 2px 4px 2px shadowcolor;
+	box-shadow: 1px 2px 4px 2px shadowcolor;
 	
 }
 
