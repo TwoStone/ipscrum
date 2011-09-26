@@ -77,11 +77,11 @@ public class MultipleParticipantIncidentTest extends SetUpTestData {
 		final MultipleParticipantIncident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
 		final List<Person> persons = new ArrayList<Person>();
-		persons.add(this.pBjoern);
-		persons.add(this.pChris);
-		persons.add(this.pChristin);
-		persons.add(this.pSarah);
-		persons.add(this.pWilken);
+		persons.add(this.getpBjoern());
+		persons.add(this.getpChris());
+		persons.add(this.getpChristin());
+		persons.add(this.getpSarah());
+		persons.add(this.getpWilken());
 		fixture.addPartipants(persons);
 		Assert.assertTrue(fixture.getParticipants().size() == 5);
 
@@ -97,13 +97,13 @@ public class MultipleParticipantIncidentTest extends SetUpTestData {
 	public void testAddParticipants1() throws Exception {
 		final MultipleParticipantIncident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
-		fixture.addParticipant(this.pWilken);
-		final Person person = this.pSarah;
+		fixture.addParticipant(this.getpWilken());
+		final Person person = this.getpSarah();
 
 		fixture.addParticipant(person);
 		Assert.assertTrue(fixture.getParticipants().size() == 2);
 		Assert.assertEquals(person, fixture.getParticipants().get(1));
-		Assert.assertEquals(this.pWilken, fixture.getParticipants().get(0));
+		Assert.assertEquals(this.getpWilken(), fixture.getParticipants().get(0));
 
 	}
 
@@ -117,13 +117,13 @@ public class MultipleParticipantIncidentTest extends SetUpTestData {
 	public void testAddParticipant2() throws Exception {
 		final MultipleParticipantIncident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
-		fixture.addParticipant(this.pBjoern);
-		final Person person = this.pChris;
+		fixture.addParticipant(this.getpBjoern());
+		final Person person = this.getpChris();
 
 		fixture.addParticipant(person);
 		Assert.assertTrue(fixture.getParticipants().size() == 2);
 		Assert.assertEquals(person, fixture.getParticipants().get(1));
-		Assert.assertEquals(this.pBjoern, fixture.getParticipants().get(0));
+		Assert.assertEquals(this.getpBjoern(), fixture.getParticipants().get(0));
 	}
 
 	/**
@@ -136,14 +136,14 @@ public class MultipleParticipantIncidentTest extends SetUpTestData {
 	public void testAddParticipant3() throws Exception {
 		final MultipleParticipantIncident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
-		fixture.addParticipant(this.pWilken);
-		final Person person = this.pSarah;
+		fixture.addParticipant(this.getpWilken());
+		final Person person = this.getpSarah();
 
 		fixture.addParticipant(person);
 		fixture.addParticipant(person);
 		Assert.assertTrue(fixture.getParticipants().size() == 2);
 		Assert.assertEquals(person, fixture.getParticipants().get(1));
-		Assert.assertEquals(this.pWilken, fixture.getParticipants().get(0));
+		Assert.assertEquals(this.getpWilken(), fixture.getParticipants().get(0));
 	}
 
 	/**
@@ -156,12 +156,12 @@ public class MultipleParticipantIncidentTest extends SetUpTestData {
 	public void testGetParticipants1() throws Exception {
 		final MultipleParticipantIncident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
-		fixture.addParticipant(this.pBjoern);
+		fixture.addParticipant(this.getpBjoern());
 
 		final Vector<Person> result = fixture.getParticipants();
 
 		Assert.assertNotNull(result);
-		Assert.assertEquals(this.pBjoern, result.get(0));
-		Assert.assertEquals(this.pBjoern, result.iterator().next());
+		Assert.assertEquals(this.getpBjoern(), result.get(0));
+		Assert.assertEquals(this.getpBjoern(), result.iterator().next());
 	}
 }

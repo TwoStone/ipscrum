@@ -38,7 +38,7 @@ public class AndTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchTrueTrue() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final And and = new And(this.model);
 		// TODO
@@ -59,7 +59,7 @@ public class AndTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchTrueFalse() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final And and = new And(this.model);
 
@@ -81,7 +81,7 @@ public class AndTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchFalseTrue() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final And and = new And(this.model);
 		// TODO
@@ -102,7 +102,7 @@ public class AndTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchFalseFalse() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final And and = new And(this.model);
 		// TODO

@@ -50,7 +50,7 @@ public class OneParticipantIncidentTest extends SetUpTestData {
 		final Date start = new Date(2011 - 1900, 3 - 1, 1);
 		@SuppressWarnings("deprecation")
 		final Date end = new Date(2011 - 1900, 3 - 1, 1);
-		final Person participant = this.pBjoern;
+		final Person participant = this.getpBjoern();
 
 		final OneParticipantIncident result =
 				new OneParticipantIncident(this.getModel(), start, end, participant);
@@ -71,11 +71,11 @@ public class OneParticipantIncidentTest extends SetUpTestData {
 	public void testGetParticipant1() throws Exception {
 		final OneParticipantIncident fixture =
 				new OneParticipantIncident(this.getModel(), new Date(), new Date(),
-						this.pSarah);
+						this.getpSarah());
 
 		final Person result = fixture.getParticipant();
 
 		Assert.assertNotNull(result);
-		Assert.assertEquals(this.pSarah, result);
+		Assert.assertEquals(this.getpSarah(), result);
 	}
 }

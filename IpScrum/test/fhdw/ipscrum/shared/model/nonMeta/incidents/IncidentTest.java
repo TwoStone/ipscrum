@@ -40,9 +40,9 @@ public class IncidentTest extends SetUpTestData {
 		final Incident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
 		final List<Project> projects = new ArrayList<Project>();
-		projects.add(this.projekt1);
-		projects.add(this.projekt2);
-		projects.add(this.projekt3);
+		projects.add(this.getProjekt1());
+		projects.add(this.getProjekt2());
+		projects.add(this.getProjekt3());
 		fixture.addProjects(projects);
 	}
 
@@ -56,7 +56,7 @@ public class IncidentTest extends SetUpTestData {
 	public void testAddProject1() throws Exception {
 		final Incident fixture =
 				new MultipleParticipantIncident(this.getModel(), new Date(), new Date());
-		final Project project = this.projekt1;
+		final Project project = this.getProjekt1();
 		fixture.addProject(project);
 
 	}
@@ -85,9 +85,9 @@ public class IncidentTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCreateIllnessIncident1() throws Exception {
-		final Person person = this.pBjoern;
+		final Person person = this.getpBjoern();
 		final OneParticipantIncident result =
-				new OneParticipantIncident(this.model, this.start, this.end, person);
+				new OneParticipantIncident(this.getModel(), this.start, this.end, person);
 
 		Assert.assertNotNull(result);
 		Assert.assertEquals(person, result.getParticipant());
@@ -104,7 +104,7 @@ public class IncidentTest extends SetUpTestData {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void testCreateIllnessIncident2() throws Exception {
-		final Person person = this.pChris;
+		final Person person = this.getpChris();
 		final Date startDate = new Date(2011 - 1900, 3 - 1, 1);
 		final Date endDate = new Date(2011 - 1900, 4 - 1, 1);
 		final OneParticipantIncident result =
@@ -181,8 +181,8 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testCreatePBICompletionIncident1() throws Exception {
 		final OneParticipantIncident result =
-				new OneParticipantIncident(this.model, this.start, this.end,
-						this.pBjoern);
+				new OneParticipantIncident(this.getModel(), this.start, this.end,
+						this.getpBjoern());
 
 		Assert.assertNotNull(result);
 	}
@@ -196,7 +196,7 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testCreateReleaseCompletionIncident1() throws Exception {
 		final MultipleParticipantIncident result =
-				new MultipleParticipantIncident(this.model, this.start, this.end);
+				new MultipleParticipantIncident(this.getModel(), this.start, this.end);
 
 		Assert.assertNotNull(result);
 		Assert.assertEquals(false, result.isGlobal());
@@ -216,7 +216,7 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testCreateSprintCompletionIncident1() throws Exception {
 		final MultipleParticipantIncident result =
-				new MultipleParticipantIncident(this.model, this.start, this.end);
+				new MultipleParticipantIncident(this.getModel(), this.start, this.end);
 		Assert.assertNotNull(result);
 	}
 
@@ -229,8 +229,8 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testCreateTaskCompletionIncident1() throws Exception {
 		final OneParticipantIncident result =
-				new OneParticipantIncident(this.model, this.start, this.end,
-						this.pBjoern);
+				new OneParticipantIncident(this.getModel(), this.start, this.end,
+						this.getpBjoern());
 		Assert.assertNotNull(result);
 	}
 
@@ -243,8 +243,8 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testCreateVacationIncident1() throws Exception {
 		final OneParticipantIncident result =
-				new OneParticipantIncident(this.model, this.start, this.end,
-						this.pBjoern);
+				new OneParticipantIncident(this.getModel(), this.start, this.end,
+						this.getpBjoern());
 		Assert.assertNotNull(result);
 	}
 
@@ -257,8 +257,8 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testCreateVacationIncident2() throws Exception {
 		final OneParticipantIncident result =
-				new OneParticipantIncident(this.model, this.start, this.end,
-						this.pBjoern);
+				new OneParticipantIncident(this.getModel(), this.start, this.end,
+						this.getpBjoern());
 		Assert.assertNotNull(result);
 	}
 
@@ -525,16 +525,16 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testIsIncidentInProject1() throws IPScrumGeneralException {
 		final String description =
-				this.pChristin.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+				this.getpChristin().toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 		final OneParticipantIncident incident =
 				new OneParticipantIncident(this.getModel(), this.start, this.end,
-						this.pChristin);
+						this.getpChristin());
 		incident.setDescription(description);
 		incident.setGlobal(true);
-		incident.addProject(this.projekt1);
+		incident.addProject(this.getProjekt1());
 
 		final Iterator<Incident> incidentIterator =
-				this.projekt1.getProjectIncidents().iterator();
+				this.getProjekt1().getProjectIncidents().iterator();
 		final Incident current = incidentIterator.next();
 		if (current != null) {
 			Assert.assertEquals(incident, current);
@@ -552,15 +552,15 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testIsIncidentInProject2() throws IPScrumGeneralException {
 		final String description =
-				this.pChristin.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+				this.getpChristin().toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 		final OneParticipantIncident incident =
 				new OneParticipantIncident(this.getModel(), this.start, this.end,
-						this.pChristin);
+						this.getpChristin());
 		incident.setDescription(description);
 		incident.setGlobal(true);
-		incident.addProject(this.projekt1);
+		incident.addProject(this.getProjekt1());
 		final Iterator<Incident> incidentIterator =
-				this.projekt1.getProjectIncidents().iterator();
+				this.getProjekt1().getProjectIncidents().iterator();
 		final Incident current = incidentIterator.next();
 		if (current != null) {
 			Assert.assertEquals(incident, current);
@@ -578,17 +578,17 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testIsProjectInIncident1() throws IPScrumGeneralException {
 		final String description =
-				this.pChristin.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+				this.getpChristin().toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 		final OneParticipantIncident incident =
 				new OneParticipantIncident(this.getModel(), this.start, this.end,
-						this.pChristin);
+						this.getpChristin());
 		incident.setDescription(description);
 		incident.setGlobal(true);
-		incident.addProject(this.projekt1);
+		incident.addProject(this.getProjekt1());
 		final Iterator<Project> projectIterator = incident.getProjects().iterator();
 		final Project current = projectIterator.next();
 		if (current != null) {
-			Assert.assertEquals(this.projekt1, current);
+			Assert.assertEquals(this.getProjekt1(), current);
 		} else {
 			Assert.fail();
 		}
@@ -603,17 +603,17 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testIsProjectInIncident2() throws IPScrumGeneralException {
 		final String description =
-				this.pChristin.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+				this.getpChristin().toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 		final OneParticipantIncident incident =
 				new OneParticipantIncident(this.getModel(), this.start, this.end,
-						this.pChristin);
+						this.getpChristin());
 		incident.setDescription(description);
 		incident.setGlobal(true);
-		incident.addProject(this.projekt1);
+		incident.addProject(this.getProjekt1());
 		final Iterator<Project> projectIterator = incident.getProjects().iterator();
 		final Project current = projectIterator.next();
 		if (current != null) {
-			Assert.assertEquals(this.projekt1, current);
+			Assert.assertEquals(this.getProjekt1(), current);
 		} else {
 			Assert.fail();
 		}
@@ -628,14 +628,14 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testDoubleDefinition1() throws IPScrumGeneralException {
 		final String description =
-				this.pChristin.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+				this.getpChristin().toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 		final OneParticipantIncident incident =
 				new OneParticipantIncident(this.getModel(), this.start, this.end,
-						this.pChristin);
+						this.getpChristin());
 		incident.setDescription(description);
 		incident.setGlobal(true);
-		incident.addProject(this.projekt1);
-		incident.addProject(this.projekt1);
+		incident.addProject(this.getProjekt1());
+		incident.addProject(this.getProjekt1());
 		final int iAct = incident.getProjects().size();
 		final int iExp = 1;
 		Assert.assertEquals(iExp, iAct);
@@ -650,15 +650,15 @@ public class IncidentTest extends SetUpTestData {
 	@Test
 	public void testDoubleDefinition2() throws IPScrumGeneralException {
 		final String description =
-				this.pChristin.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+				this.getpChristin().toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 		final OneParticipantIncident incident =
 				new OneParticipantIncident(this.getModel(), this.start, this.end,
-						this.pChristin);
+						this.getpChristin());
 		incident.setDescription(description);
 		incident.setGlobal(true);
-		incident.addProject(this.projekt1);
-		incident.addProject(this.projekt1);
-		final int iAct = this.projekt1.getProjectIncidents().size();
+		incident.addProject(this.getProjekt1());
+		incident.addProject(this.getProjekt1());
+		final int iAct = this.getProjekt1().getProjectIncidents().size();
 		final int iExp = 1;
 		Assert.assertEquals(iExp, iAct);
 	}

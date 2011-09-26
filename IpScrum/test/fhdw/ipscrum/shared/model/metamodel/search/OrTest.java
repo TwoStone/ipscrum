@@ -20,7 +20,7 @@ public class OrTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchTrueTrue() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final Or or = new Or(this.getModel());
 		// TODO
@@ -41,7 +41,7 @@ public class OrTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchTrueFalse() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final Or or = new Or(this.getModel());
 		// // TODO
@@ -62,7 +62,7 @@ public class OrTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchFalseTrue() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final Or or = new Or(this.getModel());
 		// TODO
@@ -83,7 +83,7 @@ public class OrTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSearchFalseFalse() throws IPScrumGeneralException {
-		final ProductBacklogItem item = this.pro1rel1spr1fea1;
+		final ProductBacklogItem item = this.getPro1rel1spr1fea1();
 
 		final Or or = new Or(this.getModel());
 		// TODO

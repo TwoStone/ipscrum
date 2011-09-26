@@ -25,7 +25,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	@Test
 	public void testReleaseChartData1() throws Exception {
 		final Release release =
-				new Release(this.model, "", new Date(), new Project(this.model, "blaa"));
+				new Release(this.getModel(), "", new Date(), new Project(this.getModel(), "blaa"));
 
 		final ReleaseChartData result = new ReleaseChartData(release);
 
@@ -41,9 +41,9 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetData1() throws Exception {
-		System.out.println(this.pro1rel1);
+		System.out.println(this.getPro1rel1());
 
-		final ReleaseChartData fixture = new ReleaseChartData(this.pro1rel1);
+		final ReleaseChartData fixture = new ReleaseChartData(this.getPro1rel1());
 
 		final SortedMap<Date, ReleaseChartData.ReleaseChartDataDetails> result =
 				fixture.getData();
@@ -61,8 +61,8 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	@Test
 	public void testGetTickData1() throws Exception {
 		final ReleaseChartData fixture =
-				new ReleaseChartData(new Release(this.model, "", new Date(),
-						new Project(this.model, "blaa")));
+				new ReleaseChartData(new Release(this.getModel(), "", new Date(),
+						new Project(this.getModel(), "blaa")));
 
 		final List<Double> result = fixture.getTickData();
 
@@ -78,7 +78,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData2() throws Exception {
-		final ReleaseChartData fixture = new ReleaseChartData(this.pro1rel2);
+		final ReleaseChartData fixture = new ReleaseChartData(this.getPro1rel2());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -94,7 +94,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData3() throws Exception {
-		final ReleaseChartData fixture = new ReleaseChartData(this.pro2rel1);
+		final ReleaseChartData fixture = new ReleaseChartData(this.getPro2rel1());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -110,7 +110,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData4() throws Exception {
-		final ReleaseChartData fixture = new ReleaseChartData(this.pro2rel2);
+		final ReleaseChartData fixture = new ReleaseChartData(this.getPro2rel2());
 
 		final List<Double> result = fixture.getTickData();
 

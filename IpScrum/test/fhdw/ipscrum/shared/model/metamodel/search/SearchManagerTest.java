@@ -21,7 +21,7 @@ public class SearchManagerTest extends SetUpTestData {
 	@Test
 	public void testSearch1PBIClosedCriterion() {
 		final SearchManager manager = new SearchManager();
-		final Collection<ProductBacklogItem> elements = this.listOfFeatures;
+		final Collection<ProductBacklogItem> elements = this.getListOfFeatures();
 		// TODO
 		// Collection<ProductBacklogItem> result = manager.search(elements, new
 		// PBIClosedCriterion(model));
@@ -39,7 +39,7 @@ public class SearchManagerTest extends SetUpTestData {
 	@Test
 	public void testSearch2NotPBIClosedCriterion() throws CycleException {
 		final SearchManager manager = new SearchManager();
-		final Collection<ProductBacklogItem> elements = this.listOfFeatures;
+		final Collection<ProductBacklogItem> elements = this.getListOfFeatures();
 		// TODO
 		// Collection<ProductBacklogItem> result = manager.search(elements, new Not(new
 		// PBIClosedCriterion(model )));
@@ -55,7 +55,7 @@ public class SearchManagerTest extends SetUpTestData {
 	@Test
 	public void testSearch3PBINameCriterion() {
 		final SearchManager manager = new SearchManager();
-		final Collection<ProductBacklogItem> elements = this.listOfFeatures;
+		final Collection<ProductBacklogItem> elements = this.getListOfFeatures();
 		// TODO
 		// Collection<ProductBacklogItem> result = manager.search(elements, new
 		// PBINameCriterion(model,
@@ -71,7 +71,7 @@ public class SearchManagerTest extends SetUpTestData {
 	@Test
 	public void testSearch4PBSprintNameCriterion() {
 		final SearchManager manager = new SearchManager();
-		final Collection<ProductBacklogItem> elements = this.listOfFeatures;
+		final Collection<ProductBacklogItem> elements = this.getListOfFeatures();
 		// TODO
 		// Collection<ProductBacklogItem> result = manager.search(elements, new
 		// PBSprintNameCriterion(model,

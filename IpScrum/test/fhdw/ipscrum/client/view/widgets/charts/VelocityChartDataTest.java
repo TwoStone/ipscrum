@@ -31,7 +31,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testVelocityChartData1() throws Exception {
-		final Team team = this.team1;
+		final Team team = this.getTeam1();
 
 		final VelocityChartData result = new VelocityChartData(team);
 
@@ -51,8 +51,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity1() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel1spr1;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel1spr1();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -76,8 +76,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity2() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel1spr2;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel1spr2();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -101,8 +101,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity3() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel1spr3;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel1spr3();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -126,8 +126,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity4() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel1spr4;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel1spr4();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -151,8 +151,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity5() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel1spr5;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel1spr5();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -176,8 +176,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity6() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel2spr1;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel2spr1();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -201,8 +201,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity7() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel2spr2;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel2spr2();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -226,8 +226,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity8() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel2spr3;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel2spr3();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -251,8 +251,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity9() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel2spr4;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel2spr4();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -276,8 +276,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity10() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro1rel2spr5;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro1rel2spr5();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -301,8 +301,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity11() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel1spr1;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel1spr1();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -326,8 +326,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity12() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel1spr2;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel1spr2();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -351,8 +351,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity13() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel1spr3;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel1spr3();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -376,8 +376,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity14() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel1spr4;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel1spr4();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -401,8 +401,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity15() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel1spr5;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel1spr5();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -426,8 +426,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity16() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel2spr1;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel2spr1();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -451,8 +451,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity17() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel2spr2;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel2spr2();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -476,8 +476,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity18() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel2spr3;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel2spr3();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -501,8 +501,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity19() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel2spr4;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel2spr4();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -526,8 +526,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity20() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
-		final Sprint sprint = this.pro3rel1spr5;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
+		final Sprint sprint = this.getPro3rel1spr5();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -551,8 +551,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity21() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel1spr1;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel1spr1();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -576,8 +576,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity22() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel1spr2;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel1spr2();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -601,8 +601,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity23() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel1spr3;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel1spr3();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -626,8 +626,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity24() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel1spr4;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel1spr4();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -651,8 +651,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity25() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel1spr5;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel1spr5();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -676,8 +676,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity26() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel2spr1;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel2spr1();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -701,8 +701,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity27() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel2spr2;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel2spr2();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -726,8 +726,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity28() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel2spr3;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel2spr3();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -751,8 +751,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity29() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel2spr4;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel2spr4();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -776,8 +776,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testCalculateRelativeVelocity30() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
-		final Sprint sprint = this.pro2rel2spr5;
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
+		final Sprint sprint = this.getPro2rel2spr5();
 
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
@@ -804,7 +804,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetAbsAverageVelocity1() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
 
 		final Double result = fixture.getAbsAverageVelocity();
 
@@ -822,7 +822,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetAbsAverageVelocity2() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team2);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam2());
 
 		final Double result = fixture.getAbsAverageVelocity();
 
@@ -840,7 +840,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetAbsAverageVelocity3() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team3);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam3());
 
 		final Double result = fixture.getAbsAverageVelocity();
 
@@ -859,7 +859,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetAbsAverageVelocity4() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
 
 		final Double result = fixture.getAbsAverageVelocity();
 
@@ -881,7 +881,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetRelAverageVelocity1() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
 
 		final Double result = fixture.getRelAverageVelocity();
 
@@ -899,7 +899,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetRelAverageVelocity2() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team2);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam2());
 
 		final Double result = fixture.getRelAverageVelocity();
 
@@ -917,7 +917,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetRelAverageVelocity3() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team3);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam3());
 
 		final Double result = fixture.getRelAverageVelocity();
 
@@ -935,7 +935,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetRelAverageVelocity4() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team4);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam4());
 
 		final Double result = fixture.getRelAverageVelocity();
 
@@ -955,15 +955,15 @@ public class VelocityChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTeam1() throws Exception {
-		final VelocityChartData fixture = new VelocityChartData(this.team1);
+		final VelocityChartData fixture = new VelocityChartData(this.getTeam1());
 
 		final Team result = fixture.getTeam();
 
 		Assert.assertNotNull(result);
-		Assert.assertEquals(this.team1, result);
-		Assert.assertNotSame(this.team2, result);
-		Assert.assertNotSame(this.team3, result);
-		Assert.assertNotSame(this.team4, result);
+		Assert.assertEquals(this.getTeam1(), result);
+		Assert.assertNotSame(this.getTeam2(), result);
+		Assert.assertNotSame(this.getTeam3(), result);
+		Assert.assertNotSame(this.getTeam4(), result);
 	}
 
 }

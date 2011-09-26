@@ -24,7 +24,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testSprintChartData1() throws Exception {
-		final Sprint sprint = this.pro1rel1spr1;
+		final Sprint sprint = this.getPro1rel1spr1();
 
 		final SprintChartData result = new SprintChartData(sprint);
 		Assert.assertNotNull(result);
@@ -40,7 +40,7 @@ public class SprintChartDataTest extends SetUpTestData {
 
 	@Test
 	public void testGetData1() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr2());
 
 		final SortedMap<Date, SprintChartData.SprintChartDataDetails> result =
 				fixture.getData();
@@ -56,7 +56,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetSprint1() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr3());
 
 		final Sprint result = fixture.getSprint();
 
@@ -71,7 +71,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData1() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr1);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr1());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -87,7 +87,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData2() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr2);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr2());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -103,7 +103,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData3() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr3);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr3());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -119,7 +119,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData4() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr4);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr4());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -135,7 +135,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData5() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel1spr5);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr5());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -151,7 +151,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData6() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr1);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel2spr1());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -167,7 +167,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData7() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr2);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel2spr2());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -183,7 +183,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData8() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr3);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel2spr3());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -199,7 +199,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData9() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr4);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel2spr4());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -215,7 +215,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData10() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro1rel2spr5);
+		final SprintChartData fixture = new SprintChartData(this.getPro1rel2spr5());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -231,7 +231,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData11() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr1);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel1spr1());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -247,7 +247,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData12() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr2);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel1spr2());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -263,7 +263,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData13() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr3);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel1spr3());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -279,7 +279,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData14() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr4);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel1spr4());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -295,7 +295,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData15() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel1spr5);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel1spr5());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -311,7 +311,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData16() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr1);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel2spr1());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -327,7 +327,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData17() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr2);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel2spr2());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -343,7 +343,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData18() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr3);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel2spr3());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -359,7 +359,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData19() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr4);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel2spr4());
 
 		final List<Double> result = fixture.getTickData();
 
@@ -375,7 +375,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	 */
 	@Test
 	public void testGetTickData20() throws Exception {
-		final SprintChartData fixture = new SprintChartData(this.pro2rel2spr5);
+		final SprintChartData fixture = new SprintChartData(this.getPro2rel2spr5());
 
 		final List<Double> result = fixture.getTickData();
 
