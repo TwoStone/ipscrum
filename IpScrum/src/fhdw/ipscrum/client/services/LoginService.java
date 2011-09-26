@@ -28,11 +28,11 @@ public interface LoginService extends RemoteService {
 		/**
 		 * Represents the related user.
 		 */
-		protected User user;
+		private User user;
 		/**
 		 * Represents the related role.
 		 */
-		protected Role role;
+		private Role role;
 
 		/**
 		 * constructor without parameters. Needed for serilaization.
@@ -51,8 +51,8 @@ public interface LoginService extends RemoteService {
 		 */
 		public ResumedSession(final User user, final Role role) {
 			this();
-			this.user = user;
-			this.role = role;
+			this.setUser(user);
+			this.setRole(role);
 		}
 
 		/**
@@ -71,6 +71,22 @@ public interface LoginService extends RemoteService {
 		 */
 		public Role getRole() {
 			return this.role;
+		}
+
+		/**
+		 * @param user
+		 *            the user to set
+		 */
+		protected void setUser(final User user) {
+			this.user = user;
+		}
+
+		/**
+		 * @param role
+		 *            the role to set
+		 */
+		protected void setRole(final Role role) {
+			this.role = role;
 		}
 
 	}
@@ -111,8 +127,8 @@ public interface LoginService extends RemoteService {
 	User login(String username, String password) throws LoginException;
 
 	/**
-	 * Tries to resume a session. If the user was previously loggedIn with the same name
-	 * and the same JSESSIONID the server will continue the session.
+	 * Tries to resume a session. If the user was previously loggedIn with the same name and the same JSESSIONID the
+	 * server will continue the session.
 	 * 
 	 * @param username
 	 *            Name of the User.
@@ -122,8 +138,7 @@ public interface LoginService extends RemoteService {
 	 * @throws NotAuthorizedException
 	 *             If resuming was not possible
 	 */
-	ResumedSession tryResumeSession(String username, String roleId)
-			throws NotAuthorizedException;
+	ResumedSession tryResumeSession(String username, String roleId) throws NotAuthorizedException;
 
 	/**
 	 * Logout of a User.

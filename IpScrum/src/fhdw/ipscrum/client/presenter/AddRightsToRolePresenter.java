@@ -13,11 +13,28 @@ import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.model.userRights.Right;
 
+/**
+ * Represents the presenter which controles the view to add rights to a role.
+ */
 public class AddRightsToRolePresenter extends WritePresenter {
 
+	/**
+	 * Represents the view controlled by the presenter.
+	 */
 	private IAddRightsToRoleView view;
+	/**
+	 * Represents the role of which the rights should be changed.
+	 */
 	private Role role;
 
+	/**
+	 * Constructor of the AddRightsToRolePresenter.
+	 * 
+	 * @param context
+	 *            is the ClientContext related to the presenter
+	 * @param role
+	 *            of which the rights should be changed
+	 */
 	public AddRightsToRolePresenter(final ClientContext context, final Role role) {
 		super(context);
 		this.role = role;
@@ -36,15 +53,12 @@ public class AddRightsToRolePresenter extends WritePresenter {
 			this.view.registerAdd(new EventHandler<TypedEventArg<Right>>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Right> eventArgs) {
+				public void onUpdate(final Object sender, final TypedEventArg<Right> eventArgs) {
 
 					AddRightsToRolePresenter.this.beginTransaction();
 					try {
-						AddRightsToRolePresenter.this
-								.doCommand(new RoleAddRightCommand(
-										AddRightsToRolePresenter.this.role, eventArgs
-												.getObject()));
+						AddRightsToRolePresenter.this.doCommand(new RoleAddRightCommand(
+								AddRightsToRolePresenter.this.role, eventArgs.getObject()));
 						AddRightsToRolePresenter.this.commitTransaction();
 					} catch (final IPScrumGeneralException e) {
 						AddRightsToRolePresenter.this.toastMessage(e.getMessage());
@@ -56,15 +70,12 @@ public class AddRightsToRolePresenter extends WritePresenter {
 			this.view.registerRemove(new EventHandler<TypedEventArg<Right>>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Right> eventArgs) {
+				public void onUpdate(final Object sender, final TypedEventArg<Right> eventArgs) {
 
 					AddRightsToRolePresenter.this.beginTransaction();
 					try {
-						AddRightsToRolePresenter.this
-								.doCommand(new RoleRemoveRightCommand(
-										AddRightsToRolePresenter.this.role, eventArgs
-												.getObject()));
+						AddRightsToRolePresenter.this.doCommand(new RoleRemoveRightCommand(
+								AddRightsToRolePresenter.this.role, eventArgs.getObject()));
 						AddRightsToRolePresenter.this.commitTransaction();
 					} catch (final IPScrumGeneralException e) {
 						AddRightsToRolePresenter.this.toastMessage(e.getMessage());
@@ -86,8 +97,7 @@ public class AddRightsToRolePresenter extends WritePresenter {
 			this.toastMessage(e.getMessage());
 		}
 		this.view.setAddedRights(this.role.getRights());
-		this.view.setRightsToAdd(this.getContext().getModel().getRightManager()
-				.getAllRights());
+		this.view.setRightsToAdd(this.getContext().getModel().getRightManager().getAllRights());
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package fhdw.ipscrum.shared.model.metamodel.search;
 
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class SearchCriteriaTest {
 	/**
 	 * represents the model needed to use the IPScrum.
 	 */
-	private static final Model model = new Model(new Date());
+	private final Model model = new Model(new Date());
 
 	/**
 	 * sets up the data before the whole class.
@@ -25,7 +26,17 @@ public class SearchCriteriaTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		SearchCriteriaTest.model.setUuidManager(new IDGenerator());
+	}
+
+	/**
+	 * sets up the data before every test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Before
+	public void setUp() throws Exception {
+		this.model.setUuidManager(new IDGenerator());
 	}
 
 	/**

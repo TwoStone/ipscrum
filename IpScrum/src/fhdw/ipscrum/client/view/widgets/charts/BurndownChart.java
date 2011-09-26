@@ -5,23 +5,23 @@ import java.util.List;
 import com.googlecode.gchart.client.GChart;
 
 /**
- * This is to display a detailed burndown-chart. While presenting actual burndown-data
- * this also includes an ideal-line and a trend-estimation.
+ * This is to display a detailed burndown-chart. While presenting actual burndown-data this also includes an ideal-line
+ * and a trend-estimation.
  */
 public abstract class BurndownChart extends GChart {
 
 	/**
 	 * Represents the burndown curve.
 	 */
-	Curve burndownCurve;
+	private Curve burndownCurve;
 	/**
 	 * Represents the ideal burndown curve.
 	 */
-	Curve idealCurve;
+	private Curve idealCurve;
 	/**
 	 * Represents the trend curve of the burndown.
 	 */
-	Curve trendCurve;
+	private Curve trendCurve;
 	private int chartWidth;
 	private int chartHeight;
 
@@ -32,18 +32,18 @@ public abstract class BurndownChart extends GChart {
 		/* calculate averages */
 		double xAvg = 0d;
 		double yAvg = 0d;
-		for (int i = 0; i < this.burndownCurve.getNPoints(); i++) {
+		for (int i = 0; i < this.getBurndownCurve().getNPoints(); i++) {
 			xAvg += i;
-			yAvg += this.burndownCurve.getPoint(i).getY();
+			yAvg += this.getBurndownCurve().getPoint(i).getY();
 		}
-		xAvg = xAvg / this.burndownCurve.getNPoints();
-		yAvg = yAvg / this.burndownCurve.getNPoints();
+		xAvg = xAvg / this.getBurndownCurve().getNPoints();
+		yAvg = yAvg / this.getBurndownCurve().getNPoints();
 
 		/* calculate m (slope or gradient) */
 		double calcVar1 = 0d;
 		double calcVar2 = 0d;
-		for (int i = 0; i < this.burndownCurve.getNPoints(); i++) {
-			calcVar1 += (i - xAvg) * (this.burndownCurve.getPoint(i).getY() - yAvg);
+		for (int i = 0; i < this.getBurndownCurve().getNPoints(); i++) {
+			calcVar1 += (i - xAvg) * (this.getBurndownCurve().getPoint(i).getY() - yAvg);
 			calcVar2 += Math.pow(i - xAvg, 2);
 		}
 		final double m = calcVar1 / calcVar2;
@@ -55,7 +55,7 @@ public abstract class BurndownChart extends GChart {
 		for (int i = 0; i < tickData.size(); i++) {
 			final double value = m * i + q;
 			if (value >= 0) {
-				this.trendCurve.addPoint(tickData.get(i), value);
+				this.getTrendCurve().addPoint(tickData.get(i), value);
 			}
 		}
 	}
@@ -96,5 +96,50 @@ public abstract class BurndownChart extends GChart {
 	 */
 	public void setChartHeight(final int chartHeight) {
 		this.chartHeight = chartHeight;
+	}
+
+	/**
+	 * @param burndownCurve
+	 *            the burndownCurve to set
+	 */
+	public void setBurndownCurve(final Curve burndownCurve) {
+		this.burndownCurve = burndownCurve;
+	}
+
+	/**
+	 * @return the burndownCurve
+	 */
+	public Curve getBurndownCurve() {
+		return this.burndownCurve;
+	}
+
+	/**
+	 * @param idealCurve
+	 *            the idealCurve to set
+	 */
+	public void setIdealCurve(final Curve idealCurve) {
+		this.idealCurve = idealCurve;
+	}
+
+	/**
+	 * @return the idealCurve
+	 */
+	public Curve getIdealCurve() {
+		return this.idealCurve;
+	}
+
+	/**
+	 * @param trendCurve
+	 *            the trendCurve to set
+	 */
+	public void setTrendCurve(final Curve trendCurve) {
+		this.trendCurve = trendCurve;
+	}
+
+	/**
+	 * @return the trendCurve
+	 */
+	public Curve getTrendCurve() {
+		return this.trendCurve;
 	}
 }

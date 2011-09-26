@@ -10,12 +10,12 @@ public interface Architecture extends CssResource {
 	/**
 	 * @return the height of the navigation.
 	 */
-	String NAVIGATION_HEIGHT();
+	String navigationHeight();
 
 	/**
 	 * @return the css for the shadow color.
 	 */
-	String SHADOWCOLOR();
+	String shadowcolor();
 
 	/**
 	 * @return the css of the breadcrumb.

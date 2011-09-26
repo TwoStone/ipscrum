@@ -35,24 +35,48 @@ import fhdw.ipscrum.shared.session.User;
  */
 public class ClientContext {
 
+	/**
+	 * Represents the inner class which represents the event needed to update the model.
+	 */
 	public static class ModelUpdateEvent extends SingleObjectEvent<Model> {
 
+		/**
+		 * Constructor of the ModelUpdateEvent.
+		 * 
+		 * @param object
+		 *            is the model to update
+		 */
 		public ModelUpdateEvent(final Model object) {
 			super(object);
 		}
 	}
 
+	/**
+	 * Represents the handler needed to handle the modelUpdateEvent.
+	 */
 	public abstract static class ModelUpdateHandler implements Handler<ClientContext.ModelUpdateEvent> {
 		@Override
 		public void handle(final ModelUpdateEvent event) {
 			this.handleModelUpdated(event);
 		}
 
+		/**
+		 * Needed for handling the modelUpdateEvent.
+		 * 
+		 * @param event
+		 *            to handle
+		 */
 		public abstract void handleModelUpdated(ModelUpdateEvent event);
 	}
 
+	/**
+	 * Represents the ApplicationController related to the ClientContext.
+	 */
 	private ApplicationController applicationController;
 
+	/**
+	 * Represents the ToastMessageController related to the ClientContext.
+	 */
 	private ToastMessageController toastMessageController;
 
 	/**
@@ -65,97 +89,223 @@ public class ClientContext {
 		this.helpController = helpController;
 	}
 
+	/**
+	 * Represents the HelpController related to the ClientContext.
+	 */
 	private HelpController helpController;
 
+	/**
+	 * Represents the HeartBeatController related to the ClientContext.
+	 */
 	private HeartBeatController heartBeatController;
 
+	/**
+	 * Represents the Model related to the ClientContext.
+	 */
 	private Model model;
 
+	/**
+	 * Represents the QuestionController related to the ClientContext.
+	 */
 	private QuestionController questionController;
 
+	/**
+	 * Represents the TransactionController related to the ClientContext.
+	 */
 	private TransactionController transactionController;
 
+	/**
+	 * Represents the EventBus related to the ClientContext.
+	 */
 	private final EventBus eventBus;
 
+	/**
+	 * Represents the ViewFactory related to the ClientContext.
+	 */
 	private ViewFactory viewFactory;
 
+	/**
+	 * Represents the SessionController related to the ClientContext.
+	 */
 	private SessionController sessionController;
 
+	/**
+	 * Represents the NavigationController related to the ClientContext.
+	 */
 	private NavigationController navigationController;
 
+	/**
+	 * Represents the WindowTitleController related to the ClientContext.
+	 */
 	private WindowTitleController windowTitleController;
 
+	/**
+	 * Represents the HistoryController related to the ClientContext.
+	 */
 	private HistoryController historyController;
 
+	/**
+	 * Represents the BreadcrumbController related to the ClientContext.
+	 */
 	private BreadcrumbController breadcrumbController;
 
+	/**
+	 * Sets the navigationController of the ClientContext.
+	 * 
+	 * @param navigationController
+	 *            to set
+	 */
 	protected void setNavigationController(final NavigationController navigationController) {
 		this.navigationController = navigationController;
 	}
 
+	/**
+	 * Sets the windowTitleController of the ClientContext.
+	 * 
+	 * @param windowTitleController
+	 *            to set
+	 */
 	protected void setWindowTitleController(final WindowTitleController windowTitleController) {
 		this.windowTitleController = windowTitleController;
 	}
 
+	/**
+	 * Sets the historyController of the ClientCOntext.
+	 * 
+	 * @param historyController
+	 *            to set
+	 */
 	protected void setHistoryController(final HistoryController historyController) {
 		this.historyController = historyController;
 	}
 
+	/**
+	 * Sets the breadcrumbController of the ClientContext.
+	 * 
+	 * @param breadcrumbController
+	 *            to set
+	 */
 	protected void setBreadcrumbController(final BreadcrumbController breadcrumbController) {
 		this.breadcrumbController = breadcrumbController;
 	}
 
+	/**
+	 * @return the model related to the ClientContext.
+	 */
 	public Model getModel() {
 		return this.model;
 	}
 
+	/**
+	 * Sets the applicationController of the ClientContext.
+	 * 
+	 * @param applicationController
+	 *            to set
+	 */
 	protected void setApplicationController(final ApplicationController applicationController) {
 		this.applicationController = applicationController;
 	}
 
+	/**
+	 * Sets the toastMessageController of the ClientContext.
+	 * 
+	 * @param toastMessageController
+	 *            to set
+	 */
 	protected void setToastMessageController(final ToastMessageController toastMessageController) {
 		this.toastMessageController = toastMessageController;
 	}
 
+	/**
+	 * Sets the heartBeatController of the ClientContext.
+	 * 
+	 * @param heartBeatController
+	 *            to set
+	 */
 	protected void setHeartBeatController(final HeartBeatController heartBeatController) {
 		this.heartBeatController = heartBeatController;
 	}
 
+	/**
+	 * Sets the questionController of the ClientContext.
+	 * 
+	 * @param questionController
+	 *            to set
+	 */
 	protected void setQuestionController(final QuestionController questionController) {
 		this.questionController = questionController;
 	}
 
+	/**
+	 * Sets the transactionController of the ClientContext.
+	 * 
+	 * @param transactionController
+	 *            to set
+	 */
 	protected void setTransactionController(final TransactionController transactionController) {
 		this.transactionController = transactionController;
 	}
 
+	/**
+	 * Sets the sessionController of the ClientContext.
+	 * 
+	 * @param sessionController
+	 *            to set.
+	 */
 	protected void setSessionController(final SessionController sessionController) {
 		this.sessionController = sessionController;
 	}
 
+	/**
+	 * Constructor of the ClientContext.
+	 * 
+	 * @param eventBus
+	 *            is the related eventBus
+	 */
 	protected ClientContext(final EventBus eventBus) {
 		super();
 		this.eventBus = eventBus;
 	}
 
+	/**
+	 * Setter of the model in the ClientContext.
+	 * 
+	 * @param model
+	 *            to set
+	 */
 	public void setModel(final Model model) {
 		this.model = model;
 		ClientContext.this.model.setUuidManager(new IDGenerator());
 		ClientContext.this.eventBus.publish(new ModelUpdateEvent(model));
 	}
 
+	/**
+	 * @return the viewFactory.
+	 */
 	public ViewFactory getViewFactory() {
 		return this.viewFactory;
 	}
 
+	/**
+	 * Setter of the viewFacroty.
+	 * 
+	 * @param viewFactory
+	 *            to set
+	 */
 	protected void setViewFactory(final ViewFactory viewFactory) {
 		this.viewFactory = viewFactory;
 	}
 
+	/**
+	 * @return the ApllicationController.
+	 */
 	public ApplicationController getApplicationController() {
 		return this.applicationController;
 	}
 
+	/**
+	 * @return the ToastMessageController.
+	 */
 	public ToastMessageController getToastMessageController() {
 		return this.toastMessageController;
 	}
@@ -169,38 +319,65 @@ public class ClientContext {
 		return this.helpController;
 	}
 
+	/**
+	 * @return the HeartBeatController.
+	 */
 	public HeartBeatController getHeartBeatController() {
 		return this.heartBeatController;
 	}
 
+	/**
+	 * @return the QuestionController.
+	 */
 	public QuestionController getQuestionController() {
 		return this.questionController;
 	}
 
+	/**
+	 * @return the TransactionController.
+	 */
 	public TransactionController getTransactionController() {
 		return this.transactionController;
 	}
 
+	/**
+	 * @return the BreadcrumbController.
+	 */
 	public BreadcrumbController getBreadcrumbController() {
 		return this.breadcrumbController;
 	}
 
+	/**
+	 * @return the HistoryController.
+	 */
 	public HistoryController getHistoryController() {
 		return this.historyController;
 	}
 
+	/**
+	 * @return the NavigationController.
+	 */
 	public NavigationController getNavigationController() {
 		return this.navigationController;
 	}
 
+	/**
+	 * @return the WundowTitleController.
+	 */
 	public WindowTitleController getWindowTitleController() {
 		return this.windowTitleController;
 	}
 
+	/**
+	 * @return the current eventBus.
+	 */
 	public EventBus getEventBus() {
 		return this.eventBus;
 	}
 
+	/**
+	 * Needed to update the current model of the client.
+	 */
 	public void updateModel() {
 		this.updateModel(new AsyncCallback<Model>() {
 
@@ -216,6 +393,12 @@ public class ClientContext {
 		});
 	}
 
+	/**
+	 * Needed for updating the current model asynchrony.
+	 * 
+	 * @param callback
+	 *            needed for doing thinsd asynchrony
+	 */
 	public void updateModel(final AsyncCallback<Model> callback) {
 		GWT.log("[Context] Updating model");
 		this.applicationController.showLoadingIndicator();
@@ -246,8 +429,25 @@ public class ClientContext {
 	 * 
 	 */
 	public static class ClientContextBuilder {
+		/**
+		 * Represents the ClientContext which should be build.
+		 */
 		private final ClientContext context;
 
+		/**
+		 * Needed for building the clientContext.
+		 * 
+		 * @param viewFactory
+		 *            is the viewFacroty related to the clientContext which is needed to control the views
+		 * @param startPresenter
+		 *            is the presenter related to the clientContext with which the IPScrum starts
+		 * @param items
+		 *            are the items in the navigation menu related to the clientContext
+		 * @param sessionController
+		 *            is the controller related to this session and clientContext
+		 * @param eventBus
+		 *            is the eventBus needed to controle events
+		 */
 		public ClientContextBuilder(final ViewFactory viewFactory, final Presenter startPresenter,
 				final NavigationMenu items, final SessionController sessionController, final EventBus eventBus) {
 			this.context = new ClientContext(eventBus);
@@ -270,11 +470,17 @@ public class ClientContext {
 			this.context.setBreadcrumbController(new BreadcrumbController(this.context));
 		}
 
+		/**
+		 * @return the current clientContext.
+		 */
 		public ClientContext getContext() {
 			return this.context;
 		}
 	}
 
+	/**
+	 * @return the current user.
+	 */
 	public User getCurrentUser() {
 		return this.applicationController.getCurrentUser();
 	}
@@ -300,6 +506,9 @@ public class ClientContext {
 		this.getSessionController().setActiveRole(activeRole);
 	}
 
+	/**
+	 * @return the current sessionController.
+	 */
 	public SessionController getSessionController() {
 		return this.sessionController;
 	}

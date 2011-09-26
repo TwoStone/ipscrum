@@ -29,8 +29,7 @@ import fhdw.ipscrum.shared.exceptions.model.NothingSelectedException;
  * @param <T>
  *            Type of the items to be added.
  */
-public class TypedListBox<T> extends Composite
-		implements Focusable, HasChangeHandlers, HasValue<T> {
+public class TypedListBox<T> extends Composite implements Focusable, HasChangeHandlers, HasValue<T> {
 	/**
 	 * Interface for defining how an object is rendered to a string.
 	 * 
@@ -51,8 +50,7 @@ public class TypedListBox<T> extends Composite
 		String render(T object);
 	}
 
-	private final Event<TypedEventArg<T>> selectionChange =
-			new Event<TypedEventArg<T>>();
+	private final Event<TypedEventArg<T>> selectionChange = new Event<TypedEventArg<T>>();
 
 	/**
 	 * Registers a handler for the selectionChangeEvent.
@@ -60,8 +58,7 @@ public class TypedListBox<T> extends Composite
 	 * @param handler
 	 *            handler that will get notified
 	 */
-	public void registerSelectionChangeHandler(
-			final EventHandler<TypedEventArg<T>> handler) {
+	public void registerSelectionChangeHandler(final EventHandler<TypedEventArg<T>> handler) {
 		this.selectionChange.add(handler);
 	}
 
@@ -90,10 +87,9 @@ public class TypedListBox<T> extends Composite
 				try {
 					TypedListBox.this.selectionChange.fire(TypedListBox.this,
 							new TypedEventArg<T>(TypedListBox.this.getSelectedItem()));
-					ValueChangeEvent.fire(TypedListBox.this,
-							TypedListBox.this.getValue());
+					ValueChangeEvent.fire(TypedListBox.this, TypedListBox.this.getValue());
 				} catch (final NothingSelectedException e) {
-
+					System.out.println("");
 				}
 			}
 		});
@@ -223,8 +219,7 @@ public class TypedListBox<T> extends Composite
 	}
 
 	@Override
-	public HandlerRegistration
-			addValueChangeHandler(final ValueChangeHandler<T> handler) {
+	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
 		return this.addHandler(handler, ValueChangeEvent.getType());
 	}
 
@@ -244,6 +239,7 @@ public class TypedListBox<T> extends Composite
 		try {
 			this.internalListBox.setItemSelected(index, true);
 		} catch (final IndexOutOfBoundsException e) {
+			System.out.println("");
 		}
 	}
 

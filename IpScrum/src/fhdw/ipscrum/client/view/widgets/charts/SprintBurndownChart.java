@@ -50,15 +50,15 @@ public class SprintBurndownChart extends BurndownChart {
 
 		// SETUP ACTUAL BURNDOWN CURVE
 		this.addCurve();
-		this.burndownCurve = this.getCurve();
-		this.burndownCurve.setYAxis(GChart.Y_AXIS);
-		this.burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		this.burndownCurve.getSymbol().setHovertextTemplate(
+		this.setBurndownCurve(this.getCurve());
+		this.getBurndownCurve().setYAxis(GChart.Y_AXIS);
+		this.getBurndownCurve().getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		this.getBurndownCurve().getSymbol().setHovertextTemplate(
 				GChart.formatAsHovertext("${y} ausstehende Aufwaende am ${x}"));
-		this.burndownCurve.getSymbol().setBackgroundColor("orange");
-		this.burndownCurve.getSymbol().setBorderColor("red");
-		this.burndownCurve.getSymbol().setBorderWidth(1);
-		this.burndownCurve.getSymbol().setModelWidth(50000000); // high value is
+		this.getBurndownCurve().getSymbol().setBackgroundColor("orange");
+		this.getBurndownCurve().getSymbol().setBorderColor("red");
+		this.getBurndownCurve().getSymbol().setBorderWidth(1);
+		this.getBurndownCurve().getSymbol().setModelWidth(50000000); // high value is
 																// caused by
 																// using a date
 																// as x-value.
@@ -68,26 +68,26 @@ public class SprintBurndownChart extends BurndownChart {
 
 		// SETUP IDEAL BURNDOWN CURVE
 		this.addCurve();
-		this.idealCurve = this.getCurve();
-		this.idealCurve.setYAxis(GChart.Y_AXIS);
-		this.idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		this.idealCurve
+		this.setIdealCurve(this.getCurve());
+		this.getIdealCurve().setYAxis(GChart.Y_AXIS);
+		this.getIdealCurve().getSymbol().setSymbolType(SymbolType.LINE);
+		this.getIdealCurve()
 				.getSymbol()
 				.setHovertextTemplate(
 						GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwaende am ${x})"));
-		this.idealCurve.getSymbol().setBorderColor("black");
-		this.idealCurve.getSymbol().setBackgroundColor("yellow");
+		this.getIdealCurve().getSymbol().setBorderColor("black");
+		this.getIdealCurve().getSymbol().setBackgroundColor("yellow");
 
 		// SETUP TREND LINE
 		this.addCurve();
-		this.trendCurve = this.getCurve();
-		this.trendCurve.setYAxis(GChart.Y_AXIS);
-		this.trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		this.trendCurve.getSymbol().setHoverAnnotationEnabled(false);
-		this.trendCurve.getSymbol().setWidth(1);
-		this.trendCurve.getSymbol().setHeight(1);
-		this.trendCurve.getSymbol().setBorderColor("grey");
-		this.trendCurve.getSymbol().setBackgroundColor("grey");
+		this.setTrendCurve(this.getCurve());
+		this.getTrendCurve().setYAxis(GChart.Y_AXIS);
+		this.getTrendCurve().getSymbol().setSymbolType(SymbolType.LINE);
+		this.getTrendCurve().getSymbol().setHoverAnnotationEnabled(false);
+		this.getTrendCurve().getSymbol().setWidth(1);
+		this.getTrendCurve().getSymbol().setHeight(1);
+		this.getTrendCurve().getSymbol().setBorderColor("grey");
+		this.getTrendCurve().getSymbol().setBackgroundColor("grey");
 
 		this.getXAxis().setTickLabelFormat("=(Date)dd.");
 		this.getXAxis().setAxisLabel(TextConstants.CHART_SPRINT_XAXIS_LABEL);
@@ -114,10 +114,10 @@ public class SprintBurndownChart extends BurndownChart {
 	private void populateChart() {
 		for (final Date date : this.data.getData().keySet()) {
 			final SprintChartDataDetails currentData = this.data.getData().get(date);
-			this.idealCurve.addPoint(date.getTime(),
+			this.getIdealCurve().addPoint(date.getTime(),
 					currentData.getIdealBurndownValue());
 			if (currentData.getActualBurndownValue() != null) {
-				this.burndownCurve.addPoint(date.getTime(),
+				this.getBurndownCurve().addPoint(date.getTime(),
 						currentData.getActualBurndownValue());
 			}
 		}

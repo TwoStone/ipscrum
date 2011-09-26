@@ -60,36 +60,36 @@ public class ReleaseBurndownChart extends BurndownChart {
 
 		// SETUP ACTUAL BURNDOWN CURVE
 		this.addCurve();
-		this.burndownCurve = this.getCurve();
-		this.burndownCurve.setYAxis(GChart.Y_AXIS);
-		this.burndownCurve.getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
-		this.burndownCurve.getSymbol().setHoverWidget(new ReleaseChartHoverWidget());
-		this.burndownCurve.getSymbol().setBackgroundColor("GreenYellow");
-		this.burndownCurve.getSymbol().setBorderColor("Green");
-		this.burndownCurve.getSymbol().setBorderWidth(1);
+		this.setBurndownCurve(this.getCurve());
+		this.getBurndownCurve().setYAxis(GChart.Y_AXIS);
+		this.getBurndownCurve().getSymbol().setSymbolType(SymbolType.VBAR_SOUTH);
+		this.getBurndownCurve().getSymbol().setHoverWidget(new ReleaseChartHoverWidget());
+		this.getBurndownCurve().getSymbol().setBackgroundColor("GreenYellow");
+		this.getBurndownCurve().getSymbol().setBorderColor("Green");
+		this.getBurndownCurve().getSymbol().setBorderWidth(1);
 
 		// SETUP IDEAL BURNDOWN CURVE
 		this.addCurve();
-		this.idealCurve = this.getCurve();
-		this.idealCurve.setYAxis(GChart.Y_AXIS);
-		this.idealCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		this.idealCurve
+		this.setIdealCurve(this.getCurve());
+		this.getIdealCurve().setYAxis(GChart.Y_AXIS);
+		this.getIdealCurve().getSymbol().setSymbolType(SymbolType.LINE);
+		this.getIdealCurve()
 				.getSymbol()
 				.setHovertextTemplate(
 						GChart.formatAsHovertext("Ideal-Burndown<br />(${y} ausstehende Aufwände)"));
-		this.idealCurve.getSymbol().setBorderColor("black");
-		this.idealCurve.getSymbol().setBackgroundColor("yellow");
+		this.getIdealCurve().getSymbol().setBorderColor("black");
+		this.getIdealCurve().getSymbol().setBackgroundColor("yellow");
 
 		// SETUP TREND LINE
 		this.addCurve();
-		this.trendCurve = this.getCurve();
-		this.trendCurve.setYAxis(GChart.Y_AXIS);
-		this.trendCurve.getSymbol().setSymbolType(SymbolType.LINE);
-		this.trendCurve.getSymbol().setHoverAnnotationEnabled(false);
-		this.trendCurve.getSymbol().setWidth(1);
-		this.trendCurve.getSymbol().setHeight(1);
-		this.trendCurve.getSymbol().setBorderColor("grey");
-		this.trendCurve.getSymbol().setBackgroundColor("grey");
+		this.setTrendCurve(this.getCurve());
+		this.getTrendCurve().setYAxis(GChart.Y_AXIS);
+		this.getTrendCurve().getSymbol().setSymbolType(SymbolType.LINE);
+		this.getTrendCurve().getSymbol().setHoverAnnotationEnabled(false);
+		this.getTrendCurve().getSymbol().setWidth(1);
+		this.getTrendCurve().getSymbol().setHeight(1);
+		this.getTrendCurve().getSymbol().setBorderColor("grey");
+		this.getTrendCurve().getSymbol().setBackgroundColor("grey");
 
 		this.getXAxis().setAxisLabel(TextConstants.CHART_VELOCITY_XAXIS_LABEL);
 		this.getYAxis().setAxisLabel(TextConstants.CHART_RELEASE_YAXIS_LABEL);
@@ -122,18 +122,18 @@ public class ReleaseBurndownChart extends BurndownChart {
 		for (final Date endDate : this.getData().getData().keySet()) {
 			final ReleaseChartDataDetails currentData =
 					this.getData().getData().get(endDate);
-			this.idealCurve.addPoint(counter, currentData.getIdealBurndownValue());
+			this.getIdealCurve().addPoint(counter, currentData.getIdealBurndownValue());
 			if (currentData.getActualBurndownValue() != null) {
-				this.burndownCurve.addPoint(counter,
+				this.getBurndownCurve().addPoint(counter,
 						currentData.getActualBurndownValue());
 
 				final String annotationText =
 						currentData.getActualBurndownValue().intValue()
 								+ " ausstehende Aufwände<br />nach "
 								+ currentData.getSprints().toString();
-				this.burndownCurve.getPoint().setAnnotationText(
+				this.getBurndownCurve().getPoint().setAnnotationText(
 						GChart.formatAsHovertext(annotationText));
-				this.burndownCurve.getPoint().setAnnotationVisible(false);
+				this.getBurndownCurve().getPoint().setAnnotationVisible(false);
 			}
 			counter++;
 		}

@@ -70,12 +70,11 @@ public abstract class ListFieldWidget<T extends Serializable> extends Composite 
 			public void onClick(final ClickEvent event) {
 
 				try {
-					ListFieldWidget.this.addEvent.fire(ListFieldWidget.this,
-							new FieldEventArgs<T>(ListFieldWidget.this.field,
-									ListFieldWidget.this.getValue()));
+					ListFieldWidget.this.addEvent.fire(ListFieldWidget.this, new FieldEventArgs<T>(
+							ListFieldWidget.this.field, ListFieldWidget.this.getValue()));
 					ListFieldWidget.this.clearValue();
 				} catch (final NothingSelectedException e) {
-
+					System.out.println("");
 				}
 
 			}
@@ -88,15 +87,11 @@ public abstract class ListFieldWidget<T extends Serializable> extends Composite 
 			@Override
 			public void onClick(final ClickEvent event) {
 				try {
-					final T item =
-							ListFieldWidget.this.currentObjectsListBox
-									.getSelectedItem();
-					ListFieldWidget.this.removeEvent.fire(
-							ListFieldWidget.this,
-							new FieldEventArgs<T>(ListFieldWidget.this.field,
-									ListFieldWidget.this.currentObjectsListBox
-											.getSelectedItem()));
+					// final T item = ListFieldWidget.this.currentObjectsListBox.getSelectedItem();
+					ListFieldWidget.this.removeEvent.fire(ListFieldWidget.this, new FieldEventArgs<T>(
+							ListFieldWidget.this.field, ListFieldWidget.this.currentObjectsListBox.getSelectedItem()));
 				} catch (final NothingSelectedException e) {
+					System.out.println("");
 				}
 			}
 		});
@@ -110,8 +105,7 @@ public abstract class ListFieldWidget<T extends Serializable> extends Composite 
 	 *            the handle the event
 	 * @return the event needed for handling the add event
 	 */
-	public EventRegistration registerAddHandler(
-			final EventHandler<FieldEventArgs<T>> handler) {
+	public EventRegistration registerAddHandler(final EventHandler<FieldEventArgs<T>> handler) {
 		return this.addEvent.add(handler);
 	}
 
@@ -122,8 +116,7 @@ public abstract class ListFieldWidget<T extends Serializable> extends Composite 
 	 *            the handle the event
 	 * @return the event needed for handling the remove event
 	 */
-	public EventRegistration registerRemoveHandler(
-			final EventHandler<FieldEventArgs<T>> handler) {
+	public EventRegistration registerRemoveHandler(final EventHandler<FieldEventArgs<T>> handler) {
 		return this.removeEvent.add(handler);
 	}
 

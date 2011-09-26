@@ -58,8 +58,7 @@ public class IpScrum implements EntryPoint {
 	public void onModuleLoad() {
 		final ViewFactory factory = new ViewFactory();
 		final EventBus eventBus = new EventBus();
-		final SessionController sessionController =
-				new SessionController(factory, eventBus);
+		final SessionController sessionController = new SessionController(factory, eventBus);
 		sessionController.login();
 
 		this.registerResizeHandler(eventBus);
@@ -71,9 +70,8 @@ public class IpScrum implements EntryPoint {
 				final Presenter startPresenter = new ProjectSelectionPresenter(null);
 
 				final ClientContext clientContext =
-						new ClientContext.ClientContextBuilder(factory, startPresenter,
-								IpScrum.this.buildMenu(), sessionController, eventBus)
-								.getContext();
+						new ClientContext.ClientContextBuilder(factory, startPresenter, IpScrum.this.buildMenu(),
+								sessionController, eventBus).getContext();
 				startPresenter.setContext(clientContext);
 			}
 
@@ -100,17 +98,19 @@ public class IpScrum implements EntryPoint {
 			}
 		});
 
-		eventBus.registerHandler(ApplicationStartedEvent.class,
-				new ApplicationController.ApplicationStartedHandler() {
+		eventBus.registerHandler(ApplicationStartedEvent.class, new ApplicationController.ApplicationStartedHandler() {
 
-					@Override
-					public void handle(final ApplicationStartedEvent event) {
-						GwtUtils.setMainHeight();
-					}
-				});
+			@Override
+			public void handle(final ApplicationStartedEvent event) {
+				GwtUtils.setMainHeight();
+			}
+		});
 
 	}
 
+	/**
+	 * @return the NavigationMenu which was builded.
+	 */
 	public NavigationMenu buildMenu() {
 		final NavigationMenu menu = new NavigationMenu();
 		menu.addItem(new NavigationMenuEntry("Projekte", new MenuCommand() {
@@ -121,29 +121,26 @@ public class IpScrum implements EntryPoint {
 
 					@Override
 					public void callback() {
-						getApplicationController().showPresenter(
-								new ProjectSelectionPresenter(getContext()));
+						getApplicationController().showPresenter(new ProjectSelectionPresenter(getContext()));
 					}
 				});
 			}
 		}));
 		final NavigationSubmenu submenu = new NavigationSubmenu("Verwaltung");
 		menu.addItem(submenu);
-		submenu.addItem(new NavigationMenuEntry("Personen und Rollen",
-				new MenuCommand() {
+		submenu.addItem(new NavigationMenuEntry("Personen und Rollen", new MenuCommand() {
+
+			@Override
+			public void execute() {
+				this.getApplicationController().newStack(new SimpleCallback() {
 
 					@Override
-					public void execute() {
-						this.getApplicationController().newStack(new SimpleCallback() {
-
-							@Override
-							public void callback() {
-								getApplicationController().showPresenter(
-										new PersonRolePresenter(getContext()));
-							}
-						});
+					public void callback() {
+						getApplicationController().showPresenter(new PersonRolePresenter(getContext()));
 					}
-				}));
+				});
+			}
+		}));
 		submenu.addItem(new NavigationMenuEntry("Teams", new MenuCommand() {
 
 			@Override
@@ -152,65 +149,27 @@ public class IpScrum implements EntryPoint {
 
 					@Override
 					public void callback() {
-						getApplicationController().showPresenter(
-								new TeamPresenter(getContext()));
+						getApplicationController().showPresenter(new TeamPresenter(getContext()));
 					}
 				});
 
 			}
 		}));
-		submenu.addItem(new NavigationMenuEntry("Revisionsverwaltung",
-				new MenuCommand() {
+		submenu.addItem(new NavigationMenuEntry("Revisionsverwaltung", new MenuCommand() {
+
+			@Override
+			public void execute() {
+				this.getApplicationController().newStack(new SimpleCallback() {
 
 					@Override
-					public void execute() {
-						this.getApplicationController().newStack(new SimpleCallback() {
-
-							@Override
-							public void callback() {
-								getApplicationController().showPresenter(
-										new RevisionControlPresenter(getContext()));
-							}
-						});
-
+					public void callback() {
+						getApplicationController().showPresenter(new RevisionControlPresenter(getContext()));
 					}
-				}));
-		submenu.addItem(new NavigationMenuEntry(
-				"Feldtypen-, Zustands- und Tickettypen-Erzeugung", new MenuCommand() {
+				});
 
-					@Override
-					public void execute() {
-						this.getApplicationController().newStack(new SimpleCallback() {
-
-							@Override
-							public void callback() {
-								getApplicationController()
-										.showPresenter(
-												new StateFieldAndTickettypeAdministrationPresenter(
-														getContext()));
-							}
-						});
-
-					}
-				}));
-		submenu.addItem(new NavigationMenuEntry("Tickettypen-Administration",
-				new MenuCommand() {
-
-					@Override
-					public void execute() {
-						this.getApplicationController().newStack(new SimpleCallback() {
-
-							@Override
-							public void callback() {
-
-								getApplicationController().showPresenter(
-										new TicketTypeSelectionPresenter(getContext()));
-
-							}
-						});
-					}
-				}));
-		submenu.addItem(new NavigationMenuEntry("Systeme", new MenuCommand() {
+			}
+		}));
+		submenu.addItem(new NavigationMenuEntry("Feldtypen-, Zustands- und Tickettypen-Erzeugung", new MenuCommand() {
 
 			@Override
 			public void execute() {
@@ -219,7 +178,36 @@ public class IpScrum implements EntryPoint {
 					@Override
 					public void callback() {
 						getApplicationController().showPresenter(
-								new SystemManagementPresenter(getContext()));
+								new StateFieldAndTickettypeAdministrationPresenter(getContext()));
+					}
+				});
+
+			}
+		}));
+		submenu.addItem(new NavigationMenuEntry("Tickettypen-Administration", new MenuCommand() {
+
+			@Override
+			public void execute() {
+				this.getApplicationController().newStack(new SimpleCallback() {
+
+					@Override
+					public void callback() {
+
+						getApplicationController().showPresenter(new TicketTypeSelectionPresenter(getContext()));
+
+					}
+				});
+			}
+		}));
+		submenu.addItem(new NavigationMenuEntry("Systeme", new MenuCommand() {
+
+			@Override
+			public void execute() {
+				this.getApplicationController().newStack(new SimpleCallback() {
+
+					@Override
+					public void callback() {
+						getApplicationController().showPresenter(new SystemManagementPresenter(getContext()));
 					}
 				});
 
@@ -233,8 +221,7 @@ public class IpScrum implements EntryPoint {
 
 					@Override
 					public void callback() {
-						getApplicationController().showPresenter(
-								new UserManagementPresenter(getContext()));
+						getApplicationController().showPresenter(new UserManagementPresenter(getContext()));
 					}
 				});
 			}
@@ -250,8 +237,7 @@ public class IpScrum implements EntryPoint {
 
 					@Override
 					public void callback() {
-						getApplicationController().showPresenter(
-								new SearchAllPresenter(getContext()));
+						getApplicationController().showPresenter(new SearchAllPresenter(getContext()));
 
 					}
 				});
@@ -267,8 +253,7 @@ public class IpScrum implements EntryPoint {
 
 					@Override
 					public void callback() {
-						getApplicationController().showPresenter(
-								new SearchPresenter(getContext()));
+						getApplicationController().showPresenter(new SearchPresenter(getContext()));
 
 					}
 				});
@@ -276,21 +261,19 @@ public class IpScrum implements EntryPoint {
 			}
 		}));
 
-		submenu2.addItem(new NavigationMenuEntry("Gespeicherte Suchen",
-				new MenuCommand() {
+		submenu2.addItem(new NavigationMenuEntry("Gespeicherte Suchen", new MenuCommand() {
+
+			@Override
+			public void execute() {
+				this.getApplicationController().newStack(new SimpleCallback() {
 
 					@Override
-					public void execute() {
-						this.getApplicationController().newStack(new SimpleCallback() {
-
-							@Override
-							public void callback() {
-								getApplicationController().showPresenter(
-										new SearchesPresenter(getContext()));
-							}
-						});
+					public void callback() {
+						getApplicationController().showPresenter(new SearchesPresenter(getContext()));
 					}
-				}));
+				});
+			}
+		}));
 
 		return menu;
 	}

@@ -31,11 +31,11 @@ import fhdw.ipscrum.shared.model.metamodel.search.Search;
  */
 public class SearchesView extends MasterView implements ISearchesView {
 
-	protected final Event<SearchEventArgs> doSearchEvent;
-	protected final ListDataProvider<Search> savedSearches;
-	protected CellTable<Search> savedSearchesTable;
-	protected final Event<SearchEventArgs> doDeleteSearchEvent;
-	protected final Event<SearchEventArgs> doEditSearchEvent;
+	private final Event<SearchEventArgs> doSearchEvent;
+	private final ListDataProvider<Search> savedSearches;
+	private CellTable<Search> savedSearchesTable;
+	private final Event<SearchEventArgs> doDeleteSearchEvent;
+	private final Event<SearchEventArgs> doEditSearchEvent;
 
 	/**
 	 * constructor of the SearchesView.
@@ -46,28 +46,23 @@ public class SearchesView extends MasterView implements ISearchesView {
 		this.doEditSearchEvent = new Event<SearchEventArgs>();
 		this.doSearchEvent = new Event<SearchEventArgs>();
 		this.savedSearches = new ListDataProvider<Search>();
-		final ListHandler<Search> sortHandler =
-				new ListHandler<Search>(this.savedSearches.getList());
+		final ListHandler<Search> sortHandler = new ListHandler<Search>(this.getSavedSearches().getList());
 
-		final ActionCell<Search> executeCell =
-				new ActionCell<Search>("Ausführen", new Delegate<Search>() {
+		final ActionCell<Search> executeCell = new ActionCell<Search>("Ausführen", new Delegate<Search>() {
 
-					@Override
-					public void execute(final Search object) {
-						SearchesView.this.doSearchEvent.fire(SearchesView.this,
-								new SearchEventArgs(object));
-					}
-				});
+			@Override
+			public void execute(final Search object) {
+				SearchesView.this.getDoSearchEvent().fire(SearchesView.this, new SearchEventArgs(object));
+			}
+		});
 
-		final ActionCell<Search> deleteCell =
-				new ActionCell<Search>("Löschen", new Delegate<Search>() {
+		final ActionCell<Search> deleteCell = new ActionCell<Search>("Löschen", new Delegate<Search>() {
 
-					@Override
-					public void execute(final Search object) {
-						SearchesView.this.doDeleteSearchEvent.fire(SearchesView.this,
-								new SearchEventArgs(object));
-					}
-				});
+			@Override
+			public void execute(final Search object) {
+				SearchesView.this.getDoDeleteSearchEvent().fire(SearchesView.this, new SearchEventArgs(object));
+			}
+		});
 
 		final VerticalPanel verticalPanel = new VerticalPanel();
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -83,18 +78,17 @@ public class SearchesView extends MasterView implements ISearchesView {
 		verticalPanel.add(scrollPanel);
 		scrollPanel.setSize("740px", "450px");
 
-		this.savedSearchesTable = new CellTable<Search>();
-		scrollPanel.setWidget(this.savedSearchesTable);
-		this.savedSearchesTable.setSize("100%", "100%");
+		this.setSavedSearchesTable(new CellTable<Search>());
+		scrollPanel.setWidget(this.getSavedSearchesTable());
+		this.getSavedSearchesTable().setSize("100%", "100%");
 
-		final Column<Search, ImageResource> iconColumn =
-				new Column<Search, ImageResource>(new ImageResourceCell()) {
+		final Column<Search, ImageResource> iconColumn = new Column<Search, ImageResource>(new ImageResourceCell()) {
 
-					@Override
-					public ImageResource getValue(final Search object) {
-						return MyResources.INSTANCE.searchIcon();
-					}
-				};
+			@Override
+			public ImageResource getValue(final Search object) {
+				return MyResources.INSTANCE.searchIcon();
+			}
+		};
 		iconColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final TextColumn<Search> nameColumn = new TextColumn<Search>() {
@@ -104,34 +98,32 @@ public class SearchesView extends MasterView implements ISearchesView {
 			}
 		};
 
-		final Column<Search, Search> executeColumn =
-				new Column<Search, Search>(executeCell) {
+		final Column<Search, Search> executeColumn = new Column<Search, Search>(executeCell) {
 
-					@Override
-					public Search getValue(final Search object) {
-						return object;
-					}
-				};
+			@Override
+			public Search getValue(final Search object) {
+				return object;
+			}
+		};
 		executeColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
-		final Column<Search, Search> deleteColumn =
-				new Column<Search, Search>(deleteCell) {
+		final Column<Search, Search> deleteColumn = new Column<Search, Search>(deleteCell) {
 
-					@Override
-					public Search getValue(final Search object) {
-						return object;
-					}
-				};
+			@Override
+			public Search getValue(final Search object) {
+				return object;
+			}
+		};
 		deleteColumn.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		deleteColumn.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 
-		this.savedSearchesTable.addColumn(iconColumn);
-		this.savedSearchesTable.addColumn(nameColumn, "Name");
-		this.savedSearchesTable.addColumn(executeColumn);
-		this.savedSearchesTable.setColumnWidth(executeColumn, "35px");
-		this.savedSearchesTable.addColumn(deleteColumn);
-		this.savedSearchesTable.setColumnWidth(deleteColumn, "100px");
-		this.savedSearches.addDataDisplay(this.savedSearchesTable);
+		this.getSavedSearchesTable().addColumn(iconColumn);
+		this.getSavedSearchesTable().addColumn(nameColumn, "Name");
+		this.getSavedSearchesTable().addColumn(executeColumn);
+		this.getSavedSearchesTable().setColumnWidth(executeColumn, "35px");
+		this.getSavedSearchesTable().addColumn(deleteColumn);
+		this.getSavedSearchesTable().setColumnWidth(deleteColumn, "100px");
+		this.getSavedSearches().addDataDisplay(this.getSavedSearchesTable());
 		nameColumn.setSortable(true);
 		sortHandler.setComparator(nameColumn, new Comparator<Search>() {
 
@@ -144,18 +136,18 @@ public class SearchesView extends MasterView implements ISearchesView {
 
 	@Override
 	public void registerDoSavedSearch(final EventHandler<SearchEventArgs> handler) {
-		this.doSearchEvent.add(handler);
+		this.getDoSearchEvent().add(handler);
 	}
 
 	@Override
 	public void setSavedSeaches(final Collection<Search> searches) {
-		this.savedSearches.getList().clear();
-		this.savedSearches.getList().addAll(searches);
+		this.getSavedSearches().getList().clear();
+		this.getSavedSearches().getList().addAll(searches);
 	}
 
 	@Override
 	public void registerDoDeleteSearch(final EventHandler<SearchEventArgs> handler) {
-		this.doDeleteSearchEvent.add(handler);
+		this.getDoDeleteSearchEvent().add(handler);
 	}
 
 	@Override
@@ -168,6 +160,49 @@ public class SearchesView extends MasterView implements ISearchesView {
 	public void setRightVisibility(final Boolean value) {
 		// No widgets to hide
 
+	}
+
+	/**
+	 * @return the doSearchEvent
+	 */
+	protected Event<SearchEventArgs> getDoSearchEvent() {
+		return this.doSearchEvent;
+	}
+
+	/**
+	 * @return the savedSearches
+	 */
+	protected ListDataProvider<Search> getSavedSearches() {
+		return this.savedSearches;
+	}
+
+	/**
+	 * @param savedSearchesTable
+	 *            the savedSearchesTable to set
+	 */
+	protected void setSavedSearchesTable(final CellTable<Search> savedSearchesTable) {
+		this.savedSearchesTable = savedSearchesTable;
+	}
+
+	/**
+	 * @return the savedSearchesTable
+	 */
+	protected CellTable<Search> getSavedSearchesTable() {
+		return this.savedSearchesTable;
+	}
+
+	/**
+	 * @return the doDeleteSearchEvent
+	 */
+	protected Event<SearchEventArgs> getDoDeleteSearchEvent() {
+		return this.doDeleteSearchEvent;
+	}
+
+	/**
+	 * @return the doEditSearchEvent
+	 */
+	protected Event<SearchEventArgs> getDoEditSearchEvent() {
+		return this.doEditSearchEvent;
 	}
 
 }
