@@ -517,6 +517,11 @@ public abstract class HelpResources {
 	 */
 	private static final int HNDMAXIDLENGTH = 32;
 
+	/**
+	 * This document is displayed to the user when there is no help available.
+	 */
+	private static final String NO_PRESENTER_HELP_AVAILABLE = "_NoPresenterHelp.html";
+
 	static {
 		HelpResources.PRESENTER_HELP.put("Willkommen", HelpResources.WILLKOMMEN);
 		HelpResources.PRESENTER_HELP.put("AllgemeineEinfhrung", HelpResources.ALLGEMEINEEINFHRUNG);
@@ -590,11 +595,21 @@ public abstract class HelpResources {
 	 * @return Path to presenter-specific documentation
 	 */
 	public static String getPresenterHelp(final Presenter presenter) {
+		String result;
 		final String classname = ClassUtils.getClassName(presenter.getClass());
+
+		// This is to comply with very long presenter-names which are shortened by HnD's export.
 		if (classname.length() > HelpResources.HNDMAXIDLENGTH) {
-			return HelpResources.PRESENTER_HELP.get(classname.substring(0, HelpResources.HNDMAXIDLENGTH));
+			result = HelpResources.PRESENTER_HELP.get(classname.substring(0, HelpResources.HNDMAXIDLENGTH));
 		} else {
-			return HelpResources.PRESENTER_HELP.get(classname);
+			result = HelpResources.PRESENTER_HELP.get(classname);
+		}
+
+		// If no help-document could be found a static message is displayed to the user.
+		if (result != null) {
+			return result;
+		} else {
+			return HelpResources.NO_PRESENTER_HELP_AVAILABLE;
 		}
 	}
 
