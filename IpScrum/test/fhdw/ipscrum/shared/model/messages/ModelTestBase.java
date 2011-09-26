@@ -5,7 +5,6 @@ import java.util.Date;
 import org.junit.Before;
 
 import fhdw.ipscrum.client.IDGenerator;
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.infrastructure.InitialCommand;
 import fhdw.ipscrum.shared.model.Model;
 
@@ -29,13 +28,11 @@ public class ModelTestBase {
 	/**
 	 * Sets up the model.
 	 * 
-	 * @throws IPScrumGeneralException
-	 *             if any error occurs
 	 * @throws Exception
 	 *             if any error occurs
 	 */
 	@Before
-	public void setUp() throws IPScrumGeneralException, Exception {
+	public void setUp() throws Exception {
 		this.model = new Model(new Date());
 		this.model.setUuidManager(new IDGenerator());
 		final InitialCommand command = new InitialCommand();

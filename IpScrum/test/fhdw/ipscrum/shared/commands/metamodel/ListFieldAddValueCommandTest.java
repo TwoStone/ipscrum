@@ -22,9 +22,15 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.RelationType;
 import fhdw.ipscrum.shared.model.visitor.TicketVisitor;
 
+/**
+ * Tests the ListFieldAddvalueCommand.
+ */
 public class ListFieldAddValueCommandTest {
 
-	protected Model model;
+	/**
+	 * Represents the model needed to use the IPScrum.
+	 */
+	private Model model;
 
 	/**
 	 * 
@@ -35,17 +41,22 @@ public class ListFieldAddValueCommandTest {
 	public void setUpBeforeClass() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 		new RelationType(this.model, "Abhängig von");
 		new RelationType(this.model, "Siehe auch");
 	}
 
+	/**
+	 * @return the model related to the test.
+	 */
 	public Model getModel() {
 		return this.model;
 	}
 
+	/**
+	 * Tests the command.
+	 */
 	@Test
 	public void test() {
 		@SuppressWarnings("serial")
@@ -83,16 +94,14 @@ public class ListFieldAddValueCommandTest {
 			}
 
 			@Override
-			protected void checkNameValidity(final String name)
-					throws NoValidValueException, DoubleDefinitionException,
-					ConsistencyException {
+			protected void checkNameValidity(final String name) throws NoValidValueException,
+					DoubleDefinitionException, ConsistencyException {
 				// TODO Auto-generated method stub
 
 			}
 
 			@Override
-			protected void checkDescriptionValidity(final String description)
-					throws NoValidValueException {
+			protected void checkDescriptionValidity(final String description) throws NoValidValueException {
 				// TODO Auto-generated method stub
 
 			}

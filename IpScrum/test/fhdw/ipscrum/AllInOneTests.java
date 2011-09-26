@@ -34,23 +34,77 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
 @SuppressWarnings("deprecation")
 public class AllInOneTests {
 
+	/**
+	 * Represents the model needed to use the IPScrum.
+	 */
 	private Model model;
+	/**
+	 * Represents the project needed to use the IPScrum.
+	 */
 	private Project project = null;
+	/**
+	 * Represents the ProductBacklog needed to use the IPScrum.
+	 */
 	private ProductBacklog pbltest = null;
+	/**
+	 * Represents a feature needed to use the IPScrum.
+	 */
 	private Feature a = null;
+	/**
+	 * Represents a feature needed to use the IPScrum.
+	 */
 	private Feature b = null;
+	/**
+	 * Represents a feature needed to use the IPScrum.
+	 */
 	private Feature c = null;
+	/**
+	 * Represents a feature needed to use the IPScrum.
+	 */
 	private Feature d = null;
+	/**
+	 * Represents a feature needed to use the IPScrum.
+	 */
 	private Feature t = null;
+	/**
+	 * Represents a date needed to use the IPScrum.
+	 */
 	private Date cvCurrentDate = null;
+	/**
+	 * Represents a date needed to use the IPScrum.
+	 */
 	private Date cvCurrentDate2 = null;
+	/**
+	 * Represents a sprint needed to use the IPScrum.
+	 */
 	private Sprint sprint = null;
+	/**
+	 * Represents s SprintBacklog needed to use the IPScrum.
+	 */
 	private SprintBacklog sprintbl = null;
+	/**
+	 * Represents a task needed to use the IPScrum.
+	 */
 	private Task t1 = null;
+	/**
+	 * Represents a team needed to use the IPScrum.
+	 */
 	private Team team1 = null;
+	/**
+	 * Represents a person needed to use the IPScrum.
+	 */
 	private Person per1 = null;
+	/**
+	 * Represents a boolean needed to use the IPScrum.
+	 */
 	private Boolean pl1 = null;
+	/**
+	 * Represents an iterator needed to use the IPScrum.
+	 */
 	private Iterator<ProductBacklogItem> pbiIt = null;
+	/**
+	 * Represents a PBI needed to use the IPScrum.
+	 */
 	private ProductBacklogItem pbix = null;
 
 	/**
@@ -62,8 +116,7 @@ public class AllInOneTests {
 	private void init() throws IPScrumGeneralException {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 
 		this.project = new Project(this.model, "test");
@@ -74,32 +127,30 @@ public class AllInOneTests {
 		this.cvCurrentDate2.setMonth(Calendar.MONTH + 1);
 
 		this.a =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "A", "testA", this.pbltest);
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "A", "testA",
+						this.pbltest);
 		this.b =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "B", "testB", this.pbltest);
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "B", "testB",
+						this.pbltest);
 		this.c =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "C", "testC", this.pbltest);
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "C", "testC",
+						this.pbltest);
 		this.d =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "D", "testD", this.pbltest);
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "D", "testD",
+						this.pbltest);
 		this.t =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "Task", "test Task", this.pbltest);
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "Task", "test Task",
+						this.pbltest);
 
 		this.team1 = new Team(this.model, "Team");
 		this.team1.addProject(this.project);
 		this.per1 = new Person(this.model, "Max", "Mustermann");
 		this.team1.addMember(this.per1);
 		this.sprint =
-				new Sprint(this.model, "Sprint", "Beschreibung", new Date(),
-						new Date(), this.team1, this.project);
+				new Sprint(this.model, "Sprint", "Beschreibung", new Date(), new Date(), this.team1, this.project);
 		this.t1 =
-				new Task(this.model, this.model.getTypeManager().getStandardTaskType(),
-						"Task 1", "Removing of a PBI in PBL",
-						this.sprint.getSprintBacklog());
+				new Task(this.model, this.model.getTypeManager().getStandardTaskType(), "Task 1",
+						"Removing of a PBI in PBL", this.sprint.getSprintBacklog());
 		this.sprintbl = this.sprint.getSprintBacklog();
 		this.t.setSprint(this.sprint);
 		this.t1.addPBI(this.t);
@@ -149,14 +200,10 @@ public class AllInOneTests {
 	public void testCount2() throws Exception {
 		final Project lvProject = new Project(this.model, "wayne");
 		Assert.assertEquals(0, lvProject.getBacklog().getItems().size());
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"1", "", lvProject.getBacklog());
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"2", "", lvProject.getBacklog());
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"3", "", lvProject.getBacklog());
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"4", "", lvProject.getBacklog());
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "1", "", lvProject.getBacklog());
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "2", "", lvProject.getBacklog());
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "3", "", lvProject.getBacklog());
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "4", "", lvProject.getBacklog());
 
 		Assert.assertEquals(4, lvProject.getBacklog().getItems().size());
 	}
@@ -242,11 +289,9 @@ public class AllInOneTests {
 		lvTeam.addProject(lvProject);
 		Assert.assertEquals(3, this.model.getAllTeams().size());
 
-		final Release lvRelease =
-				new Release(this.model, "0.0.1", this.cvCurrentDate2, lvProject);
+		final Release lvRelease = new Release(this.model, "0.0.1", this.cvCurrentDate2, lvProject);
 		final Sprint lvSprint =
-				new Sprint(this.model, "testen1", "test", this.cvCurrentDate,
-						this.cvCurrentDate2, lvTeam, lvProject);
+				new Sprint(this.model, "testen1", "test", this.cvCurrentDate, this.cvCurrentDate2, lvTeam, lvProject);
 
 		// Wird ein Release aus einem Projekt entfernt, so müssen alle
 		// Sprints zu diesem Release von dem zu löschenden Release gelöst werden
@@ -269,8 +314,7 @@ public class AllInOneTests {
 	// ************************************************************************
 
 	/**
-	 * tests consitency Exception and connections between sprints and PBI's have to be
-	 * made in both directions.
+	 * tests consitency Exception and connections between sprints and PBI's have to be made in both directions.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -285,8 +329,7 @@ public class AllInOneTests {
 
 		// PBI nicht in 2 PBL's
 		final ProductBacklogItem lvItem =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "name", "test", lvBacklog);
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "name", "test", lvBacklog);
 		try {
 			lvBacklog2.addItem(lvItem);
 			Assert.fail("Fehler");
@@ -298,8 +341,7 @@ public class AllInOneTests {
 		lvTeam.addProject(lvProject);
 		lvTeam.addProject(lvProject2);
 		final Sprint lvSprint =
-				new Sprint(this.model, "testen1", "test", this.cvCurrentDate,
-						this.cvCurrentDate2, lvTeam, lvProject);
+				new Sprint(this.model, "testen1", "test", this.cvCurrentDate, this.cvCurrentDate2, lvTeam, lvProject);
 
 		// Wird dem PBI ein Sprint zugewiesen, so muss der Sprint auch auf das
 		// PBI verweisen.
@@ -344,13 +386,10 @@ public class AllInOneTests {
 		final Project lvProject = new Project(this.model, "name");
 		final Team lvTeam = new Team(this.model, "Konsistenz");
 		lvTeam.addProject(lvProject);
-		final Release lvRelease =
-				new Release(this.model, "0.0.1", this.cvCurrentDate, lvProject);
-		final Release lvRelease2 =
-				new Release(this.model, "0.0.2", this.cvCurrentDate2, lvProject);
+		final Release lvRelease = new Release(this.model, "0.0.1", this.cvCurrentDate, lvProject);
+		final Release lvRelease2 = new Release(this.model, "0.0.2", this.cvCurrentDate2, lvProject);
 		final Sprint lvSprint =
-				new Sprint(this.model, "testen1", "test", this.cvCurrentDate,
-						this.cvCurrentDate2, lvTeam, lvProject);
+				new Sprint(this.model, "testen1", "test", this.cvCurrentDate, this.cvCurrentDate2, lvTeam, lvProject);
 
 		lvRelease.addSprint(lvSprint);
 
@@ -400,10 +439,8 @@ public class AllInOneTests {
 		final Project lvProject = new Project(this.model, "name");
 		final Team lvTeam = new Team(this.model, "DoubleDefined");
 		lvTeam.addProject(lvProject);
-		new Sprint(this.model, "name", "", this.cvCurrentDate, this.cvCurrentDate2,
-				lvTeam, lvProject);
-		new Sprint(this.model, "name", "", this.cvCurrentDate, this.cvCurrentDate2,
-				lvTeam, lvProject);
+		new Sprint(this.model, "name", "", this.cvCurrentDate, this.cvCurrentDate2, lvTeam, lvProject);
+		new Sprint(this.model, "name", "", this.cvCurrentDate, this.cvCurrentDate2, lvTeam, lvProject);
 
 	}
 
@@ -418,10 +455,8 @@ public class AllInOneTests {
 		final Project lvProject = new Project(this.model, "name");
 		final ProductBacklog lvBacklog = lvProject.getBacklog();
 
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"name", "", lvBacklog);
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"name", "", lvBacklog);
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "name", "", lvBacklog);
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "name", "", lvBacklog);
 	}
 
 	/**
@@ -434,27 +469,21 @@ public class AllInOneTests {
 	public void releaseSprintPbiConsistency() throws IPScrumGeneralException {
 		final Project p = new Project(this.model, "Test");
 		final Feature f1 =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "T1", "", p.getBacklog());
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T1", "", p.getBacklog());
 		final Feature f2 =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "T2", "", p.getBacklog());
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T2", "", p.getBacklog());
 		final Feature f3 =
-				new Feature(this.model, this.model.getTypeManager()
-						.getStandardFeatureType(), "T3", "", p.getBacklog());
+				new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T3", "", p.getBacklog());
 
 		final Team testTeam1 = new Team(this.model, "Test");
 		testTeam1.addProject(p);
-		final Sprint sprint1 =
-				new Sprint(this.model, "123", "sd", new Date(), new Date(), testTeam1, p);
+		final Sprint sprint1 = new Sprint(this.model, "123", "sd", new Date(), new Date(), testTeam1, p);
 		final Team team2 = new Team(this.model, "Test2");
 		team2.addProject(p);
-		final Sprint sprint2 =
-				new Sprint(this.model, "1234", "scb", new Date(), new Date(), team2, p);
+		final Sprint sprint2 = new Sprint(this.model, "1234", "scb", new Date(), new Date(), team2, p);
 		final Team team3 = new Team(this.model, "Test3");
 		team3.addProject(p);
-		final Sprint sprint3 =
-				new Sprint(this.model, "12345", "33", new Date(), new Date(), team3, p);
+		final Sprint sprint3 = new Sprint(this.model, "12345", "33", new Date(), new Date(), team3, p);
 
 		// FIRST SPRINT<->PBI
 		Assert.assertNotNull(f2);
@@ -474,8 +503,7 @@ public class AllInOneTests {
 
 		// NOW RELEASE<->PBI
 		final Release release1 = new Release(this.model, "R1", new Date(), p);
-		final Release release2 =
-				new Release(this.model, "R2", new Date(2011, 10, 11), p);
+		final Release release2 = new Release(this.model, "R2", new Date(2011, 10, 11), p);
 		Release release3 = null;
 
 		// Doppelt
@@ -519,18 +547,15 @@ public class AllInOneTests {
 		try {
 			final Project p = new Project(this.model, "Test");
 			final Feature f1 =
-					new Feature(this.model, this.model.getTypeManager()
-							.getStandardFeatureType(), "T1", "", p.getBacklog());
+					new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T1", "",
+							p.getBacklog());
 			final Feature f2 =
-					new Feature(this.model, this.model.getTypeManager()
-							.getStandardFeatureType(), "T2", "", p.getBacklog());
+					new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T2", "",
+							p.getBacklog());
 			final Team team = new Team(this.model, "Test");
 			team.addProject(p);
-			final Sprint sprint1 =
-					new Sprint(this.model, "123", "sd", new Date(), new Date(), team, p);
-			final Sprint sprint2 =
-					new Sprint(this.model, "1234", "scb", new Date(), new Date(), team,
-							p);
+			final Sprint sprint1 = new Sprint(this.model, "123", "sd", new Date(), new Date(), team, p);
+			final Sprint sprint2 = new Sprint(this.model, "1234", "scb", new Date(), new Date(), team, p);
 
 			f1.setSprint(sprint1);
 			f1.setSprint(sprint2);
@@ -553,17 +578,15 @@ public class AllInOneTests {
 		try {
 			final Project p = new Project(this.model, "Test");
 			final Feature f1 =
-					new Feature(this.model, this.model.getTypeManager()
-							.getStandardFeatureType(), "T1", "", p.getBacklog());
+					new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T1", "",
+							p.getBacklog());
 			final Feature f2 =
-					new Feature(this.model, this.model.getTypeManager()
-							.getStandardFeatureType(), "T2", "", p.getBacklog());
+					new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "T2", "",
+							p.getBacklog());
 			final Sprint sprint1 =
-					new Sprint(this.model, "123", "sd", new Date(), new Date(),
-							new Team(this.model, "Test"), p);
+					new Sprint(this.model, "123", "sd", new Date(), new Date(), new Team(this.model, "Test"), p);
 			final Sprint sprint2 =
-					new Sprint(this.model, "1234", "scb", new Date(), new Date(),
-							new Team(this.model, "Test2"), p);
+					new Sprint(this.model, "1234", "scb", new Date(), new Date(), new Team(this.model, "Test2"), p);
 
 			final Release release = new Release(this.model, "R1", new Date(), p);
 			final Release release2 = new Release(this.model, "R3", new Date(), p);
@@ -596,8 +619,7 @@ public class AllInOneTests {
 	@Test
 	public void testAddPBI() throws Exception {
 		final int entriesInList = this.pbltest.getItems().size();
-		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(),
-				"E", "Test E", this.pbltest);
+		new Feature(this.model, this.model.getTypeManager().getStandardFeatureType(), "E", "Test E", this.pbltest);
 		// System.out.println(pbltest.getItems().get(entriesInList));
 		Assert.assertEquals(entriesInList + 1, this.pbltest.getItems().size());
 	}

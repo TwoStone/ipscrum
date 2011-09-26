@@ -4,6 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+/**
+ * Represents the test suite for all messageTests.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({
 		AddGlobalIncidentMessageTest.class,
