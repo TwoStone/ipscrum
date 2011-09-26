@@ -25,8 +25,8 @@ import fhdw.ipscrum.shared.model.metamodel.fields.TextFieldType;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 
 /**
- * The type manager is the central manager instance for standard-types and user-types.
- * Types stands for ticket types, field types and state types.
+ * The type manager is the central manager instance for standard-types and user-types. Types stands for ticket types,
+ * field types and state types.
  */
 public class TypeManager implements IsSerializable, Serializable {
 
@@ -332,8 +332,7 @@ public class TypeManager implements IsSerializable, Serializable {
 		while (allTicketTypesIterator.hasNext()) {
 			final TicketType current = allTicketTypesIterator.next();
 			if (current.getSupersededTypes().size() > 0) {
-				final Iterator<TicketType> currentSupersededTypesIterator =
-						current.getSupersededTypes().iterator();
+				final Iterator<TicketType> currentSupersededTypesIterator = current.getSupersededTypes().iterator();
 				while (currentSupersededTypesIterator.hasNext()) {
 					supersededTypes.add(currentSupersededTypesIterator.next());
 				}
@@ -801,9 +800,9 @@ public class TypeManager implements IsSerializable, Serializable {
 	}
 
 	/**
-	 * this Method returns a copy of a ticket type. the copy will contain all attributes
-	 * of the original, but has a different ID! this method is called when a ticket-type
-	 * is changed and the change has influence on the ticket instances.
+	 * this Method returns a copy of a ticket type. the copy will contain all attributes of the original, but has a
+	 * different ID! this method is called when a ticket-type is changed and the change has influence on the ticket
+	 * instances.
 	 * 
 	 * @param original
 	 *            the ticket type to copy
@@ -811,8 +810,7 @@ public class TypeManager implements IsSerializable, Serializable {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected TicketType provideTicketTypeCopy(final TicketType original)
-			throws IPScrumGeneralException {
+	protected TicketType provideTicketTypeCopy(final TicketType original) throws IPScrumGeneralException {
 		this.setException(null);
 		this.setCopy(null);
 		original.accept(new TicketTypeVisitor() {
@@ -820,9 +818,8 @@ public class TypeManager implements IsSerializable, Serializable {
 			public void handleBugTicketType(final BugTicketType bugTicketType) {
 				try {
 					final BugTicketType concreteCopy =
-							new BugTicketType(TypeManager.this.model, original
-									.getTypeName(), original.getTypeDescription(),
-									TypeManager.this);
+							new BugTicketType(TypeManager.this.model, original.getTypeName(), original
+									.getTypeDescription(), TypeManager.this);
 					TypeManager.this.setCopy(concreteCopy);
 				} catch (final IPScrumGeneralException e) {
 					TypeManager.this.setException(e);
@@ -830,13 +827,11 @@ public class TypeManager implements IsSerializable, Serializable {
 			}
 
 			@Override
-			public void handleFeatureTicketType(
-					final FeatureTicketType featureTicketType) {
+			public void handleFeatureTicketType(final FeatureTicketType featureTicketType) {
 				try {
 					final FeatureTicketType concreteCopy =
-							new FeatureTicketType(TypeManager.this.model, original
-									.getTypeName(), original.getTypeDescription(),
-									TypeManager.this);
+							new FeatureTicketType(TypeManager.this.model, original.getTypeName(), original
+									.getTypeDescription(), TypeManager.this);
 					TypeManager.this.setCopy(concreteCopy);
 				} catch (final IPScrumGeneralException e) {
 					TypeManager.this.setException(e);
@@ -847,9 +842,8 @@ public class TypeManager implements IsSerializable, Serializable {
 			public void handleTaskTicketType(final TaskTicketType taskTicketType) {
 				try {
 					final TaskTicketType concreteCopy =
-							new TaskTicketType(TypeManager.this.model, original
-									.getTypeName(), original.getTypeDescription(),
-									TypeManager.this);
+							new TaskTicketType(TypeManager.this.model, original.getTypeName(), original
+									.getTypeDescription(), TypeManager.this);
 					TypeManager.this.setCopy(concreteCopy);
 				} catch (final IPScrumGeneralException e) {
 					TypeManager.this.setException(e);
@@ -858,8 +852,7 @@ public class TypeManager implements IsSerializable, Serializable {
 		});
 		this.checkException();
 		final List<FieldType> standardFieldTypes = this.fetchStandardFieldTypes();
-		final Iterator<FieldType> fieldTypesIterator =
-				original.getAllFieldTypes().iterator();
+		final Iterator<FieldType> fieldTypesIterator = original.getAllFieldTypes().iterator();
 		while (fieldTypesIterator.hasNext()) {
 			final FieldType current = fieldTypesIterator.next();
 			if (!standardFieldTypes.contains(current)) {

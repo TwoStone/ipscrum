@@ -24,8 +24,8 @@ public class CreateSprintPresenter extends WritePresenter {
 	 */
 	private ICreateSprintView view;
 	/**
-	 * represents the project related to this view. It is needed to make clear for which
-	 * project this sprint should be created.
+	 * represents the project related to this view. It is needed to make clear for which project this sprint should be
+	 * created.
 	 */
 	private final Project project;
 
@@ -33,8 +33,8 @@ public class CreateSprintPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.CreateSprintPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project in which the sprint should be created
 	 */
@@ -64,21 +64,20 @@ public class CreateSprintPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					CreateSprintPresenter.this.showQuestion(
-							"Do you want to leave without saving?", new Answer("Yes!") {
+					CreateSprintPresenter.this.showQuestion("Wollen Sie die Änderungen verwerfen?", new Answer("Ja!") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									CreateSprintPresenter.this.close();
-								}
-							}, new Answer("No!") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							CreateSprintPresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -100,8 +99,7 @@ public class CreateSprintPresenter extends WritePresenter {
 				return false;
 			}
 
-			this.doCommand(new SprintCreateCommand(name, startDate, endDate,
-					description, selectedTeam, this.project));
+			this.doCommand(new SprintCreateCommand(name, startDate, endDate, description, selectedTeam, this.project));
 			this.commitTransaction();
 			this.close();
 			return super.onSave();
