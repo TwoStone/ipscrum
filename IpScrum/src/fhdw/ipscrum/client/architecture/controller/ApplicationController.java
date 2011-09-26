@@ -33,8 +33,7 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.session.User;
 
 /**
- * Controls the application workflow and the lifetime of all active {@link Presenter}
- * objects.
+ * Controls the application workflow and the lifetime of all active {@link Presenter} objects.
  * 
  * @author Niklas
  * 
@@ -99,8 +98,7 @@ public class ApplicationController {
 	/**
 	 * Class that handles {@link ApplicationStartedEvent}s.
 	 */
-	public static interface ApplicationStartedHandler
-			extends Handler<ApplicationController.ApplicationStartedEvent> {
+	public interface ApplicationStartedHandler extends Handler<ApplicationController.ApplicationStartedEvent> {
 
 	}
 
@@ -162,8 +160,7 @@ public class ApplicationController {
 	 *            the first presenter that should be shown after a successful login
 	 * @param sessionController
 	 */
-	public ApplicationController(final ClientContext context,
-			final Presenter startPresenter) {
+	public ApplicationController(final ClientContext context, final Presenter startPresenter) {
 		this.context = context;
 		this.startPresenter = startPresenter;
 		this.presenterStack = new Stack<Presenter>();
@@ -172,8 +169,7 @@ public class ApplicationController {
 
 		context.getEventBus().registerHandler(LogoutEvent.class, this.logoutHandler);
 
-		context.getEventBus().registerHandler(ModelUpdateEvent.class,
-				this.modelChangedHandler);
+		context.getEventBus().registerHandler(ModelUpdateEvent.class, this.modelChangedHandler);
 	}
 
 	/**
@@ -242,8 +238,7 @@ public class ApplicationController {
 	 *            The presenter that show be loaded.
 	 */
 	public void showPresenter(final Presenter presenter) {
-		presenter.setIdentifier(UUID.uuid(ApplicationController.ID_LENGTH,
-				ApplicationController.ID_BASE));
+		presenter.setIdentifier(UUID.uuid(ApplicationController.ID_LENGTH, ApplicationController.ID_BASE));
 		ApplicationController.this.presenterStack.push(presenter);
 		ApplicationController.this.displayPresenterView(presenter);
 		presenter.updateView();
@@ -251,15 +246,13 @@ public class ApplicationController {
 	}
 
 	/**
-	 * Closes the presenter and removes it from the current stack. Resumes the next
-	 * presenter in the current stack.
+	 * Closes the presenter and removes it from the current stack. Resumes the next presenter in the current stack.
 	 * 
 	 * @param presenter
 	 *            The presenter that should be closed.
 	 */
 	public void closePresenter(final Presenter presenter) {
-		if (!this.presenterStack.isEmpty()
-				&& this.presenterStack.peek().equals(presenter)) {
+		if (!this.presenterStack.isEmpty() && this.presenterStack.peek().equals(presenter)) {
 			this.presenterStack.pop();
 			if (!this.presenterStack.isEmpty()) {
 				final Presenter nextPresenter = this.presenterStack.peek();
@@ -284,12 +277,10 @@ public class ApplicationController {
 		final IView view = presenter.getView();
 		ApplicationController.this.getContentPanel().add(view);
 
-		DOM.setElementAttribute(view.asWidget().getElement(), "id",
-				presenter.getIdentifier());
+		DOM.setElementAttribute(view.asWidget().getElement(), "id", presenter.getIdentifier());
 		ApplicationController.this.registerResizeHanlder(view);
 		ApplicationController.this.resizeContentPanel(view);
-		ApplicationController.this.context.getEventBus().publish(
-				new PresenterChangedEvent(presenter));
+		ApplicationController.this.context.getEventBus().publish(new PresenterChangedEvent(presenter));
 
 	}
 
@@ -333,16 +324,13 @@ public class ApplicationController {
 
 				view.asWidget().setPixelSize(viewWidth, viewHeight);
 
-				final GQuery contentElement =
-						GQuery.$(ApplicationController.this.getContentPanel());
+				final GQuery contentElement = GQuery.$(ApplicationController.this.getContentPanel());
 				viewElement.hide();
-				contentElement.animate("width: '" + viewWidth + "px', height: '"
-						+ viewHeight + "px'",
+				contentElement.animate("width: '" + viewWidth + "px', height: '" + viewHeight + "px'",
 						ApplicationController.RESIZE_ANIMATION_LENGTH, new Function() {
 							@Override
 							public void f(final Element e) {
-								viewElement
-										.fadeIn(ApplicationController.RESIZE_ANIMATION_LENGTH);
+								viewElement.fadeIn(ApplicationController.RESIZE_ANIMATION_LENGTH);
 							}
 						});
 			}
@@ -351,8 +339,7 @@ public class ApplicationController {
 	}
 
 	/**
-	 * Returns the content panel. Marked with <code>id="content"</code> in the host html
-	 * file.
+	 * Returns the content panel. Marked with <code>id="content"</code> in the host html file.
 	 * 
 	 * @return The content panel.
 	 */
@@ -383,8 +370,7 @@ public class ApplicationController {
 
 	/**
 	 * Hides the loading indicator and releases all view elements of the application. If
-	 * {@link ApplicationController#showLoadingIndicator()} was not called previously,
-	 * nothing will happen.
+	 * {@link ApplicationController#showLoadingIndicator()} was not called previously, nothing will happen.
 	 */
 	public void hideLoadingIndicator() {
 		this.getLoadingDialog().hide();
@@ -413,28 +399,24 @@ public class ApplicationController {
 
 			@Override
 			public void callback() {
-				ApplicationController.this.context.getToastMessageController()
-						.toastMessage("Anmeldung erfolgreich");
+				ApplicationController.this.context.getToastMessageController().toastMessage("Anmeldung erfolgreich");
 
-				ApplicationController.this.context
-						.updateModel(new AsyncCallback<Model>() {
+				ApplicationController.this.context.updateModel(new AsyncCallback<Model>() {
 
-							@Override
-							public void onFailure(final Throwable caught) {
-							}
+					@Override
+					public void onFailure(final Throwable caught) {
+					}
 
-							@Override
-							public void onSuccess(final Model result) {
-								// Erst nachdem das Modell da ist, wird der
-								// initiale
-								// Presenter geladen
+					@Override
+					public void onSuccess(final Model result) {
+						// Erst nachdem das Modell da ist, wird der
+						// initiale
+						// Presenter geladen
 
-								ApplicationController.this
-										.showPresenter(ApplicationController.this.startPresenter);
-								ApplicationController.this.context.getEventBus()
-										.publish(new ApplicationStartedEvent());
-							}
-						});
+						ApplicationController.this.showPresenter(ApplicationController.this.startPresenter);
+						ApplicationController.this.context.getEventBus().publish(new ApplicationStartedEvent());
+					}
+				});
 			}
 		});
 

@@ -8,10 +8,9 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 
 /**
- * The eventbus class is a centralized hub for event forwarding. Other objects can publish
- * {@link Event} via the {@link EventBus#publish(Event)} method. Interested objects can
- * register {@link Handler} for event notification via the
- * {@link EventBus#registerHandler(Class, Handler)} method.
+ * The eventbus class is a centralized hub for event forwarding. Other objects can publish {@link Event} via the
+ * {@link EventBus#publish(Event)} method. Interested objects can register {@link Handler} for event notification via
+ * the {@link EventBus#registerHandler(Class, Handler)} method.
  * 
  */
 public class EventBus {
@@ -61,7 +60,7 @@ public class EventBus {
 	 * 
 	 * @param <T>
 	 */
-	public static interface Handler<T extends EventBus.Event> {
+	public interface Handler<T extends EventBus.Event> {
 		/**
 		 * This operation handles incoming events.
 		 * 
@@ -94,11 +93,9 @@ public class EventBus {
 	 * @param <T>
 	 *            Type of the event.
 	 */
-	public <T extends EventBus.Event> void registerHandler(final Class<T> clazz,
-			final Handler<T> handler) {
+	public <T extends EventBus.Event> void registerHandler(final Class<T> clazz, final Handler<T> handler) {
 		if (!this.registrations.containsKey(clazz)) {
-			this.registrations.put(clazz,
-					new ArrayList<EventBus.Handler<? extends EventBus.Event>>());
+			this.registrations.put(clazz, new ArrayList<EventBus.Handler<? extends EventBus.Event>>());
 		}
 
 		this.registrations.get(clazz).add(handler);
@@ -118,8 +115,7 @@ public class EventBus {
 		final Class<? extends EventBus.Event> clazz = event.getClass();
 		if (this.registrations.containsKey(clazz)) {
 			final List<EventBus.Handler<? extends EventBus.Event>> list =
-					new ArrayList<EventBus.Handler<? extends EventBus.Event>>(
-							this.registrations.get(clazz));
+					new ArrayList<EventBus.Handler<? extends EventBus.Event>>(this.registrations.get(clazz));
 			for (final EventBus.Handler<? extends EventBus.Event> handler : list) {
 				((EventBus.Handler<T>) handler).handle(event);
 			}
@@ -136,8 +132,7 @@ public class EventBus {
 	 * @param <T>
 	 *            Type of the event.
 	 */
-	public <T extends EventBus.Event> void remove(final Class<T> clazz,
-			final Handler<T> handler) {
+	public <T extends EventBus.Event> void remove(final Class<T> clazz, final Handler<T> handler) {
 		if (this.registrations.containsKey(clazz)) {
 			this.registrations.get(clazz).remove(handler);
 		}

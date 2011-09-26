@@ -30,14 +30,13 @@ public class UserManagementPresenter extends ReadPresenter {
 	}
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.UserManagementView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.UserManagementView).
 	 */
-	public static interface IUserManagementView extends IView {
+	public interface IUserManagementView extends IView {
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * existing users.
+		 * this method is needed to fill the list in the view with the data of the existing users.
 		 * 
 		 * @param users
 		 *            are the existing users
@@ -63,8 +62,8 @@ public class UserManagementPresenter extends ReadPresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.UserManagementPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public UserManagementPresenter(final ClientContext context) {
 		super(context);
@@ -93,12 +92,11 @@ public class UserManagementPresenter extends ReadPresenter {
 	}
 
 	/**
-	 * this method opens the function to create a new user. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.UserCreatePresenter .
+	 * this method opens the function to create a new user. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.UserCreatePresenter .
 	 */
 	private void gotoNewUser() {
-		final UserCreatePresenter presenter =
-				new UserCreatePresenter(this.getContext());
+		final UserCreatePresenter presenter = new UserCreatePresenter(this.getContext());
 		this.startPresenter(presenter);
 	}
 

@@ -38,7 +38,7 @@ public class TypedListBox<T> extends Composite implements Focusable, HasChangeHa
 	 * @param <T>
 	 *            Type of object that should be rendered.
 	 */
-	public static interface TypeRendere<T> {
+	public interface TypeRendere<T> {
 
 		/**
 		 * Converts the object to its string representation.

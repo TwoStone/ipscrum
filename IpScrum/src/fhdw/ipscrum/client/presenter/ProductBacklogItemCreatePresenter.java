@@ -45,8 +45,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		private final String description;
 
 		/**
-		 * Creates a new {@link ProductBacklogItemCreatePresenter.CreateTicketVisitor}
-		 * object.
+		 * Creates a new {@link ProductBacklogItemCreatePresenter.CreateTicketVisitor} object.
 		 * 
 		 * @param name
 		 *            the name of the ticket
@@ -66,13 +65,11 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 			if (release != null) {
 				final BugCreateCommand command =
 						new BugCreateCommand(this.name, this.description, type,
-								ProductBacklogItemCreatePresenter.this.project
-										.getBacklog(), release);
+								ProductBacklogItemCreatePresenter.this.project.getBacklog(), release);
 				ProductBacklogItemCreatePresenter.this.saveTicket(command);
 
 			} else {
-				ProductBacklogItemCreatePresenter.this
-						.toastMessage("Bitte wählen Sie ein Release aus!");
+				ProductBacklogItemCreatePresenter.this.toastMessage("Bitte wählen Sie ein Release aus!");
 			}
 		}
 
@@ -112,8 +109,8 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		 * @param release
 		 *            release of the bug
 		 */
-		public CreateBugEvent(final String name, final String description,
-				final BugTicketType type, final Release release) {
+		public CreateBugEvent(final String name, final String description, final BugTicketType type,
+				final Release release) {
 			super(name, description);
 
 			this.type = type;
@@ -158,8 +155,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		 * @param type
 		 *            type of the feature
 		 */
-		public CreateFeatureEvent(final String name, final String description,
-				final FeatureTicketType type) {
+		public CreateFeatureEvent(final String name, final String description, final FeatureTicketType type) {
 			super(name, description);
 			this.type = type;
 		}
@@ -236,7 +232,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	/**
 	 * Interface for determining subclass of {@link CreateTicketEvent}.
 	 */
-	private static interface CreateTicketEventVisitor {
+	private interface CreateTicketEventVisitor {
 
 		/**
 		 * 
@@ -255,10 +251,10 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	}
 
 	/**
-	 * Represents the Interface of the View which is related to this presenter. It's the
-	 * interface to the ({@link} fhdw.ipscrum.client.view.ProductBacklockItemCreateView).
+	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+	 * fhdw.ipscrum.client.view.ProductBacklockItemCreateView).
 	 */
-	public static interface IProductBacklogItemCreateView extends IView {
+	public interface IProductBacklogItemCreateView extends IView {
 
 		/**
 		 * Returns the event fired when the workflow shell be aborted.
@@ -276,13 +272,11 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		 *            needed to handle the event
 		 * @return the event handling the save
 		 */
-				EventRegistration
-				registerSaveHandler(
-						EventHandler<ProductBacklogItemCreatePresenter.CreateTicketEvent> handler);
+		EventRegistration
+				registerSaveHandler(EventHandler<ProductBacklogItemCreatePresenter.CreateTicketEvent> handler);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the known
-		 * bugTicketTypes.
+		 * this method is needed to fill the list in the view with the data of the known bugTicketTypes.
 		 * 
 		 * @param featureTicketTypes
 		 *            are the known bugTicketTypes
@@ -290,8 +284,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		void setBugType(List<BugTicketType> featureTicketTypes);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the known
-		 * featureTicketTypes.
+		 * this method is needed to fill the list in the view with the data of the known featureTicketTypes.
 		 * 
 		 * @param types
 		 *            are the known featureTicketTypes
@@ -299,8 +292,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		void setFeatureTypes(List<FeatureTicketType> types);
 
 		/**
-		 * this method is needed to fill the list in the view with the data of the
-		 * releases of the project.
+		 * this method is needed to fill the list in the view with the data of the releases of the project.
 		 * 
 		 * @param releases
 		 *            are the releases of the project
@@ -309,13 +301,12 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	}
 
 	/**
-	 * represents the project related to this view. It is needed to make clear in which
-	 * project the PBI should be created.
+	 * represents the project related to this view. It is needed to make clear in which project the PBI should be
+	 * created.
 	 */
 	private final Project project;
 	/**
-	 * represents a flag to check if the question asking if the view should been left
-	 * without saving should be asked.
+	 * represents a flag to check if the question asking if the view should been left without saving should be asked.
 	 */
 	private boolean saved = false;
 	/**
@@ -324,17 +315,15 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	private IProductBacklogItemCreateView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.ProductBacklogItemCreatePresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProductBacklogItemCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project for which a ticket should be created
 	 */
-	public ProductBacklogItemCreatePresenter(final ClientContext context,
-			final Project project) {
+	public ProductBacklogItemCreatePresenter(final ClientContext context, final Project project) {
 		super(context);
 		this.project = project;
 
@@ -344,8 +333,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	 * this method is needed to create a new ticket with the help of a visitor.
 	 * 
 	 * @param eventArgs
-	 *            are needed to get the name, description and type of the ticket to
-	 *            create.
+	 *            are needed to get the name, description and type of the ticket to create.
 	 */
 	private void createTicket(final CreateTicketEvent eventArgs) {
 		final String name = eventArgs.getName();
@@ -366,9 +354,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	@Override
 	public IProductBacklogItemCreateView doGetView() {
 		if (this.view == null) {
-			this.view =
-					this.getContext().getViewFactory()
-							.createProductBacklogItemCreateView();
+			this.view = this.getContext().getViewFactory().createProductBacklogItemCreateView();
 
 			this.view.registerAbortHandler(new DefaultEventHandler() {
 
@@ -377,16 +363,13 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 					ProductBacklogItemCreatePresenter.this.close();
 				}
 			});
-			this.view
-					.registerSaveHandler(new EventHandler<ProductBacklogItemCreatePresenter.CreateTicketEvent>() {
+			this.view.registerSaveHandler(new EventHandler<ProductBacklogItemCreatePresenter.CreateTicketEvent>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final CreateTicketEvent eventArgs) {
-							ProductBacklogItemCreatePresenter.this
-									.createTicket(eventArgs);
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final CreateTicketEvent eventArgs) {
+					ProductBacklogItemCreatePresenter.this.createTicket(eventArgs);
+				}
+			});
 		}
 
 		return this.view;
@@ -395,20 +378,19 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	@Override
 	protected void onClose(final CloseCallback callback) {
 		if (!this.saved) {
-			this.showQuestion("Möchten Sie den Vorgang ohne Speichern abbrechen?",
-					new Answer("Ja!") {
+			this.showQuestion("Möchten Sie den Vorgang ohne Speichern abbrechen?", new Answer("Ja!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							callback.closed();
-						}
-					}, new Answer("Nein!") {
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					callback.closed();
+				}
+			}, new Answer("Nein!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							callback.closeAborted();
-						}
-					});
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					callback.closeAborted();
+				}
+			});
 		} else {
 			callback.closed();
 		}
@@ -431,13 +413,11 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 		this.beginTransaction();
 		try {
 			final T result = this.doCommand(command);
-			final PersonFieldType lastEditorType =
-					result.getTicketType().getLastEditorType();
+			final PersonFieldType lastEditorType = result.getTicketType().getLastEditorType();
 			final SingleField<Person> field = result.getField(lastEditorType);
 			final Person currentEditor = this.getContext().getCurrentUser().getPerson();
 			final SingleFieldChangeCommand<Person> setLastEditorCommand =
-					SingleFieldChangeCommand
-							.createCommand(field, currentEditor, result);
+					SingleFieldChangeCommand.createCommand(field, currentEditor, result);
 			this.doCommand(setLastEditorCommand);
 			this.commitTransaction();
 			this.saved = true;
@@ -451,8 +431,7 @@ public class ProductBacklogItemCreatePresenter extends WritePresenter {
 	@Override
 	public void updateView() {
 		this.doGetView().setBugType(this.getContext().getModel().getAllBugTicketTypes());
-		this.doGetView().setFeatureTypes(
-				this.getContext().getModel().getAllFeatureTicketTypes());
+		this.doGetView().setFeatureTypes(this.getContext().getModel().getAllFeatureTicketTypes());
 		this.doGetView().setReleases(this.project.getReleases());
 	}
 

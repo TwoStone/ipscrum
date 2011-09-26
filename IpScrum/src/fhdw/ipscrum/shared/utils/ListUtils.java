@@ -20,8 +20,8 @@ public final class ListUtils {
 	}
 
 	/**
-	 * this method is used for creating the intersection of two lists if only the elements
-	 * contained in both lists are needed.
+	 * this method is used for creating the intersection of two lists if only the elements contained in both lists are
+	 * needed.
 	 * 
 	 * @param <T>
 	 *            is the type of the elements in the list
@@ -63,13 +63,12 @@ public final class ListUtils {
 	}
 
 	/**
-	 * represents the interface of the predicate which contains a method which tests the
-	 * predicate.
+	 * represents the interface of the predicate which contains a method which tests the predicate.
 	 * 
 	 * @param <T>
 	 *            is the type of the predicate
 	 */
-	public static interface Predicate<T> {
+	public interface Predicate<T> {
 		/**
 		 * is needed for testing predicates to filter lists.
 		 * 
@@ -81,8 +80,7 @@ public final class ListUtils {
 	}
 
 	/**
-	 * This is an assistance method for getting complete lists of modelobjects from their
-	 * ids.
+	 * This is an assistance method for getting complete lists of modelobjects from their ids.
 	 * 
 	 * @param <T>
 	 *            is the type of the items in the list
@@ -95,8 +93,8 @@ public final class ListUtils {
 	 *             if the objects are not found
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends IdentifiableObject> List<T> convertIdListToObjList(
-			final List<String> ids, final Model model) throws NoObjectFindException {
+	public static <T extends IdentifiableObject> List<T> convertIdListToObjList(final List<String> ids,
+			final Model model) throws NoObjectFindException {
 		final List<T> result = new ArrayList<T>();
 		for (final String id : ids) {
 			result.add((T) model.getObject(id));
@@ -114,8 +112,7 @@ public final class ListUtils {
 	 *            list of modelobjects
 	 * @return list of corresponding id's
 	 */
-	public static <T extends IdentifiableObject> List<String> convertObjListToIdList(
-			final List<T> persons) {
+	public static <T extends IdentifiableObject> List<String> convertObjListToIdList(final List<T> persons) {
 		final List<String> result = new ArrayList<String>();
 		for (final IdentifiableObject obj : persons) {
 			result.add(obj.getId());
@@ -134,8 +131,7 @@ public final class ListUtils {
 	 *            object to check if it is in the list
 	 * @return boolean is true, if the object is in the list
 	 */
-	public static <T extends IdentifiableObject> boolean containsAlternate(
-			final List<T> list, final T obj) {
+	public static <T extends IdentifiableObject> boolean containsAlternate(final List<T> list, final T obj) {
 		for (final T current : list) {
 			if (current.getId().equals(obj.getId())) {
 				return true;
@@ -145,8 +141,8 @@ public final class ListUtils {
 	}
 
 	/**
-	 * Needed for creating the difference of to lists if only the elements contained in
-	 * one list but not in the other are needed.
+	 * Needed for creating the difference of to lists if only the elements contained in one list but not in the other
+	 * are needed.
 	 * 
 	 * @param <T>
 	 *            is the type of the elements in the list
@@ -154,11 +150,9 @@ public final class ListUtils {
 	 *            is the list to reduce
 	 * @param subtrahend
 	 *            is the reducing list
-	 * @return the list only containing the elements which are only contained in the
-	 *         minuend
+	 * @return the list only containing the elements which are only contained in the minuend
 	 */
-	public static <T> List<T>
-			difference(final List<T> minuend, final List<T> subtrahend) {
+	public static <T> List<T> difference(final List<T> minuend, final List<T> subtrahend) {
 		final List<T> result = new ArrayList<T>();
 		for (final T item : minuend) {
 			if (!subtrahend.contains(item)) {
