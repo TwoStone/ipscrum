@@ -595,10 +595,10 @@ public abstract class HelpResources {
 	 * @return Path to presenter-specific documentation
 	 */
 	public static String getPresenterHelp(final Presenter presenter) {
-		String result;
+		final String result;
 		final String classname = ClassUtils.getClassName(presenter.getClass());
 
-		// This is to comply with very long presenter-names which are shortened by HnD's export.
+		// This is to comply with very long presenter-names which are shortened by HNDs export.
 		if (classname.length() > HelpResources.HNDMAXIDLENGTH) {
 			result = HelpResources.PRESENTER_HELP.get(classname.substring(0, HelpResources.HNDMAXIDLENGTH));
 		} else {
