@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.FieldTypeAdministrationCommandSuite;
 import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAdministrationCommandSuite;
 import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAdministrationCommandSuite;
 
@@ -14,7 +15,8 @@ import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAdministrationCo
 @SuiteClasses({
 		SystemCreateCommandTest.class,
 		TeamAdministrationCommandSuite.class,
-		TicketTypeAdministrationCommandSuite.class })
+		TicketTypeAdministrationCommandSuite.class,
+		FieldTypeAdministrationCommandSuite.class })
 public class AdminCommandSuite {
 
 }
