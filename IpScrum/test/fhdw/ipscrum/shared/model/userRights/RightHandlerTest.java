@@ -1,6 +1,8 @@
 package fhdw.ipscrum.shared.model.userRights;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -10,6 +12,23 @@ import org.junit.Test;
 
 import fhdw.ipscrum.client.IDGenerator;
 import fhdw.ipscrum.server.ServerContext;
+import fhdw.ipscrum.shared.commands.admin.SystemCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.AcceptanceCriteriaFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.DateFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.EffortFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.HintFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.NumberFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.PBIFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.PersonFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.ReleaseFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.SprintFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.SystemFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.fieldTypes.TextFieldTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.PersonRemoveRoleCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleAddRightCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleDeleteCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleRemoveRightCommand;
+import fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleSetDescriptionCommand;
 import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAddMemberCommand;
 import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAddProjectCommand;
 import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamCreateCommand;
@@ -21,6 +40,27 @@ import fhdw.ipscrum.shared.commands.admin.ticketTypes.StateTypeCreateCommand;
 import fhdw.ipscrum.shared.commands.admin.ticketTypes.TaskTicketTypeCreateCommand;
 import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAddFieldTypeCommand;
 import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAddStatetypeCommand;
+import fhdw.ipscrum.shared.commands.productBacklog.BugCreateCommand;
+import fhdw.ipscrum.shared.commands.productBacklog.FeatureCreateCommand;
+import fhdw.ipscrum.shared.commands.productBacklog.PBIAddRelationCommand;
+import fhdw.ipscrum.shared.commands.productBacklog.PBIPriorityDecreaseCommand;
+import fhdw.ipscrum.shared.commands.productBacklog.PBIPriorityIncreaseCommand;
+import fhdw.ipscrum.shared.commands.productBacklog.PBIRemoveRelationCommand;
+import fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand;
+import fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand;
+import fhdw.ipscrum.shared.commands.project.ProjectCreateCommand;
+import fhdw.ipscrum.shared.commands.project.ProjectDeleteCommand;
+import fhdw.ipscrum.shared.commands.project.ProjectRemoveSystemCommand;
+import fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand;
+import fhdw.ipscrum.shared.commands.project.ReleaseCreateCommand;
+import fhdw.ipscrum.shared.commands.project.ReleaseDeleteCommand;
+import fhdw.ipscrum.shared.commands.project.ReleaseRemoveSprintCommand;
+import fhdw.ipscrum.shared.commands.project.SprintChangeCommand;
+import fhdw.ipscrum.shared.commands.project.SprintCreateCommand;
+import fhdw.ipscrum.shared.commands.projectHistory.IncidentIllnessCreateCommand;
+import fhdw.ipscrum.shared.commands.projectHistory.IncidentOtherIssueCreateCommand;
+import fhdw.ipscrum.shared.commands.projectHistory.IncidentTypeCreateCommand;
+import fhdw.ipscrum.shared.commands.projectHistory.IncidentVacationCreateCommand;
 import fhdw.ipscrum.shared.commands.search.SearchCreateCommand;
 import fhdw.ipscrum.shared.commands.search.SearchDeleteCommand;
 import fhdw.ipscrum.shared.commands.taskboard.TaskAddPBICommand;
@@ -29,8 +69,10 @@ import fhdw.ipscrum.shared.commands.taskboard.TaskDeleteCommand;
 import fhdw.ipscrum.shared.commands.taskboard.TaskRemovePBICommand;
 import fhdw.ipscrum.shared.commands.taskboard.TaskSetPlanEffortCommand;
 import fhdw.ipscrum.shared.commands.taskboard.TaskSetResponsibilityCommand;
+import fhdw.ipscrum.shared.commands.ticketsGeneral.TicketChangeStateCommand;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.FieldType;
+import fhdw.ipscrum.shared.model.metamodel.fields.One;
 import fhdw.ipscrum.shared.model.metamodel.search.And;
 import fhdw.ipscrum.shared.model.metamodel.search.Search;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
@@ -42,8 +84,13 @@ import fhdw.ipscrum.shared.model.nonMeta.Feature;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
+import fhdw.ipscrum.shared.model.nonMeta.Relation;
+import fhdw.ipscrum.shared.model.nonMeta.RelationType;
+import fhdw.ipscrum.shared.model.nonMeta.Release;
+import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.model.nonMeta.SprintBacklog;
+import fhdw.ipscrum.shared.model.nonMeta.System;
 import fhdw.ipscrum.shared.model.nonMeta.Task;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
 
@@ -103,6 +150,22 @@ public class RightHandlerTest {
 	 * represents a project.
 	 */
 	private static Project project;
+	/**
+	 * represents a sprint.
+	 */
+	private static Sprint sprint;
+	/**
+	 * Represents the role needed to use the IPScrum.
+	 */
+	private static Role role;
+	/**
+	 * Represents a release needed to use the IPScrum.
+	 */
+	private static Release release;
+	/**
+	 * Represents a pbi.
+	 */
+	private static ProductBacklogItem pbi;
 
 	/**
 	 * Perform pre-test initialization.
@@ -126,11 +189,20 @@ public class RightHandlerTest {
 		RightHandlerTest.serverContext = ServerContext.getInstance();
 		RightHandlerTest.model = RightHandlerTest.serverContext.getPersistenceManager().getModelForTesting();
 		RightHandlerTest.model.setUuidManager(new IDGenerator());
+		RightHandlerTest.role = new Role(RightHandlerTest.model, "Testrole");
 
 		RightHandlerTest.project = new Project(RightHandlerTest.model, "Test");
 		RightHandlerTest.team = new Team(RightHandlerTest.model, "team2");
 		RightHandlerTest.person = new Person(RightHandlerTest.model, "bla", "blubb");
 		RightHandlerTest.team.addProject(RightHandlerTest.project);
+		RightHandlerTest.sprint =
+				new Sprint(RightHandlerTest.model, "Sprint", "Beschreibung", new Date(), new Date(),
+						RightHandlerTest.team, RightHandlerTest.project);
+		RightHandlerTest.release =
+				new Release(RightHandlerTest.model, "Testrelease", new Date(), RightHandlerTest.project);
+		RightHandlerTest.pbi =
+				new Feature(RightHandlerTest.model, new FeatureTicketType(RightHandlerTest.model, "Type", "TestType"),
+						"A", "Test1", RightHandlerTest.project.getBacklog());
 
 		RightHandlerTest.prar = new PersonRoleAdminRight(RightHandlerTest.model);
 		RightHandlerTest.pbr = new ProductBacklogRight(RightHandlerTest.model);
@@ -234,19 +306,13 @@ public class RightHandlerTest {
 	@Test
 	public void testTaskboardRightHandler() throws Exception {
 		final TaskTicketType taskTicketType = RightHandlerTest.model.getTypeManager().getStandardTaskType();
-		final Sprint sprint =
-				new Sprint(RightHandlerTest.model, "Sprint", "Beschreibung", new Date(), new Date(),
-						RightHandlerTest.team, RightHandlerTest.project);
-		final SprintBacklog sprintbl = sprint.getSprintBacklog();
+		final SprintBacklog sprintbl = RightHandlerTest.sprint.getSprintBacklog();
 		final Task task = new Task(RightHandlerTest.model, taskTicketType, "asd", "das", sprintbl);
-		final ProductBacklogItem pbi =
-				new Feature(RightHandlerTest.model, new FeatureTicketType(RightHandlerTest.model, "Type", "TestType"),
-						"A", "Test1", RightHandlerTest.project.getBacklog());
 
-		final TaskAddPBICommand a = new TaskAddPBICommand(task, pbi);
+		final TaskAddPBICommand a = new TaskAddPBICommand(task, RightHandlerTest.pbi);
 		final TaskCreateCommand b = new TaskCreateCommand("Neuer Task", "bla", taskTicketType, sprintbl);
 		final TaskDeleteCommand c = new TaskDeleteCommand(task);
-		final TaskRemovePBICommand d = new TaskRemovePBICommand(task, pbi);
+		final TaskRemovePBICommand d = new TaskRemovePBICommand(task, RightHandlerTest.pbi);
 		final TaskSetPlanEffortCommand e = new TaskSetPlanEffortCommand(task, new Effort(1));
 		final TaskSetResponsibilityCommand f = new TaskSetResponsibilityCommand(task, RightHandlerTest.person);
 
@@ -265,23 +331,162 @@ public class RightHandlerTest {
 	 *             if one of the used methods fails
 	 */
 	@Test
-	public void testsRightHandler() throws Exception {
-		// final a = new ;
-		// RightHandlerTest.ttar.canBeExecuted(a);
+	public void testProjectRightHandler() throws Exception {
+		final System system =
+				new System(RightHandlerTest.model, "neues System", RightHandlerTest.model.getRootsystem());
+		final Release release = new Release(RightHandlerTest.model, "asd", new Date(), RightHandlerTest.project);
+
+		final ProjectAddSystemCommand a = new ProjectAddSystemCommand(RightHandlerTest.project, system);
+		final ProjectChangeNameCommand b = new ProjectChangeNameCommand(RightHandlerTest.project, "neues Projekt");
+		final ProjectCreateCommand c = new ProjectCreateCommand("Neueres Projekt");
+		final ProjectDeleteCommand d = new ProjectDeleteCommand(RightHandlerTest.project);
+		final ProjectRemoveSystemCommand e = new ProjectRemoveSystemCommand(RightHandlerTest.project, system);
+		final ReleaseAddSprintCommand f = new ReleaseAddSprintCommand(release, RightHandlerTest.sprint);
+		final ReleaseCreateCommand g = new ReleaseCreateCommand(RightHandlerTest.project, "qawe", new Date());
+		final ReleaseDeleteCommand h = new ReleaseDeleteCommand(release);
+		final ReleaseRemoveSprintCommand i = new ReleaseRemoveSprintCommand(release, RightHandlerTest.sprint);
+		final SprintChangeCommand j =
+				new SprintChangeCommand(RightHandlerTest.sprint, "a", "c", new Date(), new Date(),
+						RightHandlerTest.team);
+		final SprintCreateCommand k =
+				new SprintCreateCommand("", new Date(), new Date(), "b", RightHandlerTest.team,
+						RightHandlerTest.project);
+		final SystemCreateCommand l = new SystemCreateCommand("d", RightHandlerTest.model.getRootsystem());
+
+		RightHandlerTest.pr.canBeExecuted(a);
+		RightHandlerTest.pr.canBeExecuted(b);
+		RightHandlerTest.pr.canBeExecuted(c);
+		RightHandlerTest.pr.canBeExecuted(d);
+		RightHandlerTest.pr.canBeExecuted(e);
+		RightHandlerTest.pr.canBeExecuted(f);
+		RightHandlerTest.pr.canBeExecuted(g);
+		RightHandlerTest.pr.canBeExecuted(h);
+		RightHandlerTest.pr.canBeExecuted(i);
+		RightHandlerTest.pr.canBeExecuted(j);
+		RightHandlerTest.pr.canBeExecuted(k);
+		RightHandlerTest.pr.canBeExecuted(l);
+
 	}
 
 	/**
-	 * Tests the method which is needed to get all rights.
+	 * Tests the methods which are in the RightHandler.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
 	 */
 	@Test
-	public void test() {
-		// RightHandlerTest.ftar;
-		// RightHandlerTest.ttar;
-		// RightHandlerTest.tar;
-		// RightHandlerTest.prar;
-		// RightHandlerTest.pbr;
-		// RightHandlerTest.pr;
-		// RightHandlerTest.phr;
-		// RightHandlerTest.tr;
+	public void testProjectHistoryRightHandler() throws Exception {
+		final List<Person> persons = new ArrayList<Person>();
+		final List<Project> projects = new ArrayList<Project>();
+		persons.add(RightHandlerTest.person);
+		projects.add(RightHandlerTest.project);
+		final IncidentIllnessCreateCommand a =
+				new IncidentIllnessCreateCommand(new Date(), new Date(), RightHandlerTest.person);
+		final IncidentOtherIssueCreateCommand b =
+				new IncidentOtherIssueCreateCommand(new Date(), new Date(), "", "", persons, projects);
+		final IncidentTypeCreateCommand c = new IncidentTypeCreateCommand("Neuer Typ");
+		final IncidentVacationCreateCommand d =
+				new IncidentVacationCreateCommand(new Date(), new Date(), RightHandlerTest.person);
+
+		RightHandlerTest.phr.canBeExecuted(a);
+		RightHandlerTest.phr.canBeExecuted(b);
+		RightHandlerTest.phr.canBeExecuted(c);
+		RightHandlerTest.phr.canBeExecuted(d);
+	}
+
+	/**
+	 * Tests the methods which are in the RightHandler.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testPersonRoleAdminRightHandler() throws Exception {
+		final PersonRemoveRoleCommand a = new PersonRemoveRoleCommand(RightHandlerTest.person, RightHandlerTest.role);
+		final PersonRemoveRoleCommand b = new PersonRemoveRoleCommand(RightHandlerTest.person, RightHandlerTest.role);
+		final RoleDeleteCommand c = new RoleDeleteCommand(RightHandlerTest.role);
+		final RoleSetDescriptionCommand d = new RoleSetDescriptionCommand(RightHandlerTest.role, "neue beschr");
+		final RoleAddRightCommand e = new RoleAddRightCommand(RightHandlerTest.role, RightHandlerTest.ftar);
+		final RoleRemoveRightCommand f = new RoleRemoveRightCommand(RightHandlerTest.role, RightHandlerTest.ftar);
+
+		RightHandlerTest.prar.canBeExecuted(a);
+		RightHandlerTest.prar.canBeExecuted(b);
+		RightHandlerTest.prar.canBeExecuted(c);
+		RightHandlerTest.prar.canBeExecuted(d);
+		RightHandlerTest.prar.canBeExecuted(e);
+		RightHandlerTest.prar.canBeExecuted(f);
+	}
+
+	/**
+	 * Tests the methods which are in the RightHandler.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testPBLRightHandler() throws Exception {
+		final Relation relation =
+				new Relation(RightHandlerTest.model, new RelationType(RightHandlerTest.model, "Relationstyp"),
+						RightHandlerTest.pbi);
+		final BugCreateCommand a =
+				new BugCreateCommand("asdasdasd", "aaa", RightHandlerTest.model.getTypeManager().getStandardBugType(),
+						RightHandlerTest.project.getBacklog(), RightHandlerTest.release);
+		final FeatureCreateCommand b =
+				new FeatureCreateCommand("", "", RightHandlerTest.model.getTypeManager().getStandardFeatureType(),
+						RightHandlerTest.project.getBacklog());
+		final PBIAddRelationCommand c = new PBIAddRelationCommand(RightHandlerTest.pbi, relation);
+		final PBIPriorityDecreaseCommand d = new PBIPriorityDecreaseCommand(RightHandlerTest.pbi);
+		final PBIPriorityIncreaseCommand e = new PBIPriorityIncreaseCommand(RightHandlerTest.pbi);
+		final PBIRemoveRelationCommand f = new PBIRemoveRelationCommand(RightHandlerTest.pbi, relation);
+		final TicketChangeStateCommand g =
+				new TicketChangeStateCommand(RightHandlerTest.pbi, RightHandlerTest.model.getTypeManager()
+						.getInProcess());
+
+		RightHandlerTest.pbr.canBeExecuted(a);
+		RightHandlerTest.pbr.canBeExecuted(b);
+		RightHandlerTest.pbr.canBeExecuted(c);
+		RightHandlerTest.pbr.canBeExecuted(d);
+		RightHandlerTest.pbr.canBeExecuted(e);
+		RightHandlerTest.pbr.canBeExecuted(f);
+	}
+
+	/**
+	 * Tests the methods which are in the RightHandler.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testFieldTypeAdminRightHandler() throws Exception {
+		final AcceptanceCriteriaFieldTypeCreateCommand a =
+				new AcceptanceCriteriaFieldTypeCreateCommand("absda", new One(RightHandlerTest.model));
+		final DateFieldTypeCreateCommand b = new DateFieldTypeCreateCommand("asdasd", new One(RightHandlerTest.model));
+		final EffortFieldTypeCreateCommand c =
+				new EffortFieldTypeCreateCommand("asda", new One(RightHandlerTest.model));
+		final HintFieldTypeCreateCommand d = new HintFieldTypeCreateCommand("kjasd", new One(RightHandlerTest.model));
+		final NumberFieldTypeCreateCommand e =
+				new NumberFieldTypeCreateCommand("hjsh", new One(RightHandlerTest.model));
+		final PBIFieldTypeCreateCommand f = new PBIFieldTypeCreateCommand("lkajsld", new One(RightHandlerTest.model));
+		final PersonFieldTypeCreateCommand g =
+				new PersonFieldTypeCreateCommand("usjdn", new One(RightHandlerTest.model));
+		final ReleaseFieldTypeCreateCommand h =
+				new ReleaseFieldTypeCreateCommand("udjfj", new One(RightHandlerTest.model));
+		final SprintFieldTypeCreateCommand i =
+				new SprintFieldTypeCreateCommand("iuhsfn", new One(RightHandlerTest.model));
+		final SystemFieldTypeCreateCommand j =
+				new SystemFieldTypeCreateCommand("aushd", new One(RightHandlerTest.model));
+		final TextFieldTypeCreateCommand k = new TextFieldTypeCreateCommand("uajsdn", new One(RightHandlerTest.model));
+
+		RightHandlerTest.ftar.canBeExecuted(a);
+		RightHandlerTest.ftar.canBeExecuted(b);
+		RightHandlerTest.ftar.canBeExecuted(c);
+		RightHandlerTest.ftar.canBeExecuted(d);
+		RightHandlerTest.ftar.canBeExecuted(e);
+		RightHandlerTest.ftar.canBeExecuted(f);
+		RightHandlerTest.ftar.canBeExecuted(g);
+		RightHandlerTest.ftar.canBeExecuted(h);
+		RightHandlerTest.ftar.canBeExecuted(i);
+		RightHandlerTest.ftar.canBeExecuted(j);
+		RightHandlerTest.ftar.canBeExecuted(k);
 	}
 }
