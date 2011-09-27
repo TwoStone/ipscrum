@@ -51,11 +51,19 @@ public class AuthorityCheckerTest {
 	/**
 	 * Represents a project needed to use the IPScrum.
 	 */
+	private static Project project2;
+	/**
+	 * Represents a project needed to use the IPScrum.
+	 */
 	private static Project projectnamechange;
 	/**
 	 * Represents a team needed to use the IPScrum.
 	 */
 	private static Team team;
+	// /**
+	// * Represents a team needed to use the IPScrum.
+	// */
+	// private static Team team2;
 	/**
 	 * Represents a person needed to use the IPScrum.
 	 */
@@ -84,6 +92,10 @@ public class AuthorityCheckerTest {
 	 * Represents the BugCreateCommand needed to use the IPScrum.
 	 */
 	private static BugCreateCommand bcc;
+	/**
+	 * Represents the BugCreateCommand needed to use the IPScrum.
+	 */
+	private static BugCreateCommand bcc2;
 	/**
 	 * Represents the ProductBacklogRight needed to use the IPScrum.
 	 */
@@ -171,6 +183,7 @@ public class AuthorityCheckerTest {
 
 		// Projekte
 		AuthorityCheckerTest.project = new Project(AuthorityCheckerTest.model, "Testprojekt");
+		AuthorityCheckerTest.project2 = new Project(AuthorityCheckerTest.model, "Testprojekt2");
 		AuthorityCheckerTest.projectnamechange = new Project(AuthorityCheckerTest.model, "Projekt Namensänderung");
 		AuthorityCheckerTest.release =
 				new Release(AuthorityCheckerTest.model, "Testrelease", new Date(), AuthorityCheckerTest.project);
@@ -188,6 +201,11 @@ public class AuthorityCheckerTest {
 		AuthorityCheckerTest.sprint =
 				new Sprint(AuthorityCheckerTest.model, "Sprint", "Testsprint", new Date(), new Date(),
 						AuthorityCheckerTest.team, AuthorityCheckerTest.project);
+		// AuthorityCheckerTest.team2 = new Team(AuthorityCheckerTest.model, "Testteam2");
+		// AuthorityCheckerTest.team2.addProject(AuthorityCheckerTest.project);
+		// AuthorityCheckerTest.team2.addProject(AuthorityCheckerTest.projectnamechange);
+		// AuthorityCheckerTest.team2.addMember(AuthorityCheckerTest.person);
+		// AuthorityCheckerTest.team2.addMember(AuthorityCheckerTest.person2);
 
 		// Rechte
 		AuthorityCheckerTest.tar = new TeamAdminRight(AuthorityCheckerTest.model);
@@ -205,6 +223,9 @@ public class AuthorityCheckerTest {
 		AuthorityCheckerTest.bcc =
 				new BugCreateCommand("Bug", "TestBug", AuthorityCheckerTest.bt,
 						AuthorityCheckerTest.project.getBacklog(), AuthorityCheckerTest.release);
+		AuthorityCheckerTest.bcc2 =
+				new BugCreateCommand("Bug", "TestBug", AuthorityCheckerTest.bt,
+						AuthorityCheckerTest.project2.getBacklog(), AuthorityCheckerTest.release);
 		AuthorityCheckerTest.tamc = new TeamAddMemberCommand(AuthorityCheckerTest.team, AuthorityCheckerTest.person);
 		AuthorityCheckerTest.procnc =
 				new ProjectChangeNameCommand(AuthorityCheckerTest.projectnamechange, "geänderter Name");
@@ -281,7 +302,6 @@ public class AuthorityCheckerTest {
 	@Test(expected = fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException.class)
 	public void testCanBeExecuted2() throws Exception {
 		AuthorityCheckerTest.checker.canBeExecuted(AuthorityCheckerTest.tamc, AuthorityCheckerTest.role2);
-
 	}
 
 	/**
@@ -453,7 +473,15 @@ public class AuthorityCheckerTest {
 	@Test(expected = fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException.class)
 	public void testCanBeExecuted16() throws Exception {
 		AuthorityCheckerTest.checker.canBeExecuted(AuthorityCheckerTest.bttcc, AuthorityCheckerTest.role2);
-
 	}
 
+	/**
+	 * Test method for
+	 * {@link fhdw.ipscrum.shared.model.userRights.AuthorityChecker#canBeExecuted(fhdw.ipscrum.shared.commands.interfaces.ICommand, fhdw.ipscrum.shared.model.nonMeta.Person)}
+	 * . * @throws Exception if one of the used methods fails
+	 */
+	@Test(expected = fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException.class)
+	public void testCanBeExecuted17() throws Exception {
+		AuthorityCheckerTest.checker.canBeExecuted(AuthorityCheckerTest.bcc2, AuthorityCheckerTest.role1);
+	}
 }

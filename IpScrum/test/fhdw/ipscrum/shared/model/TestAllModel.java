@@ -6,16 +6,18 @@ import org.junit.runners.Suite;
 import fhdw.ipscrum.shared.model.messages.MessageTests;
 import fhdw.ipscrum.shared.model.metamodel.TestAllMetamodell;
 import fhdw.ipscrum.shared.model.nonMeta.TestAllNonMeta;
+import fhdw.ipscrum.shared.model.userRights.TestAllUserRights;
 
 /**
- * The class <code>TestAll</code> builds a suite that can be used to run all of the tests
- * within its package as well as within any subpackages of its package.
+ * The class <code>TestAll</code> builds a suite that can be used to run all of the tests within its package as well as
+ * within any subpackages of its package.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		ModelRootTest.class,
 		TestAllMetamodell.class,
 		TestAllNonMeta.class,
+		TestAllUserRights.class,
 		MessageTests.class })
 public final class TestAllModel {
 

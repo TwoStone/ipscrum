@@ -309,6 +309,14 @@ public class RightManagerTest {
 		liste.add(RightManagerTest.phr);
 		liste.add(RightManagerTest.tr);
 
+		RightManagerTest.ftar.toString();
+		RightManagerTest.ttar.toString();
+		RightManagerTest.tar.toString();
+		RightManagerTest.prar.toString();
+		RightManagerTest.pbr.toString();
+		RightManagerTest.pr.toString();
+		RightManagerTest.phr.toString();
+		RightManagerTest.tr.toString();
 		Assert.assertEquals(liste, RightManagerTest.rm.getAllRights());
 	}
 
