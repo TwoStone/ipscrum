@@ -5,12 +5,16 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAdministrationCommandSuite;
+import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAdministrationCommandSuite;
 
 /**
  * Runs all administration command related tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({ SystemCreateCommandTest.class, TeamAdministrationCommandSuite.class })
+@SuiteClasses({
+		SystemCreateCommandTest.class,
+		TeamAdministrationCommandSuite.class,
+		TicketTypeAdministrationCommandSuite.class })
 public class AdminCommandSuite {
 
 }
