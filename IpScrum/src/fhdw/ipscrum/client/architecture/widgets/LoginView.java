@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
+import fhdw.ipscrum.client.architecture.controller.HelpController;
 import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
@@ -27,6 +28,7 @@ import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.resources.css.Login;
 import fhdw.ipscrum.client.services.LoginService;
 import fhdw.ipscrum.client.utils.GwtUtils;
+import fhdw.ipscrum.shared.constants.HelpResources;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.session.User;
 
@@ -134,7 +136,8 @@ public class LoginView extends MasterView implements KeyPressHandler, ILoginView
 
 						@Override
 						public void onUpdate(final Object sender, final EventArgs eventArgs) {
-							// TODO Show help
+							// TODO Richtige Konstante!!
+							new HelpController().showHelp(HelpResources.ROLECREATEPRESENTER);
 
 						}
 					});

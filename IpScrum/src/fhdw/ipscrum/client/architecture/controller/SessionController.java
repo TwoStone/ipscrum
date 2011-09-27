@@ -18,6 +18,7 @@ import fhdw.ipscrum.client.eventargs.UserRoleArgs;
 import fhdw.ipscrum.client.services.LoginService;
 import fhdw.ipscrum.client.services.LoginService.ResumedSession;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
+import fhdw.ipscrum.shared.constants.HelpResources;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.exceptions.model.ConsistencyException;
 import fhdw.ipscrum.shared.model.Model;
@@ -187,7 +188,7 @@ public class SessionController {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					// TODO: Show Help
+					new HelpController().showHelp(HelpResources.ANMELDUNGAMSYSTEM);
 				}
 			});
 		}
