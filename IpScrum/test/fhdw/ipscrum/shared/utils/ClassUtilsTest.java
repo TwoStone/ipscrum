@@ -17,12 +17,7 @@ public class ClassUtilsTest {
 	@Test
 	public void testGetClassName1() {
 		final String className = ClassUtils.getClassName(String.class);
-
-		final String cl = String.class.toString();
-		final int i = cl.lastIndexOf(".");
-		final String expected = cl.substring(i + 1, cl.length());
-
-		Assert.assertEquals(expected, className);
+		Assert.assertEquals("String", className);
 	}
 
 	/**
@@ -30,12 +25,7 @@ public class ClassUtilsTest {
 	 */
 	public void testGetClassName2() {
 		final String className = ClassUtils.getClassName(ProductBacklogItemCreatePresenter.class);
-
-		final String cl = ProductBacklogItemCreatePresenter.class.toString();
-		final int i = cl.lastIndexOf(".");
-		final String expected = cl.substring(i + 1, cl.length());
-
-		Assert.assertEquals(expected, className);
+		Assert.assertEquals("ProductBacklogItemCreatePresenter", className);
 	}
 
 	/**
@@ -43,11 +33,6 @@ public class ClassUtilsTest {
 	 */
 	public void testGetClassName3() {
 		final String className = ClassUtils.getClassName(ProductBacklogItemCreateView.class);
-
-		final String cl = ProductBacklogItemCreateView.class.toString();
-		final int i = cl.lastIndexOf(".");
-		final String expected = cl.substring(i + 1, cl.length());
-
-		Assert.assertEquals(expected, className);
+		Assert.assertEquals("ProductBacklogItemCreateView", className);
 	}
 }
