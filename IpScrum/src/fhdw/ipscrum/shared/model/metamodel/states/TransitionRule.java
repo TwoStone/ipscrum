@@ -4,9 +4,8 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * A transition rule determines a state transition in the knowledge layer. state
- * transitions allow ticket system users to change a state of a ticket from this.from to
- * this.to
+ * A transition rule determines a state transition in the knowledge layer. state transitions allow ticket system users
+ * to change a state of a ticket from this.from to this.to
  */
 public class TransitionRule extends IdentifiableObject {
 
@@ -39,6 +38,7 @@ public class TransitionRule extends IdentifiableObject {
 		super(model);
 		this.from = from;
 		this.to = to;
+		this.putToObjectStore();
 	}
 
 	/**
