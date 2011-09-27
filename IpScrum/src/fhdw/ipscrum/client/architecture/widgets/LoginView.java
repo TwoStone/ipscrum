@@ -276,8 +276,7 @@ public class LoginView extends MasterView implements KeyPressHandler, ILoginView
 
 	@Override
 	public void close() {
-		// TODO: klären, ob gebraucht!
-		// this.loggedInEvent.removeAllHandler();
+		this.loggedInEvent.removeAllHandler();
 	}
 
 	@Override

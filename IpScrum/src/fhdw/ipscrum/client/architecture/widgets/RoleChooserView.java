@@ -87,7 +87,7 @@ public class RoleChooserView extends MasterView implements IRoleChoser {
 
 	@Override
 	public void close() {
-		// TODO klären!
+		// no events to remove!
 
 	}
 
