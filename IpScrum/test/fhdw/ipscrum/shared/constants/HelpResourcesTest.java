@@ -7,7 +7,7 @@ package fhdw.ipscrum.shared.constants;
 public class HelpResourcesTest {
 
 	/**
-	 * tests the Method "getClassName" with a View-Class.
+	 * tests the Method "getPresenterHelp".
 	 */
 	// @Test
 	// public void testGetPresenterHelp1() {
