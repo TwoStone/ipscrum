@@ -8,7 +8,7 @@ import org.junit.runners.Suite;
  * within any subpackages of its package.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ AuthorityCheckerTest.class, RightManagerTest.class, })
+@Suite.SuiteClasses({ AuthorityCheckerTest.class, RightHandlerTest.class, RightManagerTest.class })
 public final class TestAllUserRights {
 
 	/**
