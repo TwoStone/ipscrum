@@ -117,14 +117,15 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new ProjectSelectionPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new ProjectSelectionPresenter(this.getContext()));
+							}
+						});
 			}
 		}));
 		final NavigationSubmenu submenu = new NavigationSubmenu("Verwaltung");
@@ -133,28 +134,30 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new PersonRolePresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new PersonRolePresenter(this.getContext()));
+							}
+						});
 			}
 		}));
 		submenu.addItem(new NavigationMenuEntry("Teams", new MenuCommand() {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new TeamPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new TeamPresenter(this.getContext()));
+							}
+						});
 
 			}
 		}));
@@ -162,14 +165,15 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new RevisionControlPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new RevisionControlPresenter(this.getContext()));
+							}
+						});
 
 			}
 		}));
@@ -177,14 +181,17 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new StateFieldAndTickettypeAdministrationPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext()
+										.getApplicationController()
+										.showPresenter(
+												new StateFieldAndTickettypeAdministrationPresenter(this.getContext()));
+							}
+						});
 
 			}
 		}));
@@ -192,30 +199,32 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
+							@Override
+							public void callback() {
 
-						MenuCommand.getApplicationController().showPresenter(
-								new TicketTypeSelectionPresenter(MenuCommand.getContext()));
+								this.getContext().getApplicationController()
+										.showPresenter(new TicketTypeSelectionPresenter(this.getContext()));
 
-					}
-				});
+							}
+						});
 			}
 		}));
 		submenu.addItem(new NavigationMenuEntry("Systeme", new MenuCommand() {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new SystemManagementPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new SystemManagementPresenter(this.getContext()));
+							}
+						});
 
 			}
 		}));
@@ -223,14 +232,15 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new UserManagementPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new UserManagementPresenter(this.getContext()));
+							}
+						});
 			}
 		}));
 
@@ -240,15 +250,16 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new SearchAllPresenter(MenuCommand.getContext()));
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new SearchAllPresenter(this.getContext()));
 
-					}
-				});
+							}
+						});
 
 			}
 		}));
@@ -257,15 +268,16 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new SearchPresenter(MenuCommand.getContext()));
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new SearchPresenter(this.getContext()));
 
-					}
-				});
+							}
+						});
 
 			}
 		}));
@@ -274,14 +286,15 @@ public class IpScrum implements EntryPoint {
 
 			@Override
 			public void execute() {
-				MenuCommand.getApplicationController().newStack(new SimpleCallback() {
+				this.getApplicationController().newStack(
+						new SimpleCallback.SimpleCallbackWithContext(this.getContext()) {
 
-					@Override
-					public void callback() {
-						MenuCommand.getApplicationController().showPresenter(
-								new SearchesPresenter(MenuCommand.getContext()));
-					}
-				});
+							@Override
+							public void callback() {
+								this.getContext().getApplicationController()
+										.showPresenter(new SearchesPresenter(this.getContext()));
+							}
+						});
 			}
 		}));
 
