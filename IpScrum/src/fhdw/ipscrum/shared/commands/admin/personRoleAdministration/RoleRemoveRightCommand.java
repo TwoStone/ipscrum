@@ -26,7 +26,7 @@ public class RoleRemoveRightCommand extends Command<Void> implements IPersonRole
 	/**
 	 * default constructor.
 	 */
-	protected RoleRemoveRightCommand() {
+	private RoleRemoveRightCommand() {
 		super();
 	}
 
@@ -48,8 +48,7 @@ public class RoleRemoveRightCommand extends Command<Void> implements IPersonRole
 		final Role role = (Role) model.getObject(this.getReceiverGuid());
 		final Right right = (Right) model.getObject(this.rightID);
 		role.removeRight(right);
-		this.setStringValue(StringUtils.format(
-				"Der Rolle %s wurde die Berechtigung %s entzogen. ",
+		this.setStringValue(StringUtils.format("Der Rolle %s wurde die Berechtigung %s entzogen. ",
 				role.getDescription(), right.toString()));
 		return null;
 	}

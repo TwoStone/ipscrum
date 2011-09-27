@@ -26,7 +26,8 @@ public class RoleAddRightCommand extends Command<Void> implements IPersonRoleCom
 	/**
 	 * default constructor.
 	 */
-	protected RoleAddRightCommand() {
+	@SuppressWarnings("unused")
+	private RoleAddRightCommand() {
 		super();
 	}
 
@@ -48,8 +49,7 @@ public class RoleAddRightCommand extends Command<Void> implements IPersonRoleCom
 		final Role role = (Role) model.getObject(this.getReceiverGuid());
 		final Right right = (Right) model.getObject(this.rigthId);
 		role.addRight(right);
-		this.setStringValue(StringUtils.format(
-				"Der Rolle %s wurde die Berechtigung %s hinzugefügt ",
+		this.setStringValue(StringUtils.format("Der Rolle %s wurde die Berechtigung %s hinzugefügt ",
 				role.getDescription(), right.toString()));
 		return null;
 
