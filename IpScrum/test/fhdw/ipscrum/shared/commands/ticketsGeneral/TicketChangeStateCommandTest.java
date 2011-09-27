@@ -1,4 +1,4 @@
-package fhdw.ipscrum.shared.commands.taskboard;
+package fhdw.ipscrum.shared.commands.ticketsGeneral;
 
 import java.util.Date;
 
@@ -72,16 +72,19 @@ import fhdw.ipscrum.shared.commands.projectHistory.IncidentTypeCreateCommand;
 import fhdw.ipscrum.shared.commands.projectHistory.IncidentVacationCreateCommand;
 import fhdw.ipscrum.shared.commands.search.SearchCreateCommand;
 import fhdw.ipscrum.shared.commands.search.SearchDeleteCommand;
-import fhdw.ipscrum.shared.commands.ticketsGeneral.ListFieldAddValueCommand;
-import fhdw.ipscrum.shared.commands.ticketsGeneral.ListFieldRemoveValueCommand;
-import fhdw.ipscrum.shared.commands.ticketsGeneral.SingleFieldChangeCommand;
-import fhdw.ipscrum.shared.commands.ticketsGeneral.TicketChangeStateCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskAddPBICommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskCreateCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskDeleteCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskRemovePBICommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskSetPlanEffortCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskSetResponsibilityCommand;
 import fhdw.ipscrum.shared.commands.visitor.CommandVisitor;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.model.Model;
+import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
-import fhdw.ipscrum.shared.model.nonMeta.Effort;
+import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 import fhdw.ipscrum.shared.model.nonMeta.Feature;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.ProductBacklog;
@@ -92,10 +95,10 @@ import fhdw.ipscrum.shared.model.nonMeta.Task;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
 
 /**
- * The class <code>TaskSetPlanEffortCommandTest</code> contains tests for the class
- * <code>{@link TaskSetPlanEffortCommand}</code>.
+ * The class <code>TicketChangeStateCommandTest</code> contains tests for the class
+ * <code>{@link TicketChangeStateCommand}</code>.
  */
-public class TaskSetPlanEffortCommandTest {
+public class TicketChangeStateCommandTest {
 	/**
 	 * represents the model needed to use the IPScrum.
 	 */
@@ -162,17 +165,17 @@ public class TaskSetPlanEffortCommandTest {
 	private TaskTicketType task = null;
 
 	/**
-	 * Run the TaskSetPlanEffortCommand(Task,Effort) constructor test.
+	 * Run the TicketChangeStateCommand(Ticket,StateType) constructor test.
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails
 	 */
 	@Test
-	public void testTaskSetPlanEffortCommand1() throws Exception {
-		final Task task1 = this.t1;
-		final Effort effort = new Effort(Integer.valueOf(1));
+	public void testTicketChangeStateCommand1() throws Exception {
+		final Ticket ticket = this.pbi1;
+		final StateType stateType = this.model.getAllStateTypes().get(0);
 
-		final TaskSetPlanEffortCommand result = new TaskSetPlanEffortCommand(task1, effort);
+		final TicketChangeStateCommand result = new TicketChangeStateCommand(ticket, stateType);
 
 		Assert.assertNotNull(result);
 	}
@@ -185,7 +188,8 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test
 	public void testAccept1() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t6, new Effort(Integer.valueOf(1)));
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.pbi2, this.model.getAllStateTypes().get(0));
 
 		fixture.accept(new CommandVisitor() {
 
@@ -246,7 +250,7 @@ public class TaskSetPlanEffortCommandTest {
 
 			@Override
 			public void handleTaskSetPlanEffortCommand(final TaskSetPlanEffortCommand taskSetPlanEffortCommand) {
-				System.out.println("It's done!");
+
 			}
 
 			@Override
@@ -570,7 +574,7 @@ public class TaskSetPlanEffortCommandTest {
 			@Override
 			public void handleTicketChangeStateCommand(final TicketChangeStateCommand ticketChangeStateCommand)
 					throws NoObjectFindException {
-
+				System.out.println("It's done!");
 			}
 
 			@Override
@@ -595,11 +599,12 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test
 	public void testDependsOnProject1() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t1, new Effort(Integer.valueOf(1)));
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.pbi4, this.model.getAllStateTypes().get(0));
 
 		final boolean result = fixture.dependsOnProject();
 
-		Assert.assertTrue(result);
+		Assert.assertFalse(result);
 	}
 
 	/**
@@ -610,25 +615,43 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test
 	public void testGetDependingProject1() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t6, new Effort(Integer.valueOf(1)));
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.pbi1, this.model.getAllStateTypes().get(0));
 
 		final Project result = fixture.getDependingProject(this.model);
 
-		Assert.assertNotNull(result);
+		Assert.assertNull(result);
 	}
 
 	/**
-	 * Run the Project getDependingProject(Model) method test.
+	 * Run the Ticket getReceiverTicket(Model) method test.
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails
 	 */
 	@Test(expected = NoObjectFindException.class)
-	public void testGetDependingProject2() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t1, new Effort(Integer.valueOf(1)));
+	public void testGetReceiverTicket1() throws Exception {
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.pbi1, this.model.getAllStateTypes().get(0));
 		final Model model1 = new Model(new Date());
 
-		final Project result = fixture.getDependingProject(model1);
+		final Ticket result = fixture.getReceiverTicket(model1);
+
+		Assert.assertNotNull(result);
+	}
+
+	/**
+	 * Run the Ticket getReceiverTicket(Model) method test.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testGetReceiverTicket2() throws Exception {
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.pbi1, this.model.getAllStateTypes().get(0));
+
+		final Ticket result = fixture.getReceiverTicket(this.model);
 
 		Assert.assertNotNull(result);
 	}
@@ -641,7 +664,8 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test
 	public void testOnExecute1() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t6, new Effort(Integer.valueOf(1)));
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.pbi3, this.model.getAllStateTypes().get(0));
 
 		fixture.onExecute(this.model);
 
@@ -655,10 +679,12 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test(expected = NoObjectFindException.class)
 	public void testOnExecute2() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t1, new Effort(Integer.valueOf(1)));
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.t1, this.model.getAllStateTypes().get(0));
 		final Model model1 = new Model(new Date());
 
 		fixture.onExecute(model1);
+
 	}
 
 	/**
@@ -669,7 +695,7 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testOnExecute3() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t1, new Effort(null));
+		final TicketChangeStateCommand fixture = new TicketChangeStateCommand(this.pbi2, null);
 
 		fixture.onExecute(this.model);
 	}
@@ -682,7 +708,8 @@ public class TaskSetPlanEffortCommandTest {
 	 */
 	@Test
 	public void testOnExecute4() throws Exception {
-		final TaskSetPlanEffortCommand fixture = new TaskSetPlanEffortCommand(this.t6, new Effort(Integer.valueOf(10)));
+		final TicketChangeStateCommand fixture =
+				new TicketChangeStateCommand(this.t6, this.model.getAllStateTypes().get(0));
 
 		fixture.onExecute(this.model);
 
