@@ -210,15 +210,17 @@ public class SelectSystemView extends MasterView implements ISelectSystemView {
 	 * @return true id the system is selected
 	 */
 	private boolean isSelectedSystem(final System system, final Collection<System> selectedSystems) {
+		boolean result = false;
 		if (selectedSystems.contains(system)) {
 			return true;
 		}
 		for (final System system2 : selectedSystems) {
 			if (system2.containsAction(system)) {
-				return true;
+				result = true;
+				break;
 			}
 		}
-		return false;
+		return result;
 	}
 
 	@Override

@@ -27,8 +27,7 @@ public class TaskCreatePresenter extends WritePresenter {
 	 */
 	private ITaskCreateView view;
 	/**
-	 * represents a flag to check if the question asking if the view should been left
-	 * without saving should be asked.
+	 * represents a flag to check if the question asking if the view should been left without saving should be asked.
 	 */
 	private boolean saved = false;
 
@@ -37,8 +36,8 @@ public class TaskCreatePresenter extends WritePresenter {
 	 */
 	private TaskCreateArgs taskCreateArgs;
 	/**
-	 * represents the sprint related to this presenter. It is needed to make clear for
-	 * which sprint this task should be created.
+	 * represents the sprint related to this presenter. It is needed to make clear for which sprint this task should be
+	 * created.
 	 */
 	private final Sprint sprint;
 
@@ -46,8 +45,8 @@ public class TaskCreatePresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TaskCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param sprint
 	 *            is the related sprint in which the task should be created
 	 */
@@ -67,17 +66,15 @@ public class TaskCreatePresenter extends WritePresenter {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTaskCreateView();
 
-			this.view
-					.registerSaveEvent(new EventHandler<TaskCreateView.TaskCreateArgs>() {
+			this.view.registerSaveEvent(new EventHandler<TaskCreateView.TaskCreateArgs>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TaskCreateArgs eventArgs) {
-							TaskCreatePresenter.this.taskCreateArgs = eventArgs;
-							TaskCreatePresenter.this.save();
-							TaskCreatePresenter.this.close();
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final TaskCreateArgs eventArgs) {
+					TaskCreatePresenter.this.taskCreateArgs = eventArgs;
+					TaskCreatePresenter.this.save();
+					TaskCreatePresenter.this.close();
+				}
+			});
 
 			this.view.registerCancelEvent(new DefaultEventHandler() {
 				@Override
@@ -95,15 +92,10 @@ public class TaskCreatePresenter extends WritePresenter {
 	public Boolean onSave() {
 		try {
 			final TaskTicketType ticketType =
-					(TaskTicketType) this
-							.getContext()
-							.getModel()
-							.getTypeManager()
-							.getActiveTicketTypeByUniqueName(
-									this.taskCreateArgs.getSelectedTaskTicketType());
-			this.doCommand(new TaskCreateCommand(this.taskCreateArgs.getName(),
-					this.taskCreateArgs.getDescription(), ticketType, this.sprint
-							.getSprintBacklog()));
+					(TaskTicketType) this.getContext().getModel().getTypeManager()
+							.getActiveTicketTypeByUniqueName(this.taskCreateArgs.getSelectedTaskTicketType());
+			this.doCommand(new TaskCreateCommand(this.taskCreateArgs.getName(), this.taskCreateArgs.getDescription(),
+					ticketType, this.sprint.getSprintBacklog()));
 			this.commitTransaction();
 			this.saved = true;
 			return super.onSave();
@@ -138,8 +130,7 @@ public class TaskCreatePresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		final List<TaskTicketType> list =
-				this.getContext().getModel().getAllTaskTicketTypes();
+		final List<TaskTicketType> list = this.getContext().getModel().getAllTaskTicketTypes();
 		this.view.fillComboBoxTypes(list);
 	}
 

@@ -45,8 +45,8 @@ public class TypeEditPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TypeEditPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param type
 	 *            is the related TicketType to edit
 	 */
@@ -66,26 +66,21 @@ public class TypeEditPresenter extends WritePresenter {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTypeEditView();
 
-			this.view
-					.registerChangeStartStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final StateTypeArgs eventArgs) {
-							TypeEditPresenter.this.changeStartState(
-									eventArgs.getStateData(), eventArgs.getBool());
+			this.view.registerChangeStartStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
+				@Override
+				public void onUpdate(final Object sender, final StateTypeArgs eventArgs) {
+					TypeEditPresenter.this.changeStartState(eventArgs.getStateData(), eventArgs.getBool());
 
-						}
+				}
 
-					});
+			});
 
 			this.view.registerAddField(new DefaultEventHandler() {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					TypeEditPresenter.this
-							.startPresenter(new AddFieldsToTicketTypePresenter(
-									TypeEditPresenter.this.getContext(),
-									TypeEditPresenter.this.type));
+					TypeEditPresenter.this.startPresenter(new AddFieldsToTicketTypePresenter(TypeEditPresenter.this
+							.getContext(), TypeEditPresenter.this.type));
 				}
 			});
 
@@ -94,10 +89,8 @@ public class TypeEditPresenter extends WritePresenter {
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
-					TypeEditPresenter.this
-							.startPresenter(new AddStatesToTicketTypePresenter(
-									TypeEditPresenter.this.getContext(),
-									TypeEditPresenter.this.type));
+					TypeEditPresenter.this.startPresenter(new AddStatesToTicketTypePresenter(TypeEditPresenter.this
+							.getContext(), TypeEditPresenter.this.type));
 
 				}
 			});
@@ -109,15 +102,12 @@ public class TypeEditPresenter extends WritePresenter {
 
 					TypeEditPresenter.this.beginTransaction();
 					try {
-						TypeEditPresenter.this
-								.doCommand(new TicketTypeRemoveFieldTypeCommand(
-										TypeEditPresenter.this.type,
-										TypeEditPresenter.this.view.getSelectedField()));
+						TypeEditPresenter.this.doCommand(new TicketTypeRemoveFieldTypeCommand(
+								TypeEditPresenter.this.type, TypeEditPresenter.this.view.getSelectedField()));
 						TypeEditPresenter.this.commitTransaction();
 						TypeEditPresenter.this.updateView();
 					} catch (final IPScrumGeneralException e) {
-						TypeEditPresenter.this.getContext().getToastMessageController()
-								.toastMessage(e.getMessage());
+						TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
 						TypeEditPresenter.this.rollbackTransaction();
 					}
 
@@ -133,16 +123,12 @@ public class TypeEditPresenter extends WritePresenter {
 
 				TypeEditPresenter.this.beginTransaction();
 				try {
-					TypeEditPresenter.this
-							.doCommand(new TicketTypeRemoveStateTypeCommand(
-									TypeEditPresenter.this.type,
-									TypeEditPresenter.this.view.getSelectedState()
-											.getState()));
+					TypeEditPresenter.this.doCommand(new TicketTypeRemoveStateTypeCommand(TypeEditPresenter.this.type,
+							TypeEditPresenter.this.view.getSelectedState().getState()));
 					TypeEditPresenter.this.commitTransaction();
 					TypeEditPresenter.this.updateView();
 				} catch (final IPScrumGeneralException e) {
-					TypeEditPresenter.this.getContext().getToastMessageController()
-							.toastMessage(e.getMessage());
+					TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
 					TypeEditPresenter.this.rollbackTransaction();
 				}
 
@@ -154,82 +140,64 @@ public class TypeEditPresenter extends WritePresenter {
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
-				TypeEditPresenter.this.fillActivatedFields(TypeEditPresenter.this.view
-						.getSelectedState());
+				TypeEditPresenter.this.fillActivatedFields(TypeEditPresenter.this.view.getSelectedState());
 
 			}
 		});
 
-		this.view
-				.registerChangeEndStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
+		this.view.registerChangeEndStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
 
-					@Override
-					public void onUpdate(final Object sender,
-							final StateTypeArgs eventArgs) {
+			@Override
+			public void onUpdate(final Object sender, final StateTypeArgs eventArgs) {
 
-						TypeEditPresenter.this.beginTransaction();
-						try {
-							TypeEditPresenter.this
-									.doCommand(new TicketTypeSetStatetypeAsEndstatetypeCommand(
-											TypeEditPresenter.this.type, eventArgs
-													.getStateData().getState()));
-							TypeEditPresenter.this.commitTransaction();
-							TypeEditPresenter.this.updateView();
-						} catch (final IPScrumGeneralException e) {
-							TypeEditPresenter.this.getContext()
-									.getToastMessageController()
-									.toastMessage(e.getMessage());
-							TypeEditPresenter.this.rollbackTransaction();
+				TypeEditPresenter.this.beginTransaction();
+				try {
+					TypeEditPresenter.this.doCommand(new TicketTypeSetStatetypeAsEndstatetypeCommand(
+							TypeEditPresenter.this.type, eventArgs.getStateData().getState()));
+					TypeEditPresenter.this.commitTransaction();
+					TypeEditPresenter.this.updateView();
+				} catch (final IPScrumGeneralException e) {
+					TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+					TypeEditPresenter.this.rollbackTransaction();
 
-						}
+				}
 
+			}
+		});
+
+		this.view.registerChangeActivationEvent(new EventHandler<TypeEditView.FieldTypeArgs>() {
+
+			@Override
+			public void onUpdate(final Object sender, final FieldTypeArgs eventArgs) {
+
+				if (TypeEditPresenter.this.view.getSelectedState() != null) {
+
+					TypeEditPresenter.this.beginTransaction();
+					try {
+						TypeEditPresenter.this.doCommand(new TicketTypeSetFieldTypeActivityCommand(
+								TypeEditPresenter.this.type, eventArgs.getFieldData().getFieldType(),
+								TypeEditPresenter.this.view.getSelectedState().getState(), eventArgs.getBool()));
+						TypeEditPresenter.this.commitTransaction();
+						TypeEditPresenter.this.updateView();
+					} catch (final IPScrumGeneralException e) {
+						TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+						TypeEditPresenter.this.rollbackTransaction();
 					}
-				});
 
-		this.view
-				.registerChangeActivationEvent(new EventHandler<TypeEditView.FieldTypeArgs>() {
-
-					@Override
-					public void onUpdate(final Object sender,
-							final FieldTypeArgs eventArgs) {
-
-						if (TypeEditPresenter.this.view.getSelectedState() != null) {
-
-							TypeEditPresenter.this.beginTransaction();
-							try {
-								TypeEditPresenter.this
-										.doCommand(new TicketTypeSetFieldTypeActivityCommand(
-												TypeEditPresenter.this.type, eventArgs
-														.getFieldData().getFieldType(),
-												TypeEditPresenter.this.view
-														.getSelectedState().getState(),
-												eventArgs.getBool()));
-								TypeEditPresenter.this.commitTransaction();
-								TypeEditPresenter.this.updateView();
-							} catch (final IPScrumGeneralException e) {
-								TypeEditPresenter.this.getContext()
-										.getToastMessageController()
-										.toastMessage(e.getMessage());
-								TypeEditPresenter.this.rollbackTransaction();
-							}
-
-						} else {
-							TypeEditPresenter.this.getContext()
-									.getToastMessageController()
-									.toastMessage("Kein Zustand makiert!");
-						}
-					}
-				});
+				} else {
+					TypeEditPresenter.this.getContext().getToastMessageController()
+							.toastMessage("Kein Zustand makiert!");
+				}
+			}
+		});
 
 		this.view.registerAddTransition(new DefaultEventHandler() {
 
 			@Override
 			public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
-				TypeEditPresenter.this
-						.startPresenter(new StateTransitionCreatePresenter(
-								TypeEditPresenter.this.getContext(),
-								TypeEditPresenter.this.type));
+				TypeEditPresenter.this.startPresenter(new StateTransitionCreatePresenter(TypeEditPresenter.this
+						.getContext(), TypeEditPresenter.this.type));
 				TypeEditPresenter.this.updateView();
 
 			}
@@ -242,16 +210,12 @@ public class TypeEditPresenter extends WritePresenter {
 				if (TypeEditPresenter.this.view.getSelectedTransition() != null) {
 					TypeEditPresenter.this.beginTransaction();
 					try {
-						TypeEditPresenter.this
-								.doCommand(new TransitionRuleDeleteCommand(
-										TypeEditPresenter.this.view
-												.getSelectedTransition(),
-										TypeEditPresenter.this.type));
+						TypeEditPresenter.this.doCommand(new TransitionRuleDeleteCommand(TypeEditPresenter.this.view
+								.getSelectedTransition(), TypeEditPresenter.this.type));
 						TypeEditPresenter.this.commitTransaction();
 						TypeEditPresenter.this.updateView();
 					} catch (final IPScrumGeneralException e) {
-						TypeEditPresenter.this.getContext().getToastMessageController()
-								.toastMessage(e.getMessage());
+						TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
 						TypeEditPresenter.this.rollbackTransaction();
 
 					}
@@ -266,8 +230,7 @@ public class TypeEditPresenter extends WritePresenter {
 	}
 
 	/**
-	 * This method is needed to fill the field which shows if a fieldType is active or non
-	 * active in a state.
+	 * This method is needed to fill the field which shows if a fieldType is active or non active in a state.
 	 * 
 	 * @param selectedState
 	 *            is the state for which this is done
@@ -285,16 +248,13 @@ public class TypeEditPresenter extends WritePresenter {
 				for (final FieldType fieldType : list) {
 					Boolean active;
 
-					active =
-							stateprofile.isFieldActive(selectedState.getState(),
-									fieldType);
+					active = stateprofile.isFieldActive(selectedState.getState(), fieldType);
 					resultList.add(new FieldTableData(fieldType, active));
 				}
 				this.view.refreshFields(resultList);
 
 			} catch (final IPScrumGeneralException e) {
-				this.getContext().getToastMessageController()
-						.toastMessage(e.getMessage());
+				this.getContext().getToastMessageController().toastMessage(e.getMessage());
 
 			}
 
@@ -320,8 +280,7 @@ public class TypeEditPresenter extends WritePresenter {
 		this.beginTransaction();
 		try {
 			if (bool) {
-				this.doCommand(new TicketTypeSetStatetypeAsStartstatetypeCommand(
-						this.type, stateData.getState()));
+				this.doCommand(new TicketTypeSetStatetypeAsStartstatetypeCommand(this.type, stateData.getState()));
 				this.commitTransaction();
 				this.updateView();
 			} else {

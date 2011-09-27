@@ -87,6 +87,7 @@ public class CreateSprintPresenter extends WritePresenter {
 
 	@Override
 	public Boolean onSave() {
+		boolean result = false;
 		try {
 			final String name = this.doGetView().getName();
 			final String description = this.doGetView().getDescription();
@@ -96,17 +97,18 @@ public class CreateSprintPresenter extends WritePresenter {
 
 			if (selectedTeam == null) {
 				this.toastMessage("Bitte wählen Sie ein Team aus!");
-				return false;
+				result = false;
 			}
 
 			this.doCommand(new SprintCreateCommand(name, startDate, endDate, description, selectedTeam, this.project));
 			this.commitTransaction();
 			this.close();
-			return super.onSave();
+			result = super.onSave();
 		} catch (final IPScrumGeneralException e) {
 			this.toastMessage(e.getMessage());
 			return false;
 		}
+		return result;
 	}
 
 	@Override

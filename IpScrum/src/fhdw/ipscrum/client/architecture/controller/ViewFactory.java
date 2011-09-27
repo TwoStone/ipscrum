@@ -71,7 +71,6 @@ import fhdw.ipscrum.client.view.TeamEditView;
 import fhdw.ipscrum.client.view.TeamView;
 import fhdw.ipscrum.client.view.TicketTypeCreateView;
 import fhdw.ipscrum.client.view.TicketTypeSelectionView;
-import fhdw.ipscrum.client.view.TypeAdministrationView;
 import fhdw.ipscrum.client.view.TypeEditView;
 import fhdw.ipscrum.client.view.UserCreateView;
 import fhdw.ipscrum.client.view.UserManagementView;
@@ -402,15 +401,6 @@ public final class ViewFactory {
 	 */
 	public ITaskboardView createTaskboardView() {
 		return new TaskboardView();
-	}
-
-	/**
-	 * returns the view used for the type administration.
-	 * 
-	 * @return the concrete view
-	 */
-	public TypeAdministrationView createTypeAdministrationView() {
-		return new TypeAdministrationView();
 	}
 
 	/**

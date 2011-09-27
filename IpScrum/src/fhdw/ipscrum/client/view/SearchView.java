@@ -405,6 +405,7 @@ public class SearchView extends MasterView implements ISearchView {
 	}
 
 	private boolean fireEventForTextSearchCriterion() {
+		boolean result = true;
 		switch (this.cboTyp2.getSelectedIndex()) {
 		case 3:
 			this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
@@ -427,7 +428,8 @@ public class SearchView extends MasterView implements ISearchView {
 				this.addTextSearchCriterion.fire(this, new TextSearchCriterionArgs(this.txtThirdLevel.getText(),
 						SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			} else {
-				return false;
+				result = false;
+				break;
 			}
 			break;
 		case 11:
@@ -439,9 +441,10 @@ public class SearchView extends MasterView implements ISearchView {
 					SearchView.this.selectionModel.getSelectedObject(), this.cboTyp2.getSelectedIndex() + 1));
 			break;
 		default:
-			return false;
+			result = false;
+			break;
 		}
-		return true;
+		return result;
 	}
 
 	private void fillCombobox(final ListBox cbo, final Map<Integer, String> map) {

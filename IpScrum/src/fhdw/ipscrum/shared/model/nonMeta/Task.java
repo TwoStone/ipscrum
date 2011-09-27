@@ -50,10 +50,9 @@ public class Task extends Ticket {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public Task(final Model model, final TaskTicketType ticketType, final String name,
-			final String description, final SprintBacklog sprintBacklog)
-			throws NoValidValueException, ConsistencyException,
-			ForbiddenStateException, DoubleDefinitionException {
+	public Task(final Model model, final TaskTicketType ticketType, final String name, final String description,
+			final SprintBacklog sprintBacklog)
+			throws NoValidValueException, ConsistencyException, ForbiddenStateException, DoubleDefinitionException {
 		super(model, ticketType, name, description);
 		this.setName(name);
 		this.setDescription(description);
@@ -95,8 +94,8 @@ public class Task extends Ticket {
 	 * @throws ConsistencyException
 	 *             is the consitency is hurt
 	 */
-	public void addPBI(final ProductBacklogItem pbi) throws ForbiddenStateException,
-			SprintAssociationException, DoubleDefinitionException, ConsistencyException {
+	public void addPBI(final ProductBacklogItem pbi) throws ForbiddenStateException, SprintAssociationException,
+			DoubleDefinitionException, ConsistencyException {
 		this.getTicketType().addPBI(pbi, this);
 		this.changed();
 	}
@@ -111,23 +110,20 @@ public class Task extends Ticket {
 	 * @throws DoubleDefinitionException
 	 *             if the pbi is already related to the task
 	 */
-	public void checkAddPBIConsistency(final ProductBacklogItem pbi)
-			throws SprintAssociationException, DoubleDefinitionException {
+	public void checkAddPBIConsistency(final ProductBacklogItem pbi) throws SprintAssociationException,
+			DoubleDefinitionException {
 		final Iterator<ProductBacklogItem> i = this.getAssignedPBIs().iterator();
 		while (i.hasNext()) {
 			final ProductBacklogItem current = i.next();
 			if (current.equals(pbi)) {
-				throw new DoubleDefinitionException(
-						ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+				throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 			}
 		}
 		if (pbi.getSprint() == null) {
-			throw new SprintAssociationException(
-					ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
+			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}
 		if (!pbi.getSprint().getSprintBacklog().hasTask(this)) {
-			throw new SprintAssociationException(
-					ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
+			throw new SprintAssociationException(ExceptionConstants.PBI_NOT_IN_SPRINT_ERROR);
 		}
 	}
 
@@ -177,8 +173,7 @@ public class Task extends Ticket {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void removePBI(final ProductBacklogItem pbi) throws ForbiddenStateException,
-			ConsistencyException {
+	public void removePBI(final ProductBacklogItem pbi) throws ForbiddenStateException, ConsistencyException {
 		this.getTicketType().removePBI(pbi, this);
 		this.changed();
 	}
@@ -195,8 +190,8 @@ public class Task extends Ticket {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void setResponsibility(final Person person) throws ForbiddenStateException,
-			SprintAssociationException, ConsistencyException {
+	public void setResponsibility(final Person person) throws ForbiddenStateException, SprintAssociationException,
+			ConsistencyException {
 		this.getTicketType().setResponsibility(person, this);
 		this.changed();
 	}
@@ -211,8 +206,7 @@ public class Task extends Ticket {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void setPlanEffort(final Effort planEffort) throws ForbiddenStateException,
-			ConsistencyException {
+	public void setPlanEffort(final Effort planEffort) throws ForbiddenStateException, ConsistencyException {
 		this.getTicketType().setPlanEffort(planEffort, this);
 		this.changed();
 	}
@@ -235,8 +229,7 @@ public class Task extends Ticket {
 	 */
 	public boolean hasPBI(final ProductBacklogItem pbi) {
 		boolean result = false;
-		final Iterator<ProductBacklogItem> pbiIterator =
-				this.getAssignedPBIs().iterator();
+		final Iterator<ProductBacklogItem> pbiIterator = this.getAssignedPBIs().iterator();
 		while (pbiIterator.hasNext()) {
 			final ProductBacklogItem current = pbiIterator.next();
 			if (current.equals(pbi)) {
@@ -252,13 +245,11 @@ public class Task extends Ticket {
 	 * 
 	 * @param responsiblePerson
 	 *            Person to check
-	 * @return - true, if the person is a member of the sprint team. - false, if the
-	 *         person is not a member of the sprint team or if the person isn't in a team
-	 *         at all
+	 * @return - true, if the person is a member of the sprint team. - false, if the person is not a member of the
+	 *         sprint team or if the person isn't in a team at all
 	 */
 	protected boolean isPersonValid(final Person responsiblePerson) {
-		final Vector<Person> sprintTeamMembers =
-				this.getSprintBacklog().getSprint().getTeam().getMembers();
+		final Vector<Person> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
 		if (sprintTeamMembers == null) {
 			return false;
 		}
@@ -275,8 +266,8 @@ public class Task extends Ticket {
 	}
 
 	/**
-	 * This operation enforces a PBI to be removed, even if it is in the state InProgress.
-	 * To keep revision safety, it won't be removed from a finished Task
+	 * This operation enforces a PBI to be removed, even if it is in the state InProgress. To keep revision safety, it
+	 * won't be removed from a finished Task
 	 * 
 	 * @param pbi
 	 *            the pbi that should be removed
@@ -285,8 +276,7 @@ public class Task extends Ticket {
 	 * @throws ForbiddenStateException
 	 *             if the task is in a state this method is forbidden
 	 */
-	public void enforceRemovePBI(final ProductBacklogItem pbi)
-			throws ForbiddenStateException, ConsistencyException {
+	public void enforceRemovePBI(final ProductBacklogItem pbi) throws ForbiddenStateException, ConsistencyException {
 		this.getTicketType().removePBI(pbi, this);
 	}
 
@@ -297,8 +287,7 @@ public class Task extends Ticket {
 	 */
 	public boolean isFinished() {
 		boolean result = false;
-		if (this.getTicketType().getStateProfile().getEndStates()
-				.contains(this.getCurrentState())) {
+		if (this.getTicketType().getStateProfile().getEndStates().contains(this.getCurrentState())) {
 			result = true;
 		}
 		return result;
@@ -314,23 +303,20 @@ public class Task extends Ticket {
 	 * @throws ForbiddenStateException
 	 *             if the task is in a state this method is forbidden
 	 */
-	public void setFinishDate(final Date date) throws ConsistencyException,
-			ForbiddenStateException {
+	public void setFinishDate(final Date date) throws ConsistencyException, ForbiddenStateException {
 		this.getTicketType().setFinishDate(date, this);
 		this.changed();
 	}
 
 	@Override
-	protected void checkNameValidity(final String name) throws NoValidValueException,
-			DoubleDefinitionException {
+	protected void checkNameValidity(final String name) throws NoValidValueException, DoubleDefinitionException {
 		if (name.equals(TextConstants.EMPTY_TEXT)) {
 			throw new NoValidValueException(ExceptionConstants.EMPTY_NAME_ERROR);
 		}
 	}
 
 	@Override
-	protected void checkDescriptionValidity(final String description)
-			throws NoValidValueException {
+	protected void checkDescriptionValidity(final String description) throws NoValidValueException {
 		if (description.equals(TextConstants.EMPTY_TEXT)) {
 			throw new NoValidValueException(ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
 		}
