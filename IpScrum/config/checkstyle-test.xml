@@ -127,7 +127,7 @@
     <module name="UnnecessaryParentheses"/>
     <module name="OneStatementPerLine"/>
     <module name="AnonInnerLength">
-      <property name="max" value="30"/>
+      <property name="max" value="400"/>
       <message key="maxLen.anonInner" value="Anonyme innere Klasse ist {0,number,integer} Zeilen lang, erlaubt sind höchstens {1,number,integer}."/>
     </module>
     <module name="OuterTypeNumber"/>
