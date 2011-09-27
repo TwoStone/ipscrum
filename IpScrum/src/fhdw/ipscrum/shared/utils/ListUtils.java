@@ -121,26 +121,6 @@ public final class ListUtils {
 	}
 
 	/**
-	 * alternate contains method.
-	 * 
-	 * @param <T>
-	 *            is the type of the elements in the list
-	 * @param list
-	 *            list of identifiable obj
-	 * @param obj
-	 *            object to check if it is in the list
-	 * @return boolean is true, if the object is in the list
-	 */
-	public static <T extends IdentifiableObject> boolean containsAlternate(final List<T> list, final T obj) {
-		for (final T current : list) {
-			if (current.getId().equals(obj.getId())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Needed for creating the difference of to lists if only the elements contained in one list but not in the other
 	 * are needed.
 	 * 

@@ -18,7 +18,6 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.BugTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TypeManager;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
-import fhdw.ipscrum.shared.utils.ListUtils;
 
 /**
  * The class <code>BugTest</code> contains tests for the class <code>{@link Bug}</code>.
@@ -98,12 +97,9 @@ public class BugTest {
 		this.model.setUuidManager(new IDGenerator());
 		this.typeManager = this.model.getTypeManager();
 		this.iproject = new Project(this.model, "Project");
-		this.iversion =
-				new Release(this.model, "Inital Release", new Date(), this.iproject);
+		this.iversion = new Release(this.model, "Inital Release", new Date(), this.iproject);
 		this.btype = new BugTicketType(this.model, "TestBug", "TestBugType");
-		this.testbug =
-				new Bug(this.model, this.btype, "Testbug", "Testbug",
-						this.iproject.getBacklog(), this.iversion);
+		this.testbug = new Bug(this.model, this.btype, "Testbug", "Testbug", this.iproject.getBacklog(), this.iversion);
 		this.rtype = new RelationType(this.model, "Relationstyp");
 		this.rela = new Relation(this.model, this.rtype, this.testbug);
 		this.bttype = new BugTicketType(this.model, "TestBug2", "TestBugTicketType2");
@@ -111,8 +107,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the Bug(String,String,IRelease,ProductBacklog) constructor test. with a not
-	 * valid value to check if the exception is thrown.
+	 * Run the Bug(String,String,IRelease,ProductBacklog) constructor test. with a not valid value to check if the
+	 * exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -130,8 +126,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the Bug(String,String,Release,ProductBacklog) constructor test. with a release
-	 * not in the project to check if the exception is thrown
+	 * Run the Bug(String,String,Release,ProductBacklog) constructor test. with a release not in the project to check if
+	 * the exception is thrown
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -161,8 +157,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		Assert.assertEquals("Bug", bug.getName());
 		Assert.assertEquals("", bug.getDescription());
@@ -186,8 +181,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug expected =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug expected = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final IProductBacklogItemVisitor visitor = new IProductBacklogItemVisitor() {
 
@@ -219,8 +213,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -238,8 +231,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void addSystem(System) method test. with a system not in this project to
-	 * check if the exception is thrown.
+	 * Run the void addSystem(System) method test. with a system not in this project to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -252,8 +245,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -266,8 +258,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void addSystem(System) method test. with a system not in the related
-	 * project to check if the exception is thrown.
+	 * Run the void addSystem(System) method test. with a system not in the related project to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -281,8 +273,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -297,8 +288,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void addSystem(System) method test. with the add of a system in a state
-	 * this is forbidden to check if the exception is thrown.
+	 * Run the void addSystem(System) method test. with the add of a system in a state this is forbidden to check if the
+	 * exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -311,8 +302,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -342,8 +332,7 @@ public class BugTest {
 
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug expected =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug expected = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		Assert.assertEquals(version, expected.getVersion());
 	}
@@ -363,8 +352,7 @@ public class BugTest {
 
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug expected =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug expected = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		expected.changeState(this.typeManager.getClosed());
 
@@ -385,8 +373,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -417,8 +404,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -444,8 +430,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void removeSystem(System) method test. with the remove of a system in a
-	 * state this is forbidden to check if the exception is thrown.
+	 * Run the void removeSystem(System) method test. with the remove of a system in a state this is forbidden to check
+	 * if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -458,8 +444,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "S1", root);
@@ -499,8 +484,7 @@ public class BugTest {
 		final Release version2 = new Release(this.model, "R2", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.setVersion(version2);
 
@@ -508,8 +492,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void setVersion(Release) method test. with the change of the version in a
-	 * state this is forbidden to check if the exception is thrown.
+	 * Run the void setVersion(Release) method test. with the change of the version in a state this is forbidden to
+	 * check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -523,8 +507,7 @@ public class BugTest {
 		final Release version2 = new Release(this.model, "R2", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -532,8 +515,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void setVersion(IRelease) method test. with the set of a release related to
-	 * another project to check if the exception is thrown.
+	 * Run the void setVersion(IRelease) method test. with the set of a release related to another project to check if
+	 * the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -546,8 +529,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.setVersion(null);
 
@@ -567,8 +549,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.setDescription("Test");
 
@@ -576,8 +557,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void setDescription() method test. with the set in a state this is
-	 * forbidden to check if the exception is thrown.
+	 * Run the void setDescription() method test. with the set in a state this is forbidden to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -590,8 +571,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -613,8 +593,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 		final Person editor = new Person(this.model, "Test", "Test2");
 
 		bug.setLastEditor(editor);
@@ -623,8 +602,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void setLastEditor() method test. with the set in a state this is forbidden
-	 * to check if the exception is thrown.
+	 * Run the void setLastEditor() method test. with the set in a state this is forbidden to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -637,8 +616,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -660,8 +638,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.setManDayCosts(new Effort(4));
 
@@ -669,8 +646,8 @@ public class BugTest {
 	}
 
 	/**
-	 * Run the void setManDayCosts() method test. with the set in a state this is
-	 * forbidden to check if the exception is thrown.
+	 * Run the void setManDayCosts() method test. with the set in a state this is forbidden to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -683,8 +660,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -705,19 +681,16 @@ public class BugTest {
 		final Team team = new Team(this.model, "Team");
 		team.addProject(pro);
 
-		final Sprint sprint =
-				new Sprint(this.model, "Sprint", "Test", new Date(), new Date(), team,
-						pro);
+		final Sprint sprint = new Sprint(this.model, "Sprint", "Test", new Date(), new Date(), team, pro);
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.setSprint(sprint);
 
 		Assert.assertEquals(sprint, bug.getSprint());
-		Assert.assertTrue(ListUtils.containsAlternate(sprint.getPBIs(), bug));
+		Assert.assertTrue(sprint.getPBIs().contains(bug));
 
 	}
 
@@ -735,25 +708,22 @@ public class BugTest {
 		final Team team = new Team(this.model, "Team");
 		team.addProject(pro);
 
-		final Sprint sprint =
-				new Sprint(this.model, "Sprint", "Test", new Date(), new Date(), team,
-						pro);
+		final Sprint sprint = new Sprint(this.model, "Sprint", "Test", new Date(), new Date(), team, pro);
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.setSprint(sprint);
 		bug.setSprint(null);
 
 		Assert.assertTrue(bug.getSprint() == null);
-		Assert.assertFalse(ListUtils.containsAlternate(sprint.getPBIs(), bug));
+		Assert.assertFalse(sprint.getPBIs().contains(bug));
 	}
 
 	/**
-	 * Run the void setSprint() method test. with the set in a state this is forbidden to
-	 * check if the exception is thrown.
+	 * Run the void setSprint() method test. with the set in a state this is forbidden to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -766,14 +736,11 @@ public class BugTest {
 		final Team team = new Team(this.model, "Team");
 		team.addProject(pro);
 
-		final Sprint sprint =
-				new Sprint(this.model, "Sprint", "Test", new Date(), new Date(), team,
-						pro);
+		final Sprint sprint = new Sprint(this.model, "Sprint", "Test", new Date(), new Date(), team, pro);
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -794,35 +761,30 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final String acceptanceCriterion = "TestAcceptanceCriterion";
 		Assert.assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
 		bug.addAcceptanceCriterion(acceptanceCriterion);
 		Assert.assertTrue(bug.getAcceptanceCriteria().listIterator().hasNext());
-		Assert.assertEquals(acceptanceCriterion, bug.getAcceptanceCriteria()
-				.listIterator().next());
+		Assert.assertEquals(acceptanceCriterion, bug.getAcceptanceCriteria().listIterator().next());
 	}
 
 	/**
-	 * Tests to add two identical acceptance criteria to the bug to check if the exception
-	 * is thrown.
+	 * Tests to add two identical acceptance criteria to the bug to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void addAcceptanceCriterionDoubleContentDiffenretObjects() throws Exception {
+	public void addAcceptanceCriterionDoubleContentDiffenretObjects() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final String acceptanceCriterion1 = "TestAcceptanceCriterion";
 		final String acceptanceCriterion2 = "TestAcceptanceCriterion";
@@ -832,23 +794,20 @@ public class BugTest {
 	}
 
 	/**
-	 * Tests the addition of the same acceptance criterion twice to check if the exception
-	 * is thrown.
+	 * Tests the addition of the same acceptance criterion twice to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void addAcceptanceCriterionDoubleContentDoubleAdd() throws Exception {
+	public void addAcceptanceCriterionDoubleContentDoubleAdd() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final String acceptanceCriterion = "TestAcceptanceCriterion";
 		Assert.assertFalse(bug.getAcceptanceCriteria().listIterator().hasNext());
@@ -857,23 +816,21 @@ public class BugTest {
 	}
 
 	/**
-	 * Test the addition of an acceptance criterion to a bug which is in a state this is
-	 * forbidden th check if the exception is thrown.
+	 * Test the addition of an acceptance criterion to a bug which is in a state this is forbidden th check if the
+	 * exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.ForbiddenStateException.class)
-	public
-			void addAcceptanceCriterionToClosedFeature() throws Exception {
+	public void addAcceptanceCriterionToClosedFeature() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -896,8 +853,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final String content = "TestHint";
 		final String hint = content;
@@ -915,16 +871,14 @@ public class BugTest {
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void addHintDoubleContentDiffenretObjects() throws Exception {
+	public void addHintDoubleContentDiffenretObjects() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final String hint1 = "TestHint";
 		final String hint2 = "TestHint";
@@ -940,16 +894,14 @@ public class BugTest {
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void addHintDoubleContentDoubleAdd() throws Exception {
+	public void addHintDoubleContentDoubleAdd() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		final String hint = "TestHint";
 		Assert.assertFalse(bug.getHints().listIterator().hasNext());
@@ -958,23 +910,20 @@ public class BugTest {
 	}
 
 	/**
-	 * Test to addition of a hint to a bug in a state this is forbidden to check if the
-	 * exception is thrown.
+	 * Test to addition of a hint to a bug in a state this is forbidden to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.ForbiddenStateException.class)
-	public
-			void addHintToClosedFeature() throws Exception {
+	public void addHintToClosedFeature() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -984,23 +933,20 @@ public class BugTest {
 	}
 
 	/**
-	 * Test to add a relation to a bug in a state this is forbidden to check if the
-	 * exception is thrown.
+	 * Test to add a relation to a bug in a state this is forbidden to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.ForbiddenStateException.class)
-	public
-			void addRelationToClosedFeature() throws Exception {
+	public void addRelationToClosedFeature() throws Exception {
 		final String name = "Bug";
 		final String description = "";
 		final Project pro = new Project(this.model, "Pro2");
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		bug.changeState(this.typeManager.getClosed());
 
@@ -1021,11 +967,8 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
-		final Bug bug2 =
-				new Bug(this.model, this.btype, name + "Test", description, backlog,
-						version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug2 = new Bug(this.model, this.btype, name + "Test", description, backlog, version);
 
 		final Relation relation = new Relation(this.model, this.rtype, bug2);
 
@@ -1051,8 +994,7 @@ public class BugTest {
 		final Release version = new Release(this.model, "R1", new Date(), pro);
 		final ProductBacklog backlog = pro.getBacklog();
 
-		final Bug bug =
-				new Bug(this.model, this.btype, name, description, backlog, version);
+		final Bug bug = new Bug(this.model, this.btype, name, description, backlog, version);
 
 		Assert.assertFalse(bug.getRelations().iterator().hasNext());
 		bug.addRelation(this.rela);
