@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.model.userRights;
 
+import java.util.Date;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,14 +23,28 @@ import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAddFieldTypeComm
 import fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAddStatetypeCommand;
 import fhdw.ipscrum.shared.commands.search.SearchCreateCommand;
 import fhdw.ipscrum.shared.commands.search.SearchDeleteCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskAddPBICommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskCreateCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskDeleteCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskRemovePBICommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskSetPlanEffortCommand;
+import fhdw.ipscrum.shared.commands.taskboard.TaskSetResponsibilityCommand;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.FieldType;
 import fhdw.ipscrum.shared.model.metamodel.search.And;
 import fhdw.ipscrum.shared.model.metamodel.search.Search;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
+import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
+import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
+import fhdw.ipscrum.shared.model.nonMeta.Effort;
+import fhdw.ipscrum.shared.model.nonMeta.Feature;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
+import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
+import fhdw.ipscrum.shared.model.nonMeta.Sprint;
+import fhdw.ipscrum.shared.model.nonMeta.SprintBacklog;
+import fhdw.ipscrum.shared.model.nonMeta.Task;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
 
 /**
@@ -75,6 +91,18 @@ public class RightHandlerTest {
 	 * Represents the TicketTypeAdminRight needed to use the IPScrum.
 	 */
 	private static TicketTypeAdminRight ttar;
+	/**
+	 * represents a team needed to test the ticketTypes.
+	 */
+	private static Team team;
+	/**
+	 * represents a person.
+	 */
+	private static Person person;
+	/**
+	 * represents a project.
+	 */
+	private static Project project;
 
 	/**
 	 * Perform pre-test initialization.
@@ -98,6 +126,11 @@ public class RightHandlerTest {
 		RightHandlerTest.serverContext = ServerContext.getInstance();
 		RightHandlerTest.model = RightHandlerTest.serverContext.getPersistenceManager().getModelForTesting();
 		RightHandlerTest.model.setUuidManager(new IDGenerator());
+
+		RightHandlerTest.project = new Project(RightHandlerTest.model, "Test");
+		RightHandlerTest.team = new Team(RightHandlerTest.model, "team2");
+		RightHandlerTest.person = new Person(RightHandlerTest.model, "bla", "blubb");
+		RightHandlerTest.team.addProject(RightHandlerTest.project);
 
 		RightHandlerTest.prar = new PersonRoleAdminRight(RightHandlerTest.model);
 		RightHandlerTest.pbr = new ProductBacklogRight(RightHandlerTest.model);
@@ -179,18 +212,50 @@ public class RightHandlerTest {
 	 */
 	@Test
 	public void testTeamAdminRightHandler() throws Exception {
-		final Team team = new Team(RightHandlerTest.model, "team1");
-		final Person person = new Person(RightHandlerTest.model, "bla", "blubb");
-		final TeamAddMemberCommand a = new TeamAddMemberCommand(team, person);
+		final TeamAddMemberCommand a = new TeamAddMemberCommand(RightHandlerTest.team, RightHandlerTest.person);
 		final TeamCreateCommand b = new TeamCreateCommand("team2");
-		final TeamRemoveMemberCommand c = new TeamRemoveMemberCommand(team, person);
-		final TeamSetDescriptionCommand d = new TeamSetDescriptionCommand(team, "Neue Beschr");
-		final TeamAddProjectCommand e = new TeamAddProjectCommand(team, new Project(RightHandlerTest.model, "projekt"));
+		final TeamRemoveMemberCommand c = new TeamRemoveMemberCommand(RightHandlerTest.team, RightHandlerTest.person);
+		final TeamSetDescriptionCommand d = new TeamSetDescriptionCommand(RightHandlerTest.team, "Neue Beschr");
+		final TeamAddProjectCommand e =
+				new TeamAddProjectCommand(RightHandlerTest.team, new Project(RightHandlerTest.model, "projekt"));
 		RightHandlerTest.tar.canBeExecuted(a);
 		RightHandlerTest.tar.canBeExecuted(b);
 		RightHandlerTest.tar.canBeExecuted(c);
 		RightHandlerTest.tar.canBeExecuted(d);
 		RightHandlerTest.tar.canBeExecuted(e);
+	}
+
+	/**
+	 * Tests the methods which are in the RightHandler.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testTaskboardRightHandler() throws Exception {
+		final TaskTicketType taskTicketType = RightHandlerTest.model.getTypeManager().getStandardTaskType();
+		final Sprint sprint =
+				new Sprint(RightHandlerTest.model, "Sprint", "Beschreibung", new Date(), new Date(),
+						RightHandlerTest.team, RightHandlerTest.project);
+		final SprintBacklog sprintbl = sprint.getSprintBacklog();
+		final Task task = new Task(RightHandlerTest.model, taskTicketType, "asd", "das", sprintbl);
+		final ProductBacklogItem pbi =
+				new Feature(RightHandlerTest.model, new FeatureTicketType(RightHandlerTest.model, "Type", "TestType"),
+						"A", "Test1", RightHandlerTest.project.getBacklog());
+
+		final TaskAddPBICommand a = new TaskAddPBICommand(task, pbi);
+		final TaskCreateCommand b = new TaskCreateCommand("Neuer Task", "bla", taskTicketType, sprintbl);
+		final TaskDeleteCommand c = new TaskDeleteCommand(task);
+		final TaskRemovePBICommand d = new TaskRemovePBICommand(task, pbi);
+		final TaskSetPlanEffortCommand e = new TaskSetPlanEffortCommand(task, new Effort(1));
+		final TaskSetResponsibilityCommand f = new TaskSetResponsibilityCommand(task, RightHandlerTest.person);
+
+		RightHandlerTest.tr.canBeExecuted(a);
+		RightHandlerTest.tr.canBeExecuted(b);
+		RightHandlerTest.tr.canBeExecuted(c);
+		RightHandlerTest.tr.canBeExecuted(d);
+		RightHandlerTest.tr.canBeExecuted(e);
+		RightHandlerTest.tr.canBeExecuted(f);
 	}
 
 	/**
