@@ -8,7 +8,7 @@ import org.junit.runners.Suite;
  * within any subpackages of its package.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ StringUtilsTest.class, ListUtilsTest.class })
+@Suite.SuiteClasses({ StringUtilsTest.class, ListUtilsTest.class, ClassUtilsTest.class })
 public final class TestAllUtils {
 
 	/**

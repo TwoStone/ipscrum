@@ -30,14 +30,15 @@ public final class ClassUtils {
 		if (clazz2 != null) {
 			if (clazz2.equals(clazz1)) {
 				result = true;
-			}
+			} else {
 
-			Class<?> currentSuperClass = clazz1.getSuperclass();
-			while (currentSuperClass != null) {
-				if (currentSuperClass.equals(clazz2)) {
-					result = true;
+				Class<?> currentSuperClass = clazz1.getSuperclass();
+				while (currentSuperClass != null) {
+					if (currentSuperClass.equals(clazz2)) {
+						result = true;
+					}
+					currentSuperClass = currentSuperClass.getSuperclass();
 				}
-				currentSuperClass = currentSuperClass.getSuperclass();
 			}
 		}
 		return result;
