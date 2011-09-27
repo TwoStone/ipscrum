@@ -3,7 +3,6 @@ package fhdw.ipscrum.shared.model.nonMeta;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.TextConstants;
@@ -238,31 +237,6 @@ public class Task extends Ticket {
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * Checks if a person may obtain responsibility for a task.
-	 * 
-	 * @param responsiblePerson
-	 *            Person to check
-	 * @return - true, if the person is a member of the sprint team. - false, if the person is not a member of the
-	 *         sprint team or if the person isn't in a team at all
-	 */
-	protected boolean isPersonValid(final Person responsiblePerson) {
-		final Vector<Person> sprintTeamMembers = this.getSprintBacklog().getSprint().getTeam().getMembers();
-		if (sprintTeamMembers == null) {
-			return false;
-		}
-		final Iterator<Person> memberIterator = sprintTeamMembers.iterator();
-		boolean isPersonValid = false;
-		while (memberIterator.hasNext()) {
-			final Person current = memberIterator.next();
-			if (current.equals(responsiblePerson)) {
-				isPersonValid = true;
-				break;
-			}
-		}
-		return isPersonValid;
 	}
 
 	/**

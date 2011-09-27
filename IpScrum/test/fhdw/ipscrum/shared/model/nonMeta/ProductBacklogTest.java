@@ -13,12 +13,12 @@ import fhdw.ipscrum.client.IDGenerator;
 import fhdw.ipscrum.server.ServerContext;
 import fhdw.ipscrum.server.TestUtils;
 import fhdw.ipscrum.shared.constants.TextConstants;
+import fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
 
 /**
- * The class <code>ProductBacklogTest</code> contains tests for the class
- * <code>{@link ProductBacklog}</code>.
+ * The class <code>ProductBacklogTest</code> contains tests for the class <code>{@link ProductBacklog}</code>.
  */
 public class ProductBacklogTest {
 	/**
@@ -84,8 +84,7 @@ public class ProductBacklogTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 		this.project = new Project(this.model, "test");
 		this.pbl = this.project.getBacklog();
@@ -121,6 +120,57 @@ public class ProductBacklogTest {
 	@Test
 	public void testToString() throws Exception {
 		Assert.assertEquals(TextConstants.PRODUCT_BACKLOG, this.pbl.toString());
+	}
+
+	/**
+	 * test if the method works appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testAddPBI1() throws Exception {
+		final int size = this.pbl.getItems().size();
+		this.pbl.addItem(null);
+		Assert.assertEquals(size, this.pbl.getItems().size());
+	}
+
+	/**
+	 * test if the method works appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testCountItems() throws Exception {
+		Assert.assertEquals(new Integer(4), this.pbl.countItems());
+		this.pbl.addItem(this.feature1);
+		Assert.assertEquals(new Integer(5), this.pbl.countItems());
+		this.pbl.addItem(this.feature2);
+		this.pbl.addItem(this.feature3);
+		this.pbl.addItem(this.feature4);
+		Assert.assertEquals(new Integer(8), this.pbl.countItems());
+	}
+
+	/**
+	 * test if the method works appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test(expected = DoubleDefinitionException.class)
+	public void testIsDoubleDefined1() throws Exception {
+		this.pbl.isDoubleDefined(this.feature1.getName());
+	}
+
+	/**
+	 * test if the method works appropriate.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	public void testIsDoubleDefined2() throws Exception {
+		this.pbl.isDoubleDefined("asd");
 	}
 
 	/**
@@ -284,77 +334,50 @@ public class ProductBacklogTest {
 
 		p.getBacklog().moveBottom(f1);
 
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f3));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f1));
 
 		p.getBacklog().moveUp(f1);
 
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveDown(f2);
 
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveTop(f1); // Nothing should changed
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveBottom(f3); // Nothing should changed
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveUp(f1); // Nothing should changed
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveDown(f3); // Nothing should changed
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveUp(f2);
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f1));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f3));
 
 		p.getBacklog().moveDown(f1);
-		Assert.assertEquals(Integer.valueOf(0), p.getBacklog()
-				.getItemPositionInList(f2));
-		Assert.assertEquals(Integer.valueOf(1), p.getBacklog()
-				.getItemPositionInList(f3));
-		Assert.assertEquals(Integer.valueOf(2), p.getBacklog()
-				.getItemPositionInList(f1));
+		Assert.assertEquals(Integer.valueOf(0), p.getBacklog().getItemPositionInList(f2));
+		Assert.assertEquals(Integer.valueOf(1), p.getBacklog().getItemPositionInList(f3));
+		Assert.assertEquals(Integer.valueOf(2), p.getBacklog().getItemPositionInList(f1));
 	}
 }

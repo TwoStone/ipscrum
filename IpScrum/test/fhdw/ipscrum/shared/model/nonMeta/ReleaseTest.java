@@ -11,8 +11,7 @@ import fhdw.ipscrum.shared.exceptions.model.NoValidValueException;
 import fhdw.ipscrum.shared.model.SetUpTestData;
 
 /**
- * The class <code>ReleaseTest</code> contains tests for the class
- * <code>{@link Release}</code>.
+ * The class <code>ReleaseTest</code> contains tests for the class <code>{@link Release}</code>.
  */
 public class ReleaseTest extends SetUpTestData {
 
@@ -28,8 +27,7 @@ public class ReleaseTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests to set the version of a release identical to another to check if the
-	 * exception is thrown.
+	 * Tests to set the version of a release identical to another to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -55,8 +53,7 @@ public class ReleaseTest extends SetUpTestData {
 	}
 
 	/**
-	 * Test to set the release date identical to another release to check if the exception
-	 * is thrown.
+	 * Test to set the release date identical to another release to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -65,8 +62,7 @@ public class ReleaseTest extends SetUpTestData {
 	public void testSetReleaseDate2() throws Exception {
 		final Date d = fhdw.ipscrum.shared.utils.CalendarUtils.getRandomReleaseDate();
 		final Release rel1 =
-				new Release(this.getModel(), "2.0",
-						fhdw.ipscrum.shared.utils.CalendarUtils.getRandomReleaseDate(),
+				new Release(this.getModel(), "2.0", fhdw.ipscrum.shared.utils.CalendarUtils.getRandomReleaseDate(),
 						this.getProjekt1());
 		final Release rel2 = new Release(this.getModel(), "2.0", d, this.getProjekt1());
 		Assert.assertNotNull(rel2);
@@ -93,6 +89,7 @@ public class ReleaseTest extends SetUpTestData {
 	@Test
 	public void testCheckDeadline() throws Exception {
 		this.getPro1rel1().checkDeadline();
+		new Release(this.getModel(), "4", new Date(), this.getProjekt2()).checkDeadline();
 	}
 
 	/**
@@ -108,8 +105,8 @@ public class ReleaseTest extends SetUpTestData {
 	}
 
 	/**
-	 * Test of the method to get the overall efforts and the the method to get the
-	 * cumulated man day costs calculates the right way.
+	 * Test of the method to get the overall efforts and the the method to get the cumulated man day costs calculates
+	 * the right way.
 	 * 
 	 */
 	@Test
@@ -119,8 +116,7 @@ public class ReleaseTest extends SetUpTestData {
 			// Estimating the overall Efforts with the method
 			// getCumulatedManDayCosts
 			Integer result1 = 0;
-			final Iterator<Sprint> sprintIteratorPro1Rel1 =
-					this.getPro1rel1().getSprints().iterator();
+			final Iterator<Sprint> sprintIteratorPro1Rel1 = this.getPro1rel1().getSprints().iterator();
 
 			while (sprintIteratorPro1Rel1.hasNext()) {
 				final Sprint current = sprintIteratorPro1Rel1.next();
@@ -128,8 +124,7 @@ public class ReleaseTest extends SetUpTestData {
 			}
 
 			Integer result2 = 0;
-			final Iterator<Sprint> sprintIteratorPro1Rel2 =
-					this.getPro1rel2().getSprints().iterator();
+			final Iterator<Sprint> sprintIteratorPro1Rel2 = this.getPro1rel2().getSprints().iterator();
 
 			while (sprintIteratorPro1Rel2.hasNext()) {
 				final Sprint current = sprintIteratorPro1Rel2.next();
@@ -137,8 +132,7 @@ public class ReleaseTest extends SetUpTestData {
 			}
 
 			Integer result3 = 0;
-			final Iterator<Sprint> sprintIteratorPro2Rel1 =
-					this.getPro2rel1().getSprints().iterator();
+			final Iterator<Sprint> sprintIteratorPro2Rel1 = this.getPro2rel1().getSprints().iterator();
 
 			while (sprintIteratorPro2Rel1.hasNext()) {
 				final Sprint current = sprintIteratorPro2Rel1.next();
@@ -146,8 +140,7 @@ public class ReleaseTest extends SetUpTestData {
 			}
 
 			Integer result4 = 0;
-			final Iterator<Sprint> sprintIteratorPro2Rel2 =
-					this.getPro2rel2().getSprints().iterator();
+			final Iterator<Sprint> sprintIteratorPro2Rel2 = this.getPro2rel2().getSprints().iterator();
 
 			while (sprintIteratorPro2Rel2.hasNext()) {
 				final Sprint current = sprintIteratorPro2Rel2.next();

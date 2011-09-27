@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.exceptions.model.NoValidValueException;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * The class <code>SystemgroupTest</code> contains tests for the class
- * <code>{@link Systemgroup}</code>.
+ * The class <code>SystemgroupTest</code> contains tests for the class <code>{@link Systemgroup}</code>.
  * 
  * @author wolf
  */
@@ -43,8 +42,8 @@ public class SystemTest {
 	}
 
 	/**
-	 * Run the Systemgroup(String,HasChildren) constructor test. With a double definition
-	 * to check if the exception is thrown.
+	 * Run the Systemgroup(String,HasChildren) constructor test. With a double definition to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -106,8 +105,7 @@ public class SystemTest {
 	}
 
 	/**
-	 * Run the Vector<System> getChilds() method test. with a double definition to check
-	 * if the exception is thrown.
+	 * Run the Vector<System> getChilds() method test. with a double definition to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -252,6 +250,7 @@ public class SystemTest {
 		final Vector<System> result3 = fixture5.getSystems();
 		final Vector<System> result4 = fixture6.getSystems();
 
+		Assert.assertTrue(root == fixture.getRoot());
 		Assert.assertTrue(result.size() == 1);
 		Assert.assertTrue(result2.size() == 2);
 		Assert.assertTrue(result3.size() == 1);
@@ -368,8 +367,7 @@ public class SystemTest {
 		final Rootsystem root = new Rootsystem(this.model);
 		final System sys1 = new System(this.model, "G1", root);
 		final System fixture = new System(this.model, "G2", sys1);
-		Assert.assertEquals(fixture.toDisplayWithParent(), fixture.getParent()
-				.getName() + ">" + fixture.getName());
+		Assert.assertEquals(fixture.toDisplayWithParent(), fixture.getParent().getName() + ">" + fixture.getName());
 	}
 
 	/**
@@ -384,8 +382,7 @@ public class SystemTest {
 		final System sys1 = new System(this.model, "G1", root);
 		final System sys2 = new System(this.model, "G2", sys1);
 		final System fixture = new System(this.model, "G3", sys2);
-		Assert.assertEquals(fixture.toDisplayWithParent(), fixture.getParent()
-				.getName() + ">" + fixture.getName());
+		Assert.assertEquals(fixture.toDisplayWithParent(), fixture.getParent().getName() + ">" + fixture.getName());
 	}
 
 }
