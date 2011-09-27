@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 
+import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 
 /**
  * Represents the interface of the view in which the role to log in with is to be chosen.
  */
-public interface IRoleChoser {
+public interface IRoleChoser extends IView {
 
 	/**
 	 * Refreshes the list of the role the user could chose to log in with.

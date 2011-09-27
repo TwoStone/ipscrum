@@ -11,17 +11,18 @@ import com.google.gwt.query.client.GQuery;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
 import fhdw.ipscrum.client.architecture.events.Event;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.resources.css.Login;
 import fhdw.ipscrum.client.services.LoginService;
@@ -32,7 +33,7 @@ import fhdw.ipscrum.shared.session.User;
 /**
  * represents the GUI which is needed to login the IPScrum.
  */
-public class LoginView extends Composite implements KeyPressHandler, ILoginView {
+public class LoginView extends MasterView implements KeyPressHandler, ILoginView {
 
 	private static final int ERROR_MESSAGE_TIME = 3000;
 
@@ -47,7 +48,8 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 	private final PasswordTextBox passwordTextBox;
 	private PopupPanel myPopup;
 	private final Login resource;
-	private final VerticalPanel verticalPanel;
+
+	// private final VerticalPanel verticalPanel;
 
 	/**
 	 * constructor of the LoginView.
@@ -65,35 +67,35 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 			}
 		};
 
-		this.verticalPanel = new VerticalPanel();
-		this.verticalPanel.setSpacing(5);
-		this.initWidget(this.verticalPanel);
-		this.verticalPanel.setSize("80%", "auto");
+		// this.verticalPanel = new VerticalPanel();
+		this.setSpacing(5);
+		// this.initWidget(this.verticalPanel);
+		this.setSize("80%", "auto");
 
 		final Label usernameLabel = new Label("Benutzername");
 		usernameLabel.setStyleName(this.resource.loginWidgetLabel());
-		this.verticalPanel.add(usernameLabel);
+		this.add(usernameLabel);
 
 		this.usernameTextBox = new TextBox();
 		this.usernameTextBox.addKeyPressHandler(this);
 		this.usernameTextBox.setStyleName(this.resource.loginWidgetTextbox());
-		this.verticalPanel.add(this.usernameTextBox);
-		this.verticalPanel.setCellHorizontalAlignment(this.usernameTextBox, HasHorizontalAlignment.ALIGN_CENTER);
+		this.add(this.usernameTextBox);
+		this.setCellHorizontalAlignment(this.usernameTextBox, HasHorizontalAlignment.ALIGN_CENTER);
 		this.usernameTextBox.setSize("", "");
 
 		final Label passwordLabel = new Label("Passwort");
 		passwordLabel.setStyleName(this.resource.loginWidgetLabel());
-		this.verticalPanel.add(passwordLabel);
+		this.add(passwordLabel);
 
 		this.passwordTextBox = new PasswordTextBox();
 		this.passwordTextBox.setStyleName(this.resource.loginWidgetTextbox());
-		this.verticalPanel.add(this.passwordTextBox);
-		this.verticalPanel.setCellHorizontalAlignment(this.passwordTextBox, HasHorizontalAlignment.ALIGN_CENTER);
+		this.add(this.passwordTextBox);
+		this.setCellHorizontalAlignment(this.passwordTextBox, HasHorizontalAlignment.ALIGN_CENTER);
 		this.passwordTextBox.addKeyPressHandler(this);
 
 		this.messageLabel = new Label("");
 		this.messageLabel.setStyleName(this.resource.loginWidgetMessage());
-		this.verticalPanel.add(this.messageLabel);
+		this.add(this.messageLabel);
 
 		final Button btnNewButton = new Button("Anmelden");
 		btnNewButton.setStyleName(this.resource.loginWidgetButton());
@@ -104,8 +106,8 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 				LoginView.this.login();
 			}
 		});
-		this.verticalPanel.add(btnNewButton);
-		this.verticalPanel.setCellHorizontalAlignment(btnNewButton, HasHorizontalAlignment.ALIGN_CENTER);
+		this.add(btnNewButton);
+		this.setCellHorizontalAlignment(btnNewButton, HasHorizontalAlignment.ALIGN_CENTER);
 
 		GwtUtils.setFocus(this.usernameTextBox);
 		this.setStyleName(this.resource.loginWidgetContainer());
@@ -128,15 +130,22 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 
 					final RoleChooserView roleView = new RoleChooserView();
 
-					// TODO: Help-Button
+					roleView.registerHelpHandler(new DefaultEventHandler() {
+
+						@Override
+						public void onUpdate(final Object sender, final EventArgs eventArgs) {
+							// TODO Show help
+
+						}
+					});
 
 					roleView.refreshRoles(result.getPerson().getRoles());
 
-					LoginView.this.getVerticalPanel().clear();
+					LoginView.this.clear();
 
-					LoginView.this.getVerticalPanel().setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+					LoginView.this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
-					LoginView.this.getVerticalPanel().add(roleView);
+					LoginView.this.add(roleView);
 
 					roleView.registerGo(new ClickHandler() {
 
@@ -145,7 +154,7 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 
 							final Role activeRole = roleView.getSelRole();
 							if (activeRole != null) {
-								LoginView.this.getVerticalPanel().clear();
+								LoginView.this.clear();
 								LoginView.this.loggedInEvent.fire(LoginView.this, new LoggedInEventArgs(result,
 										activeRole));
 							} else {
@@ -253,12 +262,23 @@ public class LoginView extends Composite implements KeyPressHandler, ILoginView 
 				.animate("left: '+=" + pixel + "px'", animationDuration);
 	}
 
-	/**
-	 * Represents the vertical panel representing a part of the view.
-	 * 
-	 * @return the vertical panel
-	 */
-	public VerticalPanel getVerticalPanel() {
-		return this.verticalPanel;
+	// /**
+	// * Represents the vertical panel representing a part of the view.
+	// *
+	// * @return the vertical panel
+	// */
+	// public VerticalPanel getVerticalPanel() {
+	// return this.verticalPanel;
+	// }
+
+	@Override
+	public void close() {
+		// TODO: klären, ob gebraucht!
+		// this.loggedInEvent.removeAllHandler();
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		// no widgets to hide.
 	}
 }

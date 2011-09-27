@@ -3,13 +3,14 @@ package fhdw.ipscrum.client.architecture.widgets;
 import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.EventRegistration;
+import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.session.User;
 
 /**
  * represents the interface of the loginView.
  */
-public interface ILoginView {
+public interface ILoginView extends IView {
 
 	/**
 	 * represents the EventArgs needed for the login.
@@ -58,8 +59,7 @@ public interface ILoginView {
 	 *            which handles the login and also knows all relevant data for the login
 	 * @return the event fired for the login
 	 */
-	EventRegistration registerLoginHandler(
-			final EventHandler<ILoginView.LoggedInEventArgs> handler);
+	EventRegistration registerLoginHandler(final EventHandler<ILoginView.LoggedInEventArgs> handler);
 
 	/**
 	 * shows the popup for the login.

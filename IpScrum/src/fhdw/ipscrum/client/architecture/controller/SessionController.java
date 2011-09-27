@@ -5,6 +5,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import fhdw.ipscrum.client.architecture.ClientContext.ModelUpdateEvent;
 import fhdw.ipscrum.client.architecture.ClientContext.ModelUpdateHandler;
+import fhdw.ipscrum.client.architecture.events.DefaultEventHandler;
+import fhdw.ipscrum.client.architecture.events.EventArgs;
 import fhdw.ipscrum.client.architecture.events.EventHandler;
 import fhdw.ipscrum.client.architecture.events.eventbus.EventBus;
 import fhdw.ipscrum.client.architecture.events.eventbus.EventBus.Event;
@@ -181,7 +183,13 @@ public class SessionController {
 
 			});
 
-			// TODO: Help-Button
+			this.loginWidget.registerHelpHandler(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					// TODO: Show Help
+				}
+			});
 		}
 
 		return this.loginWidget;

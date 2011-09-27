@@ -7,21 +7,19 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import fhdw.ipscrum.client.architecture.view.MasterView;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 
 /**
  * represents the view to chose the role to log in the IPScrum.
  */
-public class RoleChooserView extends Composite implements IRoleChoser {
+public class RoleChooserView extends MasterView implements IRoleChoser {
 	private final CellList<Role> roleList;
-	private final SingleSelectionModel<Role> selModel =
-			new SingleSelectionModel<Role>();
+	private final SingleSelectionModel<Role> selModel = new SingleSelectionModel<Role>();
 
 	private final Button btnGo;
 	private final Label lbFailure;
@@ -31,36 +29,35 @@ public class RoleChooserView extends Composite implements IRoleChoser {
 	 */
 	public RoleChooserView() {
 
-		final VerticalPanel verticalPanel = new VerticalPanel();
-		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		verticalPanel.setSpacing(5);
-		this.initWidget(verticalPanel);
-		verticalPanel.setSize("250px", "200px");
+		// final VerticalPanel verticalPanel = new VerticalPanel();
+		this.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		this.setSpacing(5);
+		// this.initWidget(verticalPanel);
+		this.setSize("250px", "200px");
 
 		final Label lblHeader = new Label("Bitte eine Rolle auswählen:");
 		lblHeader.setStyleName("LabelElement");
-		verticalPanel.add(lblHeader);
+		this.add(lblHeader);
 
 		this.lbFailure = new Label("");
 		this.lbFailure.setStyleName("serverResponseLabelError");
-		verticalPanel.add(this.lbFailure);
+		this.add(this.lbFailure);
 
 		this.roleList = new CellList<Role>(new AbstractCell<Role>() {
 			@Override
-			public void render(final Context context, final Role value,
-					final SafeHtmlBuilder sb) {
+			public void render(final Context context, final Role value, final SafeHtmlBuilder sb) {
 				sb.appendEscaped(value.getDescription());
 			}
 		});
 		this.roleList.setStyleName("tableBorder");
-		verticalPanel.add(this.roleList);
+		this.add(this.roleList);
 		this.roleList.setHeight("150px");
 
 		this.roleList.setSelectionModel(this.selModel);
 
 		this.btnGo = new Button("Weiter");
 
-		verticalPanel.add(this.btnGo);
+		this.add(this.btnGo);
 	}
 
 	private CellList<Role> getRoleList() {
@@ -85,6 +82,18 @@ public class RoleChooserView extends Composite implements IRoleChoser {
 	@Override
 	public void setFailure(final String fail) {
 		this.lbFailure.setText(fail);
+
+	}
+
+	@Override
+	public void close() {
+		// TODO klären!
+
+	}
+
+	@Override
+	public void setRightVisibility(final Boolean value) {
+		// no widgets to hide.
 
 	}
 
