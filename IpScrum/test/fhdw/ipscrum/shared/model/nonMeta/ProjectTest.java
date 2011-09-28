@@ -12,8 +12,7 @@ import fhdw.ipscrum.shared.exceptions.model.NoSprintDefinedException;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * The class <code>ProjectTest</code> contains tests for the class
- * <code>{@link Project}</code>.
+ * The class <code>ProjectTest</code> contains tests for the class <code>{@link Project}</code>.
  * 
  * @author wolf
  * @version $Revision: 1.0 $
@@ -171,8 +170,7 @@ public class ProjectTest {
 	}
 
 	/**
-	 * Testing the the methods to count the sprints of the project and if a sprint is
-	 * defined in one.
+	 * Testing the the methods to count the sprints of the project and if a sprint is defined in one.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -194,26 +192,18 @@ public class ProjectTest {
 		team6.addProject(p);
 		Assert.assertEquals(Integer.valueOf(0), p.countSprints());
 
-		final Sprint s1 =
-				new Sprint(this.model, "name1", "beschreibung", new Date(), new Date(),
-						team1, p);
-		new Sprint(this.model, "name2", "beschreibung", new Date(), new Date(), team2,
-				p);
-		new Sprint(this.model, "name3", "beschreibung", new Date(), new Date(), team3,
-				p);
-		new Sprint(this.model, "name4", "beschreibung", new Date(), new Date(), team4,
-				p);
-		new Sprint(this.model, "name5", "beschreibung", new Date(), new Date(), team5,
-				p);
-		new Sprint(this.model, "name6", "beschreibung", new Date(), new Date(), team6,
-				p);
+		final Sprint s1 = new Sprint(this.model, "name1", "beschreibung", new Date(), new Date(), team1, p);
+		new Sprint(this.model, "name2", "beschreibung", new Date(), new Date(), team2, p);
+		new Sprint(this.model, "name3", "beschreibung", new Date(), new Date(), team3, p);
+		new Sprint(this.model, "name4", "beschreibung", new Date(), new Date(), team4, p);
+		new Sprint(this.model, "name5", "beschreibung", new Date(), new Date(), team5, p);
+		new Sprint(this.model, "name6", "beschreibung", new Date(), new Date(), team6, p);
 		Assert.assertEquals(Integer.valueOf(6), p.countSprints());
 		p.isSprintDefined(s1);
 	}
 
 	/**
-	 * Tests if the NoSprintDefinedException is thrown if a sprint not defined is
-	 * searched.
+	 * Tests if the NoSprintDefinedException is thrown if a sprint not defined is searched.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -224,9 +214,7 @@ public class ProjectTest {
 		final Team team = new Team(this.model, "Team");
 		team.addProject(p);
 		final Project q = new Project(this.model, "q");
-		final Sprint s =
-				new Sprint(this.model, "name", "beschreibung", new Date(), new Date(),
-						team, p);
+		final Sprint s = new Sprint(this.model, "name", "beschreibung", new Date(), new Date(), team, p);
 		q.isSprintDefined(s);
 	}
 
@@ -284,7 +272,7 @@ public class ProjectTest {
 		final Team team = new Team(this.model, "Team");
 		team.addProject(p);
 		new Sprint(this.model, "name1", "beschreibung", new Date(), new Date(), team, p);
-		new Release(this.model, "", new Date(), p);
+		new Release(this.model, "TestVersion", new Date(), p);
 		p.checkDeadlines();
 	}
 

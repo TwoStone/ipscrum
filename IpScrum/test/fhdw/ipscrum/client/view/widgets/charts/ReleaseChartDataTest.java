@@ -12,8 +12,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Release;
 
 /**
- * The class <code>ReleaseChartDataTest</code> contains tests for the class
- * <code>{@link ReleaseChartData}</code>.
+ * The class <code>ReleaseChartDataTest</code> contains tests for the class <code>{@link ReleaseChartData}</code>.
  */
 public class ReleaseChartDataTest extends SetUpTestData {
 	/**
@@ -25,7 +24,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	@Test
 	public void testReleaseChartData1() throws Exception {
 		final Release release =
-				new Release(this.getModel(), "", new Date(), new Project(this.getModel(), "blaa"));
+				new Release(this.getModel(), "TestVersion", new Date(), new Project(this.getModel(), "blaa"));
 
 		final ReleaseChartData result = new ReleaseChartData(release);
 
@@ -33,8 +32,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Run the TreeMap<Date, ReleaseChartData.ReleaseChartDataDetails> getData() method
-	 * test.
+	 * Run the TreeMap<Date, ReleaseChartData.ReleaseChartDataDetails> getData() method test.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -45,8 +43,7 @@ public class ReleaseChartDataTest extends SetUpTestData {
 
 		final ReleaseChartData fixture = new ReleaseChartData(this.getPro1rel1());
 
-		final SortedMap<Date, ReleaseChartData.ReleaseChartDataDetails> result =
-				fixture.getData();
+		final SortedMap<Date, ReleaseChartData.ReleaseChartDataDetails> result = fixture.getData();
 
 		Assert.assertNotNull(result);
 		Assert.assertEquals(3, result.size());
@@ -61,8 +58,8 @@ public class ReleaseChartDataTest extends SetUpTestData {
 	@Test
 	public void testGetTickData1() throws Exception {
 		final ReleaseChartData fixture =
-				new ReleaseChartData(new Release(this.getModel(), "", new Date(),
-						new Project(this.getModel(), "blaa")));
+				new ReleaseChartData(new Release(this.getModel(), "TestVersion1", new Date(), new Project(
+						this.getModel(), "blaa")));
 
 		final List<Double> result = fixture.getTickData();
 
