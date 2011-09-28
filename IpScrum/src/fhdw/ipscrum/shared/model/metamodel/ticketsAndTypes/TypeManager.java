@@ -816,38 +816,17 @@ public class TypeManager implements IsSerializable, Serializable {
 		original.accept(new TicketTypeVisitor() {
 			@Override
 			public void handleBugTicketType(final BugTicketType bugTicketType) {
-				try {
-					final BugTicketType concreteCopy =
-							new BugTicketType(TypeManager.this.model, original.getTypeName(), original
-									.getTypeDescription(), TypeManager.this);
-					TypeManager.this.setCopy(concreteCopy);
-				} catch (final IPScrumGeneralException e) {
-					TypeManager.this.setException(e);
-				}
+				TypeManager.this.createBugCopy(bugTicketType);
 			}
 
 			@Override
 			public void handleFeatureTicketType(final FeatureTicketType featureTicketType) {
-				try {
-					final FeatureTicketType concreteCopy =
-							new FeatureTicketType(TypeManager.this.model, original.getTypeName(), original
-									.getTypeDescription(), TypeManager.this);
-					TypeManager.this.setCopy(concreteCopy);
-				} catch (final IPScrumGeneralException e) {
-					TypeManager.this.setException(e);
-				}
+				TypeManager.this.createFeatureCopy(featureTicketType);
 			}
 
 			@Override
 			public void handleTaskTicketType(final TaskTicketType taskTicketType) {
-				try {
-					final TaskTicketType concreteCopy =
-							new TaskTicketType(TypeManager.this.model, original.getTypeName(), original
-									.getTypeDescription(), TypeManager.this);
-					TypeManager.this.setCopy(concreteCopy);
-				} catch (final IPScrumGeneralException e) {
-					TypeManager.this.setException(e);
-				}
+				TypeManager.this.createTaskCopy(taskTicketType);
 			}
 		});
 		this.checkException();
@@ -924,6 +903,57 @@ public class TypeManager implements IsSerializable, Serializable {
 	 */
 	private void setException(final IPScrumGeneralException exception) {
 		this.exception = exception;
+	}
+
+	/**
+	 * Creates a copy of the bug type.
+	 * 
+	 * @param original
+	 *            the original bug type
+	 */
+	private void createBugCopy(final BugTicketType original) {
+		try {
+			final BugTicketType concreteCopy =
+					new BugTicketType(TypeManager.this.model, original.getTypeName(), original.getTypeDescription(),
+							TypeManager.this);
+			TypeManager.this.setCopy(concreteCopy);
+		} catch (final IPScrumGeneralException e) {
+			TypeManager.this.setException(e);
+		}
+	}
+
+	/**
+	 * Creates a copy of the feature type.
+	 * 
+	 * @param original
+	 *            the original feature type
+	 */
+	private void createFeatureCopy(final FeatureTicketType original) {
+		try {
+			final FeatureTicketType concreteCopy =
+					new FeatureTicketType(TypeManager.this.model, original.getTypeName(),
+							original.getTypeDescription(), TypeManager.this);
+			TypeManager.this.setCopy(concreteCopy);
+		} catch (final IPScrumGeneralException e) {
+			TypeManager.this.setException(e);
+		}
+	}
+
+	/**
+	 * Creates a copy of the task type.
+	 * 
+	 * @param original
+	 *            the original task type
+	 */
+	private void createTaskCopy(final TaskTicketType original) {
+		try {
+			final TaskTicketType concreteCopy =
+					new TaskTicketType(TypeManager.this.model, original.getTypeName(), original.getTypeDescription(),
+							TypeManager.this);
+			TypeManager.this.setCopy(concreteCopy);
+		} catch (final IPScrumGeneralException e) {
+			TypeManager.this.setException(e);
+		}
 	}
 
 }

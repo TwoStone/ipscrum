@@ -98,12 +98,13 @@ public class CreateSprintPresenter extends WritePresenter {
 			if (selectedTeam == null) {
 				this.toastMessage("Bitte wählen Sie ein Team aus!");
 				result = false;
+			} else {
+				this.doCommand(new SprintCreateCommand(name, startDate, endDate, description, selectedTeam,
+						this.project));
+				this.commitTransaction();
+				this.close();
+				result = super.onSave();
 			}
-
-			this.doCommand(new SprintCreateCommand(name, startDate, endDate, description, selectedTeam, this.project));
-			this.commitTransaction();
-			this.close();
-			result = super.onSave();
 		} catch (final IPScrumGeneralException e) {
 			this.toastMessage(e.getMessage());
 			return false;

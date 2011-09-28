@@ -1,5 +1,5 @@
-#Fri Apr 01 19:22:23 CEST 2011
+#Wed Sep 28 12:30:34 CEST 2011
 eclipse.preferences.version=1
-jarsExcludedFromWebInfLib=
+jarsExcludedFromWebInfLib=H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/gwt-dev.jar|H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/gwt-user.jar|H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/validation-api-1.0.0.GA-sources.jar|H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/validation-api-1.0.0.GA.jar
 warSrcDir=war
 warSrcDirIsOutput=true
