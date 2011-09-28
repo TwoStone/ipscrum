@@ -9,13 +9,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fhdw.ipscrum.client.IDGenerator;
+import fhdw.ipscrum.shared.model.metamodel.search.And;
+import fhdw.ipscrum.shared.model.metamodel.search.Search;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
+import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
+import fhdw.ipscrum.shared.model.nonMeta.incidents.OneParticipantIncident;
+import fhdw.ipscrum.shared.model.userRights.RightManager;
 
 /**
- * The class <code>ModelRootTest</code> contains tests for the class
- * <code>{@link Model}</code>. Earlier this was class Root!
+ * The class <code>ModelRootTest</code> contains tests for the class <code>{@link Model}</code>. Earlier this was class
+ * Root!
  */
 public class ModelRootTest {
 
@@ -38,16 +43,217 @@ public class ModelRootTest {
 	}
 
 	/**
-	 * Run the void addPerson(Person) method test. with a person already added to check if
-	 * the exception is thrown
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testEquals() throws Exception {
+		Assert.assertEquals(true, this.model.equals(this.model));
+		Assert.assertEquals(true, this.model.equals(new Model(this.model.getRevisionDate())));
+		Assert.assertEquals(false, this.model.equals(null));
+		Assert.assertEquals(false, this.model.equals(new Object()));
+		Assert.assertEquals(false, this.model.equals(new Model(null)));
+		new Person(this.model, "asd", "asdsas");
+		Assert.assertEquals(false, this.model.equals(new Model(new Date())));
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testHashCode() throws Exception {
+		Assert.assertEquals(this.model.hashCode(), this.model.hashCode());
+		Assert.assertEquals(this.model.hashCode(), new Model(this.model.getRevisionDate()).hashCode());
+		Assert.assertEquals(false, this.model.hashCode() == new Object().hashCode());
+		Assert.assertEquals(false, this.model.hashCode() == new Model(null).hashCode());
+		new Person(this.model, "asd", "asdsas");
+		Assert.assertEquals(false, this.model.hashCode() == new Model(new Date()).hashCode());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testViewOnlyFlag() throws Exception {
+		Assert.assertEquals(false, this.model.getViewOnlyFlag());
+		this.model.setViewOnlyFlag(true);
+		Assert.assertEquals(true, this.model.getViewOnlyFlag());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetSearchManager() throws Exception {
+		Assert.assertEquals(this.model.getSearchManager(), this.model.getSearchManager());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetTypeManager() throws Exception {
+		this.model.setTypeManager(null);
+		Assert.assertEquals(this.model.getSearchManager(), this.model.getSearchManager());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testSetRighteManager() throws Exception {
+		final RightManager rm = new RightManager();
+		this.model.setRightManager(rm);
+		Assert.assertEquals(rm, this.model.getRightManager());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetAuthorityManager() throws Exception {
+		this.model.setAuthorityChecker(null);
+		Assert.assertEquals(this.model.getAuthorityChecker(), this.model.getAuthorityChecker());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testSprintsByTeam() throws Exception {
+		Assert.assertEquals(0, this.model.getSprintsByTeam(new Team(this.model, "asda")).size());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testRemoveProjectAndCountProjects() throws Exception {
+		final Project project = new Project(this.model, "name");
+		Assert.assertEquals(1, this.model.getProjects().size());
+		Assert.assertEquals(new Integer(1), this.model.countProjects());
+		this.model.removeProject(project);
+		Assert.assertEquals(0, this.model.getProjects().size());
+		Assert.assertEquals(new Integer(0), this.model.countProjects());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetSystems() throws Exception {
+		Assert.assertEquals(this.model.getSystems(), this.model.getSystems());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetAllSearchings() throws Exception {
+		final Search s = new Search(this.model, "", new And(this.model));
+		Assert.assertEquals(false, new Model(new Date()).getAllSearchings().contains(s));
+		Assert.assertEquals(false, new Model(new Date()).getSearching().contains(s));
+		this.model.removeSearch(s);
+		Assert.assertEquals(new Integer(0), this.model.countSearchings());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testAddIncidents() throws Exception {
+		this.model.addIncident(new OneParticipantIncident(this.model, new Date(), new Date(), new Person(this.model,
+				"asdadad", "ddddd")));
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetAllPBITicketTypes() throws Exception {
+		Assert.assertEquals(0, this.model.getAllPBITicketTypes().size());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetAllBugTicketTypes() throws Exception {
+		Assert.assertEquals(0, this.model.getAllBugTicketTypes().size());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetAllIncidentTypes() throws Exception {
+		Assert.assertEquals(0, this.model.getAllIncidentTypes().size());
+	}
+
+	/**
+	 * Run the method test.
+	 * 
+	 * @throws Exception
+	 *             if the use of one of the methods fails
+	 */
+	@Test
+	public void testGetAllTasks() throws Exception {
+		Assert.assertEquals(0, this.model.getAllTasks().size());
+	}
+
+	/**
+	 * Run the void addPerson(Person) method test. with a person already added to check if the exception is thrown
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 * 
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void testAddPerson2() throws Exception {
+	public void testAddPerson2() throws Exception {
 		new Person(this.model, "firstname", "lastname");
 		new Person(this.model, "firstname", "lastname");
 
@@ -83,15 +289,13 @@ public class ModelRootTest {
 	}
 
 	/**
-	 * Run the void addRole(Role) method test. with r role already added to check if the
-	 * exception is thrown
+	 * Run the void addRole(Role) method test. with r role already added to check if the exception is thrown
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void testAddRole2() throws Exception {
+	public void testAddRole2() throws Exception {
 		new Role(this.model, "role");
 		new Role(this.model, "role");
 		Assert.fail();
@@ -124,15 +328,13 @@ public class ModelRootTest {
 	}
 
 	/**
-	 * Run the void addTeam(Team) method test. With a model already added to check if the
-	 * exception is thrown.
+	 * Run the void addTeam(Team) method test. With a model already added to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void testAddTeam2() throws Exception {
+	public void testAddTeam2() throws Exception {
 		new Team(this.model, "team");
 		new Team(this.model, "team");
 
@@ -321,8 +523,8 @@ public class ModelRootTest {
 	}
 
 	/**
-	 * Run the void removeRole(Role) method test. With data so that the consistency is
-	 * hurt to check if the exception is thrown.
+	 * Run the void removeRole(Role) method test. With data so that the consistency is hurt to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -371,8 +573,8 @@ public class ModelRootTest {
 	}
 
 	/**
-	 * Run the void removeRole(Role) method test. with data so that the consistency is
-	 * hurt to check if the exception is thrown.
+	 * Run the void removeRole(Role) method test. with data so that the consistency is hurt to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
