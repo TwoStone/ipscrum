@@ -6,7 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
+import fhdw.ipscrum.shared.exceptions.ModelException;
 import fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException;
+import fhdw.ipscrum.shared.exceptions.model.NoValidValueException;
 import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.messages.ReleaseCompletionMessage;
@@ -62,21 +64,39 @@ public class Release extends IdentifiableObject implements PersistentObserver {
 	 *            Release Date
 	 * @param project
 	 *            Project where the release belongs to.
-	 * 
-	 * @throws DoubleDefinitionException
-	 *             If the version - release date combination already exits within the
-	 *             project.
+	 * @throws ModelException
+	 *             if the consistency rules for the release do not match
 	 */
-	public Release(final Model model, final String version, final Date releaseDate,
-			final Project project) throws DoubleDefinitionException {
+	public Release(final Model model, final String version, final Date releaseDate, final Project project)
+			throws ModelException {
 		super(model);
 		this.version = version;
 		this.currentReleaseDate = CalendarUtils.copy(releaseDate);
 		this.sprints = new ArrayList<Sprint>();
+		this.checkConsistency(project);
 		project.isReleaseDoubleDefined(version, releaseDate); // can throw
 		project.addRelease(this);
 		this.addObserver(project);
 		this.putToObjectStore();
+	}
+
+	/**
+	 * Checks the consistencies for the release.
+	 * 
+	 * @param project
+	 *            the project containing the release
+	 * @throws ModelException
+	 *             if the consistency rules for the release are corrupted
+	 * 
+	 */
+	private void checkConsistency(final Project project) throws ModelException {
+		if (this.version == null || this.version.trim().isEmpty()) {
+			throw new NoValidValueException("Die Version des Release darf nicht leer sein!");
+		}
+		if (this.currentReleaseDate == null) {
+			throw new NoValidValueException("Das Releasedatum darf nicht leer sein!");
+		}
+		project.isReleaseDoubleDefined(this.getVersion(), this.getReleaseDate());
 	}
 
 	/**
@@ -195,8 +215,7 @@ public class Release extends IdentifiableObject implements PersistentObserver {
 
 	@Override
 	public String toString() {
-		return "Release [releaseDate=" + this.currentReleaseDate + ", version="
-				+ this.version + "]";
+		return "Release [releaseDate=" + this.currentReleaseDate + ", version=" + this.version + "]";
 	}
 
 	/**
@@ -233,8 +252,7 @@ public class Release extends IdentifiableObject implements PersistentObserver {
 		final Date today = new Date();
 		if (today.getDay() == this.currentReleaseDate.getDay()
 				&& today.getMonth() == this.currentReleaseDate.getMonth()
-				&& today.getYear() == this.currentReleaseDate.getYear()
-				|| today.after(this.currentReleaseDate)) {
+				&& today.getYear() == this.currentReleaseDate.getYear() || today.after(this.currentReleaseDate)) {
 			final ReleaseCompletionMessage message = new ReleaseCompletionMessage(this);
 			this.notifyObservers(message);
 		}

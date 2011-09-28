@@ -34,7 +34,7 @@ public class TypeEditPresenter extends WritePresenter {
 	/**
 	 * Represents the ticketType related to this presenter which should be edit.
 	 */
-	private final TicketType type;
+	private TicketType type;
 
 	/**
 	 * Represents the view which is related to and controlled from this presenter.
@@ -345,6 +345,7 @@ public class TypeEditPresenter extends WritePresenter {
 
 	@Override
 	public void onModelUpdate() {
+		this.type = this.updateObject(this.type);
 		this.updateView();
 	}
 

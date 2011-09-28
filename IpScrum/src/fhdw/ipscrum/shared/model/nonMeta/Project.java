@@ -298,7 +298,7 @@ public class Project extends IdentifiableObject
 					}
 
 				});
-		if (!dependendBugs.isEmpty()) {
+		if (dependendBugs.isEmpty()) {
 			release.removeAllSprints();
 			this.releases.remove(release);
 			this.getModel().removeObject(release);

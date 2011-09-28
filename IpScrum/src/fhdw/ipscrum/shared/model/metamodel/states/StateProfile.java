@@ -94,8 +94,7 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public final void addActivationRule(final ActivationRule ar)
-			throws DoubleDefinitionException, ConsistencyException {
+	public final void addActivationRule(final ActivationRule ar) throws DoubleDefinitionException, ConsistencyException {
 		if (this.activationRules.contains(ar)) {
 			throw new DoubleDefinitionException("Regel bereits definiert!");
 		}
@@ -115,14 +114,12 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public final void addEndState(final StateType state)
-			throws DoubleDefinitionException, ConsistencyException {
+	public final void addEndState(final StateType state) throws DoubleDefinitionException, ConsistencyException {
 		if (this.endStates.contains(state)) {
 			throw new DoubleDefinitionException("Bereits als Endzustand definiert!");
 		}
 		if (!this.possibleStates.contains(state)) {
-			throw new ConsistencyException(
-					"Dieser Zustand ist in diesem Zustandsprofil nicht definiert!");
+			throw new ConsistencyException("Dieser Zustand ist in diesem Zustandsprofil nicht definiert!");
 		}
 		this.endStates.add(state);
 	}
@@ -135,8 +132,7 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws DoubleDefinitionException
 	 *             if the state is already added
 	 */
-	public final void addPossibleState(final StateType state)
-			throws DoubleDefinitionException {
+	public final void addPossibleState(final StateType state) throws DoubleDefinitionException {
 		if (state != null) {
 			if (this.possibleStates.contains(state)) {
 				throw new DoubleDefinitionException("Zustand bereits definiert!");
@@ -156,15 +152,12 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public final void addTransitionRule(final TransitionRule tr)
-			throws DoubleDefinitionException, ConsistencyException {
+	public final void addTransitionRule(final TransitionRule tr) throws DoubleDefinitionException, ConsistencyException {
 		if (this.transitionRules.contains(tr)) {
 			throw new DoubleDefinitionException("Zustandsübergang bereits definiert");
 		}
-		if (!(this.possibleStates.contains(tr.getFrom()) && this.possibleStates
-				.contains(tr.getTo()))) {
-			throw new ConsistencyException(
-					"Zustände sind in diesem Zustandsprofil nicht definiert");
+		if (!(this.possibleStates.contains(tr.getFrom()) && this.possibleStates.contains(tr.getTo()))) {
+			throw new ConsistencyException("Zustände sind in diesem Zustandsprofil nicht definiert");
 		}
 		if (tr.getFrom().equals(tr.getTo())) {
 			throw new ConsistencyException("Die Zustände müssen verschieden sein!");
@@ -173,8 +166,8 @@ public class StateProfile extends IdentifiableObject {
 	}
 
 	/**
-	 * iterates over transition rules and checks, if there is a transitionrule with from
-	 * == ticket.currentState and to == new state.
+	 * iterates over transition rules and checks, if there is a transitionrule with from == ticket.currentState and to
+	 * == new state.
 	 * 
 	 * @param newState
 	 *            is the state to which the transitionRule goes
@@ -183,14 +176,12 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if transition is not allowed
 	 */
-	public void changeState(final StateType newState, final Ticket ticket)
-			throws ForbiddenStateException {
+	public void changeState(final StateType newState, final Ticket ticket) throws ForbiddenStateException {
 		final Iterator<TransitionRule> trs = this.getTransitionRules().iterator();
 		boolean changeAllowed = false;
 		while (trs.hasNext()) {
 			final TransitionRule current = trs.next();
-			if (current.getFrom().equals(ticket.getCurrentState())
-					&& current.getTo().equals(newState)) {
+			if (current.getFrom().equals(ticket.getCurrentState()) && current.getTo().equals(newState)) {
 				changeAllowed = true;
 				break;
 			}
@@ -210,15 +201,14 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if the current state type of the ticket doesn't allow a field change.
 	 */
-	public void checkFieldChange(@SuppressWarnings("rawtypes") final Field field,
-			final Ticket ticket) throws ForbiddenStateException {
+	public void checkFieldChange(@SuppressWarnings("rawtypes") final Field field, final Ticket ticket)
+			throws ForbiddenStateException {
 		final StateType currentState = ticket.getCurrentState();
 		final FieldType fieldType = field.getType();
 		final Iterator<ActivationRule> ars = this.getActivationRules().iterator();
 		while (ars.hasNext()) {
 			final ActivationRule current = ars.next();
-			if (currentState.equals(current.getForState())
-					&& fieldType.equals(current.getForField())) {
+			if (currentState.equals(current.getForState()) && fieldType.equals(current.getForField())) {
 				current.accept(new ActivationRuleVisitor() {
 
 					@Override
@@ -234,8 +224,7 @@ public class StateProfile extends IdentifiableObject {
 			}
 		}
 		if (!this.allowed) {
-			throw new ForbiddenStateException(
-					"Änderung in diesem Zustand nicht erlaubt");
+			throw new ForbiddenStateException("Änderung in diesem Zustand nicht erlaubt");
 		}
 	}
 
@@ -275,14 +264,12 @@ public class StateProfile extends IdentifiableObject {
 	 *            is the field for which the activationRule is searched
 	 * @return the searched activationRule
 	 */
-	public final ActivationRule getSpecificActivationRule(final StateType forState,
-			final FieldType forField) {
+	public final ActivationRule getSpecificActivationRule(final StateType forState, final FieldType forField) {
 		ActivationRule result = null;
 		final Iterator<ActivationRule> ars = this.getActivationRules().iterator();
 		while (ars.hasNext()) {
 			final ActivationRule current = ars.next();
-			if (current.getForField().equals(forField)
-					&& current.getForState().equals(forState)) {
+			if (current.getForField().equals(forField) && current.getForState().equals(forState)) {
 				result = current;
 				break;
 			}
@@ -319,8 +306,7 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public Boolean isFieldActive(final StateType type, final FieldType field)
-			throws IPScrumGeneralException {
+	public Boolean isFieldActive(final StateType type, final FieldType field) throws IPScrumGeneralException {
 
 		final ActivationRule ar = this.findActivationRule(type, field);
 
@@ -350,25 +336,21 @@ public class StateProfile extends IdentifiableObject {
 	}
 
 	/**
-	 * Removes a possible state. the state to be removed may not be the start state. If
-	 * there exist transition rules which refer to state, they will be removed!
+	 * Removes a possible state. the state to be removed may not be the start state. If there exist transition rules
+	 * which refer to state, they will be removed!
 	 * 
 	 * @param state
 	 *            the state to be removed!
 	 * @throws ConsistencyException
-	 *             If state is the start state or the state is not defined in the state
-	 *             profile
+	 *             If state is the start state or the state is not defined in the state profile
 	 */
-	public final void removePossibleState(final StateType state)
-			throws ConsistencyException {
+	public final void removePossibleState(final StateType state) throws ConsistencyException {
 		if (!this.getPossibleStates().contains(state)) {
-			throw new ConsistencyException(
-					"Der zu entfernende Zustand ist für diesen Ticket-Typen nicht definiert!");
+			throw new ConsistencyException("Der zu entfernende Zustand ist für diesen Ticket-Typen nicht definiert!");
 		}
 		if (this.getStartState().equals(state)) {
-			throw new ConsistencyException(
-					"Der zu löschende Zustand ist der Startzustand. Vor dem Löschen bitte"
-							+ " einen anderen Startzustand definieren! ");
+			throw new ConsistencyException("Der zu löschende Zustand ist der Startzustand. Vor dem Löschen bitte"
+					+ " einen anderen Startzustand definieren! ");
 		}
 		this.possibleStates.remove(state);
 		this.updateActivationRules(state, false);
@@ -395,8 +377,7 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails.
 	 */
-	public void setActive(final StateType forState, final FieldType forFieldType)
-			throws IPScrumGeneralException {
+	public void setActive(final StateType forState, final FieldType forFieldType) throws IPScrumGeneralException {
 		final ActivationRule target = this.findActivationRule(forState, forFieldType);
 		this.activationRules.remove(target);
 		this.addActivationRule(new Active(this.getModel(), forState, forFieldType));
@@ -412,8 +393,7 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void setNonActive(final StateType forState, final FieldType forFieldType)
-			throws IPScrumGeneralException {
+	public void setNonActive(final StateType forState, final FieldType forFieldType) throws IPScrumGeneralException {
 		final ActivationRule target = this.findActivationRule(forState, forFieldType);
 		this.activationRules.remove(target);
 		this.addActivationRule(new NonActive(this.getModel(), forState, forFieldType));
@@ -427,8 +407,7 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public final void setStartState(final StateType startState)
-			throws ConsistencyException {
+	public final void setStartState(final StateType startState) throws ConsistencyException {
 		if (!this.possibleStates.contains(startState)) {
 			throw new ConsistencyException(ExceptionConstants.STATE_NOT_DEFINDED);
 		}
@@ -443,18 +422,15 @@ public class StateProfile extends IdentifiableObject {
 	 * @param added
 	 *            says if a new activationRule should be added
 	 */
-	public final void updateActivationRules(final FieldType fieldType,
-			final boolean added) {
+	public final void updateActivationRules(final FieldType fieldType, final boolean added) {
 		final Iterator<StateType> stateTypes = this.getPossibleStates().iterator();
 		while (stateTypes.hasNext()) {
 			final StateType current = stateTypes.next();
 			if (added) {
-				final ActivationRule ar =
-						this.defaultActivationRule(current, fieldType);
+				final ActivationRule ar = this.defaultActivationRule(current, fieldType);
 				this.activationRules.add(ar);
 			} else {
-				final ActivationRule ar =
-						this.getSpecificActivationRule(current, fieldType);
+				final ActivationRule ar = this.getSpecificActivationRule(current, fieldType);
 				this.activationRules.remove(ar);
 			}
 		}
@@ -469,8 +445,7 @@ public class StateProfile extends IdentifiableObject {
 	 *            is the field which should be set default in the selected state
 	 * @return the new activationRule
 	 */
-	private ActivationRule defaultActivationRule(final StateType forState,
-			final FieldType forField) {
+	private ActivationRule defaultActivationRule(final StateType forState, final FieldType forField) {
 		ActivationRule result;
 		result = new NonActive(this.getModel(), forState, forField);
 		return result;
@@ -487,20 +462,18 @@ public class StateProfile extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	private ActivationRule findActivationRule(final StateType forState,
-			final FieldType forFieldType) throws IPScrumGeneralException {
+	private ActivationRule findActivationRule(final StateType forState, final FieldType forFieldType)
+			throws IPScrumGeneralException {
 		ActivationRule result = null;
 		final Iterator<ActivationRule> ars = this.getActivationRules().iterator();
 		while (ars.hasNext()) {
 			final ActivationRule current = ars.next();
-			if (current.getForState().equals(forState)
-					&& current.getForField().equals(forFieldType)) {
+			if (current.getForState().equals(forState) && current.getForField().equals(forFieldType)) {
 				result = current;
 			}
 		}
 		if (result == null) {
-			throw new ConsistencyException(""
-					+ "Fehler: Es wurde versucht, eine Zugriffsregel zu ändern. "
+			throw new ConsistencyException("" + "Fehler: Es wurde versucht, eine Zugriffsregel zu ändern. "
 					+ "Diese kann jedoch im Zustandsprofil nicht gefunden werden!");
 		}
 		return result;
@@ -530,8 +503,7 @@ public class StateProfile extends IdentifiableObject {
 	}
 
 	/**
-	 * removes all transition rules for a state that has been removed from the possible
-	 * states list.
+	 * removes all transition rules for a state that has been removed from the possible states list.
 	 * 
 	 * @param state
 	 *            from that the transition rule should be removed
@@ -571,12 +543,10 @@ public class StateProfile extends IdentifiableObject {
 			while (fieldTypes.hasNext()) {
 				final FieldType current = fieldTypes.next();
 				if (added) {
-					final ActivationRule ar =
-							this.defaultActivationRule(stateType, current);
+					final ActivationRule ar = this.defaultActivationRule(stateType, current);
 					this.activationRules.add(ar);
 				} else {
-					final ActivationRule ar =
-							this.getSpecificActivationRule(stateType, current);
+					final ActivationRule ar = this.getSpecificActivationRule(stateType, current);
 					this.activationRules.remove(ar);
 				}
 			}

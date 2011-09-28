@@ -72,7 +72,7 @@ public class TaskCreatePresenter extends WritePresenter {
 				public void onUpdate(final Object sender, final TaskCreateArgs eventArgs) {
 					TaskCreatePresenter.this.taskCreateArgs = eventArgs;
 					TaskCreatePresenter.this.save();
-					TaskCreatePresenter.this.close();
+
 				}
 			});
 
@@ -98,9 +98,11 @@ public class TaskCreatePresenter extends WritePresenter {
 					ticketType, this.sprint.getSprintBacklog()));
 			this.commitTransaction();
 			this.saved = true;
+			TaskCreatePresenter.this.close();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {
 			this.toastMessage(e.getMessage());
+			this.rollbackTransaction();
 			return false;
 		}
 	}

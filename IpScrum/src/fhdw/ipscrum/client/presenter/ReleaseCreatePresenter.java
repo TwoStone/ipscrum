@@ -97,7 +97,7 @@ public class ReleaseCreatePresenter extends WritePresenter {
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
 					ReleaseCreatePresenter.this.save();
-					ReleaseCreatePresenter.this.close();
+
 				}
 			});
 			this.view.registetAbort(new DefaultEventHandler() {
@@ -131,8 +131,10 @@ public class ReleaseCreatePresenter extends WritePresenter {
 			this.doCommand(new ReleaseCreateCommand(this.project, this.view.getDescription(), this.view
 					.getReleaseDateBox()));
 			this.commitTransaction();
+			ReleaseCreatePresenter.this.close();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {
+			this.toastMessage(e.getMessage());
 			return false;
 		}
 	}
