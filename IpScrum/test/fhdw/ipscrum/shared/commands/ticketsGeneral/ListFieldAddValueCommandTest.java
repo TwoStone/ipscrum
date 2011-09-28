@@ -406,7 +406,7 @@ public class ListFieldAddValueCommandTest {
 
 		this.listField = new ListField<Serializable>(this.model, this.model.getAllFieldTypes().get(0));
 		final TextFieldType hintsFieldType = this.pbi1.getTicketType().getHintsType();
-		this.pbi1HintsField = (ListField<String>) this.t1.getTicketType().getField(hintsFieldType, this.pbi1);
+		this.pbi1HintsField = (ListField<String>) this.pbi1.getField(hintsFieldType);
 	}
 
 	/**

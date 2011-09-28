@@ -10,6 +10,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 import fhdw.ipscrum.shared.constants.TextConstants;
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
+import fhdw.ipscrum.shared.exceptions.model.ConsistencyException;
 import fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException;
 import fhdw.ipscrum.shared.exceptions.model.NoSprintDefinedException;
 import fhdw.ipscrum.shared.exceptions.model.NoValidValueException;
@@ -17,10 +18,13 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.messages.Message;
 import fhdw.ipscrum.shared.model.nonMeta.incidents.Incident;
+import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 import fhdw.ipscrum.shared.model.visitor.ITreeConstructionVisitor;
 import fhdw.ipscrum.shared.model.visitor.ITreeVisitorRelevantElement;
 import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.PersistentObserver;
+import fhdw.ipscrum.shared.utils.ClosureWrapper;
+import fhdw.ipscrum.shared.utils.ListUtils;
 
 /**
  * Represents a Scrum Project.
@@ -163,11 +167,9 @@ public class Project extends IdentifiableObject
 	 * @throws NoValidValueException
 	 *             if the name of the project is empty
 	 */
-	public void setName(final String name) throws DoubleDefinitionException,
-			NoValidValueException {
+	public void setName(final String name) throws DoubleDefinitionException, NoValidValueException {
 		if (name.isEmpty()) {
-			throw new NoValidValueException(
-					"Der Name des Projekts darf nicht leer sein!");
+			throw new NoValidValueException("Der Name des Projekts darf nicht leer sein!");
 		}
 		this.getModel().getConsistencyManager().existsProjectName(name);
 		this.name = name;
@@ -183,9 +185,8 @@ public class Project extends IdentifiableObject
 	}
 
 	/**
-	 * Returns all releases to this project. Don't use this list for removing or adding
-	 * release. This will have not effects. Instead e.g. use the removeRelease operation
-	 * to remove a release from the project.
+	 * Returns all releases to this project. Don't use this list for removing or adding release. This will have not
+	 * effects. Instead e.g. use the removeRelease operation to remove a release from the project.
 	 * 
 	 * @return the releases related to the project
 	 */
@@ -200,8 +201,8 @@ public class Project extends IdentifiableObject
 	/**
 	 * Returns the defined Sprints for this project. <br />
 	 * <b>Attention</b><br />
-	 * For adding and removing a sprint use the functionalities of the Project, else we
-	 * cannot guarantee the consistency!
+	 * For adding and removing a sprint use the functionalities of the Project, else we cannot guarantee the
+	 * consistency!
 	 * 
 	 * @return all sprints related to the project
 	 */
@@ -213,8 +214,7 @@ public class Project extends IdentifiableObject
 	}
 
 	/**
-	 * Returns true, is the referenced {@link system} is in the local list of possible
-	 * systems.
+	 * Returns true, is the referenced {@link system} is in the local list of possible systems.
 	 * 
 	 * @param system
 	 *            is related to the project
@@ -237,8 +237,7 @@ public class Project extends IdentifiableObject
 	}
 
 	/**
-	 * Check if a release already exist within the project. This depends on the version
-	 * and the release date.
+	 * Check if a release already exist within the project. This depends on the version and the release date.
 	 * 
 	 * @param version
 	 *            Version of the release.
@@ -247,19 +246,16 @@ public class Project extends IdentifiableObject
 	 * @throws DoubleDefinitionException
 	 *             if a release is already related to the project
 	 */
-	public void isReleaseDoubleDefined(final String version, final Date releaseDate)
-			throws DoubleDefinitionException {
+	public void isReleaseDoubleDefined(final String version, final Date releaseDate) throws DoubleDefinitionException {
 		for (final Release current : this.getReleasePlan()) {
-			if (current.getVersion().equals(version)
-					&& current.getReleaseDate().equals(releaseDate)) {
+			if (current.getVersion().equals(version) && current.getReleaseDate().equals(releaseDate)) {
 				throw new DoubleDefinitionException(TextConstants.RELEASE_ERROR);
 			}
 		}
 	}
 
 	/**
-	 * Check if the sprint is defined within the project! Throws an
-	 * SprintNotDefinedException if not!
+	 * Check if the sprint is defined within the project! Throws an SprintNotDefinedException if not!
 	 * 
 	 * @param sprint
 	 *            Sprint for check!
@@ -277,11 +273,48 @@ public class Project extends IdentifiableObject
 	 * 
 	 * @param release
 	 *            Release to remove.
+	 * @throws ConsistencyException
+	 *             if one or more bugs depend on the release
 	 */
-	public void removeRelease(final Release release) {
-		release.removeAllSprints();
-		this.releases.remove(release);
-		this.getModel().removeObject(release);
+	public void removeRelease(final Release release) throws ConsistencyException {
+		final List<ProductBacklogItem> dependendBugs =
+				ListUtils.filter(this.getBacklog().getItems(), new ListUtils.Predicate<ProductBacklogItem>() {
+
+					@Override
+					public boolean test(final ProductBacklogItem element) {
+						final ClosureWrapper<Boolean> dependsOnRelease = new ClosureWrapper<Boolean>(false);
+						element.accept(new IProductBacklogItemVisitor() {
+
+							@Override
+							public void handleFeature(final Feature feature) {
+							}
+
+							@Override
+							public void handleBug(final Bug bug) {
+								dependsOnRelease.set(bug.getVersion().equals(release));
+							}
+						});
+						return dependsOnRelease.get();
+					}
+
+				});
+		if (!dependendBugs.isEmpty()) {
+			release.removeAllSprints();
+			this.releases.remove(release);
+			this.getModel().removeObject(release);
+		} else {
+			final StringBuilder builder = new StringBuilder("Es existieren von diesem Release abhängige Bugs [");
+			final Iterator<ProductBacklogItem> iterator = dependendBugs.iterator();
+			while (iterator.hasNext()) {
+				final ProductBacklogItem productBacklogItem = iterator.next();
+				builder.append(productBacklogItem.getName());
+				if (iterator.hasNext()) {
+					builder.append(", ");
+				}
+			}
+			builder.append(" ]");
+			throw new ConsistencyException(builder.toString());
+		}
 	}
 
 	/**
@@ -315,8 +348,7 @@ public class Project extends IdentifiableObject
 	 * @param system
 	 *            is the system to remove
 	 * 
-	 * @see fhdw.ipscrum.shared.model.HasSystems#removeSystem(fhdw.ipscrum.shared
-	 *      .model.System)
+	 * @see fhdw.ipscrum.shared.model.HasSystems#removeSystem(fhdw.ipscrum.shared .model.System)
 	 */
 	public void removeSystem(final System system) {
 		this.possibleSystems.remove(system);
