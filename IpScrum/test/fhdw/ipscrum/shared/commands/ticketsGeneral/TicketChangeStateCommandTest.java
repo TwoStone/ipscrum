@@ -207,6 +207,9 @@ public class TicketChangeStateCommandTest {
 	 */
 	@Test(expected = ForbiddenStateException.class)
 	public void testOnExecute1() throws Exception {
+
+		this.pbi3.changeState(this.model.getTypeManager().getClosed());
+
 		final TicketChangeStateCommand fixture =
 				new TicketChangeStateCommand(this.pbi3, this.model.getAllStateTypes().get(0));
 
