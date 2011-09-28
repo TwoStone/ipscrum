@@ -17,7 +17,9 @@ import org.junit.runners.Suite.SuiteClasses;
 		ReleaseCreateCommandTest.class,
 		ReleaseRemoveSprintCommandTest.class,
 		SprintChangeCommandTest.class,
-		SprintCreateCommandTest.class })
+		SprintCreateCommandTest.class,
+		ReleaseDeleteCommandTest.class,
+		ProjectDeleteCommandTest.class })
 public class ProjectCommandTests {
 
 }
