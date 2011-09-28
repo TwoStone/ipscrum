@@ -136,8 +136,7 @@ public class LoginView extends MasterView implements KeyPressHandler, ILoginView
 
 						@Override
 						public void onUpdate(final Object sender, final EventArgs eventArgs) {
-							// TODO Richtige Konstante!!
-							new HelpController().showHelp(HelpResources.ROLECREATEPRESENTER);
+							new HelpController().showHelp(HelpResources.LOGIN_ROLLENAUSWAHL);
 
 						}
 					});
