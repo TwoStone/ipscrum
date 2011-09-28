@@ -23,31 +23,11 @@ public class ModelLockedException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message thrown by the Exception
-	 * @param exception related to this Exception
-	 */
-	public ModelLockedException(final String message, final Throwable exception) {
-		super(message, exception);
-
-	}
-
-	/**
-	 * Constructor of the Exception.
-	 * 
-	 * @param message thrown by the Exception
+	 * @param message
+	 *            thrown by the Exception
 	 */
 	public ModelLockedException(final String message) {
 		super(message);
-
-	}
-
-	/**
-	 * Constructor of the Exception.
-	 * 
-	 * @param exception related to this Exception
-	 */
-	public ModelLockedException(final Throwable exception) {
-		super(exception);
 
 	}
 

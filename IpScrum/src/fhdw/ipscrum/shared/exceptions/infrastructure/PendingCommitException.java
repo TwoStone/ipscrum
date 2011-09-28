@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 
 /**
  * Represents the Exception thrown if a commit is pending.
- *
+ * 
  */
 public class PendingCommitException extends InfrastructureException {
 
@@ -24,32 +24,11 @@ public class PendingCommitException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message thrown by the Exception
-	 * @param exception related exception of this Exception
-	 */
-	public PendingCommitException(final String message,
-			final Throwable exception) {
-		super(message, exception);
-
-	}
-	
-	/**
-	 * Constructor of the Exception.
-	 * 
-	 * @param message the Exception throws.
+	 * @param message
+	 *            the Exception throws.
 	 */
 	public PendingCommitException(final String message) {
 		super(message);
-
-	}
-
-	/**
-	 * Constructor of the Exception.
-	 * 
-	 * @param exception related exception of this Exception
-	 */
-	public PendingCommitException(final Throwable exception) {
-		super(exception);
 
 	}
 
