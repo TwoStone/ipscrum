@@ -85,7 +85,7 @@ public class EffortTest {
 		Assert.assertEquals(true, e.equals(e));
 		Assert.assertEquals(true, e.equals(new Effort(1)));
 		Assert.assertEquals(false, e.equals(new Effort(0)));
-		Assert.assertEquals(false, e.equals(null));
+		Assert.assertFalse(e.equals(null));
 		Assert.assertEquals(false, e.equals(new Object()));
 	}
 }

@@ -17,7 +17,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ListFieldRemoveValueCommandTest.class,
 		SingleFieldChangeCommandTest.class,
 		SingleFieldIdentifiableObjectChangeCommandTest.class,
-		SingleFieldIdentifiableObjectChangeCommandTest.class,
+		SingleFieldNonIdentifiableObjectChangeCommandTest.class,
 		TicketChangeStateCommandTest.class })
 public class TicketsGeneralCommandSuite {
 
