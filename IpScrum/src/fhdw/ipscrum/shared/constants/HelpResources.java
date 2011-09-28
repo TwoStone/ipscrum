@@ -40,7 +40,12 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "Anmeldung am System".
 	 */
-	public static final String ANMELDUNGAMSYSTEM = "AnmeldungamSystem.html";
+	public static final String LOGIN = "Login.html";
+
+	/**
+	 * Topic: "Login", Anchor 1: "Rollenauswahl".
+	 */
+	public static final String LOGIN_ROLLENAUSWAHL = "Login.html#Rollenauswahl";
 
 	/**
 	 * Topic: "Programmoberfläche".
@@ -80,8 +85,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "ProjectDisplayPresenter", Anchor 2: "ValidateProjectName".
 	 */
-	public static final String PROJECTDISPLAYPRESENTER_VALIDATEPROJECTNAME =
-			"ProjectDisplayPresenter.html#ValidateProjectName";
+	public static final String PROJECTDISPLAYPRESENTER_VALIDATEPROJECTNAME = "ProjectDisplayPresenter.html#ValidateProjectName";
 
 	/**
 	 * Topic: "ProjectDisplayPresenter", Anchor 3: "DeleteRelease".
@@ -156,8 +160,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "CreateSprintPresenter", Anchor 2: "StartEndDateOfSprint".
 	 */
-	public static final String CREATESPRINTPRESENTER_STARTENDDATEOFSPRINT =
-			"CreateSprintPresenter.html#StartEndDateOfSprint";
+	public static final String CREATESPRINTPRESENTER_STARTENDDATEOFSPRINT = "CreateSprintPresenter.html#StartEndDateOfSprint";
 
 	/**
 	 * Topic: "CreateSprintPresenter", Anchor 3: "TeamOfSprint".
@@ -202,37 +205,37 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "Task bearbeiten".
 	 */
-	public static final String TASKBOARDVERWALTEN1 = "Taskboardverwalten1.html";
+	public static final String TASKTICKET = "TaskTicket.html";
 
 	/**
-	 * Topic: "Taskboardverwalten1", Anchor 1: "ChangeDescAndName".
+	 * Topic: "TaskTicket", Anchor 1: "ChangeDescAndName".
 	 */
-	public static final String TASKBOARDVERWALTEN1_CHANGEDESCANDNAME = "Taskboardverwalten1.html#ChangeDescAndName";
+	public static final String TASKTICKET_CHANGEDESCANDNAME = "TaskTicket.html#ChangeDescAndName";
 
 	/**
-	 * Topic: "Taskboardverwalten1", Anchor 2: "ChangeState".
+	 * Topic: "TaskTicket", Anchor 2: "ChangeState".
 	 */
-	public static final String TASKBOARDVERWALTEN1_CHANGESTATE = "Taskboardverwalten1.html#ChangeState";
+	public static final String TASKTICKET_CHANGESTATE = "TaskTicket.html#ChangeState";
 
 	/**
-	 * Topic: "Taskboardverwalten1", Anchor 3: "Enddate".
+	 * Topic: "TaskTicket", Anchor 3: "Enddate".
 	 */
-	public static final String TASKBOARDVERWALTEN1_ENDDATE = "Taskboardverwalten1.html#Enddate";
+	public static final String TASKTICKET_ENDDATE = "TaskTicket.html#Enddate";
 
 	/**
-	 * Topic: "Taskboardverwalten1", Anchor 4: "Backlog".
+	 * Topic: "TaskTicket", Anchor 4: "Backlog".
 	 */
-	public static final String TASKBOARDVERWALTEN1_BACKLOG = "Taskboardverwalten1.html#Backlog";
+	public static final String TASKTICKET_BACKLOG = "TaskTicket.html#Backlog";
 
 	/**
-	 * Topic: "Taskboardverwalten1", Anchor 5: "Editor".
+	 * Topic: "TaskTicket", Anchor 5: "Editor".
 	 */
-	public static final String TASKBOARDVERWALTEN1_EDITOR = "Taskboardverwalten1.html#Editor";
+	public static final String TASKTICKET_EDITOR = "TaskTicket.html#Editor";
 
 	/**
-	 * Topic: "Taskboardverwalten1", Anchor 6: "Effort".
+	 * Topic: "TaskTicket", Anchor 6: "Effort".
 	 */
-	public static final String TASKBOARDVERWALTEN1_EFFORT = "Taskboardverwalten1.html#Effort";
+	public static final String TASKTICKET_EFFORT = "TaskTicket.html#Effort";
 
 	/**
 	 * Topic: "Product Backlog".
@@ -247,14 +250,12 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "ProductBacklogPresenter", Anchor 1: "PrioritaetVeraendern".
 	 */
-	public static final String PRODUCTBACKLOGPRESENTER_PRIORITAETVERAENDERN =
-			"ProductBacklogPresenter.html#PrioritaetVeraendern";
+	public static final String PRODUCTBACKLOGPRESENTER_PRIORITAETVERAENDERN = "ProductBacklogPresenter.html#PrioritaetVeraendern";
 
 	/**
 	 * Topic: "ProductBacklogPresenter", Anchor 2: "ProductBacklogItemEntfernen".
 	 */
-	public static final String PRODUCTBACKLOGPRESENTER_PRODUCTBACKLOGITEMENTFERNEN =
-			"ProductBacklogPresenter.html#ProductBacklogItemEntfernen";
+	public static final String PRODUCTBACKLOGPRESENTER_PRODUCTBACKLOGITEMENTFERNEN = "ProductBacklogPresenter.html#ProductBacklogItemEntfernen";
 
 	/**
 	 * Topic: "Product-Backlog-Item erstellen".
@@ -264,43 +265,42 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "Product-Backlog-Item - Detailsicht".
 	 */
-	public static final String GENERICTICKETPRESENTER = "GenericTicketPresenter.html";
+	public static final String PBITICKET = "PbiTicket.html";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 1: "Bezeichnung".
+	 * Topic: "PbiTicket", Anchor 1: "Bezeichnung".
 	 */
-	public static final String GENERICTICKETPRESENTER_BEZEICHNUNG = "GenericTicketPresenter.html#Bezeichnung";
+	public static final String PBITICKET_BEZEICHNUNG = "PbiTicket.html#Bezeichnung";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 2: "Beschreibung".
+	 * Topic: "PbiTicket", Anchor 2: "Beschreibung".
 	 */
-	public static final String GENERICTICKETPRESENTER_BESCHREIBUNG = "GenericTicketPresenter.html#Beschreibung";
+	public static final String PBITICKET_BESCHREIBUNG = "PbiTicket.html#Beschreibung";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 3: "Status".
+	 * Topic: "PbiTicket", Anchor 3: "Status".
 	 */
-	public static final String GENERICTICKETPRESENTER_STATUS = "GenericTicketPresenter.html#Status";
+	public static final String PBITICKET_STATUS = "PbiTicket.html#Status";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 4: "Akzeptanzkriterien".
+	 * Topic: "PbiTicket", Anchor 4: "Akzeptanzkriterien".
 	 */
-	public static final String GENERICTICKETPRESENTER_AKZEPTANZKRITERIEN =
-			"GenericTicketPresenter.html#Akzeptanzkriterien";
+	public static final String PBITICKET_AKZEPTANZKRITERIEN = "PbiTicket.html#Akzeptanzkriterien";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 5: "Hinweise".
+	 * Topic: "PbiTicket", Anchor 5: "Hinweise".
 	 */
-	public static final String GENERICTICKETPRESENTER_HINWEISE = "GenericTicketPresenter.html#Hinweise";
+	public static final String PBITICKET_HINWEISE = "PbiTicket.html#Hinweise";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 6: "Aufwand".
+	 * Topic: "PbiTicket", Anchor 6: "Aufwand".
 	 */
-	public static final String GENERICTICKETPRESENTER_AUFWAND = "GenericTicketPresenter.html#Aufwand";
+	public static final String PBITICKET_AUFWAND = "PbiTicket.html#Aufwand";
 
 	/**
-	 * Topic: "GenericTicketPresenter", Anchor 7: "Sprint".
+	 * Topic: "PbiTicket", Anchor 7: "Sprint".
 	 */
-	public static final String GENERICTICKETPRESENTER_SPRINT = "GenericTicketPresenter.html#Sprint";
+	public static final String PBITICKET_SPRINT = "PbiTicket.html#Sprint";
 
 	/**
 	 * Topic: "Verwaltung".
@@ -320,8 +320,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "PersonRolePresenter", Anchor 2: "ZuordnungHinzufuegen".
 	 */
-	public static final String PERSONROLEPRESENTER_ZUORDNUNGHINZUFUEGEN =
-			"PersonRolePresenter.html#ZuordnungHinzufuegen";
+	public static final String PERSONROLEPRESENTER_ZUORDNUNGHINZUFUEGEN = "PersonRolePresenter.html#ZuordnungHinzufuegen";
 
 	/**
 	 * Topic: "PersonRolePresenter", Anchor 3: "ZuordnungEntfernen".
@@ -346,7 +345,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "Berechtigungen zuordnen".
 	 */
-	public static final String PERSONENUNDROLLENVERWALTUNG = "PersonenundRollenverwaltung.html";
+	public static final String ADDRIGHTSTOROLEPRESENTER = "AddRightsToRolePresenter.html";
 
 	/**
 	 * Topic: "Teams".
@@ -356,8 +355,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "TeamPresenter", Anchor 1: "PersonHinzufuegenBzwEntfernen".
 	 */
-	public static final String TEAMPRESENTER_PERSONHINZUFUEGENBZWENTFERNEN =
-			"TeamPresenter.html#PersonHinzufuegenBzwEntfernen";
+	public static final String TEAMPRESENTER_PERSONHINZUFUEGENBZWENTFERNEN = "TeamPresenter.html#PersonHinzufuegenBzwEntfernen";
 
 	/**
 	 * Topic: "Team erstellen".
@@ -375,6 +373,11 @@ public abstract class HelpResources {
 	public static final String VELOCITYANALYSE = "VelocityAnalyse.html";
 
 	/**
+	 * Topic: "Projekte zuordnen".
+	 */
+	public static final String ADDPROJECTTOTEAMPRESENTER = "AddProjectToTeamPresenter.html";
+
+	/**
 	 * Topic: "Revisionsverwaltung".
 	 */
 	public static final String REVISIONCONTROLPRESENTER = "RevisionControlPresenter.html";
@@ -387,8 +390,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "RevisionControlPresenter", Anchor 2: "LadenAlterRevisionsstaende".
 	 */
-	public static final String REVISIONCONTROLPRESENTER_LADENALTERREVISIONSSTAENDE =
-			"RevisionControlPresenter.html#LadenAlterRevisionsstaende";
+	public static final String REVISIONCONTROLPRESENTER_LADENALTERREVISIONSSTAENDE = "RevisionControlPresenter.html#LadenAlterRevisionsstaende";
 
 	/**
 	 * Topic: "Feldtypen-, Zustands- und Tickettypen-Erzeugung".
@@ -428,8 +430,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "TypeEditPresenter", Anchor 2: "ZustandAlsStartzustand".
 	 */
-	public static final String TYPEEDITPRESENTER_ZUSTANDALSSTARTZUSTAND =
-			"TypeEditPresenter.html#ZustandAlsStartzustand";
+	public static final String TYPEEDITPRESENTER_ZUSTANDALSSTARTZUSTAND = "TypeEditPresenter.html#ZustandAlsStartzustand";
 
 	/**
 	 * Topic: "TypeEditPresenter", Anchor 3: "ZustandAlsEndzustand".
@@ -449,8 +450,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "TypeEditPresenter", Anchor 6: "ZustandsuebergangEntfernen".
 	 */
-	public static final String TYPEEDITPRESENTER_ZUSTANDSUEBERGANGENTFERNEN =
-			"TypeEditPresenter.html#ZustandsuebergangEntfernen";
+	public static final String TYPEEDITPRESENTER_ZUSTANDSUEBERGANGENTFERNEN = "TypeEditPresenter.html#ZustandsuebergangEntfernen";
 
 	/**
 	 * Topic: "Zustand hinzufügen".
@@ -485,7 +485,7 @@ public abstract class HelpResources {
 	/**
 	 * Topic: "Suche".
 	 */
-	public static final String VERWALTUNG1 = "Verwaltung1.html";
+	public static final String SUCHE = "Suche.html";
 
 	/**
 	 * Topic: "Scruumle".
@@ -526,7 +526,7 @@ public abstract class HelpResources {
 		HelpResources.PRESENTER_HELP.put("Willkommen", HelpResources.WILLKOMMEN);
 		HelpResources.PRESENTER_HELP.put("AllgemeineEinfhrung", HelpResources.ALLGEMEINEEINFHRUNG);
 		HelpResources.PRESENTER_HELP.put("StartderAnwendung", HelpResources.STARTDERANWENDUNG);
-		HelpResources.PRESENTER_HELP.put("AnmeldungamSystem", HelpResources.ANMELDUNGAMSYSTEM);
+		HelpResources.PRESENTER_HELP.put("Login", HelpResources.LOGIN);
 		HelpResources.PRESENTER_HELP.put("Programmoberflche", HelpResources.PROGRAMMOBERFLCHE);
 		HelpResources.PRESENTER_HELP.put("Handhabung", HelpResources.HANDHABUNG);
 		HelpResources.PRESENTER_HELP.put("Projekt", HelpResources.PROJEKT);
@@ -547,40 +547,36 @@ public abstract class HelpResources {
 		HelpResources.PRESENTER_HELP.put("SprintBurndownChart", HelpResources.SPRINTBURNDOWNCHART);
 		HelpResources.PRESENTER_HELP.put("TaskboardPresenter", HelpResources.TASKBOARDPRESENTER);
 		HelpResources.PRESENTER_HELP.put("TaskCreatePresenter", HelpResources.TASKCREATEPRESENTER);
-		HelpResources.PRESENTER_HELP.put("Taskboardverwalten1", HelpResources.TASKBOARDVERWALTEN1);
+		HelpResources.PRESENTER_HELP.put("TaskTicket", HelpResources.TASKTICKET);
 		HelpResources.PRESENTER_HELP.put("ProductBacklog_Topic", HelpResources.PRODUCTBACKLOG_TOPIC);
 		HelpResources.PRESENTER_HELP.put("ProductBacklogPresenter", HelpResources.PRODUCTBACKLOGPRESENTER);
-		HelpResources.PRESENTER_HELP.put("ProductBacklogItemCreatePresente",
-				HelpResources.PRODUCTBACKLOGITEMCREATEPRESENTE);
-		HelpResources.PRESENTER_HELP.put("GenericTicketPresenter", HelpResources.GENERICTICKETPRESENTER);
+		HelpResources.PRESENTER_HELP.put("ProductBacklogItemCreatePresente", HelpResources.PRODUCTBACKLOGITEMCREATEPRESENTE);
+		HelpResources.PRESENTER_HELP.put("PbiTicket", HelpResources.PBITICKET);
 		HelpResources.PRESENTER_HELP.put("Verwaltung", HelpResources.VERWALTUNG);
 		HelpResources.PRESENTER_HELP.put("PersonRolePresenter", HelpResources.PERSONROLEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("PersonCreatePresenter", HelpResources.PERSONCREATEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("PersonEditPresenter", HelpResources.PERSONEDITPRESENTER);
 		HelpResources.PRESENTER_HELP.put("RoleCreatePresenter", HelpResources.ROLECREATEPRESENTER);
-		HelpResources.PRESENTER_HELP.put("PersonenundRollenverwaltung", HelpResources.PERSONENUNDROLLENVERWALTUNG);
+		HelpResources.PRESENTER_HELP.put("AddRightsToRolePresenter", HelpResources.ADDRIGHTSTOROLEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("TeamPresenter", HelpResources.TEAMPRESENTER);
 		HelpResources.PRESENTER_HELP.put("TeamCreatePresenter", HelpResources.TEAMCREATEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("TeamEditPresenter", HelpResources.TEAMEDITPRESENTER);
 		HelpResources.PRESENTER_HELP.put("VelocityAnalyse", HelpResources.VELOCITYANALYSE);
+		HelpResources.PRESENTER_HELP.put("AddProjectToTeamPresenter", HelpResources.ADDPROJECTTOTEAMPRESENTER);
 		HelpResources.PRESENTER_HELP.put("RevisionControlPresenter", HelpResources.REVISIONCONTROLPRESENTER);
-		HelpResources.PRESENTER_HELP.put("StateFieldAndTickettypeAdministr",
-				HelpResources.STATEFIELDANDTICKETTYPEADMINISTR);
+		HelpResources.PRESENTER_HELP.put("StateFieldAndTickettypeAdministr", HelpResources.STATEFIELDANDTICKETTYPEADMINISTR);
 		HelpResources.PRESENTER_HELP.put("TicketTypeCreatePresenter", HelpResources.TICKETTYPECREATEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("StateTypeCreatePresenter", HelpResources.STATETYPECREATEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("FieldTypeCreatePresenter", HelpResources.FIELDTYPECREATEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("TicketTypeSelectionPresenter", HelpResources.TICKETTYPESELECTIONPRESENTER);
 		HelpResources.PRESENTER_HELP.put("TypeEditPresenter", HelpResources.TYPEEDITPRESENTER);
-		HelpResources.PRESENTER_HELP
-				.put("AddStatesToTicketTypePresenter", HelpResources.ADDSTATESTOTICKETTYPEPRESENTER);
-		HelpResources.PRESENTER_HELP
-				.put("AddFieldsToTicketTypePresenter", HelpResources.ADDFIELDSTOTICKETTYPEPRESENTER);
-		HelpResources.PRESENTER_HELP.put("StateTransistionCreatePresenter",
-				HelpResources.STATETRANSISTIONCREATEPRESENTER);
+		HelpResources.PRESENTER_HELP.put("AddStatesToTicketTypePresenter", HelpResources.ADDSTATESTOTICKETTYPEPRESENTER);
+		HelpResources.PRESENTER_HELP.put("AddFieldsToTicketTypePresenter", HelpResources.ADDFIELDSTOTICKETTYPEPRESENTER);
+		HelpResources.PRESENTER_HELP.put("StateTransistionCreatePresenter", HelpResources.STATETRANSISTIONCREATEPRESENTER);
 		HelpResources.PRESENTER_HELP.put("SystemManagementPresenter", HelpResources.SYSTEMMANAGEMENTPRESENTER);
 		HelpResources.PRESENTER_HELP.put("UserManagementPresenter", HelpResources.USERMANAGEMENTPRESENTER);
 		HelpResources.PRESENTER_HELP.put("UserCreatePresenter", HelpResources.USERCREATEPRESENTER);
-		HelpResources.PRESENTER_HELP.put("Verwaltung1", HelpResources.VERWALTUNG1);
+		HelpResources.PRESENTER_HELP.put("Suche", HelpResources.SUCHE);
 		HelpResources.PRESENTER_HELP.put("SearchAllPresenter", HelpResources.SEARCHALLPRESENTER);
 		HelpResources.PRESENTER_HELP.put("SearchResultPresenter", HelpResources.SEARCHRESULTPRESENTER);
 		HelpResources.PRESENTER_HELP.put("SearchPresenter", HelpResources.SEARCHPRESENTER);
