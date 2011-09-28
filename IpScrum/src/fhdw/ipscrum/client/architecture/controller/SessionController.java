@@ -17,6 +17,7 @@ import fhdw.ipscrum.client.architecture.widgets.ILoginView.LoggedInEventArgs;
 import fhdw.ipscrum.client.eventargs.UserRoleArgs;
 import fhdw.ipscrum.client.services.LoginService;
 import fhdw.ipscrum.client.services.LoginService.ResumedSession;
+import fhdw.ipscrum.client.view.ViewFactory;
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.constants.HelpResources;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;

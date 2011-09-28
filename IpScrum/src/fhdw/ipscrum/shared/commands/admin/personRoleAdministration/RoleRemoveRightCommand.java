@@ -26,6 +26,7 @@ public class RoleRemoveRightCommand extends Command<Void> implements IPersonRole
 	/**
 	 * default constructor.
 	 */
+	@SuppressWarnings("unused")
 	private RoleRemoveRightCommand() {
 		super();
 	}

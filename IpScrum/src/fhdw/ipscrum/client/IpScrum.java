@@ -12,7 +12,6 @@ import fhdw.ipscrum.client.architecture.ClientContext;
 import fhdw.ipscrum.client.architecture.controller.ApplicationController;
 import fhdw.ipscrum.client.architecture.controller.ApplicationController.ApplicationStartedEvent;
 import fhdw.ipscrum.client.architecture.controller.SessionController;
-import fhdw.ipscrum.client.architecture.controller.ViewFactory;
 import fhdw.ipscrum.client.architecture.events.eventbus.EventBus;
 import fhdw.ipscrum.client.architecture.menu.MenuCommand;
 import fhdw.ipscrum.client.architecture.menu.NavigationMenu;
@@ -33,6 +32,7 @@ import fhdw.ipscrum.client.presenter.UserManagementPresenter;
 import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.utils.SimpleCallback;
+import fhdw.ipscrum.client.view.ViewFactory;
 import fhdw.ipscrum.client.view.widgets.GWTCanvasBasedCanvasFactory;
 
 /**

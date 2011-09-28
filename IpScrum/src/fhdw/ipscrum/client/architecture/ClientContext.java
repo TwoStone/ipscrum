@@ -14,7 +14,6 @@ import fhdw.ipscrum.client.architecture.controller.QuestionController;
 import fhdw.ipscrum.client.architecture.controller.SessionController;
 import fhdw.ipscrum.client.architecture.controller.ToastMessageController;
 import fhdw.ipscrum.client.architecture.controller.TransactionController;
-import fhdw.ipscrum.client.architecture.controller.ViewFactory;
 import fhdw.ipscrum.client.architecture.controller.WindowTitleController;
 import fhdw.ipscrum.client.architecture.events.eventbus.EventBus;
 import fhdw.ipscrum.client.architecture.events.eventbus.EventBus.Handler;
@@ -22,6 +21,7 @@ import fhdw.ipscrum.client.architecture.events.eventbus.EventBus.SingleObjectEve
 import fhdw.ipscrum.client.architecture.menu.NavigationMenu;
 import fhdw.ipscrum.client.architecture.presenter.Presenter;
 import fhdw.ipscrum.client.services.ReceiveModelService;
+import fhdw.ipscrum.client.view.ViewFactory;
 import fhdw.ipscrum.shared.exceptions.model.ConsistencyException;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.nonMeta.Role;

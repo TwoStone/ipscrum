@@ -25,6 +25,47 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketTypeVisitor;
  */
 public class TicketTypeCreatePresenter extends WritePresenter {
 	/**
+	 * Class that creates a ticket type.
+	 */
+	private final class TicketTypeCreator implements TicketTypeVisitor {
+		@Override
+		public void handleTaskTicketType(final TaskTicketType taskTicketType) {
+			try {
+				TicketTypeCreatePresenter.this.doCommand(new TaskTicketTypeCreateCommand(TicketTypeCreatePresenter.this
+						.doGetView().getName(), TicketTypeCreatePresenter.this.doGetView().getDescription()));
+			} catch (final IPScrumGeneralException e) {
+				TicketTypeCreatePresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+			}
+
+		}
+
+		@Override
+		public void handleFeatureTicketType(final FeatureTicketType featureTicketType) {
+			try {
+				TicketTypeCreatePresenter.this.doCommand(new FeatureTicketTypeCreateCommand(
+						TicketTypeCreatePresenter.this.doGetView().getName(), TicketTypeCreatePresenter.this
+								.doGetView().getDescription()));
+			} catch (final IPScrumGeneralException e) {
+				TicketTypeCreatePresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+
+			}
+
+		}
+
+		@Override
+		public void handleBugTicketType(final BugTicketType bugTicketType) {
+			try {
+				TicketTypeCreatePresenter.this.doCommand(new BugTicketTypeCreateCommand(TicketTypeCreatePresenter.this
+						.doGetView().getName(), TicketTypeCreatePresenter.this.doGetView().getDescription()));
+			} catch (final IPScrumGeneralException e) {
+				TicketTypeCreatePresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+
+			}
+
+		}
+	}
+
+	/**
 	 * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
 	 * fhdw.ipscrum.client.view.TicketTypeCreateView).
 	 */
@@ -140,49 +181,7 @@ public class TicketTypeCreatePresenter extends WritePresenter {
 
 	@Override
 	public Boolean onSave() {
-		this.view.getCategorie().accept(new TicketTypeVisitor() {
-
-			@Override
-			public void handleTaskTicketType(final TaskTicketType taskTicketType) {
-				try {
-					TicketTypeCreatePresenter.this.doCommand(new TaskTicketTypeCreateCommand(
-							TicketTypeCreatePresenter.this.view.getName(), TicketTypeCreatePresenter.this.view
-									.getDescription()));
-				} catch (final IPScrumGeneralException e) {
-					TicketTypeCreatePresenter.this.getContext().getToastMessageController()
-							.toastMessage(e.getMessage());
-				}
-
-			}
-
-			@Override
-			public void handleFeatureTicketType(final FeatureTicketType featureTicketType) {
-				try {
-					TicketTypeCreatePresenter.this.doCommand(new FeatureTicketTypeCreateCommand(
-							TicketTypeCreatePresenter.this.view.getName(), TicketTypeCreatePresenter.this.view
-									.getDescription()));
-				} catch (final IPScrumGeneralException e) {
-					TicketTypeCreatePresenter.this.getContext().getToastMessageController()
-							.toastMessage(e.getMessage());
-
-				}
-
-			}
-
-			@Override
-			public void handleBugTicketType(final BugTicketType bugTicketType) {
-				try {
-					TicketTypeCreatePresenter.this.doCommand(new BugTicketTypeCreateCommand(
-							TicketTypeCreatePresenter.this.view.getName(), TicketTypeCreatePresenter.this.view
-									.getDescription()));
-				} catch (final IPScrumGeneralException e) {
-					TicketTypeCreatePresenter.this.getContext().getToastMessageController()
-							.toastMessage(e.getMessage());
-
-				}
-
-			}
-		});
+		this.view.getCategorie().accept(new TicketTypeCreator());
 		this.commitTransaction();
 		return super.onSave();
 

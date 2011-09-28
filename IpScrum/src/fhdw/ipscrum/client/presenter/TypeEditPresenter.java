@@ -42,6 +42,88 @@ public class TypeEditPresenter extends WritePresenter {
 	private TypeEditView view;
 
 	/**
+	 * Handles the event when the start state was changend in the view.
+	 */
+	private final EventHandler<StateTypeArgs> changeStartStateHandler = new EventHandler<TypeEditView.StateTypeArgs>() {
+		@Override
+		public void onUpdate(final Object sender, final StateTypeArgs eventArgs) {
+			TypeEditPresenter.this.changeStartState(eventArgs.getStateData(), eventArgs.getBool());
+
+		}
+
+	};
+
+	/**
+	 * Handles the event when a field should be added.
+	 */
+	private final DefaultEventHandler addFieldHandler = new DefaultEventHandler() {
+
+		@Override
+		public void onUpdate(final Object sender, final EventArgs eventArgs) {
+			TypeEditPresenter.this.startPresenter(new AddFieldsToTicketTypePresenter(TypeEditPresenter.this
+					.getContext(), TypeEditPresenter.this.type));
+		}
+	};
+
+	/**
+	 * Handles the event when a state should be added.
+	 */
+	private final DefaultEventHandler addStateHandler = new DefaultEventHandler() {
+
+		@Override
+		public void onUpdate(final Object sender, final EventArgs eventArgs) {
+
+			TypeEditPresenter.this.startPresenter(new AddStatesToTicketTypePresenter(TypeEditPresenter.this
+					.getContext(), TypeEditPresenter.this.type));
+
+		}
+	};
+
+	/**
+	 * Handles the event when a field should be deleted.
+	 */
+	private final DefaultEventHandler deleteFieldHandler = new DefaultEventHandler() {
+
+		@Override
+		public void onUpdate(final Object sender, final EventArgs eventArgs) {
+
+			TypeEditPresenter.this.beginTransaction();
+			try {
+				TypeEditPresenter.this.doCommand(new TicketTypeRemoveFieldTypeCommand(TypeEditPresenter.this.type,
+						TypeEditPresenter.this.view.getSelectedField()));
+				TypeEditPresenter.this.commitTransaction();
+				TypeEditPresenter.this.updateView();
+			} catch (final IPScrumGeneralException e) {
+				TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+				TypeEditPresenter.this.rollbackTransaction();
+			}
+
+		}
+	};
+
+	/**
+	 * Handles the event when a state should be deleted.
+	 */
+	private final DefaultEventHandler deleteStateHandler = new DefaultEventHandler() {
+
+		@Override
+		public void onUpdate(final Object sender, final EventArgs eventArgs) {
+
+			TypeEditPresenter.this.beginTransaction();
+			try {
+				TypeEditPresenter.this.doCommand(new TicketTypeRemoveStateTypeCommand(TypeEditPresenter.this.type,
+						TypeEditPresenter.this.view.getSelectedState().getState()));
+				TypeEditPresenter.this.commitTransaction();
+				TypeEditPresenter.this.updateView();
+			} catch (final IPScrumGeneralException e) {
+				TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
+				TypeEditPresenter.this.rollbackTransaction();
+			}
+
+		}
+	};
+
+	/**
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TypeEditPresenter).
 	 * 
 	 * @param context
@@ -66,166 +148,106 @@ public class TypeEditPresenter extends WritePresenter {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createTypeEditView();
 
-			this.view.registerChangeStartStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
+			this.view.registerChangeStartStateEvent(this.changeStartStateHandler);
+
+			this.view.registerAddField(this.addFieldHandler);
+			this.view.registerAddState(this.addStateHandler);
+			this.view.registerDeleteField(this.deleteFieldHandler);
+
+			this.view.registerDeleteState(this.deleteStateHandler);
+			this.view.registerStateSelect(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+
+					TypeEditPresenter.this.fillActivatedFields(TypeEditPresenter.this.view.getSelectedState());
+
+				}
+			});
+
+			this.view.registerChangeEndStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
+
 				@Override
 				public void onUpdate(final Object sender, final StateTypeArgs eventArgs) {
-					TypeEditPresenter.this.changeStartState(eventArgs.getStateData(), eventArgs.getBool());
-
-				}
-
-			});
-
-			this.view.registerAddField(new DefaultEventHandler() {
-
-				@Override
-				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					TypeEditPresenter.this.startPresenter(new AddFieldsToTicketTypePresenter(TypeEditPresenter.this
-							.getContext(), TypeEditPresenter.this.type));
-				}
-			});
-
-			this.view.registerAddState(new DefaultEventHandler() {
-
-				@Override
-				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-
-					TypeEditPresenter.this.startPresenter(new AddStatesToTicketTypePresenter(TypeEditPresenter.this
-							.getContext(), TypeEditPresenter.this.type));
-
-				}
-			});
-
-			this.view.registerDeleteField(new DefaultEventHandler() {
-
-				@Override
-				public void onUpdate(final Object sender, final EventArgs eventArgs) {
 
 					TypeEditPresenter.this.beginTransaction();
 					try {
-						TypeEditPresenter.this.doCommand(new TicketTypeRemoveFieldTypeCommand(
-								TypeEditPresenter.this.type, TypeEditPresenter.this.view.getSelectedField()));
+						TypeEditPresenter.this.doCommand(new TicketTypeSetStatetypeAsEndstatetypeCommand(
+								TypeEditPresenter.this.type, eventArgs.getStateData().getState()));
 						TypeEditPresenter.this.commitTransaction();
 						TypeEditPresenter.this.updateView();
 					} catch (final IPScrumGeneralException e) {
 						TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
 						TypeEditPresenter.this.rollbackTransaction();
+
 					}
 
 				}
 			});
 
+			this.view.registerChangeActivationEvent(new EventHandler<TypeEditView.FieldTypeArgs>() {
+
+				@Override
+				public void onUpdate(final Object sender, final FieldTypeArgs eventArgs) {
+
+					if (TypeEditPresenter.this.view.getSelectedState() != null) {
+
+						TypeEditPresenter.this.beginTransaction();
+						try {
+							TypeEditPresenter.this.doCommand(new TicketTypeSetFieldTypeActivityCommand(
+									TypeEditPresenter.this.type, eventArgs.getFieldData().getFieldType(),
+									TypeEditPresenter.this.view.getSelectedState().getState(), eventArgs.getBool()));
+							TypeEditPresenter.this.commitTransaction();
+							TypeEditPresenter.this.updateView();
+						} catch (final IPScrumGeneralException e) {
+							TypeEditPresenter.this.getContext().getToastMessageController()
+									.toastMessage(e.getMessage());
+							TypeEditPresenter.this.rollbackTransaction();
+						}
+
+					} else {
+						TypeEditPresenter.this.getContext().getToastMessageController()
+								.toastMessage("Kein Zustand makiert!");
+					}
+				}
+			});
+
+			this.view.registerAddTransition(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+
+					TypeEditPresenter.this.startPresenter(new StateTransitionCreatePresenter(TypeEditPresenter.this
+							.getContext(), TypeEditPresenter.this.type));
+					TypeEditPresenter.this.updateView();
+
+				}
+			});
+
+			this.view.registerDeleteTransition(new DefaultEventHandler() {
+
+				@Override
+				public void onUpdate(final Object sender, final EventArgs eventArgs) {
+					if (TypeEditPresenter.this.view.getSelectedTransition() != null) {
+						TypeEditPresenter.this.beginTransaction();
+						try {
+							TypeEditPresenter.this.doCommand(new TransitionRuleDeleteCommand(
+									TypeEditPresenter.this.view.getSelectedTransition(), TypeEditPresenter.this.type));
+							TypeEditPresenter.this.commitTransaction();
+							TypeEditPresenter.this.updateView();
+						} catch (final IPScrumGeneralException e) {
+							TypeEditPresenter.this.getContext().getToastMessageController()
+									.toastMessage(e.getMessage());
+							TypeEditPresenter.this.rollbackTransaction();
+
+						}
+					} else {
+						TypeEditPresenter.this.getContext().getToastMessageController()
+								.toastMessage("Kein Übergang makiert");
+					}
+				}
+			});
 		}
-
-		this.view.registerDeleteState(new DefaultEventHandler() {
-
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-
-				TypeEditPresenter.this.beginTransaction();
-				try {
-					TypeEditPresenter.this.doCommand(new TicketTypeRemoveStateTypeCommand(TypeEditPresenter.this.type,
-							TypeEditPresenter.this.view.getSelectedState().getState()));
-					TypeEditPresenter.this.commitTransaction();
-					TypeEditPresenter.this.updateView();
-				} catch (final IPScrumGeneralException e) {
-					TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
-					TypeEditPresenter.this.rollbackTransaction();
-				}
-
-			}
-		});
-
-		this.view.registerStateSelect(new DefaultEventHandler() {
-
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-
-				TypeEditPresenter.this.fillActivatedFields(TypeEditPresenter.this.view.getSelectedState());
-
-			}
-		});
-
-		this.view.registerChangeEndStateEvent(new EventHandler<TypeEditView.StateTypeArgs>() {
-
-			@Override
-			public void onUpdate(final Object sender, final StateTypeArgs eventArgs) {
-
-				TypeEditPresenter.this.beginTransaction();
-				try {
-					TypeEditPresenter.this.doCommand(new TicketTypeSetStatetypeAsEndstatetypeCommand(
-							TypeEditPresenter.this.type, eventArgs.getStateData().getState()));
-					TypeEditPresenter.this.commitTransaction();
-					TypeEditPresenter.this.updateView();
-				} catch (final IPScrumGeneralException e) {
-					TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
-					TypeEditPresenter.this.rollbackTransaction();
-
-				}
-
-			}
-		});
-
-		this.view.registerChangeActivationEvent(new EventHandler<TypeEditView.FieldTypeArgs>() {
-
-			@Override
-			public void onUpdate(final Object sender, final FieldTypeArgs eventArgs) {
-
-				if (TypeEditPresenter.this.view.getSelectedState() != null) {
-
-					TypeEditPresenter.this.beginTransaction();
-					try {
-						TypeEditPresenter.this.doCommand(new TicketTypeSetFieldTypeActivityCommand(
-								TypeEditPresenter.this.type, eventArgs.getFieldData().getFieldType(),
-								TypeEditPresenter.this.view.getSelectedState().getState(), eventArgs.getBool()));
-						TypeEditPresenter.this.commitTransaction();
-						TypeEditPresenter.this.updateView();
-					} catch (final IPScrumGeneralException e) {
-						TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
-						TypeEditPresenter.this.rollbackTransaction();
-					}
-
-				} else {
-					TypeEditPresenter.this.getContext().getToastMessageController()
-							.toastMessage("Kein Zustand makiert!");
-				}
-			}
-		});
-
-		this.view.registerAddTransition(new DefaultEventHandler() {
-
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-
-				TypeEditPresenter.this.startPresenter(new StateTransitionCreatePresenter(TypeEditPresenter.this
-						.getContext(), TypeEditPresenter.this.type));
-				TypeEditPresenter.this.updateView();
-
-			}
-		});
-
-		this.view.registerDeleteTransition(new DefaultEventHandler() {
-
-			@Override
-			public void onUpdate(final Object sender, final EventArgs eventArgs) {
-				if (TypeEditPresenter.this.view.getSelectedTransition() != null) {
-					TypeEditPresenter.this.beginTransaction();
-					try {
-						TypeEditPresenter.this.doCommand(new TransitionRuleDeleteCommand(TypeEditPresenter.this.view
-								.getSelectedTransition(), TypeEditPresenter.this.type));
-						TypeEditPresenter.this.commitTransaction();
-						TypeEditPresenter.this.updateView();
-					} catch (final IPScrumGeneralException e) {
-						TypeEditPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
-						TypeEditPresenter.this.rollbackTransaction();
-
-					}
-				} else {
-					TypeEditPresenter.this.getContext().getToastMessageController()
-							.toastMessage("Kein Übergang makiert");
-				}
-			}
-		});
-
 		return this.view;
 	}
 

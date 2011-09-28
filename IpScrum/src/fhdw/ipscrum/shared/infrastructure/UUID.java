@@ -95,8 +95,10 @@ public final class UUID {
 		int r;
 
 		// rfc4122 requires these characters
-		uuid[TextConstants.EIGHT] =
-				uuid[TextConstants.THIRTEEN] = uuid[TextConstants.EIGHTEEN] = uuid[TextConstants.TWENTYTHREE] = '-';
+		uuid[TextConstants.EIGHT] = '-';
+		uuid[TextConstants.THIRTEEN] = '-';
+		uuid[TextConstants.EIGHTEEN] = '-';
+		uuid[TextConstants.TWENTYTHREE] = '-';
 		uuid[TextConstants.FOURTEEN] = '4';
 
 		// Fill in random data. At i==19 set the high bits of clock sequence as

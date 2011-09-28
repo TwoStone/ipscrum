@@ -45,13 +45,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor#
-	 * handleIncidentIllnessCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor# handleIncidentIllnessCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentIllnessCreateCommand)
 	 */
 	@Override
-	public void handleIncidentIllnessCreateCommand(
-			final IncidentIllnessCreateCommand incidentIllnessCreateCommand) {
+	public void handleIncidentIllnessCreateCommand(final IncidentIllnessCreateCommand incidentIllnessCreateCommand) {
 		this.standardHandling(incidentIllnessCreateCommand);
 
 	}
@@ -59,8 +57,7 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor#
-	 * handleIncidentOtherIssueCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor# handleIncidentOtherIssueCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentOtherIssueCreateCommand)
 	 */
 	@Override
@@ -73,13 +70,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor#
-	 * handleIncidentTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor# handleIncidentTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentTypeCreateCommand)
 	 */
 	@Override
-	public void handleIncidentTypeCreateCommand(
-			final IncidentTypeCreateCommand incidentTypeCreateCommand) {
+	public void handleIncidentTypeCreateCommand(final IncidentTypeCreateCommand incidentTypeCreateCommand) {
 		this.standardHandling(incidentTypeCreateCommand);
 
 	}
@@ -87,13 +82,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor#
-	 * handleIncidentVacationCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectHistoryCommandVisitor# handleIncidentVacationCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentVacationCreateCommand)
 	 */
 	@Override
-	public void handleIncidentVacationCreateCommand(
-			final IncidentVacationCreateCommand incidentVacationCreateCommand) {
+	public void handleIncidentVacationCreateCommand(final IncidentVacationCreateCommand incidentVacationCreateCommand) {
 		this.standardHandling(incidentVacationCreateCommand);
 
 	}
@@ -101,8 +94,7 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handleBugCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handleBugCreateCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.BugCreateCommand)
 	 */
 	@Override
@@ -114,13 +106,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handleFeatureCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handleFeatureCreateCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.FeatureCreateCommand)
 	 */
 	@Override
-	public void handleFeatureCreateCommand(
-			final FeatureCreateCommand featureCreateCommand) {
+	public void handleFeatureCreateCommand(final FeatureCreateCommand featureCreateCommand) {
 		this.standardHandling(featureCreateCommand);
 
 	}
@@ -128,13 +118,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handlePBIAddRelationCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handlePBIAddRelationCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.PBIAddRelationCommand)
 	 */
 	@Override
-	public void handlePBIAddRelationCommand(
-			final PBIAddRelationCommand pBIAddRelationCommand) {
+	public void handlePBIAddRelationCommand(final PBIAddRelationCommand pBIAddRelationCommand) {
 		this.standardHandling(pBIAddRelationCommand);
 
 	}
@@ -142,13 +130,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handlePBIPriorityDecreaseCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handlePBIPriorityDecreaseCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.PBIPriorityDecreaseCommand)
 	 */
 	@Override
-	public void handlePBIPriorityDecreaseCommand(
-			final PBIPriorityDecreaseCommand pBIPriorityDecreaseCommand) {
+	public void handlePBIPriorityDecreaseCommand(final PBIPriorityDecreaseCommand pBIPriorityDecreaseCommand) {
 		this.standardHandling(pBIPriorityDecreaseCommand);
 
 	}
@@ -156,13 +142,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handlePBIPriorityIncreaseCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handlePBIPriorityIncreaseCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.PBIPriorityIncreaseCommand)
 	 */
 	@Override
-	public void handlePBIPriorityIncreaseCommand(
-			final PBIPriorityIncreaseCommand pBIPriorityIncreaseCommand) {
+	public void handlePBIPriorityIncreaseCommand(final PBIPriorityIncreaseCommand pBIPriorityIncreaseCommand) {
 		this.standardHandling(pBIPriorityIncreaseCommand);
 
 	}
@@ -170,13 +154,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handlePBIRemoveRelationCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handlePBIRemoveRelationCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.PBIRemoveRelationCommand)
 	 */
 	@Override
-	public void handlePBIRemoveRelationCommand(
-			final PBIRemoveRelationCommand pBIRemoveRelationCommand) {
+	public void handlePBIRemoveRelationCommand(final PBIRemoveRelationCommand pBIRemoveRelationCommand) {
 		this.standardHandling(pBIRemoveRelationCommand);
 
 	}
@@ -184,13 +166,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor#
-	 * handleRelationTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProductBacklogCommandVisitor# handleRelationTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.productBacklog.RelationTypeCreateCommand)
 	 */
 	@Override
-	public void handleRelationTypeCreateCommand(
-			final RelationTypeCreateCommand relationTypeCreateCommand) {
+	public void handleRelationTypeCreateCommand(final RelationTypeCreateCommand relationTypeCreateCommand) {
 		this.standardHandling(relationTypeCreateCommand);
 
 	}
@@ -198,26 +178,22 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#
-	 * handleProjectAddSystemCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor# handleProjectAddSystemCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand)
 	 */
 	@Override
-	public void handleProjectAddSystemCommand(
-			final ProjectAddSystemCommand projectAddSystemCommand) {
+	public void handleProjectAddSystemCommand(final ProjectAddSystemCommand projectAddSystemCommand) {
 		this.standardHandling(projectAddSystemCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#
-	 * handleProjectChangeNameCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor# handleProjectChangeNameCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand)
 	 */
 	@Override
-	public void handleProjectChangeNameCommand(
-			final ProjectChangeNameCommand projectChangeNameCommand) {
+	public void handleProjectChangeNameCommand(final ProjectChangeNameCommand projectChangeNameCommand) {
 		this.standardHandling(projectChangeNameCommand);
 
 	}
@@ -225,13 +201,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleProjectCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleProjectCreateCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectCreateCommand)
 	 */
 	@Override
-	public void handleProjectCreateCommand(
-			final ProjectCreateCommand projectCreateCommand) {
+	public void handleProjectCreateCommand(final ProjectCreateCommand projectCreateCommand) {
 		this.standardHandling(projectCreateCommand);
 
 	}
@@ -239,13 +213,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleProjectDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleProjectDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectDeleteCommand)
 	 */
 	@Override
-	public void handleProjectDeleteCommand(
-			final ProjectDeleteCommand projectDeleteCommand) {
+	public void handleProjectDeleteCommand(final ProjectDeleteCommand projectDeleteCommand) {
 		this.standardHandling(projectDeleteCommand);
 
 	}
@@ -253,13 +225,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#
-	 * handleProjectRemoveSystemCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor# handleProjectRemoveSystemCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectRemoveSystemCommand)
 	 */
 	@Override
-	public void handleProjectRemoveSystemCommand(
-			final ProjectRemoveSystemCommand projectRemoveSystemCommand) {
+	public void handleProjectRemoveSystemCommand(final ProjectRemoveSystemCommand projectRemoveSystemCommand) {
 		this.standardHandling(projectRemoveSystemCommand);
 
 	}
@@ -267,13 +237,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#
-	 * handleReleaseAddSprintCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor# handleReleaseAddSprintCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand)
 	 */
 	@Override
-	public void handleReleaseAddSprintCommand(
-			final ReleaseAddSprintCommand releaseAddSprintCommand) {
+	public void handleReleaseAddSprintCommand(final ReleaseAddSprintCommand releaseAddSprintCommand) {
 		this.standardHandling(releaseAddSprintCommand);
 
 	}
@@ -281,13 +249,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleReleaseCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleReleaseCreateCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseCreateCommand)
 	 */
 	@Override
-	public void handleReleaseCreateCommand(
-			final ReleaseCreateCommand releaseCreateCommand) {
+	public void handleReleaseCreateCommand(final ReleaseCreateCommand releaseCreateCommand) {
 		this.standardHandling(releaseCreateCommand);
 
 	}
@@ -295,13 +261,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleReleaseDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleReleaseDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseDeleteCommand)
 	 */
 	@Override
-	public void handleReleaseDeleteCommand(
-			final ReleaseDeleteCommand releaseDeleteCommand) {
+	public void handleReleaseDeleteCommand(final ReleaseDeleteCommand releaseDeleteCommand) {
 		this.standardHandling(releaseDeleteCommand);
 
 	}
@@ -309,13 +273,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#
-	 * handleReleaseRemoveSprintCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor# handleReleaseRemoveSprintCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseRemoveSprintCommand)
 	 */
 	@Override
-	public void handleReleaseRemoveSprintCommand(
-			final ReleaseRemoveSprintCommand releaseRemoveSprintCommand) {
+	public void handleReleaseRemoveSprintCommand(final ReleaseRemoveSprintCommand releaseRemoveSprintCommand) {
 		this.standardHandling(releaseRemoveSprintCommand);
 
 	}
@@ -323,13 +285,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleSprintChangeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleSprintChangeCommand
 	 * (fhdw.ipscrum.shared.commands.project.SprintChangeCommand)
 	 */
 	@Override
-	public void
-			handleSprintChangeCommand(final SprintChangeCommand sprintChangeCommand) {
+	public void handleSprintChangeCommand(final SprintChangeCommand sprintChangeCommand) {
 		this.standardHandling(sprintChangeCommand);
 
 	}
@@ -337,13 +297,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleSprintCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.ProjectCommandVisitor#handleSprintCreateCommand
 	 * (fhdw.ipscrum.shared.commands.project.SprintCreateCommand)
 	 */
 	@Override
-	public void
-			handleSprintCreateCommand(final SprintCreateCommand sprintCreateCommand) {
+	public void handleSprintCreateCommand(final SprintCreateCommand sprintCreateCommand) {
 		this.standardHandling(sprintCreateCommand);
 
 	}
@@ -351,8 +309,7 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskAddPBICommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskAddPBICommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskAddPBICommand)
 	 */
 	@Override
@@ -364,8 +321,7 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskCreateCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskCreateCommand)
 	 */
 	@Override
@@ -377,8 +333,7 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskDeleteCommand)
 	 */
 	@Override
@@ -390,13 +345,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskRemovePBICommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#handleTaskRemovePBICommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskRemovePBICommand)
 	 */
 	@Override
-	public void handleTaskRemovePBICommand(
-			final TaskRemovePBICommand taskRemovePBICommand) {
+	public void handleTaskRemovePBICommand(final TaskRemovePBICommand taskRemovePBICommand) {
 		this.standardHandling(taskRemovePBICommand);
 
 	}
@@ -404,13 +357,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#
-	 * handleTaskSetPlanEffortCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor# handleTaskSetPlanEffortCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskSetPlanEffortCommand)
 	 */
 	@Override
-	public void handleTaskSetPlanEffortCommand(
-			final TaskSetPlanEffortCommand taskSetPlanEffortCommand) {
+	public void handleTaskSetPlanEffortCommand(final TaskSetPlanEffortCommand taskSetPlanEffortCommand) {
 		this.standardHandling(taskSetPlanEffortCommand);
 
 	}
@@ -418,13 +369,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor#
-	 * handleTaskSetResponsibilityCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TaskboardCommandVisitor# handleTaskSetResponsibilityCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskSetResponsibilityCommand)
 	 */
 	@Override
-	public void handleTaskSetResponsibilityCommand(
-			final TaskSetResponsibilityCommand taskSetResponsibilityCommand) {
+	public void handleTaskSetResponsibilityCommand(final TaskSetResponsibilityCommand taskSetResponsibilityCommand) {
 		this.standardHandling(taskSetResponsibilityCommand);
 
 	}
@@ -432,14 +381,12 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketGeneralCommandVisitor#
-	 * handleListFieldAddValueCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketGeneralCommandVisitor# handleListFieldAddValueCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.ListFieldAddValueCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleListFieldAddValueCommand(
-			final ListFieldAddValueCommand listFieldAddValueCommand)
+	public void handleListFieldAddValueCommand(final ListFieldAddValueCommand listFieldAddValueCommand)
 			throws NoObjectFindException {
 		this.standardHandling(listFieldAddValueCommand);
 
@@ -448,14 +395,12 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketGeneralCommandVisitor#
-	 * handleListFieldRemoveValueCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketGeneralCommandVisitor# handleListFieldRemoveValueCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.ListFieldRemoveValueCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleListFieldRemoveValueCommand(
-			final ListFieldRemoveValueCommand listFieldRemoveValueCommand)
+	public void handleListFieldRemoveValueCommand(final ListFieldRemoveValueCommand listFieldRemoveValueCommand)
 			throws NoObjectFindException {
 		this.standardHandling(listFieldRemoveValueCommand);
 
@@ -464,22 +409,19 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketGeneralCommandVisitor#
-	 * handleSingleFieldChangeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketGeneralCommandVisitor# handleSingleFieldChangeCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.SingleFieldChangeCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleSingleFieldChangeCommand(
-			final SingleFieldChangeCommand singleFieldChangeCommand)
+	public void handleSingleFieldChangeCommand(final SingleFieldChangeCommand singleFieldChangeCommand)
 			throws NoObjectFindException {
 		this.standardHandling(singleFieldChangeCommand);
 
 	}
 
 	@Override
-	public void handleTicketChangeStateCommand(
-			final TicketChangeStateCommand ticketChangeStateCommand)
+	public void handleTicketChangeStateCommand(final TicketChangeStateCommand ticketChangeStateCommand)
 			throws NoObjectFindException {
 		this.standardHandling(ticketChangeStateCommand);
 	}
@@ -487,13 +429,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.AdminCommandVisitor#handleSearchCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandVisitor#handleSearchCreateCommand
 	 * (fhdw.ipscrum.shared.commands.search.SearchCreateCommand)
 	 */
 	@Override
-	public void
-			handleSearchCreateCommand(final SearchCreateCommand searchCreateCommand) {
+	public void handleSearchCreateCommand(final SearchCreateCommand searchCreateCommand) {
 		this.standardHandling(searchCreateCommand);
 
 	}
@@ -501,13 +441,11 @@ public abstract class CommandStandardVisitor extends AdminCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.AdminCommandVisitor#handleSearchDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandVisitor#handleSearchDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.search.SearchDeleteCommand)
 	 */
 	@Override
-	public void
-			handleSearchDeleteCommand(final SearchDeleteCommand searchDeleteCommand) {
+	public void handleSearchDeleteCommand(final SearchDeleteCommand searchDeleteCommand) {
 		this.standardHandling(searchDeleteCommand);
 
 	}

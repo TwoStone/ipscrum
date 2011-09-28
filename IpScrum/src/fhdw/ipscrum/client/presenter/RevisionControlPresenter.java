@@ -28,8 +28,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.utils.InfrastructureUtils;
 
 /**
- * This is to control the revision-GUI. It enables users to inspect, load and filter
- * revisons.
+ * This is to control the revision-GUI. It enables users to inspect, load and filter revisons.
  */
 public class RevisionControlPresenter extends ReadPresenter {
 
@@ -49,12 +48,11 @@ public class RevisionControlPresenter extends ReadPresenter {
 		 *            complete list of revisions
 		 * @return a list of revisions that took place in a specified time range
 		 */
-		public static List<Revision> getRevisionsBetween(final Date fromDate,
-				final Date toDate, final Collection<Revision> revisions) {
+		public static List<Revision> getRevisionsBetween(final Date fromDate, final Date toDate,
+				final Collection<Revision> revisions) {
 			final List<Revision> results = new ArrayList<Revision>();
 			for (final Revision revision : revisions) {
-				if (revision.getRevisionDate().after(fromDate)
-						&& revision.getRevisionDate().before(toDate)) {
+				if (revision.getRevisionDate().after(fromDate) && revision.getRevisionDate().before(toDate)) {
 					results.add(revision);
 				}
 			}
@@ -71,8 +69,7 @@ public class RevisionControlPresenter extends ReadPresenter {
 		 *            list of all revisions
 		 * @return a list of revisions from param1 till today (newest)
 		 */
-		public static List<Revision> getRevisionsFromDate(final Date fromDate,
-				final Collection<Revision> revisions) {
+		public static List<Revision> getRevisionsFromDate(final Date fromDate, final Collection<Revision> revisions) {
 			final List<Revision> results = new ArrayList<Revision>();
 			for (final Revision revision : revisions) {
 				if (!revision.getRevisionDate().before(fromDate)) {
@@ -92,8 +89,7 @@ public class RevisionControlPresenter extends ReadPresenter {
 		 *            list of all available revisions
 		 * @return a list of revisions till param2.
 		 */
-		public static List<Revision> getRevisionsTillDate(final Date toDate,
-				final Collection<Revision> revisions) {
+		public static List<Revision> getRevisionsTillDate(final Date toDate, final Collection<Revision> revisions) {
 			final List<Revision> results = new ArrayList<Revision>();
 			for (final Revision revision : revisions) {
 				if (!revision.getRevisionDate().after(toDate)) {
@@ -111,12 +107,11 @@ public class RevisionControlPresenter extends ReadPresenter {
 	private IRevisionControlView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.RevisionControlPresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.RevisionControlPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public RevisionControlPresenter(final ClientContext context) {
 		super(context);
@@ -132,19 +127,16 @@ public class RevisionControlPresenter extends ReadPresenter {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createRevisionControlView();
 
-			this.view
-					.registerFilterEventHandler(new EventHandler<RevisionControlView.RevFilterArgs>() {
+			this.view.registerFilterEventHandler(new EventHandler<RevisionControlView.RevFilterArgs>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final RevFilterArgs eventArgs) {
-							final Date fromDate = eventArgs.getFromDate();
-							final Date toDate = eventArgs.getToDate();
-							final Set<Person> editors = eventArgs.getEditors();
-							RevisionControlPresenter.this.filterRevisionlist(fromDate,
-									toDate, editors);
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final RevFilterArgs eventArgs) {
+					final Date fromDate = eventArgs.getFromDate();
+					final Date toDate = eventArgs.getToDate();
+					final Set<Person> editors = eventArgs.getEditors();
+					RevisionControlPresenter.this.filterRevisionlist(fromDate, toDate, editors);
+				}
+			});
 
 			this.view.registerRemoveFilterEventHandler(new DefaultEventHandler() {
 
@@ -154,16 +146,13 @@ public class RevisionControlPresenter extends ReadPresenter {
 				}
 			});
 
-			this.view
-					.registerRewindEventHandler(new EventHandler<TypedEventArg<Revision>>() {
+			this.view.registerRewindEventHandler(new EventHandler<TypedEventArg<Revision>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Revision> eventArgs) {
-							RevisionControlPresenter.this.loadRevision(eventArgs
-									.getObject());
-						}
-					});
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Revision> eventArgs) {
+					RevisionControlPresenter.this.loadRevision(eventArgs.getObject());
+				}
+			});
 
 		}
 
@@ -180,66 +169,23 @@ public class RevisionControlPresenter extends ReadPresenter {
 	 * @param editors
 	 *            list of editors for extended drill-down
 	 */
-	private void filterRevisionlist(final Date fromDate, final Date toDate,
-			final Set<Person> editors) {
-		if (fromDate == null && toDate == null
-				&& (editors == null || editors.size() == 0)) {
+	private void filterRevisionlist(final Date fromDate, final Date toDate, final Set<Person> editors) {
+		if (fromDate == null && toDate == null && (editors == null || editors.size() == 0)) {
 			this.toastMessage("Bitte geben Sie zuerst mind. ein Filterkriterium an.");
 		} else {
-			ReceiveModelService.Util.getInstance().getAllRevisions(
-					new AsyncCallback<Map<Date, Revision>>() {
+			ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<Map<Date, Revision>>() {
 
-						@Override
-						public void onSuccess(final Map<Date, Revision> revList) {
+				@Override
+				public void onSuccess(final Map<Date, Revision> revList) {
 
-							final List<Revision> filterList = new ArrayList<Revision>();
+					RevisionControlPresenter.this.setRevisions(fromDate, toDate, editors, revList);
+				}
 
-							if (fromDate != null && toDate != null) {
-								filterList.addAll(RevisionControlPresenter.FilterUtils
-										.getRevisionsBetween(fromDate, toDate,
-												revList.values()));
-							} else if (fromDate != null && toDate == null) {
-								filterList.addAll(RevisionControlPresenter.FilterUtils
-										.getRevisionsFromDate(fromDate,
-												revList.values()));
-							} else if (fromDate == null && toDate != null) {
-								filterList.addAll(RevisionControlPresenter.FilterUtils
-										.getRevisionsTillDate(toDate, revList.values()));
-							} else if (fromDate == null && toDate == null) {
-								filterList.addAll(revList.values());
-							}
-
-							final List<Revision> iteratorList =
-									new ArrayList<Revision>();
-							iteratorList.addAll(filterList);
-
-							for (final Person editor : editors) {
-								for (final Revision revision : iteratorList) {
-									try {
-										if (revision
-												.getEditor(RevisionControlPresenter.this
-														.getContext().getModel()) != editor) {
-											filterList.remove(revision);
-										}
-									} catch (final IPScrumGeneralException e) {
-										RevisionControlPresenter.this.toastMessage(e
-												.getMessage());
-									}
-								}
-							}
-
-							RevisionControlPresenter.this
-									.updateRevTableData(filterList);
-							RevisionControlPresenter.this.doGetView()
-									.setFilterResetButtonStatus(true);
-						}
-
-						@Override
-						public void onFailure(final Throwable caught) {
-							RevisionControlPresenter.this.toastMessage(caught
-									.getMessage());
-						}
-					});
+				@Override
+				public void onFailure(final Throwable caught) {
+					RevisionControlPresenter.this.toastMessage(caught.getMessage());
+				}
+			});
 		}
 	}
 
@@ -250,32 +196,28 @@ public class RevisionControlPresenter extends ReadPresenter {
 	 *            the revision to be loaded
 	 */
 	private void loadRevision(final Revision revision) {
-		ReceiveModelService.Util.getInstance().getAllRevisions(
-				new AsyncCallback<Map<Date, Revision>>() {
+		ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<Map<Date, Revision>>() {
 
-					@Override
-					public void onSuccess(final Map<Date, Revision> result) {
-						try {
-							final Model revisionModel =
-									InfrastructureUtils.buildSpecificModel(
-											revision.getRevisionDate(), result);
-							RevisionControlPresenter.this.getContext().setModel(
-									revisionModel);
-							InfrastructureUtils.lockModel(revisionModel);
-							RevisionControlPresenter.this
-									.toastMessage("Revision erfolgreich geladen!");
-							RevisionControlPresenter.this.close();
-						} catch (final IPScrumGeneralException e) {
-							RevisionControlPresenter.this.toastMessage(e.getMessage());
-						}
-					}
+			@Override
+			public void onSuccess(final Map<Date, Revision> result) {
+				try {
+					final Model revisionModel =
+							InfrastructureUtils.buildSpecificModel(revision.getRevisionDate(), result);
+					RevisionControlPresenter.this.getContext().setModel(revisionModel);
+					InfrastructureUtils.lockModel(revisionModel);
+					RevisionControlPresenter.this.toastMessage("Revision erfolgreich geladen!");
+					RevisionControlPresenter.this.close();
+				} catch (final IPScrumGeneralException e) {
+					RevisionControlPresenter.this.toastMessage(e.getMessage());
+				}
+			}
 
-					@Override
-					public void onFailure(final Throwable caught) {
-						RevisionControlPresenter.this.toastMessage(caught.getMessage());
-					}
+			@Override
+			public void onFailure(final Throwable caught) {
+				RevisionControlPresenter.this.toastMessage(caught.getMessage());
+			}
 
-				});
+		});
 	}
 
 	@Override
@@ -283,21 +225,19 @@ public class RevisionControlPresenter extends ReadPresenter {
 		this.doGetView().updateEditorList(this.getContext().getModel().getAllPersons());
 		this.doGetView().setFilterResetButtonStatus(false);
 
-		ReceiveModelService.Util.getInstance().getAllRevisions(
-				new AsyncCallback<Map<Date, Revision>>() {
+		ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<Map<Date, Revision>>() {
 
-					@Override
-					public void onSuccess(final Map<Date, Revision> result) {
-						final List<Revision> revList =
-								new ArrayList<Revision>(result.values());
-						RevisionControlPresenter.this.updateRevTableData(revList);
-					}
+			@Override
+			public void onSuccess(final Map<Date, Revision> result) {
+				final List<Revision> revList = new ArrayList<Revision>(result.values());
+				RevisionControlPresenter.this.updateRevTableData(revList);
+			}
 
-					@Override
-					public void onFailure(final Throwable caught) {
-						RevisionControlPresenter.this.toastMessage(caught.getMessage());
-					}
-				});
+			@Override
+			public void onFailure(final Throwable caught) {
+				RevisionControlPresenter.this.toastMessage(caught.getMessage());
+			}
+		});
 	}
 
 	/**
@@ -321,6 +261,58 @@ public class RevisionControlPresenter extends ReadPresenter {
 	@Override
 	public void onModelUpdate() {
 		this.updateView();
+	}
+
+	/**
+	 * Updates the revision data of the view with filtered data.
+	 * 
+	 * @param fromDate
+	 *            start date
+	 * @param toDate
+	 *            end date
+	 * @param editors
+	 *            editors of the revisions
+	 * @param revList
+	 *            list of the revisions
+	 */
+	private void setRevisions(final Date fromDate, final Date toDate, final Set<Person> editors,
+			final Map<Date, Revision> revList) {
+		final List<Revision> filterList = new ArrayList<Revision>();
+
+		if (fromDate == null) {
+			if (toDate == null) {
+				filterList.addAll(revList.values());
+			} else {
+				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsTillDate(toDate, revList.values()));
+			}
+		} else {
+			if (toDate == null) {
+				filterList
+						.addAll(RevisionControlPresenter.FilterUtils.getRevisionsFromDate(fromDate, revList.values()));
+			} else {
+				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsBetween(fromDate, toDate,
+						revList.values()));
+			}
+
+		}
+
+		final List<Revision> iteratorList = new ArrayList<Revision>();
+		iteratorList.addAll(filterList);
+
+		for (final Person editor : editors) {
+			for (final Revision revision : iteratorList) {
+				try {
+					if (revision.getEditor(RevisionControlPresenter.this.getContext().getModel()) != editor) {
+						filterList.remove(revision);
+					}
+				} catch (final IPScrumGeneralException e) {
+					RevisionControlPresenter.this.toastMessage(e.getMessage());
+				}
+			}
+		}
+
+		RevisionControlPresenter.this.updateRevTableData(filterList);
+		RevisionControlPresenter.this.doGetView().setFilterResetButtonStatus(true);
 	}
 
 }

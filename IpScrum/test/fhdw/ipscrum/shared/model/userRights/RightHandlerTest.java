@@ -448,6 +448,7 @@ public class RightHandlerTest {
 		RightHandlerTest.pbr.canBeExecuted(d);
 		RightHandlerTest.pbr.canBeExecuted(e);
 		RightHandlerTest.pbr.canBeExecuted(f);
+		RightHandlerTest.pbr.canBeExecuted(g);
 	}
 
 	/**

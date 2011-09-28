@@ -202,6 +202,28 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	private Project project;
 
 	/**
+	 * Handles the gotoProductBacklogEvent from the view.
+	 */
+	private final DefaultEventHandler gotoProductBacklogHandler = new DefaultEventHandler() {
+
+		@Override
+		public void onUpdate(final Object sender, final EventArgs eventArgs) {
+			ProjectDisplayPresenter.this.gotoProductBacklog();
+		}
+	};
+
+	/**
+	 * Handles the change name event from the view.
+	 */
+	private final EventHandler<TypedEventArg<String>> changeNameHandler = new EventHandler<TypedEventArg<String>>() {
+
+		@Override
+		public void onUpdate(final Object sender, final TypedEventArg<String> eventArgs) {
+			ProjectDisplayPresenter.this.changeName(eventArgs.getObject());
+		}
+	};
+
+	/**
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProjectDisplayPresenter).
 	 * 
 	 * @param context
@@ -224,13 +246,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 	public IProjectDisplayView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createProjectDisplayView();
-			this.view.registerChangeNameHandler(new EventHandler<TypedEventArg<String>>() {
-
-				@Override
-				public void onUpdate(final Object sender, final TypedEventArg<String> eventArgs) {
-					ProjectDisplayPresenter.this.changeName(eventArgs.getObject());
-				}
-			});
+			this.view.registerChangeNameHandler(this.changeNameHandler);
 			this.view.registerGotoSystems(new DefaultEventHandler() {
 
 				@Override
@@ -259,13 +275,7 @@ public class ProjectDisplayPresenter extends WritePresenter {
 				}
 			});
 
-			this.view.registerGotoProdcutBacklog(new DefaultEventHandler() {
-
-				@Override
-				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					ProjectDisplayPresenter.this.gotoProductBacklog();
-				}
-			});
+			this.view.registerGotoProdcutBacklog(this.gotoProductBacklogHandler);
 			this.view.registerCreateSprint(new DefaultEventHandler() {
 
 				@Override
