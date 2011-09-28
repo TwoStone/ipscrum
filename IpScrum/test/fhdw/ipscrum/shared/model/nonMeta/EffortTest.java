@@ -57,7 +57,7 @@ public class EffortTest {
 	public void testSetValue1() throws Exception {
 		final Effort e = new Effort(1);
 		e.setValue(0);
-		Assert.assertEquals(new Integer(0), e.getValue());
+		Assert.assertEquals(Integer.valueOf(0), e.getValue());
 	}
 
 	/**
@@ -80,8 +80,8 @@ public class EffortTest {
 	 */
 	public void testToStringAndEqualsAndHashCode() throws Exception {
 		final Effort e = new Effort(1);
-		Assert.assertEquals(new Integer(1).toString(), e.toString());
-		Assert.assertEquals(new Integer(1).hashCode(), e.hashCode());
+		Assert.assertEquals(Integer.valueOf(1).toString(), e.toString());
+		Assert.assertEquals(Integer.valueOf(1).hashCode(), e.hashCode());
 		Assert.assertEquals(true, e.equals(e));
 		Assert.assertEquals(true, e.equals(new Effort(1)));
 		Assert.assertEquals(false, e.equals(new Effort(0)));

@@ -334,17 +334,17 @@ public class RightHandlerTest {
 	public void testProjectRightHandler() throws Exception {
 		final System system =
 				new System(RightHandlerTest.model, "neues System", RightHandlerTest.model.getRootsystem());
-		final Release release = new Release(RightHandlerTest.model, "asd", new Date(), RightHandlerTest.project);
+		final Release release1 = new Release(RightHandlerTest.model, "asd", new Date(), RightHandlerTest.project);
 
 		final ProjectAddSystemCommand a = new ProjectAddSystemCommand(RightHandlerTest.project, system);
 		final ProjectChangeNameCommand b = new ProjectChangeNameCommand(RightHandlerTest.project, "neues Projekt");
 		final ProjectCreateCommand c = new ProjectCreateCommand("Neueres Projekt");
 		final ProjectDeleteCommand d = new ProjectDeleteCommand(RightHandlerTest.project);
 		final ProjectRemoveSystemCommand e = new ProjectRemoveSystemCommand(RightHandlerTest.project, system);
-		final ReleaseAddSprintCommand f = new ReleaseAddSprintCommand(release, RightHandlerTest.sprint);
+		final ReleaseAddSprintCommand f = new ReleaseAddSprintCommand(release1, RightHandlerTest.sprint);
 		final ReleaseCreateCommand g = new ReleaseCreateCommand(RightHandlerTest.project, "qawe", new Date());
-		final ReleaseDeleteCommand h = new ReleaseDeleteCommand(release);
-		final ReleaseRemoveSprintCommand i = new ReleaseRemoveSprintCommand(release, RightHandlerTest.sprint);
+		final ReleaseDeleteCommand h = new ReleaseDeleteCommand(release1);
+		final ReleaseRemoveSprintCommand i = new ReleaseRemoveSprintCommand(release1, RightHandlerTest.sprint);
 		final SprintChangeCommand j =
 				new SprintChangeCommand(RightHandlerTest.sprint, "a", "c", new Date(), new Date(),
 						RightHandlerTest.team);

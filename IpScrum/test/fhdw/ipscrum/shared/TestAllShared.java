@@ -8,7 +8,11 @@ import fhdw.ipscrum.shared.commands.metamodel.pbi.VariousBugCommandsTest;
 import fhdw.ipscrum.shared.commands.metamodel.pbi.VariousFeatureCommandsTest;
 import fhdw.ipscrum.shared.commands.metamodel.pbi.VariousPBICommandsTest;
 import fhdw.ipscrum.shared.commands.metamodel.task.VariousTaskCommandsTest;
+import fhdw.ipscrum.shared.commands.productBacklog.ProductBacklogCommandSuite;
 import fhdw.ipscrum.shared.commands.project.ProjectCommandTests;
+import fhdw.ipscrum.shared.commands.projectHistory.ProjectHistoryCommandSuite;
+import fhdw.ipscrum.shared.commands.taskboard.TaskboardCommandSuite;
+import fhdw.ipscrum.shared.commands.ticketsGeneral.TicketsGeneralCommandSuite;
 import fhdw.ipscrum.shared.model.TestAllModel;
 import fhdw.ipscrum.shared.utils.TestAllUtils;
 
@@ -25,7 +29,11 @@ import fhdw.ipscrum.shared.utils.TestAllUtils;
 		VariousBugCommandsTest.class,
 		VariousFeatureCommandsTest.class,
 		ProjectCommandTests.class,
-		AdminCommandSuite.class })
+		AdminCommandSuite.class,
+		TicketsGeneralCommandSuite.class,
+		ProjectHistoryCommandSuite.class,
+		TaskboardCommandSuite.class,
+		ProductBacklogCommandSuite.class })
 public final class TestAllShared {
 
 	/**
