@@ -37,23 +37,23 @@ public class VariousTaskCommandsTest {
 	/**
 	 * inner Variable.
 	 */
-	private static Model model;
+	private Model model;
 	/**
 	 * inner Variable.
 	 */
-	private static Project project;
+	private Project project;
 	/**
 	 * inner Variable.
 	 */
-	private static Task task;
+	private Task task;
 	/**
 	 * inner Variable.
 	 */
-	private static Feature feature;
+	private Feature feature;
 	/**
 	 * inner Variable.
 	 */
-	private static Sprint sprint;
+	private Sprint sprint;
 
 	/**
 	 * Set up test data.
@@ -64,32 +64,27 @@ public class VariousTaskCommandsTest {
 	public void setUp() {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		VariousTaskCommandsTest.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
-		VariousTaskCommandsTest.model.setUuidManager(new IDGenerator());
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model.setUuidManager(new IDGenerator());
 		try {
-			new RelationType(VariousTaskCommandsTest.model, "Abhängig von");
-			new RelationType(VariousTaskCommandsTest.model, "Siehe auch");
+			new RelationType(this.model, "Abhängig von");
+			new RelationType(this.model, "Siehe auch");
 
-			VariousTaskCommandsTest.project = new Project(VariousTaskCommandsTest.model, "test");
-			final FeatureTicketType type =
-					new FeatureTicketType(VariousTaskCommandsTest.model, "Featuertype 1", "description");
-			VariousTaskCommandsTest.feature =
-					new Feature(VariousTaskCommandsTest.model, type, "feature 1", "description",
-							VariousTaskCommandsTest.project.getBacklog());
+			this.project = new Project(this.model, "test");
+			final FeatureTicketType type = new FeatureTicketType(this.model, "Featuertype 1", "description");
+			this.feature = new Feature(this.model, type, "feature 1", "description", this.project.getBacklog());
 
-			final Team team = new Team(VariousTaskCommandsTest.model, "Testeam");
-			team.addProject(VariousTaskCommandsTest.project);
-			final Person person = new Person(VariousTaskCommandsTest.model, "firstname", "lastname");
+			final Team team = new Team(this.model, "Testeam");
+			team.addProject(this.project);
+			final Person person = new Person(this.model, "firstname", "lastname");
 			team.addMember(person);
 
-			VariousTaskCommandsTest.sprint =
-					new Sprint(VariousTaskCommandsTest.model, "name", "description", new Date(), new Date(), team,
-							VariousTaskCommandsTest.project);
-			VariousTaskCommandsTest.feature.setSprint(VariousTaskCommandsTest.sprint);
+			this.sprint = new Sprint(this.model, "name", "description", new Date(), new Date(), team, this.project);
+			this.feature.setSprint(this.sprint);
 
-			VariousTaskCommandsTest.task =
-					new Task(VariousTaskCommandsTest.model, VariousTaskCommandsTest.model.getAllTaskTicketTypes()
-							.get(0), "testtask", "setbeforetask", VariousTaskCommandsTest.sprint.getSprintBacklog());
+			this.task =
+					new Task(this.model, this.model.getAllTaskTicketTypes().get(0), "testtask", "setbeforetask",
+							this.sprint.getSprintBacklog());
 
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -102,10 +97,9 @@ public class VariousTaskCommandsTest {
 	@Test
 	public void taskAddPBICommandTest() {
 		try {
-			final TaskAddPBICommand command =
-					new TaskAddPBICommand(VariousTaskCommandsTest.task, VariousTaskCommandsTest.feature);
+			final TaskAddPBICommand command = new TaskAddPBICommand(this.task, this.feature);
 
-			command.execute(VariousTaskCommandsTest.model);
+			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
 			Assert.fail("Should not happen");
@@ -119,10 +113,10 @@ public class VariousTaskCommandsTest {
 	public void taskCreateCommandTest() {
 		try {
 			final TaskCreateCommand command =
-					new TaskCreateCommand("name", "description", VariousTaskCommandsTest.model.getAllTaskTicketTypes()
-							.get(0), VariousTaskCommandsTest.sprint.getSprintBacklog());
+					new TaskCreateCommand("name", "description", this.model.getAllTaskTicketTypes().get(0),
+							this.sprint.getSprintBacklog());
 
-			command.execute(VariousTaskCommandsTest.model);
+			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
 			Assert.fail("Should not happen");
@@ -136,9 +130,9 @@ public class VariousTaskCommandsTest {
 	public void taskSetPlanEffortCommandTest() {
 		try {
 			final Effort effort = new Effort(10);
-			final TaskSetPlanEffortCommand command = new TaskSetPlanEffortCommand(VariousTaskCommandsTest.task, effort);
+			final TaskSetPlanEffortCommand command = new TaskSetPlanEffortCommand(this.task, effort);
 
-			command.execute(VariousTaskCommandsTest.model);
+			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
 			Assert.fail("Should not happen");
@@ -154,17 +148,17 @@ public class VariousTaskCommandsTest {
 	@Test
 	public void taskSetResponsibilityCommandTest() throws IPScrumGeneralException {
 
-		// VariousTaskCommandsTest.task.changeState(VariousTaskCommandsTest.model.getAllStateTypes().get(0));
+		// this.task.changeState(this.model.getAllStateTypes().get(0));
 		final Task myTask =
-				new Task(VariousTaskCommandsTest.model, VariousTaskCommandsTest.model.getTypeManager()
-						.getStandardTaskType(), "TestTask", "TT2", VariousTaskCommandsTest.sprint.getSprintBacklog());
+				new Task(this.model, this.model.getTypeManager().getStandardTaskType(), "TestTask", "TT2",
+						this.sprint.getSprintBacklog());
 
-		myTask.changeState(VariousTaskCommandsTest.model.getTypeManager().getInProcess());
+		myTask.changeState(this.model.getTypeManager().getInProcess());
 
 		final TaskSetResponsibilityCommand command =
-				new TaskSetResponsibilityCommand(myTask, VariousTaskCommandsTest.sprint.getTeam().getMembers().get(0));
+				new TaskSetResponsibilityCommand(myTask, this.sprint.getTeam().getMembers().get(0));
 
-		command.execute(VariousTaskCommandsTest.model);
+		command.execute(this.model);
 	}
 
 	/**
@@ -174,19 +168,19 @@ public class VariousTaskCommandsTest {
 	public void taskRemovePBICommandTest() {
 		try {
 			final Feature lvFeature =
-					new Feature(VariousTaskCommandsTest.model, VariousTaskCommandsTest.model.getAllFeatureTicketTypes()
-							.get(0), "Feature 2", "description", VariousTaskCommandsTest.project.getBacklog());
+					new Feature(this.model, this.model.getAllFeatureTicketTypes().get(0), "Feature 2", "description",
+							this.project.getBacklog());
 
-			lvFeature.setSprint(VariousTaskCommandsTest.sprint);
+			lvFeature.setSprint(this.sprint);
 
 			final Task lvTask =
-					new Task(VariousTaskCommandsTest.model, VariousTaskCommandsTest.model.getAllTaskTicketTypes()
-							.get(0), "local task", "local variable", VariousTaskCommandsTest.sprint.getSprintBacklog());
+					new Task(this.model, this.model.getAllTaskTicketTypes().get(0), "local task", "local variable",
+							this.sprint.getSprintBacklog());
 			lvTask.addPBI(lvFeature);
 
 			final TaskRemovePBICommand command = new TaskRemovePBICommand(lvTask, lvFeature);
 
-			command.execute(VariousTaskCommandsTest.model);
+			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
 			Assert.fail("Should not happen");
@@ -201,7 +195,7 @@ public class VariousTaskCommandsTest {
 		try {
 			final TaskTicketTypeCreateCommand command = new TaskTicketTypeCreateCommand("Testtype", "test description");
 
-			command.execute(VariousTaskCommandsTest.model);
+			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
 			Assert.fail("Should not happen");
@@ -214,9 +208,9 @@ public class VariousTaskCommandsTest {
 	@Test
 	public void taskDeleteCommandTest() {
 		try {
-			final TaskDeleteCommand command = new TaskDeleteCommand(VariousTaskCommandsTest.task);
+			final TaskDeleteCommand command = new TaskDeleteCommand(this.task);
 
-			command.execute(VariousTaskCommandsTest.model);
+			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
 			Assert.fail("Should not happen");
