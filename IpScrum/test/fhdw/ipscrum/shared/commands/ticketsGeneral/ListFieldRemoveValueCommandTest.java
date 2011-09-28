@@ -15,6 +15,7 @@ import fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
+import fhdw.ipscrum.shared.model.metamodel.fields.TextFieldType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
@@ -102,6 +103,11 @@ public class ListFieldRemoveValueCommandTest {
 	private ListField<Serializable> listField = null;
 
 	/**
+	 * Hints field of pbi 1.
+	 */
+	private ListField<String> pbi1HintsField;
+
+	/**
 	 * Run the void accept(CommandVisitor) method test.
 	 * 
 	 * @throws Exception
@@ -154,6 +160,24 @@ public class ListFieldRemoveValueCommandTest {
 
 		final ListFieldRemoveValueCommand<Serializable> result =
 				ListFieldRemoveValueCommand.createCommand(field, "blaa", ticket);
+
+		Assert.assertNotNull(result);
+	}
+
+	/**
+	 * Run the ListFieldRemoveValueCommand<Serializable> createCommand(ListField<T>,T,Ticket) method test.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testCreateCommand3() throws Exception {
+
+		final Ticket ticket = this.pbi1;
+		this.pbi1.addHint("Test");
+
+		final ListFieldRemoveValueCommand<String> result =
+				ListFieldRemoveValueCommand.createCommand(this.pbi1HintsField, "Test", ticket);
 
 		Assert.assertNotNull(result);
 	}
@@ -344,6 +368,7 @@ public class ListFieldRemoveValueCommandTest {
 	 * @throws Exception
 	 *             if the initialization fails for some reason
 	 */
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		ServerContext.resetServerContext();
@@ -378,6 +403,8 @@ public class ListFieldRemoveValueCommandTest {
 		this.t6.setResponsibility(this.per1);
 
 		this.listField = new ListField<Serializable>(this.model, this.model.getAllFieldTypes().get(0));
+		final TextFieldType hintsFieldType = this.pbi1.getTicketType().getHintsType();
+		this.pbi1HintsField = (ListField<String>) this.t1.getTicketType().getField(hintsFieldType, this.pbi1);
 	}
 
 	/**

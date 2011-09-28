@@ -16,6 +16,7 @@ import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
 import fhdw.ipscrum.shared.exceptions.model.ConsistencyException;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
+import fhdw.ipscrum.shared.model.metamodel.fields.TextFieldType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
@@ -103,6 +104,11 @@ public class SingleFieldChangeCommandTest {
 	private SingleField<Serializable> singleField = null;
 
 	/**
+	 * Name field of pbi 1.
+	 */
+	private SingleField<String> pbi1NameField;
+
+	/**
 	 * Run the void accept(CommandVisitor) method test.
 	 * 
 	 * @throws Exception
@@ -155,6 +161,23 @@ public class SingleFieldChangeCommandTest {
 
 		final SingleFieldChangeCommand<Serializable> result =
 				SingleFieldChangeCommand.createCommand(field, this.sprint, ticket);
+
+		Assert.assertNotNull(result);
+	}
+
+	/**
+	 * Run the SingleFieldChangeCommand<Serializable> createCommand(SingleField<T>,T,Ticket) method test.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testCreateCommand4() throws Exception {
+
+		final Ticket ticket = this.pbi1;
+
+		final SingleFieldChangeCommand<String> result =
+				SingleFieldChangeCommand.createCommand(this.pbi1NameField, "NewName", ticket);
 
 		Assert.assertNotNull(result);
 	}
@@ -350,6 +373,7 @@ public class SingleFieldChangeCommandTest {
 	 * @throws Exception
 	 *             if the initialization fails for some reason
 	 */
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		ServerContext.resetServerContext();
@@ -384,6 +408,9 @@ public class SingleFieldChangeCommandTest {
 		this.t6.setResponsibility(this.per1);
 
 		this.singleField = new SingleField<Serializable>(this.model, this.model.getTypeManager().getVersionType());
+		final TextFieldType nameFieldType = this.pbi1.getTicketType().getNameType();
+		this.pbi1NameField = (SingleField<String>) this.t1.getTicketType().getField(nameFieldType, this.pbi1);
+
 	}
 
 	/**
