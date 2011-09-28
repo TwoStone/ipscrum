@@ -186,7 +186,7 @@ public class ModelRootTest {
 		Assert.assertEquals(false, new Model(new Date()).getAllSearchings().contains(s));
 		Assert.assertEquals(false, new Model(new Date()).getSearching().contains(s));
 		this.model.removeSearch(s);
-		Assert.assertEquals(new Integer(0), this.model.countSearchings());
+		Assert.assertEquals(Integer.valueOf(0), this.model.countSearchings());
 	}
 
 	/**

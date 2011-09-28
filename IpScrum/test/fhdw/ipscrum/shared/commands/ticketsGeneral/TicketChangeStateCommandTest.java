@@ -12,6 +12,7 @@ import fhdw.ipscrum.server.ServerContext;
 import fhdw.ipscrum.shared.commands.interfaces.ICommand;
 import fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NoObjectFindException;
+import fhdw.ipscrum.shared.exceptions.model.ForbiddenStateException;
 import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
@@ -204,7 +205,7 @@ public class TicketChangeStateCommandTest {
 	 * @throws Exception
 	 *             if one of the used methods fails
 	 */
-	@Test
+	@Test(expected = ForbiddenStateException.class)
 	public void testOnExecute1() throws Exception {
 		final TicketChangeStateCommand fixture =
 				new TicketChangeStateCommand(this.pbi3, this.model.getAllStateTypes().get(0));
@@ -251,7 +252,7 @@ public class TicketChangeStateCommandTest {
 	@Test
 	public void testOnExecute4() throws Exception {
 		final TicketChangeStateCommand fixture =
-				new TicketChangeStateCommand(this.t6, this.model.getAllStateTypes().get(0));
+				new TicketChangeStateCommand(this.t6, this.model.getTypeManager().getClosed());
 
 		fixture.onExecute(this.model);
 

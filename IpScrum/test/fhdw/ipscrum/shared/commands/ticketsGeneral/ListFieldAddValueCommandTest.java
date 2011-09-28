@@ -256,7 +256,7 @@ public class ListFieldAddValueCommandTest {
 	public void testOnExecute1() throws Exception {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final ListFieldAddValueCommand fixture =
-				new ListFieldIdentifiableObjectAddValueCommand(this.listField, this.per2, this.t1);
+				new ListFieldIdentifiableObjectAddValueCommand(this.listField, this.per1, this.pbi1);
 
 		fixture.onExecute(this.model);
 
