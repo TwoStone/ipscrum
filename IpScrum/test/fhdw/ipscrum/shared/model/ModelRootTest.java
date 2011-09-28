@@ -157,10 +157,10 @@ public class ModelRootTest {
 	public void testRemoveProjectAndCountProjects() throws Exception {
 		final Project project = new Project(this.model, "name");
 		Assert.assertEquals(1, this.model.getProjects().size());
-		Assert.assertEquals(new Integer(1), this.model.countProjects());
+		Assert.assertEquals(Integer.valueOf(1), this.model.countProjects());
 		this.model.removeProject(project);
 		Assert.assertEquals(0, this.model.getProjects().size());
-		Assert.assertEquals(new Integer(0), this.model.countProjects());
+		Assert.assertEquals(Integer.valueOf(0), this.model.countProjects());
 	}
 
 	/**

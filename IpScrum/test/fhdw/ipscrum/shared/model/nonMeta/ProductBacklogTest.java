@@ -143,13 +143,13 @@ public class ProductBacklogTest {
 	 */
 	@Test
 	public void testCountItems() throws Exception {
-		Assert.assertEquals(new Integer(4), this.pbl.countItems());
+		Assert.assertEquals(Integer.valueOf(4), this.pbl.countItems());
 		this.pbl.addItem(this.feature1);
-		Assert.assertEquals(new Integer(5), this.pbl.countItems());
+		Assert.assertEquals(Integer.valueOf(5), this.pbl.countItems());
 		this.pbl.addItem(this.feature2);
 		this.pbl.addItem(this.feature3);
 		this.pbl.addItem(this.feature4);
-		Assert.assertEquals(new Integer(8), this.pbl.countItems());
+		Assert.assertEquals(Integer.valueOf(8), this.pbl.countItems());
 	}
 
 	/**
