@@ -8,7 +8,6 @@ import org.junit.runners.Suite;
  * within any subpackages of its package.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({})
 public final class TestAllFields {
 
 	/**
