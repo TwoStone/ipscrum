@@ -3,6 +3,7 @@ package fhdw.ipscrum.client.architecture.controller;
 import fhdw.ipscrum.client.architecture.presenter.Presenter;
 import fhdw.ipscrum.client.architecture.widgets.FrameDialog;
 import fhdw.ipscrum.shared.constants.HelpResources;
+import fhdw.ipscrum.shared.constants.TextConstantsFilePaths;
 
 /**
  * This manages the user documentation of IP-Scrum.
@@ -21,8 +22,7 @@ public class HelpController {
 	 *            Presenter class
 	 */
 	public void showHelp(final Presenter presenter) {
-		this.dialogHelp(HelpResources.HELPSRC
-				+ HelpResources.getPresenterHelp(presenter));
+		this.dialogHelp(TextConstantsFilePaths.HELPSRC + HelpResources.getPresenterHelp(presenter));
 	}
 
 	/**
@@ -54,6 +54,6 @@ public class HelpController {
 	 *            URL-String
 	 */
 	public void showHelp(final String url) {
-		this.dialogHelp(HelpResources.HELPSRC + url);
+		this.dialogHelp(TextConstantsFilePaths.HELPSRC + url);
 	}
 }

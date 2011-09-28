@@ -1,5 +1,7 @@
 package fhdw.ipscrum.shared.constants;
 
+import com.google.gwt.core.client.GWT;
+
 /**
  * Constants of the file paths of the images for icons.
  * 
@@ -12,6 +14,11 @@ public final class TextConstantsFilePaths {
 	private TextConstantsFilePaths() {
 
 	}
+
+	/**
+	 * Base path to the directory that holds the documentation files.
+	 */
+	public static final String HELPSRC = GWT.getHostPageBaseURL() + "help/";
 
 	/**
 	 * Represents the file path of the image of the emblem.
