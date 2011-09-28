@@ -60,14 +60,12 @@ public class GenericTicketPresenter extends WritePresenter {
 
 					@Override
 					public void handleTask(final Task task) {
-						GenericTicketPresenter.this.getContext().getHelpController()
-								.showHelp(HelpResources.TASKBOARDVERWALTEN1);
+						GenericTicketPresenter.this.getContext().getHelpController().showHelp(HelpResources.TASKTICKET);
 					}
 
 					@Override
 					public void handlePBI(final ProductBacklogItem pbi) {
-						GenericTicketPresenter.this.getContext().getHelpController()
-								.showHelp(HelpResources.GENERICTICKETPRESENTER);
+						GenericTicketPresenter.this.getContext().getHelpController().showHelp(HelpResources.PBITICKET);
 					}
 				});
 			}

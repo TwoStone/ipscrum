@@ -189,7 +189,7 @@ public class SessionController {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					new HelpController().showHelp(HelpResources.ANMELDUNGAMSYSTEM);
+					new HelpController().showHelp(HelpResources.LOGIN);
 				}
 			});
 		}
