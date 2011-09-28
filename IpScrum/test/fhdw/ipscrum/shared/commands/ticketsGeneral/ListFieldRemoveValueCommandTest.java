@@ -153,7 +153,7 @@ public class ListFieldRemoveValueCommandTest {
 		final Ticket ticket = this.pbi1;
 
 		final ListFieldRemoveValueCommand<Serializable> result =
-				ListFieldRemoveValueCommand.createCommand(field, this.team1, ticket);
+				ListFieldRemoveValueCommand.createCommand(field, "blaa", ticket);
 
 		Assert.assertNotNull(result);
 	}
@@ -186,6 +186,23 @@ public class ListFieldRemoveValueCommandTest {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		final ListFieldRemoveValueCommand fixture =
 				new ListFieldIdentifiableObjectRemoveValueCommand(this.listField, this.per1, this.pbi2);
+
+		final Project result = fixture.getDependingProject(this.model);
+
+		Assert.assertNotNull(result);
+	}
+
+	/**
+	 * Run the Project getDependingProject(Model) method test.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testGetDependingProject3() throws Exception {
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final ListFieldRemoveValueCommand fixture =
+				new ListFieldIdentifiableObjectRemoveValueCommand(this.listField, this.per1, this.t6);
 
 		final Project result = fixture.getDependingProject(this.model);
 

@@ -136,7 +136,7 @@ public class SingleFieldChangeCommandTest {
 		final Ticket ticket = this.pbi1;
 
 		final SingleFieldChangeCommand<Serializable> result =
-				SingleFieldChangeCommand.createCommand(field, this.pbi1, ticket);
+				SingleFieldChangeCommand.createCommand(field, "blaa", ticket);
 
 		Assert.assertNotNull(result);
 	}
@@ -207,6 +207,23 @@ public class SingleFieldChangeCommandTest {
 		final Model model1 = new Model(new Date());
 
 		final Project result = fixture.getDependingProject(model1);
+
+		Assert.assertNotNull(result);
+	}
+
+	/**
+	 * Run the Project getDependingProject(Model) method test.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testGetDependingProject3() throws Exception {
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		final SingleFieldChangeCommand fixture =
+				new SingleFieldIdentifiableObjectChangeCommand(this.singleField, this.per1, this.t6);
+
+		final Project result = fixture.getDependingProject(this.model);
 
 		Assert.assertNotNull(result);
 	}

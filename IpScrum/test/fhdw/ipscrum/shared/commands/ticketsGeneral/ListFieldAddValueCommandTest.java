@@ -154,7 +154,7 @@ public class ListFieldAddValueCommandTest {
 		final Ticket ticket = this.t1;
 
 		final ListFieldAddValueCommand<Serializable> result =
-				ListFieldAddValueCommand.createCommand(field, this.per2, ticket);
+				ListFieldAddValueCommand.createCommand(field, "blaa", ticket);
 
 		Assert.assertNotNull(result);
 	}
@@ -207,6 +207,23 @@ public class ListFieldAddValueCommandTest {
 		final Model model1 = new Model(new Date());
 
 		final Project result = fixture.getDependingProject(model1);
+
+		Assert.assertNotNull(result);
+	}
+
+	/**
+	 * Run the Project getDependingProject(Model) method test.
+	 * 
+	 * @throws Exception
+	 *             if one of the used methods fails
+	 */
+	@Test
+	public void testGetDependingProject3() throws Exception {
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		final ListFieldAddValueCommand fixture =
+				new ListFieldIdentifiableObjectAddValueCommand(this.listField, this.per1, this.t6);
+
+		final Project result = fixture.getDependingProject(this.model);
 
 		Assert.assertNotNull(result);
 	}
@@ -362,6 +379,7 @@ public class ListFieldAddValueCommandTest {
 		this.pbi4.setSprint(this.sprint);
 
 		this.t6.changeState(this.model.getTypeManager().getInProcess());
+
 		this.t6.setResponsibility(this.per1);
 
 		this.listField = new ListField<Serializable>(this.model, this.model.getAllFieldTypes().get(0));
