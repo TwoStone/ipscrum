@@ -1,10 +1,8 @@
 package fhdw.ipscrum.shared.utils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.BuildModelException;
@@ -35,23 +33,13 @@ public final class InfrastructureUtils {
 	 *            related to the date
 	 * @return all revisions related to the given date
 	 */
-	private static List<Revision> getAllRevisionsToDate(final Date revisionDate,
-			final Map<Date, Revision> allRevisions) {
+	private static List<Revision> getAllRevisionsToDate(final Date revisionDate, final List<Revision> allRevisions) {
 		final List<Revision> ret = new ArrayList<Revision>();
-		for (final Map.Entry<Date, Revision> current : allRevisions.entrySet()) {
-			if (current.getValue().getRevisionDate().before(revisionDate)
-					|| current.getValue().getRevisionDate().equals(revisionDate)) {
-				ret.add(current.getValue());
+		for (final Revision current : allRevisions) {
+			if (current.getRevisionDate().before(revisionDate) || current.getRevisionDate().equals(revisionDate)) {
+				ret.add(current);
 			}
 		}
-
-		java.util.Collections.sort(ret, new Comparator<Revision>() {
-
-			@Override
-			public int compare(final Revision o1, final Revision o2) {
-				return o1.getRevisionDate().compareTo(o2.getRevisionDate());
-			}
-		});
 
 		return ret;
 	}
@@ -77,14 +65,13 @@ public final class InfrastructureUtils {
 	 *             if something fails
 	 * @return the model related to the given date
 	 */
-	public static Model buildSpecificModel(final Date revisionDate,
-			final Map<Date, Revision> allRevisions) throws IPScrumGeneralException {
+	public static Model buildSpecificModel(final Date revisionDate, final List<Revision> allRevisions)
+			throws IPScrumGeneralException {
 		final Model specificModel = new Model(revisionDate);
 
 		// --- ... Sämtliche Generated IDs werder ermittelt
 		final List<String> generatedIDs = new ArrayList<String>();
-		for (final Revision current : InfrastructureUtils.getAllRevisionsToDate(
-				revisionDate, allRevisions)) {
+		for (final Revision current : InfrastructureUtils.getAllRevisionsToDate(revisionDate, allRevisions)) {
 			generatedIDs.addAll(current.getGeneratedUUIDs());
 		}
 		// --- ... UUID Receiver wird gesetzt
@@ -92,24 +79,21 @@ public final class InfrastructureUtils {
 
 		// --- ... eigentlicher Replay
 		try {
-			for (final Revision current : InfrastructureUtils.getAllRevisionsToDate(
-					revisionDate, allRevisions)) {
+			for (final Revision current : InfrastructureUtils.getAllRevisionsToDate(revisionDate, allRevisions)) {
 
 				for (final Command<?> curCommand : current.getCommands()) {
 					curCommand.execute(specificModel);
 				}
 
-				for (final IdentifiableObject curObject : specificModel
-						.getChangedObjects()) {
+				for (final IdentifiableObject curObject : specificModel.getChangedObjects()) {
 					curObject.setRevisionDate(current.getRevisionDate());
 					curObject.undoChangeFlag();
 				}
 			}
 			return specificModel;
 		} catch (final IPScrumGeneralException e) {
-			throw new BuildModelException(
-					"Beim Laden der Revision ist der folgende Fehler aufgetreten:\n"
-							+ e.getMessage());
+			throw new BuildModelException("Beim Laden der Revision ist der folgende Fehler aufgetreten:\n"
+					+ e.getMessage());
 		}
 	}
 }

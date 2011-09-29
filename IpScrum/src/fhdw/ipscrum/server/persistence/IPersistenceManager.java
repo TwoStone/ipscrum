@@ -2,7 +2,6 @@ package fhdw.ipscrum.server.persistence;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import fhdw.ipscrum.server.session.Account;
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
@@ -43,8 +42,7 @@ public interface IPersistenceManager {
 	 * @throws PersistenceException
 	 *             if the persistence is hurt
 	 */
-	void addNewRevision(final Revision revision, final Model revisionModel)
-			throws PersistenceException;
+	void addNewRevision(final Revision revision, final Model revisionModel) throws PersistenceException;
 
 	/**
 	 * Builds a copy of the latest Model.
@@ -56,8 +54,8 @@ public interface IPersistenceManager {
 	Model copyCurrentModel() throws IPScrumGeneralException;
 
 	/**
-	 * Use this method for testing only. With this method you can simulate the transfer of
-	 * the model from the server to the client.
+	 * Use this method for testing only. With this method you can simulate the transfer of the model from the server to
+	 * the client.
 	 * 
 	 * @return Current model on server side
 	 */
@@ -85,6 +83,6 @@ public interface IPersistenceManager {
 	 * 
 	 * @return all revisions
 	 */
-	Map<Date, Revision> getAllRevisions();
+	List<Revision> getAllRevisions();
 
 }

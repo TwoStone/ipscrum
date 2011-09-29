@@ -1,11 +1,9 @@
 package fhdw.ipscrum.server.services;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 import fhdw.ipscrum.client.services.ReceiveModelService;
 import fhdw.ipscrum.server.ServerContext;
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException;
 import fhdw.ipscrum.shared.infrastructure.Revision;
 import fhdw.ipscrum.shared.model.Model;
@@ -13,8 +11,7 @@ import fhdw.ipscrum.shared.model.Model;
 /**
  * This service provides server to client data transfer after a client request.
  */
-public class ReceiveModelServiceImpl extends AbstractSecurityServlet
-		implements ReceiveModelService {
+public class ReceiveModelServiceImpl extends AbstractSecurityServlet implements ReceiveModelService {
 
 	/**
 	 * represents the serialVersionUID.
@@ -28,7 +25,7 @@ public class ReceiveModelServiceImpl extends AbstractSecurityServlet
 	}
 
 	@Override
-	public Map<Date, Revision> getAllRevisions() throws IPScrumGeneralException {
+	public List<Revision> getAllRevisions() throws NotAuthorizedException {
 		this.getUser();
 		return ServerContext.getInstance().getPersistenceManager().getAllRevisions();
 	}

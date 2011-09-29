@@ -78,22 +78,26 @@ body {
 }
 
 .gwt-Button {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5),
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8),
 		to(#f1f1f1) );
-	background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
+	background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
+	background-color: #F8F8F8;
+	background-image: linear-gradient(top, #f8f8f8, #f1f1f1);
+	background-image: -o-linear-gradient(top, #f8f8f8, #f1f1f1);
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 	-webkit-user-select: none;
-	background-color: whiteSmoke;
-	background-image: linear-gradient(top, #f5f5f5, #f1f1f1);
-	background-image: -o-linear-gradient(top, #f5f5f5, #f1f1f1);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 	border: 1px solid gainsboro;
 	border: 1px solid rgba(0, 0, 0, 0.1);
-	border-radius: 2px;
-	color: #666;
 	cursor: pointer;
 	min-width: 54px;
 	padding: 5px;
 	text-align: center;
+	color: black;
+	font-weight: normal;
 }
 
 .gwt-Button:hover {
@@ -111,20 +115,18 @@ body {
 
 .gwt-Button[disabled]:hover {
 	box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	border: 1px solid gainsboro;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .gwt-Button[disabled] {
-	-webkit-border-radius: 2px;
-	-webkit-user-select: none;
-	background-color: #EEE !important;
-	border: 1px solid gainsboro;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	border-radius: 2px;
-	color: #666 !important;
+	color: rgba(0, 0, 0, 0.1) !important;
 	cursor: pointer !important;
-	min-width: 54px;
-	padding: 5px;
-	text-align: center;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
 }
 
 .gwt-TextBox {

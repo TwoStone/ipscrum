@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -173,10 +172,10 @@ public class RevisionControlPresenter extends ReadPresenter {
 		if (fromDate == null && toDate == null && (editors == null || editors.size() == 0)) {
 			this.toastMessage("Bitte geben Sie zuerst mind. ein Filterkriterium an.");
 		} else {
-			ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<Map<Date, Revision>>() {
+			ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<List<Revision>>() {
 
 				@Override
-				public void onSuccess(final Map<Date, Revision> revList) {
+				public void onSuccess(final List<Revision> revList) {
 
 					RevisionControlPresenter.this.setRevisions(fromDate, toDate, editors, revList);
 				}
@@ -185,6 +184,7 @@ public class RevisionControlPresenter extends ReadPresenter {
 				public void onFailure(final Throwable caught) {
 					RevisionControlPresenter.this.toastMessage(caught.getMessage());
 				}
+
 			});
 		}
 	}
@@ -196,10 +196,10 @@ public class RevisionControlPresenter extends ReadPresenter {
 	 *            the revision to be loaded
 	 */
 	private void loadRevision(final Revision revision) {
-		ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<Map<Date, Revision>>() {
+		ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<List<Revision>>() {
 
 			@Override
-			public void onSuccess(final Map<Date, Revision> result) {
+			public void onSuccess(final List<Revision> result) {
 				try {
 					final Model revisionModel =
 							InfrastructureUtils.buildSpecificModel(revision.getRevisionDate(), result);
@@ -225,11 +225,11 @@ public class RevisionControlPresenter extends ReadPresenter {
 		this.doGetView().updateEditorList(this.getContext().getModel().getAllPersons());
 		this.doGetView().setFilterResetButtonStatus(false);
 
-		ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<Map<Date, Revision>>() {
+		ReceiveModelService.Util.getInstance().getAllRevisions(new AsyncCallback<List<Revision>>() {
 
 			@Override
-			public void onSuccess(final Map<Date, Revision> result) {
-				final List<Revision> revList = new ArrayList<Revision>(result.values());
+			public void onSuccess(final List<Revision> result) {
+				final List<Revision> revList = new ArrayList<Revision>(result);
 				RevisionControlPresenter.this.updateRevTableData(revList);
 			}
 
@@ -276,22 +276,20 @@ public class RevisionControlPresenter extends ReadPresenter {
 	 *            list of the revisions
 	 */
 	private void setRevisions(final Date fromDate, final Date toDate, final Set<Person> editors,
-			final Map<Date, Revision> revList) {
+			final List<Revision> revList) {
 		final List<Revision> filterList = new ArrayList<Revision>();
 
 		if (fromDate == null) {
 			if (toDate == null) {
-				filterList.addAll(revList.values());
+				filterList.addAll(revList);
 			} else {
-				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsTillDate(toDate, revList.values()));
+				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsTillDate(toDate, revList));
 			}
 		} else {
 			if (toDate == null) {
-				filterList
-						.addAll(RevisionControlPresenter.FilterUtils.getRevisionsFromDate(fromDate, revList.values()));
+				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsFromDate(fromDate, revList));
 			} else {
-				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsBetween(fromDate, toDate,
-						revList.values()));
+				filterList.addAll(RevisionControlPresenter.FilterUtils.getRevisionsBetween(fromDate, toDate, revList));
 			}
 
 		}

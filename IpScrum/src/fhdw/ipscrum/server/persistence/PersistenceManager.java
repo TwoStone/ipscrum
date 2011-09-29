@@ -1,7 +1,6 @@
 package fhdw.ipscrum.server.persistence;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,9 +24,8 @@ import fhdw.ipscrum.shared.utils.InfrastructureUtils;
 /**
  * This class controles the process of persisting and loading data.
  * 
- * TODO PersistenceManager muss zum Monitor werden. Dazu relevante Methoden mit
- * synchronized versehen. Grund: Der PM wird vom Hauptthread und von Executor Thread
- * verwendet.
+ * TODO PersistenceManager muss zum Monitor werden. Dazu relevante Methoden mit synchronized versehen. Grund: Der PM
+ * wird vom Hauptthread und von Executor Thread verwendet.
  * 
  */
 public class PersistenceManager implements IPersistenceManager {
@@ -67,8 +65,7 @@ public class PersistenceManager implements IPersistenceManager {
 	 */
 	public PersistenceManager() throws PersistenceException {
 		this.persistentHandler =
-				new XStreamHandler(new XStreamProgramConfiguration(
-						PersistenceManager.OUTPUTDIERECTORY,
+				new XStreamHandler(new XStreamProgramConfiguration(PersistenceManager.OUTPUTDIERECTORY,
 						PersistenceManager.FILEENDING));
 	}
 
@@ -88,8 +85,7 @@ public class PersistenceManager implements IPersistenceManager {
 	 *             if the persistence is hurt
 	 */
 	private void persistData() throws PersistenceException {
-		this.getPersistentHandler().save(this.getPersistData(),
-				PersistenceManager.FILENAME);
+		this.getPersistentHandler().save(this.getPersistData(), PersistenceManager.FILENAME);
 	}
 
 	/**
@@ -97,9 +93,7 @@ public class PersistenceManager implements IPersistenceManager {
 	 */
 	private void loadData() {
 		try {
-			this.persistData =
-					(PersistData) this.persistentHandler
-							.load(PersistenceManager.FILENAME);
+			this.persistData = (PersistData) this.persistentHandler.load(PersistenceManager.FILENAME);
 		} catch (final InfrastructureException e) {
 			this.buildInitialRevision();
 		}
@@ -130,28 +124,22 @@ public class PersistenceManager implements IPersistenceManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.server.persistence.IPersistenceManager#getSpecificModel(java.util.
-	 * Date)
+	 * @see fhdw.ipscrum.server.persistence.IPersistenceManager#getSpecificModel(java.util. Date)
 	 */
 	@Override
-	public Model getSpecificModel(final Date revisionDate)
-			throws IPScrumGeneralException {
-		return InfrastructureUtils.buildSpecificModel(revisionDate, this
-				.getPersistData().getRevisions());
+	public Model getSpecificModel(final Date revisionDate) throws IPScrumGeneralException {
+		return InfrastructureUtils.buildSpecificModel(revisionDate, this.getPersistData().getRevisions());
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.server.persistence.IPersistenceManager#addNewRevision(fhdw.ipscrum
+	 * @see fhdw.ipscrum.server.persistence.IPersistenceManager#addNewRevision(fhdw.ipscrum
 	 * .shared.infrastructure.Revision, fhdw.ipscrum.shared.model.Model)
 	 */
 	@Override
-	public void addNewRevision(final Revision revision, final Model revisionModel)
-			throws PersistenceException {
-		this.getPersistData().getRevisions().put(revision.getRevisionDate(), revision);
+	public void addNewRevision(final Revision revision, final Model revisionModel) throws PersistenceException {
+		this.getPersistData().getRevisions().add(revision);
 		this.getPersistData().setCurrentModel(revisionModel);
 		this.updateAccounts(revisionModel);
 		try {
@@ -163,8 +151,7 @@ public class PersistenceManager implements IPersistenceManager {
 	}
 
 	/**
-	 * Updates the account. This updates the person reference in every user object to the
-	 * one of the actual model.
+	 * Updates the account. This updates the person reference in every user object to the one of the actual model.
 	 * 
 	 * @param revisionModel
 	 *            the actual model containing the new persons.
@@ -174,21 +161,17 @@ public class PersistenceManager implements IPersistenceManager {
 		while (iterator.hasNext()) {
 			final Account account = iterator.next();
 			try {
-				account.getUser().updatePerson(
-						revisionModel.getObject(account.getUser().getPerson()));
+				account.getUser().updatePerson(revisionModel.getObject(account.getUser().getPerson()));
 			} catch (final NoObjectFindException e) {
-				System.out
-						.println("Person for user "
-								+ account.getUser().getName()
-								+ " does not exist any longer. Deleting corresponding the account.");
+				System.out.println("Person for user " + account.getUser().getName()
+						+ " does not exist any longer. Deleting corresponding the account.");
 				iterator.remove();
 			}
 		}
 	}
 
 	/**
-	 * Help method for building the initial revision when no model file was found in the
-	 * output directory.
+	 * Help method for building the initial revision when no model file was found in the output directory.
 	 * 
 	 * @return the initial revision
 	 */
@@ -202,14 +185,12 @@ public class PersistenceManager implements IPersistenceManager {
 
 			// --- ...Dummy Transaction
 			final Transaction t =
-					new Transaction(model.getRevisionDate(), null, null, model
-							.getUuidManager().getAllUUIDs());
+					new Transaction(model.getRevisionDate(), null, null, model.getUuidManager().getAllUUIDs());
 			t.addCommand(c);
 
 			// --- ...Initial Revision
 			final Revision r =
-					new Revision(t.getCommands(), model.getRevisionDate(),
-							t.getEditorId(), t.getGeneratedUUIDs());
+					new Revision(t.getCommands(), model.getRevisionDate(), t.getEditorId(), t.getGeneratedUUIDs());
 
 			// --- ...undo Flags
 			for (final IdentifiableObject current : model.getChangedObjects()) {
@@ -219,12 +200,12 @@ public class PersistenceManager implements IPersistenceManager {
 
 			final PersistData data = new PersistData();
 			data.setCurrentModel(model);
-			data.getRevisions().put(r.getRevisionDate(), r);
+			data.getRevisions().add(r);
 
 			// --- ...initialize admin account
 			data.getAccounts().add(
-					new Account(new User(PersistenceManager.ADMIN_NAME, model
-							.getAdminPerson()), PersistenceManager.ADMIN_NAME));
+					new Account(new User(PersistenceManager.ADMIN_NAME, model.getAdminPerson()),
+							PersistenceManager.ADMIN_NAME));
 
 			// --- ...persist
 			this.persistData = data;
@@ -246,20 +227,17 @@ public class PersistenceManager implements IPersistenceManager {
 	@Override
 	public Model copyCurrentModel() throws IPScrumGeneralException {
 		try {
-			return InfrastructureUtils.buildSpecificModel(this.getPersistData()
-					.getCurrentModel().getRevisionDate(), this.getPersistData()
-					.getRevisions());
+			return InfrastructureUtils.buildSpecificModel(this.getPersistData().getCurrentModel().getRevisionDate(),
+					this.getPersistData().getRevisions());
 		} catch (final IPScrumGeneralException e) {
-			throw new BuildModelException(
-					"Es konnte keine Modellkopie erstellt werden:" + e.getMessage());
+			throw new BuildModelException("Es konnte keine Modellkopie erstellt werden:" + e.getMessage());
 		}
 	}
 
 	@Override
 	public Model getModelForTesting() {
 		try {
-			return ((PersistData) this.getPersistentHandler().load(
-					PersistenceManager.FILENAME)).getCurrentModel();
+			return ((PersistData) this.getPersistentHandler().load(PersistenceManager.FILENAME)).getCurrentModel();
 		} catch (final InfrastructureException e) {
 			return this.buildInitialRevision().getCurrentModel();
 		}
@@ -278,9 +256,7 @@ public class PersistenceManager implements IPersistenceManager {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.server.persistence.IPersistenceManager#addAccount(fhdw.ipscrum.server
-	 * .session.Account)
+	 * @see fhdw.ipscrum.server.persistence.IPersistenceManager#addAccount(fhdw.ipscrum.server .session.Account)
 	 */
 	@Override
 	public void addAccount(final Account account) throws PersistenceException {
@@ -294,7 +270,7 @@ public class PersistenceManager implements IPersistenceManager {
 	 * @see fhdw.ipscrum.server.persistence.IPersistenceManager#getAllRevisions()
 	 */
 	@Override
-	public HashMap<Date, Revision> getAllRevisions() {
+	public List<Revision> getAllRevisions() {
 		return this.getPersistData().getRevisions();
 	}
 

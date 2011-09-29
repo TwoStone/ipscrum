@@ -2,7 +2,7 @@ package fhdw.ipscrum.server.persistence;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import fhdw.ipscrum.server.session.Account;
@@ -26,7 +26,7 @@ public class PersistData implements SerializationRoot {
 	/**
 	 * represents all current revisions.
 	 */
-	private HashMap<Date, Revision> revisions;
+	private List<Revision> revisions;
 	/**
 	 * represents all current accounts.
 	 */
@@ -68,9 +68,9 @@ public class PersistData implements SerializationRoot {
 	 * 
 	 * @return all revisions
 	 */
-	public HashMap<Date, Revision> getRevisions() {
+	public List<Revision> getRevisions() {
 		if (this.revisions == null) {
-			this.revisions = new HashMap<Date, Revision>();
+			this.revisions = new LinkedList<Revision>();
 		}
 		return this.revisions;
 	}

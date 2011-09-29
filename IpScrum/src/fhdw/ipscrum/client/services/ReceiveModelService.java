@@ -1,13 +1,11 @@
 package fhdw.ipscrum.client.services;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.NotAuthorizedException;
 import fhdw.ipscrum.shared.infrastructure.Revision;
 import fhdw.ipscrum.shared.model.Model;
@@ -33,8 +31,7 @@ public interface ReceiveModelService extends RemoteService {
 		 */
 		public static ReceiveModelServiceAsync getInstance() {
 			if (ReceiveModelService.Util.instance == null) {
-				ReceiveModelService.Util.instance =
-						GWT.create(ReceiveModelService.class);
+				ReceiveModelService.Util.instance = GWT.create(ReceiveModelService.class);
 			}
 			return ReceiveModelService.Util.instance;
 		}
@@ -49,11 +46,11 @@ public interface ReceiveModelService extends RemoteService {
 	Model getCurrentModel() throws NotAuthorizedException;
 
 	/**
-	 * @return all revisions to the client.
 	 * 
-	 * @throws IPScrumGeneralException
-	 *             If the User is not authorized.
+	 * @return all revisions
+	 * @throws NotAuthorizedException
+	 *             if the user is not authorized
 	 */
-	Map<Date, Revision> getAllRevisions() throws IPScrumGeneralException;
+	List<Revision> getAllRevisions() throws NotAuthorizedException;
 
 }

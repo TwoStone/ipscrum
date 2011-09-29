@@ -1,7 +1,6 @@
 package fhdw.ipscrum.client.services;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -27,5 +26,5 @@ public interface ReceiveModelServiceAsync {
 	 * @param model
 	 *            is needed to use the method asynchrony
 	 */
-	void getAllRevisions(AsyncCallback<Map<Date, Revision>> model);
+	void getAllRevisions(AsyncCallback<List<Revision>> model);
 }
