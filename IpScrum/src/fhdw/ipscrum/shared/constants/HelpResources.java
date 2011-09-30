@@ -522,7 +522,7 @@ public abstract class HelpResources {
 	/**
 	 * This document is displayed to the user when there is no help available.
 	 */
-	private static final String NO_PRESENTER_HELP_AVAILABLE = "_NoPresenterHelp.html";
+	public static final String NO_PRESENTER_HELP_AVAILABLE = "_NoPresenterHelp.html";
 
 	static {
 		HelpResources.PRESENTER_HELP.put("Willkommen", HelpResources.WILLKOMMEN);

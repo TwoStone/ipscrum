@@ -87,7 +87,7 @@ public class HelpResourcesTest {
 
 		final String result = HelpResources.getPresenterHelp(presenter);
 
-		// Assert.assertEquals(HelpResources., result);
+		Assert.assertEquals(HelpResources.NO_PRESENTER_HELP_AVAILABLE, result);
 	}
 
 }
