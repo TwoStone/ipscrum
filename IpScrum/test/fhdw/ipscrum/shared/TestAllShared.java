@@ -13,6 +13,7 @@ import fhdw.ipscrum.shared.commands.project.ProjectCommandTests;
 import fhdw.ipscrum.shared.commands.projectHistory.ProjectHistoryCommandSuite;
 import fhdw.ipscrum.shared.commands.taskboard.TaskboardCommandSuite;
 import fhdw.ipscrum.shared.commands.ticketsGeneral.TicketsGeneralCommandSuite;
+import fhdw.ipscrum.shared.constants.HelpResourcesTest;
 import fhdw.ipscrum.shared.exceptions.infrastructure.InfrastructureExceptionSuite;
 import fhdw.ipscrum.shared.model.TestAllModel;
 import fhdw.ipscrum.shared.utils.TestAllUtils;
@@ -35,7 +36,8 @@ import fhdw.ipscrum.shared.utils.TestAllUtils;
 		ProjectHistoryCommandSuite.class,
 		TaskboardCommandSuite.class,
 		ProductBacklogCommandSuite.class,
-		InfrastructureExceptionSuite.class })
+		InfrastructureExceptionSuite.class,
+		HelpResourcesTest.class })
 public final class TestAllShared {
 
 	/**
