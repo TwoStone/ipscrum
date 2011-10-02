@@ -194,7 +194,7 @@
 
 
 	<target name="testc" depends="javac">
-		<mkdir dir="${tests.output.dir}"/>
+		<mkdir dir="${tests.output.dir}" />
 		<javac destdir="${tests.output.dir}" source="1.6" target="1.6" debug="true" encoding="${source.encoding}" includeantruntime="false">
 			<compilerarg value="-Xlint" />
 			<compilerarg value="-Xlint:-path" />
@@ -236,6 +236,13 @@
 			<fileset dir="${source.dir}">
 				<include name="**/*.java" />
 				<exclude name="fhdw/ipscrum/client/**/*.java" />
+				<!-- Service layer has to be tested with GWTJunit -->
+				<exclude name="fhdw/ipscrum/server/services/**/*.java" />
+				<exclude name="fhdw/ipscrum/server/session/**/*.java" />
+				<exclude name="fhdw/ipscrum/shared/model/visitor/**/*.java" />
+				<!-- Search criteria are not implemented yet -->
+				<exclude name="fhdw/ipscrum/shared/model/metamodel/search/criteria/**/*.java" />
+				<exclude name="fhdw/ipscrum/shared/constants/TextConstantsForLists.java" />
 			</fileset>
 		</cobertura-report>
 	</target>
