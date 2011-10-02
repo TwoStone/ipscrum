@@ -210,6 +210,13 @@
 			<fileset dir="${source.output.dir}">
 				<include name="**/*.class" />
 				<exclude name="fhdw/ipscrum/client/**/*.class" />
+				<!-- Service layer has to be tested with GWTJunit -->
+				<exclude name="fhdw/ipscrum/server/services/**/*.class" />
+				<exclude name="fhdw/ipscrum/server/session/**/*.class" />
+				<exclude name="fhdw/ipscrum/shared/model/visitor/**/*.class" />
+				<!-- Search criteria are not implemented yet -->
+				<exclude name="fhdw/ipscrum/shared/model/metamodel/search/criteria/**/*.class" />
+				<exclude name="fhdw/ipscrum/shared/constants/TextConstantsForLists.class" />
 			</fileset>
 		</cobertura-instrument>
 
