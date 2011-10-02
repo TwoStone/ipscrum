@@ -216,7 +216,7 @@
 				<exclude name="fhdw/ipscrum/shared/model/visitor/**/*.class" />
 				<!-- Search criteria are not implemented yet -->
 				<exclude name="fhdw/ipscrum/shared/model/metamodel/search/criteria/**/*.class" />
-				<exclude name="fhdw/ipscrum/shared/constants/TextConstantsForLists.class" />
+				<exclude name="fhdw/ipscrum/shared/constants/TextConstantsForLists*.class" />
 			</fileset>
 		</cobertura-instrument>
 
