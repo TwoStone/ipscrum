@@ -40,8 +40,7 @@ public class ListFieldIdentifiableObjectRemoveValueCommand<T extends Serializabl
 	 * @param ticket
 	 *            related to the command
 	 */
-	protected ListFieldIdentifiableObjectRemoveValueCommand(final ListField<T> field,
-			final T value, final Ticket ticket) {
+	protected ListFieldIdentifiableObjectRemoveValueCommand(final ListField<T> field, final T value, final Ticket ticket) {
 		super(field, ticket);
 		this.valueId = ((IdentifiableObject) value).getId();
 	}

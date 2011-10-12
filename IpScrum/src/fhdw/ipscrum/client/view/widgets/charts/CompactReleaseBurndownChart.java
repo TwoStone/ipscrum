@@ -21,8 +21,7 @@ public class CompactReleaseBurndownChart extends Composite {
 	 * @param height
 	 *            of the chart
 	 */
-	public CompactReleaseBurndownChart(final Release release, final int width,
-			final int height) {
+	public CompactReleaseBurndownChart(final Release release, final int width, final int height) {
 		this.chart = new ReleaseBurndownChart(release, width, height);
 		this.initWidget(this.chart);
 	}

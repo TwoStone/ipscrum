@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new bug ticket type.
  */
-public class BugTicketTypeCreateCommand extends Command<BugTicketType>
-		implements ITicketTypesCommand {
+public class BugTicketTypeCreateCommand extends Command<BugTicketType> implements ITicketTypesCommand {
 
 	/**
 	 * represents the name of the bug ticket type.
@@ -50,10 +49,8 @@ public class BugTicketTypeCreateCommand extends Command<BugTicketType>
 
 	@Override
 	protected BugTicketType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Bug-Tickettyp '%s' erstellt.",
-				this.name));
-		final BugTicketType bugTicketType =
-				new BugTicketType(model, this.name, this.description);
+		this.setStringValue(StringUtils.format("Neuer Bug-Tickettyp '%s' erstellt.", this.name));
+		final BugTicketType bugTicketType = new BugTicketType(model, this.name, this.description);
 		return bugTicketType;
 	}
 

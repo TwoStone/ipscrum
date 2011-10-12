@@ -65,8 +65,7 @@ public abstract class AbstractSystem extends IdentifiableObject {
 	public abstract AbstractSystem getRoot();
 
 	/**
-	 * Check if the specified element can be found somewhere inside the hierarchical
-	 * order.<br/>
+	 * Check if the specified element can be found somewhere inside the hierarchical order.<br/>
 	 * <b>This operation first searches for the top of the tree and then walks down.</b>
 	 * 
 	 * @param system

@@ -40,7 +40,6 @@ public interface LoginServiceAsync {
 	 * @param callback
 	 *            is needed to use the method asynchrony
 	 */
-	void tryResumeSession(String username, String roleId,
-			AsyncCallback<ResumedSession> callback);
+	void tryResumeSession(String username, String roleId, AsyncCallback<ResumedSession> callback);
 
 }

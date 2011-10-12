@@ -55,8 +55,7 @@ public class HintFieldCriterion extends SearchCriteria {
 					@SuppressWarnings("unchecked")
 					final SingleField<Hint> hf = (SingleField<Hint>) singleField;
 					HintFieldCriterion.this.returnValue =
-							hf.getValue().getContent()
-									.contains(HintFieldCriterion.this.hintContent);
+							hf.getValue().getContent().contains(HintFieldCriterion.this.hintContent);
 
 				}
 
@@ -64,9 +63,8 @@ public class HintFieldCriterion extends SearchCriteria {
 				public void handleListField(final ListField<?> listField) {
 					@SuppressWarnings("unchecked")
 					final ListField<Hint> lf = (ListField<Hint>) listField;
-					for (final Hint current : lf.getValues()) {
-						if (current.getContent().contains(
-								HintFieldCriterion.this.hintContent)) {
+					for (final Hint cur : lf.getValues()) {
+						if (cur.getContent().contains(HintFieldCriterion.this.hintContent)) {
 							HintFieldCriterion.this.returnValue = true;
 							break;
 						}

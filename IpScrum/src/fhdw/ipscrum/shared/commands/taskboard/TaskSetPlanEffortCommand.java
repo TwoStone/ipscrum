@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Sets the planned effort of a task.
  */
-public class TaskSetPlanEffortCommand extends Command<Void>
-		implements ITaskboardCommand {
+public class TaskSetPlanEffortCommand extends Command<Void> implements ITaskboardCommand {
 
 	/**
 	 * represents the plan effort of the task.
@@ -46,8 +45,7 @@ public class TaskSetPlanEffortCommand extends Command<Void>
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Task task = (Task) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format(
-				"Geplanter Aufwand für Task '%s' auf %s gesetzt.", task.getName(),
+		this.setStringValue(StringUtils.format("Geplanter Aufwand für Task '%s' auf %s gesetzt.", task.getName(),
 				this.effort.getValue()));
 		task.setPlanEffort(this.effort);
 		return null;

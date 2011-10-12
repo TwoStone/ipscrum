@@ -119,8 +119,7 @@ public abstract class Command<R> implements IsSerializable, ICommand {
 	}
 
 	/**
-	 * Execution template method according the command pattern. Executes an authority
-	 * check.
+	 * Execution template method according the command pattern. Executes an authority check.
 	 * 
 	 * @param model
 	 *            Model where the execution works on.
@@ -129,8 +128,7 @@ public abstract class Command<R> implements IsSerializable, ICommand {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void execute(final Model model, final Role activeRole)
-			throws IPScrumGeneralException {
+	public void execute(final Model model, final Role activeRole) throws IPScrumGeneralException {
 		try {
 			model.getAuthorityChecker().canBeExecuted(this, activeRole);
 			this.setResult(this.onExecute(model));
@@ -141,8 +139,8 @@ public abstract class Command<R> implements IsSerializable, ICommand {
 	}
 
 	/**
-	 * Execution template method according the command pattern. Variant without authority
-	 * check (Important for initial revision with no users!).
+	 * Execution template method according the command pattern. Variant without authority check (Important for initial
+	 * revision with no users!).
 	 * 
 	 * @param model
 	 *            Model where the execution works on.

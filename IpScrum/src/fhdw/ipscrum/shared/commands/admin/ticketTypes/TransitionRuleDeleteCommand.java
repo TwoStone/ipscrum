@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a transition rule from a ticket type.
  */
-public class TransitionRuleDeleteCommand extends Command<Void>
-		implements ITicketTypesCommand {
+public class TransitionRuleDeleteCommand extends Command<Void> implements ITicketTypesCommand {
 
 	/**
 	 * represents the ticketType.
@@ -38,8 +37,7 @@ public class TransitionRuleDeleteCommand extends Command<Void>
 	 * @param ticketType
 	 *            related to the command
 	 */
-	public TransitionRuleDeleteCommand(final TransitionRule receiver,
-			final TicketType ticketType) {
+	public TransitionRuleDeleteCommand(final TransitionRule receiver, final TicketType ticketType) {
 		super(receiver);
 		this.ticketTypeId = ticketType.getId();
 	}
@@ -47,14 +45,12 @@ public class TransitionRuleDeleteCommand extends Command<Void>
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 
-		final TransitionRule transitionRule =
-				(TransitionRule) model.getObject(this.getReceiverGuid());
+		final TransitionRule transitionRule = (TransitionRule) model.getObject(this.getReceiverGuid());
 		final TicketType tickettype = (TicketType) model.getObject(this.ticketTypeId);
 
-		this.setStringValue(StringUtils
-				.format("Dem Tickettypen %s wurde der Zustandsübergang von %s nach %s entfernt.",
-						tickettype.getTypeName(), transitionRule.getFrom().getName(),
-						transitionRule.getTo().getName()));
+		this.setStringValue(StringUtils.format(
+				"Dem Tickettypen %s wurde der Zustandsübergang von %s nach %s entfernt.", tickettype.getTypeName(),
+				transitionRule.getFrom().getName(), transitionRule.getTo().getName()));
 
 		tickettype.removeTransitionRule(transitionRule);
 		model.removeObject(transitionRule);

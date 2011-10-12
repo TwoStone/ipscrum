@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 /**
- * Stores T in a pipeline, so that an active object can get / put T from / on it
- * asynchronously.
+ * Stores T in a pipeline, so that an active object can get / put T from / on it asynchronously.
  * 
  * @param <T>
  *            Type of the element
@@ -51,8 +50,8 @@ public class Pipeline<T> {
 	}
 
 	/**
-	 * removes an element from the pipeline and returns the removed instance to the
-	 * caller. If the pipeline is empty, the entering thread has to wait for new entries.
+	 * removes an element from the pipeline and returns the removed instance to the caller. If the pipeline is empty,
+	 * the entering thread has to wait for new entries.
 	 * 
 	 * @return the element from the pipeline
 	 * @throws InterruptedException

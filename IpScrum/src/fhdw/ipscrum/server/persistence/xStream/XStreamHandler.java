@@ -44,8 +44,7 @@ public class XStreamHandler implements PersistenceHandler {
 	 * @throws PersistenceException
 	 *             if some error occur while persisting
 	 */
-	public XStreamHandler(final XStreamConfiguration config)
-			throws PersistenceException {
+	public XStreamHandler(final XStreamConfiguration config) throws PersistenceException {
 		this.xstream = new XStream();
 		this.config = config;
 
@@ -56,8 +55,7 @@ public class XStreamHandler implements PersistenceHandler {
 	}
 
 	/**
-	 * Creates an instance of the {@link java.io.File} class pointing to the model-file
-	 * named by the identifier.
+	 * Creates an instance of the {@link java.io.File} class pointing to the model-file named by the identifier.
 	 * 
 	 * @param identifier
 	 *            identifies the model instance
@@ -65,8 +63,7 @@ public class XStreamHandler implements PersistenceHandler {
 	 * @return path to the model file
 	 */
 	private File buildPath(final String identifier) {
-		return new File(this.config.getDirectory() + this.config.getSeparator()
-				+ identifier + this.config.getEnding());
+		return new File(this.config.getDirectory() + this.config.getSeparator() + identifier + this.config.getEnding());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,8 +71,7 @@ public class XStreamHandler implements PersistenceHandler {
 	/**
 	 * Deserializes the object graph from the stored file identified by the identifier.
 	 */
-	public <T extends SerializationRoot> T load(final String identifier)
-			throws InfrastructureException {
+	public <T extends SerializationRoot> T load(final String identifier) throws InfrastructureException {
 
 		if (identifier != null && !identifier.trim().isEmpty()) {
 
@@ -98,8 +94,7 @@ public class XStreamHandler implements PersistenceHandler {
 	}
 
 	@Override
-	public void save(final SerializationRoot model, final String identifier)
-			throws PersistenceException {
+	public void save(final SerializationRoot model, final String identifier) throws PersistenceException {
 		if (model != null && identifier != null && !identifier.trim().isEmpty()) {
 
 			Writer writer = null;

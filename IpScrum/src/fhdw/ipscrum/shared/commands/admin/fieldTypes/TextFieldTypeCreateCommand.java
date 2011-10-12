@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a text field type.
  */
-public class TextFieldTypeCreateCommand extends Command<TextFieldType>
-		implements IFieldTypesCommand {
+public class TextFieldTypeCreateCommand extends Command<TextFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -51,13 +50,10 @@ public class TextFieldTypeCreateCommand extends Command<TextFieldType>
 
 	@Override
 	protected TextFieldType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final TextFieldType textFieldType =
-				new TextFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final TextFieldType textFieldType = new TextFieldType(model, this.name, multiplicity);
 		return textFieldType;
 	}
 

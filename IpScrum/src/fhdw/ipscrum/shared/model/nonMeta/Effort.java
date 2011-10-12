@@ -8,8 +8,7 @@ import fhdw.ipscrum.shared.constants.ExceptionConstants;
 import fhdw.ipscrum.shared.exceptions.model.NoValidValueException;
 
 /**
- * This class represents a container for Effort-values. Effort-values cannot be set to
- * less than zero.
+ * This class represents a container for Effort-values. Effort-values cannot be set to less than zero.
  */
 public class Effort implements IsSerializable, Serializable {
 

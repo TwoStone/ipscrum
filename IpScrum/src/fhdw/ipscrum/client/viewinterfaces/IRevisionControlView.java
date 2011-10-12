@@ -13,8 +13,8 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.RevisionControlView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.RevisionControlView).
  */
 public interface IRevisionControlView extends IView {
 
@@ -69,7 +69,6 @@ public interface IRevisionControlView extends IView {
 	 *            needed to handle the event, which knows the revision to rewind to
 	 * @return the event which handles the rewind to an old revision
 	 */
-	EventRegistration registerRewindEventHandler(
-			EventHandler<TypedEventArg<Revision>> handler);
+	EventRegistration registerRewindEventHandler(EventHandler<TypedEventArg<Revision>> handler);
 
 }

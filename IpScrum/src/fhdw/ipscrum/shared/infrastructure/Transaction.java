@@ -38,8 +38,7 @@ public class Transaction implements IsSerializable {
 	private String editorId;
 
 	/**
-	 * represents the id of the active role of the user at the time when the transaction
-	 * has been invoked.
+	 * represents the id of the active role of the user at the time when the transaction has been invoked.
 	 */
 	private String activeRoleId;
 
@@ -60,8 +59,8 @@ public class Transaction implements IsSerializable {
 	 * @param generatedUUIDs
 	 *            related to the transaction
 	 */
-	public Transaction(final Date modelRevision, final Person editor,
-			final Role activeRole, final List<String> generatedUUIDs) {
+	public Transaction(final Date modelRevision, final Person editor, final Role activeRole,
+			final List<String> generatedUUIDs) {
 		this();
 		this.modelRevision = CalendarUtils.copy(modelRevision);
 		this.generatedUUIDs = generatedUUIDs;
@@ -178,8 +177,7 @@ public class Transaction implements IsSerializable {
 	}
 
 	/**
-	 * Returns the ID of the active role of the user at the time when the transaction has
-	 * been invoked.
+	 * Returns the ID of the active role of the user at the time when the transaction has been invoked.
 	 * 
 	 * @return role ID.
 	 */

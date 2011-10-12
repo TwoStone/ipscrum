@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new feature ticket type.
  */
-public class FeatureTicketTypeCreateCommand extends Command<FeatureTicketType>
-		implements ITicketTypesCommand {
+public class FeatureTicketTypeCreateCommand extends Command<FeatureTicketType> implements ITicketTypesCommand {
 
 	/**
 	 * represents the name of the feature ticket type.
@@ -49,12 +48,9 @@ public class FeatureTicketTypeCreateCommand extends Command<FeatureTicketType>
 	}
 
 	@Override
-	protected FeatureTicketType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format(
-				"Neuer Feature-Tickettyp '%s' erstellt.", this.name));
-		final FeatureTicketType featureTicketType =
-				new FeatureTicketType(model, this.name, this.description);
+	protected FeatureTicketType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feature-Tickettyp '%s' erstellt.", this.name));
+		final FeatureTicketType featureTicketType = new FeatureTicketType(model, this.name, this.description);
 		return featureTicketType;
 	}
 

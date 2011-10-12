@@ -40,8 +40,7 @@ public class ProjectCreateCommand extends Command<Project> implements IProjectCo
 
 	@Override
 	protected Project onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neues Projekt '%s' erstellt.",
-				this.description));
+		this.setStringValue(StringUtils.format("Neues Projekt '%s' erstellt.", this.description));
 
 		final Project project = new Project(model, this.description);
 		return project;

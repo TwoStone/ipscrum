@@ -15,8 +15,7 @@ import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
  * @param <T>
  *            is the chosen type of the widget
  */
-public class ComplexTextListFieldWidget<T extends Serializable>
-		extends ListFieldWidget<T> {
+public class ComplexTextListFieldWidget<T extends Serializable> extends ListFieldWidget<T> {
 
 	private TextBox textBox;
 	private final TypeParser<T, String> parser;
@@ -31,8 +30,8 @@ public class ComplexTextListFieldWidget<T extends Serializable>
 	 * @param parser
 	 *            is the parser to pare the type
 	 */
-	public ComplexTextListFieldWidget(final ListField<T> field,
-			final TypeRendere<T> typeRendere, final TypeParser<T, String> parser) {
+	public ComplexTextListFieldWidget(final ListField<T> field, final TypeRendere<T> typeRendere,
+			final TypeParser<T, String> parser) {
 		super(field, typeRendere);
 		this.parser = parser;
 		this.textBox = new TextBox();

@@ -28,8 +28,8 @@ public class SearchResultPresenter extends ReadPresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.SearchResultPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param result
 	 *            are all existing Tickets
 	 */
@@ -53,12 +53,9 @@ public class SearchResultPresenter extends ReadPresenter {
 			this.view.registerDetailHandler(new EventHandler<TypedEventArg<Ticket>>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Ticket> eventArgs) {
-					SearchResultPresenter.this
-							.startPresenter(new GenericTicketPresenter(eventArgs
-									.getObject(), SearchResultPresenter.this
-									.getContext()));
+				public void onUpdate(final Object sender, final TypedEventArg<Ticket> eventArgs) {
+					SearchResultPresenter.this.startPresenter(new GenericTicketPresenter(eventArgs.getObject(),
+							SearchResultPresenter.this.getContext()));
 
 				}
 			});

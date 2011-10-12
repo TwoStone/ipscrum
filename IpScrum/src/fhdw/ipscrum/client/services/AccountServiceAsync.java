@@ -35,7 +35,6 @@ public interface AccountServiceAsync {
 	 * @param callback
 	 *            needed to use this method in an asynchrony way
 	 */
-	void createAccount(String name, String password, Person person, Role activeRole,
-			AsyncCallback<Void> callback);
+	void createAccount(String name, String password, Person person, Role activeRole, AsyncCallback<Void> callback);
 
 }

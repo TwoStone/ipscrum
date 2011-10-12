@@ -7,8 +7,7 @@ import com.google.gwt.user.client.Random;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 /**
- * Useful utilities for dealing with date and time. Extends CalendarUtil which holds some
- * helpful operations as well.
+ * Useful utilities for dealing with date and time. Extends CalendarUtil which holds some helpful operations as well.
  */
 public final class CalendarUtils extends CalendarUtil {
 
@@ -48,14 +47,12 @@ public final class CalendarUtils extends CalendarUtil {
 	public static Date getRandomDateOfThisMonth() {
 		final Date date = new Date();
 		CalendarUtil.setToFirstDayOfMonth(date);
-		CalendarUtil.addDaysToDate(date,
-				Random.nextInt(CalendarUtils.MID_DAYS_OF_MONTH));
+		CalendarUtil.addDaysToDate(date, Random.nextInt(CalendarUtils.MID_DAYS_OF_MONTH));
 		return date;
 	}
 
 	/**
-	 * Generates a random enddate to the given begindate. The duration is set to a random
-	 * value between 5 and 26.
+	 * Generates a random enddate to the given begindate. The duration is set to a random value between 5 and 26.
 	 * 
 	 * @param sprintBeginDate
 	 *            minimal date
@@ -63,21 +60,16 @@ public final class CalendarUtils extends CalendarUtil {
 	 *            maximal date
 	 * @return a random enddate
 	 */
-	public static Date getRandomSprintEnddate(final Date sprintBeginDate,
-			final Date releaseDate) {
+	public static Date getRandomSprintEnddate(final Date sprintBeginDate, final Date releaseDate) {
 		final Date endDate = CalendarUtil.copyDate(sprintBeginDate);
 		final int dayCount = CalendarUtil.getDaysBetween(sprintBeginDate, releaseDate);
-		CalendarUtil
-				.addDaysToDate(
-						endDate,
-						(int) (Math.random()
-								* (dayCount - CalendarUtils.WORKDAY_IN_WEEK) + CalendarUtils.WORKDAY_IN_WEEK));
+		CalendarUtil.addDaysToDate(endDate,
+				(int) (Math.random() * (dayCount - CalendarUtils.WORKDAY_IN_WEEK) + CalendarUtils.WORKDAY_IN_WEEK));
 		return endDate;
 	}
 
 	/**
-	 * This is used to obtain a List of Dates in the range from <code>param1</code> to
-	 * <code>param2</code>.
+	 * This is used to obtain a List of Dates in the range from <code>param1</code> to <code>param2</code>.
 	 * 
 	 * @param param1
 	 *            startdate
@@ -85,8 +77,7 @@ public final class CalendarUtils extends CalendarUtil {
 	 *            enddate
 	 * @return list of dates
 	 */
-	public static ArrayList<Date> getAListOfDatesFromParam1ToParam2(final Date param1,
-			final Date param2) {
+	public static ArrayList<Date> getAListOfDatesFromParam1ToParam2(final Date param1, final Date param2) {
 		final ArrayList<Date> result = new ArrayList<Date>();
 		final Date tempDate = CalendarUtil.copyDate(param1);
 		while (!tempDate.after(param2)) {
@@ -97,15 +88,13 @@ public final class CalendarUtils extends CalendarUtil {
 	}
 
 	/**
-	 * Generates a random releasedate. The return value will be between 30 and 60 days
-	 * from today.
+	 * Generates a random releasedate. The return value will be between 30 and 60 days from today.
 	 * 
 	 * @return random date (30-60 days in the future)
 	 */
 	public static Date getRandomReleaseDate() {
 		final Date temp = new Date();
-		CalendarUtil.addDaysToDate(temp,
-				(int) (Math.random() * CalendarUtils.THIRTY + CalendarUtils.THIRTY));
+		CalendarUtil.addDaysToDate(temp, (int) (Math.random() * CalendarUtils.THIRTY + CalendarUtils.THIRTY));
 		return temp;
 	}
 

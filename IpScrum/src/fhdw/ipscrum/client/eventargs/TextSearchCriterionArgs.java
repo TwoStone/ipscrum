@@ -30,8 +30,7 @@ public class TextSearchCriterionArgs extends EventArgs {
 	 * @param value
 	 *            int
 	 */
-	public TextSearchCriterionArgs(final String string, final ISearchExpression se,
-			final int value) {
+	public TextSearchCriterionArgs(final String string, final ISearchExpression se, final int value) {
 		super();
 		this.string = string;
 		this.value = value;

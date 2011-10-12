@@ -23,8 +23,8 @@ public class TextSingleFieldTypeController extends SingleFieldTypeController<Str
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public TextSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<String> field) {
+	public TextSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<String> field) {
 		super(ticket, presenter, field);
 
 		this.widget = new TextSingleFieldWidget();

@@ -15,8 +15,8 @@ import fhdw.ipscrum.shared.model.nonMeta.Release;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
 /**
- * This class represents a data container for Release Burndown-Charts. It also contains
- * calculation-algorithms to generate chart-data.
+ * This class represents a data container for Release Burndown-Charts. It also contains calculation-algorithms to
+ * generate chart-data.
  */
 public class ReleaseChartData {
 
@@ -58,8 +58,7 @@ public class ReleaseChartData {
 	 */
 	private void calculateData() {
 		// obtain a sorted list of sprints associated with the release
-		final ArrayList<Sprint> sortedSprints =
-				new ArrayList<Sprint>(this.getRelease().getSprints());
+		final ArrayList<Sprint> sortedSprints = new ArrayList<Sprint>(this.getRelease().getSprints());
 		Collections.sort(sortedSprints, new Comparator<Sprint>() {
 			@Override
 			public int compare(final Sprint o1, final Sprint o2) {
@@ -75,8 +74,7 @@ public class ReleaseChartData {
 		for (final Sprint sprint : sortedSprints) {
 
 			try {
-				runningBDValue -=
-						sprint.getCumulatedManDayCostsOfClosedPbis().getValue();
+				runningBDValue -= sprint.getCumulatedManDayCostsOfClosedPbis().getValue();
 			} catch (final NoValidValueException e) {
 				Logger.getLogger("ErrorLogger").log(Level.WARNING, e.getMessage());
 			}
@@ -84,13 +82,12 @@ public class ReleaseChartData {
 			if (this.data.containsKey(sprint.getEnd())) {
 				final ReleaseChartDataDetails details = this.data.get(sprint.getEnd());
 				details.getSprints().add(sprint);
-				details.setActualBurndownValue(sprint.getEnd().before(today) ? runningBDValue
-						: null);
+				details.setActualBurndownValue(sprint.getEnd().before(today) ? runningBDValue : null);
 				this.data.put(sprint.getEnd(), details);
 			} else {
 				final ReleaseChartDataDetails details =
-						new ReleaseChartDataDetails(new ArrayList<Sprint>(), sprint
-								.getEnd().before(today) ? runningBDValue : null);
+						new ReleaseChartDataDetails(new ArrayList<Sprint>(),
+								sprint.getEnd().before(today) ? runningBDValue : null);
 				details.getSprints().add(sprint);
 				this.data.put(sprint.getEnd(), details);
 			}
@@ -115,8 +112,7 @@ public class ReleaseChartData {
 		private Double actualBurndownValue;
 		private Double idealBurndownValue;
 
-		public ReleaseChartDataDetails(final ArrayList<Sprint> sprints,
-				final Double actualBurndownValue) {
+		public ReleaseChartDataDetails(final ArrayList<Sprint> sprints, final Double actualBurndownValue) {
 			this.sprints = sprints;
 			this.actualBurndownValue = actualBurndownValue;
 		}

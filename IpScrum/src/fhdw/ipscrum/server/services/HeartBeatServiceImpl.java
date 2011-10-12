@@ -5,11 +5,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import fhdw.ipscrum.client.services.HeartBeatService;
 
 /**
- * This service sends a "heart beat" periodically to server so that the session will not
- * die until the client log-off or close the browser.
+ * This service sends a "heart beat" periodically to server so that the session will not die until the client log-off or
+ * close the browser.
  */
-public class HeartBeatServiceImpl extends RemoteServiceServlet
-		implements HeartBeatService {
+public class HeartBeatServiceImpl extends RemoteServiceServlet implements HeartBeatService {
 
 	/**
 	 * represents the serialVersionUID.
@@ -19,7 +18,6 @@ public class HeartBeatServiceImpl extends RemoteServiceServlet
 	@Override
 	public void pulse() {
 		final String remoteHost = this.getThreadLocalRequest().getRemoteHost();
-		System.out.println("Received heart beat from " + remoteHost
-				+ " - seems to be still alive!");
+		System.out.println("Received heart beat from " + remoteHost + " - seems to be still alive!");
 	}
 }

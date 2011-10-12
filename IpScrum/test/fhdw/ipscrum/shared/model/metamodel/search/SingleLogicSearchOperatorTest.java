@@ -34,8 +34,7 @@ public class SingleLogicSearchOperatorTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 	}
 
@@ -48,13 +47,11 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testAccept1() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final ISearchTypeVisitor visitor = new ISearchTypeVisitor() {
 
 			@Override
-			public void handleSingleLogicSearchOperator(
-					final SingleLogicSearchOperator singleLogicSearchOperator) {
+			public void handleSingleLogicSearchOperator(final SingleLogicSearchOperator singleLogicSearchOperator) {
 
 			}
 
@@ -64,8 +61,7 @@ public class SingleLogicSearchOperatorTest {
 			}
 
 			@Override
-			public void handleMultiLogicSearchOperator(
-					final MultiLogicSearchOperator multiLogicSearchOperator) {
+			public void handleMultiLogicSearchOperator(final MultiLogicSearchOperator multiLogicSearchOperator) {
 
 			}
 		};
@@ -81,8 +77,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testContains1() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final ISearchExpression expression = new And(this.model);
 
 		final boolean result = fixture.contains(expression);
@@ -98,8 +93,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testContains2() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final ISearchExpression expression = new And(this.model);
 
 		final boolean result = fixture.contains(expression);
@@ -115,8 +109,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testContains3() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final ISearchExpression expression = new And(this.model);
 
 		final boolean result = fixture.contains(expression);
@@ -133,8 +126,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testContains4() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final ISearchExpression expression = new And(this.model);
 
 		final boolean result = fixture.contains(expression);
@@ -151,8 +143,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testGetArg1() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 
 		final SearchExpression result = fixture.getArg();
 		Assert.assertNotNull(result);
@@ -167,8 +158,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testSetArg1() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final SearchExpression arg = new And(this.model);
 
 		fixture.setArg(arg);
@@ -183,8 +173,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testSetArg2() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final SearchExpression arg = new And(this.model);
 
 		fixture.setArg(arg);
@@ -199,8 +188,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testSetArg3() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final SearchExpression arg = new And(this.model);
 
 		fixture.setArg(arg);
@@ -215,8 +203,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testSetArg4() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final SearchExpression arg = null;
 
 		fixture.setArg(arg);
@@ -231,8 +218,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testSetArg5() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final SearchExpression arg = null;
 
 		fixture.setArg(arg);
@@ -247,8 +233,7 @@ public class SingleLogicSearchOperatorTest {
 	 */
 	@Test
 	public void testUpdate1() throws Exception {
-		final SingleLogicSearchOperator fixture =
-				new Not(this.model, new And(this.model));
+		final SingleLogicSearchOperator fixture = new Not(this.model, new And(this.model));
 		final Observable observable = new OneParticipantIncident();
 		final Object argument = new Object();
 

@@ -15,18 +15,17 @@ import fhdw.ipscrum.shared.model.nonMeta.Effort;
  */
 public class EffortListFieldTypeController extends ListFieldTypeController<Effort> {
 
-	private final TypeParser<Effort, Integer> parser =
-			new TypeParser<Effort, Integer>() {
+	private final TypeParser<Effort, Integer> parser = new TypeParser<Effort, Integer>() {
 
-				@Override
-				public Effort parse(final Integer value) {
-					try {
-						return new Effort(value);
-					} catch (final NoValidValueException e) {
-						return Effort.NULL;
-					}
-				}
-			};
+		@Override
+		public Effort parse(final Integer value) {
+			try {
+				return new Effort(value);
+			} catch (final NoValidValueException e) {
+				return Effort.NULL;
+			}
+		}
+	};
 
 	private final ComplexNumberListFieldWidget<Effort> widget;
 
@@ -40,12 +39,11 @@ public class EffortListFieldTypeController extends ListFieldTypeController<Effor
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public EffortListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Effort> field, final Ticket ticket) {
+	public EffortListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Effort> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 		this.widget =
-				new ComplexNumberListFieldWidget<Effort>(this.getField(),
-						TypeRenderes.EFFORTRENDERER, this.parser);
+				new ComplexNumberListFieldWidget<Effort>(this.getField(), TypeRenderes.EFFORTRENDERER, this.parser);
 		this.initialize();
 	}
 

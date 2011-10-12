@@ -11,8 +11,7 @@ public interface ISearchTypeVisitor {
 	 * @param multiLogicSearchOperator
 	 *            is the concrete operator/criteria
 	 */
-	void handleMultiLogicSearchOperator(
-			MultiLogicSearchOperator multiLogicSearchOperator);
+	void handleMultiLogicSearchOperator(MultiLogicSearchOperator multiLogicSearchOperator);
 
 	/**
 	 * Needed for handling SearchCriteria.
@@ -28,7 +27,6 @@ public interface ISearchTypeVisitor {
 	 * @param singleLogicSearchOperator
 	 *            is the concrete operator/criteria
 	 */
-	void handleSingleLogicSearchOperator(
-			SingleLogicSearchOperator singleLogicSearchOperator);
+	void handleSingleLogicSearchOperator(SingleLogicSearchOperator singleLogicSearchOperator);
 
 }

@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a field type from a ticket type.
  */
-public class TicketTypeRemoveFieldTypeCommand extends Command<Void>
-		implements ITicketTypesCommand {
+public class TicketTypeRemoveFieldTypeCommand extends Command<Void> implements ITicketTypesCommand {
 
 	/**
 	 * represents the related field type.
@@ -38,20 +37,17 @@ public class TicketTypeRemoveFieldTypeCommand extends Command<Void>
 	 * @param fieldType
 	 *            related to the command
 	 */
-	public TicketTypeRemoveFieldTypeCommand(final TicketType receiver,
-			final FieldType fieldType) {
+	public TicketTypeRemoveFieldTypeCommand(final TicketType receiver, final FieldType fieldType) {
 		super(receiver);
 		this.fieldTypeId = fieldType.getId();
 	}
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final TicketType tickettype =
-				(TicketType) model.getObject(this.getReceiverGuid());
+		final TicketType tickettype = (TicketType) model.getObject(this.getReceiverGuid());
 		final FieldType fieldType = (FieldType) model.getObject(this.fieldTypeId);
 
-		this.setStringValue(StringUtils.format(
-				"Dem Tickettypen %s wurde der Feldtyp %s entfernt.",
+		this.setStringValue(StringUtils.format("Dem Tickettypen %s wurde der Feldtyp %s entfernt.",
 				tickettype.getTypeName(), fieldType.getName()));
 
 		tickettype.removeFieldType(fieldType);

@@ -35,8 +35,8 @@ public class OneParticipantIncident extends Incident {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public OneParticipantIncident(final Model model, final Date start, final Date end,
-			final Person participant) throws IPScrumGeneralException {
+	public OneParticipantIncident(final Model model, final Date start, final Date end, final Person participant)
+			throws IPScrumGeneralException {
 		super(model, start, end);
 		this.participant = participant;
 	}

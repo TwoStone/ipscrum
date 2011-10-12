@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a release field type.
  */
-public class ReleaseFieldTypeCreateCommand extends Command<ReleaseFieldType>
-		implements IFieldTypesCommand {
+public class ReleaseFieldTypeCreateCommand extends Command<ReleaseFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -43,23 +42,18 @@ public class ReleaseFieldTypeCreateCommand extends Command<ReleaseFieldType>
 	 * @param multiplicity
 	 *            of the new FieldType
 	 */
-	public ReleaseFieldTypeCreateCommand(final String name,
-			final Multiplicity multiplicity) {
+	public ReleaseFieldTypeCreateCommand(final String name, final Multiplicity multiplicity) {
 		super();
 		this.name = name;
 		this.multiplicityId = multiplicity.getId();
 	}
 
 	@Override
-	protected ReleaseFieldType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+	protected ReleaseFieldType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final ReleaseFieldType releaseFieldType =
-				new ReleaseFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final ReleaseFieldType releaseFieldType = new ReleaseFieldType(model, this.name, multiplicity);
 		return releaseFieldType;
 	}
 

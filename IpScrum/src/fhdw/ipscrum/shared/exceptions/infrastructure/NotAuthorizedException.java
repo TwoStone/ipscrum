@@ -4,14 +4,15 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 
 /**
  * Exception thrown if someone isn't authorized to do something.
- *
+ * 
  */
 public class NotAuthorizedException extends InfrastructureException {
 
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param string thrown by the Exception
+	 * @param string
+	 *            thrown by the Exception
 	 */
 	public NotAuthorizedException(final String string) {
 		super(string);

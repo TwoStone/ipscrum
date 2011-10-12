@@ -20,15 +20,13 @@ public class WindowTitleController extends ClientController {
 	 */
 	public WindowTitleController(final ClientContext context) {
 		super(context);
-		context.getEventBus().registerHandler(PresenterChangedEvent.class,
-				new PresenterChangedHandler() {
+		context.getEventBus().registerHandler(PresenterChangedEvent.class, new PresenterChangedHandler() {
 
-					@Override
-					public void
-							handlePresenterChanged(final PresenterChangedEvent event) {
-						WindowTitleController.this.doPresenterChanged(event.getObject());
-					}
-				});
+			@Override
+			public void handlePresenterChanged(final PresenterChangedEvent event) {
+				WindowTitleController.this.doPresenterChanged(event.getObject());
+			}
+		});
 	}
 
 	/**

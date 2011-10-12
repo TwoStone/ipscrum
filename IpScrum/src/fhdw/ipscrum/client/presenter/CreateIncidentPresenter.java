@@ -24,8 +24,8 @@ public class CreateIncidentPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.CreateIncidentPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public CreateIncidentPresenter(final ClientContext context) {
 		super(context);
@@ -53,21 +53,20 @@ public class CreateIncidentPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					CreateIncidentPresenter.this.showQuestion("Änderungen verwerfen?",
-							new Answer("Ja") {
+					CreateIncidentPresenter.this.showQuestion("Änderungen verwerfen?", new Answer("Ja") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-									CreateIncidentPresenter.this.close();
-								}
-							}, new Answer("Nein") {
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+							CreateIncidentPresenter.this.close();
+						}
+					}, new Answer("Nein") {
 
-								@Override
-								public void onAction(final QuestionDialog widget) {
-									widget.hide();
-								}
-							});
+						@Override
+						public void onAction(final QuestionDialog widget) {
+							widget.hide();
+						}
+					});
 				}
 			});
 		}
@@ -80,10 +79,9 @@ public class CreateIncidentPresenter extends WritePresenter {
 		try {
 			// this.doCommand(new IncidentIllnessCreateCommand(this.view.getStartDate(),
 			// this.view.getEndDate(), ));
-			this.doCommand(new IncidentOtherIssueCreateCommand(
-					this.view.getStartDate(), this.view.getEndDate(), this.view
-							.getType().getId(), this.view.getDescription(), this.view
-							.getPersons(), this.view.getProjects()));
+			this.doCommand(new IncidentOtherIssueCreateCommand(this.view.getStartDate(), this.view.getEndDate(),
+					this.view.getType().getId(), this.view.getDescription(), this.view.getPersons(), this.view
+							.getProjects()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

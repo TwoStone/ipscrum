@@ -25,8 +25,8 @@ public class SprintSingleFieldTypeController extends SingleFieldTypeController<S
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public SprintSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<Sprint> field) {
+	public SprintSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<Sprint> field) {
 		super(ticket, presenter, field);
 
 		this.widget = new ComplexSingleFieldWidget<Sprint>(TypeRenderes.SPRINTRENDERER);

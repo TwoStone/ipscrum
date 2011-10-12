@@ -93,8 +93,7 @@ public class ToastMessageController {
 	/**
 	 * Default duration a message will be displayed.
 	 */
-	private static final int DEFAULTDELAY =
-			ToastMessageController.DisplayDuration.MEDIUM.length;
+	private static final int DEFAULTDELAY = ToastMessageController.DisplayDuration.MEDIUM.length;
 
 	/**
 	 * The currently displayed ToastMessageBox.
@@ -117,8 +116,7 @@ public class ToastMessageController {
 	private final Queue<ToastMessageController.ToastMessage> waitingMessages;
 
 	/**
-	 * Creates a new ToastMessageController. Creating more than one instance will result
-	 * in strange behaviors.
+	 * Creates a new ToastMessageController. Creating more than one instance will result in strange behaviors.
 	 */
 	public ToastMessageController() {
 		super();
@@ -126,15 +124,14 @@ public class ToastMessageController {
 	}
 
 	/**
-	 * Adds a new ToastMessage to the queue to. If no other message is displaying
-	 * currently the message will be displayed immediately.
+	 * Adds a new ToastMessage to the queue to. If no other message is displaying currently the message will be
+	 * displayed immediately.
 	 * 
 	 * @param message
 	 *            the message that will be displayed
 	 */
 	public void addToastMessage(final ToastMessage message) {
-		GWT.log("[ToastController] Adding toast message to queue: "
-				+ message.getMessage());
+		GWT.log("[ToastController] Adding toast message to queue: " + message.getMessage());
 		this.waitingMessages.offer(message);
 		if (!this.toastIsDisplaying) {
 			this.nextToast();
@@ -152,8 +149,7 @@ public class ToastMessageController {
 	 * @param milliseconds
 	 *            time the message will be displayed
 	 */
-	private void displayToast(final ToastMessageBox messageBox,
-			final Integer milliseconds) {
+	private void displayToast(final ToastMessageBox messageBox, final Integer milliseconds) {
 		messageBox.setPopupPositionAndShow(new PositionCallback() {
 
 			@Override
@@ -211,8 +207,7 @@ public class ToastMessageController {
 		final ToastMessage message = this.waitingMessages.poll();
 		if (message != null) {
 			GWT.log("[ToastController]  Showing toast message: " + message.getMessage());
-			final ToastMessageBox messageBox =
-					new ToastMessageBox(message.getMessage());
+			final ToastMessageBox messageBox = new ToastMessageBox(message.getMessage());
 			this.currentToast = messageBox;
 			messageBox.addCloseHandler(new CloseHandler<PopupPanel>() {
 

@@ -109,7 +109,7 @@ public class ReleaseRemoveSprintCommandTest extends ReleaseTestBase {
 		command.accept(new CommandStandardVisitor() {
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 
 			}
 		});

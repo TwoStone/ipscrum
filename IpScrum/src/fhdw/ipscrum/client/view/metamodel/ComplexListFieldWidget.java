@@ -17,8 +17,7 @@ import fhdw.ipscrum.shared.utils.ListUtils;
  * @param <T>
  *            is the type of the widget
  */
-public class ComplexListFieldWidget<T extends IdentifiableObject>
-		extends ListFieldWidget<T> {
+public class ComplexListFieldWidget<T extends IdentifiableObject> extends ListFieldWidget<T> {
 
 	private final TypedListBox<T> availableObjectsListBox;
 
@@ -30,8 +29,7 @@ public class ComplexListFieldWidget<T extends IdentifiableObject>
 	 * @param typeRendere
 	 *            needed to render the field for the chosen type
 	 */
-	public ComplexListFieldWidget(final ListField<T> field,
-			final TypeRendere<T> typeRendere) {
+	public ComplexListFieldWidget(final ListField<T> field, final TypeRendere<T> typeRendere) {
 		super(field, typeRendere);
 
 		this.availableObjectsListBox = new TypedListBox<T>(typeRendere);
@@ -57,8 +55,7 @@ public class ComplexListFieldWidget<T extends IdentifiableObject>
 	 */
 	public void setAvailableItems(final List<T> availableItems) {
 		this.availableObjectsListBox.clear();
-		this.availableObjectsListBox.addItems(ListUtils.difference(availableItems,
-				this.getReferencedObjects()));
+		this.availableObjectsListBox.addItems(ListUtils.difference(availableItems, this.getReferencedObjects()));
 	}
 
 }

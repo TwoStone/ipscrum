@@ -24,12 +24,10 @@ public class HintListFieldTypeController extends ListFieldTypeController<Hint> {
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public HintListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Hint> field, final Ticket ticket) {
+	public HintListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Hint> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
-		this.widget =
-				new ComplexTextListFieldWidget<Hint>(this.getField(),
-						TypeRenderes.HINTRENDERER, this.parser);
+		this.widget = new ComplexTextListFieldWidget<Hint>(this.getField(), TypeRenderes.HINTRENDERER, this.parser);
 		this.initialize();
 	}
 
@@ -37,8 +35,7 @@ public class HintListFieldTypeController extends ListFieldTypeController<Hint> {
 
 		@Override
 		public Hint parse(final String value) {
-			return new Hint(HintListFieldTypeController.this.getPresenter()
-					.getContext().getModel(), value);
+			return new Hint(HintListFieldTypeController.this.getPresenter().getContext().getModel(), value);
 		}
 	};
 

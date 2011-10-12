@@ -20,71 +20,61 @@ import fhdw.ipscrum.shared.commands.admin.ticketTypes.TransitionRuleDeleteComman
 /**
  * 
  */
-public abstract class TicketTypesCommandStandardVisitor
-		implements TicketTypesCommandStandardVisitorInterface {
+public abstract class TicketTypesCommandStandardVisitor implements TicketTypesCommandStandardVisitorInterface {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleBugTicketTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleBugTicketTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.BugTicketTypeCreateCommand)
 	 */
 	@Override
-	public void handleBugTicketTypeCreateCommand(
-			final BugTicketTypeCreateCommand bugTicketTypeCreateCommand) {
+	public void handleBugTicketTypeCreateCommand(final BugTicketTypeCreateCommand bugTicketTypeCreateCommand) {
 		this.standardHandling(bugTicketTypeCreateCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleFeatureTicketTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleFeatureTicketTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.FeatureTicketTypeCreateCommand)
 	 */
 	@Override
-	public void handleFeatureTicketTypeCreateCommand(
-			final FeatureTicketTypeCreateCommand featureTicketTypeCreateCommand) {
+	public void
+			handleFeatureTicketTypeCreateCommand(final FeatureTicketTypeCreateCommand featureTicketTypeCreateCommand) {
 		this.standardHandling(featureTicketTypeCreateCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTaskTicketTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTaskTicketTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TaskTicketTypeCreateCommand)
 	 */
 	@Override
-	public void handleTaskTicketTypeCreateCommand(
-			final TaskTicketTypeCreateCommand taskTicketTypeCreateCommand) {
+	public void handleTaskTicketTypeCreateCommand(final TaskTicketTypeCreateCommand taskTicketTypeCreateCommand) {
 		this.standardHandling(taskTicketTypeCreateCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleStateTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleStateTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.StateTypeCreateCommand)
 	 */
 	@Override
-	public void handleStateTypeCreateCommand(
-			final StateTypeCreateCommand stateTypeCreateCommand) {
+	public void handleStateTypeCreateCommand(final StateTypeCreateCommand stateTypeCreateCommand) {
 		this.standardHandling(stateTypeCreateCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeAddFieldTypeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTicketTypeAddFieldTypeCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAddFieldTypeCommand)
 	 */
 	@Override
-	public void handleTicketTypeAddFieldTypeCommand(
-			final TicketTypeAddFieldTypeCommand ticketTypeAddFieldTypeCommand) {
+	public void handleTicketTypeAddFieldTypeCommand(final TicketTypeAddFieldTypeCommand ticketTypeAddFieldTypeCommand) {
 		this.standardHandling(ticketTypeAddFieldTypeCommand);
 
 	}
@@ -92,21 +82,18 @@ public abstract class TicketTypesCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeAddStatetypeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTicketTypeAddStatetypeCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeAddStatetypeCommand)
 	 */
 	@Override
-	public void handleTicketTypeAddStatetypeCommand(
-			final TicketTypeAddStatetypeCommand ticketTypeAddStatetypeCommand) {
+	public void handleTicketTypeAddStatetypeCommand(final TicketTypeAddStatetypeCommand ticketTypeAddStatetypeCommand) {
 		this.standardHandling(ticketTypeAddStatetypeCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeRemoveFieldTypeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTicketTypeRemoveFieldTypeCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeRemoveFieldTypeCommand)
 	 */
 	@Override
@@ -118,8 +105,7 @@ public abstract class TicketTypesCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeRemoveStateTypeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTicketTypeRemoveStateTypeCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TicketTypeRemoveStateTypeCommand)
 	 */
 	@Override
@@ -131,16 +117,12 @@ public abstract class TicketTypesCommandStandardVisitor
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeSetFieldTypeActivityCommand
-	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes
-	 * .TicketTypeSetFieldTypeActivityCommand)
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTicketTypeSetFieldTypeActivityCommand
+	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes .TicketTypeSetFieldTypeActivityCommand)
 	 */
 	@Override
-	public
-			void
-			handleTicketTypeSetFieldTypeActivityCommand(
-					final TicketTypeSetFieldTypeActivityCommand ticketTypeSetFieldTypeActivityCommand) {
+	public void handleTicketTypeSetFieldTypeActivityCommand(
+			final TicketTypeSetFieldTypeActivityCommand ticketTypeSetFieldTypeActivityCommand) {
 		this.standardHandling(ticketTypeSetFieldTypeActivityCommand);
 	}
 
@@ -148,15 +130,12 @@ public abstract class TicketTypesCommandStandardVisitor
 	 * (non-Javadoc)
 	 * 
 	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeSetStatetypeAsEndstatetypeCommand
-	 * (fhdw.ipscrum.shared.commands.admin
+	 * handleTicketTypeSetStatetypeAsEndstatetypeCommand (fhdw.ipscrum.shared.commands.admin
 	 * .ticketTypes.TicketTypeSetStatetypeAsEndstatetypeCommand)
 	 */
 	@Override
-	public
-			void
-			handleTicketTypeSetStatetypeAsEndstatetypeCommand(
-					final TicketTypeSetStatetypeAsEndstatetypeCommand ticketTypeSetStatetypeAsEndstatetypeCommand) {
+	public void handleTicketTypeSetStatetypeAsEndstatetypeCommand(
+			final TicketTypeSetStatetypeAsEndstatetypeCommand ticketTypeSetStatetypeAsEndstatetypeCommand) {
 		this.standardHandling(ticketTypeSetStatetypeAsEndstatetypeCommand);
 	}
 
@@ -164,41 +143,34 @@ public abstract class TicketTypesCommandStandardVisitor
 	 * (non-Javadoc)
 	 * 
 	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTicketTypeSetStatetypeAsStartstatetypeCommand
-	 * (fhdw.ipscrum.shared.commands.admin
+	 * handleTicketTypeSetStatetypeAsStartstatetypeCommand (fhdw.ipscrum.shared.commands.admin
 	 * .ticketTypes.TicketTypeSetStatetypeAsStartstatetypeCommand)
 	 */
 	@Override
-	public
-			void
-			handleTicketTypeSetStatetypeAsStartstatetypeCommand(
-					final TicketTypeSetStatetypeAsStartstatetypeCommand ticketTypeSetStatetypeAsStartstatetypeCommand) {
+	public void handleTicketTypeSetStatetypeAsStartstatetypeCommand(
+			final TicketTypeSetStatetypeAsStartstatetypeCommand ticketTypeSetStatetypeAsStartstatetypeCommand) {
 		this.standardHandling(ticketTypeSetStatetypeAsStartstatetypeCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTransitionRuleCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTransitionRuleCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TransitionRuleCreateCommand)
 	 */
 	@Override
-	public void handleTransitionRuleCreateCommand(
-			final TransitionRuleCreateCommand transitionRuleCreateCommand) {
+	public void handleTransitionRuleCreateCommand(final TransitionRuleCreateCommand transitionRuleCreateCommand) {
 		this.standardHandling(transitionRuleCreateCommand);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor#
-	 * handleTransitionRuleDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.TicketTypesCommandVisitor# handleTransitionRuleDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.admin.ticketTypes.TransitionRuleDeleteCommand)
 	 */
 	@Override
-	public void handleTransitionRuleDeleteCommand(
-			final TransitionRuleDeleteCommand transitionRuleDeleteCommand) {
+	public void handleTransitionRuleDeleteCommand(final TransitionRuleDeleteCommand transitionRuleDeleteCommand) {
 		this.standardHandling(transitionRuleDeleteCommand);
 	}
 

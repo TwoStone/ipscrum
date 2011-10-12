@@ -4,8 +4,8 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
 /**
- * Represents the logical operator Or! All search expression arguments will be combined
- * with Or. For Example: arg1 or arg2 or arg3 ...
+ * Represents the logical operator Or! All search expression arguments will be combined with Or. For Example: arg1 or
+ * arg2 or arg3 ...
  */
 public class Or extends MultiLogicSearchOperator {
 

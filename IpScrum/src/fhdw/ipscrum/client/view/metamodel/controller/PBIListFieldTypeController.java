@@ -12,8 +12,7 @@ import fhdw.ipscrum.shared.utils.ListUtils;
 /**
  * Represents the PBIListFieldTypeController needed for editing tickets.
  */
-public class PBIListFieldTypeController
-		extends ListFieldTypeController<ProductBacklogItem> {
+public class PBIListFieldTypeController extends ListFieldTypeController<ProductBacklogItem> {
 
 	private final ComplexListFieldWidget<ProductBacklogItem> widget;
 
@@ -30,9 +29,7 @@ public class PBIListFieldTypeController
 	public PBIListFieldTypeController(final GenericTicketPresenter presenter,
 			final ListField<ProductBacklogItem> field, final Ticket ticket) {
 		super(presenter, field, ticket);
-		this.widget =
-				new ComplexListFieldWidget<ProductBacklogItem>(this.getField(),
-						TypeRenderes.PBIRENDERER);
+		this.widget = new ComplexListFieldWidget<ProductBacklogItem>(this.getField(), TypeRenderes.PBIRENDERER);
 		this.initialize();
 	}
 
@@ -44,9 +41,10 @@ public class PBIListFieldTypeController
 	@Override
 	public void updateWidget(final Model model) {
 		this.getWidget().setItems(this.getField().getValues());
-		this.getWidget().setAvailableItems(
-				ListUtils.difference(this.getTicket().getProject().getBacklog()
-						.getItems(), this.getField().getValues()));
+		this.getWidget()
+				.setAvailableItems(
+						ListUtils.difference(this.getTicket().getProject().getBacklog().getItems(), this.getField()
+								.getValues()));
 
 	}
 

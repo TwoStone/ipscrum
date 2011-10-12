@@ -49,8 +49,7 @@ public interface TaskboardCommandVisitor {
 	 * @param taskSetPlanEffortCommand
 	 *            concrete command.
 	 */
-	void handleTaskSetPlanEffortCommand(
-			TaskSetPlanEffortCommand taskSetPlanEffortCommand);
+	void handleTaskSetPlanEffortCommand(TaskSetPlanEffortCommand taskSetPlanEffortCommand);
 
 	/**
 	 * specific visitor action.
@@ -58,6 +57,5 @@ public interface TaskboardCommandVisitor {
 	 * @param taskSetResponsibilityCommand
 	 *            concrete command.
 	 */
-	void handleTaskSetResponsibilityCommand(
-			TaskSetResponsibilityCommand taskSetResponsibilityCommand);
+	void handleTaskSetResponsibilityCommand(TaskSetResponsibilityCommand taskSetResponsibilityCommand);
 }

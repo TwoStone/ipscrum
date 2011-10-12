@@ -37,149 +37,126 @@ class ProjectRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleProjectAddSystemCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleProjectAddSystemCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectAddSystemCommand)
 	 */
 	@Override
-	public void handleProjectAddSystemCommand(
-			final ProjectAddSystemCommand projectAddSystemCommand) {
+	public void handleProjectAddSystemCommand(final ProjectAddSystemCommand projectAddSystemCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleProjectChangeNameCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleProjectChangeNameCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand)
 	 */
 	@Override
-	public void handleProjectChangeNameCommand(
-			final ProjectChangeNameCommand projectChangeNameCommand) {
+	public void handleProjectChangeNameCommand(final ProjectChangeNameCommand projectChangeNameCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleProjectCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleProjectCreateCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectCreateCommand)
 	 */
 	@Override
-	public void handleProjectCreateCommand(
-			final ProjectCreateCommand projectCreateCommand) {
+	public void handleProjectCreateCommand(final ProjectCreateCommand projectCreateCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleProjectDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleProjectDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectDeleteCommand)
 	 */
 	@Override
-	public void handleProjectDeleteCommand(
-			final ProjectDeleteCommand projectDeleteCommand) {
+	public void handleProjectDeleteCommand(final ProjectDeleteCommand projectDeleteCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleProjectRemoveSystemCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleProjectRemoveSystemCommand
 	 * (fhdw.ipscrum.shared.commands.project.ProjectRemoveSystemCommand)
 	 */
 	@Override
-	public void handleProjectRemoveSystemCommand(
-			final ProjectRemoveSystemCommand projectRemoveSystemCommand) {
+	public void handleProjectRemoveSystemCommand(final ProjectRemoveSystemCommand projectRemoveSystemCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleReleaseAddSprintCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleReleaseAddSprintCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseAddSprintCommand)
 	 */
 	@Override
-	public void handleReleaseAddSprintCommand(
-			final ReleaseAddSprintCommand releaseAddSprintCommand) {
+	public void handleReleaseAddSprintCommand(final ReleaseAddSprintCommand releaseAddSprintCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleReleaseCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleReleaseCreateCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseCreateCommand)
 	 */
 	@Override
-	public void handleReleaseCreateCommand(
-			final ReleaseCreateCommand releaseCreateCommand) {
+	public void handleReleaseCreateCommand(final ReleaseCreateCommand releaseCreateCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleReleaseDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleReleaseDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseDeleteCommand)
 	 */
 	@Override
-	public void handleReleaseDeleteCommand(
-			final ReleaseDeleteCommand releaseDeleteCommand) {
+	public void handleReleaseDeleteCommand(final ReleaseDeleteCommand releaseDeleteCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleReleaseRemoveSprintCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleReleaseRemoveSprintCommand
 	 * (fhdw.ipscrum.shared.commands.project.ReleaseRemoveSprintCommand)
 	 */
 	@Override
-	public void handleReleaseRemoveSprintCommand(
-			final ReleaseRemoveSprintCommand releaseRemoveSprintCommand) {
+	public void handleReleaseRemoveSprintCommand(final ReleaseRemoveSprintCommand releaseRemoveSprintCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSprintChangeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSprintChangeCommand
 	 * (fhdw.ipscrum.shared.commands.project.SprintChangeCommand)
 	 */
 	@Override
-	public void
-			handleSprintChangeCommand(final SprintChangeCommand sprintChangeCommand) {
+	public void handleSprintChangeCommand(final SprintChangeCommand sprintChangeCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSprintCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSprintCreateCommand
 	 * (fhdw.ipscrum.shared.commands.project.SprintCreateCommand)
 	 */
 	@Override
-	public void
-			handleSprintCreateCommand(final SprintCreateCommand sprintCreateCommand) {
+	public void handleSprintCreateCommand(final SprintCreateCommand sprintCreateCommand) {
 		this.allowed();
 	}
 
 	@Override
-	public void
-			handleSystemCreateCommand(final SystemCreateCommand systemCreateCommand) {
+	public void handleSystemCreateCommand(final SystemCreateCommand systemCreateCommand) {
 		this.allowed();
 	}
 

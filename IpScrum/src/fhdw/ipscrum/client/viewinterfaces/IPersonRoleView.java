@@ -12,8 +12,8 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.PersonRoleView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.PersonRoleView).
  */
 public interface IPersonRoleView extends IView {
 
@@ -47,19 +47,15 @@ public interface IPersonRoleView extends IView {
 	 * @param args
 	 *            needed to handle the event, which also knows the related person and role
 	 */
-	void defineRemoveRoleFromPersonEventHandler(
-			EventHandler<AssociatePersonAndRoleArgs> args);
+	void defineRemoveRoleFromPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs> args);
 
 	/**
 	 * Represents the Event to handle to add roles to a person.
 	 * 
 	 * @param args
-	 *            needed to handle the event, which also knows the related roles and
-	 *            person
+	 *            needed to handle the event, which also knows the related roles and person
 	 */
-	void
-			defineAddRoleToPersonEventHandler(
-					EventHandler<AssociatePersonAndRoleArgs> args);
+	void defineAddRoleToPersonEventHandler(EventHandler<AssociatePersonAndRoleArgs> args);
 
 	/**
 	 * Represents the Event to handle the creation of a new person.

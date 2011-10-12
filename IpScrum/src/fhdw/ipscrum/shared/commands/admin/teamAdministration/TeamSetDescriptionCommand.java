@@ -44,8 +44,7 @@ public class TeamSetDescriptionCommand extends Command<Void> implements ITeamCom
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Team team = (Team) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format("Team '%s' umbenannt in '%s'.",
-				team.getDescription(), this.description));
+		this.setStringValue(StringUtils.format("Team '%s' umbenannt in '%s'.", team.getDescription(), this.description));
 		team.setDescription(this.description);
 		return null;
 	}

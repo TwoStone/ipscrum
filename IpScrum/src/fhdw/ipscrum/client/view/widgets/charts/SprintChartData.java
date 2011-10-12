@@ -10,8 +10,8 @@ import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.utils.CalendarUtils;
 
 /**
- * This class represents a data container for Sprint Burndown-Charts. It also contains
- * calculation-algorithms to generate chart-data.
+ * This class represents a data container for Sprint Burndown-Charts. It also contains calculation-algorithms to
+ * generate chart-data.
  */
 public class SprintChartData {
 
@@ -29,8 +29,7 @@ public class SprintChartData {
 		this.sprint = sprint;
 		this.data = new TreeMap<Date, SprintChartData.SprintChartDataDetails>();
 		this.daysInvolved =
-				CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(),
-						this.sprint.getEnd());
+				CalendarUtils.getAListOfDatesFromParam1ToParam2(this.sprint.getBegin(), this.sprint.getEnd());
 
 		// this.calculateDemoData();
 		this.calculateData();
@@ -42,15 +41,16 @@ public class SprintChartData {
 	private void calculateData() {
 		final int dayCount = this.daysInvolved.size();
 		final Date today = new Date();
-		final double taskCount =
-				this.sprint.getSprintBacklog().calculateOverallTaskEffort();
+		final double taskCount = this.sprint.getSprintBacklog().calculateOverallTaskEffort();
 
 		int counter = 0;
 		for (final Date date : this.daysInvolved) {
 			final double ideal = taskCount / (dayCount - 1) * (dayCount - 1 - counter);
 			if (date.before(today)) {
-				this.data.put(date, new SprintChartDataDetails((double) this.sprint
-						.getSprintBacklog().getEffortByDay(date), ideal));
+				this.data
+						.put(date,
+								new SprintChartDataDetails(
+										(double) this.sprint.getSprintBacklog().getEffortByDay(date), ideal));
 			} else {
 				this.data.put(date, new SprintChartDataDetails(ideal));
 			}
@@ -73,8 +73,7 @@ public class SprintChartData {
 			final double ideal = taskCount / (dayCount - 1) * (dayCount - 1 - counter);
 			final double deviation = Math.random() * 0.4 + 0.8;
 			if (date.before(today)) {
-				this.data.put(date,
-						new SprintChartDataDetails(ideal * deviation, ideal));
+				this.data.put(date, new SprintChartDataDetails(ideal * deviation, ideal));
 			} else {
 				this.data.put(date, new SprintChartDataDetails(ideal));
 			}
@@ -111,8 +110,7 @@ public class SprintChartData {
 			this(null, idealBurndownValue);
 		}
 
-		public SprintChartDataDetails(final Double actualBurndownValue,
-				final Double idealBurndownValue) {
+		public SprintChartDataDetails(final Double actualBurndownValue, final Double idealBurndownValue) {
 			this.actualBurndownValue = actualBurndownValue;
 			this.idealBurndownValue = idealBurndownValue;
 		}

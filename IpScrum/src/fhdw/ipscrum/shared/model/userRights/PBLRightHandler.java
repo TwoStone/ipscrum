@@ -39,14 +39,12 @@ class PBLRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleSingleFieldChangeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleSingleFieldChangeCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.SingleFieldChangeCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleSingleFieldChangeCommand(
-			final SingleFieldChangeCommand singleFieldChangeCommand)
+	public void handleSingleFieldChangeCommand(final SingleFieldChangeCommand singleFieldChangeCommand)
 			throws NoObjectFindException {
 
 		this.handleTicket(singleFieldChangeCommand.getTicket(this.getModel()));
@@ -59,39 +57,33 @@ class PBLRightHandler extends RightHandler {
 	}
 
 	@Override
-	public void handleFeatureCreateCommand(
-			final FeatureCreateCommand featureCreateCommand) {
+	public void handleFeatureCreateCommand(final FeatureCreateCommand featureCreateCommand) {
 		this.allowed();
 	}
 
 	@Override
-	public void handlePBIAddRelationCommand(
-			final PBIAddRelationCommand pBIAddRelationCommand) {
+	public void handlePBIAddRelationCommand(final PBIAddRelationCommand pBIAddRelationCommand) {
 		this.allowed();
 	}
 
 	@Override
-	public void handlePBIPriorityDecreaseCommand(
-			final PBIPriorityDecreaseCommand pBIPriorityDecreaseCommand) {
+	public void handlePBIPriorityDecreaseCommand(final PBIPriorityDecreaseCommand pBIPriorityDecreaseCommand) {
 		this.allowed();
 	}
 
 	@Override
-	public void handlePBIPriorityIncreaseCommand(
-			final PBIPriorityIncreaseCommand pBIPriorityIncreaseCommand) {
+	public void handlePBIPriorityIncreaseCommand(final PBIPriorityIncreaseCommand pBIPriorityIncreaseCommand) {
 		this.allowed();
 	}
 
 	@Override
-	public void handlePBIRemoveRelationCommand(
-			final PBIRemoveRelationCommand pBIRemoveRelationCommand) {
+	public void handlePBIRemoveRelationCommand(final PBIRemoveRelationCommand pBIRemoveRelationCommand) {
 		this.allowed();
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleListFieldAddValueCommand(
-			final ListFieldAddValueCommand listFieldAddValueCommand)
+	public void handleListFieldAddValueCommand(final ListFieldAddValueCommand listFieldAddValueCommand)
 			throws NoObjectFindException {
 		this.handleTicket(listFieldAddValueCommand.getTicket(this.getModel()));
 
@@ -99,16 +91,14 @@ class PBLRightHandler extends RightHandler {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleListFieldRemoveValueCommand(
-			final ListFieldRemoveValueCommand listFieldRemoveValueCommand)
+	public void handleListFieldRemoveValueCommand(final ListFieldRemoveValueCommand listFieldRemoveValueCommand)
 			throws NoObjectFindException {
 		this.handleTicket(listFieldRemoveValueCommand.getTicket(this.getModel()));
 
 	}
 
 	@Override
-	public void handleTicketChangeStateCommand(
-			final TicketChangeStateCommand ticketChangeStateCommand)
+	public void handleTicketChangeStateCommand(final TicketChangeStateCommand ticketChangeStateCommand)
 			throws NoObjectFindException {
 
 		this.handleTicket(ticketChangeStateCommand.getReceiverTicket(this.getModel()));

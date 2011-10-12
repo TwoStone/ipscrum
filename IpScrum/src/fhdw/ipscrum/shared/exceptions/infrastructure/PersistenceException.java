@@ -21,7 +21,8 @@ public class PersistenceException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message the Exception throws.
+	 * @param message
+	 *            the Exception throws.
 	 */
 	public PersistenceException(final String message) {
 		super(message);

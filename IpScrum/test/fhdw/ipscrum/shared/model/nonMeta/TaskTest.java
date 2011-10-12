@@ -121,8 +121,7 @@ public class TaskTest {
 	public static void setUpBeforeClass() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		TaskTest.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		TaskTest.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		TaskTest.model.setUuidManager(new IDGenerator());
 
 		TaskTest.test = new Project(TaskTest.model, "Test");
@@ -130,46 +129,24 @@ public class TaskTest {
 		TaskTest.per1 = new Person(TaskTest.model, "Max", "Mustermann");
 		TaskTest.per2 = new Person(TaskTest.model, "Karin", "Katze");
 		TaskTest.type = new FeatureTicketType(TaskTest.model, "Type", "TestType");
-		TaskTest.pbi1 =
-				new Feature(TaskTest.model, TaskTest.type, "A", "Test1",
-						TaskTest.pbltest);
-		TaskTest.pbi2 =
-				new Feature(TaskTest.model, TaskTest.type, "B", "Test2",
-						TaskTest.pbltest);
-		TaskTest.pbi3 =
-				new Feature(TaskTest.model, TaskTest.type, "C", "Test3",
-						TaskTest.pbltest);
-		TaskTest.pbi4 =
-				new Feature(TaskTest.model, TaskTest.type, "D", "Test4",
-						TaskTest.pbltest);
+		TaskTest.pbi1 = new Feature(TaskTest.model, TaskTest.type, "A", "Test1", TaskTest.pbltest);
+		TaskTest.pbi2 = new Feature(TaskTest.model, TaskTest.type, "B", "Test2", TaskTest.pbltest);
+		TaskTest.pbi3 = new Feature(TaskTest.model, TaskTest.type, "C", "Test3", TaskTest.pbltest);
+		TaskTest.pbi4 = new Feature(TaskTest.model, TaskTest.type, "D", "Test4", TaskTest.pbltest);
 		TaskTest.task = TaskTest.model.getTypeManager().getStandardTaskType();
 		TaskTest.team1 = new Team(TaskTest.model, "Team");
 		TaskTest.team1.addProject(TaskTest.test);
 		TaskTest.sprint =
-				new Sprint(TaskTest.model, "Sprint", "Beschreibung", new Date(),
-						new Date(), TaskTest.team1, TaskTest.test);
+				new Sprint(TaskTest.model, "Sprint", "Beschreibung", new Date(), new Date(), TaskTest.team1,
+						TaskTest.test);
 		TaskTest.sprintbl = TaskTest.sprint.getSprintBacklog();
-		TaskTest.t1 =
-				new Task(TaskTest.model, TaskTest.task, "Task 1", "Beschreibung",
-						TaskTest.sprintbl);
-		TaskTest.t2 =
-				new Task(TaskTest.model, TaskTest.task, "Task 2", "Beschreibung 2",
-						TaskTest.sprintbl);
-		TaskTest.t3 =
-				new Task(TaskTest.model, TaskTest.task, "Task 3", "Beschreibung 3",
-						TaskTest.sprintbl);
-		TaskTest.t4 =
-				new Task(TaskTest.model, TaskTest.task, "Task 4", "Add and Remove",
-						TaskTest.sprintbl);
-		TaskTest.t5 =
-				new Task(TaskTest.model, TaskTest.task, "Task 5", "HasPBI()",
-						TaskTest.sprintbl);
-		TaskTest.t6 =
-				new Task(TaskTest.model, TaskTest.task, "Task 6", "Assigend",
-						TaskTest.sprintbl);
-		TaskTest.t7 =
-				new Task(TaskTest.model, TaskTest.task, "Task 7", "Assigend",
-						TaskTest.sprintbl);
+		TaskTest.t1 = new Task(TaskTest.model, TaskTest.task, "Task 1", "Beschreibung", TaskTest.sprintbl);
+		TaskTest.t2 = new Task(TaskTest.model, TaskTest.task, "Task 2", "Beschreibung 2", TaskTest.sprintbl);
+		TaskTest.t3 = new Task(TaskTest.model, TaskTest.task, "Task 3", "Beschreibung 3", TaskTest.sprintbl);
+		TaskTest.t4 = new Task(TaskTest.model, TaskTest.task, "Task 4", "Add and Remove", TaskTest.sprintbl);
+		TaskTest.t5 = new Task(TaskTest.model, TaskTest.task, "Task 5", "HasPBI()", TaskTest.sprintbl);
+		TaskTest.t6 = new Task(TaskTest.model, TaskTest.task, "Task 6", "Assigend", TaskTest.sprintbl);
+		TaskTest.t7 = new Task(TaskTest.model, TaskTest.task, "Task 7", "Assigend", TaskTest.sprintbl);
 		TaskTest.three = 3;
 
 		TaskTest.team1.addMember(TaskTest.per1);
@@ -386,8 +363,7 @@ public class TaskTest {
 	}
 
 	/**
-	 * Testing on Equality. Test also of indirectEquals, as task.Equals() only calls on
-	 * indirectEquals().
+	 * Testing on Equality. Test also of indirectEquals, as task.Equals() only calls on indirectEquals().
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -428,8 +404,7 @@ public class TaskTest {
 	 */
 	@Test
 	public void testGetState1() throws Exception {
-		Assert.assertEquals(TaskTest.model.getTypeManager().getOpen(),
-				TaskTest.t3.getCurrentState());
+		Assert.assertEquals(TaskTest.model.getTypeManager().getOpen(), TaskTest.t3.getCurrentState());
 	}
 
 	/**
@@ -440,8 +415,7 @@ public class TaskTest {
 	 */
 	@Test
 	public void testGetState2() throws Exception {
-		Assert.assertEquals(TaskTest.model.getTypeManager().getInProcess(),
-				TaskTest.t6.getCurrentState());
+		Assert.assertEquals(TaskTest.model.getTypeManager().getInProcess(), TaskTest.t6.getCurrentState());
 	}
 
 	/**
@@ -452,8 +426,7 @@ public class TaskTest {
 	 */
 	@Test
 	public void testGetState3() throws Exception {
-		Assert.assertEquals(TaskTest.model.getTypeManager().getClosed(),
-				TaskTest.t1.getCurrentState());
+		Assert.assertEquals(TaskTest.model.getTypeManager().getClosed(), TaskTest.t1.getCurrentState());
 	}
 
 	/**
@@ -469,20 +442,16 @@ public class TaskTest {
 	}
 
 	/**
-	 * Test to add a pbi to the task from a different sprint to check if the exception is
-	 * thrown.
+	 * Test to add a pbi to the task from a different sprint to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = SprintAssociationException.class)
 	public void testCheckAddPBIConsistency2() throws Exception {
-		final Task t8 =
-				new Task(TaskTest.model, TaskTest.task, "Task 8", "blubb",
-						TaskTest.sprintbl);
+		final Task t8 = new Task(TaskTest.model, TaskTest.task, "Task 8", "blubb", TaskTest.sprintbl);
 		final Feature pbi =
-				new Feature(TaskTest.model, TaskTest.type,
-						"testCheckAddPBIConsistency2", "Test1", TaskTest.pbltest);
+				new Feature(TaskTest.model, TaskTest.type, "testCheckAddPBIConsistency2", "Test1", TaskTest.pbltest);
 		t8.checkAddPBIConsistency(pbi);
 	}
 
@@ -520,8 +489,7 @@ public class TaskTest {
 	}
 
 	/**
-	 * Test to check the description of a task with a not valid value to check if the
-	 * exception is thrown.
+	 * Test to check the description of a task with a not valid value to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails

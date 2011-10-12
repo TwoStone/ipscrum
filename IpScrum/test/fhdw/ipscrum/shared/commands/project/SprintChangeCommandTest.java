@@ -118,7 +118,7 @@ public class SprintChangeCommandTest extends ReleaseTestBase {
 		command.accept(new CommandStandardVisitor() {
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 
 			}
 		});

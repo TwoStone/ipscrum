@@ -23,8 +23,7 @@ public class NonActive extends ActivationRule {
 	 * @param forField
 	 *            the field that is nonActive in the chosen state
 	 */
-	public NonActive(final Model model, final StateType forState,
-			final FieldType forField) {
+	public NonActive(final Model model, final StateType forState, final FieldType forField) {
 		super(model, forState, forField);
 	}
 

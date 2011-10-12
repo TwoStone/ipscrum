@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.model.nonMeta.System;
 import fhdw.ipscrum.shared.model.visitor.PBITicketTypeVisitor;
 
 /**
- * this class represents the knowledge layer of bugs. objects of this class determine the
- * behaviour of bugs.
+ * this class represents the knowledge layer of bugs. objects of this class determine the behaviour of bugs.
  */
 @SuppressWarnings("serial")
 public class BugTicketType extends PBITicketType {
@@ -42,8 +41,7 @@ public class BugTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public BugTicketType(final Model model, final String name, final String description)
-			throws IPScrumGeneralException {
+	public BugTicketType(final Model model, final String name, final String description) throws IPScrumGeneralException {
 		super(model, name, description);
 	}
 
@@ -68,9 +66,8 @@ public class BugTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected BugTicketType(final Model model, final String name,
-			final String description, final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected BugTicketType(final Model model, final String name, final String description,
+			final TypeManager typeManager) throws IPScrumGeneralException {
 		super(model, name, description, typeManager);
 	}
 
@@ -95,11 +92,9 @@ public class BugTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void addSystem(final System system, final Bug bug)
-			throws IPScrumGeneralException {
+	public void addSystem(final System system, final Bug bug) throws IPScrumGeneralException {
 		@SuppressWarnings("unchecked")
-		final ListField<System> target =
-				(ListField<System>) this.getField(this.getSystemsType(), bug);
+		final ListField<System> target = (ListField<System>) this.getField(this.getSystemsType(), bug);
 		target.addValue(system, bug);
 	}
 
@@ -112,8 +107,7 @@ public class BugTicketType extends PBITicketType {
 	 */
 	public Collection<System> getSystems(final Bug bug) {
 		@SuppressWarnings("unchecked")
-		final ListField<System> result =
-				(ListField<System>) this.getField(this.getSystemsType(), bug);
+		final ListField<System> result = (ListField<System>) this.getField(this.getSystemsType(), bug);
 		return result.getValues();
 	}
 
@@ -135,8 +129,7 @@ public class BugTicketType extends PBITicketType {
 	 */
 	public Release getVersion(final Bug bug) {
 		@SuppressWarnings("unchecked")
-		final SingleField<Release> result =
-				(SingleField<Release>) this.getField(this.getVersionType(), bug);
+		final SingleField<Release> result = (SingleField<Release>) this.getField(this.getVersionType(), bug);
 		return result.getValue();
 	}
 
@@ -159,11 +152,9 @@ public class BugTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void removeSystem(final System system, final Bug bug)
-			throws IPScrumGeneralException {
+	public void removeSystem(final System system, final Bug bug) throws IPScrumGeneralException {
 		@SuppressWarnings("unchecked")
-		final ListField<System> target =
-				(ListField<System>) this.getField(this.getSystemsType(), bug);
+		final ListField<System> target = (ListField<System>) this.getField(this.getSystemsType(), bug);
 		target.removeValue(system, bug);
 	}
 
@@ -191,11 +182,9 @@ public class BugTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void setVersion(final Release version, final Bug bug)
-			throws IPScrumGeneralException {
+	public void setVersion(final Release version, final Bug bug) throws IPScrumGeneralException {
 		@SuppressWarnings("unchecked")
-		final SingleField<Release> target =
-				(SingleField<Release>) this.getField(this.getVersionType(), bug);
+		final SingleField<Release> target = (SingleField<Release>) this.getField(this.getVersionType(), bug);
 		target.setValue(version, bug);
 	}
 
@@ -214,8 +203,7 @@ public class BugTicketType extends PBITicketType {
 	}
 
 	@Override
-	protected void doInitializeStandard(final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected void doInitializeStandard(final TypeManager typeManager) throws IPScrumGeneralException {
 		super.doInitializeStandard(typeManager);
 		this.setVersionType(typeManager.getVersionType());
 		this.setSystemsType(typeManager.getSystemsType());

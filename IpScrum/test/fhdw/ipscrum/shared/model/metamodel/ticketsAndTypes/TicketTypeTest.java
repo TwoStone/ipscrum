@@ -114,28 +114,23 @@ public class TicketTypeTest {
 
 		this.serverContext = ServerContext.getInstance();
 
-		this.modelClient =
-				this.serverContext.getPersistenceManager().getModelForTesting();
+		this.modelClient = this.serverContext.getPersistenceManager().getModelForTesting();
 		this.modelClient.setUuidManager(new IDGenerator());
-		this.modelClient =
-				this.serverContext.getPersistenceManager().getModelForTesting();
+		this.modelClient = this.serverContext.getPersistenceManager().getModelForTesting();
 		this.modelClient.setUuidManager(new IDGenerator());
 		this.typeManager = this.modelClient.getTypeManager();
 		this.theStandardFeature = this.typeManager.getStandardFeatureType();
 		this.theStandardBug = this.typeManager.getStandardBugType();
 		this.theStandardTask = this.typeManager.getStandardTaskType();
-		this.anyUserDefinedFieldType =
-				new PersonFieldType(this.modelClient, "Der BOSS!",
-						this.typeManager.getOne());
+		this.anyUserDefinedFieldType = new PersonFieldType(this.modelClient, "Der BOSS!", this.typeManager.getOne());
 		this.anyUserDefinedStateType =
-				new StateType(this.modelClient, "Am Rande der Galaxie",
-						"Am Rande der Galaxie [...]");
+				new StateType(this.modelClient, "Am Rande der Galaxie", "Am Rande der Galaxie [...]");
 		this.testProject = new Project(this.modelClient, "Das tolle Projekt");
 		this.team = new Team(this.modelClient, "Testteam");
 		this.team.addProject(this.testProject);
 		this.testSprint =
-				new Sprint(this.modelClient, "Sprint1", "Der tolle Sprint", new Date(),
-						new Date(), this.team, this.testProject);
+				new Sprint(this.modelClient, "Sprint1", "Der tolle Sprint", new Date(), new Date(), this.team,
+						this.testProject);
 		this.r = new Release(this.modelClient, "2.0", new Date(), this.testProject);
 		this.testSprintBacklog = this.testSprint.getSprintBacklog();
 	}
@@ -162,8 +157,7 @@ public class TicketTypeTest {
 		final String nameOfType = "ExtendedTicketType";
 		final String descriptionOfType = "Description of extended Ticket type";
 
-		final FeatureTicketType newTicketType =
-				new FeatureTicketType(this.modelClient, nameOfType, descriptionOfType);
+		final FeatureTicketType newTicketType = new FeatureTicketType(this.modelClient, nameOfType, descriptionOfType);
 		Assert.assertTrue(newTicketType != null);
 
 	}
@@ -205,8 +199,8 @@ public class TicketTypeTest {
 	}
 
 	/**
-	 * creating a user defined ticket type with an unique name must be possible! using
-	 * this name twice must not be possible!
+	 * creating a user defined ticket type with an unique name must be possible! using this name twice must not be
+	 * possible!
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if the use of one of the methods fails
@@ -248,8 +242,8 @@ public class TicketTypeTest {
 	 */
 	@Test(expected = ConsistencyException.class)
 	public void testaddTransitionRuleStandardFeature() throws IPScrumGeneralException {
-		this.theStandardFeature.addTransitionRule(new TransitionRule(this.modelClient,
-				this.typeManager.getClosed(), this.typeManager.getOpen()));
+		this.theStandardFeature.addTransitionRule(new TransitionRule(this.modelClient, this.typeManager.getClosed(),
+				this.typeManager.getOpen()));
 	}
 
 	/**
@@ -259,10 +253,9 @@ public class TicketTypeTest {
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = ConsistencyException.class)
-	public void testremoveTransitionRuleStandardFeature()
-			throws IPScrumGeneralException {
-		this.theStandardFeature.removeTransitionRule(this.theStandardFeature
-				.getStateProfile().getTransitionRules().iterator().next());
+	public void testremoveTransitionRuleStandardFeature() throws IPScrumGeneralException {
+		this.theStandardFeature.removeTransitionRule(this.theStandardFeature.getStateProfile().getTransitionRules()
+				.iterator().next());
 	}
 
 	/**
@@ -272,10 +265,8 @@ public class TicketTypeTest {
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = ConsistencyException.class)
-	public void testchangeAccessibilityStandardFeature1()
-			throws IPScrumGeneralException {
-		this.theStandardFeature.setActive(this.typeManager.getOpen(),
-				this.typeManager.getManDayCostsType());
+	public void testchangeAccessibilityStandardFeature1() throws IPScrumGeneralException {
+		this.theStandardFeature.setActive(this.typeManager.getOpen(), this.typeManager.getManDayCostsType());
 	}
 
 	/**
@@ -285,10 +276,8 @@ public class TicketTypeTest {
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = ConsistencyException.class)
-	public void testchangeAccessibilityStandardFeature2()
-			throws IPScrumGeneralException {
-		this.theStandardFeature.setNonActive(this.typeManager.getOpen(),
-				this.typeManager.getManDayCostsType());
+	public void testchangeAccessibilityStandardFeature2() throws IPScrumGeneralException {
+		this.theStandardFeature.setNonActive(this.typeManager.getOpen(), this.typeManager.getManDayCostsType());
 	}
 
 	/**
@@ -325,13 +314,11 @@ public class TicketTypeTest {
 		final String uniqueName = "Aktivität";
 		new TaskTicketType(this.modelClient, uniqueName, "Task auf Deutsch;-)");
 		// make some changes
-		this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).addFieldType(
-				this.anyUserDefinedFieldType);
+		this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).addFieldType(this.anyUserDefinedFieldType);
 		// test
-		Assert.assertTrue(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName)
-				.getAllFieldTypes().contains(this.anyUserDefinedFieldType));
-		Assert.assertTrue(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName)
-				.getSupersededTypes().isEmpty());
+		Assert.assertTrue(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).getAllFieldTypes()
+				.contains(this.anyUserDefinedFieldType));
+		Assert.assertTrue(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).getSupersededTypes().isEmpty());
 	}
 
 	/**
@@ -348,39 +335,32 @@ public class TicketTypeTest {
 		// create 1st instance
 		final Task task1 =
 				new Task(this.modelClient,
-						(TaskTicketType) this.typeManager
-								.getActiveTicketTypeByUniqueName(uniqueName),
-						"Aktivität 1", " Hahaha", this.testSprintBacklog);
+						(TaskTicketType) this.typeManager.getActiveTicketTypeByUniqueName(uniqueName), "Aktivität 1",
+						" Hahaha", this.testSprintBacklog);
 		// make some changes -> new version of task type
-		this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).addFieldType(
-				this.anyUserDefinedFieldType);
+		this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).addFieldType(this.anyUserDefinedFieldType);
 		// create 2nd instance
 		final Task task2 =
 				new Task(this.modelClient,
-						(TaskTicketType) this.typeManager
-								.getActiveTicketTypeByUniqueName(uniqueName),
-						"Aktivität 2", " Hahaha", this.testSprintBacklog);
+						(TaskTicketType) this.typeManager.getActiveTicketTypeByUniqueName(uniqueName), "Aktivität 2",
+						" Hahaha", this.testSprintBacklog);
 		// test
 		Assert.assertFalse(task1.getTicketType().equals(task2.getTicketType()));
-		Assert.assertTrue(task2.getTicketType().getSupersededTypes()
-				.contains(task1.getTicketType()));
-		Assert.assertTrue(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName)
-				.getAllFieldTypes().contains(this.anyUserDefinedFieldType));
-		Assert.assertFalse(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName)
-				.getSupersededTypes().isEmpty());
+		Assert.assertTrue(task2.getTicketType().getSupersededTypes().contains(task1.getTicketType()));
+		Assert.assertTrue(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).getAllFieldTypes()
+				.contains(this.anyUserDefinedFieldType));
+		Assert.assertFalse(this.typeManager.getActiveTicketTypeByUniqueName(uniqueName).getSupersededTypes().isEmpty());
 	}
 
 	/**
-	 * addEndState. with date so that the consistency is hurt to check if the exception is
-	 * thrown.
+	 * addEndState. with date so that the consistency is hurt to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = ConsistencyException.class)
 	public void testaddEndState1() throws Exception {
-		this.theStandardFeature.addEndState(this.modelClient.getTypeManager()
-				.getClosed());
+		this.theStandardFeature.addEndState(this.modelClient.getTypeManager().getClosed());
 	}
 
 	/**
@@ -391,29 +371,23 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testaddEndState2() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final StateType state =
-				new StateType(this.modelClient, "neuer Endstatus", "blubb");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
 		anyTicketType.addPossibleState(state);
 		anyTicketType.addEndState(state);
 	}
 
 	/**
-	 * addEndState. With data so that the consistency is hurt to check if the exception is
-	 * thrown.
+	 * addEndState. With data so that the consistency is hurt to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = ConsistencyException.class)
 	public void testaddEndState3() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final StateType state =
-				new StateType(this.modelClient, "neuer Endstatus", "blubb");
-		new Bug(this.modelClient, anyTicketType, "neuer Bug", "",
-				this.testProject.getBacklog(), this.r);
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
+		new Bug(this.modelClient, anyTicketType, "neuer Bug", "", this.testProject.getBacklog(), this.r);
 		anyTicketType.addPossibleState(state);
 		anyTicketType.addEndState(state);
 	}
@@ -426,10 +400,8 @@ public class TicketTypeTest {
 	 */
 	@Test(expected = DoubleDefinitionException.class)
 	public void testaddFieldType() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final FieldType ft =
-				new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addFieldType(ft);
 		anyTicketType.addFieldType(ft);
 	}
@@ -442,11 +414,9 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testaddTransitionRule1() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
 		final TransitionRule tr =
-				new TransitionRule(this.modelClient, this.typeManager.getClosed(),
-						this.typeManager.getOpen());
+				new TransitionRule(this.modelClient, this.typeManager.getClosed(), this.typeManager.getOpen());
 		anyTicketType.addTransitionRule(tr);
 	}
 
@@ -458,13 +428,10 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testaddTransitionRule2() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
 		final TransitionRule tr =
-				new TransitionRule(this.modelClient, this.typeManager.getClosed(),
-						this.typeManager.getOpen());
-		new Bug(this.modelClient, anyTicketType, "neuer Bug", "",
-				this.testProject.getBacklog(), this.r);
+				new TransitionRule(this.modelClient, this.typeManager.getClosed(), this.typeManager.getOpen());
+		new Bug(this.modelClient, anyTicketType, "neuer Bug", "", this.testProject.getBacklog(), this.r);
 		anyTicketType.addTransitionRule(tr);
 	}
 
@@ -477,19 +444,14 @@ public class TicketTypeTest {
 	@SuppressWarnings("rawtypes")
 	@Test(expected = ConsistencyException.class)
 	public void testcheckFieldChange() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final BugTicketType otherTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug2", "");
-		final FieldType ft =
-				new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final BugTicketType otherTicketType = new BugTicketType(this.modelClient, "ExtendedBug2", "");
+		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		otherTicketType.addFieldType(ft);
 		final Bug anyBug =
-				new Bug(this.modelClient, anyTicketType, "blubbeldi", "",
-						this.testProject.getBacklog(), this.r);
+				new Bug(this.modelClient, anyTicketType, "blubbeldi", "", this.testProject.getBacklog(), this.r);
 		final Bug otherBug =
-				new Bug(this.modelClient, otherTicketType, "bla", "bla",
-						this.testProject.getBacklog(), this.r);
+				new Bug(this.modelClient, otherTicketType, "bla", "bla", this.testProject.getBacklog(), this.r);
 		final Iterator<Field> fIt = otherBug.getAllFields().iterator();
 		while (fIt.hasNext()) {
 			final Field current = fIt.next();
@@ -509,11 +471,10 @@ public class TicketTypeTest {
 	@Test
 	public void testGetDescription() throws Exception {
 		final Feature f =
-				new Feature(this.modelClient, this.theStandardFeature, "Featurename",
-						"Beschreibung", this.testProject.getBacklog());
+				new Feature(this.modelClient, this.theStandardFeature, "Featurename", "Beschreibung",
+						this.testProject.getBacklog());
 		Assert.assertEquals(((SingleField<String>) this.theStandardFeature.getField(
-				this.theStandardFeature.getDescriptionType(), f)).getValue(),
-				this.theStandardFeature.getDescription(f));
+				this.theStandardFeature.getDescriptionType(), f)).getValue(), this.theStandardFeature.getDescription(f));
 	}
 
 	/**
@@ -524,25 +485,22 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testRemoveFieldType1() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final FieldType ft =
-				new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addFieldType(ft);
 		anyTicketType.removeFieldType(ft);
 	}
 
 	/**
-	 * test to remove a field type from a ticket type with data which hurts the
-	 * consistency to check if the exception is thrown.
+	 * test to remove a field type from a ticket type with data which hurts the consistency to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
 	@Test(expected = ConsistencyException.class)
 	public void testRemoveFieldType2() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
 		anyTicketType.removeFieldType(this.typeManager.getFieldTypes().get(0));
 	}
 
@@ -554,13 +512,10 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testRemoveFieldType3() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final FieldType ft =
-				new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addFieldType(ft);
-		new Bug(this.modelClient, anyTicketType, "neuer Bug", "",
-				this.testProject.getBacklog(), this.r);
+		new Bug(this.modelClient, anyTicketType, "neuer Bug", "", this.testProject.getBacklog(), this.r);
 		anyTicketType.removeFieldType(ft);
 	}
 
@@ -572,10 +527,8 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testRemovePossibleState1() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		final StateType state =
-				new StateType(this.modelClient, "neuer Endstatus", "blubb");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
 		anyTicketType.addPossibleState(state);
 		anyTicketType.removePossibleState(state);
 	}
@@ -588,13 +541,10 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testRemovePossibleState2() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "blaa");
-		final StateType state =
-				new StateType(this.modelClient, "neuer Endstatus", "blubb");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "blaa");
+		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
 		anyTicketType.addPossibleState(state);
-		new Bug(this.modelClient, anyTicketType, "neuer Bug", "",
-				this.testProject.getBacklog(), this.r);
+		new Bug(this.modelClient, anyTicketType, "neuer Bug", "", this.testProject.getBacklog(), this.r);
 		anyTicketType.removePossibleState(state);
 	}
 
@@ -606,11 +556,9 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testRemoveTransitionRule1() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
 		final TransitionRule tr =
-				new TransitionRule(this.modelClient, this.typeManager.getClosed(),
-						this.typeManager.getOpen());
+				new TransitionRule(this.modelClient, this.typeManager.getClosed(), this.typeManager.getOpen());
 		anyTicketType.addTransitionRule(tr);
 		anyTicketType.removeTransitionRule(tr);
 	}
@@ -623,13 +571,10 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testRemoveTransitionRule2() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
 		final TransitionRule tr =
-				new TransitionRule(this.modelClient, this.typeManager.getClosed(),
-						this.typeManager.getOpen());
-		new Bug(this.modelClient, anyTicketType, "neuer Bug", "",
-				this.testProject.getBacklog(), this.r);
+				new TransitionRule(this.modelClient, this.typeManager.getClosed(), this.typeManager.getOpen());
+		new Bug(this.modelClient, anyTicketType, "neuer Bug", "", this.testProject.getBacklog(), this.r);
 		anyTicketType.addTransitionRule(tr);
 		anyTicketType.removeTransitionRule(tr);
 	}
@@ -642,12 +587,9 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testSetActive1() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "blaa");
-		final StateType state =
-				new StateType(this.modelClient, "neuer Endstatus", "blubb");
-		final FieldType ft =
-				new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "blaa");
+		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
+		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addPossibleState(state);
 		anyTicketType.addEndState(state);
 		anyTicketType.setActive(state, ft);
@@ -661,14 +603,10 @@ public class TicketTypeTest {
 	 */
 	@Test
 	public void testSetActive2() throws Exception {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "blaa");
-		new Bug(this.modelClient, anyTicketType, "neuer Bug", "",
-				this.testProject.getBacklog(), this.r);
-		final StateType state =
-				new StateType(this.modelClient, "neuer Endstatus", "blubb");
-		final FieldType ft =
-				new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "blaa");
+		new Bug(this.modelClient, anyTicketType, "neuer Bug", "", this.testProject.getBacklog(), this.r);
+		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
+		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addPossibleState(state);
 		anyTicketType.addEndState(state);
 		anyTicketType.setActive(state, ft);

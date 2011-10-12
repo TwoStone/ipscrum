@@ -20,8 +20,7 @@ import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * This class represents the presenter which controls the view to show and work with the
- * ProductBacklog.
+ * This class represents the presenter which controls the view to show and work with the ProductBacklog.
  */
 public class ProductBacklogPresenter extends WritePresenter {
 
@@ -30,8 +29,8 @@ public class ProductBacklogPresenter extends WritePresenter {
 	 */
 	private IProductBacklogView view;
 	/**
-	 * represents the project related to this presenter. It is needed to make clear for
-	 * which project this is the backlog.
+	 * represents the project related to this presenter. It is needed to make clear for which project this is the
+	 * backlog.
 	 */
 	private Project project;
 
@@ -39,8 +38,8 @@ public class ProductBacklogPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProductBacklogPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project of which this is the backlog
 	 */
@@ -112,9 +111,7 @@ public class ProductBacklogPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-					ProductBacklogPresenter.this
-							.increasePriority(ProductBacklogPresenter.this.view
-									.getSelectedPBI());
+					ProductBacklogPresenter.this.increasePriority(ProductBacklogPresenter.this.view.getSelectedPBI());
 				}
 			});
 
@@ -122,28 +119,23 @@ public class ProductBacklogPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-					ProductBacklogPresenter.this
-							.editPBI(ProductBacklogPresenter.this.view.getSelectedPBI());
+					ProductBacklogPresenter.this.editPBI(ProductBacklogPresenter.this.view.getSelectedPBI());
 				}
 			});
 
-			this.view
-					.registerGotoProjectHandler(new EventHandler<TypedEventArg<Project>>() {
+			this.view.registerGotoProjectHandler(new EventHandler<TypedEventArg<Project>>() {
 
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Project> eventArgs) {
-							ProductBacklogPresenter.this
-									.gotoProject(ProductBacklogPresenter.this.project);
-						}
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Project> eventArgs) {
+					ProductBacklogPresenter.this.gotoProject(ProductBacklogPresenter.this.project);
+				}
 
-					});
+			});
 			this.view.deletePBIEventHandler(new EventHandler<PBIArgs>() {
 
 				@Override
 				public void onUpdate(final Object sender, final PBIArgs eventArgs) {
-					ProductBacklogPresenter.this
-							.toastMessage("Das Löschen von PBIs is bisher noch nicht vorgsehen!");
+					ProductBacklogPresenter.this.toastMessage("Das Löschen von PBIs is bisher noch nicht vorgsehen!");
 				}
 
 			});
@@ -154,8 +146,8 @@ public class ProductBacklogPresenter extends WritePresenter {
 	}
 
 	/**
-	 * this method opens the function to create a new PBI. The creation is done in the
-	 * {@link} fhdw.ipscrum.client.presenter.ProductBacklogItemCreatePresenter .
+	 * this method opens the function to create a new PBI. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.ProductBacklogItemCreatePresenter .
 	 */
 	private void newPBI() {
 		final ProductBacklogItemCreatePresenter presenter =
@@ -164,15 +156,14 @@ public class ProductBacklogPresenter extends WritePresenter {
 	}
 
 	/**
-	 * this method opens the function to show the details of a PBI. The creation is done
-	 * in the {@link} fhdw.ipscrum.client.presenter.GenericTicketPresenter .
+	 * this method opens the function to show the details of a PBI. The creation is done in the {@link}
+	 * fhdw.ipscrum.client.presenter.GenericTicketPresenter .
 	 * 
 	 * @param pbi
 	 *            is the PBI of which the details should be shown
 	 */
 	private void showDetails(final ProductBacklogItem pbi) {
-		final GenericTicketPresenter presenter =
-				new GenericTicketPresenter(pbi, this.getContext());
+		final GenericTicketPresenter presenter = new GenericTicketPresenter(pbi, this.getContext());
 		this.startPresenter(presenter);
 	}
 
@@ -184,8 +175,7 @@ public class ProductBacklogPresenter extends WritePresenter {
 	 *            is the PBI which should be edited
 	 */
 	private void editPBI(final ProductBacklogItem pbi) {
-		final GenericTicketPresenter presenter =
-				new GenericTicketPresenter(pbi, this.getContext());
+		final GenericTicketPresenter presenter = new GenericTicketPresenter(pbi, this.getContext());
 		this.startPresenter(presenter);
 	}
 
@@ -198,8 +188,7 @@ public class ProductBacklogPresenter extends WritePresenter {
 	private void decreasePriority(final ProductBacklogItem pbi) {
 		try {
 			this.beginTransaction();
-			final PBIPriorityDecreaseCommand command =
-					new PBIPriorityDecreaseCommand(pbi);
+			final PBIPriorityDecreaseCommand command = new PBIPriorityDecreaseCommand(pbi);
 			this.doCommand(command);
 			this.commitTransaction();
 		} catch (final IPScrumGeneralException e) {
@@ -217,8 +206,7 @@ public class ProductBacklogPresenter extends WritePresenter {
 	private void increasePriority(final ProductBacklogItem pbi) {
 		try {
 			this.beginTransaction();
-			final PBIPriorityIncreaseCommand command =
-					new PBIPriorityIncreaseCommand(pbi);
+			final PBIPriorityIncreaseCommand command = new PBIPriorityIncreaseCommand(pbi);
 			this.doCommand(command);
 			this.commitTransaction();
 		} catch (final IPScrumGeneralException e) {
@@ -240,19 +228,16 @@ public class ProductBacklogPresenter extends WritePresenter {
 	@Override
 	public void updateView() {
 
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getPblRight());
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getPblRight());
 
 		final List<ProductBacklogItem> activePBIs = new ArrayList<ProductBacklogItem>();
 
 		final ProductBacklog backlog = this.project.getBacklog();
 		final List<ProductBacklogItem> backlogItems = backlog.getItems();
-		final List<ProductBacklogItem> inactivePBIs =
-				new ArrayList<ProductBacklogItem>();
+		final List<ProductBacklogItem> inactivePBIs = new ArrayList<ProductBacklogItem>();
 
 		for (final ProductBacklogItem pbi : backlogItems) {
-			if (!pbi.getTicketType().getStateProfile().getEndStates()
-					.contains(pbi.getCurrentState())) {
+			if (!pbi.getTicketType().getStateProfile().getEndStates().contains(pbi.getCurrentState())) {
 				activePBIs.add(pbi);
 			} else {
 				inactivePBIs.add(pbi);

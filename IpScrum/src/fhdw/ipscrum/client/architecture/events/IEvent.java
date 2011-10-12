@@ -2,9 +2,8 @@ package fhdw.ipscrum.client.architecture.events;
 
 /**
  * <b>This class will be deleted at end of phase 7.</b> <br/>
- * Please use an operation
- * <code>addHandler(handler:EventHandler<T>):EventRegistration</code> in the view
- * interface instead!
+ * Please use an operation <code>addHandler(handler:EventHandler<T>):EventRegistration</code> in the view interface
+ * instead!
  * 
  * @author Niklas
  * 

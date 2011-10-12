@@ -41,8 +41,7 @@ public class RoleCreateCommand extends Command<Role> implements IPersonRoleComma
 
 	@Override
 	protected Role onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neue Rolle '%s' erstellt.",
-				this.description));
+		this.setStringValue(StringUtils.format("Neue Rolle '%s' erstellt.", this.description));
 
 		final Role role = new Role(model, this.description);
 		return role;

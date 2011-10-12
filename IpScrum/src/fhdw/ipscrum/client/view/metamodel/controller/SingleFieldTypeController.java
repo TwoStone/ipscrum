@@ -16,27 +16,23 @@ import fhdw.ipscrum.shared.model.metamodel.fields.SingleField;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
 /**
- * Represents the SingleFieldTypeController needed for controlling singleFieldTypes for
- * editing tickets.
+ * Represents the SingleFieldTypeController needed for controlling singleFieldTypes for editing tickets.
  * 
  * @param <T>
  *            is the type of the singleFieldType
  */
-public abstract class SingleFieldTypeController<T extends Serializable>
-		implements FieldTypeController<T> {
+public abstract class SingleFieldTypeController<T extends Serializable> implements FieldTypeController<T> {
 
 	private Ticket ticket;
 	private final GenericTicketPresenter presenter;
 	private SingleField<T> field;
-	private final EventHandler<TypedEventArg<T>> changeHandler =
-			new EventHandler<TypedEventArg<T>>() {
+	private final EventHandler<TypedEventArg<T>> changeHandler = new EventHandler<TypedEventArg<T>>() {
 
-				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<T> eventArgs) {
-					SingleFieldTypeController.this.setValue(eventArgs.getObject());
-				}
-			};
+		@Override
+		public void onUpdate(final Object sender, final TypedEventArg<T> eventArgs) {
+			SingleFieldTypeController.this.setValue(eventArgs.getObject());
+		}
+	};
 
 	/**
 	 * Constructor of the SingleFieldTypeController.
@@ -48,8 +44,8 @@ public abstract class SingleFieldTypeController<T extends Serializable>
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public SingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<T> field) {
+	public SingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<T> field) {
 		super();
 		this.ticket = ticket;
 		this.presenter = presenter;
@@ -63,13 +59,9 @@ public abstract class SingleFieldTypeController<T extends Serializable>
 	protected void setValue(final T object) {
 		final SingleFieldChangeCommand<?> command;
 		if (object instanceof IdentifiableObject) {
-			command =
-					new SingleFieldIdentifiableObjectChangeCommand<T>(this.getField(),
-							object, this.getTicket());
+			command = new SingleFieldIdentifiableObjectChangeCommand<T>(this.getField(), object, this.getTicket());
 		} else {
-			command =
-					new SingleFieldNonIdentifiableObjectChangeCommand<T>(
-							this.getField(), object, this.getTicket());
+			command = new SingleFieldNonIdentifiableObjectChangeCommand<T>(this.getField(), object, this.getTicket());
 		}
 		this.getPresenter().addCommand(this, command);
 	}

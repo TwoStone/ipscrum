@@ -49,11 +49,9 @@ public class SearchCreateCommand extends Command<Search> {
 
 	@Override
 	protected Search onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Suche '%s' wurde gespeichert.",
-				this.name));
+		this.setStringValue(StringUtils.format("Suche '%s' wurde gespeichert.", this.name));
 
-		final SearchExpression expression =
-				(SearchExpression) model.getObject(this.expressionId);
+		final SearchExpression expression = (SearchExpression) model.getObject(this.expressionId);
 		final Search search = new Search(model, this.name, expression);
 		return search;
 	}

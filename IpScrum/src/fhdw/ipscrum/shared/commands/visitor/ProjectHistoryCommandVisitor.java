@@ -15,8 +15,7 @@ public interface ProjectHistoryCommandVisitor {
 	 * @param incidentIllnessCreateCommand
 	 *            concrete command
 	 */
-	void handleIncidentIllnessCreateCommand(
-			IncidentIllnessCreateCommand incidentIllnessCreateCommand);
+	void handleIncidentIllnessCreateCommand(IncidentIllnessCreateCommand incidentIllnessCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -24,8 +23,7 @@ public interface ProjectHistoryCommandVisitor {
 	 * @param incidentOtherIssueCreateCommand
 	 *            concrete command
 	 */
-	void handleIncidentOtherIssueCreateCommand(
-			IncidentOtherIssueCreateCommand incidentOtherIssueCreateCommand);
+	void handleIncidentOtherIssueCreateCommand(IncidentOtherIssueCreateCommand incidentOtherIssueCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -33,8 +31,7 @@ public interface ProjectHistoryCommandVisitor {
 	 * @param incidentTypeCreateCommand
 	 *            concrete command
 	 */
-	void handleIncidentTypeCreateCommand(
-			IncidentTypeCreateCommand incidentTypeCreateCommand);
+	void handleIncidentTypeCreateCommand(IncidentTypeCreateCommand incidentTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -42,7 +39,6 @@ public interface ProjectHistoryCommandVisitor {
 	 * @param incidentVacationCreateCommand
 	 *            concrete command
 	 */
-	void handleIncidentVacationCreateCommand(
-			IncidentVacationCreateCommand incidentVacationCreateCommand);
+	void handleIncidentVacationCreateCommand(IncidentVacationCreateCommand incidentVacationCreateCommand);
 
 }

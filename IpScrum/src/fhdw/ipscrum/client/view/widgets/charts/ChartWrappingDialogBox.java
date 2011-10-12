@@ -11,8 +11,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.shared.constants.TextConstants;
 
 /**
- * This is just a wrapper for GCharts, which adds a close-button. Since there is no
- * functionality provided, a separate presenter is not necessary.
+ * This is just a wrapper for GCharts, which adds a close-button. Since there is no functionality provided, a separate
+ * presenter is not necessary.
  */
 public class ChartWrappingDialogBox extends DialogBox {
 
@@ -38,8 +38,7 @@ public class ChartWrappingDialogBox extends DialogBox {
 			}
 		});
 		verticalPanel.add(btnClose);
-		verticalPanel.setCellHorizontalAlignment(btnClose,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		verticalPanel.setCellHorizontalAlignment(btnClose, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);

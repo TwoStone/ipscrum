@@ -22,8 +22,8 @@ public class SearchesPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public SearchesPresenter(final ClientContext context) {
 		super(context);
@@ -49,14 +49,12 @@ public class SearchesPresenter extends WritePresenter {
 			public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
 
 				final SearchResultPresenter presenter =
-						new SearchResultPresenter(SearchesPresenter.this.getContext(),
-								SearchesPresenter.this
-										.getContext()
-										.getModel()
-										.getSearchManager()
-										.search(SearchesPresenter.this.getContext()
-												.getModel().getAllTickets(),
-												eventArgs.getSearch().getExpression()));
+						new SearchResultPresenter(SearchesPresenter.this.getContext(), SearchesPresenter.this
+								.getContext()
+								.getModel()
+								.getSearchManager()
+								.search(SearchesPresenter.this.getContext().getModel().getAllTickets(),
+										eventArgs.getSearch().getExpression()));
 				SearchesPresenter.this.startPresenter(presenter);
 			}
 		});
@@ -67,13 +65,11 @@ public class SearchesPresenter extends WritePresenter {
 			public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
 
 				try {
-					SearchesPresenter.this.doCommand(new SearchDeleteCommand(eventArgs
-							.getSearch()));
+					SearchesPresenter.this.doCommand(new SearchDeleteCommand(eventArgs.getSearch()));
 					SearchesPresenter.this.commitTransaction();
 					SearchesPresenter.this.updateView();
 				} catch (final IPScrumGeneralException e) {
-					SearchesPresenter.this.getContext().getToastMessageController()
-							.toastMessage(e.getMessage());
+					SearchesPresenter.this.getContext().getToastMessageController().toastMessage(e.getMessage());
 				}
 
 				SearchesPresenter.this.updateView();

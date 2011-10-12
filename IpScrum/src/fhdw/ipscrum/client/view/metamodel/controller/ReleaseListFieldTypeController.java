@@ -25,13 +25,11 @@ public class ReleaseListFieldTypeController extends ListFieldTypeController<Rele
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public ReleaseListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Release> field, final Ticket ticket) {
+	public ReleaseListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Release> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 
-		this.widget =
-				new ComplexListFieldWidget<Release>(this.getField(),
-						TypeRenderes.RELEASERENDERER);
+		this.widget = new ComplexListFieldWidget<Release>(this.getField(), TypeRenderes.RELEASERENDERER);
 		this.initialize();
 	}
 

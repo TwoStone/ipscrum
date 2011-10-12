@@ -62,8 +62,7 @@ public class SystemCreateCommand extends Command<System> implements IAdminComman
 
 	@Override
 	protected System onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils
-				.format("Neues System '%s' erstellt.", this.name));
+		this.setStringValue(StringUtils.format("Neues System '%s' erstellt.", this.name));
 
 		final AbstractSystem parent = (AbstractSystem) model.getObject(this.parentId);
 		final System system = new System(model, this.name, parent);

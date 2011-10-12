@@ -22,8 +22,7 @@ import fhdw.ipscrum.shared.model.userRights.TeamAdminRight;
  */
 public class RoleTest {
 	/**
-	 * represents the model, which is relevant to use the IPScrum, because is represents
-	 * the base of the program.
+	 * represents the model, which is relevant to use the IPScrum, because is represents the base of the program.
 	 */
 	private final Model model = new Model(new Date());
 
@@ -52,8 +51,8 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the Role(String) constructor test. Tests if a NoValidValueException is thrown
-	 * by using the empty word as the role description, which is not valid.
+	 * Run the Role(String) constructor test. Tests if a NoValidValueException is thrown by using the empty word as the
+	 * role description, which is not valid.
 	 * 
 	 * @throws Exception
 	 *             if the construction of the role fails
@@ -66,8 +65,7 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the String getDescription() method test. Tests if the getter, gets the right
-	 * current description.
+	 * Run the String getDescription() method test. Tests if the getter, gets the right current description.
 	 * 
 	 * @throws Exception
 	 *             if the get of the role description fails
@@ -80,8 +78,7 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the Vector<Person> getPersons() method test. Tests if the got persons are the
-	 * right current ones.
+	 * Run the Vector<Person> getPersons() method test. Tests if the got persons are the right current ones.
 	 * 
 	 * @throws Exception
 	 *             if the persons of the role couldn't be got.
@@ -94,12 +91,11 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the Vector<Person> getPersons() method test. Tests if the method getPersons
-	 * delivers all current persons from the role.
+	 * Run the Vector<Person> getPersons() method test. Tests if the method getPersons delivers all current persons from
+	 * the role.
 	 * 
 	 * @throws Exception
-	 *             if persons could not been added to the role or the persons could not
-	 *             been get from the role
+	 *             if persons could not been added to the role or the persons could not been get from the role
 	 */
 	@Test
 	public void testGetPersons2() throws Exception {
@@ -115,12 +111,11 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the Vector<Person> getPersons() method test. Tests if the persons got from the
-	 * role are the ones added to it before.
+	 * Run the Vector<Person> getPersons() method test. Tests if the persons got from the role are the ones added to it
+	 * before.
 	 * 
 	 * @throws Exception
-	 *             if persons could not been added to the role or the persons could not
-	 *             been get from the role
+	 *             if persons could not been added to the role or the persons could not been get from the role
 	 */
 	@Test
 	public void testGetPersons3() throws Exception {
@@ -140,9 +135,8 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the void setDescription(String) method test. Tests if the NoValidValueException
-	 * is thrown if the new description to set is a value which is not valid, like null or
-	 * "".
+	 * Run the void setDescription(String) method test. Tests if the NoValidValueException is thrown if the new
+	 * description to set is a value which is not valid, like null or "".
 	 * 
 	 * @throws Exception
 	 *             if the description could not been set
@@ -155,9 +149,8 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the void setDescription(String) method test.Tests if the NoValidValueException
-	 * is thrown if the new description to set is a value which is not valid, like null or
-	 * "".
+	 * Run the void setDescription(String) method test.Tests if the NoValidValueException is thrown if the new
+	 * description to set is a value which is not valid, like null or "".
 	 * 
 	 * @throws Exception
 	 *             if the description could not been set
@@ -170,8 +163,8 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the void setDescription(String) method test. Tests if the description could
-	 * been set if the value is a valid one.
+	 * Run the void setDescription(String) method test. Tests if the description could been set if the value is a valid
+	 * one.
 	 * 
 	 * @throws Exception
 	 *             if the description could not been set
@@ -185,8 +178,8 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the String toString() method test. Tests if the toString-method delivers the
-	 * expected string, which should be the description.
+	 * Run the String toString() method test. Tests if the toString-method delivers the expected string, which should be
+	 * the description.
 	 * 
 	 * @throws Exception
 	 *             if the toString-Method fails
@@ -199,8 +192,7 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the addRight method test. Tests, if a right is added to a Role Test with one
-	 * right added
+	 * Run the addRight method test. Tests, if a right is added to a Role Test with one right added
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails
@@ -214,8 +206,7 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the addRight method test. Tests, if a right is added to a Role Test with
-	 * multiple rights added
+	 * Run the addRight method test. Tests, if a right is added to a Role Test with multiple rights added
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails
@@ -235,15 +226,13 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the addRight method test. Tests, if an Exception is thrown upon adding the same
-	 * right again
+	 * Run the addRight method test. Tests, if an Exception is thrown upon adding the same right again
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails
 	 */
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void testaddRight3() throws Exception {
+	public void testaddRight3() throws Exception {
 		final Role fixture = new Role(this.model, "Rolle");
 		final ProductBacklogRight pbr = new ProductBacklogRight(this.model);
 		fixture.addRight(pbr);
@@ -252,8 +241,7 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the removeRight method test. Tests, if a right is removed from a Role Test with
-	 * one right
+	 * Run the removeRight method test. Tests, if a right is removed from a Role Test with one right
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails
@@ -269,8 +257,7 @@ public class RoleTest {
 	}
 
 	/**
-	 * Run the removeRight method test. Tests, if a right is removed from a Role Test with
-	 * multiple rights
+	 * Run the removeRight method test. Tests, if a right is removed from a Role Test with multiple rights
 	 * 
 	 * @throws Exception
 	 *             if one of the used methods fails

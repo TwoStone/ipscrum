@@ -22,9 +22,8 @@ public interface FieldTypesCommandVisitor {
 	 * @param acceptanceCriteriaFieldTypeCreateCommand
 	 *            specific command.
 	 */
-			void
-			handleAcceptanceCriteriaFieldTypeCreateCommand(
-					AcceptanceCriteriaFieldTypeCreateCommand acceptanceCriteriaFieldTypeCreateCommand);
+	void handleAcceptanceCriteriaFieldTypeCreateCommand(
+			AcceptanceCriteriaFieldTypeCreateCommand acceptanceCriteriaFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -32,8 +31,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param dateFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleDateFieldTypeCreateCommand(
-			DateFieldTypeCreateCommand dateFieldTypeCreateCommand);
+	void handleDateFieldTypeCreateCommand(DateFieldTypeCreateCommand dateFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -41,8 +39,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param effortFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleEffortFieldTypeCreateCommand(
-			EffortFieldTypeCreateCommand effortFieldTypeCreateCommand);
+	void handleEffortFieldTypeCreateCommand(EffortFieldTypeCreateCommand effortFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -50,8 +47,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param hintFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleHintFieldTypeCreateCommand(
-			HintFieldTypeCreateCommand hintFieldTypeCreateCommand);
+	void handleHintFieldTypeCreateCommand(HintFieldTypeCreateCommand hintFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -59,8 +55,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param numberFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleNumberFieldTypeCreateCommand(
-			NumberFieldTypeCreateCommand numberFieldTypeCreateCommand);
+	void handleNumberFieldTypeCreateCommand(NumberFieldTypeCreateCommand numberFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -68,8 +63,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param pBIFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handlePBIFieldTypeCreateCommand(
-			PBIFieldTypeCreateCommand pBIFieldTypeCreateCommand);
+	void handlePBIFieldTypeCreateCommand(PBIFieldTypeCreateCommand pBIFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -77,8 +71,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param personFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handlePersonFieldTypeCreateCommand(
-			PersonFieldTypeCreateCommand personFieldTypeCreateCommand);
+	void handlePersonFieldTypeCreateCommand(PersonFieldTypeCreateCommand personFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -86,8 +79,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param releaseFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleReleaseFieldTypeCreateCommand(
-			ReleaseFieldTypeCreateCommand releaseFieldTypeCreateCommand);
+	void handleReleaseFieldTypeCreateCommand(ReleaseFieldTypeCreateCommand releaseFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -95,8 +87,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param sprintFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleSprintFieldTypeCreateCommand(
-			SprintFieldTypeCreateCommand sprintFieldTypeCreateCommand);
+	void handleSprintFieldTypeCreateCommand(SprintFieldTypeCreateCommand sprintFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -104,8 +95,7 @@ public interface FieldTypesCommandVisitor {
 	 * @param systemFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleSystemFieldTypeCreateCommand(
-			SystemFieldTypeCreateCommand systemFieldTypeCreateCommand);
+	void handleSystemFieldTypeCreateCommand(SystemFieldTypeCreateCommand systemFieldTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -113,6 +103,5 @@ public interface FieldTypesCommandVisitor {
 	 * @param textFieldTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleTextFieldTypeCreateCommand(
-			TextFieldTypeCreateCommand textFieldTypeCreateCommand);
+	void handleTextFieldTypeCreateCommand(TextFieldTypeCreateCommand textFieldTypeCreateCommand);
 }

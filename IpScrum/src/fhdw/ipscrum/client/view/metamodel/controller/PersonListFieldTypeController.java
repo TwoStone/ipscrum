@@ -25,13 +25,11 @@ public class PersonListFieldTypeController extends ListFieldTypeController<Perso
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public PersonListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Person> field, final Ticket ticket) {
+	public PersonListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Person> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 
-		this.widget =
-				new ComplexListFieldWidget<Person>(this.getField(),
-						TypeRenderes.PERSONRENDERER);
+		this.widget = new ComplexListFieldWidget<Person>(this.getField(), TypeRenderes.PERSONRENDERER);
 		this.initialize();
 	}
 

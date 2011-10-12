@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.visitor.ISystemVisitor;
 
 /**
- * The class <code>RootsystemTest</code> contains tests for the class
- * <code>{@link Rootsystem}</code>.
+ * The class <code>RootsystemTest</code> contains tests for the class <code>{@link Rootsystem}</code>.
  * 
  * @author wolf
  * @version $Revision: 1.0 $

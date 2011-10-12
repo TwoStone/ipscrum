@@ -1,8 +1,8 @@
 package fhdw.ipscrum.client.architecture.events;
 
 /**
- * Representing an EventRegistration. Is the result, when a handler is registered on an
- * event. Should be used to remove the handler from the event.
+ * Representing an EventRegistration. Is the result, when a handler is registered on an event. Should be used to remove
+ * the handler from the event.
  * 
  */
 public class EventRegistration {
@@ -32,8 +32,7 @@ public class EventRegistration {
 	}
 
 	/**
-	 * Removes the handler from the event to whom it was registered in this
-	 * {@link EventRegistration} object.
+	 * Removes the handler from the event to whom it was registered in this {@link EventRegistration} object.
 	 */
 	public void removeHandler() {
 		this.event.remove(this.handler);

@@ -25,8 +25,7 @@ public class ProjectSearchCriterionEventArgs extends EventArgs {
 	 * @param project
 	 *            os the related project
 	 */
-	public ProjectSearchCriterionEventArgs(final ISearchExpression se,
-			final Project project) {
+	public ProjectSearchCriterionEventArgs(final ISearchExpression se, final Project project) {
 		super();
 		this.se = se;
 		this.project = project;

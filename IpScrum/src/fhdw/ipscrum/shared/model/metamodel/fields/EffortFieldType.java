@@ -26,8 +26,8 @@ public class EffortFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if the fieldType with the same parameters already exists
 	 */
-	public EffortFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public EffortFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 
@@ -45,8 +45,7 @@ public class EffortFieldType extends FieldType {
 
 	@Override
 	protected SingleField<Effort> createSingleField() {
-		final SingleField<Effort> field =
-				new SingleField<Effort>(this.getModel(), this);
+		final SingleField<Effort> field = new SingleField<Effort>(this.getModel(), this);
 		field.setValue(Effort.NULL);
 		return field;
 	}

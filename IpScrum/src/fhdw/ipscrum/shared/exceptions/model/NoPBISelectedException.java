@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.ModelException;
 
 /**
  * Represents the Exception thrown if no PBI is selected.
- *
+ * 
  */
 public class NoPBISelectedException extends ModelException {
 
@@ -16,7 +16,8 @@ public class NoPBISelectedException extends ModelException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param string thrown by the Exception
+	 * @param string
+	 *            thrown by the Exception
 	 */
 	public NoPBISelectedException(final String string) {
 		super(string);

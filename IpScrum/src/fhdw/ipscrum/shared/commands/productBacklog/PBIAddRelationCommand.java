@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Adds a relation to a product backlog item.
  */
-public class PBIAddRelationCommand extends Command<Void>
-		implements IProductBacklogCommand {
+public class PBIAddRelationCommand extends Command<Void> implements IProductBacklogCommand {
 
 	/**
 	 * represents the relation to add.
@@ -45,11 +44,9 @@ public class PBIAddRelationCommand extends Command<Void>
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final ProductBacklogItem pbi =
-				(ProductBacklogItem) model.getObject(this.getReceiverGuid());
+		final ProductBacklogItem pbi = (ProductBacklogItem) model.getObject(this.getReceiverGuid());
 		final Relation relation = (Relation) model.getObject(this.relationId);
-		this.setStringValue(StringUtils.format(
-				"PBI '%s' wurde eine Abhängigkeit hinzugefügt.", pbi.getName()));
+		this.setStringValue(StringUtils.format("PBI '%s' wurde eine Abhängigkeit hinzugefügt.", pbi.getName()));
 		pbi.addRelation(relation);
 		return null;
 	}
@@ -66,9 +63,7 @@ public class PBIAddRelationCommand extends Command<Void>
 
 	@Override
 	public Project getDependingProject(final Model model) throws NoObjectFindException {
-		return model.getBacklogByPBI(
-				(ProductBacklogItem) model.getObject(this.getReceiverGuid()))
-				.getProject();
+		return model.getBacklogByPBI((ProductBacklogItem) model.getObject(this.getReceiverGuid())).getProject();
 	}
 
 }

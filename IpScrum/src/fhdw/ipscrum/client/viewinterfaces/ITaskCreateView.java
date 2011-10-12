@@ -10,8 +10,8 @@ import fhdw.ipscrum.client.view.TaskCreateView.TaskCreateArgs;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.TaskCreateView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.TaskCreateView).
  */
 public interface ITaskCreateView extends IView {
 

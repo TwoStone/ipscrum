@@ -27,8 +27,7 @@ public final class TypeRenderes {
 			new TypeRendere<fhdw.ipscrum.shared.model.nonMeta.System>() {
 
 				@Override
-				public String render(
-						final fhdw.ipscrum.shared.model.nonMeta.System object) {
+				public String render(final fhdw.ipscrum.shared.model.nonMeta.System object) {
 					return object.getName();
 				}
 			};
@@ -39,14 +38,13 @@ public final class TypeRenderes {
 			return object.getName();
 		}
 	};
-	public static final TypeRendere<Release> RELEASERENDERER =
-			new TypeRendere<Release>() {
+	public static final TypeRendere<Release> RELEASERENDERER = new TypeRendere<Release>() {
 
-				@Override
-				public String render(final Release object) {
-					return object.getVersion();
-				}
-			};
+		@Override
+		public String render(final Release object) {
+			return object.getVersion();
+		}
+	};
 	public static final TypeRendere<Person> PERSONRENDERER = new TypeRendere<Person>() {
 
 		@Override
@@ -54,14 +52,13 @@ public final class TypeRenderes {
 			return object.getFirstname() + " " + object.getLastname();
 		}
 	};
-	public static final TypeRendere<ProductBacklogItem> PBIRENDERER =
-			new TypeRendere<ProductBacklogItem>() {
+	public static final TypeRendere<ProductBacklogItem> PBIRENDERER = new TypeRendere<ProductBacklogItem>() {
 
-				@Override
-				public String render(final ProductBacklogItem object) {
-					return object.getName();
-				}
-			};
+		@Override
+		public String render(final ProductBacklogItem object) {
+			return object.getName();
+		}
+	};
 	public static final TypeRendere<Hint> HINTRENDERER = new TypeRendere<Hint>() {
 
 		@Override

@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Adds a field type to a ticket type.
  */
-public class TicketTypeAddFieldTypeCommand extends Command<Void>
-		implements ITicketTypesCommand {
+public class TicketTypeAddFieldTypeCommand extends Command<Void> implements ITicketTypesCommand {
 
 	/**
 	 * represents the related field type.
@@ -38,20 +37,17 @@ public class TicketTypeAddFieldTypeCommand extends Command<Void>
 	 * @param fieldType
 	 *            : field type related to the command
 	 */
-	public TicketTypeAddFieldTypeCommand(final TicketType receiver,
-			final FieldType fieldType) {
+	public TicketTypeAddFieldTypeCommand(final TicketType receiver, final FieldType fieldType) {
 		super(receiver);
 		this.fieldTypeId = fieldType.getId();
 	}
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final TicketType tickettype =
-				(TicketType) model.getObject(this.getReceiverGuid());
+		final TicketType tickettype = (TicketType) model.getObject(this.getReceiverGuid());
 		final FieldType fieldType = (FieldType) model.getObject(this.fieldTypeId);
 
-		this.setStringValue(StringUtils.format(
-				"Dem Tickettypen %s wurde der Feldtyp %s hinzugefügt.",
+		this.setStringValue(StringUtils.format("Dem Tickettypen %s wurde der Feldtyp %s hinzugefügt.",
 				tickettype.getTypeName(), fieldType.getName()));
 
 		tickettype.addFieldType(fieldType);

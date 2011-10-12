@@ -32,13 +32,11 @@ public class NavigationController extends ClientController {
 		@Override
 		public void handleLogin(final LoginEvent event) {
 			NavigationController.this.getNavigationPanel().clear();
-			NavigationController.this.getNavigationPanel().add(
-					NavigationController.this.getNavigationWidget());
+			NavigationController.this.getNavigationPanel().add(NavigationController.this.getNavigationWidget());
 			NavigationController.this.getNavigationWidget().setUserName(
 					event.getObject().getUser().getPerson().getFirstname() + " "
 							+ event.getObject().getUser().getPerson().getLastname());
-			NavigationController.this.getNavigationWidget().setActiveRole(
-					event.getObject().getRole().getDescription());
+			NavigationController.this.getNavigationWidget().setActiveRole(event.getObject().getRole().getDescription());
 		}
 	};
 
@@ -56,16 +54,14 @@ public class NavigationController extends ClientController {
 	/**
 	 * Handles model changes.
 	 */
-	private final Handler<ModelUpdateEvent> modelChangedHandler =
-			new ModelUpdateHandler() {
+	private final Handler<ModelUpdateEvent> modelChangedHandler = new ModelUpdateHandler() {
 
-				@Override
-				public void handleModelUpdated(final ModelUpdateEvent event) {
-					NavigationController.this.updateRevisionLabel(event.getObject()
-							.getRevisionDate());
-				}
+		@Override
+		public void handleModelUpdated(final ModelUpdateEvent event) {
+			NavigationController.this.updateRevisionLabel(event.getObject().getRevisionDate());
+		}
 
-			};
+	};
 
 	/**
 	 * The navigation bar.
@@ -73,8 +69,8 @@ public class NavigationController extends ClientController {
 	private INavigationView navigationWidget;
 
 	/**
-	 * Creates a new navigation controller for the application. Creating more than one
-	 * {@link NavigationController} will result in strange behaviors.
+	 * Creates a new navigation controller for the application. Creating more than one {@link NavigationController} will
+	 * result in strange behaviors.
 	 * 
 	 * @param context
 	 *            the current context of the application
@@ -84,12 +80,10 @@ public class NavigationController extends ClientController {
 	public NavigationController(final ClientContext context, final NavigationMenu menu) {
 		super(context);
 
-		context.getEventBus().registerHandler(ModelUpdateEvent.class,
-				this.modelChangedHandler);
+		context.getEventBus().registerHandler(ModelUpdateEvent.class, this.modelChangedHandler);
 		context.getEventBus().registerHandler(LoginEvent.class, this.loginHandler);
 		context.getEventBus().registerHandler(LogoutEvent.class, this.logoutHandler);
-		context.getEventBus().registerHandler(ModelUpdateEvent.class,
-				this.modelChangedHandler);
+		context.getEventBus().registerHandler(ModelUpdateEvent.class, this.modelChangedHandler);
 
 		menu.setContext(context);
 		this.getNavigationWidget().setMenu(menu);
@@ -111,14 +105,12 @@ public class NavigationController extends ClientController {
 	 */
 	private INavigationView getNavigationWidget() {
 		if (this.navigationWidget == null) {
-			this.navigationWidget =
-					this.getContext().getViewFactory().createNavigationView();
+			this.navigationWidget = this.getContext().getViewFactory().createNavigationView();
 			this.navigationWidget.addLogoutHandler(new EventHandler<EventArgs>() {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					NavigationController.this.getContext().getSessionController()
-							.logout();
+					NavigationController.this.getContext().getSessionController().logout();
 				}
 			});
 			this.navigationWidget.addRefreshHandler(new EventHandler<EventArgs>() {
@@ -133,8 +125,7 @@ public class NavigationController extends ClientController {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					NavigationController.this.getContext().getHelpController()
-							.showHelp(HelpResources.HELPINDEX);
+					NavigationController.this.getContext().getHelpController().showHelp(HelpResources.HELPINDEX);
 				}
 			});
 		}

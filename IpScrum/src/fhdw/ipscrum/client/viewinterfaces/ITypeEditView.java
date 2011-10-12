@@ -10,8 +10,8 @@ import fhdw.ipscrum.shared.model.metamodel.fields.FieldType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.TypeEditView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.TypeEditView).
  */
 public interface ITypeEditView extends IView {
 

@@ -25,8 +25,7 @@ import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Task;
 
 /**
- * This class represents the knowledge layer of task-tickets. objects of this class
- * determine the behaviour of tasks.
+ * This class represents the knowledge layer of task-tickets. objects of this class determine the behaviour of tasks.
  */
 public class TaskTicketType extends TicketType {
 
@@ -93,9 +92,8 @@ public class TaskTicketType extends TicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected TaskTicketType(final Model model, final String name,
-			final String description, final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected TaskTicketType(final Model model, final String name, final String description,
+			final TypeManager typeManager) throws IPScrumGeneralException {
 		super(model, name, description, typeManager);
 	}
 
@@ -120,14 +118,12 @@ public class TaskTicketType extends TicketType {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void addPBI(final ProductBacklogItem pbi, final Task task)
-			throws ForbiddenStateException, SprintAssociationException,
-			DoubleDefinitionException, ConsistencyException {
+	public void addPBI(final ProductBacklogItem pbi, final Task task) throws ForbiddenStateException,
+			SprintAssociationException, DoubleDefinitionException, ConsistencyException {
 		task.checkAddPBIConsistency(pbi);
 		@SuppressWarnings("unchecked")
 		final ListField<ProductBacklogItem> target =
-				(ListField<ProductBacklogItem>) this.getField(
-						this.getAssignedPBIsType(), task);
+				(ListField<ProductBacklogItem>) this.getField(this.getAssignedPBIsType(), task);
 		target.addValue(pbi, task);
 	}
 
@@ -140,8 +136,7 @@ public class TaskTicketType extends TicketType {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<ProductBacklogItem> getAssignedPBIs(final Task task) {
-		return ((ListField<ProductBacklogItem>) this.getField(
-				this.getAssignedPBIsType(), task)).getValues();
+		return ((ListField<ProductBacklogItem>) this.getField(this.getAssignedPBIsType(), task)).getValues();
 	}
 
 	/**
@@ -162,8 +157,7 @@ public class TaskTicketType extends TicketType {
 	 */
 	@SuppressWarnings("unchecked")
 	public Date getFinishDate(final Task task) {
-		return ((SingleField<Date>) this.getField(this.finishDateType, task))
-				.getValue();
+		return ((SingleField<Date>) this.getField(this.finishDateType, task)).getValue();
 	}
 
 	/**
@@ -184,8 +178,7 @@ public class TaskTicketType extends TicketType {
 	 */
 	@SuppressWarnings("unchecked")
 	public Effort getPlanEffort(final Task task) {
-		return ((SingleField<Effort>) this.getField(this.planEffortType, task))
-				.getValue();
+		return ((SingleField<Effort>) this.getField(this.planEffortType, task)).getValue();
 	}
 
 	/**
@@ -206,8 +199,7 @@ public class TaskTicketType extends TicketType {
 	 */
 	@SuppressWarnings("unchecked")
 	public Person getResponsiblePerson(final Task task) {
-		return ((SingleField<Person>) this.getField(this.responsiblePersonType, task))
-				.getValue();
+		return ((SingleField<Person>) this.getField(this.responsiblePersonType, task)).getValue();
 	}
 
 	/**
@@ -229,8 +221,7 @@ public class TaskTicketType extends TicketType {
 	public boolean hasResponsiblePerson(final Task task) {
 		boolean result = false;
 		@SuppressWarnings("unchecked")
-		final SingleField<Person> target =
-				(SingleField<Person>) this.getField(this.responsiblePersonType, task);
+		final SingleField<Person> target = (SingleField<Person>) this.getField(this.responsiblePersonType, task);
 		if (target.getValue() != null) {
 			result = true;
 		}
@@ -249,12 +240,11 @@ public class TaskTicketType extends TicketType {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void removePBI(final ProductBacklogItem pbi, final Task task)
-			throws ForbiddenStateException, ConsistencyException {
+	public void removePBI(final ProductBacklogItem pbi, final Task task) throws ForbiddenStateException,
+			ConsistencyException {
 		@SuppressWarnings("unchecked")
 		final ListField<ProductBacklogItem> target =
-				(ListField<ProductBacklogItem>) this.getField(this.assignedPBIsType,
-						task);
+				(ListField<ProductBacklogItem>) this.getField(this.assignedPBIsType, task);
 
 		target.removeValue(pbi, task);
 		this.changed();
@@ -288,10 +278,8 @@ public class TaskTicketType extends TicketType {
 	 *             if the task is in a wrong state to use this method
 	 */
 	@SuppressWarnings("unchecked")
-	public void setFinishDate(final Date date, final Task task)
-			throws ConsistencyException, ForbiddenStateException {
-		((SingleField<Date>) this.getField(this.getFinishDateType(), task)).setValue(
-				date, task);
+	public void setFinishDate(final Date date, final Task task) throws ConsistencyException, ForbiddenStateException {
+		((SingleField<Date>) this.getField(this.getFinishDateType(), task)).setValue(date, task);
 	}
 
 	/**
@@ -320,11 +308,10 @@ public class TaskTicketType extends TicketType {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void setPlanEffort(final Effort planEffort, final Task task)
-			throws ForbiddenStateException, ConsistencyException {
+	public void setPlanEffort(final Effort planEffort, final Task task) throws ForbiddenStateException,
+			ConsistencyException {
 		@SuppressWarnings("unchecked")
-		final SingleField<Effort> target =
-				(SingleField<Effort>) this.getField(this.getPlanEffortType(), task);
+		final SingleField<Effort> target = (SingleField<Effort>) this.getField(this.getPlanEffortType(), task);
 		target.setValue(planEffort, task);
 	}
 
@@ -356,16 +343,13 @@ public class TaskTicketType extends TicketType {
 	 * @throws ConsistencyException
 	 *             if the consitency is hurt
 	 */
-	public void setResponsibility(final Person person, final Task task)
-			throws ForbiddenStateException, SprintAssociationException,
-			ConsistencyException {
+	public void setResponsibility(final Person person, final Task task) throws ForbiddenStateException,
+			SprintAssociationException, ConsistencyException {
 		if (!this.isPersonValid(person, task)) {
-			throw new SprintAssociationException(
-					ExceptionConstants.PERSON_NOT_IN_SPRINT_TEAM_ERROR);
+			throw new SprintAssociationException(ExceptionConstants.PERSON_NOT_IN_SPRINT_TEAM_ERROR);
 		}
 		@SuppressWarnings("unchecked")
-		final SingleField<Person> target =
-				(SingleField<Person>) this.getField(this.responsiblePersonType, task);
+		final SingleField<Person> target = (SingleField<Person>) this.getField(this.responsiblePersonType, task);
 		target.setValue(person, task);
 		this.changed();
 		this.notifyObservers();
@@ -386,8 +370,7 @@ public class TaskTicketType extends TicketType {
 	}
 
 	@Override
-	protected void doInitializeStandard(final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected void doInitializeStandard(final TypeManager typeManager) throws IPScrumGeneralException {
 		this.setNameType(typeManager.getNameType());
 		this.setDescriptionType(typeManager.getDescriptionType());
 		this.setFinishDateType(typeManager.getFinishDateType());
@@ -402,14 +385,12 @@ public class TaskTicketType extends TicketType {
 		this.doSetActive(typeManager.getOpen(), typeManager.getPlanEffortType());
 		this.doSetActive(typeManager.getInProcess(), typeManager.getPlanEffortType());
 		this.doSetActive(typeManager.getInProcess(), typeManager.getFinishDateType());
-		this.doSetActive(typeManager.getInProcess(),
-				typeManager.getResponsiblePersonType());
+		this.doSetActive(typeManager.getInProcess(), typeManager.getResponsiblePersonType());
 
 	}
 
 	@Override
-	protected void doInitializeStateProfile(final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected void doInitializeStateProfile(final TypeManager typeManager) throws IPScrumGeneralException {
 
 		this.getStateProfile();
 		this.doAddPossibleState(typeManager.getOpen());
@@ -419,11 +400,9 @@ public class TaskTicketType extends TicketType {
 		this.doAddEndState(typeManager.getClosed());
 
 		final TransitionRule openInProcess =
-				new TransitionRule(this.getModel(), typeManager.getOpen(),
-						typeManager.getInProcess());
+				new TransitionRule(this.getModel(), typeManager.getOpen(), typeManager.getInProcess());
 		final TransitionRule inProcessClosed =
-				new TransitionRule(this.getModel(), typeManager.getInProcess(),
-						typeManager.getClosed());
+				new TransitionRule(this.getModel(), typeManager.getInProcess(), typeManager.getClosed());
 
 		this.doAddTransitionRule(openInProcess);
 		this.doAddTransitionRule(inProcessClosed);
@@ -437,13 +416,11 @@ public class TaskTicketType extends TicketType {
 	 *            Person to check
 	 * @param attachedTask
 	 *            the attached Task
-	 * @return - true, if the person is a member of the sprint team. - false, if the
-	 *         person is not a member of the sprint team or if the person isn't in a team
-	 *         at all
+	 * @return - true, if the person is a member of the sprint team. - false, if the person is not a member of the
+	 *         sprint team or if the person isn't in a team at all
 	 */
 	private boolean isPersonValid(final Person person, final Task attachedTask) {
-		final Vector<Person> sprintTeamMembers =
-				attachedTask.getSprintBacklog().getSprint().getTeam().getMembers();
+		final Vector<Person> sprintTeamMembers = attachedTask.getSprintBacklog().getSprint().getTeam().getMembers();
 		if (sprintTeamMembers == null) {
 			return false;
 		}

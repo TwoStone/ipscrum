@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a effort field type.
  */
-public class EffortFieldTypeCreateCommand extends Command<EffortFieldType>
-		implements IFieldTypesCommand {
+public class EffortFieldTypeCreateCommand extends Command<EffortFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -42,23 +41,18 @@ public class EffortFieldTypeCreateCommand extends Command<EffortFieldType>
 	 * @param multiplicity
 	 *            of the new FieldType
 	 */
-	public EffortFieldTypeCreateCommand(final String name,
-			final Multiplicity multiplicity) {
+	public EffortFieldTypeCreateCommand(final String name, final Multiplicity multiplicity) {
 		super();
 		this.name = name;
 		this.multiplicityId = multiplicity.getId();
 	}
 
 	@Override
-	protected EffortFieldType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+	protected EffortFieldType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final EffortFieldType effortFieldType =
-				new EffortFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final EffortFieldType effortFieldType = new EffortFieldType(model, this.name, multiplicity);
 		return effortFieldType;
 	}
 

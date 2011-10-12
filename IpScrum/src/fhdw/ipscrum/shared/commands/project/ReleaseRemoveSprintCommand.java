@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a sprint from a release.
  */
-public class ReleaseRemoveSprintCommand extends Command<Void>
-		implements IProjectCommand {
+public class ReleaseRemoveSprintCommand extends Command<Void> implements IProjectCommand {
 
 	/**
 	 * Represents the sprint that should be removed.
@@ -48,8 +47,7 @@ public class ReleaseRemoveSprintCommand extends Command<Void>
 		final Release release = (Release) model.getObject(this.getReceiverGuid());
 		final Sprint sprint = (Sprint) model.getObject(this.sprintId);
 
-		this.setStringValue(StringUtils.format(
-				"Sprint %s wurde aus Release %s entfernt.", sprint.getName(),
+		this.setStringValue(StringUtils.format("Sprint %s wurde aus Release %s entfernt.", sprint.getName(),
 				release.getVersion()));
 
 		release.removeSprint(sprint);

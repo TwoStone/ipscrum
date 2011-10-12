@@ -34,8 +34,7 @@ public abstract class ActivationRule extends IdentifiableObject {
 	 * @param forField
 	 *            is the affected field
 	 */
-	public ActivationRule(final Model model, final StateType forState,
-			final FieldType forField) {
+	public ActivationRule(final Model model, final StateType forState, final FieldType forField) {
 		super(model);
 		this.forField = forField;
 		this.forState = forState;
@@ -79,10 +78,8 @@ public abstract class ActivationRule extends IdentifiableObject {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result =
-				prime * result + (this.forField == null ? 0 : this.forField.hashCode());
-		result =
-				prime * result + (this.forState == null ? 0 : this.forState.hashCode());
+		result = prime * result + (this.forField == null ? 0 : this.forField.hashCode());
+		result = prime * result + (this.forState == null ? 0 : this.forState.hashCode());
 		return result;
 	}
 

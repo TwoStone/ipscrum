@@ -32,8 +32,7 @@ public class TeamTest {
 	}
 
 	/**
-	 * Run the Team(String) constructor test. with a not valid value to check if the
-	 * exception is thrown.
+	 * Run the Team(String) constructor test. with a not valid value to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -91,8 +90,8 @@ public class TeamTest {
 	}
 
 	/**
-	 * Run the void addMember(Person) method test. with the add of a already added member
-	 * to check if the exception is thrown.
+	 * Run the void addMember(Person) method test. with the add of a already added member to check if the exception is
+	 * thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -133,8 +132,8 @@ public class TeamTest {
 	}
 
 	/**
-	 * Run the void removeMember(Person) method test. with the remove of the member of a
-	 * team who isn't really a member to check if the exception is thrown.
+	 * Run the void removeMember(Person) method test. with the remove of the member of a team who isn't really a member
+	 * to check if the exception is thrown.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -198,8 +197,8 @@ public class TeamTest {
 	}
 
 	/**
-	 * Run the void setDescription(String) method test. Tests if the NoValidValueException
-	 * is thrown if the value for description is the not valid value "";
+	 * Run the void setDescription(String) method test. Tests if the NoValidValueException is thrown if the value for
+	 * description is the not valid value "";
 	 * 
 	 * @throws Exception
 	 *             if the set of the description fails
@@ -214,8 +213,8 @@ public class TeamTest {
 	}
 
 	/**
-	 * Run the void setDescription(String) method test. Tests if the NoValidValueException
-	 * is thrown if the value for description is the not valid value null;
+	 * Run the void setDescription(String) method test. Tests if the NoValidValueException is thrown if the value for
+	 * description is the not valid value null;
 	 * 
 	 * @throws Exception
 	 *             if the set of the description fails
@@ -230,8 +229,8 @@ public class TeamTest {
 	}
 
 	/**
-	 * Run the String toString() method test. Tests if the toString-method delivers the
-	 * excepted string "Team 'team description'".
+	 * Run the String toString() method test. Tests if the toString-method delivers the excepted string
+	 * "Team 'team description'".
 	 * 
 	 * @throws Exception
 	 *             if the toString method fails
@@ -267,8 +266,7 @@ public class TeamTest {
 	 */
 
 	@Test(expected = fhdw.ipscrum.shared.exceptions.model.DoubleDefinitionException.class)
-	public
-			void testAddProject2() throws Exception {
+	public void testAddProject2() throws Exception {
 		final Team test = new Team(this.model, "test");
 		final Project project = new Project(this.model, "Test");
 		test.addProject(project);

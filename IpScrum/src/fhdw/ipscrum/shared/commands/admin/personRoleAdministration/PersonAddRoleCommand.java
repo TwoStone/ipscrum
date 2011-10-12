@@ -47,8 +47,8 @@ public class PersonAddRoleCommand extends Command<Void> implements IPersonRoleCo
 		final Person person = (Person) model.getObject(this.getReceiverGuid());
 		final Role role = (Role) model.getObject(this.roleId);
 
-		this.setStringValue(StringUtils.format("%s %s wurde die Rolle %s hinzugefügt.",
-				person.getFirstname(), person.getLastname(), role.getDescription()));
+		this.setStringValue(StringUtils.format("%s %s wurde die Rolle %s hinzugefügt.", person.getFirstname(),
+				person.getLastname(), role.getDescription()));
 
 		person.addRole(role);
 		return null;

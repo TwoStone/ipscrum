@@ -10,8 +10,8 @@ import fhdw.ipscrum.shared.model.nonMeta.incidents.Incident;
 import fhdw.ipscrum.shared.model.nonMeta.incidents.IncidentType;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.ProjectHistoryView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.ProjectHistoryView).
  */
 public interface IProjectHistoryView extends IView {
 

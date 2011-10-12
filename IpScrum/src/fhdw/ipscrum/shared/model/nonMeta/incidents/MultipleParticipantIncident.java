@@ -35,8 +35,8 @@ public class MultipleParticipantIncident extends Incident {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public MultipleParticipantIncident(final Model model, final Date start,
-			final Date end) throws IPScrumGeneralException {
+	public MultipleParticipantIncident(final Model model, final Date start, final Date end)
+			throws IPScrumGeneralException {
 		super(model, start, end);
 		this.participants = new Vector<Person>();
 	}

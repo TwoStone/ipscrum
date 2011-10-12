@@ -40,14 +40,13 @@ public class BreadcrumbController extends ClientController {
 	/**
 	 * Handles events when the presenter in the content panel is changed.
 	 */
-	private final PresenterChangedHandler presenterChanged =
-			new PresenterChangedHandler() {
+	private final PresenterChangedHandler presenterChanged = new PresenterChangedHandler() {
 
-				@Override
-				public void handlePresenterChanged(final PresenterChangedEvent event) {
-					BreadcrumbController.this.updateBreadcrumb();
-				}
-			};
+		@Override
+		public void handlePresenterChanged(final PresenterChangedEvent event) {
+			BreadcrumbController.this.updateBreadcrumb();
+		}
+	};
 
 	/**
 	 * Creates a new instance for the specified client context.
@@ -57,10 +56,8 @@ public class BreadcrumbController extends ClientController {
 	 */
 	public BreadcrumbController(final ClientContext context) {
 		super(context);
-		this.getContext().getEventBus()
-				.registerHandler(PresenterChangedEvent.class, this.presenterChanged);
-		this.getContext().getEventBus()
-				.registerHandler(ModelUpdateEvent.class, this.modelChangend);
+		this.getContext().getEventBus().registerHandler(PresenterChangedEvent.class, this.presenterChanged);
+		this.getContext().getEventBus().registerHandler(ModelUpdateEvent.class, this.modelChangend);
 		RootPanel.get("breadcrumb").add(this.getBreadcrumb());
 	}
 
@@ -68,10 +65,8 @@ public class BreadcrumbController extends ClientController {
 	 * Updates the breadcrumb view with the actual presenter stack.
 	 */
 	private void updateBreadcrumb() {
-		final List<BreadcrumbItem> breadcrumbItems =
-				new ArrayList<IBreadcrumbView.BreadcrumbItem>();
-		for (final Presenter presenter : this.getContext().getApplicationController()
-				.getPresenterStack()) {
+		final List<BreadcrumbItem> breadcrumbItems = new ArrayList<IBreadcrumbView.BreadcrumbItem>();
+		for (final Presenter presenter : this.getContext().getApplicationController().getPresenterStack()) {
 			final SimpleCallback callback = new SimpleCallback() {
 
 				@Override
@@ -80,8 +75,7 @@ public class BreadcrumbController extends ClientController {
 				}
 			};
 
-			final BreadcrumbItem item =
-					new BreadcrumbItem(callback, presenter.getName());
+			final BreadcrumbItem item = new BreadcrumbItem(callback, presenter.getName());
 			breadcrumbItems.add(item);
 		}
 		this.getBreadcrumb().setContent(breadcrumbItems);
@@ -104,8 +98,7 @@ public class BreadcrumbController extends ClientController {
 	 */
 	private IBreadcrumbView getBreadcrumb() {
 		if (this.breadcrumbView == null) {
-			this.breadcrumbView =
-					this.getContext().getViewFactory().createBreadcrumbView();
+			this.breadcrumbView = this.getContext().getViewFactory().createBreadcrumbView();
 		}
 		return this.breadcrumbView;
 	}

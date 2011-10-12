@@ -6,8 +6,7 @@ import fhdw.ipscrum.shared.commands.admin.SystemCreateCommand;
  * Visitor for all administrator commands.
  */
 public interface AdminCommandVisitor
-		extends TicketTypesCommandVisitor, FieldTypesCommandVisitor,
-		PersonRoleCommandVisitor, TeamCommandVisitor {
+		extends TicketTypesCommandVisitor, FieldTypesCommandVisitor, PersonRoleCommandVisitor, TeamCommandVisitor {
 
 	/**
 	 * specific visitor action.

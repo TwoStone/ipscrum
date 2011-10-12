@@ -12,8 +12,7 @@ import fhdw.ipscrum.shared.model.SetUpTestData;
 public class IncidentTypeTest extends SetUpTestData {
 
 	/**
-	 * Tests if the construction of an incident type is successful and the name of the
-	 * type also is the given one.
+	 * Tests if the construction of an incident type is successful and the name of the type also is the given one.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -45,8 +44,7 @@ public class IncidentTypeTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests if the DoubleDefinitionException is thrown if a incident type should be
-	 * created which already exists.
+	 * Tests if the DoubleDefinitionException is thrown if a incident type should be created which already exists.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -78,8 +76,7 @@ public class IncidentTypeTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests if equals works appropriate by comparing an incident type and an simple
-	 * object.
+	 * Tests if equals works appropriate by comparing an incident type and an simple object.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -95,8 +92,7 @@ public class IncidentTypeTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests if the DoubleDefintionException is thrown if a incident type should be
-	 * created that already exists.
+	 * Tests if the DoubleDefintionException is thrown if a incident type should be created that already exists.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -112,8 +108,8 @@ public class IncidentTypeTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests if equals works appropriate by comparing an incident type with the name "Tag"
-	 * and an one with the name "Nacht".
+	 * Tests if equals works appropriate by comparing an incident type with the name "Tag" and an one with the name
+	 * "Nacht".
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -129,8 +125,8 @@ public class IncidentTypeTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests if equals works appropriate by comparing an incident type with the name
-	 * "Nettigkeit" and an one with the name "Netigkeit".
+	 * Tests if equals works appropriate by comparing an incident type with the name "Nettigkeit" and an one with the
+	 * name "Netigkeit".
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -146,8 +142,7 @@ public class IncidentTypeTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests if the getName-method works appropriate and returns the current name of the
-	 * incident type.
+	 * Tests if the getName-method works appropriate and returns the current name of the incident type.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails

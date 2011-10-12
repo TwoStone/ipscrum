@@ -12,8 +12,7 @@ import fhdw.ipscrum.client.view.metamodel.controller.FieldTypeController;
 import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 
 /**
- * The view interface for required by the
- * {@link fhdw.ipscrum.client.presenter.GenericTicketPresenter}.
+ * The view interface for required by the {@link fhdw.ipscrum.client.presenter.GenericTicketPresenter}.
  */
 public interface IGenericTicketView extends IView {
 
@@ -42,30 +41,25 @@ public interface IGenericTicketView extends IView {
 	 *            The handler that will be notified.
 	 * @return The EventRegistration for the handler and the event.
 	 */
-	EventRegistration registerNameChangedHandler(
-			EventHandler<TypedEventArg<String>> handler);
+	EventRegistration registerNameChangedHandler(EventHandler<TypedEventArg<String>> handler);
 
 	/**
-	 * Registers the handler for the event that the description of the ticket should be
-	 * changed.
+	 * Registers the handler for the event that the description of the ticket should be changed.
 	 * 
 	 * @param handler
 	 *            The handler that will be notified.
 	 * @return The EventRegistration for the handler and the event.
 	 */
-	EventRegistration registerDescriptionChangeHandler(
-			EventHandler<TypedEventArg<String>> handler);
+	EventRegistration registerDescriptionChangeHandler(EventHandler<TypedEventArg<String>> handler);
 
 	/**
-	 * Registers the handler for the event that the current state of the ticket should be
-	 * changed.
+	 * Registers the handler for the event that the current state of the ticket should be changed.
 	 * 
 	 * @param handler
 	 *            The handler that will be notified.
 	 * @return The EventRegistration for the handler and the event.
 	 */
-	EventRegistration regsiterChangeStateHandler(
-			EventHandler<TypedEventArg<StateType>> handler);
+	EventRegistration regsiterChangeStateHandler(EventHandler<TypedEventArg<StateType>> handler);
 
 	/**
 	 * Sets the name of the ticket in the view.

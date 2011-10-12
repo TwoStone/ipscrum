@@ -16,8 +16,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Change the activity of a ticket type.
  */
-public class TicketTypeSetFieldTypeActivityCommand extends Command<Void>
-		implements ITicketTypesCommand {
+public class TicketTypeSetFieldTypeActivityCommand extends Command<Void> implements ITicketTypesCommand {
 
 	/**
 	 * represents the visibility of the field.
@@ -54,8 +53,8 @@ public class TicketTypeSetFieldTypeActivityCommand extends Command<Void>
 	 * @param visible
 	 *            of the related field
 	 */
-	public TicketTypeSetFieldTypeActivityCommand(final TicketType receiver,
-			final FieldType fieldType, final StateType stateType, final Boolean visible) {
+	public TicketTypeSetFieldTypeActivityCommand(final TicketType receiver, final FieldType fieldType,
+			final StateType stateType, final Boolean visible) {
 		super(receiver);
 		this.fieldTypeId = fieldType.getId();
 		this.stateTypeId = stateType.getId();
@@ -64,8 +63,7 @@ public class TicketTypeSetFieldTypeActivityCommand extends Command<Void>
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final TicketType tickettype =
-				(TicketType) model.getObject(this.getReceiverGuid());
+		final TicketType tickettype = (TicketType) model.getObject(this.getReceiverGuid());
 		final FieldType fieldType = (FieldType) model.getObject(this.fieldTypeId);
 		final StateType stateType = (StateType) model.getObject(this.stateTypeId);
 
@@ -78,10 +76,9 @@ public class TicketTypeSetFieldTypeActivityCommand extends Command<Void>
 			tickettype.setNonActive(stateType, fieldType);
 		}
 
-		this.setStringValue(StringUtils
-				.format("Beim Tickettypen %s wurde die Aktivität des Feldtypen %s für den Status %s auf \"%s\" geänert.",
-						tickettype.getTypeName(), fieldType.getName(),
-						stateType.getName(), visibleString));
+		this.setStringValue(StringUtils.format(
+				"Beim Tickettypen %s wurde die Aktivität des Feldtypen %s für den Status %s auf \"%s\" geänert.",
+				tickettype.getTypeName(), fieldType.getName(), stateType.getName(), visibleString));
 
 		return null;
 	}

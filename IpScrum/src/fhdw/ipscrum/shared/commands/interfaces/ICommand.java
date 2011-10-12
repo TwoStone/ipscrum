@@ -7,8 +7,8 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * Type Interface for all Commands. Command Interfaces are neccessary for the
- * Visitor-Pattern. The Command-Interfaces do not specify any operations but accept().
+ * Type Interface for all Commands. Command Interfaces are neccessary for the Visitor-Pattern. The Command-Interfaces do
+ * not specify any operations but accept().
  */
 public interface ICommand {
 	/**

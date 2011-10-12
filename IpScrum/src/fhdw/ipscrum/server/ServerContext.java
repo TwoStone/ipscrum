@@ -52,8 +52,7 @@ public final class ServerContext {
 
 		this.executionController = new ExecutionController(this.persistenceManager);
 		this.sessionManager = new SessionManager();
-		this.accountManager =
-				new AccountManager(this.sessionManager, this.persistenceManager);
+		this.accountManager = new AccountManager(this.sessionManager, this.persistenceManager);
 	}
 
 	/**

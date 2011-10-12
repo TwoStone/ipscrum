@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Renames a role.
  */
-public class RoleSetDescriptionCommand extends Command<Void>
-		implements IPersonRoleCommand {
+public class RoleSetDescriptionCommand extends Command<Void> implements IPersonRoleCommand {
 
 	/**
 	 * Represents the new description of the role.
@@ -45,8 +44,7 @@ public class RoleSetDescriptionCommand extends Command<Void>
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Role role = (Role) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format("Rolle '%s' umbenannt in '%s'.",
-				role.getDescription(), this.description));
+		this.setStringValue(StringUtils.format("Rolle '%s' umbenannt in '%s'.", role.getDescription(), this.description));
 		role.setDescription(this.description);
 		return null;
 	}

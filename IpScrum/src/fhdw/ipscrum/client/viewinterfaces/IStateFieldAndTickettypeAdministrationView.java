@@ -9,8 +9,7 @@ import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TicketType;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link}
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
  * fhdw.ipscrum.client.view.StateFieldAndTickettypeAdministrationView).
  */
 public interface IStateFieldAndTickettypeAdministrationView extends IView {

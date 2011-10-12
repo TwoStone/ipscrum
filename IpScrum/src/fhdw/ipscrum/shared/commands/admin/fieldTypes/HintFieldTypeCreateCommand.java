@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a hint field type.
  */
-public class HintFieldTypeCreateCommand extends Command<HintFieldType>
-		implements IFieldTypesCommand {
+public class HintFieldTypeCreateCommand extends Command<HintFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -50,13 +49,10 @@ public class HintFieldTypeCreateCommand extends Command<HintFieldType>
 
 	@Override
 	protected HintFieldType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final HintFieldType hintFieldType =
-				new HintFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final HintFieldType hintFieldType = new HintFieldType(model, this.name, multiplicity);
 		return hintFieldType;
 	}
 

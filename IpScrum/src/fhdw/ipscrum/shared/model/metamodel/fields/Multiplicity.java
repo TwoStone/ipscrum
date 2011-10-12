@@ -4,10 +4,9 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * Multiplicity of field types. The multiplicity of a field type defines, what kind of
- * field will be returned in the operation FieldType.createField. For example, if the
- * field type has the multiplicity {@link Many}, the fields of that type are objects of
- * {@ListField}
+ * Multiplicity of field types. The multiplicity of a field type defines, what kind of field will be returned in the
+ * operation FieldType.createField. For example, if the field type has the multiplicity {@link Many}, the fields of that
+ * type are objects of {@ListField}
  */
 @SuppressWarnings("serial")
 public abstract class Multiplicity extends IdentifiableObject {

@@ -25,8 +25,7 @@ public class RelationTypeSearchCriterionArgs extends EventArgs {
 	 * @param relationType
 	 *            is the related relation type
 	 */
-	public RelationTypeSearchCriterionArgs(final ISearchExpression se,
-			final RelationType relationType) {
+	public RelationTypeSearchCriterionArgs(final ISearchExpression se, final RelationType relationType) {
 		super();
 		this.se = se;
 		this.relationType = relationType;

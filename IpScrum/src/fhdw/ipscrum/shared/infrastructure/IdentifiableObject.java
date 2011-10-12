@@ -12,8 +12,7 @@ import fhdw.ipscrum.shared.utils.CalendarUtils;
 /**
  * Represents the main class of all model objects.
  */
-public abstract class IdentifiableObject extends Observable
-		implements IsSerializable, Serializable {
+public abstract class IdentifiableObject extends Observable implements IsSerializable, Serializable {
 	/**
 	 * represents the serialVersionUID.
 	 */

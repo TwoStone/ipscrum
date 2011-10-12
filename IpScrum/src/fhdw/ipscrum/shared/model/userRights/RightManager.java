@@ -160,8 +160,7 @@ public class RightManager implements IsSerializable, Serializable {
 	 * @param personRoleAdminRight
 	 *            the personRoleAdminRight to set
 	 */
-	public void
-			setPersonRoleAdminRight(final PersonRoleAdminRight personRoleAdminRight) {
+	public void setPersonRoleAdminRight(final PersonRoleAdminRight personRoleAdminRight) {
 		if (this.personRoleAdminRight == null) {
 			this.personRoleAdminRight = personRoleAdminRight;
 		}
@@ -211,8 +210,7 @@ public class RightManager implements IsSerializable, Serializable {
 	 * @param ticketTypeAdminRight
 	 *            the ticketTypeAdminRight to set
 	 */
-	public void
-			setTicketTypeAdminRight(final TicketTypeAdminRight ticketTypeAdminRight) {
+	public void setTicketTypeAdminRight(final TicketTypeAdminRight ticketTypeAdminRight) {
 		if (this.ticketTypeAdminRight == null) {
 			this.ticketTypeAdminRight = ticketTypeAdminRight;
 		}

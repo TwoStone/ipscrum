@@ -40,8 +40,7 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskAddPBICommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskAddPBICommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskAddPBICommand)
 	 */
 	@Override
@@ -52,8 +51,7 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskCreateCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskCreateCommand)
 	 */
 	@Override
@@ -64,8 +62,7 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskDeleteCommand)
 	 */
 	@Override
@@ -76,53 +73,45 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskRemovePBICommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleTaskRemovePBICommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskRemovePBICommand)
 	 */
 	@Override
-	public void handleTaskRemovePBICommand(
-			final TaskRemovePBICommand taskRemovePBICommand) {
+	public void handleTaskRemovePBICommand(final TaskRemovePBICommand taskRemovePBICommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleTaskSetPlanEffortCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleTaskSetPlanEffortCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskSetPlanEffortCommand)
 	 */
 	@Override
-	public void handleTaskSetPlanEffortCommand(
-			final TaskSetPlanEffortCommand taskSetPlanEffortCommand) {
+	public void handleTaskSetPlanEffortCommand(final TaskSetPlanEffortCommand taskSetPlanEffortCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleTaskSetResponsibilityCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleTaskSetResponsibilityCommand
 	 * (fhdw.ipscrum.shared.commands.taskboard.TaskSetResponsibilityCommand)
 	 */
 	@Override
-	public void handleTaskSetResponsibilityCommand(
-			final TaskSetResponsibilityCommand taskSetResponsibilityCommand) {
+	public void handleTaskSetResponsibilityCommand(final TaskSetResponsibilityCommand taskSetResponsibilityCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleListFieldAddValueCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleListFieldAddValueCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.ListFieldAddValueCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleListFieldAddValueCommand(
-			final ListFieldAddValueCommand listFieldAddValueCommand)
+	public void handleListFieldAddValueCommand(final ListFieldAddValueCommand listFieldAddValueCommand)
 			throws NoObjectFindException {
 
 		this.handleTicket(listFieldAddValueCommand.getTicket(this.getModel()));
@@ -132,14 +121,12 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleListFieldRemoveValueCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleListFieldRemoveValueCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.ListFieldRemoveValueCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleListFieldRemoveValueCommand(
-			final ListFieldRemoveValueCommand listFieldRemoveValueCommand)
+	public void handleListFieldRemoveValueCommand(final ListFieldRemoveValueCommand listFieldRemoveValueCommand)
 			throws NoObjectFindException {
 		this.handleTicket(listFieldRemoveValueCommand.getTicket(this.getModel()));
 	}
@@ -147,14 +134,12 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleSingleFieldChangeCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleSingleFieldChangeCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.SingleFieldChangeCommand)
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void handleSingleFieldChangeCommand(
-			final SingleFieldChangeCommand singleFieldChangeCommand)
+	public void handleSingleFieldChangeCommand(final SingleFieldChangeCommand singleFieldChangeCommand)
 			throws NoObjectFindException {
 
 		this.handleTicket(singleFieldChangeCommand.getTicket(this.getModel()));
@@ -164,13 +149,11 @@ class TaskboardRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleTicketChangeStateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleTicketChangeStateCommand
 	 * (fhdw.ipscrum.shared.commands.ticketsGeneral.TicketChangeStateCommand)
 	 */
 	@Override
-	public void handleTicketChangeStateCommand(
-			final TicketChangeStateCommand ticketChangeStateCommand)
+	public void handleTicketChangeStateCommand(final TicketChangeStateCommand ticketChangeStateCommand)
 			throws NoObjectFindException {
 
 		this.handleTicket(ticketChangeStateCommand.getReceiverTicket(this.getModel()));

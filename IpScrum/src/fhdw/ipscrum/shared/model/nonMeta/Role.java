@@ -53,8 +53,7 @@ public class Role extends IdentifiableObject implements IsSerializable {
 	 * @throws DoubleDefinitionException
 	 *             if a role with the same parameters already exists
 	 */
-	public Role(final Model model, final String description)
-			throws NoValidValueException, DoubleDefinitionException {
+	public Role(final Model model, final String description) throws NoValidValueException, DoubleDefinitionException {
 		super(model);
 		this.setDescription(description);
 		this.rights = new ArrayList<Right>();
@@ -86,8 +85,7 @@ public class Role extends IdentifiableObject implements IsSerializable {
 			this.description = description;
 			this.changed();
 		} else {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
 		}
 	}
 
@@ -119,8 +117,7 @@ public class Role extends IdentifiableObject implements IsSerializable {
 	 */
 	public void addRight(final Right right) throws DoubleDefinitionException {
 		if (this.getRights().contains(right)) {
-			throw new DoubleDefinitionException(
-					ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		}
 		this.rights.add(right);
 		this.changed();

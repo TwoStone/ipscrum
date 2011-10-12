@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new relation type.
  */
-public class RelationTypeCreateCommand extends Command<RelationType>
-		implements IProductBacklogCommand {
+public class RelationTypeCreateCommand extends Command<RelationType> implements IProductBacklogCommand {
 
 	/**
 	 * Represents the title of the RelationType.
@@ -42,8 +41,7 @@ public class RelationTypeCreateCommand extends Command<RelationType>
 
 	@Override
 	protected RelationType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Beziehungstyp '%s' erstellt.",
-				this.title));
+		this.setStringValue(StringUtils.format("Neuer Beziehungstyp '%s' erstellt.", this.title));
 
 		final RelationType relationType = new RelationType(model, this.title);
 		return relationType;

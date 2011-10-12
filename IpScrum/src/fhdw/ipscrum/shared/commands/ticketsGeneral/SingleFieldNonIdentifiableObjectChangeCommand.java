@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
  * @param <T>
  *            is the field Type
  */
-public class SingleFieldNonIdentifiableObjectChangeCommand<T extends Serializable>
-		extends SingleFieldChangeCommand<T> {
+public class SingleFieldNonIdentifiableObjectChangeCommand<T extends Serializable> extends SingleFieldChangeCommand<T> {
 
 	/**
 	 * represents the value of the command in the chosen field type.
@@ -39,8 +38,7 @@ public class SingleFieldNonIdentifiableObjectChangeCommand<T extends Serializabl
 	 * @param ticket
 	 *            related to the command
 	 */
-	public SingleFieldNonIdentifiableObjectChangeCommand(final SingleField<T> field,
-			final T value, final Ticket ticket) {
+	public SingleFieldNonIdentifiableObjectChangeCommand(final SingleField<T> field, final T value, final Ticket ticket) {
 		super(field, ticket);
 		this.value = value;
 	}

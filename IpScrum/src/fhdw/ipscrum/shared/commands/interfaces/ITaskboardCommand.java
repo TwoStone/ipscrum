@@ -1,6 +1,5 @@
 package fhdw.ipscrum.shared.commands.interfaces;
 
-
 /**
  * Commands for modifying the task board.
  */

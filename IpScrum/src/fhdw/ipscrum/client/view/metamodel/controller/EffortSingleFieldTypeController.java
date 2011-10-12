@@ -24,8 +24,7 @@ public class EffortSingleFieldTypeController extends SingleFieldTypeController<E
 	private final Renderer<Effort> renderer = new Renderer<Effort>() {
 
 		@Override
-		public void render(final Effort object, final Appendable appendable)
-				throws IOException {
+		public void render(final Effort object, final Appendable appendable) throws IOException {
 			appendable.append(this.render(object));
 		}
 
@@ -61,11 +60,10 @@ public class EffortSingleFieldTypeController extends SingleFieldTypeController<E
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public EffortSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<Effort> field) {
+	public EffortSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<Effort> field) {
 		super(ticket, presenter, field);
-		this.widget =
-				new ComplexSingleValueFieldWidget<Effort>(this.parser, this.renderer);
+		this.widget = new ComplexSingleValueFieldWidget<Effort>(this.parser, this.renderer);
 		this.initialize();
 	}
 

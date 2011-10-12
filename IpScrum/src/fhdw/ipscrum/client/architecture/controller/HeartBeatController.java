@@ -13,9 +13,8 @@ import fhdw.ipscrum.client.services.HeartBeatService;
 import fhdw.ipscrum.client.services.HeartBeatServiceAsync;
 
 /**
- * Wrapper for a heart beat service. When pulsing is started it sends heart beats in
- * regular intervals to the service. This is necessary to prevent the server from
- * recycling the HttpSession for the client, after some time of inactivity.
+ * Wrapper for a heart beat service. When pulsing is started it sends heart beats in regular intervals to the service.
+ * This is necessary to prevent the server from recycling the HttpSession for the client, after some time of inactivity.
  * 
  * @author Niklas
  * 
@@ -35,8 +34,7 @@ public class HeartBeatController {
 	/**
 	 * Milliseconds between two beats.
 	 */
-	private static final int FREQ = HeartBeatController.SENCONDS
-			* HeartBeatController.THOUSAND;
+	private static final int FREQ = HeartBeatController.SENCONDS * HeartBeatController.THOUSAND;
 
 	/**
 	 * Timer that schedules the service calls.
@@ -60,22 +58,19 @@ public class HeartBeatController {
 
 			@Override
 			public void run() {
-				HeartBeatController.this.heartBeatService
-						.pulse(new AsyncCallback<Void>() {
+				HeartBeatController.this.heartBeatService.pulse(new AsyncCallback<Void>() {
 
-							@Override
-							public void onSuccess(final Void result) {
-							}
+					@Override
+					public void onSuccess(final Void result) {
+					}
 
-							@Override
-							public void onFailure(final Throwable caught) {
-								GWT.log("[HeartBeatController] Server seems to be dead, "
-										+ "life doesn't make sense anymore"
-										+ " - I'm going to die too! " + "Goodbye! ",
-										caught);
-								HeartBeatController.this.beat.cancel();
-							}
-						});
+					@Override
+					public void onFailure(final Throwable caught) {
+						GWT.log("[HeartBeatController] Server seems to be dead, " + "life doesn't make sense anymore"
+								+ " - I'm going to die too! " + "Goodbye! ", caught);
+						HeartBeatController.this.beat.cancel();
+					}
+				});
 			}
 		};
 
@@ -105,8 +100,7 @@ public class HeartBeatController {
 
 	/**
 	 * Stops the beating heart. <br/>
-	 * For reanimation use a defibrilator or call
-	 * {@link HeartBeatController#startPulsing()}.
+	 * For reanimation use a defibrilator or call {@link HeartBeatController#startPulsing()}.
 	 */
 	public void stopPulsing() {
 		this.beat.cancel();

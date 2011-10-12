@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 
 /**
  * Exception thrown if there is a conflict.
- *
+ * 
  */
 public class ConflictException extends InfrastructureException {
 
@@ -23,7 +23,8 @@ public class ConflictException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message the Exception throws.
+	 * @param message
+	 *            the Exception throws.
 	 */
 	public ConflictException(final String message) {
 		super(message);

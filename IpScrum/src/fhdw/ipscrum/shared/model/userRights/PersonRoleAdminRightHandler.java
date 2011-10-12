@@ -34,62 +34,51 @@ class PersonRoleAdminRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handlePersonAddRoleCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handlePersonAddRoleCommand
 	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration.PersonAddRoleCommand)
 	 */
 	@Override
-	public void handlePersonAddRoleCommand(
-			final PersonAddRoleCommand personAddRoleCommand) {
+	public void handlePersonAddRoleCommand(final PersonAddRoleCommand personAddRoleCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handlePersonChangeNameCommand
-	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration
-	 * .PersonChangeNameCommand)
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handlePersonChangeNameCommand
+	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration .PersonChangeNameCommand)
 	 */
 	@Override
-	public void handlePersonChangeNameCommand(
-			final PersonChangeNameCommand personChangeNameCommand) {
+	public void handlePersonChangeNameCommand(final PersonChangeNameCommand personChangeNameCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handlePersonCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handlePersonCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration.PersonCreateCommand)
 	 */
 	@Override
-	public void
-			handlePersonCreateCommand(final PersonCreateCommand personCreateCommand) {
+	public void handlePersonCreateCommand(final PersonCreateCommand personCreateCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handlePersonRemoveRoleCommand
-	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration
-	 * .PersonRemoveRoleCommand)
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handlePersonRemoveRoleCommand
+	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration .PersonRemoveRoleCommand)
 	 */
 	@Override
-	public void handlePersonRemoveRoleCommand(
-			final PersonRemoveRoleCommand personRemoveRoleCommand) {
+	public void handlePersonRemoveRoleCommand(final PersonRemoveRoleCommand personRemoveRoleCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleRoleCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleRoleCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleCreateCommand)
 	 */
 	@Override
@@ -100,8 +89,7 @@ class PersonRoleAdminRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleRoleDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleRoleDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleDeleteCommand)
 	 */
 	@Override
@@ -112,41 +100,33 @@ class PersonRoleAdminRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleRoleSetDescriptionCommand
-	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration
-	 * .RoleSetDescriptionCommand)
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleRoleSetDescriptionCommand
+	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration .RoleSetDescriptionCommand)
 	 */
 	@Override
-	public void handleRoleSetDescriptionCommand(
-			final RoleSetDescriptionCommand roleSetDescriptionCommand) {
+	public void handleRoleSetDescriptionCommand(final RoleSetDescriptionCommand roleSetDescriptionCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleRoleAddRightCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleRoleAddRightCommand
 	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration.RoleAddRightCommand)
 	 */
 	@Override
-	public void
-			handleRoleAddRightCommand(final RoleAddRightCommand roleAddRightCommand) {
+	public void handleRoleAddRightCommand(final RoleAddRightCommand roleAddRightCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleRoleRemoveRightCommand
-	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration
-	 * .RoleRemoveRightCommand)
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleRoleRemoveRightCommand
+	 * (fhdw.ipscrum.shared.commands.admin.personRoleAdministration .RoleRemoveRightCommand)
 	 */
 	@Override
-	public void handleRoleRemoveRightCommand(
-			final RoleRemoveRightCommand roleRemoveRightCommand) {
+	public void handleRoleRemoveRightCommand(final RoleRemoveRightCommand roleRemoveRightCommand) {
 		this.allowed();
 	}
 

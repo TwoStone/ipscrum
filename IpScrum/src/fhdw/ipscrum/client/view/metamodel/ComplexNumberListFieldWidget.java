@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.model.metamodel.fields.ListField;
  * 
  * @param <T>
  */
-public class ComplexNumberListFieldWidget<T extends Serializable>
-		extends ListFieldWidget<T> {
+public class ComplexNumberListFieldWidget<T extends Serializable> extends ListFieldWidget<T> {
 
 	/**
 	 * Represents the Box on the GUI containing the number.
@@ -33,8 +32,8 @@ public class ComplexNumberListFieldWidget<T extends Serializable>
 	 * @param parser
 	 *            is the parser to pare the type
 	 */
-	public ComplexNumberListFieldWidget(final ListField<T> field,
-			final TypeRendere<T> typeRendere, final TypeParser<T, Integer> parser) {
+	public ComplexNumberListFieldWidget(final ListField<T> field, final TypeRendere<T> typeRendere,
+			final TypeParser<T, Integer> parser) {
 		super(field, typeRendere);
 		this.parser = parser;
 		this.initialize();

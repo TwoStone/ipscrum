@@ -29,21 +29,18 @@ class ProjectHistoryRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleIncidentIllnessCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleIncidentIllnessCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentIllnessCreateCommand)
 	 */
 	@Override
-	public void handleIncidentIllnessCreateCommand(
-			final IncidentIllnessCreateCommand incidentIllnessCreateCommand) {
+	public void handleIncidentIllnessCreateCommand(final IncidentIllnessCreateCommand incidentIllnessCreateCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleIncidentOtherIssueCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleIncidentOtherIssueCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentOtherIssueCreateCommand)
 	 */
 	@Override
@@ -55,26 +52,22 @@ class ProjectHistoryRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleIncidentTypeCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleIncidentTypeCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentTypeCreateCommand)
 	 */
 	@Override
-	public void handleIncidentTypeCreateCommand(
-			final IncidentTypeCreateCommand incidentTypeCreateCommand) {
+	public void handleIncidentTypeCreateCommand(final IncidentTypeCreateCommand incidentTypeCreateCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#
-	 * handleIncidentVacationCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor# handleIncidentVacationCreateCommand
 	 * (fhdw.ipscrum.shared.commands.projectHistory.IncidentVacationCreateCommand)
 	 */
 	@Override
-	public void handleIncidentVacationCreateCommand(
-			final IncidentVacationCreateCommand incidentVacationCreateCommand) {
+	public void handleIncidentVacationCreateCommand(final IncidentVacationCreateCommand incidentVacationCreateCommand) {
 		this.allowed();
 	}
 

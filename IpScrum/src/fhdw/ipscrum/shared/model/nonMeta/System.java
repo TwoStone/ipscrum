@@ -38,8 +38,7 @@ public class System extends AbstractSystem {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public System(final Model model, final String name, final AbstractSystem parent)
-			throws IPScrumGeneralException {
+	public System(final Model model, final String name, final AbstractSystem parent) throws IPScrumGeneralException {
 		super(model);
 		this.setName(name);
 		this.setParent(parent);
@@ -101,8 +100,7 @@ public class System extends AbstractSystem {
 	 * @throws DoubleDefinitionException
 	 *             if the parent is already parent of the system
 	 */
-	private void setParent(final AbstractSystem parent)
-			throws DoubleDefinitionException {
+	private void setParent(final AbstractSystem parent) throws DoubleDefinitionException {
 		if (parent.contains(this)) {
 			throw new DoubleDefinitionException(ExceptionConstants.SYSTEM_ALREADY_KNOWN);
 		} else {

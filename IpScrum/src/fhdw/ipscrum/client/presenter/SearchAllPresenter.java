@@ -35,8 +35,8 @@ public class SearchAllPresenter extends ReadPresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.SearchAllPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public SearchAllPresenter(final ClientContext context) {
 		super(context);
@@ -67,33 +67,27 @@ public class SearchAllPresenter extends ReadPresenter {
 	private void addHandler() {
 
 		// handler für das ausführen der scruumle suche
-		this.view
-				.registerDoScruumleSearch(new EventHandler<DoScruumleSearchEventArgs>() {
+		this.view.registerDoScruumleSearch(new EventHandler<DoScruumleSearchEventArgs>() {
 
-					@Override
-					public void onUpdate(final Object sender,
-							final DoScruumleSearchEventArgs eventArgs) {
-						SearchAllPresenter.this.result =
-								SearchAllPresenter.this.searchManager.search(
-										SearchAllPresenter.this.getContext().getModel()
-												.getAllTickets(),
-										new ScruumleCriterion(SearchAllPresenter.this
-												.getContext().getModel(), eventArgs
-												.getSearchExpression()));
-						SearchAllPresenter.this.showResults();
-					}
+			@Override
+			public void onUpdate(final Object sender, final DoScruumleSearchEventArgs eventArgs) {
+				SearchAllPresenter.this.result =
+						SearchAllPresenter.this.searchManager.search(SearchAllPresenter.this.getContext().getModel()
+								.getAllTickets(), new ScruumleCriterion(
+								SearchAllPresenter.this.getContext().getModel(), eventArgs.getSearchExpression()));
+				SearchAllPresenter.this.showResults();
+			}
 
-				});
+		});
 
 	}
 
 	/**
-	 * this method opens the function to show search results. The search results are shown
-	 * in the {@link} fhdw.ipscrum.client.presenter.SearchResultPresenter .
+	 * this method opens the function to show search results. The search results are shown in the {@link}
+	 * fhdw.ipscrum.client.presenter.SearchResultPresenter .
 	 */
 	private void showResults() {
-		final SearchResultPresenter presenter =
-				new SearchResultPresenter(this.getContext(), this.result);
+		final SearchResultPresenter presenter = new SearchResultPresenter(this.getContext(), this.result);
 		this.startPresenter(presenter);
 	}
 

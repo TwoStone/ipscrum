@@ -9,8 +9,8 @@ import fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * Handler (visitor) for user Rights. A right handler decides which user action is
- * allowed. Each concrete right handler belongs to a concrete Right.
+ * Handler (visitor) for user Rights. A right handler decides which user action is allowed. Each concrete right handler
+ * belongs to a concrete Right.
  */
 abstract class RightHandler extends CommandStandardVisitor implements IsSerializable {
 
@@ -66,26 +66,22 @@ abstract class RightHandler extends CommandStandardVisitor implements IsSerializ
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSearchCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSearchCreateCommand
 	 * (fhdw.ipscrum.shared.commands.search.SearchCreateCommand)
 	 */
 	@Override
-	public void
-			handleSearchCreateCommand(final SearchCreateCommand searchCreateCommand) {
+	public void handleSearchCreateCommand(final SearchCreateCommand searchCreateCommand) {
 		this.myRight.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSearchDeleteCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.CommandStandardVisitor#handleSearchDeleteCommand
 	 * (fhdw.ipscrum.shared.commands.search.SearchDeleteCommand)
 	 */
 	@Override
-	public void
-			handleSearchDeleteCommand(final SearchDeleteCommand searchDeleteCommand) {
+	public void handleSearchDeleteCommand(final SearchDeleteCommand searchDeleteCommand) {
 		this.myRight.allowed();
 	}
 

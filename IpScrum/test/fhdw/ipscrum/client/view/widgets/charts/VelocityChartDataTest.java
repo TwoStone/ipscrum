@@ -15,8 +15,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
 public class VelocityChartDataTest extends SetUpTestData {
 
 	/**
-	 * represents the double "not a number", which is used to check if the results are
-	 * really numbers.
+	 * represents the double "not a number", which is used to check if the results are really numbers.
 	 */
 	@SuppressWarnings({ "unused", "static-access" })
 	private static Double nan = new Double(0).NaN;
@@ -42,8 +41,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	// calculateRelativeVelocity()--------------------------//
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -57,18 +55,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -82,18 +76,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -107,18 +97,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -132,18 +118,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -157,18 +139,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -182,18 +160,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -207,18 +181,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -232,18 +202,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -257,18 +223,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -282,18 +244,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -307,18 +265,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -332,18 +286,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -357,18 +307,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -382,18 +328,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -407,18 +349,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -432,18 +370,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -457,18 +391,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -482,18 +412,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -507,18 +433,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -532,18 +454,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -557,18 +475,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -582,18 +496,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -607,18 +517,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -632,18 +538,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -657,18 +559,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -682,18 +580,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -707,18 +601,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -732,18 +622,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -757,18 +643,14 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
 
 	/**
-	 * Tests the calculateRelativeVelocity-method to check if the method works
-	 * appropriate.
+	 * Tests the calculateRelativeVelocity-method to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -782,11 +664,8 @@ public class VelocityChartDataTest extends SetUpTestData {
 		final double result = fixture.calculateRelativeVelocity(sprint);
 
 		// calculation the expected value of the relative velocity
-		final double sprintLength =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
-		final double expected =
-				sprint.getCumulatedManDayCostsOfClosedFeatures().getValue()
-						/ sprintLength;
+		final double sprintLength = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double expected = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue() / sprintLength;
 
 		Assert.assertEquals(expected, result, 0.1);
 	}
@@ -795,8 +674,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	// getAbsAverageVelocity()--------------------------//
 
 	/**
-	 * Tests the method which gets the absolute velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the absolute velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -813,8 +691,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests the method which gets the absolute velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the absolute velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -831,8 +708,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests the method which gets the absolute velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the absolute velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -850,8 +726,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests the method which gets the absolute velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the absolute velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -872,8 +747,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	// getRelAverageVelocity()--------------------------//
 
 	/**
-	 * Tests the method which gets the relative velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the relative velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -890,8 +764,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests the method which gets the relative velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the relative velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -908,8 +781,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests the method which gets the relative velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the relative velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -926,8 +798,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Tests the method which gets the relative velocity to check if the method works
-	 * appropriate.
+	 * Tests the method which gets the relative velocity to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -946,8 +817,7 @@ public class VelocityChartDataTest extends SetUpTestData {
 	// ------------------ Test of the method
 	// getTeam()--------------------------//
 	/**
-	 * Tests the method which gets the team of the velocity chart to check if the method
-	 * works appropriate.
+	 * Tests the method which gets the team of the velocity chart to check if the method works appropriate.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails

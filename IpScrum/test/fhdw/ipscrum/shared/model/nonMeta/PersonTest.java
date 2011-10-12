@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.exceptions.model.ConsistencyException;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * The class <code>PersonTest</code> contains tests for the class
- * <code>{@link Person}</code>.
+ * The class <code>PersonTest</code> contains tests for the class <code>{@link Person}</code>.
  */
 public class PersonTest {
 

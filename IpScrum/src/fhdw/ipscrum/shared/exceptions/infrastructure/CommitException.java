@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 
 /**
  * Exception if a commit fails.
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class CommitException extends InfrastructureException {
@@ -19,7 +19,8 @@ public class CommitException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message the Exception throws.
+	 * @param message
+	 *            the Exception throws.
 	 */
 	public CommitException(final String message) {
 		super(message);

@@ -24,8 +24,8 @@ import fhdw.ipscrum.shared.utils.StringUtils;
  * @param <T>
  *            type of the listField
  */
-public abstract class ListFieldAddValueCommand<T extends Serializable>
-		extends Command<Void> implements ITaskboardCommand, IProductBacklogCommand {
+public abstract class ListFieldAddValueCommand<T extends Serializable> extends Command<Void>
+		implements ITaskboardCommand, IProductBacklogCommand {
 
 	/**
 	 * creates a command.
@@ -40,14 +40,12 @@ public abstract class ListFieldAddValueCommand<T extends Serializable>
 	 *            related to the command
 	 * @return the field with the attached type <T>
 	 */
-	public static <T extends Serializable> ListFieldAddValueCommand<T> createCommand(
-			final ListField<T> field, final T value, final Ticket ticket) {
+	public static <T extends Serializable> ListFieldAddValueCommand<T> createCommand(final ListField<T> field,
+			final T value, final Ticket ticket) {
 		if (value instanceof IdentifiableObject) {
-			return new ListFieldIdentifiableObjectAddValueCommand<T>(field, value,
-					ticket);
+			return new ListFieldIdentifiableObjectAddValueCommand<T>(field, value, ticket);
 		} else {
-			return new ListFieldNonIdentifiableObjectAddValueCommand<T>(field, value,
-					ticket);
+			return new ListFieldNonIdentifiableObjectAddValueCommand<T>(field, value, ticket);
 		}
 	}
 
@@ -83,12 +81,10 @@ public abstract class ListFieldAddValueCommand<T extends Serializable>
 	@SuppressWarnings("unchecked")
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final ListField<T> listField =
-				(ListField<T>) model.getObject(this.getReceiverGuid());
+		final ListField<T> listField = (ListField<T>) model.getObject(this.getReceiverGuid());
 		final T value = this.getValue(model);
 		final Ticket ticket = (Ticket) model.getObject(this.ticketId);
-		this.setStringValue(StringUtils.format(
-				"Wertänderung im Ticket '%s': %s hinzugefügt.", ticket.getName(), value));
+		this.setStringValue(StringUtils.format("Wertänderung im Ticket '%s': %s hinzugefügt.", ticket.getName(), value));
 		listField.addValue(value, ticket);
 		return null;
 	}
@@ -112,9 +108,7 @@ public abstract class ListFieldAddValueCommand<T extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.interfaces.ICommand#getDependingProject(fhdw.ipscrum
-	 * .shared.model.Model)
+	 * @see fhdw.ipscrum.shared.commands.interfaces.ICommand#getDependingProject(fhdw.ipscrum .shared.model.Model)
 	 */
 	@Override
 	public Project getDependingProject(final Model model) throws NoObjectFindException {
@@ -138,8 +132,7 @@ public abstract class ListFieldAddValueCommand<T extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.interfaces.ICommand#accept(fhdw.ipscrum.shared.commands
+	 * @see fhdw.ipscrum.shared.commands.interfaces.ICommand#accept(fhdw.ipscrum.shared.commands
 	 * .visitor.CommandVisitor)
 	 */
 	@Override

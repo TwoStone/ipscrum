@@ -4,8 +4,8 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
 /**
- * Represents the logical operator And! All search expression arguments will be combined
- * with And. For Example: arg1 and arg2 and arg3 ...
+ * Represents the logical operator And! All search expression arguments will be combined with And. For Example: arg1 and
+ * arg2 and arg3 ...
  */
 public class And extends MultiLogicSearchOperator {
 

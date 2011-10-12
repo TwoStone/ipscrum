@@ -36,8 +36,7 @@ public class RoleDeleteCommand extends Command<Void> implements IPersonRoleComma
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Role role = (Role) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format("Rolle '%s' entfernt.",
-				role.getDescription()));
+		this.setStringValue(StringUtils.format("Rolle '%s' entfernt.", role.getDescription()));
 		model.removeRole(role);
 		return null;
 	}

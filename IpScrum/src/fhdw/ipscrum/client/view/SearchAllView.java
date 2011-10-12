@@ -57,9 +57,8 @@ public class SearchAllView extends MasterView implements ISearchAllView {
 
 			@Override
 			public void onChange(final ChangeEvent event) {
-				SearchAllView.this.doScruumleSearchEvent.fire(SearchAllView.this,
-						new DoScruumleSearchEventArgs(
-								SearchAllView.this.searchExpression.getText()));
+				SearchAllView.this.doScruumleSearchEvent.fire(SearchAllView.this, new DoScruumleSearchEventArgs(
+						SearchAllView.this.searchExpression.getText()));
 			}
 		});
 		horizontalPanel.add(this.searchExpression);
@@ -77,9 +76,8 @@ public class SearchAllView extends MasterView implements ISearchAllView {
 		search.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-				SearchAllView.this.doScruumleSearchEvent.fire(SearchAllView.this,
-						new DoScruumleSearchEventArgs(
-								SearchAllView.this.searchExpression.getText()));
+				SearchAllView.this.doScruumleSearchEvent.fire(SearchAllView.this, new DoScruumleSearchEventArgs(
+						SearchAllView.this.searchExpression.getText()));
 			}
 		});
 		horizontalPanel.add(search);
@@ -87,8 +85,7 @@ public class SearchAllView extends MasterView implements ISearchAllView {
 	}
 
 	@Override
-	public void registerDoScruumleSearch(
-			final EventHandler<DoScruumleSearchEventArgs> handler) {
+	public void registerDoScruumleSearch(final EventHandler<DoScruumleSearchEventArgs> handler) {
 		this.doScruumleSearchEvent.add(handler);
 	}
 

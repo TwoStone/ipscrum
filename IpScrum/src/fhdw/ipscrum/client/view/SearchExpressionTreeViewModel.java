@@ -40,10 +40,8 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 	 * @param search
 	 *            is the related search
 	 */
-	public SearchExpressionTreeViewModel(
-			final SingleSelectionModel<Search> searchSelectionModel,
-			final SingleSelectionModel<ISearchExpression> selectionModel,
-			final Search search) {
+	public SearchExpressionTreeViewModel(final SingleSelectionModel<Search> searchSelectionModel,
+			final SingleSelectionModel<ISearchExpression> selectionModel, final Search search) {
 		this.selectionModel = selectionModel;
 		this.searchSelectionModel = searchSelectionModel;
 		this.search = search;
@@ -52,57 +50,49 @@ public class SearchExpressionTreeViewModel implements TreeViewModel {
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(final T value) {
 		if (value == null) {
-			final ListDataProvider<Search> dataProvider =
-					new ListDataProvider<Search>();
+			final ListDataProvider<Search> dataProvider = new ListDataProvider<Search>();
 			dataProvider.getList().add(this.search);
 
-			return new DefaultNodeInfo<Search>(dataProvider, this.searchCell,
-					this.searchSelectionModel, null);
+			return new DefaultNodeInfo<Search>(dataProvider, this.searchCell, this.searchSelectionModel, null);
 		} else {
-			final ListDataProvider<ISearchExpression> dataProvider =
-					new ListDataProvider<ISearchExpression>();
+			final ListDataProvider<ISearchExpression> dataProvider = new ListDataProvider<ISearchExpression>();
 
 			if (value instanceof Search) {
 				dataProvider.getList().add(((Search) value).getExpression());
 
 			} else if (value instanceof SingleLogicSearchOperator) {
-				final SingleLogicSearchOperator operator =
-						(SingleLogicSearchOperator) value;
+				final SingleLogicSearchOperator operator = (SingleLogicSearchOperator) value;
 				if (operator.getArg() != null) {
 					dataProvider.getList().add(operator.getArg());
 				}
 
 			} else if (value instanceof MultiLogicSearchOperator) {
-				final MultiLogicSearchOperator operator =
-						(MultiLogicSearchOperator) value;
+				final MultiLogicSearchOperator operator = (MultiLogicSearchOperator) value;
 				if (operator.getArgs().size() > 0) {
 					dataProvider.getList().addAll(operator.getArgs());
 				}
 
 			}
-			return new DefaultNodeInfo<ISearchExpression>(dataProvider,
-					this.searchExpressionCell, this.selectionModel, null);
+			return new DefaultNodeInfo<ISearchExpression>(dataProvider, this.searchExpressionCell, this.selectionModel,
+					null);
 		}
 	}
 
-	private final Cell<ISearchExpression> searchExpressionCell =
-			new AbstractCell<ISearchExpression>() {
-				@Override
-				public void render(final Context context,
-						final ISearchExpression value, final SafeHtmlBuilder sb) {
-					if (value != null) {
-						sb.appendEscaped(value.toString());
+	private final Cell<ISearchExpression> searchExpressionCell = new AbstractCell<ISearchExpression>() {
+		@Override
+		public void render(final Context context, final ISearchExpression value, final SafeHtmlBuilder sb) {
+			if (value != null) {
+				sb.appendEscaped(value.toString());
 
-						if (value instanceof Operator) {
-							sb.appendHtmlConstant(" <small> (klicken zum Hinzufügen) </small>");
-						}
-					}
+				if (value instanceof Operator) {
+					sb.appendHtmlConstant(" <small> (klicken zum Hinzufügen) </small>");
 				}
-			};
+			}
+		}
+	};
 	private final Cell<Search> searchCell = new AbstractCell<Search>() {
 		@Override
-		public void render(final Context context, final Search value,
-				final SafeHtmlBuilder sb) {
+		public void render(final Context context, final Search value, final SafeHtmlBuilder sb) {
 			if (value != null) {
 				sb.appendEscaped("Suche: " + value.getName());
 			}

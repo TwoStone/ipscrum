@@ -14,8 +14,8 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates an acceptance criteria field type.
  */
-public class AcceptanceCriteriaFieldTypeCreateCommand
-		extends Command<AcceptanceCriteriaFieldType> implements IFieldTypesCommand {
+public class AcceptanceCriteriaFieldTypeCreateCommand extends Command<AcceptanceCriteriaFieldType>
+		implements IFieldTypesCommand {
 
 	/**
 	 * Represents the name of the FieldType.
@@ -43,21 +43,17 @@ public class AcceptanceCriteriaFieldTypeCreateCommand
 	 * @param multiplicity
 	 *            of the new FieldType
 	 */
-	public AcceptanceCriteriaFieldTypeCreateCommand(final String name,
-			final Multiplicity multiplicity) {
+	public AcceptanceCriteriaFieldTypeCreateCommand(final String name, final Multiplicity multiplicity) {
 		super();
 		this.name = name;
 		this.multiplicityId = multiplicity.getId();
 	}
 
 	@Override
-	protected AcceptanceCriteriaFieldType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+	protected AcceptanceCriteriaFieldType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
 		final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType =
 				new AcceptanceCriteriaFieldType(model, this.name, multiplicity);
 		return acceptanceCriteriaFieldType;

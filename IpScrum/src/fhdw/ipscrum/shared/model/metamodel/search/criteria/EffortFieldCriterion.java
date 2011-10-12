@@ -53,8 +53,7 @@ public class EffortFieldCriterion extends SearchCriteria {
 				@Override
 				public void handleSingleField(final SingleField<?> singleField) {
 					EffortFieldCriterion.this.returnValue =
-							singleField.getValue().equals(
-									EffortFieldCriterion.this.effort);
+							singleField.getValue().equals(EffortFieldCriterion.this.effort);
 
 				}
 
@@ -62,8 +61,8 @@ public class EffortFieldCriterion extends SearchCriteria {
 				public void handleListField(final ListField<?> listField) {
 					@SuppressWarnings("unchecked")
 					final ListField<Effort> lf = (ListField<Effort>) listField;
-					for (final Effort current : lf.getValues()) {
-						if (current.equals(EffortFieldCriterion.this.effort)) {
+					for (final Effort cur : lf.getValues()) {
+						if (cur.equals(EffortFieldCriterion.this.effort)) {
 							EffortFieldCriterion.this.returnValue = true;
 							break;
 						}

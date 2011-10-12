@@ -41,8 +41,7 @@ public class Event<T extends EventArgs> implements IEvent<T> {
 	 *            The arguments to send with the event notification.
 	 */
 	public void fire(final Object sender, final T e) {
-		for (final EventHandler<T> current : new ArrayList<EventHandler<T>>(
-				this.handlers)) {
+		for (final EventHandler<T> current : new ArrayList<EventHandler<T>>(this.handlers)) {
 			current.onUpdate(sender, e);
 		}
 	}

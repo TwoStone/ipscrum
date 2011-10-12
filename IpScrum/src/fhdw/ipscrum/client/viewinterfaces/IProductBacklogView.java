@@ -12,8 +12,8 @@ import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.ProductBacklogView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.ProductBacklogView).
  */
 public interface IProductBacklogView extends IView {
 
@@ -47,8 +47,7 @@ public interface IProductBacklogView extends IView {
 	 * @param arg
 	 *            needed to handle the event, which also knows the related PBI
 	 */
-	void addPBIDetailsEventHandler(
-			fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg);
+	void addPBIDetailsEventHandler(fhdw.ipscrum.client.architecture.events.EventHandler<PBIArgs> arg);
 
 	/**
 	 * Represents the Event to handle the decrease the priority of a PBI.
@@ -113,8 +112,7 @@ public interface IProductBacklogView extends IView {
 	 *            needed to handle the event
 	 * @return the event which handles the switch, and also knows the project to switch to
 	 */
-	EventRegistration registerGotoProjectHandler(
-			EventHandler<TypedEventArg<Project>> handler);
+	EventRegistration registerGotoProjectHandler(EventHandler<TypedEventArg<Project>> handler);
 
 	/**
 	 * sets the project the ProductBacklog is related to.

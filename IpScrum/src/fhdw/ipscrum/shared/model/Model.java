@@ -81,10 +81,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (this.objects == null ? 0 : this.objects.hashCode());
-		result =
-				prime
-						* result
-						+ (this.revisionDate == null ? 0 : this.revisionDate.hashCode());
+		result = prime * result + (this.revisionDate == null ? 0 : this.revisionDate.hashCode());
 		return result;
 	}
 
@@ -424,8 +421,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	}
 
 	/**
-	 * Returns all object of the specific type that matches the filter that are not
-	 * deleted.
+	 * Returns all object of the specific type that matches the filter that are not deleted.
 	 * 
 	 * 
 	 * @param <R>
@@ -437,12 +433,11 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	 * 
 	 * @return all object of the specific type
 	 */
-	protected <R extends IdentifiableObject> List<R> getAllOfTypeWithFilter(
-			final Class<R> clazz, final Predicate<R> filter) {
+	protected <R extends IdentifiableObject> List<R> getAllOfTypeWithFilter(final Class<R> clazz,
+			final Predicate<R> filter) {
 		final List<R> result = new ArrayList<R>();
 
-		for (final Map.Entry<String, IdentifiableObject> current : this.objects
-				.entrySet()) {
+		for (final Map.Entry<String, IdentifiableObject> current : this.objects.entrySet()) {
 
 			if (ClassUtils.isAssignableFrom(current.getValue().getClass(), clazz)) {
 				@SuppressWarnings("unchecked")
@@ -473,8 +468,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	 */
 	public List<IdentifiableObject> getChangedObjects() {
 		final List<IdentifiableObject> ret = new ArrayList<IdentifiableObject>();
-		for (final Map.Entry<String, IdentifiableObject> current : this.objects
-				.entrySet()) {
+		for (final Map.Entry<String, IdentifiableObject> current : this.objects.entrySet()) {
 			if (current.getValue().hasChanged()) {
 				ret.add(current.getValue());
 			}
@@ -495,8 +489,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	 *             if no such object exists
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends IdentifiableObject> T getObject(final T object)
-			throws NoObjectFindException {
+	public <T extends IdentifiableObject> T getObject(final T object) throws NoObjectFindException {
 		return (T) this.getObject(object.getId());
 	}
 
@@ -539,8 +532,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 				if (arg0.getProject().equals(arg1.getProject())) {
 					return arg0.getName().compareTo(arg1.getName());
 				}
-				return arg0.getProject().getName()
-						.compareTo(arg1.getProject().getName());
+				return arg0.getProject().getName().compareTo(arg1.getProject().getName());
 			}
 		});
 
@@ -720,8 +712,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	 * @throws DoubleDefinitionException
 	 *             if the type already exists
 	 */
-	public void addRelationType(final RelationType type)
-			throws DoubleDefinitionException {
+	public void addRelationType(final RelationType type) throws DoubleDefinitionException {
 		this.getConsistencyManager().checkForDoubleRelationType(type);
 		this.addNewObject(type);
 	}
@@ -883,8 +874,7 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	 *             if the value is not valid
 	 */
 	public void addIncident(final Incident incident) throws NoValidValueException {
-		this.getConsistencyManager().checkForValidDateRange(incident.getStart(),
-				incident.getEnd());
+		this.getConsistencyManager().checkForValidDateRange(incident.getStart(), incident.getEnd());
 		this.addNewObject(incident);
 	}
 
@@ -897,17 +887,15 @@ public class Model implements IsSerializable, Serializable, BDAManagerInterface 
 	 * @throws NoObjectFindException
 	 *             if no incidentType with this name exists
 	 */
-	public IncidentType getIncidentTypeByName(final String incidentTypeName)
-			throws NoObjectFindException {
+	public IncidentType getIncidentTypeByName(final String incidentTypeName) throws NoObjectFindException {
 		final List<IncidentType> incidentTypes =
-				this.getAllOfTypeWithFilter(IncidentType.class,
-						new Predicate<IncidentType>() {
+				this.getAllOfTypeWithFilter(IncidentType.class, new Predicate<IncidentType>() {
 
-							@Override
-							public boolean test(final IncidentType element) {
-								return element.getName().equals(incidentTypeName);
-							}
-						});
+					@Override
+					public boolean test(final IncidentType element) {
+						return element.getName().equals(incidentTypeName);
+					}
+				});
 		if (incidentTypes.size() == 0) {
 			throw new NoObjectFindException("Could not find IncidentType!");
 		}

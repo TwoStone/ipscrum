@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a sprint field type.
  */
-public class SprintFieldTypeCreateCommand extends Command<SprintFieldType>
-		implements IFieldTypesCommand {
+public class SprintFieldTypeCreateCommand extends Command<SprintFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -43,23 +42,18 @@ public class SprintFieldTypeCreateCommand extends Command<SprintFieldType>
 	 * @param multiplicity
 	 *            of the new FieldType
 	 */
-	public SprintFieldTypeCreateCommand(final String name,
-			final Multiplicity multiplicity) {
+	public SprintFieldTypeCreateCommand(final String name, final Multiplicity multiplicity) {
 		super();
 		this.name = name;
 		this.multiplicityId = multiplicity.getId();
 	}
 
 	@Override
-	protected SprintFieldType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+	protected SprintFieldType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final SprintFieldType sprintFieldType =
-				new SprintFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final SprintFieldType sprintFieldType = new SprintFieldType(model, this.name, multiplicity);
 		return sprintFieldType;
 	}
 

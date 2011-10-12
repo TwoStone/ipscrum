@@ -27,30 +27,28 @@ public class TransactionController extends ClientController {
 	private Transaction pendingTransaction;
 
 	/**
-	 * Handles updates of the model. If a new model is received we have to ensure that no
-	 * commands for the old model exist.
+	 * Handles updates of the model. If a new model is received we have to ensure that no commands for the old model
+	 * exist.
 	 */
-	private final Handler<ModelUpdateEvent> modelUpdateHandler =
-			new ClientContext.ModelUpdateHandler() {
+	private final Handler<ModelUpdateEvent> modelUpdateHandler = new ClientContext.ModelUpdateHandler() {
 
-				@Override
-				public void handleModelUpdated(final ModelUpdateEvent event) {
-					GWT.log("[TransactionController] New model loaded, ensure that the pending transaction is reseted");
-					final Transaction oldTransaction =
-							TransactionController.this.pendingTransaction;
-					TransactionController.this.pendingTransaction = null;
+		@Override
+		public void handleModelUpdated(final ModelUpdateEvent event) {
+			GWT.log("[TransactionController] New model loaded, ensure that the pending transaction is reseted");
+			final Transaction oldTransaction = TransactionController.this.pendingTransaction;
+			TransactionController.this.pendingTransaction = null;
 
-					if (oldTransaction != null) {
-						try {
-							TransactionController.this.beginTransaction();
-						} catch (final PendingCommitException e) {
-							// Normally this should not happen because we set the
-							// pendingTransaction to null.
-							GWT.log("[TransactionController]", e);
-						}
-					}
+			if (oldTransaction != null) {
+				try {
+					TransactionController.this.beginTransaction();
+				} catch (final PendingCommitException e) {
+					// Normally this should not happen because we set the
+					// pendingTransaction to null.
+					GWT.log("[TransactionController]", e);
 				}
-			};
+			}
+		}
+	};
 
 	/**
 	 * constructor of the TransactionController.
@@ -61,8 +59,7 @@ public class TransactionController extends ClientController {
 	public TransactionController(final ClientContext context) {
 		super(context);
 
-		context.getEventBus().registerHandler(ModelUpdateEvent.class,
-				this.modelUpdateHandler);
+		context.getEventBus().registerHandler(ModelUpdateEvent.class, this.modelUpdateHandler);
 	}
 
 	/**
@@ -77,16 +74,14 @@ public class TransactionController extends ClientController {
 		if (context.getModel().getViewOnlyFlag()) {
 			return;
 		}
-		if (this.pendingTransaction != null
-				&& this.pendingTransaction.getCommands().size() > 0) {
+		if (this.pendingTransaction != null && this.pendingTransaction.getCommands().size() > 0) {
 			throw new PendingCommitException();
 		} else {
 			GWT.log("[TransactionController] new transaction started");
 			final Model model = context.getModel();
 			this.pendingTransaction =
-					new Transaction(model.getRevisionDate(), context.getCurrentUser()
-							.getPerson(), context.getActiveRole(), model
-							.getUuidManager().getAllUUIDs());
+					new Transaction(model.getRevisionDate(), context.getCurrentUser().getPerson(),
+							context.getActiveRole(), model.getUuidManager().getAllUUIDs());
 		}
 	}
 
@@ -111,13 +106,11 @@ public class TransactionController extends ClientController {
 	 * @throws NoOpenTransactionException
 	 *             if there is no transaction open to add a command to
 	 */
-	public void addTransactionCommand(final Command<?> command)
-			throws NoOpenTransactionException {
+	public void addTransactionCommand(final Command<?> command) throws NoOpenTransactionException {
 		if (this.pendingTransaction != null) {
 			this.pendingTransaction.addCommand(command);
 		} else {
-			throw new NoOpenTransactionException(
-					"Es existiert keine offene Transaktion!");
+			throw new NoOpenTransactionException("Es existiert keine offene Transaktion!");
 		}
 	}
 
@@ -129,8 +122,7 @@ public class TransactionController extends ClientController {
 	 * @throws ModelLockedException
 	 *             if the transaction could be commited
 	 */
-	public void commitTransaction(final AsyncCallback<Void> callback)
-			throws ModelLockedException {
+	public void commitTransaction(final AsyncCallback<Void> callback) throws ModelLockedException {
 		final ClientContext context = this.getContext();
 
 		if (context.getModel().getViewOnlyFlag()) {
@@ -139,10 +131,9 @@ public class TransactionController extends ClientController {
 
 		GWT.log("[TransactionController] commiting transaction");
 
-		if (this.pendingTransaction != null
-				&& this.pendingTransaction.getCommands().size() > 0) {
-			TransactionService.Util.getInstance().commitTransaction(
-					this.pendingTransaction, new AsyncCallback<Model>() {
+		if (this.pendingTransaction != null && this.pendingTransaction.getCommands().size() > 0) {
+			TransactionService.Util.getInstance().commitTransaction(this.pendingTransaction,
+					new AsyncCallback<Model>() {
 
 						@Override
 						public void onSuccess(final Model result) {
@@ -176,15 +167,13 @@ public class TransactionController extends ClientController {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public <R> R doCommand(final WritePresenter presenter, final Command<R> command)
-			throws IPScrumGeneralException {
+	public <R> R doCommand(final WritePresenter presenter, final Command<R> command) throws IPScrumGeneralException {
 
 		if (presenter.getContext().getModel().getViewOnlyFlag()) {
 			throw new ModelLockedException();
 		}
 
-		command.execute(presenter.getContext().getModel(), presenter.getContext()
-				.getActiveRole());
+		command.execute(presenter.getContext().getModel(), presenter.getContext().getActiveRole());
 		GWT.log("[TransactionController] Executed command local " + command.toString());
 		final R result = command.getResult();
 		this.addTransactionCommand(command);
@@ -196,7 +185,6 @@ public class TransactionController extends ClientController {
 	 * @return <code>true</code> if there are commands contained the current transaction
 	 */
 	public boolean hasPendingChanged() {
-		return this.pendingTransaction != null
-				&& !this.pendingTransaction.getCommands().isEmpty();
+		return this.pendingTransaction != null && !this.pendingTransaction.getCommands().isEmpty();
 	}
 }

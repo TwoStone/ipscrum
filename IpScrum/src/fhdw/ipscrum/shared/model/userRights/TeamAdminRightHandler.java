@@ -30,21 +30,18 @@ class TeamAdminRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleTeamAddMemberCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleTeamAddMemberCommand
 	 * (fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAddMemberCommand)
 	 */
 	@Override
-	public void handleTeamAddMemberCommand(
-			final TeamAddMemberCommand teamAddMemberCommand) {
+	public void handleTeamAddMemberCommand(final TeamAddMemberCommand teamAddMemberCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleTeamCreateCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleTeamCreateCommand
 	 * (fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamCreateCommand)
 	 */
 	@Override
@@ -55,39 +52,33 @@ class TeamAdminRightHandler extends RightHandler {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleTeamRemoveMemberCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleTeamRemoveMemberCommand
 	 * (fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamRemoveMemberCommand)
 	 */
 	@Override
-	public void handleTeamRemoveMemberCommand(
-			final TeamRemoveMemberCommand teamRemoveMemberCommand) {
+	public void handleTeamRemoveMemberCommand(final TeamRemoveMemberCommand teamRemoveMemberCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleTeamSetDescriptionCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleTeamSetDescriptionCommand
 	 * (fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamSetDescriptionCommand)
 	 */
 	@Override
-	public void handleTeamSetDescriptionCommand(
-			final TeamSetDescriptionCommand teamSetDescriptionCommand) {
+	public void handleTeamSetDescriptionCommand(final TeamSetDescriptionCommand teamSetDescriptionCommand) {
 		this.allowed();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor#
-	 * handleTeamAddProjectCommand
+	 * @see fhdw.ipscrum.shared.commands.visitor.AdminCommandStandardVisitor# handleTeamAddProjectCommand
 	 * (fhdw.ipscrum.shared.commands.admin.teamAdministration.TeamAddProjectCommand)
 	 */
 	@Override
-	public void handleTeamAddProjectCommand(
-			final TeamAddProjectCommand teamAddProjectCommand) {
+	public void handleTeamAddProjectCommand(final TeamAddProjectCommand teamAddProjectCommand) {
 		this.allowed();
 	}
 

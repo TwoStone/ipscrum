@@ -31,8 +31,7 @@ public interface ProjectCommandVisitor {
 	 * @param projectChangeNameCommand
 	 *            concrete command.
 	 */
-	void handleProjectChangeNameCommand(
-			ProjectChangeNameCommand projectChangeNameCommand);
+	void handleProjectChangeNameCommand(ProjectChangeNameCommand projectChangeNameCommand);
 
 	/**
 	 * specific visitor action.
@@ -56,8 +55,7 @@ public interface ProjectCommandVisitor {
 	 * @param projectRemoveSystemCommand
 	 *            concrete command.
 	 */
-	void handleProjectRemoveSystemCommand(
-			ProjectRemoveSystemCommand projectRemoveSystemCommand);
+	void handleProjectRemoveSystemCommand(ProjectRemoveSystemCommand projectRemoveSystemCommand);
 
 	/**
 	 * specific visitor action.
@@ -89,8 +87,7 @@ public interface ProjectCommandVisitor {
 	 * @param releaseRemoveSprintCommand
 	 *            concrete command.
 	 */
-	void handleReleaseRemoveSprintCommand(
-			ReleaseRemoveSprintCommand releaseRemoveSprintCommand);
+	void handleReleaseRemoveSprintCommand(ReleaseRemoveSprintCommand releaseRemoveSprintCommand);
 
 	/**
 	 * specific visitor action.

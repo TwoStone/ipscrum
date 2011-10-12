@@ -78,7 +78,7 @@ public class TicketTypeAddFieldTypeCommandTest extends TicketTypeTestBase {
 			}
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 				Assert.fail();
 			}
 		});

@@ -36,8 +36,7 @@ public class ReleaseDeleteCommand extends Command<Void> implements IProjectComma
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Release release = (Release) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format("Release '%s' entfernt.",
-				release.getVersion()));
+		this.setStringValue(StringUtils.format("Release '%s' entfernt.", release.getVersion()));
 		release.getProject().removeRelease(release);
 		return null;
 	}

@@ -20,8 +20,7 @@ import fhdw.ipscrum.shared.observer.PersistentObserver;
 /**
  * Represents the SprintBacklog.
  */
-public class SprintBacklog extends IdentifiableObject
-		implements IsSerializable, PersistentObserver {
+public class SprintBacklog extends IdentifiableObject implements IsSerializable, PersistentObserver {
 
 	/**
 	 * Represents the serialVersionUID.
@@ -62,8 +61,7 @@ public class SprintBacklog extends IdentifiableObject
 	}
 
 	/**
-	 * This method provides access to all tasks contained in the sprint backlog by an
-	 * iterator.
+	 * This method provides access to all tasks contained in the sprint backlog by an iterator.
 	 * 
 	 * @return Iterator
 	 */
@@ -153,8 +151,7 @@ public class SprintBacklog extends IdentifiableObject
 	 * @throws ForbiddenStateException
 	 *             if the task is in a state this method is forbidden
 	 */
-	public void removePBIFromTasks(final ProductBacklogItem pbi)
-			throws ForbiddenStateException, ConsistencyException {
+	public void removePBIFromTasks(final ProductBacklogItem pbi) throws ForbiddenStateException, ConsistencyException {
 		final Iterator<Task> taskIterator = this.taskIterator();
 		while (taskIterator.hasNext()) {
 			final Task current = taskIterator.next();
@@ -212,8 +209,7 @@ public class SprintBacklog extends IdentifiableObject
 		}
 		((Message) argument).accept(new MessageStandardVisitor() {
 			@Override
-			public void
-					handleTaskCompletionMessage(final TaskCompletionMessage message) {
+			public void handleTaskCompletionMessage(final TaskCompletionMessage message) {
 				SprintBacklog.this.taskUpdate(message);
 			}
 

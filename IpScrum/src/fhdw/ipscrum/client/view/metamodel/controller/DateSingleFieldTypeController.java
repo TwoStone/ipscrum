@@ -25,8 +25,8 @@ public class DateSingleFieldTypeController extends SingleFieldTypeController<Dat
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public DateSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<Date> field) {
+	public DateSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<Date> field) {
 		super(ticket, presenter, field);
 
 		this.widget = new DateSingleFieldWidget();

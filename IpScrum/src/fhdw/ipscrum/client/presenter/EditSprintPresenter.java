@@ -22,8 +22,7 @@ public class EditSprintPresenter extends WritePresenter {
 	private IEditSprintView view;
 
 	/**
-	 * represents the sprint related to this view. It is needed to make clear which sprint
-	 * should be edited.
+	 * represents the sprint related to this view. It is needed to make clear which sprint should be edited.
 	 */
 	private Sprint sprint;
 
@@ -31,8 +30,8 @@ public class EditSprintPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.EditSprintPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param sprint
 	 *            is the related sprint which should be edited
 	 */
@@ -63,8 +62,7 @@ public class EditSprintPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
-					EditSprintPresenter.this.showQuestion(
-							"Wollen Sie die Seite ohne zu speichern verlassen?",
+					EditSprintPresenter.this.showQuestion("Wollen Sie die Seite ohne zu speichern verlassen?",
 							new Answer("Ja!") {
 
 								@Override
@@ -89,9 +87,8 @@ public class EditSprintPresenter extends WritePresenter {
 	@Override
 	public Boolean onSave() {
 		try {
-			this.doCommand(new SprintChangeCommand(this.sprint, this.view.getName(),
-					this.view.getDescription(), this.view.getStart(), this.view
-							.getEnd(), this.view.getSelectedTeam()));
+			this.doCommand(new SprintChangeCommand(this.sprint, this.view.getName(), this.view.getDescription(),
+					this.view.getStart(), this.view.getEnd(), this.view.getSelectedTeam()));
 			this.commitTransaction();
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {

@@ -26,8 +26,8 @@ public class PBIFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if the PBIFieldType already exist with the same parameters
 	 */
-	public PBIFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public PBIFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 

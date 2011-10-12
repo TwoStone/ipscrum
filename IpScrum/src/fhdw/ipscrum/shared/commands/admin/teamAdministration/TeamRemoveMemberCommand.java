@@ -46,8 +46,8 @@ public class TeamRemoveMemberCommand extends Command<Void> implements ITeamComma
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Team team = (Team) model.getObject(this.getReceiverGuid());
 		final Person person = (Person) model.getObject(this.personId);
-		this.setStringValue(StringUtils.format("%s wurde aus dem Team '%s' entfernt.",
-				person.toString(), team.getDescription()));
+		this.setStringValue(StringUtils.format("%s wurde aus dem Team '%s' entfernt.", person.toString(),
+				team.getDescription()));
 		team.removeMember(person);
 		return null;
 	}

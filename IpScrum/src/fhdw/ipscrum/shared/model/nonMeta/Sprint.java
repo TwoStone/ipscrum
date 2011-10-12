@@ -99,10 +99,9 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	 * @throws ConsistencyException
 	 *             if the team isn't assigned to project.
 	 */
-	public Sprint(final Model model, final String name, final String description,
-			final Date begin, final Date end, final Team team, final Project project)
-			throws NoValidValueException, DoubleDefinitionException,
-			ConsistencyException {
+	public Sprint(final Model model, final String name, final String description, final Date begin, final Date end,
+			final Team team, final Project project)
+			throws NoValidValueException, DoubleDefinitionException, ConsistencyException {
 		super(model);
 		this.setName(name);
 		this.setDescription(description);
@@ -134,8 +133,7 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	}
 
 	/**
-	 * Method getCumulatedManDayCosts. Calculates the cumulated ManDayCosts of all PBIs of
-	 * this Sprint.
+	 * Method getCumulatedManDayCosts. Calculates the cumulated ManDayCosts of all PBIs of this Sprint.
 	 * 
 	 * @return Effort
 	 * @throws NoValidValueException
@@ -150,8 +148,8 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	}
 
 	/**
-	 * Method getCumulatedManDayCostsOfClosedPbis. Calculates the cumulated ManDayCosts of
-	 * all closed PBIs of this Sprint.
+	 * Method getCumulatedManDayCostsOfClosedPbis. Calculates the cumulated ManDayCosts of all closed PBIs of this
+	 * Sprint.
 	 * 
 	 * @return Effort
 	 * @throws NoValidValueException
@@ -160,8 +158,7 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	public Effort getCumulatedManDayCostsOfClosedPbis() throws NoValidValueException {
 		this.result = 0;
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
-			if (pbi.getTicketType().getStateProfile().getEndStates()
-					.contains(pbi.getCurrentState())) {
+			if (pbi.getTicketType().getStateProfile().getEndStates().contains(pbi.getCurrentState())) {
 				this.result += pbi.getManDayCosts().getValue();
 			}
 		}
@@ -169,20 +166,18 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	}
 
 	/**
-	 * Method getCumulatedManDayCostsOfClosedFeatures. Calculates the cumulated
-	 * ManDayCosts of all closed Features of this Sprint.
+	 * Method getCumulatedManDayCostsOfClosedFeatures. Calculates the cumulated ManDayCosts of all closed Features of
+	 * this Sprint.
 	 * 
 	 * @return Effort
 	 * @throws NoValidValueException
 	 *             if one vaule is not valid
 	 */
-	public Effort getCumulatedManDayCostsOfClosedFeatures()
-			throws NoValidValueException {
+	public Effort getCumulatedManDayCostsOfClosedFeatures() throws NoValidValueException {
 		this.result = 0;
 
 		for (final ProductBacklogItem pbi : this.getPBIs()) {
-			if (pbi.getTicketType().getStateProfile().getEndStates()
-					.contains(pbi.getCurrentState())) {
+			if (pbi.getTicketType().getStateProfile().getEndStates().contains(pbi.getCurrentState())) {
 
 				pbi.accept(new IProductBacklogItemVisitor() {
 
@@ -297,10 +292,8 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	 *             if the value is nor valid
 	 */
 	public void setName(final String name) throws NoValidValueException {
-		if (name == null || name.length() == 0
-				|| name.length() > TextConstants.NAME_MAX) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.SPRINT_NAME_ERROR);
+		if (name == null || name.length() == 0 || name.length() > TextConstants.NAME_MAX) {
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.SPRINT_NAME_ERROR);
 		} else {
 			this.name = name;
 			this.changed();
@@ -318,15 +311,12 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	 *             if the team does not contain the project of the sprint
 	 * 
 	 */
-	public void setTeam(final Team team) throws NoValidValueException,
-			ConsistencyException {
+	public void setTeam(final Team team) throws NoValidValueException, ConsistencyException {
 		if (team == null) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_TEAM_SELECTED_ERROR);
 		} else {
 			if (!team.getProjects().contains(this.getProject())) {
-				throw new ConsistencyException(
-						ExceptionConstants.TEAM_NOT_ASSIGNED_ERROR);
+				throw new ConsistencyException(ExceptionConstants.TEAM_NOT_ASSIGNED_ERROR);
 			}
 			this.team = team;
 			this.changed();
@@ -343,14 +333,11 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	 * @throws NoValidValueException
 	 *             if one of the values is nor valid
 	 */
-	public void setTimeFrame(final Date beginDate, final Date endDate)
-			throws NoValidValueException {
+	public void setTimeFrame(final Date beginDate, final Date endDate) throws NoValidValueException {
 		if (beginDate == null || endDate == null) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.NO_VALID_DATE_ERROR);
 		} else if (endDate.before(beginDate)) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.END_BEFORE_BEGIN_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		} else {
 			this.begin = CalendarUtils.copy(beginDate);
 			this.end = CalendarUtils.copy(endDate);
@@ -396,8 +383,7 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 		((Message) argument).accept(new MessageStandardVisitor() {
 
 			@Override
-			public void
-					handleTaskCompletionMessage(final TaskCompletionMessage message) {
+			public void handleTaskCompletionMessage(final TaskCompletionMessage message) {
 				Sprint.this.sprintBacklogUpdate(message);
 			}
 
@@ -424,8 +410,7 @@ public class Sprint extends IdentifiableObject implements PersistentObserver {
 	@SuppressWarnings("deprecation")
 	public void checkDeadline() {
 		final Date today = new Date();
-		if (this.end.getDay() == today.getDay()
-				&& this.end.getMonth() == today.getMonth()
+		if (this.end.getDay() == today.getDay() && this.end.getMonth() == today.getMonth()
 				&& this.end.getYear() == today.getYear() || this.end.before(today)) {
 			final SprintCompletionMessage message = new SprintCompletionMessage(this);
 			this.notifyObservers(message);

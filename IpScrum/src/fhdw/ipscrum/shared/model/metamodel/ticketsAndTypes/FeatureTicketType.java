@@ -5,8 +5,7 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.visitor.PBITicketTypeVisitor;
 
 /**
- * this class represents the knowledge layer of features. objects of this class determine
- * the behaviour of features.
+ * this class represents the knowledge layer of features. objects of this class determine the behaviour of features.
  */
 public class FeatureTicketType extends PBITicketType {
 
@@ -27,8 +26,8 @@ public class FeatureTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public FeatureTicketType(final Model model, final String name,
-			final String description) throws IPScrumGeneralException {
+	public FeatureTicketType(final Model model, final String name, final String description)
+			throws IPScrumGeneralException {
 		super(model, name, description);
 	}
 
@@ -53,9 +52,8 @@ public class FeatureTicketType extends PBITicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected FeatureTicketType(final Model model, final String name,
-			final String description, final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected FeatureTicketType(final Model model, final String name, final String description,
+			final TypeManager typeManager) throws IPScrumGeneralException {
 		super(model, name, description, typeManager);
 	}
 

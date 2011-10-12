@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.ModelException;
 
 /**
  * Represents the Exception thrown if nothing is selected.
- *
+ * 
  */
 public class NothingSelectedException extends ModelException {
 
@@ -15,7 +15,9 @@ public class NothingSelectedException extends ModelException {
 
 	/**
 	 * Constructor of the Exception.
-	 * @param message thrown by the Exception
+	 * 
+	 * @param message
+	 *            thrown by the Exception
 	 */
 	public NothingSelectedException(final String message) {
 		super(message);

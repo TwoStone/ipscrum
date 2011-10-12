@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a system field type.
  */
-public class SystemFieldTypeCreateCommand extends Command<SystemFieldType>
-		implements IFieldTypesCommand {
+public class SystemFieldTypeCreateCommand extends Command<SystemFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -43,23 +42,18 @@ public class SystemFieldTypeCreateCommand extends Command<SystemFieldType>
 	 * @param multiplicity
 	 *            of the new FieldType
 	 */
-	public SystemFieldTypeCreateCommand(final String name,
-			final Multiplicity multiplicity) {
+	public SystemFieldTypeCreateCommand(final String name, final Multiplicity multiplicity) {
 		super();
 		this.name = name;
 		this.multiplicityId = multiplicity.getId();
 	}
 
 	@Override
-	protected SystemFieldType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+	protected SystemFieldType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final SystemFieldType systemFieldType =
-				new SystemFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final SystemFieldType systemFieldType = new SystemFieldType(model, this.name, multiplicity);
 		return systemFieldType;
 	}
 

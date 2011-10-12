@@ -53,8 +53,7 @@ public class MultipleParticipantIncidentTest extends SetUpTestData {
 		final Date start = new Date();
 		final Date end = new Date();
 
-		final MultipleParticipantIncident result =
-				new MultipleParticipantIncident(this.getModel(), start, end);
+		final MultipleParticipantIncident result = new MultipleParticipantIncident(this.getModel(), start, end);
 
 		Assert.assertNotNull(result);
 		Assert.assertEquals(false, result.isGlobal());

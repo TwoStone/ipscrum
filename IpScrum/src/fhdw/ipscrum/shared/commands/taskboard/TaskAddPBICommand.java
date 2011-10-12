@@ -46,9 +46,7 @@ public class TaskAddPBICommand extends Command<Void> implements ITaskboardComman
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Task task = (Task) model.getObject(this.getReceiverGuid());
 		final ProductBacklogItem pbi = (ProductBacklogItem) model.getObject(this.pbiId);
-		this.setStringValue(StringUtils.format(
-				"Task '%s' wurde das PBI %s hinzugefügt.", task.getName(),
-				pbi.getName()));
+		this.setStringValue(StringUtils.format("Task '%s' wurde das PBI %s hinzugefügt.", task.getName(), pbi.getName()));
 		task.addPBI(pbi);
 		return null;
 	}

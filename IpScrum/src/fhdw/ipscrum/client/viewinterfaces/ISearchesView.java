@@ -8,8 +8,8 @@ import fhdw.ipscrum.client.eventargs.SearchEventArgs;
 import fhdw.ipscrum.shared.model.metamodel.search.Search;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.SearchesView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.SearchesView).
  */
 public interface ISearchesView extends IView {
 

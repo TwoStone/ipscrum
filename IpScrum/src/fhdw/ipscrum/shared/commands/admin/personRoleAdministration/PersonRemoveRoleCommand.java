@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a role from a person.
  */
-public class PersonRemoveRoleCommand extends Command<Void>
-		implements IPersonRoleCommand {
+public class PersonRemoveRoleCommand extends Command<Void> implements IPersonRoleCommand {
 
 	/**
 	 * Represents the role which should be removed.
@@ -48,8 +47,8 @@ public class PersonRemoveRoleCommand extends Command<Void>
 		final Person person = (Person) model.getObject(this.getReceiverGuid());
 		final Role role = (Role) model.getObject(this.roleId);
 
-		this.setStringValue(StringUtils.format("%s %s wurde die Rolle %s entzogen.",
-				person.getFirstname(), person.getLastname(), role.getDescription()));
+		this.setStringValue(StringUtils.format("%s %s wurde die Rolle %s entzogen.", person.getFirstname(),
+				person.getLastname(), role.getDescription()));
 
 		person.removeRole(role);
 		return null;

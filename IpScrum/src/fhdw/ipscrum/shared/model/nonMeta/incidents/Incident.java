@@ -13,10 +13,9 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.utils.CalendarUtils;
 
 /**
- * An Incident represents events occurring in one ore more scrum projects. Incidents which
- * are well recorded, are a good tool for analyzing the velocity and the progress of the
- * projects. They represent the project history and provide a basis for planning
- * activities. Incidents are in the operations layer. the knowledge layer contains the
+ * An Incident represents events occurring in one ore more scrum projects. Incidents which are well recorded, are a good
+ * tool for analyzing the velocity and the progress of the projects. They represent the project history and provide a
+ * basis for planning activities. Incidents are in the operations layer. the knowledge layer contains the
  * {@link IncidentType} instances.
  */
 public abstract class Incident extends IdentifiableObject implements IsSerializable {
@@ -27,13 +26,11 @@ public abstract class Incident extends IdentifiableObject implements IsSerializa
 	private static final long serialVersionUID = 3849328996818037099L;
 
 	/**
-	 * start date of the incident. If the incident lasts one Day, start and end date are
-	 * the same.
+	 * start date of the incident. If the incident lasts one Day, start and end date are the same.
 	 */
 	private Date start;
 	/**
-	 * end date of the incident. If the incident lasts one Day, start and end date are the
-	 * same.
+	 * end date of the incident. If the incident lasts one Day, start and end date are the same.
 	 */
 	private Date end;
 
@@ -75,8 +72,7 @@ public abstract class Incident extends IdentifiableObject implements IsSerializa
 	 * @throws IPScrumGeneralException
 	 *             if somthing fails
 	 */
-	protected Incident(final Model model, final Date start, final Date end)
-			throws IPScrumGeneralException {
+	protected Incident(final Model model, final Date start, final Date end) throws IPScrumGeneralException {
 		super(model);
 
 		model.getConsistencyManager().checkForValidDateRange(start, end);

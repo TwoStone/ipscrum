@@ -56,8 +56,7 @@ public class InitialCommand extends Command<Void> {
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		this.setStringValue("Initiale Revision - Stammdaten");
 
-		final Person admin =
-				new Person(model, TextConstants.ADMIN, TextConstants.ADMIN);
+		final Person admin = new Person(model, TextConstants.ADMIN, TextConstants.ADMIN);
 
 		this.initializeRightManager(model, admin);
 
@@ -70,8 +69,8 @@ public class InitialCommand extends Command<Void> {
 
 		this.initializeMetaModel(model.getTypeManager(), model);
 
-		new Feature(model, model.getTypeManager().getStandardFeatureType(),
-				"Test Feature", "Tes Description", p.getBacklog());
+		new Feature(model, model.getTypeManager().getStandardFeatureType(), "Test Feature", "Tes Description",
+				p.getBacklog());
 
 		return null;
 	}
@@ -90,9 +89,8 @@ public class InitialCommand extends Command<Void> {
 	 * @throws ConsistencyException
 	 *             if the admin has already the master role.
 	 */
-	private void initializeRightManager(final Model model, final Person admin)
-			throws NoValidValueException, DoubleDefinitionException,
-			ConsistencyException {
+	private void initializeRightManager(final Model model, final Person admin) throws NoValidValueException,
+			DoubleDefinitionException, ConsistencyException {
 
 		final RightManager rm = model.getRightManager();
 
@@ -164,33 +162,23 @@ public class InitialCommand extends Command<Void> {
 	 * @throws DoubleDefinitionException
 	 *             if something is already initialized
 	 */
-	private void initializeStandardFieldTypes(final TypeManager typeManager,
-			final Model model) throws DoubleDefinitionException {
-		typeManager.setAcceptanceCriteriaType(new TextFieldType(model,
-				"Akzeptanzkriterien", typeManager.getMany()));
-		typeManager.setHintsType(new TextFieldType(model, "Hinweise", typeManager
-				.getMany()));
+	private void initializeStandardFieldTypes(final TypeManager typeManager, final Model model)
+			throws DoubleDefinitionException {
+		typeManager.setAcceptanceCriteriaType(new TextFieldType(model, "Akzeptanzkriterien", typeManager.getMany()));
+		typeManager.setHintsType(new TextFieldType(model, "Hinweise", typeManager.getMany()));
 		typeManager.setNameType(new TextFieldType(model, "Name", typeManager.getOne()));
-		typeManager.setDescriptionType(new TextFieldType(model, "Beschreibung",
-				typeManager.getOne()));
-		typeManager.setLastEditorType(new PersonFieldType(model, "Letzter Bearbeiter",
-				typeManager.getOne()));
-		typeManager.setManDayCostsType(new EffortFieldType(model, "Aufwand in MT",
-				typeManager.getOne()));
-		typeManager.setSprintType(new SprintFieldType(model, "Sprint", typeManager
-				.getOne()));
-		typeManager.setPlanEffortType(new EffortFieldType(model, "Aufwand in Stunden",
-				typeManager.getOne()));
-		typeManager.setResponsiblePersonType(new PersonFieldType(model,
-				"Verantwortliche Person", typeManager.getOne()));
-		typeManager.setVersionType(new ReleaseFieldType(model, "Version", typeManager
-				.getOne()));
-		typeManager.setSystemsType(new SystemFieldType(model, "Systeme", typeManager
-				.getMany()));
-		typeManager.setAssignedPBIsType(new PBIFieldType(model,
-				"Dem Task zugehörige Product Backlog Einträge", new Many(model)));
-		typeManager.setFinishDateType(new DateFieldType(model, "Enddatum", typeManager
-				.getOne()));
+		typeManager.setDescriptionType(new TextFieldType(model, "Beschreibung", typeManager.getOne()));
+		typeManager.setLastEditorType(new PersonFieldType(model, "Letzter Bearbeiter", typeManager.getOne()));
+		typeManager.setManDayCostsType(new EffortFieldType(model, "Aufwand in MT", typeManager.getOne()));
+		typeManager.setSprintType(new SprintFieldType(model, "Sprint", typeManager.getOne()));
+		typeManager.setPlanEffortType(new EffortFieldType(model, "Aufwand in Stunden", typeManager.getOne()));
+		typeManager
+				.setResponsiblePersonType(new PersonFieldType(model, "Verantwortliche Person", typeManager.getOne()));
+		typeManager.setVersionType(new ReleaseFieldType(model, "Version", typeManager.getOne()));
+		typeManager.setSystemsType(new SystemFieldType(model, "Systeme", typeManager.getMany()));
+		typeManager.setAssignedPBIsType(new PBIFieldType(model, "Dem Task zugehörige Product Backlog Einträge",
+				new Many(model)));
+		typeManager.setFinishDateType(new DateFieldType(model, "Enddatum", typeManager.getOne()));
 	}
 
 	/**
@@ -203,13 +191,11 @@ public class InitialCommand extends Command<Void> {
 	 * @throws DoubleDefinitionException
 	 *             if something was already initialized
 	 */
-	private void initializeStandardStateTypes(final TypeManager typeManager,
-			final Model model) throws DoubleDefinitionException {
+	private void initializeStandardStateTypes(final TypeManager typeManager, final Model model)
+			throws DoubleDefinitionException {
 		typeManager.setOpenType(new StateType(model, "Offen", "Ticket ist geöffnet"));
-		typeManager.setInProcessType(new StateType(model, "In Arbeit",
-				"Ticket ist in Arbeit"));
-		typeManager.setClosedType(new StateType(model, "Abgeschlossen",
-				"Ticket ist abgeschlossen"));
+		typeManager.setInProcessType(new StateType(model, "In Arbeit", "Ticket ist in Arbeit"));
+		typeManager.setClosedType(new StateType(model, "Abgeschlossen", "Ticket ist abgeschlossen"));
 	}
 
 	/**
@@ -222,12 +208,11 @@ public class InitialCommand extends Command<Void> {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	private void initializeStandardFeature(final TypeManager typeManager,
-			final Model model) throws IPScrumGeneralException {
+	private void initializeStandardFeature(final TypeManager typeManager, final Model model)
+			throws IPScrumGeneralException {
 		final FeatureTicketType standardFeatureType =
-				new FeatureTicketType(model, "Feature",
-						"Features repräsentieren Scrum-Benutzergeschichten und "
-								+ "Anforderungen aus dem Product Backlog");
+				new FeatureTicketType(model, "Feature", "Features repräsentieren Scrum-Benutzergeschichten und "
+						+ "Anforderungen aus dem Product Backlog");
 		typeManager.setStandardFeatureType(standardFeatureType);
 	}
 
@@ -241,13 +226,10 @@ public class InitialCommand extends Command<Void> {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	private void
-			initializeStandardTask(final TypeManager typeManager, final Model model)
-					throws IPScrumGeneralException {
+	private void initializeStandardTask(final TypeManager typeManager, final Model model)
+			throws IPScrumGeneralException {
 		final TaskTicketType standardTaskType =
-				new TaskTicketType(
-						model,
-						"Task",
+				new TaskTicketType(model, "Task",
 						"Tasks repräsentieren Aktivitäten aus dem Sprint Backlog und werden bei der"
 								+ "Sprint-Planung festgelegt. Das Scrum-Team verpflichtet sich zur Erfüllung dieser"
 								+ "Tasks, um das Sprint Ziel zu erreichen.");
@@ -264,16 +246,11 @@ public class InitialCommand extends Command<Void> {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	private void
-			initializeStandardBug(final TypeManager typeManager, final Model model)
-					throws IPScrumGeneralException {
+	private void initializeStandardBug(final TypeManager typeManager, final Model model) throws IPScrumGeneralException {
 		final BugTicketType standardBugType =
-				new BugTicketType(
-						model,
-						"Bug",
-						"Ein Programmfehler oder Softwarefehler, "
-								+ "häufig auch als Bug benannt, bezeichnet im Allgemeinen ein Fehlverhalten "
-								+ "von Computerprogrammen");
+				new BugTicketType(model, "Bug", "Ein Programmfehler oder Softwarefehler, "
+						+ "häufig auch als Bug benannt, bezeichnet im Allgemeinen ein Fehlverhalten "
+						+ "von Computerprogrammen");
 		typeManager.setStandardBugType(standardBugType);
 	}
 

@@ -15,10 +15,9 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.BugTicketType;
 import fhdw.ipscrum.shared.model.visitor.IProductBacklogItemVisitor;
 
 /**
- * Represents a Bug as special type of a {@link ProductBacklogItem}. A feature may contain
- * relationships to other features. Furthermore, acceptance criteria and hints can be
- * associated. A feature can be editable in the state "open" and is read-only in the state
- * "closed".
+ * Represents a Bug as special type of a {@link ProductBacklogItem}. A feature may contain relationships to other
+ * features. Furthermore, acceptance criteria and hints can be associated. A feature can be editable in the state "open"
+ * and is read-only in the state "closed".
  */
 public class Bug extends ProductBacklogItem {
 
@@ -45,9 +44,8 @@ public class Bug extends ProductBacklogItem {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public Bug(final Model model, final BugTicketType type, final String name,
-			final String description, final ProductBacklog backlog,
-			final Release version) throws IPScrumGeneralException {
+	public Bug(final Model model, final BugTicketType type, final String name, final String description,
+			final ProductBacklog backlog, final Release version) throws IPScrumGeneralException {
 		super(model, type, name, description, backlog);
 		this.setVersion(version);
 	}
@@ -114,8 +112,7 @@ public class Bug extends ProductBacklogItem {
 	 * @return unmodifiable List
 	 */
 	public Collection<System> getSystems() {
-		return Collections
-				.unmodifiableCollection(this.getTicketType().getSystems(this));
+		return Collections.unmodifiableCollection(this.getTicketType().getSystems(this));
 	}
 
 	/**

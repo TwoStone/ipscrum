@@ -11,9 +11,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.incidents.IncidentType;
 
 /**
- * View interface required by
- * {@link fhdw.ipscrum.client.presenter.CreateIncidentPresenter} for creating new
- * incidents.
+ * View interface required by {@link fhdw.ipscrum.client.presenter.CreateIncidentPresenter} for creating new incidents.
  */
 public interface ICreateIncidentView extends IView {
 

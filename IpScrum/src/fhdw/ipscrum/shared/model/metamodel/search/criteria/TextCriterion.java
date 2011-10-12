@@ -60,8 +60,8 @@ public abstract class TextCriterion extends SearchCriteria {
 	}
 
 	/**
-	 * This method checks if arg1 contains the attribute value of this class. It differs
-	 * from the String based contains because it's not case sensitive.
+	 * This method checks if arg1 contains the attribute value of this class. It differs from the String based contains
+	 * because it's not case sensitive.
 	 * 
 	 * @param arg
 	 *            Argument

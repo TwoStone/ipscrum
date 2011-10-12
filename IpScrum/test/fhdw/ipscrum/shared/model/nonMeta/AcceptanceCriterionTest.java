@@ -12,8 +12,7 @@ import fhdw.ipscrum.server.TestUtils;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * The class <code>AcceptanceCriterionTest</code> contains tests for the class
- * <code>{@link AcceptanceCriterion}</code>.
+ * The class <code>AcceptanceCriterionTest</code> contains tests for the class <code>{@link AcceptanceCriterion}</code>.
  */
 public class AcceptanceCriterionTest {
 
@@ -32,8 +31,7 @@ public class AcceptanceCriterionTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 	}
 

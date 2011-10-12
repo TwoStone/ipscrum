@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a number field type.
  */
-public class NumberFieldTypeCreateCommand extends Command<NumberFieldType>
-		implements IFieldTypesCommand {
+public class NumberFieldTypeCreateCommand extends Command<NumberFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -43,23 +42,18 @@ public class NumberFieldTypeCreateCommand extends Command<NumberFieldType>
 	 * @param multiplicity
 	 *            of the new FieldType
 	 */
-	public NumberFieldTypeCreateCommand(final String name,
-			final Multiplicity multiplicity) {
+	public NumberFieldTypeCreateCommand(final String name, final Multiplicity multiplicity) {
 		super();
 		this.name = name;
 		this.multiplicityId = multiplicity.getId();
 	}
 
 	@Override
-	protected NumberFieldType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+	protected NumberFieldType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final NumberFieldType numberFieldType =
-				new NumberFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final NumberFieldType numberFieldType = new NumberFieldType(model, this.name, multiplicity);
 		return numberFieldType;
 	}
 

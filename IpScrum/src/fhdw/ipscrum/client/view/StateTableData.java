@@ -21,8 +21,7 @@ public class StateTableData {
 	 * @param endState
 	 *            is the field if the state is an end state, than it is true
 	 */
-	public StateTableData(final StateType state, final Boolean startState,
-			final Boolean endState) {
+	public StateTableData(final StateType state, final Boolean startState, final Boolean endState) {
 		super();
 		this.state = state;
 		this.startState = startState;

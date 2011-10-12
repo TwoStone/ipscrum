@@ -7,8 +7,8 @@ import fhdw.ipscrum.shared.model.metamodel.search.TestAllSearch;
 import fhdw.ipscrum.shared.model.nonMeta.incidents.TestAllIncidents;
 
 /**
- * The class <code>TestAll</code> builds a suite that can be used to run all of the tests
- * within its package as well as within any subpackages of its package.
+ * The class <code>TestAll</code> builds a suite that can be used to run all of the tests within its package as well as
+ * within any subpackages of its package.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({

@@ -17,8 +17,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
 public class AddProjectToTeamPresenter extends WritePresenter {
 
 	/**
-	 * represents the team related to this view. It is needed to make clear to which team
-	 * the project should be added.
+	 * represents the team related to this view. It is needed to make clear to which team the project should be added.
 	 */
 	private Team team;
 
@@ -28,12 +27,11 @@ public class AddProjectToTeamPresenter extends WritePresenter {
 	private IAddProjectToTeamView view;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.AddProjectToTeamPresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.AddProjectToTeamPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param team
 	 *            is the related team which should be edited
 	 */
@@ -55,8 +53,7 @@ public class AddProjectToTeamPresenter extends WritePresenter {
 			this.view.registerDeleteProject(new EventHandler<TypedEventArg<Project>>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final TypedEventArg<Project> eventArgs) {
+				public void onUpdate(final Object sender, final TypedEventArg<Project> eventArgs) {
 					AddProjectToTeamPresenter.this.addProject(eventArgs.getObject());
 
 				}

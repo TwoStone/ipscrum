@@ -38,8 +38,7 @@ public class VariousFeatureCommandsTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 		try {
 			new RelationType(this.model, "Abhängig von");
@@ -71,11 +70,9 @@ public class VariousFeatureCommandsTest {
 
 			final String name = "name";
 			final String description = "text";
-			final FeatureTicketType type =
-					new FeatureTicketType(this.model, "type", "type testtext");
+			final FeatureTicketType type = new FeatureTicketType(this.model, "type", "type testtext");
 			final FeatureCreateCommand command =
-					new FeatureCreateCommand(name, description, type,
-							project.getBacklog());
+					new FeatureCreateCommand(name, description, type, project.getBacklog());
 
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
@@ -91,8 +88,7 @@ public class VariousFeatureCommandsTest {
 	@Test
 	public void featureTicketTypeCreateCommandTest() {
 		try {
-			final BugTicketTypeCreateCommand command =
-					new BugTicketTypeCreateCommand("Tickettype", "description");
+			final BugTicketTypeCreateCommand command = new BugTicketTypeCreateCommand("Tickettype", "description");
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();

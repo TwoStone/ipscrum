@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new task ticket type.
  */
-public class TaskTicketTypeCreateCommand extends Command<TaskTicketType>
-		implements ITicketTypesCommand {
+public class TaskTicketTypeCreateCommand extends Command<TaskTicketType> implements ITicketTypesCommand {
 
 	/**
 	 * represents the name of the task ticket type.
@@ -49,12 +48,9 @@ public class TaskTicketTypeCreateCommand extends Command<TaskTicketType>
 	}
 
 	@Override
-	protected TaskTicketType onExecute(final Model model)
-			throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Task-Tickettyp '%s' erstellt.",
-				this.name));
-		final TaskTicketType taskTicketType =
-				new TaskTicketType(model, this.name, this.description);
+	protected TaskTicketType onExecute(final Model model) throws IPScrumGeneralException {
+		this.setStringValue(StringUtils.format("Neuer Task-Tickettyp '%s' erstellt.", this.name));
+		final TaskTicketType taskTicketType = new TaskTicketType(model, this.name, this.description);
 		return taskTicketType;
 	}
 

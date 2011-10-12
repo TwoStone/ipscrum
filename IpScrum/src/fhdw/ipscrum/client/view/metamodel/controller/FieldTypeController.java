@@ -9,8 +9,7 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.fields.Field;
 
 /**
- * Represents the FieldTypeController needed for controlling fieldTypes of tickets by
- * editing tickets.
+ * Represents the FieldTypeController needed for controlling fieldTypes of tickets by editing tickets.
  * 
  * @param <T>
  *            is the type if the controller

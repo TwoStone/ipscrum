@@ -30,11 +30,9 @@ public class SearchManager implements Serializable {
 	 *            Elements for search.
 	 * @param expression
 	 *            Search Expression
-	 * @return Returns a list of PBIs where the compare of each pbi with the search
-	 *         expression was successful.
+	 * @return Returns a list of PBIs where the compare of each pbi with the search expression was successful.
 	 */
-	public List<Ticket> search(final Collection<Ticket> elements,
-			final ISearchExpression expression) {
+	public List<Ticket> search(final Collection<Ticket> elements, final ISearchExpression expression) {
 
 		final Vector<Ticket> resultList = new Vector<Ticket>();
 		for (final Ticket current : elements) {

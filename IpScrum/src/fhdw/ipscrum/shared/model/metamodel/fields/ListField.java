@@ -79,8 +79,7 @@ public class ListField<T extends Serializable> extends Field<T> {
 	 * @throws ForbiddenStateException
 	 *             if the current state type of the ticket doesn't allow a field change
 	 */
-	public void addValue(final T value, final Ticket ticket)
-			throws ConsistencyException, ForbiddenStateException {
+	public void addValue(final T value, final Ticket ticket) throws ConsistencyException, ForbiddenStateException {
 		ticket.checkFieldChange(this);
 		this.addValue(value);
 	}
@@ -96,8 +95,7 @@ public class ListField<T extends Serializable> extends Field<T> {
 	}
 
 	/**
-	 * proper client field changer. Removes the value from the list, if a change is
-	 * allowed
+	 * proper client field changer. Removes the value from the list, if a change is allowed
 	 * 
 	 * @param value
 	 *            the value to be removed
@@ -108,8 +106,7 @@ public class ListField<T extends Serializable> extends Field<T> {
 	 * @throws ForbiddenStateException
 	 *             if the current state type if the ticket doesn't allow a field change)
 	 */
-	public void removeValue(final T value, final Ticket ticket)
-			throws ConsistencyException, ForbiddenStateException {
+	public void removeValue(final T value, final Ticket ticket) throws ConsistencyException, ForbiddenStateException {
 		ticket.checkFieldChange(this);
 		this.removeValue(value);
 	}

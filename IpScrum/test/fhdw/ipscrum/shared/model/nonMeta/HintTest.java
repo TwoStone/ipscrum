@@ -31,8 +31,7 @@ public class HintTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 	}
 

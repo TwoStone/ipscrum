@@ -46,8 +46,8 @@ public class TeamAddMemberCommand extends Command<Void> implements ITeamCommand 
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Team team = (Team) model.getObject(this.getReceiverGuid());
 		final Person person = (Person) model.getObject(this.personId);
-		this.setStringValue(StringUtils.format("%s wurde dem Team '%s' hinzugefügt.",
-				person.toString(), team.getDescription()));
+		this.setStringValue(StringUtils.format("%s wurde dem Team '%s' hinzugefügt.", person.toString(),
+				team.getDescription()));
 		team.addMember(person);
 		return null;
 	}

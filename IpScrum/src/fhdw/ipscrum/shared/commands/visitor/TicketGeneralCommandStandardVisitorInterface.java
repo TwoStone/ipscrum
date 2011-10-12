@@ -8,8 +8,7 @@ import fhdw.ipscrum.shared.commands.interfaces.ICommand;
 /**
  * standard visitor for field modify commands.
  */
-public interface TicketGeneralCommandStandardVisitorInterface
-		extends TicketGeneralCommandVisitor {
+public interface TicketGeneralCommandStandardVisitorInterface extends TicketGeneralCommandVisitor {
 	/**
 	 * Specifies standard behavior of the visitor.
 	 * 

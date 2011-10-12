@@ -27,8 +27,8 @@ public class DateFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if a fieldType with the same parameters already exists
 	 */
-	public DateFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public DateFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 

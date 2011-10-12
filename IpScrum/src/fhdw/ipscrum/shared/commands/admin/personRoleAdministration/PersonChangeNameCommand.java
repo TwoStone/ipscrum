@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Changes the name of a person.
  */
-public class PersonChangeNameCommand extends Command<Void>
-		implements IPersonRoleCommand {
+public class PersonChangeNameCommand extends Command<Void> implements IPersonRoleCommand {
 
 	/**
 	 * Represents the first name of the person.
@@ -44,8 +43,7 @@ public class PersonChangeNameCommand extends Command<Void>
 	 * @param lastname
 	 *            of the person
 	 */
-	public PersonChangeNameCommand(final Person receiver, final String firstname,
-			final String lastname) {
+	public PersonChangeNameCommand(final Person receiver, final String firstname, final String lastname) {
 		super(receiver);
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -54,9 +52,8 @@ public class PersonChangeNameCommand extends Command<Void>
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Person person = (Person) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format("%s %s wurde umbenannt in %s %s.",
-				person.getFirstname(), person.getLastname(), this.firstname,
-				this.lastname));
+		this.setStringValue(StringUtils.format("%s %s wurde umbenannt in %s %s.", person.getFirstname(),
+				person.getLastname(), this.firstname, this.lastname));
 
 		person.setFirstname(this.firstname);
 		person.setLastname(this.lastname);

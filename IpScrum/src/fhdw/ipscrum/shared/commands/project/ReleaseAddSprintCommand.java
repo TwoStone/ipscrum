@@ -47,8 +47,7 @@ public class ReleaseAddSprintCommand extends Command<Void> implements IProjectCo
 		final Release release = (Release) model.getObject(this.getReceiverGuid());
 		final Sprint sprint = (Sprint) model.getObject(this.sprintId);
 
-		this.setStringValue(StringUtils.format(
-				"Release %s wurde der Sprint %s hinzugefügt.", release.getVersion(),
+		this.setStringValue(StringUtils.format("Release %s wurde der Sprint %s hinzugefügt.", release.getVersion(),
 				sprint.getName()));
 
 		release.addSprint(sprint);

@@ -19,82 +19,76 @@ public final class TextConstantsForLists {
 	/**
 	 * Represents the contents of the search types list.
 	 */
-	public static final Map<Integer, String> SEARCH_TYPES =
-			new HashMap<Integer, String>() {
-				{
-					this.put(1, "Logischer Operator");
-					this.put(2, "Suchkriterium");
-				}
-			};;
+	public static final Map<Integer, String> SEARCH_TYPES = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Logischer Operator");
+			this.put(2, "Suchkriterium");
+		}
+	};;
 
 	/**
 	 * Represents the contents of the search logicals list.
 	 */
-	public static final Map<Integer, String> SEARCH_LOGICALS =
-			new HashMap<Integer, String>() {
-				{
-					this.put(1, "UND");
-					this.put(2, "ODER");
-					this.put(TextConstantsForLists.NUMBER_THREE, TextConstants.NICHT);
-				}
-			};;
+	public static final Map<Integer, String> SEARCH_LOGICALS = new HashMap<Integer, String>() {
+		{
+			this.put(1, "UND");
+			this.put(2, "ODER");
+			this.put(TextConstantsForLists.NUMBER_THREE, TextConstants.NICHT);
+		}
+	};;
 
 	/**
 	 * Represents the contents of the SearchCriteria list.
 	 */
-	public static final Map<Integer, String> SEARCH_CRITERIA =
-			new HashMap<Integer, String>() {
-				{
-					this.put(1, "Typ des PBI");
-					this.put(2, "Projekt");
-					this.put(TextConstantsForLists.NUMBER_THREE, "Release");
-					this.put(TextConstantsForLists.FOUR, "Name");
-					this.put(TextConstantsForLists.FIVE, "Sprint-Beschreibung");
-					this.put(TextConstantsForLists.SIX, "Sprint-Name");
-					this.put(TextConstantsForLists.SEVEN, "Aufwand");
-					this.put(TextConstantsForLists.EIGHT, "Status");
-					this.put(TextConstantsForLists.NINE, "Letzter Bearbeiter");
-					this.put(TextConstantsForLists.TEN, "Beschreibung");
-					this.put(TextConstantsForLists.ELEVEN, "Beziehung");
-					this.put(TextConstantsForLists.TWELVE, "Hinweis");
-					this.put(TextConstantsForLists.THIRTEEN, "Akzeptanzkriterium");
-					this.put(TextConstantsForLists.FOURTEEN, "System (nur Bugs)");
-					this.put(TextConstantsForLists.FIVETEEN, "Version (nur Bugs)");
-				}
-			};;
+	public static final Map<Integer, String> SEARCH_CRITERIA = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Typ des PBI");
+			this.put(2, "Projekt");
+			this.put(TextConstantsForLists.NUMBER_THREE, "Release");
+			this.put(TextConstantsForLists.FOUR, "Name");
+			this.put(TextConstantsForLists.FIVE, "Sprint-Beschreibung");
+			this.put(TextConstantsForLists.SIX, "Sprint-Name");
+			this.put(TextConstantsForLists.SEVEN, "Aufwand");
+			this.put(TextConstantsForLists.EIGHT, "Status");
+			this.put(TextConstantsForLists.NINE, "Letzter Bearbeiter");
+			this.put(TextConstantsForLists.TEN, "Beschreibung");
+			this.put(TextConstantsForLists.ELEVEN, "Beziehung");
+			this.put(TextConstantsForLists.TWELVE, "Hinweis");
+			this.put(TextConstantsForLists.THIRTEEN, "Akzeptanzkriterium");
+			this.put(TextConstantsForLists.FOURTEEN, "System (nur Bugs)");
+			this.put(TextConstantsForLists.FIVETEEN, "Version (nur Bugs)");
+		}
+	};;
 
 	/**
 	 * Represents the contents of the SerachPBIState list.
 	 */
-	public static final Map<Integer, String> SEARCH_PBI_STATE =
-			new HashMap<Integer, String>() {
-				{
-					this.put(1, "Offen");
-					this.put(2, "Geschlossen");
-				}
-			};;
+	public static final Map<Integer, String> SEARCH_PBI_STATE = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Offen");
+			this.put(2, "Geschlossen");
+		}
+	};;
 
 	/**
 	 * Represents the contents of the SearchPBITypes list.
 	 */
-	public static final Map<Integer, String> SEARCH_PBI_TYPE =
-			new HashMap<Integer, String>() {
-				{
-					this.put(1, "Feature");
-					this.put(2, "Bug");
-				}
-			};;
+	public static final Map<Integer, String> SEARCH_PBI_TYPE = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Feature");
+			this.put(2, "Bug");
+		}
+	};;
 
 	/**
 	 * Represents the contents of the SearchRelationSearchType list.
 	 */
-	public static final Map<Integer, String> SEARCH_RELATIONSEARCHTYPE =
-			new HashMap<Integer, String>() {
-				{
-					this.put(1, "Typ der Relation");
-					this.put(2, "Ziel der Relation");
-				}
-			};;
+	public static final Map<Integer, String> SEARCH_RELATIONSEARCHTYPE = new HashMap<Integer, String>() {
+		{
+			this.put(1, "Typ der Relation");
+			this.put(2, "Ziel der Relation");
+		}
+	};;
 
 	/**
 	 * represents the number 3.

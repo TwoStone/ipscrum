@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
  * @param <T>
  *            is the type of the field
  */
-public class ListFieldIdentifiableObjectAddValueCommand<T extends Serializable>
-		extends ListFieldAddValueCommand<T> {
+public class ListFieldIdentifiableObjectAddValueCommand<T extends Serializable> extends ListFieldAddValueCommand<T> {
 
 	/**
 	 * represents the value.
@@ -40,8 +39,7 @@ public class ListFieldIdentifiableObjectAddValueCommand<T extends Serializable>
 	 * @param ticket
 	 *            related to the command
 	 */
-	protected ListFieldIdentifiableObjectAddValueCommand(final ListField<T> field,
-			final T value, final Ticket ticket) {
+	protected ListFieldIdentifiableObjectAddValueCommand(final ListField<T> field, final T value, final Ticket ticket) {
 		super(field, ticket);
 		this.valueId = ((IdentifiableObject) value).getId();
 

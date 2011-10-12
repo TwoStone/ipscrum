@@ -7,8 +7,7 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * A relation type represents a customer-specified type of a relation between features
- * (see {@link Feature}.
+ * A relation type represents a customer-specified type of a relation between features (see {@link Feature}.
  */
 public class RelationType extends IdentifiableObject implements IsSerializable {
 
@@ -39,8 +38,7 @@ public class RelationType extends IdentifiableObject implements IsSerializable {
 	 * @throws DoubleDefinitionException
 	 *             if a realtionType with the same parameters already exists
 	 */
-	public RelationType(final Model model, final String description)
-			throws DoubleDefinitionException {
+	public RelationType(final Model model, final String description) throws DoubleDefinitionException {
 		super(model);
 		this.description = description;
 		model.addRelationType(this);

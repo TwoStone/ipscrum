@@ -41,8 +41,7 @@ public class TeamCreateCommand extends Command<Team> implements ITeamCommand {
 
 	@Override
 	protected Team onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neues Team '%s' erstellt.",
-				this.description));
+		this.setStringValue(StringUtils.format("Neues Team '%s' erstellt.", this.description));
 
 		final Team team = new Team(model, this.description);
 		return team;

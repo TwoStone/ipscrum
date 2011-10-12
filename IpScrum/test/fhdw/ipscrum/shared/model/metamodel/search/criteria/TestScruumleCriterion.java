@@ -21,8 +21,7 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch1() throws Exception {
-		final ScruumleCriterion srCrit =
-				new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Fehler");
+		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Fehler");
 		Assert.assertTrue(srCrit.search(SetUpTestDataForCriterion.getPbi4()));
 	}
 
@@ -34,8 +33,7 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch2() throws Exception {
-		final ScruumleCriterion srCrit =
-				new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "korrekt");
+		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "korrekt");
 		Assert.assertFalse(srCrit.search(SetUpTestDataForCriterion.getPbi4()));
 	}
 
@@ -47,8 +45,7 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch3() throws Exception {
-		final ScruumleCriterion srCrit =
-				new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Texte");
+		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Texte");
 		Assert.assertTrue(srCrit.search(SetUpTestDataForCriterion.getPbi1()));
 	}
 
@@ -60,8 +57,7 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch4() throws Exception {
-		final ScruumleCriterion srCrit =
-				new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Hallo");
+		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Hallo");
 		Assert.assertFalse(srCrit.search(SetUpTestDataForCriterion.getPbi1()));
 	}
 

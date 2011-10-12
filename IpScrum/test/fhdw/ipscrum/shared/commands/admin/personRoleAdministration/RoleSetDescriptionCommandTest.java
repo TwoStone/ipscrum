@@ -59,7 +59,7 @@ public class RoleSetDescriptionCommandTest extends RoleTestBase {
 			}
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 				Assert.fail();
 			}
 		});

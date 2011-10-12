@@ -8,8 +8,7 @@ import fhdw.ipscrum.shared.model.Model;
 /**
  * Represents a search expression.
  */
-public abstract class SearchExpression extends IdentifiableObject
-		implements IsSerializable, ISearchExpression {
+public abstract class SearchExpression extends IdentifiableObject implements IsSerializable, ISearchExpression {
 
 	/**
 	 * Represents the serialVeriosnUID.

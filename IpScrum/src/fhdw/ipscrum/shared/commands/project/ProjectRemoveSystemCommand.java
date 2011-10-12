@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a system from a project.
  */
-public class ProjectRemoveSystemCommand extends Command<Void>
-		implements IProjectCommand {
+public class ProjectRemoveSystemCommand extends Command<Void> implements IProjectCommand {
 
 	/**
 	 * Represents the system which should be removed from the project.
@@ -47,8 +46,8 @@ public class ProjectRemoveSystemCommand extends Command<Void>
 		final Project project = (Project) model.getObject(this.getReceiverGuid());
 		final System system = (System) model.getObject(this.systemId);
 
-		this.setStringValue(StringUtils.format("Projekt %s wurde System %s entfernt.",
-				project.getName(), system.getName()));
+		this.setStringValue(StringUtils.format("Projekt %s wurde System %s entfernt.", project.getName(),
+				system.getName()));
 
 		project.removeSystem(system);
 		return null;

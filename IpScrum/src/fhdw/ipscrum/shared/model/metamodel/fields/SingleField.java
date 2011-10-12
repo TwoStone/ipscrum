@@ -68,8 +68,7 @@ public class SingleField<T extends Serializable> extends Field<T> {
 	}
 
 	/**
-	 * proper client field changer. modifies the value of this field, if a change is
-	 * allowed.
+	 * proper client field changer. modifies the value of this field, if a change is allowed.
 	 * 
 	 * @param valueNew
 	 *            new value
@@ -80,8 +79,7 @@ public class SingleField<T extends Serializable> extends Field<T> {
 	 * @throws ForbiddenStateException
 	 *             if the current state type of the ticket doesn't allow a field change
 	 */
-	public void setValue(final T valueNew, final Ticket ticket)
-			throws ConsistencyException, ForbiddenStateException {
+	public void setValue(final T valueNew, final Ticket ticket) throws ConsistencyException, ForbiddenStateException {
 		ticket.checkFieldChange(this);
 		this.setValue(valueNew);
 	}

@@ -25,13 +25,11 @@ public class SystemListFieldTypeController extends ListFieldTypeController<Syste
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public SystemListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<System> field, final Ticket ticket) {
+	public SystemListFieldTypeController(final GenericTicketPresenter presenter, final ListField<System> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 
-		this.widget =
-				new ComplexListFieldWidget<System>(this.getField(),
-						TypeRenderes.SYSTEMRENDERER);
+		this.widget = new ComplexListFieldWidget<System>(this.getField(), TypeRenderes.SYSTEMRENDERER);
 		this.initialize();
 	}
 

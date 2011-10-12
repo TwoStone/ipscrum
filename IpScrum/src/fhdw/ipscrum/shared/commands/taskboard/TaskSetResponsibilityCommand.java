@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Associates a person to a task.
  */
-public class TaskSetResponsibilityCommand extends Command<Void>
-		implements ITaskboardCommand {
+public class TaskSetResponsibilityCommand extends Command<Void> implements ITaskboardCommand {
 
 	/**
 	 * represents the person responsible for the task.
@@ -47,8 +46,7 @@ public class TaskSetResponsibilityCommand extends Command<Void>
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Task task = (Task) model.getObject(this.getReceiverGuid());
 		final Person person = (Person) model.getObject(this.personId);
-		this.setStringValue(StringUtils.format("%s wurde dem Task '%s' zugeordnet.",
-				person.toString(), task.getName()));
+		this.setStringValue(StringUtils.format("%s wurde dem Task '%s' zugeordnet.", person.toString(), task.getName()));
 		task.setResponsibility(person);
 		return null;
 	}

@@ -28,8 +28,7 @@ public abstract class AbstractSecurityServlet extends RemoteServiceServlet {
 	 * @return the User
 	 */
 	protected User getUser() throws NotAuthorizedException {
-		final SessionManager sessionManager =
-				ServerContext.getInstance().getSessionManager();
+		final SessionManager sessionManager = ServerContext.getInstance().getSessionManager();
 
 		final HttpSession httpSession = this.getThreadLocalRequest().getSession();
 		return sessionManager.getUser(httpSession);
@@ -42,8 +41,7 @@ public abstract class AbstractSecurityServlet extends RemoteServiceServlet {
 	 * @throws NotAuthorizedException
 	 *             if the user is not authorized
 	 */
-	protected ExecutionController getExecutionController()
-			throws NotAuthorizedException {
+	protected ExecutionController getExecutionController() throws NotAuthorizedException {
 		this.getUser();
 		return ServerContext.getInstance().getExecutionController();
 	}

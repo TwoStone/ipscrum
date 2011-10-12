@@ -5,8 +5,7 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
 
 /**
- * Represents the logical operator Not. For Example: Not(arg) -> arg=true=>false |
- * arg=false=>true
+ * Represents the logical operator Not. For Example: Not(arg) -> arg=true=>false | arg=false=>true
  * 
  */
 public class Not extends SingleLogicSearchOperator {

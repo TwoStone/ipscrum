@@ -21,8 +21,7 @@ import fhdw.ipscrum.shared.utils.ListUtils;
 /**
  * This class represents the AccountService implementation.
  */
-public class AccountServiceImpl extends AbstractSecurityServlet
-		implements AccountService {
+public class AccountServiceImpl extends AbstractSecurityServlet implements AccountService {
 
 	/**
 	 * represents the serialVersionUID.
@@ -40,9 +39,8 @@ public class AccountServiceImpl extends AbstractSecurityServlet
 	}
 
 	@Override
-	public void createAccount(final String name, final String password,
-			final Person person, final Role activeRole) throws NotAuthorizedException,
-			DoubleDefinitionException, PersistenceException {
+	public void createAccount(final String name, final String password, final Person person, final Role activeRole)
+			throws NotAuthorizedException, DoubleDefinitionException, PersistenceException {
 		this.canBeExecuted(activeRole);
 		this.getUser();
 		final List<User> users = this.getUsers();
@@ -53,8 +51,7 @@ public class AccountServiceImpl extends AbstractSecurityServlet
 				return element.getName().equals(name);
 			}
 		}).isEmpty()) {
-			throw new DoubleDefinitionException("Ein Benutzer mit dem Namen " + name
-					+ " existiert bereits!");
+			throw new DoubleDefinitionException("Ein Benutzer mit dem Namen " + name + " existiert bereits!");
 		}
 		final User user = new User(name, person);
 		final Account account = new Account(user, password);
@@ -81,8 +78,7 @@ public class AccountServiceImpl extends AbstractSecurityServlet
 				}
 
 				@Override
-				public void handlePersonRoleAdminRight(
-						final PersonRoleAdminRight personRoleAdminRight) {
+				public void handlePersonRoleAdminRight(final PersonRoleAdminRight personRoleAdminRight) {
 					AccountServiceImpl.this.allowed();
 				}
 			});

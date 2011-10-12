@@ -46,8 +46,7 @@ public class ExecutionController extends Thread {
 	public ExecutionController(final IPersistenceManager manager) {
 		this.manager = manager;
 		this.pipeline = new Pipeline<Transaction>();
-		this.waitingServices =
-				Collections.synchronizedMap(new HashMap<Transaction, Semaphore>());
+		this.waitingServices = Collections.synchronizedMap(new HashMap<Transaction, Semaphore>());
 		this.executor = new Executor(this);
 	}
 
@@ -71,8 +70,7 @@ public class ExecutionController extends Thread {
 	 * @throws PersistenceException
 	 *             if the persistence is hurt
 	 */
-	public void addNewRevision(final Revision revision, final Model revisionModel)
-			throws PersistenceException {
+	public void addNewRevision(final Revision revision, final Model revisionModel) throws PersistenceException {
 		this.manager.addNewRevision(revision, revisionModel);
 	}
 
@@ -97,14 +95,12 @@ public class ExecutionController extends Thread {
 	 *             if something fails
 	 * @return the specific copy of the model
 	 */
-	public Model getSpecificRevisionCopy(final Date revisionDate)
-			throws IPScrumGeneralException {
+	public Model getSpecificRevisionCopy(final Date revisionDate) throws IPScrumGeneralException {
 		try {
 			return this.manager.getSpecificModel(revisionDate);
 		} catch (final IPScrumGeneralException e) {
 			System.err.println(e.getMessage());
-			throw new BuildModelException(
-					"Es konnte keine Modellkopie erzeugt werden!\n" + e.getMessage());
+			throw new BuildModelException("Es konnte keine Modellkopie erzeugt werden!\n" + e.getMessage());
 		}
 	}
 
@@ -137,8 +133,7 @@ public class ExecutionController extends Thread {
 	 * @throws InterruptedException
 	 *             if the commit is interrupted
 	 */
-	public void commitTransaction(final Transaction transaction)
-			throws InterruptedException {
+	public void commitTransaction(final Transaction transaction) throws InterruptedException {
 
 		final Semaphore semaphore = new Semaphore(0);
 		this.waitingServices.put(transaction, semaphore);

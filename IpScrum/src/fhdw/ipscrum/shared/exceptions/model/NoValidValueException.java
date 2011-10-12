@@ -4,10 +4,10 @@ import fhdw.ipscrum.shared.exceptions.ModelException;
 
 /**
  * Represents the Exception thrown if a value is not valid.
- *
+ * 
  */
 public class NoValidValueException extends ModelException {
-	
+
 	/**
 	 * Represents the serialVersionUID.
 	 */
@@ -16,7 +16,8 @@ public class NoValidValueException extends ModelException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message thrown by the Exception
+	 * @param message
+	 *            thrown by the Exception
 	 */
 	public NoValidValueException(final String message) {
 		super(message);

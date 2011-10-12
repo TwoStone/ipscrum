@@ -49,8 +49,7 @@ public class PersonCreateCommand extends Command<Person> implements IPersonRoleC
 
 	@Override
 	protected Person onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neue Person '%s %s' erstellt.",
-				this.firstname, this.lastname));
+		this.setStringValue(StringUtils.format("Neue Person '%s %s' erstellt.", this.firstname, this.lastname));
 
 		final Person person = new Person(model, this.firstname, this.lastname);
 		return person;

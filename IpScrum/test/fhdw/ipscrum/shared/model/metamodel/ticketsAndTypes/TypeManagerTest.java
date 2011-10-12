@@ -74,11 +74,9 @@ public class TypeManagerTest {
 
 		this.serverContext = ServerContext.getInstance();
 
-		this.modelClient =
-				this.serverContext.getPersistenceManager().getModelForTesting();
+		this.modelClient = this.serverContext.getPersistenceManager().getModelForTesting();
 		this.modelClient.setUuidManager(new IDGenerator());
-		this.modelClient =
-				this.serverContext.getPersistenceManager().getModelForTesting();
+		this.modelClient = this.serverContext.getPersistenceManager().getModelForTesting();
 		this.modelClient.setUuidManager(new IDGenerator());
 		this.persistenceManager = this.serverContext.getPersistenceManager();
 		this.typeManager = this.modelClient.getTypeManager();
@@ -95,8 +93,7 @@ public class TypeManagerTest {
 	}
 
 	/**
-	 * The initial type manager should have the three standard ticket types bug, feature
-	 * and task!
+	 * The initial type manager should have the three standard ticket types bug, feature and task!
 	 */
 	@Test
 	public void testgetActiveTicketTypesinitial() {
@@ -106,27 +103,21 @@ public class TypeManagerTest {
 	}
 
 	/**
-	 * tests the ticket type access methods of the type manager after 1 ticket type was
-	 * created!
+	 * tests the ticket type access methods of the type manager after 1 ticket type was created!
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
 	@Test
 	public void testcreateTicketType() throws IPScrumGeneralException {
-		final BugTicketType anyTicketType =
-				new BugTicketType(this.modelClient, "ExtendedBug", "");
-		Assert.assertTrue(this.typeManager.getActiveTicketTypes().contains(
-				anyTicketType));
-		Assert.assertTrue(this.typeManager.fetchUserTicketTypes().contains(
-				anyTicketType));
-		Assert.assertTrue(!this.typeManager.fetchStandardTicketTypes().contains(
-				anyTicketType));
+		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
+		Assert.assertTrue(this.typeManager.getActiveTicketTypes().contains(anyTicketType));
+		Assert.assertTrue(this.typeManager.fetchUserTicketTypes().contains(anyTicketType));
+		Assert.assertTrue(!this.typeManager.fetchStandardTicketTypes().contains(anyTicketType));
 	}
 
 	/**
-	 * testes the state type access methods of the type manager after a state type was
-	 * created!
+	 * testes the state type access methods of the type manager after a state type was created!
 	 * 
 	 * @throws DoubleDefinitionException
 	 *             if one state type is already defined
@@ -136,13 +127,11 @@ public class TypeManagerTest {
 		final StateType newState = new StateType(this.modelClient, "new State", "");
 		Assert.assertTrue(this.typeManager.getStateTypes().contains(newState));
 		Assert.assertTrue(this.typeManager.fetchUserStateTypes().contains(newState));
-		Assert.assertTrue(!this.typeManager.fetchStandardStateTypes()
-				.contains(newState));
+		Assert.assertTrue(!this.typeManager.fetchStandardStateTypes().contains(newState));
 	}
 
 	/**
-	 * testes the field type access methods of the type manager after a field type was
-	 * created!
+	 * testes the field type access methods of the type manager after a field type was created!
 	 * 
 	 * @throws DoubleDefinitionException
 	 *             if one fieldType is already created
@@ -150,12 +139,10 @@ public class TypeManagerTest {
 	@Test
 	public void testcreateFieldType() throws DoubleDefinitionException {
 		final FieldType newFieldType =
-				new TextFieldType(this.modelClient, "Kommentarliste",
-						this.typeManager.getMany());
+				new TextFieldType(this.modelClient, "Kommentarliste", this.typeManager.getMany());
 		Assert.assertTrue(this.typeManager.getFieldTypes().contains(newFieldType));
 		Assert.assertTrue(this.typeManager.fetchUserFieldTypes().contains(newFieldType));
-		Assert.assertTrue(!this.typeManager.fetchStandardFieldTypes().contains(
-				newFieldType));
+		Assert.assertTrue(!this.typeManager.fetchStandardFieldTypes().contains(newFieldType));
 	}
 
 	/**

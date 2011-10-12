@@ -16,54 +16,50 @@ public class ProductBacklogTable extends CellTable<ProductBacklogItem> {
 	 * Constructor of the ProductBacklogTable.
 	 */
 	public ProductBacklogTable() {
-		final TextColumn<ProductBacklogItem> colName =
-				new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> colName = new TextColumn<ProductBacklogItem>() {
 
-					@Override
-					public String getValue(final ProductBacklogItem object) {
-						return object.getName();
-					}
+			@Override
+			public String getValue(final ProductBacklogItem object) {
+				return object.getName();
+			}
 
-				};
+		};
 		this.addColumn(colName, TextConstants.PRODUCTBACKLOG_TEXT);
 
-		final TextColumn<ProductBacklogItem> colEfford =
-				new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> colEfford = new TextColumn<ProductBacklogItem>() {
 
-					@Override
-					public String getValue(final ProductBacklogItem object) {
-						if (object.getManDayCosts() != null) {
-							return object.getManDayCosts().toString();
-						}
-						return "";
-					}
+			@Override
+			public String getValue(final ProductBacklogItem object) {
+				if (object.getManDayCosts() != null) {
+					return object.getManDayCosts().toString();
+				}
+				return "";
+			}
 
-				};
+		};
 		this.addColumn(colEfford, TextConstants.MAN_DAYS);
 
-		final TextColumn<ProductBacklogItem> colSprint =
-				new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> colSprint = new TextColumn<ProductBacklogItem>() {
 
-					@Override
-					public String getValue(final ProductBacklogItem object) {
-						if (object.getSprint() != null) {
-							return object.getSprint().getDescription();
-						}
-						return "";
-					}
+			@Override
+			public String getValue(final ProductBacklogItem object) {
+				if (object.getSprint() != null) {
+					return object.getSprint().getDescription();
+				}
+				return "";
+			}
 
-				};
+		};
 		this.addColumn(colSprint, TextConstants.FIELDTYPE_SPRINT);
 
-		final TextColumn<ProductBacklogItem> colType =
-				new TextColumn<ProductBacklogItem>() {
+		final TextColumn<ProductBacklogItem> colType = new TextColumn<ProductBacklogItem>() {
 
-					@Override
-					public String getValue(final ProductBacklogItem object) {
-						return object.getTicketType().getTypeName();
-					}
+			@Override
+			public String getValue(final ProductBacklogItem object) {
+				return object.getTicketType().getTypeName();
+			}
 
-				};
+		};
 		this.addColumn(colType, TextConstants.PBI_TYPE);
 	}
 

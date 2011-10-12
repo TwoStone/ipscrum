@@ -19,9 +19,7 @@ public interface TicketGeneralCommandVisitor {
 	 *             if the needed object isn't found
 	 */
 	@SuppressWarnings("rawtypes")
-	void handleListFieldAddValueCommand(
-			ListFieldAddValueCommand listFieldAddValueCommand)
-			throws NoObjectFindException;
+	void handleListFieldAddValueCommand(ListFieldAddValueCommand listFieldAddValueCommand) throws NoObjectFindException;
 
 	/**
 	 * specific visitor action.
@@ -32,8 +30,7 @@ public interface TicketGeneralCommandVisitor {
 	 *             if the needed object isn't found
 	 */
 	@SuppressWarnings("rawtypes")
-	void handleListFieldRemoveValueCommand(
-			ListFieldRemoveValueCommand listFieldRemoveValueCommand)
+	void handleListFieldRemoveValueCommand(ListFieldRemoveValueCommand listFieldRemoveValueCommand)
 			throws NoObjectFindException;
 
 	/**
@@ -45,9 +42,7 @@ public interface TicketGeneralCommandVisitor {
 	 *             if the needed object isn't found
 	 */
 	@SuppressWarnings("rawtypes")
-	void handleSingleFieldChangeCommand(
-			SingleFieldChangeCommand singleFieldChangeCommand)
-			throws NoObjectFindException;
+	void handleSingleFieldChangeCommand(SingleFieldChangeCommand singleFieldChangeCommand) throws NoObjectFindException;
 
 	/**
 	 * specific visitor action.
@@ -57,7 +52,5 @@ public interface TicketGeneralCommandVisitor {
 	 * @throws NoObjectFindException
 	 *             if the needed object isn't found
 	 */
-	void handleTicketChangeStateCommand(
-			TicketChangeStateCommand ticketChangeStateCommand)
-			throws NoObjectFindException;
+	void handleTicketChangeStateCommand(TicketChangeStateCommand ticketChangeStateCommand) throws NoObjectFindException;
 }

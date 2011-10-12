@@ -27,14 +27,14 @@ public class TaskboardPresenter extends WritePresenter {
 	 */
 	private ITaskboardView view;
 	/**
-	 * represents the project related to this presenter. It is needed to make clear for
-	 * which project this taskboard is related to.
+	 * represents the project related to this presenter. It is needed to make clear for which project this taskboard is
+	 * related to.
 	 */
 	@SuppressWarnings("unused")
 	private final Project project;
 	/**
-	 * represents the sprint related to this view. It is needed to make clear for which
-	 * sprint this taskboard is related to.
+	 * represents the sprint related to this view. It is needed to make clear for which sprint this taskboard is related
+	 * to.
 	 */
 	private final Sprint sprint;
 
@@ -42,15 +42,14 @@ public class TaskboardPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TaskboardPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project to which the taskboard is related
 	 * @param sprint
 	 *            is the sprint to which the taskboard is related
 	 */
-	public TaskboardPresenter(final ClientContext context, final Project project,
-			final Sprint sprint) {
+	public TaskboardPresenter(final ClientContext context, final Project project, final Sprint sprint) {
 		super(context);
 		this.project = project;
 		this.sprint = sprint;
@@ -70,22 +69,17 @@ public class TaskboardPresenter extends WritePresenter {
 				@Override
 				public void onUpdate(final Object sender, final EventArgs eventArgs) {
 					TaskboardPresenter.this.startPresenter(new TaskCreatePresenter(
-							TaskboardPresenter.this.getContext(),
-							TaskboardPresenter.this.sprint));
+							TaskboardPresenter.this.getContext(), TaskboardPresenter.this.sprint));
 				}
 			});
 
-			this.view
-					.registerDetailsEventHandler(new EventHandler<TypedEventArg<Task>>() {
-						@Override
-						public void onUpdate(final Object sender,
-								final TypedEventArg<Task> eventArgs) {
-							TaskboardPresenter.this
-									.startPresenter(new GenericTicketPresenter(
-											eventArgs.getObject(),
-											TaskboardPresenter.this.getContext()));
-						}
-					});
+			this.view.registerDetailsEventHandler(new EventHandler<TypedEventArg<Task>>() {
+				@Override
+				public void onUpdate(final Object sender, final TypedEventArg<Task> eventArgs) {
+					TaskboardPresenter.this.startPresenter(new GenericTicketPresenter(eventArgs.getObject(),
+							TaskboardPresenter.this.getContext()));
+				}
+			});
 
 		}
 
@@ -94,8 +88,7 @@ public class TaskboardPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getTaskboardRight());
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getTaskboardRight());
 		this.fillTaskTables();
 	}
 
@@ -125,8 +118,7 @@ public class TaskboardPresenter extends WritePresenter {
 	private void fillOpenTaskTable(final List<Task> allTasks) {
 		final List<Task> filteredList = new ArrayList<Task>();
 		for (final Task task : allTasks) {
-			final StateType startState =
-					task.getTicketType().getStateProfile().getStartState();
+			final StateType startState = task.getTicketType().getStateProfile().getStartState();
 			if (task.getCurrentState().equals(startState)) {
 				filteredList.add(task);
 			}
@@ -143,12 +135,9 @@ public class TaskboardPresenter extends WritePresenter {
 	private void fillInProgressTaskTable(final List<Task> allTasks) {
 		final List<Task> filteredList = new ArrayList<Task>();
 		for (final Task task : allTasks) {
-			final StateType startState =
-					task.getTicketType().getStateProfile().getStartState();
-			final List<StateType> endStates =
-					task.getTicketType().getStateProfile().getEndStates();
-			if (!task.getCurrentState().equals(startState)
-					&& !endStates.contains(task.getCurrentState())) {
+			final StateType startState = task.getTicketType().getStateProfile().getStartState();
+			final List<StateType> endStates = task.getTicketType().getStateProfile().getEndStates();
+			if (!task.getCurrentState().equals(startState) && !endStates.contains(task.getCurrentState())) {
 				filteredList.add(task);
 			}
 		}
@@ -164,8 +153,7 @@ public class TaskboardPresenter extends WritePresenter {
 	private void fillDoneTaskTable(final List<Task> allTasks) {
 		final List<Task> filteredList = new ArrayList<Task>();
 		for (final Task task : allTasks) {
-			final List<StateType> endStates =
-					task.getTicketType().getStateProfile().getEndStates();
+			final List<StateType> endStates = task.getTicketType().getStateProfile().getEndStates();
 			if (endStates.contains(task.getCurrentState())) {
 				filteredList.add(task);
 			}

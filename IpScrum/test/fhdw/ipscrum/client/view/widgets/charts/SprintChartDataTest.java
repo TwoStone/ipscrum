@@ -11,8 +11,7 @@ import fhdw.ipscrum.shared.model.SetUpTestData;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
 /**
- * The class <code>SprintChartDataTest</code> contains tests for the class
- * <code>{@link SprintChartData}</code>.
+ * The class <code>SprintChartDataTest</code> contains tests for the class <code>{@link SprintChartData}</code>.
  */
 public class SprintChartDataTest extends SetUpTestData {
 
@@ -31,8 +30,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	}
 
 	/**
-	 * Run the TreeMap<Date, SprintChartData.SprintChartDataDetails> getData() method
-	 * test.
+	 * Run the TreeMap<Date, SprintChartData.SprintChartDataDetails> getData() method test.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
@@ -42,8 +40,7 @@ public class SprintChartDataTest extends SetUpTestData {
 	public void testGetData1() throws Exception {
 		final SprintChartData fixture = new SprintChartData(this.getPro1rel1spr2());
 
-		final SortedMap<Date, SprintChartData.SprintChartDataDetails> result =
-				fixture.getData();
+		final SortedMap<Date, SprintChartData.SprintChartDataDetails> result = fixture.getData();
 
 		Assert.assertNotNull(result);
 	}

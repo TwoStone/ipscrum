@@ -41,8 +41,7 @@ public class NotTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 	}
 
@@ -72,9 +71,7 @@ public class NotTest {
 		final Project p = new Project(this.model, "jkl");
 		final ProductBacklog pbl = new ProductBacklog(this.model, p);
 		final Release r = new Release(this.model, "2", new Date(), p);
-		final Ticket ticket =
-				new Bug(this.model, new BugTicketType(this.model, "uio", "asd"), "dfg",
-						"qwe", pbl, r);
+		final Ticket ticket = new Bug(this.model, new BugTicketType(this.model, "uio", "asd"), "dfg", "qwe", pbl, r);
 
 		final boolean result = fixture.search(ticket);
 		Assert.assertFalse(result);
@@ -92,9 +89,7 @@ public class NotTest {
 		final Project p = new Project(this.model, "jkl");
 		final ProductBacklog pbl = new ProductBacklog(this.model, p);
 		final Release r = new Release(this.model, "2", new Date(), p);
-		final Ticket ticket =
-				new Bug(this.model, new BugTicketType(this.model, "uio", "asd"), "dfg",
-						"qwe", pbl, r);
+		final Ticket ticket = new Bug(this.model, new BugTicketType(this.model, "uio", "asd"), "dfg", "qwe", pbl, r);
 
 		final boolean result = fixture.search(ticket);
 		Assert.assertFalse(result);
@@ -112,9 +107,7 @@ public class NotTest {
 		final Project p = new Project(this.model, "jkl");
 		final ProductBacklog pbl = new ProductBacklog(this.model, p);
 		final Release r = new Release(this.model, "2", new Date(), p);
-		final Ticket ticket =
-				new Bug(this.model, new BugTicketType(this.model, "uio", "asd"), "dfg",
-						"qwe", pbl, r);
+		final Ticket ticket = new Bug(this.model, new BugTicketType(this.model, "uio", "asd"), "dfg", "qwe", pbl, r);
 
 		final boolean result = fixture.search(ticket);
 		Assert.assertFalse(result);
@@ -141,8 +134,7 @@ public class NotTest {
 	 */
 	@Test
 	public void testSearch() throws IPScrumGeneralException {
-		final ArrayList<SearchExpression> collection =
-				new ArrayList<SearchExpression>();
+		final ArrayList<SearchExpression> collection = new ArrayList<SearchExpression>();
 		Assert.assertNotNull(collection);
 	}
 }

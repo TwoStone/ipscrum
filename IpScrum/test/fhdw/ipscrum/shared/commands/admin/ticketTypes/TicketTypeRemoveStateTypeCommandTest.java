@@ -95,7 +95,7 @@ public class TicketTypeRemoveStateTypeCommandTest extends TicketTypeTestBase {
 			}
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 				Assert.fail();
 			}
 		});

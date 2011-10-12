@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Changes the State of a ticket.
  */
-public class TicketChangeStateCommand extends Command<Void>
-		implements ITicketGeneralCommand {
+public class TicketChangeStateCommand extends Command<Void> implements ITicketGeneralCommand {
 
 	/**
 	 * represents the related ticket.
@@ -53,8 +52,8 @@ public class TicketChangeStateCommand extends Command<Void>
 		final Ticket ticket = (Ticket) model.getObject(this.ticketId);
 		final StateType stateType = (StateType) model.getObject(this.stateTypeId);
 		ticket.changeState(stateType);
-		this.setStringValue(StringUtils.format("Status von Ticket %s auf %s geändert.",
-				ticket.getName(), stateType.getName()));
+		this.setStringValue(StringUtils.format("Status von Ticket %s auf %s geändert.", ticket.getName(),
+				stateType.getName()));
 		return null;
 	}
 

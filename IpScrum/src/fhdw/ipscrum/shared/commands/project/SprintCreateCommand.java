@@ -73,9 +73,8 @@ public class SprintCreateCommand extends Command<Sprint> implements IProjectComm
 	 * @param assignedProject
 	 *            of the new sprint
 	 */
-	public SprintCreateCommand(final String name, final Date startDate,
-			final Date endDate, final String description, final Team assignedTeam,
-			final Project assignedProject) {
+	public SprintCreateCommand(final String name, final Date startDate, final Date endDate, final String description,
+			final Team assignedTeam, final Project assignedProject) {
 		super();
 		this.name = name;
 		this.startDate = CalendarUtils.copy(startDate);
@@ -87,15 +86,13 @@ public class SprintCreateCommand extends Command<Sprint> implements IProjectComm
 
 	@Override
 	protected Sprint onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils
-				.format("Neuer Sprint '%s' erstellt.", this.name));
+		this.setStringValue(StringUtils.format("Neuer Sprint '%s' erstellt.", this.name));
 
 		final Team assignedTeam = (Team) model.getObject(this.assignedTeamId);
-		final Project assignedProject =
-				(Project) model.getObject(this.assignedProjectId);
+		final Project assignedProject = (Project) model.getObject(this.assignedProjectId);
 		final Sprint sprint =
-				new Sprint(model, this.name, this.description, this.startDate,
-						this.endDate, assignedTeam, assignedProject);
+				new Sprint(model, this.name, this.description, this.startDate, this.endDate, assignedTeam,
+						assignedProject);
 		return sprint;
 	}
 

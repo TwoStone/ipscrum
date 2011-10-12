@@ -10,8 +10,8 @@ import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.nonMeta.Task;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.ReleaseEditView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.ReleaseEditView).
  */
 public interface ITaskboardView extends IView {
 
@@ -38,8 +38,7 @@ public interface ITaskboardView extends IView {
 	 *            needed to handle the event, which also knows the task
 	 * @return the event which handles the edit of a task
 	 */
-	EventRegistration registerDetailsEventHandler(
-			EventHandler<TypedEventArg<Task>> handler);
+	EventRegistration registerDetailsEventHandler(EventHandler<TypedEventArg<Task>> handler);
 
 	/**
 	 * displays the list of open tasks.

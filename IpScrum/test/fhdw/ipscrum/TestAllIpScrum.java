@@ -8,15 +8,11 @@ import fhdw.ipscrum.infrastructure.TestAllInfrastructure;
 import fhdw.ipscrum.shared.TestAllShared;
 
 /**
- * The class <code>TestAll</code> builds a suite that can be used to run all of the tests
- * within its package as well as within any subpackages of its package.
+ * The class <code>TestAll</code> builds a suite that can be used to run all of the tests within its package as well as
+ * within any subpackages of its package.
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({
-		TestAllClient.class,
-		TestAllInfrastructure.class,
-		TestAllShared.class,
-		AllInOneTests.class })
+@Suite.SuiteClasses({ TestAllClient.class, TestAllInfrastructure.class, TestAllShared.class, AllInOneTests.class })
 public final class TestAllIpScrum {
 
 	/**

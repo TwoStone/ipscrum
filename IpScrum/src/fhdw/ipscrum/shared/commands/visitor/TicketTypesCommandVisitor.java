@@ -24,8 +24,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param bugTicketTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleBugTicketTypeCreateCommand(
-			BugTicketTypeCreateCommand bugTicketTypeCreateCommand);
+	void handleBugTicketTypeCreateCommand(BugTicketTypeCreateCommand bugTicketTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -33,8 +32,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param featureTicketTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleFeatureTicketTypeCreateCommand(
-			FeatureTicketTypeCreateCommand featureTicketTypeCreateCommand);
+	void handleFeatureTicketTypeCreateCommand(FeatureTicketTypeCreateCommand featureTicketTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -42,8 +40,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param taskTicketTypeCreateCommand
 	 *            specific command.
 	 */
-	void handleTaskTicketTypeCreateCommand(
-			TaskTicketTypeCreateCommand taskTicketTypeCreateCommand);
+	void handleTaskTicketTypeCreateCommand(TaskTicketTypeCreateCommand taskTicketTypeCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -59,8 +56,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeAddFieldTypeCommand
 	 *            specific command.
 	 */
-	void handleTicketTypeAddFieldTypeCommand(
-			TicketTypeAddFieldTypeCommand ticketTypeAddFieldTypeCommand);
+	void handleTicketTypeAddFieldTypeCommand(TicketTypeAddFieldTypeCommand ticketTypeAddFieldTypeCommand);
 
 	/**
 	 * specific visitor action.
@@ -68,8 +64,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeAddStatetypeCommand
 	 *            specific command.
 	 */
-	void handleTicketTypeAddStatetypeCommand(
-			TicketTypeAddStatetypeCommand ticketTypeAddStatetypeCommand);
+	void handleTicketTypeAddStatetypeCommand(TicketTypeAddStatetypeCommand ticketTypeAddStatetypeCommand);
 
 	/**
 	 * specific visitor action.
@@ -77,8 +72,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeRemoveFieldTypeCommand
 	 *            specific command.
 	 */
-	void handleTicketTypeRemoveFieldTypeCommand(
-			TicketTypeRemoveFieldTypeCommand ticketTypeRemoveFieldTypeCommand);
+	void handleTicketTypeRemoveFieldTypeCommand(TicketTypeRemoveFieldTypeCommand ticketTypeRemoveFieldTypeCommand);
 
 	/**
 	 * specific visitor action.
@@ -86,8 +80,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeRemoveStateTypeCommand
 	 *            specific command.
 	 */
-	void handleTicketTypeRemoveStateTypeCommand(
-			TicketTypeRemoveStateTypeCommand ticketTypeRemoveStateTypeCommand);
+	void handleTicketTypeRemoveStateTypeCommand(TicketTypeRemoveStateTypeCommand ticketTypeRemoveStateTypeCommand);
 
 	/**
 	 * specific visitor action.
@@ -95,9 +88,8 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeSetFieldTypeActivityCommand
 	 *            specific command.
 	 */
-			void
-			handleTicketTypeSetFieldTypeActivityCommand(
-					TicketTypeSetFieldTypeActivityCommand ticketTypeSetFieldTypeActivityCommand);
+	void handleTicketTypeSetFieldTypeActivityCommand(
+			TicketTypeSetFieldTypeActivityCommand ticketTypeSetFieldTypeActivityCommand);
 
 	/**
 	 * specific visitor action.
@@ -105,9 +97,8 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeSetStatetypeAsEndstatetypeCommand
 	 *            specific command.
 	 */
-			void
-			handleTicketTypeSetStatetypeAsEndstatetypeCommand(
-					TicketTypeSetStatetypeAsEndstatetypeCommand ticketTypeSetStatetypeAsEndstatetypeCommand);
+	void handleTicketTypeSetStatetypeAsEndstatetypeCommand(
+			TicketTypeSetStatetypeAsEndstatetypeCommand ticketTypeSetStatetypeAsEndstatetypeCommand);
 
 	/**
 	 * specific visitor action.
@@ -115,9 +106,8 @@ public interface TicketTypesCommandVisitor {
 	 * @param ticketTypeSetStatetypeAsStartstatetypeCommand
 	 *            specific command.
 	 */
-			void
-			handleTicketTypeSetStatetypeAsStartstatetypeCommand(
-					TicketTypeSetStatetypeAsStartstatetypeCommand ticketTypeSetStatetypeAsStartstatetypeCommand);
+	void handleTicketTypeSetStatetypeAsStartstatetypeCommand(
+			TicketTypeSetStatetypeAsStartstatetypeCommand ticketTypeSetStatetypeAsStartstatetypeCommand);
 
 	/**
 	 * specific visitor action.
@@ -125,8 +115,7 @@ public interface TicketTypesCommandVisitor {
 	 * @param transitionRuleCreateCommand
 	 *            specific command.
 	 */
-	void handleTransitionRuleCreateCommand(
-			TransitionRuleCreateCommand transitionRuleCreateCommand);
+	void handleTransitionRuleCreateCommand(TransitionRuleCreateCommand transitionRuleCreateCommand);
 
 	/**
 	 * specific visitor action.
@@ -134,7 +123,6 @@ public interface TicketTypesCommandVisitor {
 	 * @param transitionRuleDeleteCommand
 	 *            specific command.
 	 */
-	void handleTransitionRuleDeleteCommand(
-			TransitionRuleDeleteCommand transitionRuleDeleteCommand);
+	void handleTransitionRuleDeleteCommand(TransitionRuleDeleteCommand transitionRuleDeleteCommand);
 
 }

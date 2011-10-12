@@ -25,8 +25,8 @@ import fhdw.ipscrum.shared.model.nonMeta.RelationType;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.SearchView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.SearchView).
  */
 @SuppressWarnings("deprecation")
 public interface ISearchView extends IView {

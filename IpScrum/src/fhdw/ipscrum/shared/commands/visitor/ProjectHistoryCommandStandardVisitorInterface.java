@@ -8,8 +8,7 @@ import fhdw.ipscrum.shared.commands.interfaces.ICommand;
 /**
  * standard visitor for incident commands.
  */
-public interface ProjectHistoryCommandStandardVisitorInterface
-		extends ProjectHistoryCommandVisitor {
+public interface ProjectHistoryCommandStandardVisitorInterface extends ProjectHistoryCommandVisitor {
 	/**
 	 * Specifies standard behavior of the visitor.
 	 * 

@@ -68,11 +68,9 @@ public class Executor {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	private void checkForConflicts(final Model changedRevisionModel)
-			throws IPScrumGeneralException {
+	private void checkForConflicts(final Model changedRevisionModel) throws IPScrumGeneralException {
 		// Lass dir alle geänderten Objekte geben
-		final List<IdentifiableObject> localChangedObjects =
-				changedRevisionModel.getChangedObjects();
+		final List<IdentifiableObject> localChangedObjects = changedRevisionModel.getChangedObjects();
 
 		// Hole das aktuelle originale Modell
 		final Model originalModel = this.controller.getLatestModel();
@@ -83,9 +81,7 @@ public class Executor {
 			try {
 				original = originalModel.getObject(current.getId());
 				if (current.getRevisionDate() != null) {
-					if (original.isDeleted()
-							|| original.getRevisionDate().after(
-									current.getRevisionDate())) {
+					if (original.isDeleted() || original.getRevisionDate().after(current.getRevisionDate())) {
 						throw new CommitException(
 								"Commit fehlgeschlagen! Zwischenzeitliche Änderung durch anderen Anwender!");
 					}
@@ -107,18 +103,14 @@ public class Executor {
 	 *             if something fails
 	 * @return the revision model
 	 */
-	private Model replayOnRevisionCopy(final Transaction transaction)
-			throws IPScrumGeneralException {
-		final Model copyOfTransactionRev =
-				this.controller.getSpecificRevisionCopy(transaction.getModelRevision());
+	private Model replayOnRevisionCopy(final Transaction transaction) throws IPScrumGeneralException {
+		final Model copyOfTransactionRev = this.controller.getSpecificRevisionCopy(transaction.getModelRevision());
 
 		// --- ... UUIDReceiver setzen
-		copyOfTransactionRev.setUuidManager(new UUIDReceiver(transaction
-				.getGeneratedUUIDs()));
+		copyOfTransactionRev.setUuidManager(new UUIDReceiver(transaction.getGeneratedUUIDs()));
 
 		for (final Command<?> current : transaction.getCommands()) {
-			current.execute(copyOfTransactionRev, (Role) copyOfTransactionRev
-					.getObject(transaction.getActiveRoleId()));
+			current.execute(copyOfTransactionRev, (Role) copyOfTransactionRev.getObject(transaction.getActiveRoleId()));
 		}
 		return copyOfTransactionRev;
 	}
@@ -132,18 +124,15 @@ public class Executor {
 	 *             if something fails
 	 * @return the model
 	 */
-	private Model tryToPublicChanges(final Transaction transaction)
-			throws IPScrumGeneralException {
+	private Model tryToPublicChanges(final Transaction transaction) throws IPScrumGeneralException {
 		final Model newLatestModel = this.controller.getLatestModelCopy();
 
 		// --- ... UUIDReceiver wird gesetzt
-		newLatestModel
-				.setUuidManager(new UUIDReceiver(transaction.getGeneratedUUIDs()));
+		newLatestModel.setUuidManager(new UUIDReceiver(transaction.getGeneratedUUIDs()));
 
 		// Nachspielen der Transaktion
 		for (final Command<?> current : transaction.getCommands()) {
-			current.execute(newLatestModel,
-					(Role) newLatestModel.getObject(transaction.getActiveRoleId()));
+			current.execute(newLatestModel, (Role) newLatestModel.getObject(transaction.getActiveRoleId()));
 		}
 		return newLatestModel;
 	}
@@ -158,8 +147,8 @@ public class Executor {
 	 * @throws PersistenceException
 	 *             if the persistence is hurt
 	 */
-	private void confirmNewRevision(final Model changedModel,
-			final Transaction transaction) throws PersistenceException {
+	private void confirmNewRevision(final Model changedModel, final Transaction transaction)
+			throws PersistenceException {
 		final Date newRevDate = new Date();
 
 		for (final IdentifiableObject current : changedModel.getChangedObjects()) {
@@ -170,8 +159,8 @@ public class Executor {
 		changedModel.setRevisionDate(newRevDate);
 
 		final Revision newRev =
-				new Revision(transaction.getCommands(), newRevDate,
-						transaction.getEditorId(), transaction.getGeneratedUUIDs());
+				new Revision(transaction.getCommands(), newRevDate, transaction.getEditorId(),
+						transaction.getGeneratedUUIDs());
 
 		this.controller.addNewRevision(newRev, changedModel);
 	}

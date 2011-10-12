@@ -5,8 +5,8 @@ import fhdw.ipscrum.client.architecture.events.EventRegistration;
 import fhdw.ipscrum.client.architecture.view.IView;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.WidgetView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.WidgetView).
  */
 public interface IWidgetView extends IView {
 

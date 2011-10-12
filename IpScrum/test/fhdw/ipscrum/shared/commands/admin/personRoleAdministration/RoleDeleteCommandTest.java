@@ -58,7 +58,7 @@ public class RoleDeleteCommandTest extends RoleTestBase {
 			}
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 				Assert.fail();
 			}
 		});

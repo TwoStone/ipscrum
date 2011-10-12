@@ -43,12 +43,10 @@ public class ProjectAddSystemCommand extends Command<Void> implements IProjectCo
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final fhdw.ipscrum.shared.model.nonMeta.Project project =
-				(Project) model.getObject(this.getReceiverGuid());
+		final fhdw.ipscrum.shared.model.nonMeta.Project project = (Project) model.getObject(this.getReceiverGuid());
 		final System system = (System) model.getObject(this.systemId);
 
-		this.setStringValue(StringUtils.format(
-				"Projekt %s wurde System %s hinzugefügt.", project.getName(),
+		this.setStringValue(StringUtils.format("Projekt %s wurde System %s hinzugefügt.", project.getName(),
 				system.getName()));
 
 		project.addSystem(system);

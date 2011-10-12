@@ -36,21 +36,17 @@ public class ProjectChangeNameCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
-		final ProjectChangeNameCommand command =
-				new ProjectChangeNameCommand(this.getProject(), "new name");
+		final ProjectChangeNameCommand command = new ProjectChangeNameCommand(this.getProject(), "new name");
 		command.onExecute(this.getModel());
 		Assert.assertEquals("new name", this.getProject().getName());
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
-		final ProjectChangeNameCommand command =
-				new ProjectChangeNameCommand(this.getProject(), "new name");
+		final ProjectChangeNameCommand command = new ProjectChangeNameCommand(this.getProject(), "new name");
 		Assert.assertTrue(command.dependsOnProject());
 	}
 
@@ -64,24 +60,20 @@ public class ProjectChangeNameCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testGetDependingProject() throws NoObjectFindException {
-		final ProjectChangeNameCommand command =
-				new ProjectChangeNameCommand(this.getProject(), "new name");
-		Assert.assertEquals(this.getProject(),
-				command.getDependingProject(this.getModel()));
+		final ProjectChangeNameCommand command = new ProjectChangeNameCommand(this.getProject(), "new name");
+		Assert.assertEquals(this.getProject(), command.getDependingProject(this.getModel()));
 	}
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand#execute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ProjectChangeNameCommand#execute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
 	 */
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
-		final ProjectChangeNameCommand command =
-				new ProjectChangeNameCommand(this.getProject(), "new name");
+		final ProjectChangeNameCommand command = new ProjectChangeNameCommand(this.getProject(), "new name");
 		command.execute(this.getModel());
 		Assert.assertEquals("new name", this.getProject().getName());
 	}
@@ -96,12 +88,11 @@ public class ProjectChangeNameCommandTest extends ProjectTestBase {
 	 */
 	@Test
 	public final void testAccept() throws NoObjectFindException {
-		final ProjectChangeNameCommand command =
-				new ProjectChangeNameCommand(this.getProject(), "new name");
+		final ProjectChangeNameCommand command = new ProjectChangeNameCommand(this.getProject(), "new name");
 		command.accept(new CommandStandardVisitor() {
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 
 			}
 		});

@@ -25,8 +25,8 @@ public class SystemFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if a SystemFieldType with the same parameters already exists
 	 */
-	public SystemFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public SystemFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 
@@ -45,14 +45,12 @@ public class SystemFieldType extends FieldType {
 
 	@Override
 	protected SingleField<fhdw.ipscrum.shared.model.nonMeta.System> createSingleField() {
-		return new SingleField<fhdw.ipscrum.shared.model.nonMeta.System>(
-				this.getModel(), this);
+		return new SingleField<fhdw.ipscrum.shared.model.nonMeta.System>(this.getModel(), this);
 	}
 
 	@Override
 	protected ListField<fhdw.ipscrum.shared.model.nonMeta.System> createListField() {
-		return new ListField<fhdw.ipscrum.shared.model.nonMeta.System>(this.getModel(),
-				this);
+		return new ListField<fhdw.ipscrum.shared.model.nonMeta.System>(this.getModel(), this);
 	}
 
 }

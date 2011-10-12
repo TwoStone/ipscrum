@@ -7,8 +7,7 @@ import fhdw.ipscrum.shared.infrastructure.SerializationRoot;
 /**
  * Interface for persistence handlers like XStream.<br />
  * <p>
- * Own persistence handlers have to implement this interface to be used with the
- * PersistenceManager.
+ * Own persistence handlers have to implement this interface to be used with the PersistenceManager.
  * </p>
  */
 public interface PersistenceHandler {
@@ -37,7 +36,6 @@ public interface PersistenceHandler {
 	 * @throws InfrastructureException
 	 *             if there is a problem in the infrastructure
 	 */
-	<T extends SerializationRoot> T load(String identifier)
-			throws InfrastructureException;
+	<T extends SerializationRoot> T load(String identifier) throws InfrastructureException;
 
 }

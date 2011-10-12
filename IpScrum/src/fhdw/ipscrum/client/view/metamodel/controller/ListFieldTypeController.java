@@ -19,27 +19,22 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
  * @param <T>
  *            is the type of the listFieldTypeController
  */
-public abstract class ListFieldTypeController<T extends Serializable>
-		implements FieldTypeController<T> {
+public abstract class ListFieldTypeController<T extends Serializable> implements FieldTypeController<T> {
 
-	private final EventHandler<FieldEventArgs<T>> addHandler =
-			new EventHandler<FieldEventArgs<T>>() {
+	private final EventHandler<FieldEventArgs<T>> addHandler = new EventHandler<FieldEventArgs<T>>() {
 
-				@Override
-				public void onUpdate(final Object sender,
-						final FieldEventArgs<T> eventArgs) {
-					ListFieldTypeController.this.addObject(eventArgs.getObject());
-				}
-			};
-	private final EventHandler<FieldEventArgs<T>> removeHandler =
-			new EventHandler<FieldEventArgs<T>>() {
+		@Override
+		public void onUpdate(final Object sender, final FieldEventArgs<T> eventArgs) {
+			ListFieldTypeController.this.addObject(eventArgs.getObject());
+		}
+	};
+	private final EventHandler<FieldEventArgs<T>> removeHandler = new EventHandler<FieldEventArgs<T>>() {
 
-				@Override
-				public void onUpdate(final Object sender,
-						final FieldEventArgs<T> eventArgs) {
-					ListFieldTypeController.this.removeObject(eventArgs.getObject());
-				}
-			};
+		@Override
+		public void onUpdate(final Object sender, final FieldEventArgs<T> eventArgs) {
+			ListFieldTypeController.this.removeObject(eventArgs.getObject());
+		}
+	};
 	private final GenericTicketPresenter presenter;
 	private ListField<T> field;
 	private Ticket ticket;
@@ -55,8 +50,7 @@ public abstract class ListFieldTypeController<T extends Serializable>
 	 */
 	public void addObject(final T object) {
 		final ListFieldAddValueCommand<T> command =
-				ListFieldAddValueCommand.createCommand(this.getField(), object,
-						this.getTicket());
+				ListFieldAddValueCommand.createCommand(this.getField(), object, this.getTicket());
 		this.getPresenter().addCommand(this, command);
 	}
 
@@ -68,8 +62,7 @@ public abstract class ListFieldTypeController<T extends Serializable>
 	 */
 	public void removeObject(final T object) {
 		final ListFieldRemoveValueCommand<T> command =
-				ListFieldRemoveValueCommand.createCommand(this.getField(), object,
-						this.getTicket());
+				ListFieldRemoveValueCommand.createCommand(this.getField(), object, this.getTicket());
 		this.getPresenter().addCommand(this, command);
 	}
 
@@ -86,8 +79,7 @@ public abstract class ListFieldTypeController<T extends Serializable>
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public ListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<T> field, final Ticket ticket) {
+	public ListFieldTypeController(final GenericTicketPresenter presenter, final ListField<T> field, final Ticket ticket) {
 		this.presenter = presenter;
 		this.field = field;
 		this.ticket = ticket;

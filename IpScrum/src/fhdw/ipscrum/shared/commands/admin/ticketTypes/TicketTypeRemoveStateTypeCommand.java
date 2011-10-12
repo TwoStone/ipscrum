@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a state type from a ticket type.
  */
-public class TicketTypeRemoveStateTypeCommand extends Command<Void>
-		implements ITicketTypesCommand {
+public class TicketTypeRemoveStateTypeCommand extends Command<Void> implements ITicketTypesCommand {
 
 	/**
 	 * represents the related state type.
@@ -38,20 +37,17 @@ public class TicketTypeRemoveStateTypeCommand extends Command<Void>
 	 * @param statetype
 	 *            related to the command
 	 */
-	public TicketTypeRemoveStateTypeCommand(final TicketType receiver,
-			final StateType statetype) {
+	public TicketTypeRemoveStateTypeCommand(final TicketType receiver, final StateType statetype) {
 		super(receiver);
 		this.statetypeId = statetype.getId();
 	}
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final TicketType tickettype =
-				(TicketType) model.getObject(this.getReceiverGuid());
+		final TicketType tickettype = (TicketType) model.getObject(this.getReceiverGuid());
 		final StateType statetype = (StateType) model.getObject(this.statetypeId);
 
-		this.setStringValue(StringUtils.format(
-				"Dem Tickettypen %s wurde der Zustand %s entfernt.",
+		this.setStringValue(StringUtils.format("Dem Tickettypen %s wurde der Zustand %s entfernt.",
 				tickettype.getTypeName(), statetype.getName()));
 
 		tickettype.removePossibleState(statetype);

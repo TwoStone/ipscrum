@@ -24,8 +24,8 @@ import fhdw.ipscrum.shared.utils.StringUtils;
  * @param <T>
  *            is the selected field type
  */
-public abstract class SingleFieldChangeCommand<T extends Serializable>
-		extends Command<Void> implements ITaskboardCommand, IProductBacklogCommand {
+public abstract class SingleFieldChangeCommand<T extends Serializable> extends Command<Void>
+		implements ITaskboardCommand, IProductBacklogCommand {
 
 	/**
 	 * creates the command.
@@ -40,14 +40,12 @@ public abstract class SingleFieldChangeCommand<T extends Serializable>
 	 *            related to the command
 	 * @return a SingleFieldChangeCommand of the selected type
 	 */
-	public static <T extends Serializable> SingleFieldChangeCommand<T> createCommand(
-			final SingleField<T> field, final T value, final Ticket ticket) {
+	public static <T extends Serializable> SingleFieldChangeCommand<T> createCommand(final SingleField<T> field,
+			final T value, final Ticket ticket) {
 		if (value instanceof IdentifiableObject) {
-			return new SingleFieldIdentifiableObjectChangeCommand<T>(field, value,
-					ticket);
+			return new SingleFieldIdentifiableObjectChangeCommand<T>(field, value, ticket);
 		} else {
-			return new SingleFieldNonIdentifiableObjectChangeCommand<T>(field, value,
-					ticket);
+			return new SingleFieldNonIdentifiableObjectChangeCommand<T>(field, value, ticket);
 		}
 	}
 
@@ -64,10 +62,8 @@ public abstract class SingleFieldChangeCommand<T extends Serializable>
 	 *            related to the command
 	 * @return a SingleFieldChangeCommand with the attached field type
 	 */
-	public static
-			<T extends IdentifiableObject>
-			SingleFieldChangeCommand<T>
-			createCommand(final SingleField<T> field, final T value, final Ticket ticket) {
+	public static <T extends IdentifiableObject> SingleFieldChangeCommand<T> createCommand(final SingleField<T> field,
+			final T value, final Ticket ticket) {
 
 		return new SingleFieldIdentifiableObjectChangeCommand<T>(field, value, ticket);
 
@@ -97,8 +93,7 @@ public abstract class SingleFieldChangeCommand<T extends Serializable>
 	 * @param ticket
 	 *            related to the command
 	 */
-	protected SingleFieldChangeCommand(final IdentifiableObject receiver,
-			final Ticket ticket) {
+	protected SingleFieldChangeCommand(final IdentifiableObject receiver, final Ticket ticket) {
 		super(receiver);
 		this.ticketId = ticket.getId();
 	}
@@ -106,12 +101,10 @@ public abstract class SingleFieldChangeCommand<T extends Serializable>
 	@SuppressWarnings("unchecked")
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final SingleField<T> singleField =
-				(SingleField<T>) model.getObject(this.getReceiverGuid());
+		final SingleField<T> singleField = (SingleField<T>) model.getObject(this.getReceiverGuid());
 		final Ticket ticket = (Ticket) model.getObject(this.ticketId);
 		final T value = this.getValue(model);
-		this.setStringValue(StringUtils.format(
-				"Wertänderung im Ticket '%s': %s -> %s.", ticket.getName(),
+		this.setStringValue(StringUtils.format("Wertänderung im Ticket '%s': %s -> %s.", ticket.getName(),
 				singleField.getValue(), value));
 		singleField.setValue(value, ticket);
 		return null;
@@ -136,9 +129,7 @@ public abstract class SingleFieldChangeCommand<T extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.interfaces.ICommand#getDependingProject(fhdw.ipscrum
-	 * .shared.model.Model)
+	 * @see fhdw.ipscrum.shared.commands.interfaces.ICommand#getDependingProject(fhdw.ipscrum .shared.model.Model)
 	 */
 	@Override
 	public Project getDependingProject(final Model model) throws NoObjectFindException {
@@ -162,8 +153,7 @@ public abstract class SingleFieldChangeCommand<T extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.interfaces.ICommand#accept(fhdw.ipscrum.shared.commands
+	 * @see fhdw.ipscrum.shared.commands.interfaces.ICommand#accept(fhdw.ipscrum.shared.commands
 	 * .visitor.CommandVisitor)
 	 */
 	@Override

@@ -19,8 +19,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new illness incident.
  */
-public class IncidentIllnessCreateCommand extends Command<OneParticipantIncident>
-		implements IProjectHistoryCommand {
+public class IncidentIllnessCreateCommand extends Command<OneParticipantIncident> implements IProjectHistoryCommand {
 
 	/**
 	 * Represents the date the IllnessIncident started.
@@ -55,8 +54,7 @@ public class IncidentIllnessCreateCommand extends Command<OneParticipantIncident
 	 * @param person
 	 *            the incident is related to
 	 */
-	public IncidentIllnessCreateCommand(final Date startDate, final Date endDate,
-			final Person person) {
+	public IncidentIllnessCreateCommand(final Date startDate, final Date endDate, final Person person) {
 		super();
 		this.startDate = CalendarUtils.copy(startDate);
 		this.endDate = CalendarUtils.copy(endDate);
@@ -64,19 +62,14 @@ public class IncidentIllnessCreateCommand extends Command<OneParticipantIncident
 	}
 
 	@Override
-	protected OneParticipantIncident onExecute(final Model model)
-			throws IPScrumGeneralException {
+	protected OneParticipantIncident onExecute(final Model model) throws IPScrumGeneralException {
 		final Person person = (Person) model.getObject(this.personId);
-		this.setStringValue(StringUtils.format("Krankheit von '%s' eingestellt.",
-				person.toString()));
+		this.setStringValue(StringUtils.format("Krankheit von '%s' eingestellt.", person.toString()));
 
-		final IncidentType incidentType =
-				model.getIncidentTypeByName(TextConstants.INCIDENT_ILLNESS_NAME);
-		final String description =
-				person.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
+		final IncidentType incidentType = model.getIncidentTypeByName(TextConstants.INCIDENT_ILLNESS_NAME);
+		final String description = person.toString() + TextConstants.INCIDENT_ILLNESS_DESCR_SUFFIX;
 
-		final OneParticipantIncident incident =
-				new OneParticipantIncident(model, this.startDate, this.endDate, person);
+		final OneParticipantIncident incident = new OneParticipantIncident(model, this.startDate, this.endDate, person);
 		incident.setType(incidentType);
 		incident.setDescription(description);
 		incident.setGlobal(true);

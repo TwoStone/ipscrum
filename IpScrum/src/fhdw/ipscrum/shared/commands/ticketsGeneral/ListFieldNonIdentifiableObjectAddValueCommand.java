@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket;
  *            is the attached field type
  */
 
-public class ListFieldNonIdentifiableObjectAddValueCommand<T extends Serializable>
-		extends ListFieldAddValueCommand<T> {
+public class ListFieldNonIdentifiableObjectAddValueCommand<T extends Serializable> extends ListFieldAddValueCommand<T> {
 
 	/**
 	 * represents the value of the command.
@@ -40,8 +39,7 @@ public class ListFieldNonIdentifiableObjectAddValueCommand<T extends Serializabl
 	 * @param ticket
 	 *            related to the command
 	 */
-	protected ListFieldNonIdentifiableObjectAddValueCommand(final ListField<T> field,
-			final T value, final Ticket ticket) {
+	protected ListFieldNonIdentifiableObjectAddValueCommand(final ListField<T> field, final T value, final Ticket ticket) {
 		super(field, ticket);
 		this.value = value;
 	}

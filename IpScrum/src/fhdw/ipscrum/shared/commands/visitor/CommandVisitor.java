@@ -7,9 +7,8 @@ import fhdw.ipscrum.shared.commands.search.SearchDeleteCommand;
  * visitor for all commands.
  */
 public interface CommandVisitor
-		extends ProductBacklogCommandVisitor, TaskboardCommandVisitor,
-		AdminCommandVisitor, ProjectCommandVisitor, ProjectHistoryCommandVisitor,
-		TicketGeneralCommandVisitor {
+		extends ProductBacklogCommandVisitor, TaskboardCommandVisitor, AdminCommandVisitor, ProjectCommandVisitor,
+		ProjectHistoryCommandVisitor, TicketGeneralCommandVisitor {
 
 	/**
 	 * specific visitor action.

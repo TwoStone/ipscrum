@@ -40,8 +40,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleTextFieldType(final TextFieldType textFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new TextListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new TextListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<String>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -50,8 +49,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleSystemFieldType(final SystemFieldType systemFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new SystemListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new SystemListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<System>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -60,8 +58,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleSprintFieldType(final SprintFieldType sprintFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new SprintListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new SprintListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Sprint>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -70,8 +67,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleReleaseFieldType(final ReleaseFieldType releaseFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new ReleaseListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new ReleaseListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Release>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -80,8 +76,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handlePersonFieldType(final PersonFieldType personFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new PersonListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new PersonListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Person>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -90,8 +85,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handlePBIFieldType(final PBIFieldType pbiFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new PBIListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new PBIListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<ProductBacklogItem>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -100,8 +94,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleNumberFieldType(final NumberFieldType numberFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new NumberListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new NumberListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Long>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -110,8 +103,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleHintFieldType(final HintFieldType hintFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new HintListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new HintListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Hint>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -120,8 +112,7 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleEffortFieldType(final EffortFieldType effortFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new EffortListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new EffortListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Effort>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
@@ -130,16 +121,14 @@ public class ListFieldTypeControllerFactory {
 		@Override
 		public void handleDateFieldType(final DateFieldType dateFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
-					new DateListFieldTypeController(
-							ListFieldTypeControllerFactory.this.genericTicketPresenter,
+					new DateListFieldTypeController(ListFieldTypeControllerFactory.this.genericTicketPresenter,
 							(ListField<Date>) ListFieldTypeControllerFactory.this.field,
 							ListFieldTypeControllerFactory.this.ticket);
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public void handleAcceptanceCriterionFieldType(
-				final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
+		public void handleAcceptanceCriterionFieldType(final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
 			ListFieldTypeControllerFactory.this.controller =
 					new fhdw.ipscrum.client.view.metamodel.controller.AcceptanceCriteriaListFieldTypeController(
 							ListFieldTypeControllerFactory.this.genericTicketPresenter,

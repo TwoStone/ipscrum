@@ -23,8 +23,8 @@ public class TextListFieldTypeController extends ListFieldTypeController<String>
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public TextListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<String> field, final Ticket ticket) {
+	public TextListFieldTypeController(final GenericTicketPresenter presenter, final ListField<String> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 
 		this.widget = new TextListFieldWidget(this.getField());

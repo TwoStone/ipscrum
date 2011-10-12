@@ -43,8 +43,7 @@ public interface ProductBacklogCommandVisitor {
 	 * @param pBIPriorityDecreaseCommand
 	 *            concrete command.
 	 */
-	void handlePBIPriorityDecreaseCommand(
-			PBIPriorityDecreaseCommand pBIPriorityDecreaseCommand);
+	void handlePBIPriorityDecreaseCommand(PBIPriorityDecreaseCommand pBIPriorityDecreaseCommand);
 
 	/**
 	 * specific visitor action.
@@ -52,8 +51,7 @@ public interface ProductBacklogCommandVisitor {
 	 * @param pBIPriorityIncreaseCommand
 	 *            concrete command.
 	 */
-	void handlePBIPriorityIncreaseCommand(
-			PBIPriorityIncreaseCommand pBIPriorityIncreaseCommand);
+	void handlePBIPriorityIncreaseCommand(PBIPriorityIncreaseCommand pBIPriorityIncreaseCommand);
 
 	/**
 	 * specific visitor action.
@@ -61,8 +59,7 @@ public interface ProductBacklogCommandVisitor {
 	 * @param pBIRemoveRelationCommand
 	 *            concrete command.
 	 */
-	void handlePBIRemoveRelationCommand(
-			PBIRemoveRelationCommand pBIRemoveRelationCommand);
+	void handlePBIRemoveRelationCommand(PBIRemoveRelationCommand pBIRemoveRelationCommand);
 
 	/**
 	 * specific visitor action.
@@ -70,6 +67,5 @@ public interface ProductBacklogCommandVisitor {
 	 * @param relationTypeCreateCommand
 	 *            concrete command.
 	 */
-	void handleRelationTypeCreateCommand(
-			RelationTypeCreateCommand relationTypeCreateCommand);
+	void handleRelationTypeCreateCommand(RelationTypeCreateCommand relationTypeCreateCommand);
 }

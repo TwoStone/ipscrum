@@ -25,8 +25,8 @@ public class DateListFieldTypeController extends ListFieldTypeController<Date> {
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public DateListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Date> field, final Ticket ticket) {
+	public DateListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Date> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 
 		this.widget = new DateListFieldWidget(this.getField());

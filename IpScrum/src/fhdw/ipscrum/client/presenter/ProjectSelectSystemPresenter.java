@@ -20,14 +20,13 @@ import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
 /**
- * This class represents the presenter which controls the view to select systems for a
- * project.
+ * This class represents the presenter which controls the view to select systems for a project.
  */
 public class ProjectSelectSystemPresenter extends WritePresenter {
 
 	/**
-	 * represents the project related to this presenter. It is needed to make clear to
-	 * which project the systems should be added or removed.
+	 * represents the project related to this presenter. It is needed to make clear to which project the systems should
+	 * be added or removed.
 	 */
 	private Project project;
 	/**
@@ -36,31 +35,27 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 	private ISelectSystemView view;
 
 	/**
-	 * represents a flag to check if the question asking if the view should been left
-	 * without saving should be asked.
+	 * represents a flag to check if the question asking if the view should been left without saving should be asked.
 	 */
 	private boolean saved;
 
 	/**
-	 * constructor of the ({@link}
-	 * fhdw.ipscrum.client.presenter.ProjectSelectSystemPresenter).
+	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.ProjectSelectSystemPresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 * @param project
 	 *            is the related project to select systems for
 	 */
-	public ProjectSelectSystemPresenter(final ClientContext context,
-			final Project project) {
+	public ProjectSelectSystemPresenter(final ClientContext context, final Project project) {
 		super(context);
 		this.project = project;
 		this.beginTransaction();
 	}
 
 	/**
-	 * interface of the view class for systems. this view is used to select systems of an
-	 * amount of available systems.
+	 * interface of the view class for systems. this view is used to select systems of an amount of available systems.
 	 */
 	public interface ISelectSystemView extends IView {
 
@@ -88,8 +83,7 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 		System getSelectedOfAvailableSystems();
 
 		/**
-		 * This method is used to obtain the selected System of the selected
-		 * Systems-table.
+		 * This method is used to obtain the selected System of the selected Systems-table.
 		 * 
 		 * @return System the selected System
 		 */
@@ -109,33 +103,27 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 		 * @param availableSystems
 		 *            a collection of the available systems to be displayed.
 		 * @param selectedSystems
-		 *            is the collection of the systems the user has already collected for
-		 *            the project
+		 *            is the collection of the systems the user has already collected for the project
 		 */
-		void updateAvailableSystemData(Collection<System> availableSystems,
-				Collection<System> selectedSystems);
+		void updateAvailableSystemData(Collection<System> availableSystems, Collection<System> selectedSystems);
 
 		/**
-		 * use this method to define the action of the
-		 * remove-system-from-selected-systems-button.
+		 * use this method to define the action of the remove-system-from-selected-systems-button.
 		 * 
 		 * @param args
 		 *            empty arguments
 		 * @return the event needed to handle the remove.
 		 */
-		EventRegistration removeRemoveSelectedSystemHandler(
-				EventHandler<SystemArgs> args);
+		EventRegistration removeRemoveSelectedSystemHandler(EventHandler<SystemArgs> args);
 
 		/**
-		 * use this method to define the action of the
-		 * add-system-from-selected-systems-button.
+		 * use this method to define the action of the add-system-from-selected-systems-button.
 		 * 
 		 * @param args
 		 *            empty arguments
 		 * @return the event needed to handle the addition.
 		 */
-		EventRegistration
-				registerAddSelectedSystemHandler(EventHandler<SystemArgs> args);
+		EventRegistration registerAddSelectedSystemHandler(EventHandler<SystemArgs> args);
 	}
 
 	@Override
@@ -151,16 +139,14 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 
 				@Override
 				public void onUpdate(final Object sender, final SystemArgs eventArgs) {
-					ProjectSelectSystemPresenter.this.addSelectedSystem(eventArgs
-							.getSystem());
+					ProjectSelectSystemPresenter.this.addSelectedSystem(eventArgs.getSystem());
 				}
 			});
 			this.view.removeRemoveSelectedSystemHandler(new EventHandler<SystemArgs>() {
 
 				@Override
 				public void onUpdate(final Object sender, final SystemArgs eventArgs) {
-					ProjectSelectSystemPresenter.this.removeSelectedSystem(eventArgs
-							.getSystem());
+					ProjectSelectSystemPresenter.this.removeSelectedSystem(eventArgs.getSystem());
 				}
 			});
 			this.view.registerSaveHandler(new DefaultEventHandler() {
@@ -225,21 +211,20 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 	@Override
 	protected void onClose(final CloseCallback callback) {
 		if (!this.saved) {
-			this.showQuestion("Wollen sie die Seite ohne Speichern verlassen?",
-					new Answer("Ja!") {
+			this.showQuestion("Wollen sie die Seite ohne Speichern verlassen?", new Answer("Ja!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							callback.closed();
-							ProjectSelectSystemPresenter.this.rollbackTransaction();
-						}
-					}, new Answer("Nein!") {
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					callback.closed();
+					ProjectSelectSystemPresenter.this.rollbackTransaction();
+				}
+			}, new Answer("Nein!") {
 
-						@Override
-						public void onAction(final QuestionDialog widget) {
-							callback.closeAborted();
-						}
-					});
+				@Override
+				public void onAction(final QuestionDialog widget) {
+					callback.closeAborted();
+				}
+			});
 		} else {
 			callback.closed();
 		}
@@ -247,10 +232,8 @@ public class ProjectSelectSystemPresenter extends WritePresenter {
 
 	@Override
 	public void updateView() {
-		this.setViewRightVisibility(this.getContext().getModel().getRightManager()
-				.getProjectRight());
-		this.doGetView().updateAvailableSystemData(
-				this.getContext().getModel().getSystems().getSystems(),
+		this.setViewRightVisibility(this.getContext().getModel().getRightManager().getProjectRight());
+		this.doGetView().updateAvailableSystemData(this.getContext().getModel().getSystems().getSystems(),
 				this.project.getSystems());
 		this.doGetView().updateSelectedSystemData(this.project.getSystems());
 	}

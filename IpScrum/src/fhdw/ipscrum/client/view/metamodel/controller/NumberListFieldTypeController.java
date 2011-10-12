@@ -23,8 +23,8 @@ public class NumberListFieldTypeController extends ListFieldTypeController<Long>
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public NumberListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Long> field, final Ticket ticket) {
+	public NumberListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Long> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 		this.widget = new NumberListFieldWidget(this.getField());
 		this.initialize();

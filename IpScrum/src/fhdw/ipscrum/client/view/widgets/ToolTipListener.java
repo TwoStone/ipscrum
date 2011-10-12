@@ -7,8 +7,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * THIS CLASS IS STOLEN BY http://www.java2s.com/Code/Java/GWT/TooltipcomponentforGWT.htm
- * .
+ * THIS CLASS IS STOLEN BY http://www.java2s.com/Code/Java/GWT/TooltipcomponentforGWT.htm .
  */
 
 @SuppressWarnings("deprecation")
@@ -23,8 +22,8 @@ public class ToolTipListener extends MouseListenerAdapter {
 	private static class Tooltip extends PopupPanel {
 		private final int delay;
 
-		public Tooltip(final Widget sender, final int offsetX, final int offsetY,
-				final String text, final int delay, final String styleName) {
+		public Tooltip(final Widget sender, final int offsetX, final int offsetY, final String text, final int delay,
+				final String styleName) {
 			super(true);
 
 			this.delay = delay;
@@ -95,9 +94,7 @@ public class ToolTipListener extends MouseListenerAdapter {
 		if (this.tooltip != null) {
 			this.tooltip.hide();
 		}
-		this.tooltip =
-				new Tooltip(sender, this.offsetX, this.offsetY, this.text, this.delay,
-						this.styleName);
+		this.tooltip = new Tooltip(sender, this.offsetX, this.offsetY, this.text, this.delay, this.styleName);
 		this.tooltip.show();
 	}
 

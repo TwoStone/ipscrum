@@ -52,8 +52,7 @@ public class OneParticipantIncidentTest extends SetUpTestData {
 		final Date end = new Date(2011 - 1900, 3 - 1, 1);
 		final Person participant = this.getpBjoern();
 
-		final OneParticipantIncident result =
-				new OneParticipantIncident(this.getModel(), start, end, participant);
+		final OneParticipantIncident result = new OneParticipantIncident(this.getModel(), start, end, participant);
 
 		Assert.assertNotNull(result);
 		Assert.assertEquals(start, result.getStart());
@@ -70,8 +69,7 @@ public class OneParticipantIncidentTest extends SetUpTestData {
 	@Test
 	public void testGetParticipant1() throws Exception {
 		final OneParticipantIncident fixture =
-				new OneParticipantIncident(this.getModel(), new Date(), new Date(),
-						this.getpSarah());
+				new OneParticipantIncident(this.getModel(), new Date(), new Date(), this.getpSarah());
 
 		final Person result = fixture.getParticipant();
 

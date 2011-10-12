@@ -48,8 +48,7 @@ public class VariousBugCommandsTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 		try {
 			new RelationType(this.model, "Abhängig von");
@@ -79,12 +78,10 @@ public class VariousBugCommandsTest {
 			this.project = new Project(this.model, "test");
 
 			this.release = new Release(this.model, "version", new Date(), this.project);
-			final BugTicketType type =
-					new BugTicketType(this.model, "type", "type text");
+			final BugTicketType type = new BugTicketType(this.model, "type", "type text");
 
 			final BugCreateCommand command =
-					new BugCreateCommand("Bug 1", "description", type,
-							this.project.getBacklog(), this.release);
+					new BugCreateCommand("Bug 1", "description", type, this.project.getBacklog(), this.release);
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -99,8 +96,7 @@ public class VariousBugCommandsTest {
 	@Test
 	public void bugTicketTypeCreateCommand() {
 		try {
-			final BugTicketTypeCreateCommand command =
-					new BugTicketTypeCreateCommand("Bugtype 2", "description");
+			final BugTicketTypeCreateCommand command = new BugTicketTypeCreateCommand("Bugtype 2", "description");
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();

@@ -39,8 +39,8 @@ public class ListFieldNonIdentifiableObjectRemoveValueCommand<T extends Serializ
 	 * @param ticket
 	 *            related to the command
 	 */
-	protected ListFieldNonIdentifiableObjectRemoveValueCommand(
-			final ListField<T> field, final T value, final Ticket ticket) {
+	protected ListFieldNonIdentifiableObjectRemoveValueCommand(final ListField<T> field, final T value,
+			final Ticket ticket) {
 		super(field, ticket);
 		this.value = value;
 	}

@@ -30,24 +30,23 @@ public class HistoryController extends ClientController {
 	/**
 	 * Handles history events from the browser.
 	 */
-	private final ValueChangeHandler<String> historyChangeHandler =
-			new ValueChangeHandler<String>() {
+	private final ValueChangeHandler<String> historyChangeHandler = new ValueChangeHandler<String>() {
 
-				@Override
-				public void onValueChange(final ValueChangeEvent<String> event) {
-					// Here the implementation for a place management starts.
+		@Override
+		public void onValueChange(final ValueChangeEvent<String> event) {
+			// Here the implementation for a place management starts.
 
-					// final String value = event.getValue();
-					// final String[] strings = value.split("[" +
-					// HistoryController.SEPERATOR + "]");
-					// if (strings.length == 2) {
+			// final String value = event.getValue();
+			// final String[] strings = value.split("[" +
+			// HistoryController.SEPERATOR + "]");
+			// if (strings.length == 2) {
 
-					// final String clazzToken = strings[0];
-					// final String idToken = strings[1];
-					// }
+			// final String clazzToken = strings[0];
+			// final String idToken = strings[1];
+			// }
 
-				}
-			};
+		}
+	};
 
 	/**
 	 * Create a new instance in the specified context.
@@ -59,15 +58,13 @@ public class HistoryController extends ClientController {
 		super(context);
 		History.addValueChangeHandler(this.historyChangeHandler);
 
-		context.getEventBus().registerHandler(PresenterChangedEvent.class,
-				new PresenterChangedHandler() {
+		context.getEventBus().registerHandler(PresenterChangedEvent.class, new PresenterChangedHandler() {
 
-					@Override
-					public void
-							handlePresenterChanged(final PresenterChangedEvent event) {
-						// HistoryController.this.updateHistory(event.getObject());
-					}
-				});
+			@Override
+			public void handlePresenterChanged(final PresenterChangedEvent event) {
+				// HistoryController.this.updateHistory(event.getObject());
+			}
+		});
 	}
 
 	/**
@@ -77,9 +74,8 @@ public class HistoryController extends ClientController {
 	 *            the currently active presenter
 	 */
 	public void updateHistory(final Presenter presenter) {
-		History.newItem(HistoryController.PAGE + presenter.getClass().getName()
-				+ HistoryController.SEPERATOR + HistoryController.IDTOKEN
-				+ presenter.getIdentifier());
+		History.newItem(HistoryController.PAGE + presenter.getClass().getName() + HistoryController.SEPERATOR
+				+ HistoryController.IDTOKEN + presenter.getIdentifier());
 	}
 
 }

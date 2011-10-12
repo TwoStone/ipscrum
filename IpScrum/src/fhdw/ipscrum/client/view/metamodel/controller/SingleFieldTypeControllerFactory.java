@@ -38,8 +38,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleTextFieldType(final TextFieldType textFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new TextSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new TextSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<String>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -48,8 +47,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleSystemFieldType(final SystemFieldType systemFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new SystemSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new SystemSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<System>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -58,8 +56,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleSprintFieldType(final SprintFieldType sprintFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new SprintSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new SprintSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<Sprint>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -68,8 +65,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleReleaseFieldType(final ReleaseFieldType releaseFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new ReleaseSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new ReleaseSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<Release>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -78,8 +74,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handlePersonFieldType(final PersonFieldType personFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new PersonSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new PersonSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<Person>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -88,8 +83,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handlePBIFieldType(final PBIFieldType pbiFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new PBISingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new PBISingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<ProductBacklogItem>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -98,8 +92,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleNumberFieldType(final NumberFieldType numberFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new NumberSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new NumberSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<Long>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -113,8 +106,7 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleEffortFieldType(final EffortFieldType effortFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new EffortSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new EffortSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<Effort>) SingleFieldTypeControllerFactory.this.singleField);
 		}
@@ -123,15 +115,13 @@ public class SingleFieldTypeControllerFactory {
 		@Override
 		public void handleDateFieldType(final DateFieldType dateFieldType) {
 			SingleFieldTypeControllerFactory.this.controller =
-					new DateSingleFieldTypeController(
-							SingleFieldTypeControllerFactory.this.ticket,
+					new DateSingleFieldTypeController(SingleFieldTypeControllerFactory.this.ticket,
 							SingleFieldTypeControllerFactory.this.genericTicketPresenter,
 							(SingleField<Date>) SingleFieldTypeControllerFactory.this.singleField);
 		}
 
 		@Override
-		public void handleAcceptanceCriterionFieldType(
-				final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
+		public void handleAcceptanceCriterionFieldType(final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
 
 		}
 	}
@@ -153,8 +143,7 @@ public class SingleFieldTypeControllerFactory {
 	 * @param ticket
 	 *            is the related ticket
 	 */
-	public <T extends Serializable> SingleFieldTypeControllerFactory(
-			final SingleField<T> singleField,
+	public <T extends Serializable> SingleFieldTypeControllerFactory(final SingleField<T> singleField,
 			final GenericTicketPresenter genericTicketPresenter, final Ticket ticket) {
 		this.singleField = singleField;
 		this.genericTicketPresenter = genericTicketPresenter;

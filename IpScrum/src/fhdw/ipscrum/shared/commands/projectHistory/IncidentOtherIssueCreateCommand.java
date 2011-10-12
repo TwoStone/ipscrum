@@ -20,8 +20,8 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new customized incident.
  */
-public class IncidentOtherIssueCreateCommand
-		extends Command<MultipleParticipantIncident> implements IProjectHistoryCommand {
+public class IncidentOtherIssueCreateCommand extends Command<MultipleParticipantIncident>
+		implements IProjectHistoryCommand {
 
 	/**
 	 * Represents the date the Incident started.
@@ -77,9 +77,8 @@ public class IncidentOtherIssueCreateCommand
 	 * @param projects
 	 *            related to the Incident
 	 */
-	public IncidentOtherIssueCreateCommand(final Date startDate, final Date endDate,
-			final String incidentTypeId, final String description,
-			final List<Person> persons, final List<Project> projects) {
+	public IncidentOtherIssueCreateCommand(final Date startDate, final Date endDate, final String incidentTypeId,
+			final String description, final List<Person> persons, final List<Project> projects) {
 		super();
 		this.startDate = CalendarUtils.copy(startDate);
 		this.endDate = CalendarUtils.copy(endDate);
@@ -90,22 +89,17 @@ public class IncidentOtherIssueCreateCommand
 	}
 
 	@Override
-	protected MultipleParticipantIncident onExecute(final Model model)
-			throws IPScrumGeneralException {
-		final IncidentType incidentType =
-				(IncidentType) model.getObject(this.incidentTypeId);
-		this.setStringValue(StringUtils.format("Ereignis vom Typ '%s' eingetragen.",
-				incidentType.getName()));
+	protected MultipleParticipantIncident onExecute(final Model model) throws IPScrumGeneralException {
+		final IncidentType incidentType = (IncidentType) model.getObject(this.incidentTypeId);
+		this.setStringValue(StringUtils.format("Ereignis vom Typ '%s' eingetragen.", incidentType.getName()));
 
 		final MultipleParticipantIncident incident =
 				new MultipleParticipantIncident(model, this.startDate, this.endDate);
 		incident.setType(incidentType);
 		incident.setDescription(this.description);
 
-		final List<Person> persons =
-				ListUtils.convertIdListToObjList(this.personIds, model);
-		final List<Project> projects =
-				ListUtils.convertIdListToObjList(this.projectIds, model);
+		final List<Person> persons = ListUtils.convertIdListToObjList(this.personIds, model);
+		final List<Project> projects = ListUtils.convertIdListToObjList(this.projectIds, model);
 		incident.addPartipants(persons);
 		incident.addProjects(projects);
 

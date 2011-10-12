@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new state type.
  */
-public class StateTypeCreateCommand extends Command<StateType>
-		implements ITicketTypesCommand {
+public class StateTypeCreateCommand extends Command<StateType> implements ITicketTypesCommand {
 
 	/**
 	 * represents the name of the state type to create.
@@ -50,8 +49,7 @@ public class StateTypeCreateCommand extends Command<StateType>
 
 	@Override
 	protected StateType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Zustand '%s' erstellt.",
-				this.name));
+		this.setStringValue(StringUtils.format("Neuer Zustand '%s' erstellt.", this.name));
 		final StateType stateType = new StateType(model, this.name, this.description);
 		return stateType;
 	}

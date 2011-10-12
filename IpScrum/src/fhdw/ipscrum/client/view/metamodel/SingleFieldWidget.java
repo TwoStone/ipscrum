@@ -20,8 +20,7 @@ import fhdw.ipscrum.client.architecture.events.TypedEventArg;
  */
 public abstract class SingleFieldWidget<T> extends Composite {
 
-	private final Event<TypedEventArg<T>> selectionChangedEvent =
-			new Event<TypedEventArg<T>>();
+	private final Event<TypedEventArg<T>> selectionChangedEvent = new Event<TypedEventArg<T>>();
 
 	/**
 	 * Constructor of the SingleFieldWidget.
@@ -38,9 +37,8 @@ public abstract class SingleFieldWidget<T> extends Composite {
 
 			@Override
 			public void onValueChange(final ValueChangeEvent<T> event) {
-				SingleFieldWidget.this.selectionChangedEvent.fire(
-						SingleFieldWidget.this, new TypedEventArg<T>(
-								SingleFieldWidget.this.getValues().getValue()));
+				SingleFieldWidget.this.selectionChangedEvent.fire(SingleFieldWidget.this, new TypedEventArg<T>(
+						SingleFieldWidget.this.getValues().getValue()));
 			}
 		});
 
@@ -54,8 +52,7 @@ public abstract class SingleFieldWidget<T> extends Composite {
 	 *            needed for handling the event
 	 * @return the event to handle the change
 	 */
-	public EventRegistration registerChangeHandler(
-			final EventHandler<TypedEventArg<T>> handler) {
+	public EventRegistration registerChangeHandler(final EventHandler<TypedEventArg<T>> handler) {
 		return this.selectionChangedEvent.add(handler);
 	}
 

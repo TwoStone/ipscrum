@@ -43,16 +43,15 @@ public class ValueTextBox<T> extends Composite implements HasValue<T> {
 
 			@Override
 			public void onValueChange(final ValueChangeEvent<String> event) {
-				ValueChangeEvent.fireIfNotEqual(ValueTextBox.this,
-						ValueTextBox.this.oldValue, ValueTextBox.this.getValue());
+				ValueChangeEvent.fireIfNotEqual(ValueTextBox.this, ValueTextBox.this.oldValue,
+						ValueTextBox.this.getValue());
 			}
 		});
 		this.initWidget(this.textBox);
 	}
 
 	@Override
-	public HandlerRegistration
-			addValueChangeHandler(final ValueChangeHandler<T> handler) {
+	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<T> handler) {
 		return this.addHandler(handler, ValueChangeEvent.getType());
 	}
 

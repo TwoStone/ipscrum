@@ -55,8 +55,8 @@ public class Revision implements IsSerializable {
 	 * @param generatedUUIDs
 	 *            related to the revision
 	 */
-	public Revision(final List<Command<?>> commands, final Date revisionDate,
-			final String editorId, final List<String> generatedUUIDs) {
+	public Revision(final List<Command<?>> commands, final Date revisionDate, final String editorId,
+			final List<String> generatedUUIDs) {
 		super();
 		this.commands = commands;
 		this.revisionDate = CalendarUtils.copy(revisionDate);

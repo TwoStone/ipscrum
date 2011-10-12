@@ -15,8 +15,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a transition rule for a ticket type.
  */
-public class TransitionRuleCreateCommand extends Command<TransitionRule>
-		implements ITicketTypesCommand {
+public class TransitionRuleCreateCommand extends Command<TransitionRule> implements ITicketTypesCommand {
 
 	/**
 	 * represents the related ticketType.
@@ -51,8 +50,7 @@ public class TransitionRuleCreateCommand extends Command<TransitionRule>
 	 * @param to
 	 *            is the to state related to the command
 	 */
-	public TransitionRuleCreateCommand(final TicketType ticket, final StateType from,
-			final StateType to) {
+	public TransitionRuleCreateCommand(final TicketType ticket, final StateType from, final StateType to) {
 		super();
 		this.ticketTypeId = ticket.getId();
 		this.fromId = from.getId();
@@ -60,17 +58,16 @@ public class TransitionRuleCreateCommand extends Command<TransitionRule>
 	}
 
 	@Override
-	protected TransitionRule onExecute(final Model model)
-			throws IPScrumGeneralException {
+	protected TransitionRule onExecute(final Model model) throws IPScrumGeneralException {
 		final TicketType tickettype = (TicketType) model.getObject(this.ticketTypeId);
 		final StateType from = (StateType) model.getObject(this.fromId);
 		final StateType to = (StateType) model.getObject(this.toId);
 
 		final TransitionRule transitionRule = new TransitionRule(model, from, to);
 
-		this.setStringValue(StringUtils
-				.format("Dem Tickettypen %s wurde der Zustandsübergang von %s nach %s hinzugefügt.",
-						tickettype.getTypeName(), from.getName(), to.getName()));
+		this.setStringValue(StringUtils.format(
+				"Dem Tickettypen %s wurde der Zustandsübergang von %s nach %s hinzugefügt.", tickettype.getTypeName(),
+				from.getName(), to.getName()));
 
 		tickettype.addTransitionRule(transitionRule);
 		return transitionRule;

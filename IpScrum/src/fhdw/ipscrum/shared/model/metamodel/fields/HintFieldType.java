@@ -25,8 +25,8 @@ public class HintFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if a fieldType with the same parameters already exists
 	 */
-	public HintFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public HintFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 

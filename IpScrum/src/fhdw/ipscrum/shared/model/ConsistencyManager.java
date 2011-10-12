@@ -62,8 +62,7 @@ public class ConsistencyManager {
 	 * @throws DoubleDefinitionException
 	 *             if a person with the same parameters already exists
 	 */
-	public void checkForDoublePerson(final Person person)
-			throws DoubleDefinitionException {
+	public void checkForDoublePerson(final Person person) throws DoubleDefinitionException {
 		for (final Person current : this.model.getAllPersons()) {
 			if (current.getFirstname().equals(person.getFirstname())
 					&& current.getLastname().equals(person.getLastname())) {
@@ -104,12 +103,10 @@ public class ConsistencyManager {
 		if (this.model.getAllRoles().contains(role)) {
 			final Vector<Person> p = role.getPersons();
 			if (p != null && !p.isEmpty()) {
-				throw new ConsistencyException(
-						fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
+				throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_STILL_IN_USE_ERROR);
 			}
 		} else {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		}
 	}
 
@@ -156,12 +153,10 @@ public class ConsistencyManager {
 	 * @throws DoubleDefinitionException
 	 *             if a type with the same parameters already exists
 	 */
-	public void checkForDoubleRelationType(final RelationType type)
-			throws DoubleDefinitionException {
+	public void checkForDoubleRelationType(final RelationType type) throws DoubleDefinitionException {
 		for (final RelationType current : this.model.getAllRelationTypes()) {
 			if (current.getDescription().equals(type.getDescription())) {
-				throw new DoubleDefinitionException("Beziehungstyp "
-						+ type.getDescription() + " bereits vorhanden.");
+				throw new DoubleDefinitionException("Beziehungstyp " + type.getDescription() + " bereits vorhanden.");
 			}
 		}
 	}
@@ -177,8 +172,7 @@ public class ConsistencyManager {
 	 * @throws NoValidValueException
 	 *             if the given date-range is invalid.
 	 */
-	public void checkForValidDateRange(final Date startDate, final Date endDate)
-			throws NoValidValueException {
+	public void checkForValidDateRange(final Date startDate, final Date endDate) throws NoValidValueException {
 		if (endDate.before(startDate)) {
 			throw new NoValidValueException(ExceptionConstants.END_BEFORE_BEGIN_ERROR);
 		}
@@ -192,12 +186,10 @@ public class ConsistencyManager {
 	 * @throws DoubleDefinitionException
 	 *             if the given Incident is already defined.
 	 */
-	public void checkForDoubleIncident(final String name)
-			throws DoubleDefinitionException {
+	public void checkForDoubleIncident(final String name) throws DoubleDefinitionException {
 		try {
 			this.model.getIncidentTypeByName(name);
-			throw new DoubleDefinitionException(
-					TextConstants.INCIDENTTYPE_DOUBLEDEFINITION);
+			throw new DoubleDefinitionException(TextConstants.INCIDENTTYPE_DOUBLEDEFINITION);
 		} catch (final NoObjectFindException e) {
 			// Nothing to do here. Only if the given incident is already defined an
 			// exception will be thrown.

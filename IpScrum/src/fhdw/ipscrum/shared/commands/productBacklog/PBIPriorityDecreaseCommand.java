@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Decrease the priority of a product backlog item.
  */
-public class PBIPriorityDecreaseCommand extends Command<Void>
-		implements IProductBacklogCommand {
+public class PBIPriorityDecreaseCommand extends Command<Void> implements IProductBacklogCommand {
 
 	/**
 	 * Constructor of the Command without parameters.
@@ -36,11 +35,9 @@ public class PBIPriorityDecreaseCommand extends Command<Void>
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final ProductBacklogItem productBacklogItem =
-				(ProductBacklogItem) model.getObject(this.getReceiverGuid());
+		final ProductBacklogItem productBacklogItem = (ProductBacklogItem) model.getObject(this.getReceiverGuid());
 
-		this.setStringValue(StringUtils.format(
-				"Die Priorität des ProductBacklogItems %s wurde verringert.",
+		this.setStringValue(StringUtils.format("Die Priorität des ProductBacklogItems %s wurde verringert.",
 				productBacklogItem.getName()));
 
 		productBacklogItem.getBacklog().moveDown(productBacklogItem);
@@ -59,9 +56,7 @@ public class PBIPriorityDecreaseCommand extends Command<Void>
 
 	@Override
 	public Project getDependingProject(final Model model) throws NoObjectFindException {
-		return model.getBacklogByPBI(
-				(ProductBacklogItem) model.getObject(this.getReceiverGuid()))
-				.getProject();
+		return model.getBacklogByPBI((ProductBacklogItem) model.getObject(this.getReceiverGuid())).getProject();
 	}
 
 }

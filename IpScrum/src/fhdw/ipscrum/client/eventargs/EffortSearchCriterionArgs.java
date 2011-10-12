@@ -30,8 +30,7 @@ public class EffortSearchCriterionArgs extends EventArgs {
 	 * @param valueTo
 	 *            is the value which is higer than the effort
 	 */
-	public EffortSearchCriterionArgs(final ISearchExpression se,
-			final Integer valueFrom, final Integer valueTo) {
+	public EffortSearchCriterionArgs(final ISearchExpression se, final Integer valueFrom, final Integer valueTo) {
 		super();
 		this.se = se;
 		this.valueFrom = valueFrom;

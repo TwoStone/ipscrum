@@ -67,7 +67,6 @@ public interface AccountService extends RemoteService {
 	 * @throws PersistenceException
 	 *             if the persistence is hurt
 	 */
-	void createAccount(String name, String password, Person person, Role activeRole)
-			throws NotAuthorizedException, DoubleDefinitionException,
-			PersistenceException;
+	void createAccount(String name, String password, Person person, Role activeRole) throws NotAuthorizedException,
+			DoubleDefinitionException, PersistenceException;
 }

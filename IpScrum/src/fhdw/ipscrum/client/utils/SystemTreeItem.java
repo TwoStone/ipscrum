@@ -7,8 +7,7 @@ import com.google.gwt.user.client.ui.TreeItem;
 import fhdw.ipscrum.shared.model.nonMeta.System;
 
 /**
- * this class represents a system tree item, needed for the tree on the
- * systemManagementView.
+ * this class represents a system tree item, needed for the tree on the systemManagementView.
  */
 public class SystemTreeItem extends TreeItem {
 

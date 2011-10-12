@@ -81,45 +81,39 @@ public class PresenterLaunchWidget extends DialogBox {
 			}
 		};
 
-		final Cell<Presenter> launchCell =
-				new ActionCell<Presenter>("starten",
-						new ActionCell.Delegate<Presenter>() {
+		final Cell<Presenter> launchCell = new ActionCell<Presenter>("starten", new ActionCell.Delegate<Presenter>() {
 
-							@Override
-							public void execute(final Presenter object) {
-								PresenterLaunchWidget.this.dialogBox.clear();
-								PresenterLaunchWidget.this.dialogBox.add(object
-										.getView());
-								PresenterLaunchWidget.this.dialogBox.center();
-								final List<EventRegistration> regs =
-										new ArrayList<EventRegistration>();
+			@Override
+			public void execute(final Presenter object) {
+				PresenterLaunchWidget.this.dialogBox.clear();
+				PresenterLaunchWidget.this.dialogBox.add(object.getView());
+				PresenterLaunchWidget.this.dialogBox.center();
+				final List<EventRegistration> regs = new ArrayList<EventRegistration>();
 
-								class CloseHanlder implements EventHandler<EventArgs> {
-
-									@Override
-									public void onUpdate(final Object sender,
-											final EventArgs eventArgs) {
-										PresenterLaunchWidget.this.dialogBox.hide();
-										PresenterLaunchWidget.this.dialogBox.clear();
-										for (final EventRegistration eventRegistration : regs) {
-											eventRegistration.removeHandler();
-										}
-									}
-
-								}
-								final CloseHanlder handler = new CloseHanlder();
-								regs.add(object.registerCloseHandler(handler));
-							}
-						});
-
-		final Column<Presenter, Presenter> launchCol =
-				new Column<Presenter, Presenter>(launchCell) {
+				class CloseHanlder implements EventHandler<EventArgs> {
 
 					@Override
-					public Presenter getValue(final Presenter object) {
-						return object;
+					public void onUpdate(final Object sender, final EventArgs eventArgs) {
+						PresenterLaunchWidget.this.dialogBox.hide();
+						PresenterLaunchWidget.this.dialogBox.clear();
+						for (final EventRegistration eventRegistration : regs) {
+							eventRegistration.removeHandler();
+						}
 					}
-				};
+
+				}
+				final CloseHanlder handler = new CloseHanlder();
+				regs.add(object.registerCloseHandler(handler));
+			}
+		});
+
+		final Column<Presenter, Presenter> launchCol = new Column<Presenter, Presenter>(launchCell) {
+
+			@Override
+			public Presenter getValue(final Presenter object) {
+				return object;
+			}
+		};
 
 		cellTable.addColumn(presenterName);
 		cellTable.addColumn(launchCol);

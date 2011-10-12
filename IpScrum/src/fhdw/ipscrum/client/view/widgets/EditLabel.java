@@ -22,8 +22,7 @@ import fhdw.ipscrum.client.utils.GwtUtils;
 /**
  * Represents the EditLable Widget.
  */
-public class EditLabel extends Composite
-		implements HasText, HasValueChangeHandlers<String> {
+public class EditLabel extends Composite implements HasText, HasValueChangeHandlers<String> {
 
 	/**
 	 * Represents the interface which represents the state.
@@ -132,8 +131,7 @@ public class EditLabel extends Composite
 	}
 
 	@Override
-	public HandlerRegistration addValueChangeHandler(
-			final ValueChangeHandler<String> handler) {
+	public HandlerRegistration addValueChangeHandler(final ValueChangeHandler<String> handler) {
 		return this.addHandler(handler, ValueChangeEvent.getType());
 	}
 

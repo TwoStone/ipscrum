@@ -22,9 +22,7 @@ public class StringUtilsTest {
 	 */
 	@Test
 	public void testFormat2() {
-		final String result =
-				StringUtils.format("Neues Projekt '%s' mit %s erstellt.", "X",
-						"mäßigem Erfolg");
+		final String result = StringUtils.format("Neues Projekt '%s' mit %s erstellt.", "X", "mäßigem Erfolg");
 		Assert.assertEquals("Neues Projekt 'X' mit mäßigem Erfolg erstellt.", result);
 	}
 }

@@ -25,8 +25,7 @@ public class ComplexSingleValueFieldWidget<T> extends SingleFieldWidget<T> {
 	 * @param parser
 	 *            is the parser to pare the type
 	 */
-	public ComplexSingleValueFieldWidget(final Parser<T> parser,
-			final Renderer<T> renderer) {
+	public ComplexSingleValueFieldWidget(final Parser<T> parser, final Renderer<T> renderer) {
 		this.textBox = new ValueTextBox<T>(renderer, parser);
 		this.initialize();
 	}

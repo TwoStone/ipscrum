@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.ModelException;
 
 /**
  * Represents the Exception if it is the wrong system.
- *
+ * 
  */
 public class WrongSystemException extends ModelException {
 
@@ -16,7 +16,8 @@ public class WrongSystemException extends ModelException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message thrown by the Exception
+	 * @param message
+	 *            thrown by the Exception
 	 */
 	public WrongSystemException(final String message) {
 		super(message);

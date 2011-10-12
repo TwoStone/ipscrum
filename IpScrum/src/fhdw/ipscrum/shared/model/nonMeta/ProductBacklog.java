@@ -23,8 +23,7 @@ import fhdw.ipscrum.shared.observer.PersistentObserver;
 /**
  * Represents the ProductBacklog of a project. It manages the ProductBacklogItems.
  */
-public class ProductBacklog extends IdentifiableObject
-		implements IsSerializable, PersistentObserver {
+public class ProductBacklog extends IdentifiableObject implements IsSerializable, PersistentObserver {
 
 	/**
 	 * Represents the serialVersionUID.
@@ -49,9 +48,8 @@ public class ProductBacklog extends IdentifiableObject
 	}
 
 	/**
-	 * <b>It's not allowed</b> to create an PBL object out of the model because each
-	 * project will create its own PBL. You will get inconsistency if you run this
-	 * constructor!
+	 * <b>It's not allowed</b> to create an PBL object out of the model because each project will create its own PBL.
+	 * You will get inconsistency if you run this constructor!
 	 * 
 	 * @param model
 	 *            : the ProductBacklog is inserted in the model
@@ -106,8 +104,7 @@ public class ProductBacklog extends IdentifiableObject
 	 * 
 	 * @param item
 	 *            selected in the ProductBacklog
-	 * @return Values between 0 ... n are valid positions Value -1 means that the element
-	 *         is not in the list;
+	 * @return Values between 0 ... n are valid positions Value -1 means that the element is not in the list;
 	 */
 	public Integer getItemPositionInList(final ProductBacklogItem item) {
 		return this.getItems().indexOf(item);
@@ -116,8 +113,8 @@ public class ProductBacklog extends IdentifiableObject
 	/**
 	 * Returns all ProductBacklogItems of the this Backlog. <br />
 	 * <b>Attention</b><br />
-	 * For adding and removing Items to/from the list please use the methods of the
-	 * Backlog. Else we cannot guarantee the consistency!
+	 * For adding and removing Items to/from the list please use the methods of the Backlog. Else we cannot guarantee
+	 * the consistency!
 	 * 
 	 * @return the items of the ProductBacklog
 	 */
@@ -164,8 +161,7 @@ public class ProductBacklog extends IdentifiableObject
 	}
 
 	/**
-	 * Move the given pbi one position in bottom direction of the list. Therefore another
-	 * pbi will move one step up.
+	 * Move the given pbi one position in bottom direction of the list. Therefore another pbi will move one step up.
 	 * 
 	 * @param item
 	 *            pbi for moving.
@@ -193,8 +189,7 @@ public class ProductBacklog extends IdentifiableObject
 	}
 
 	/**
-	 * Move the given pbi one position in top direction of the list. Therefore another pbi
-	 * will move one step down.
+	 * Move the given pbi one position in top direction of the list. Therefore another pbi will move one step down.
 	 * 
 	 * @param item
 	 *            pbi for moving.
@@ -216,8 +211,7 @@ public class ProductBacklog extends IdentifiableObject
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void removeItem(final ProductBacklogItem item)
-			throws IPScrumGeneralException {
+	public void removeItem(final ProductBacklogItem item) throws IPScrumGeneralException {
 		this.removeFromDependentTasks(item); // Phase III
 		item.setSprint(null); // Providing Consistency
 		this.pbis.remove(item);
@@ -227,9 +221,8 @@ public class ProductBacklog extends IdentifiableObject
 	}
 
 	/**
-	 * removes item from tasks, which have a reference to the item. if dependent tasks are
-	 * finished, the reference cannot be deleted and it will persist in the task as a
-	 * string-value
+	 * removes item from tasks, which have a reference to the item. if dependent tasks are finished, the reference
+	 * cannot be deleted and it will persist in the task as a string-value
 	 * 
 	 * @param item
 	 *            item which shall be deleted
@@ -238,8 +231,8 @@ public class ProductBacklog extends IdentifiableObject
 	 * @throws ForbiddenStateException
 	 *             the task is in a forbidden state
 	 */
-	private void removeFromDependentTasks(final ProductBacklogItem item)
-			throws ForbiddenStateException, ConsistencyException {
+	private void removeFromDependentTasks(final ProductBacklogItem item) throws ForbiddenStateException,
+			ConsistencyException {
 		Iterator<Sprint> sprintIterator = this.getProject().getSprints().iterator();
 		final Vector<Sprint> mySprints = new Vector<Sprint>();
 		while (sprintIterator.hasNext()) {

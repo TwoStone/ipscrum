@@ -15,8 +15,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new feature.
  */
-public class FeatureCreateCommand extends Command<Feature>
-		implements IProductBacklogCommand {
+public class FeatureCreateCommand extends Command<Feature> implements IProductBacklogCommand {
 
 	/**
 	 * represents the name of the feature.
@@ -58,8 +57,7 @@ public class FeatureCreateCommand extends Command<Feature>
 	 * @param productBacklog
 	 *            related to the feature
 	 */
-	public FeatureCreateCommand(final String name, final String description,
-			final FeatureTicketType featureTicketType,
+	public FeatureCreateCommand(final String name, final String description, final FeatureTicketType featureTicketType,
 			final ProductBacklog productBacklog) {
 		super();
 		this.name = name;
@@ -70,17 +68,12 @@ public class FeatureCreateCommand extends Command<Feature>
 
 	@Override
 	protected Feature onExecute(final Model model) throws IPScrumGeneralException {
-		final FeatureTicketType featureTicketType =
-				(FeatureTicketType) model.getObject(this.featureTicketTypeId);
-		final ProductBacklog productBacklog =
-				(ProductBacklog) model.getObject(this.productBacklogId);
-		this.setStringValue(StringUtils.format(
-				"Neues Feature '%s' vom Typ %s erstellt.", this.name,
+		final FeatureTicketType featureTicketType = (FeatureTicketType) model.getObject(this.featureTicketTypeId);
+		final ProductBacklog productBacklog = (ProductBacklog) model.getObject(this.productBacklogId);
+		this.setStringValue(StringUtils.format("Neues Feature '%s' vom Typ %s erstellt.", this.name,
 				featureTicketType.getTypeName()));
 
-		final Feature feature =
-				new Feature(model, featureTicketType, this.name, this.description,
-						productBacklog);
+		final Feature feature = new Feature(model, featureTicketType, this.name, this.description, productBacklog);
 		return feature;
 	}
 

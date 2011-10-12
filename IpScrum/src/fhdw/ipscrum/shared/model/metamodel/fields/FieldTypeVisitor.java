@@ -83,8 +83,7 @@ public interface FieldTypeVisitor {
 	 * @param acceptanceCriteriaFieldType
 	 *            : concrete type that need to be handled
 	 */
-	void handleAcceptanceCriterionFieldType(
-			AcceptanceCriteriaFieldType acceptanceCriteriaFieldType);
+	void handleAcceptanceCriterionFieldType(AcceptanceCriteriaFieldType acceptanceCriteriaFieldType);
 
 	/**
 	 * Needed for handling PBIFieldTypes.

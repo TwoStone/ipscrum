@@ -38,8 +38,8 @@ public class SearchPresenter extends WritePresenter {
 	 * constructor of the ({@link} fhdw.ipscrum.client.presenter.TeamCreatePresenter).
 	 * 
 	 * @param context
-	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is
-	 *            needed to get the model and other related classes.
+	 *            is the ({@link} fhdw.ipscrum.client.architecture.ClientContext) which is needed to get the model and
+	 *            other related classes.
 	 */
 	public SearchPresenter(final ClientContext context) {
 		super(context);
@@ -55,14 +55,13 @@ public class SearchPresenter extends WritePresenter {
 	public ISearchView doGetView() {
 		if (this.view == null) {
 			this.view = this.getContext().getViewFactory().createSearchView();
-			this.view.setSearch(new Search(this.getContext().getModel(),
-					TextConstants.NEW_SEARCH, new And(this.getContext().getModel())));
+			this.view.setSearch(new Search(this.getContext().getModel(), TextConstants.NEW_SEARCH, new And(this
+					.getContext().getModel())));
 
 			this.view.registerSaveHandler(new EventHandler<SearchEventArgs>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final SearchEventArgs eventArgs) {
+				public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
 					SearchPresenter.this.search = eventArgs.getSearch();
 					SearchPresenter.this.save();
 
@@ -72,18 +71,14 @@ public class SearchPresenter extends WritePresenter {
 			this.view.registerDoSearchHandler(new EventHandler<SearchEventArgs>() {
 
 				@Override
-				public void onUpdate(final Object sender,
-						final SearchEventArgs eventArgs) {
+				public void onUpdate(final Object sender, final SearchEventArgs eventArgs) {
 
 					final List<Ticket> result =
-							SearchPresenter.this.searchManager.search(
-									SearchPresenter.this.getContext().getModel()
-											.getAllTickets(), eventArgs.getSearch()
-											.getExpression());
+							SearchPresenter.this.searchManager.search(SearchPresenter.this.getContext().getModel()
+									.getAllTickets(), eventArgs.getSearch().getExpression());
 
 					final SearchResultPresenter presenter =
-							new SearchResultPresenter(
-									SearchPresenter.this.getContext(), result);
+							new SearchResultPresenter(SearchPresenter.this.getContext(), result);
 
 					SearchPresenter.this.startPresenter(presenter);
 
@@ -107,11 +102,10 @@ public class SearchPresenter extends WritePresenter {
 
 		try {
 			this.beginTransaction();
-			this.doCommand(new SearchCreateCommand(this.search.getName(),
-					(SearchExpression) this.search.getExpression()));
+			this.doCommand(new SearchCreateCommand(this.search.getName(), (SearchExpression) this.search
+					.getExpression()));
 			this.commitTransaction();
-			SearchPresenter.this.getContext().getToastMessageController()
-					.toastMessage("Suche gespeichert!");
+			SearchPresenter.this.getContext().getToastMessageController().toastMessage("Suche gespeichert!");
 			return super.onSave();
 		} catch (final IPScrumGeneralException e) {
 			this.getContext().getToastMessageController().toastMessage(e.getMessage());

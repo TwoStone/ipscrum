@@ -117,19 +117,14 @@ public class TransactionExecutionTest {
 		this.baseRole2 = c5.getResult().getId();
 		this.baseRole3 = c6.getResult().getId();
 
-		final PersonAddRoleCommand c7 =
-				new PersonAddRoleCommand(c1.getResult(), c4.getResult());
-		final PersonAddRoleCommand c8 =
-				new PersonAddRoleCommand(c2.getResult(), c4.getResult());
-		final PersonAddRoleCommand c9 =
-				new PersonAddRoleCommand(c2.getResult(), c5.getResult());
-		final PersonAddRoleCommand c10 =
-				new PersonAddRoleCommand(c3.getResult(), c6.getResult());
+		final PersonAddRoleCommand c7 = new PersonAddRoleCommand(c1.getResult(), c4.getResult());
+		final PersonAddRoleCommand c8 = new PersonAddRoleCommand(c2.getResult(), c4.getResult());
+		final PersonAddRoleCommand c9 = new PersonAddRoleCommand(c2.getResult(), c5.getResult());
+		final PersonAddRoleCommand c10 = new PersonAddRoleCommand(c3.getResult(), c6.getResult());
 
 		final Transaction t =
-				new Transaction(this.modelClient.getRevisionDate(), c1.getResult(),
-						this.masterRole, this.modelClient.getUuidManager()
-								.getAllUUIDs());
+				new Transaction(this.modelClient.getRevisionDate(), c1.getResult(), this.masterRole, this.modelClient
+						.getUuidManager().getAllUUIDs());
 		t.addCommand(c1);
 		t.addCommand(c2);
 		t.addCommand(c3);
@@ -156,26 +151,18 @@ public class TransactionExecutionTest {
 	public void test01() throws InfrastructureException {
 		Assert.assertEquals(4, this.modelClient.getAllPersons().size());
 		Assert.assertEquals(7, this.modelClient.getAllRoles().size());
-		Assert.assertTrue(this.modelClient.getAllPersons().contains(
-				this.modelClient.getObject(this.basePerson1)));
-		Assert.assertTrue(this.modelClient.getAllPersons().contains(
-				this.modelClient.getObject(this.basePerson2)));
-		Assert.assertTrue(this.modelClient.getAllPersons().contains(
-				this.modelClient.getObject(this.basePerson3)));
-		Assert.assertTrue(this.modelClient.getAllRoles().contains(
-				this.modelClient.getObject(this.baseRole1)));
-		Assert.assertTrue(this.modelClient.getAllRoles().contains(
-				this.modelClient.getObject(this.baseRole2)));
-		Assert.assertTrue(this.modelClient.getAllRoles().contains(
-				this.modelClient.getObject(this.baseRole3)));
-		Assert.assertEquals(this.modelClient.getRevisionDate(), this.persistenceManager
-				.getModelForTesting().getRevisionDate());
+		Assert.assertTrue(this.modelClient.getAllPersons().contains(this.modelClient.getObject(this.basePerson1)));
+		Assert.assertTrue(this.modelClient.getAllPersons().contains(this.modelClient.getObject(this.basePerson2)));
+		Assert.assertTrue(this.modelClient.getAllPersons().contains(this.modelClient.getObject(this.basePerson3)));
+		Assert.assertTrue(this.modelClient.getAllRoles().contains(this.modelClient.getObject(this.baseRole1)));
+		Assert.assertTrue(this.modelClient.getAllRoles().contains(this.modelClient.getObject(this.baseRole2)));
+		Assert.assertTrue(this.modelClient.getAllRoles().contains(this.modelClient.getObject(this.baseRole3)));
+		Assert.assertEquals(this.modelClient.getRevisionDate(), this.persistenceManager.getModelForTesting()
+				.getRevisionDate());
 
 		Assert.assertTrue(this.modelClient.getAdminPerson() != null);
-		Assert.assertEquals("Administrator", this.modelClient.getAdminPerson()
-				.getFirstname());
-		Assert.assertEquals("Administrator", this.modelClient.getAdminPerson()
-				.getLastname());
+		Assert.assertEquals("Administrator", this.modelClient.getAdminPerson().getFirstname());
+		Assert.assertEquals("Administrator", this.modelClient.getAdminPerson().getLastname());
 
 	}
 
@@ -186,8 +173,7 @@ public class TransactionExecutionTest {
 	 */
 	@Test
 	public void test02() throws InfrastructureException {
-		Assert.assertEquals(this.modelClient,
-				this.persistenceManager.getModelForTesting());
+		Assert.assertEquals(this.modelClient, this.persistenceManager.getModelForTesting());
 	}
 
 	/**
@@ -223,23 +209,19 @@ public class TransactionExecutionTest {
 
 		final Transaction t =
 				new Transaction(this.modelClient.getRevisionDate(),
-						(Person) this.modelClient.getObject(this.basePerson1),
-						this.masterRole, this.modelClient.getUuidManager()
-								.getAllUUIDs());
+						(Person) this.modelClient.getObject(this.basePerson1), this.masterRole, this.modelClient
+								.getUuidManager().getAllUUIDs());
 		t.addCommand(c1);
 
 		this.serverContext.getExecutionController().commitTransaction(t);
 
-		Assert.assertFalse(this.modelClient.equals(this.persistenceManager
-				.getModelForTesting()));
+		Assert.assertFalse(this.modelClient.equals(this.persistenceManager.getModelForTesting()));
 
 		final Model clientRefreshed = this.persistenceManager.getModelForTesting();
 
 		Assert.assertTrue(this.modelClient.getAllPersons().size() == 5);
-		Assert.assertTrue(clientRefreshed.getAllPersons().contains(
-				clientRefreshed.getObject(c1.getResult().getId())));
-		Assert.assertTrue(clientRefreshed.equals(this.persistenceManager
-				.getModelForTesting()));
+		Assert.assertTrue(clientRefreshed.getAllPersons().contains(clientRefreshed.getObject(c1.getResult().getId())));
+		Assert.assertTrue(clientRefreshed.equals(this.persistenceManager.getModelForTesting()));
 	}
 
 	/**
@@ -256,15 +238,12 @@ public class TransactionExecutionTest {
 	public void test05() throws IPScrumGeneralException, InterruptedException {
 		// User 1 versucht Person 1 zu ändern
 		final PersonChangeNameCommand c1 =
-				new PersonChangeNameCommand(
-						(Person) this.modelClient.getObject(this.basePerson1), "Harry",
-						"Potter");
+				new PersonChangeNameCommand((Person) this.modelClient.getObject(this.basePerson1), "Harry", "Potter");
 		c1.execute(this.modelClient);
 		final Transaction t =
 				new Transaction(this.modelClient.getRevisionDate(),
-						(Person) this.modelClient.getObject(this.basePerson1),
-						this.masterRole, this.modelClient.getUuidManager()
-								.getAllUUIDs());
+						(Person) this.modelClient.getObject(this.basePerson1), this.masterRole, this.modelClient
+								.getUuidManager().getAllUUIDs());
 		t.addCommand(c1);
 
 		// User 2 fügt gleichzeitig eine Rolle dem User hinzu
@@ -275,8 +254,7 @@ public class TransactionExecutionTest {
 						(Role) model2.getObject(this.baseRole3));
 		c2.execute(model2);
 		final Transaction t2 =
-				new Transaction(model2.getRevisionDate(),
-						(Person) this.modelClient.getObject(this.basePerson2),
+				new Transaction(model2.getRevisionDate(), (Person) this.modelClient.getObject(this.basePerson2),
 						this.masterRole, model2.getUuidManager().getAllUUIDs());
 		t2.addCommand(c2);
 
@@ -287,14 +265,10 @@ public class TransactionExecutionTest {
 
 		final Model serverModel = this.persistenceManager.getModelForTesting();
 
-		Assert.assertEquals(
-				((Person) serverModel.getObject(this.basePerson1)).getFirstname(),
-				"Harry");
-		Assert.assertEquals(
-				((Person) serverModel.getObject(this.basePerson1)).getLastname(),
-				"Potter");
-		Assert.assertFalse(((Person) serverModel.getObject(this.basePerson1))
-				.getRoles().contains(serverModel.getObject(this.baseRole3)));
+		Assert.assertEquals(((Person) serverModel.getObject(this.basePerson1)).getFirstname(), "Harry");
+		Assert.assertEquals(((Person) serverModel.getObject(this.basePerson1)).getLastname(), "Potter");
+		Assert.assertFalse(((Person) serverModel.getObject(this.basePerson1)).getRoles().contains(
+				serverModel.getObject(this.baseRole3)));
 	}
 
 	/**
@@ -302,8 +276,7 @@ public class TransactionExecutionTest {
 	 */
 	@Test
 	public void test06() {
-		Assert.assertTrue(ClassUtils.isAssignableFrom(ProductBacklogItem.class,
-				Ticket.class));
+		Assert.assertTrue(ClassUtils.isAssignableFrom(ProductBacklogItem.class, Ticket.class));
 	}
 
 	/**
@@ -321,13 +294,11 @@ public class TransactionExecutionTest {
 		final Project project = createCommand.getResult();
 		this.modelClient.getAllTeams().get(0).addProject(project);
 
-		final ReleaseCreateCommand c =
-				new ReleaseCreateCommand(project, "Test", new Date());
+		final ReleaseCreateCommand c = new ReleaseCreateCommand(project, "Test", new Date());
 		c.execute(this.modelClient);
 
 		final Transaction t =
-				new Transaction(this.modelClient.getRevisionDate(),
-						this.modelClient.getAdminPerson(), this.masterRole,
+				new Transaction(this.modelClient.getRevisionDate(), this.modelClient.getAdminPerson(), this.masterRole,
 						this.modelClient.getUuidManager().getAllUUIDs());
 
 		t.addCommand(createCommand);

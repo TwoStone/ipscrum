@@ -38,12 +38,10 @@ import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.model.visitor.TicketVisitor;
 
 /**
- * A ticket central objects of the ticket-system. product backlog items and tasks are
- * defined as tickets. this class defines the general behaviour of tickets. tickets are
- * always typified in ticket types (See {@link TicketType} for more information. All
- * attributes of tickets are modeled as fields (See class {@link Field}). the state of a
- * ticket ist defined his reference to a {@link StateType}. States are managed by the
- * state profile of the ticket-type.
+ * A ticket central objects of the ticket-system. product backlog items and tasks are defined as tickets. this class
+ * defines the general behaviour of tickets. tickets are always typified in ticket types (See {@link TicketType} for
+ * more information. All attributes of tickets are modeled as fields (See class {@link Field}). the state of a ticket
+ * ist defined his reference to a {@link StateType}. States are managed by the state profile of the ticket-type.
  */
 public abstract class Ticket extends IdentifiableObject {
 
@@ -52,8 +50,7 @@ public abstract class Ticket extends IdentifiableObject {
 	 */
 	private static final long serialVersionUID = 1403934647404318208L;
 	/**
-	 * the ticket type, which defines the behaviour of the ticket. a ticket never changes
-	 * its type.
+	 * the ticket type, which defines the behaviour of the ticket. a ticket never changes its type.
 	 */
 	private TicketType ticketType;
 	/**
@@ -146,10 +143,8 @@ public abstract class Ticket extends IdentifiableObject {
 	 *             if a ticket with the same parameters already exists
 	 */
 	@SuppressWarnings("rawtypes")
-	public Ticket(final Model model, final TicketType ticketType, final String name,
-			final String description)
-			throws NoValidValueException, ConsistencyException,
-			ForbiddenStateException, DoubleDefinitionException {
+	public Ticket(final Model model, final TicketType ticketType, final String name, final String description)
+			throws NoValidValueException, ConsistencyException, ForbiddenStateException, DoubleDefinitionException {
 		super(model);
 		this.ticketType = ticketType;
 		this.currentState = ticketType.getStateProfile().getStartState();
@@ -172,16 +167,14 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @param newState
 	 *            of the ticket after the change
 	 * @throws ForbiddenStateException
-	 *             if the state is forbidden or a change from the current state in the new
-	 *             is forbidden
+	 *             if the state is forbidden or a change from the current state in the new is forbidden
 	 */
 	public void changeState(final StateType newState) throws ForbiddenStateException {
 		this.getTicketType().changeState(newState, this);
 	}
 
 	/**
-	 * checks the conditions to change a field. If the conditions doesn't allow a change,
-	 * an exception will be thrown.
+	 * checks the conditions to change a field. If the conditions doesn't allow a change, an exception will be thrown.
 	 * 
 	 * @param field
 	 *            the field to be changed
@@ -190,8 +183,8 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if the current state type of the ticket doesn't allow a field change.
 	 */
-	public void checkFieldChange(@SuppressWarnings("rawtypes") final Field field)
-			throws ConsistencyException, ForbiddenStateException {
+	public void checkFieldChange(@SuppressWarnings("rawtypes") final Field field) throws ConsistencyException,
+			ForbiddenStateException {
 		this.getTicketType().checkFieldChange(field, this);
 	}
 
@@ -212,8 +205,7 @@ public abstract class Ticket extends IdentifiableObject {
 				@Override
 				public void handleAcceptanceCriterionFieldType(
 						final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
-					Ticket.this
-							.addToAcceptanceCriteriaFieldList((Field<AcceptanceCriterion>) current);
+					Ticket.this.addToAcceptanceCriteriaFieldList((Field<AcceptanceCriterion>) current);
 				}
 
 				@Override
@@ -268,8 +260,7 @@ public abstract class Ticket extends IdentifiableObject {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public void
-						handleEffortFieldType(final EffortFieldType effortFieldType) {
+				public void handleEffortFieldType(final EffortFieldType effortFieldType) {
 					Ticket.this.addToEffortFieldList((Field<Effort>) current);
 				}
 
@@ -335,8 +326,7 @@ public abstract class Ticket extends IdentifiableObject {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public void
-						handleNumberFieldType(final NumberFieldType numberFieldType) {
+				public void handleNumberFieldType(final NumberFieldType numberFieldType) {
 					Ticket.this.addToNumberFieldList((Field<Long>) current);
 				}
 
@@ -392,8 +382,7 @@ public abstract class Ticket extends IdentifiableObject {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public void
-						handlePersonFieldType(final PersonFieldType personFieldType) {
+				public void handlePersonFieldType(final PersonFieldType personFieldType) {
 					Ticket.this.addToPersonFieldList((Field<Person>) current);
 				}
 
@@ -421,8 +410,7 @@ public abstract class Ticket extends IdentifiableObject {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public void handleReleaseFieldType(
-						final ReleaseFieldType releaseFieldType) {
+				public void handleReleaseFieldType(final ReleaseFieldType releaseFieldType) {
 					Ticket.this.addToReleaseFieldList((Field<Release>) current);
 				}
 
@@ -450,8 +438,7 @@ public abstract class Ticket extends IdentifiableObject {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public void
-						handleSprintFieldType(final SprintFieldType sprintFieldType) {
+				public void handleSprintFieldType(final SprintFieldType sprintFieldType) {
 					Ticket.this.addToSprintFieldList((Field<Sprint>) current);
 				}
 
@@ -479,10 +466,8 @@ public abstract class Ticket extends IdentifiableObject {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public void
-						handleSystemFieldType(final SystemFieldType systemFieldType) {
-					Ticket.this
-							.addToSystemFieldList((Field<fhdw.ipscrum.shared.model.nonMeta.System>) current);
+				public void handleSystemFieldType(final SystemFieldType systemFieldType) {
+					Ticket.this.addToSystemFieldList((Field<fhdw.ipscrum.shared.model.nonMeta.System>) current);
 				}
 
 				@Override
@@ -577,8 +562,8 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if the ticket is in a state this method is forbidden
 	 */
-	public void setDescription(final String description) throws ConsistencyException,
-			NoValidValueException, ForbiddenStateException {
+	public void setDescription(final String description) throws ConsistencyException, NoValidValueException,
+			ForbiddenStateException {
 		this.getTicketType().setTicketDescription(description, this);
 	}
 
@@ -598,8 +583,7 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @throws NoValidValueException
 	 *             if the description is not valid
 	 */
-	protected abstract void checkDescriptionValidity(String description)
-			throws NoValidValueException;
+	protected abstract void checkDescriptionValidity(String description) throws NoValidValueException;
 
 	/**
 	 * validity check for ticket names.
@@ -613,8 +597,7 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	protected abstract void checkNameValidity(String name)
-			throws NoValidValueException, DoubleDefinitionException,
+	protected abstract void checkNameValidity(String name) throws NoValidValueException, DoubleDefinitionException,
 			ConsistencyException;
 
 	/**
@@ -631,8 +614,8 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @throws NoValidValueException
 	 *             if the value is not valid
 	 */
-	protected void setName(final String name) throws ConsistencyException,
-			ForbiddenStateException, DoubleDefinitionException, NoValidValueException {
+	protected void setName(final String name) throws ConsistencyException, ForbiddenStateException,
+			DoubleDefinitionException, NoValidValueException {
 		this.getTicketType().setTicketName(name, this);
 	}
 
@@ -667,9 +650,8 @@ public abstract class Ticket extends IdentifiableObject {
 			}
 		}
 		if (doubleDefined) {
-			throw new DoubleDefinitionException(
-					"Fehler: Es wurde versucht, dem Ticket ein "
-							+ "zweites Feld eines gleichen Feldtypen hinzuzufügen! ");
+			throw new DoubleDefinitionException("Fehler: Es wurde versucht, dem Ticket ein "
+					+ "zweites Feld eines gleichen Feldtypen hinzuzufügen! ");
 		} else {
 			this.allFields.add(field);
 		}
@@ -681,8 +663,7 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @param field
 	 *            to add
 	 */
-	private void
-			addToAcceptanceCriteriaFieldList(final Field<AcceptanceCriterion> field) {
+	private void addToAcceptanceCriteriaFieldList(final Field<AcceptanceCriterion> field) {
 		this.acceptanceCriteriaFieldList.add(field);
 	}
 
@@ -772,8 +753,7 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @param current
 	 *            to add
 	 */
-	private void addToSystemFieldList(
-			final Field<fhdw.ipscrum.shared.model.nonMeta.System> current) {
+	private void addToSystemFieldList(final Field<fhdw.ipscrum.shared.model.nonMeta.System> current) {
 		this.systemFieldList.add(current);
 	}
 
@@ -800,8 +780,7 @@ public abstract class Ticket extends IdentifiableObject {
 		this.sprintFieldList = new ArrayList<Field<Sprint>>();
 		this.releaseFieldList = new ArrayList<Field<Release>>();
 		this.pbiFieldList = new ArrayList<Field<ProductBacklogItem>>();
-		this.systemFieldList =
-				new ArrayList<Field<fhdw.ipscrum.shared.model.nonMeta.System>>();
+		this.systemFieldList = new ArrayList<Field<fhdw.ipscrum.shared.model.nonMeta.System>>();
 		this.acceptanceCriteriaFieldList = new ArrayList<Field<AcceptanceCriterion>>();
 		this.hintFieldList = new ArrayList<Field<Hint>>();
 
@@ -816,10 +795,8 @@ public abstract class Ticket extends IdentifiableObject {
 	 * 
 	 *             if a field is already initialized
 	 */
-	private void initializeFields(final TicketType initializingTicketType)
-			throws DoubleDefinitionException {
-		final Iterator<FieldType> fieldTypeIterator =
-				initializingTicketType.getAllFieldTypes().iterator();
+	private void initializeFields(final TicketType initializingTicketType) throws DoubleDefinitionException {
+		final Iterator<FieldType> fieldTypeIterator = initializingTicketType.getAllFieldTypes().iterator();
 		while (fieldTypeIterator.hasNext()) {
 			final FieldType current = fieldTypeIterator.next();
 			final Field<?> newField = current.createField();
@@ -837,8 +814,7 @@ public abstract class Ticket extends IdentifiableObject {
 	 * @return the field with the specified field type
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends Field<? extends Serializable>> T getField(
-			final FieldType fieldType) {
+	public <T extends Field<? extends Serializable>> T getField(final FieldType fieldType) {
 		for (final Field<Serializable> field : this.getAllFields()) {
 			if (field.getType().equals(fieldType)) {
 				return (T) field;

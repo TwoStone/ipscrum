@@ -9,16 +9,14 @@ import com.googlecode.gchart.client.GChartCanvasFactory;
 import com.googlecode.gchart.client.GChartCanvasLite;
 
 /**
- * This is a class to make GChart use the new Canvas-Implementation. It improves
- * readability and responsiveness.
+ * This is a class to make GChart use the new Canvas-Implementation. It improves readability and responsiveness.
  */
 public final class GWTCanvasBasedCanvasFactory implements GChartCanvasFactory {
 
 	/**
 	 * Set the chart to use the GWT Canvas.
 	 */
-	static final class GWTCanvasBasedCanvasLite extends Widget
-			implements GChartCanvasLite {
+	static final class GWTCanvasBasedCanvasLite extends Widget implements GChartCanvasLite {
 		private final Canvas canvas;
 		private final Context2d canvasContext;
 
@@ -45,9 +43,8 @@ public final class GWTCanvasBasedCanvasFactory implements GChartCanvasFactory {
 		}
 
 		@Override
-		public void arc(final double x, final double y, final double radius,
-				final double startAngle, final double endAngle,
-				final boolean antiClockwise) {
+		public void arc(final double x, final double y, final double radius, final double startAngle,
+				final double endAngle, final boolean antiClockwise) {
 			this.canvasContext.arc(x, y, radius, startAngle, endAngle, antiClockwise);
 		}
 

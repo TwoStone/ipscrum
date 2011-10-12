@@ -59,8 +59,7 @@ public class Team extends IdentifiableObject implements IsSerializable {
 	 * @throws DoubleDefinitionException
 	 *             if a team with the same parameters already exists
 	 */
-	public Team(final Model model, final String description)
-			throws NoValidValueException, DoubleDefinitionException {
+	public Team(final Model model, final String description) throws NoValidValueException, DoubleDefinitionException {
 		super(model);
 		this.setDescription(description);
 		this.members = new Vector<Person>();
@@ -135,8 +134,7 @@ public class Team extends IdentifiableObject implements IsSerializable {
 	 */
 	public void removeMember(final Person member) throws ConsistencyException {
 		if (!this.members.contains(member)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_NOT_FOUND_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.PERSON_NOT_FOUND_ERROR);
 		} else {
 			this.getMembers().remove(member);
 			this.changed();
@@ -153,8 +151,7 @@ public class Team extends IdentifiableObject implements IsSerializable {
 	 */
 	public void setDescription(final String description) throws NoValidValueException {
 		if (description == null || description.length() == 0) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_DESCRIPTION_ERROR);
 		} else {
 			this.description = description;
 			this.changed();
@@ -178,8 +175,7 @@ public class Team extends IdentifiableObject implements IsSerializable {
 	 */
 	public void addProject(final Project p) throws DoubleDefinitionException {
 		if (this.getProjects().contains(p)) {
-			throw new DoubleDefinitionException(
-					ExceptionConstants.DOUBLE_DEFINITION_ERROR);
+			throw new DoubleDefinitionException(ExceptionConstants.DOUBLE_DEFINITION_ERROR);
 		}
 		this.projects.add(p);
 		this.changed();

@@ -89,8 +89,7 @@ public class Person extends IdentifiableObject implements IsSerializable {
 
 	public void setFirstname(final String firstname) throws NoValidValueException {
 		if (firstname == null || firstname.length() == 0) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
 		} else {
 			this.firstname = firstname;
 			this.changed();
@@ -118,8 +117,7 @@ public class Person extends IdentifiableObject implements IsSerializable {
 
 	public void setLastname(final String lastname) throws NoValidValueException {
 		if (lastname == null || lastname.length() == 0) {
-			throw new NoValidValueException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
+			throw new NoValidValueException(fhdw.ipscrum.shared.constants.ExceptionConstants.EMPTY_NAME_ERROR);
 		} else {
 
 			this.lastname = lastname;
@@ -148,8 +146,7 @@ public class Person extends IdentifiableObject implements IsSerializable {
 
 	public void addRole(final Role role) throws ConsistencyException {
 		if (this.getRoles().contains(role)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_ALREADY_ASSIGNED_ERROR);
 		} else {
 			this.roles.add(role);
 			this.changed();
@@ -167,8 +164,7 @@ public class Person extends IdentifiableObject implements IsSerializable {
 
 	public void removeRole(final Role role) throws ConsistencyException {
 		if (!this.getRoles().contains(role)) {
-			throw new ConsistencyException(
-					fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
+			throw new ConsistencyException(fhdw.ipscrum.shared.constants.ExceptionConstants.ROLE_NOT_FOUND_ERROR);
 		} else {
 			this.roles.remove(role);
 			this.changed();

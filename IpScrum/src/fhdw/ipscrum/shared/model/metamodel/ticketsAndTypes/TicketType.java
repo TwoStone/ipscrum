@@ -21,9 +21,9 @@ import fhdw.ipscrum.shared.model.metamodel.states.StateType;
 import fhdw.ipscrum.shared.model.metamodel.states.TransitionRule;
 
 /**
- * A ticket-type represents meta-information about tickets. A ticket-system-user can
- * define his own ticket-types by creating instances of the concrete classes of
- * {@link FeatureTicketType}, {@link BugTicketType} and {@link TaskTicketType}.
+ * A ticket-type represents meta-information about tickets. A ticket-system-user can define his own ticket-types by
+ * creating instances of the concrete classes of {@link FeatureTicketType}, {@link BugTicketType} and
+ * {@link TaskTicketType}.
  */
 public abstract class TicketType extends IdentifiableObject {
 
@@ -53,14 +53,13 @@ public abstract class TicketType extends IdentifiableObject {
 	private List<FieldType> allFieldTypes;
 
 	/**
-	 * represents the version number of the ticket type, which increases if the ticket
-	 * type changes.
+	 * represents the version number of the ticket type, which increases if the ticket type changes.
 	 */
 	private Integer versionNumber;
 	/**
-	 * older instances of this ticket type copy. the older (superseded) instances must
-	 * stay in the model, because it is possible that ticket instances are typified in an
-	 * old ticket type. there is always one up-to-date-object in the model
+	 * older instances of this ticket type copy. the older (superseded) instances must stay in the model, because it is
+	 * possible that ticket instances are typified in an old ticket type. there is always one up-to-date-object in the
+	 * model
 	 */
 	private List<TicketType> supersededTypes;
 
@@ -87,8 +86,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public TicketType(final Model model, final String name, final String description)
-			throws IPScrumGeneralException {
+	public TicketType(final Model model, final String name, final String description) throws IPScrumGeneralException {
 		super(model);
 		this.stateProfile = new StateProfile(model);
 		this.checkTicketTypeDoublets(name);
@@ -123,8 +121,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected TicketType(final Model model, final String name,
-			final String description, final TypeManager typeManager)
+	protected TicketType(final Model model, final String name, final String description, final TypeManager typeManager)
 			throws IPScrumGeneralException {
 		super(model);
 		this.stateProfile = new StateProfile(model);
@@ -166,20 +163,18 @@ public abstract class TicketType extends IdentifiableObject {
 
 	/**
 	 * 
-	 * Adds existing field type to this ticket type. The ticket instance will be able to
-	 * have a field according to the field type. field types can only be added one time.
+	 * Adds existing field type to this ticket type. The ticket instance will be able to have a field according to the
+	 * field type. field types can only be added one time.
 	 * 
 	 * @param fieldType
 	 *            to add
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public final void addFieldType(final FieldType fieldType)
-			throws IPScrumGeneralException {
+	public final void addFieldType(final FieldType fieldType) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.allFieldTypes.contains(fieldType)) {
-			throw new DoubleDefinitionException(
-					"Feldtyp bereits für diesen Tickettypen definiert!");
+			throw new DoubleDefinitionException("Feldtyp bereits für diesen Tickettypen definiert!");
 		} else {
 			if (this.hasInstances()) {
 				final TicketType copyOfThis = this.supersedeThis();
@@ -226,8 +221,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void addTransitionRule(final TransitionRule tr)
-			throws IPScrumGeneralException {
+	public void addTransitionRule(final TransitionRule tr) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.hasInstances()) {
 			final TicketType copyOfThis = this.supersedeThis();
@@ -248,11 +242,10 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if the current state type of the ticket doesn't allow a field change.
 	 */
-	public void checkFieldChange(final Field<?> field, final Ticket ticket)
-			throws ConsistencyException, ForbiddenStateException {
+	public void checkFieldChange(final Field<?> field, final Ticket ticket) throws ConsistencyException,
+			ForbiddenStateException {
 		if (!this.getAllFieldTypes().contains(field.getType())) {
-			throw new ConsistencyException(
-					"Dieser Ticket-Typ kennt ein Feld dieses Types nicht!");
+			throw new ConsistencyException("Dieser Ticket-Typ kennt ein Feld dieses Types nicht!");
 		}
 		this.stateProfile.checkFieldChange(field, ticket);
 	}
@@ -275,8 +268,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 */
 	@SuppressWarnings("unchecked")
 	public String getDescription(final Ticket ticket) {
-		return ((SingleField<String>) this.getField(this.getDescriptionType(), ticket))
-				.getValue();
+		return ((SingleField<String>) this.getField(this.getDescriptionType(), ticket)).getValue();
 	}
 
 	/**
@@ -337,8 +329,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 */
 	@SuppressWarnings("unchecked")
 	public String getName(final Ticket ticket) {
-		return ((SingleField<String>) this.getField(this.getNameType(), ticket))
-				.getValue();
+		return ((SingleField<String>) this.getField(this.getNameType(), ticket)).getValue();
 	}
 
 	/**
@@ -360,10 +351,9 @@ public abstract class TicketType extends IdentifiableObject {
 	}
 
 	/**
-	 * Returns an aggregated list of superseded TicketTypes. superseded means older
-	 * versions of this ticket type. when a ticket type has instances with instance.type =
-	 * this and the type is changed, a new version of the type is created (with a copy of
-	 * the old type) and the old version is put into this.supersededTypes.
+	 * Returns an aggregated list of superseded TicketTypes. superseded means older versions of this ticket type. when a
+	 * ticket type has instances with instance.type = this and the type is changed, a new version of the type is created
+	 * (with a copy of the old type) and the old version is put into this.supersededTypes.
 	 * 
 	 * @return list of older ticket types, in which ticket instances are typified
 	 */
@@ -399,15 +389,13 @@ public abstract class TicketType extends IdentifiableObject {
 	}
 
 	/**
-	 * Returns true, if this ticket type is a standard bug, standard feature or standard
-	 * task Returns false if this ticket type is a user defined task type, feature type or
-	 * bug type!
+	 * Returns true, if this ticket type is a standard bug, standard feature or standard task Returns false if this
+	 * ticket type is a user defined task type, feature type or bug type!
 	 * 
 	 * @return true if this ticket type is a standard type
 	 */
 	public boolean isStandardTicketType() {
-		return this.getModel().getTypeManager().fetchStandardTicketTypes()
-				.contains(this);
+		return this.getModel().getTypeManager().fetchStandardTicketTypes().contains(this);
 	}
 
 	/**
@@ -418,11 +406,9 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public final void removeFieldType(final FieldType fieldType)
-			throws IPScrumGeneralException {
+	public final void removeFieldType(final FieldType fieldType) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
-		if (this.getModel().getTypeManager().fetchStandardFieldTypes()
-				.contains(fieldType)) {
+		if (this.getModel().getTypeManager().fetchStandardFieldTypes().contains(fieldType)) {
 			throw new ConsistencyException(ExceptionConstants.NO_CHANGE_ON_STANDARDS);
 		}
 		if (this.hasInstances()) {
@@ -442,8 +428,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void removePossibleState(final StateType state)
-			throws IPScrumGeneralException {
+	public void removePossibleState(final StateType state) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.hasInstances()) {
 			final TicketType copyOfThis = this.supersedeThis();
@@ -461,8 +446,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void removeTransitionRule(final TransitionRule tr)
-			throws IPScrumGeneralException {
+	public void removeTransitionRule(final TransitionRule tr) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.hasInstances()) {
 			final TicketType copyOfThis = this.supersedeThis();
@@ -482,8 +466,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void setActive(final StateType state, final FieldType field)
-			throws IPScrumGeneralException {
+	public void setActive(final StateType state, final FieldType field) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.hasInstances()) {
 			final TicketType copyOfThis = this.supersedeThis();
@@ -531,8 +514,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void setNonActive(final StateType state, final FieldType field)
-			throws IPScrumGeneralException {
+	public void setNonActive(final StateType state, final FieldType field) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.hasInstances()) {
 			final TicketType copyOfThis = this.supersedeThis();
@@ -550,8 +532,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public void setStartState(final StateType startState)
-			throws IPScrumGeneralException {
+	public void setStartState(final StateType startState) throws IPScrumGeneralException {
 		this.checkStandardNotEditable();
 		if (this.hasInstances()) {
 			final TicketType copyOfThis = this.supersedeThis();
@@ -585,12 +566,11 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if the method is forbidden in the state
 	 */
-	public void setTicketDescription(final String description, final Ticket ticket)
-			throws ConsistencyException, NoValidValueException, ForbiddenStateException {
+	public void setTicketDescription(final String description, final Ticket ticket) throws ConsistencyException,
+			NoValidValueException, ForbiddenStateException {
 		ticket.checkDescriptionValidity(description);
 		@SuppressWarnings("unchecked")
-		final SingleField<String> target =
-				(SingleField<String>) this.getField(this.getDescriptionType(), ticket);
+		final SingleField<String> target = (SingleField<String>) this.getField(this.getDescriptionType(), ticket);
 		target.setValue(description, ticket);
 	}
 
@@ -610,13 +590,11 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws NoValidValueException
 	 *             if the value is not valid
 	 */
-	public void setTicketName(final String name, final Ticket ticket)
-			throws ConsistencyException, ForbiddenStateException,
-			DoubleDefinitionException, NoValidValueException {
+	public void setTicketName(final String name, final Ticket ticket) throws ConsistencyException,
+			ForbiddenStateException, DoubleDefinitionException, NoValidValueException {
 		ticket.checkNameValidity(name);
 		@SuppressWarnings("unchecked")
-		final SingleField<String> target =
-				(SingleField<String>) this.getField(this.getNameType(), ticket);
+		final SingleField<String> target = (SingleField<String>) this.getField(this.getNameType(), ticket);
 		target.setValue(name, ticket);
 	}
 
@@ -635,8 +613,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ForbiddenStateException
 	 *             if transition is not allowed
 	 */
-	protected void changeState(final StateType newState, final Ticket ticket)
-			throws ForbiddenStateException {
+	protected void changeState(final StateType newState, final Ticket ticket) throws ForbiddenStateException {
 		this.stateProfile.changeState(newState, ticket);
 		// when no exception occurred
 		ticket.setState(newState);
@@ -652,8 +629,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	protected void doAddEndState(final StateType endState)
-			throws DoubleDefinitionException, ConsistencyException {
+	protected void doAddEndState(final StateType endState) throws DoubleDefinitionException, ConsistencyException {
 		this.getStateProfile().addEndState(endState);
 		this.changed();
 	}
@@ -678,8 +654,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws DoubleDefinitionException
 	 *             if the state is already added
 	 */
-	protected void doAddPossibleState(final StateType state)
-			throws DoubleDefinitionException {
+	protected void doAddPossibleState(final StateType state) throws DoubleDefinitionException {
 		this.getStateProfile().addPossibleState(state);
 		this.changed();
 	}
@@ -694,8 +669,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	protected void doAddTransitionRule(final TransitionRule tr)
-			throws DoubleDefinitionException, ConsistencyException {
+	protected void doAddTransitionRule(final TransitionRule tr) throws DoubleDefinitionException, ConsistencyException {
 		this.getStateProfile().addTransitionRule(tr);
 		this.changed();
 	}
@@ -708,8 +682,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected abstract void doInitializeStandard(TypeManager typeManager)
-			throws IPScrumGeneralException;
+	protected abstract void doInitializeStandard(TypeManager typeManager) throws IPScrumGeneralException;
 
 	/**
 	 * initializes the stateProfile.
@@ -719,8 +692,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected abstract void doInitializeStateProfile(TypeManager typeManager)
-			throws IPScrumGeneralException;
+	protected abstract void doInitializeStateProfile(TypeManager typeManager) throws IPScrumGeneralException;
 
 	/**
 	 * removes a field type form the ticket type.
@@ -744,8 +716,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consitency is hurt
 	 */
-	protected void doRemovePossibleState(final StateType state)
-			throws DoubleDefinitionException, ConsistencyException {
+	protected void doRemovePossibleState(final StateType state) throws DoubleDefinitionException, ConsistencyException {
 		this.getStateProfile().removePossibleState(state);
 		this.changed();
 	}
@@ -771,8 +742,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected void doSetActive(final StateType state, final FieldType field)
-			throws IPScrumGeneralException {
+	protected void doSetActive(final StateType state, final FieldType field) throws IPScrumGeneralException {
 		this.getStateProfile().setActive(state, field);
 		this.changed();
 	}
@@ -787,8 +757,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected void doSetNonActive(final StateType state, final FieldType field)
-			throws IPScrumGeneralException {
+	protected void doSetNonActive(final StateType state, final FieldType field) throws IPScrumGeneralException {
 		this.getStateProfile().setNonActive(state, field);
 		this.changed();
 	}
@@ -801,8 +770,7 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	protected void doSetStartState(final StateType startState)
-			throws ConsistencyException {
+	protected void doSetStartState(final StateType startState) throws ConsistencyException {
 		this.getStateProfile().setStartState(startState);
 		this.changed();
 	}
@@ -825,8 +793,7 @@ public abstract class TicketType extends IdentifiableObject {
 	}
 
 	/**
-	 * checks if a standard ticket type wanted to be changed and informs that this is
-	 * forbidden.
+	 * checks if a standard ticket type wanted to be changed and informs that this is forbidden.
 	 * 
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
@@ -845,15 +812,13 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws DoubleDefinitionException
 	 *             if doublets exist
 	 */
-	private void checkTicketTypeDoublets(final String name)
-			throws DoubleDefinitionException {
+	private void checkTicketTypeDoublets(final String name) throws DoubleDefinitionException {
 		final Iterator<TicketType> activeTicketTypesIterator =
 				this.getModel().getTypeManager().getActiveTicketTypes().iterator();
 		while (activeTicketTypesIterator.hasNext()) {
 			final TicketType current = activeTicketTypesIterator.next();
 			if (current.getTypeName().equals(name)) {
-				throw new DoubleDefinitionException(
-						"Fehler: Ein Ticket-Typ mit diesem Namen existiert bereits!");
+				throw new DoubleDefinitionException("Fehler: Ein Ticket-Typ mit diesem Namen existiert bereits!");
 			}
 		}
 
@@ -880,25 +845,22 @@ public abstract class TicketType extends IdentifiableObject {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	private void initializeStandard(final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	private void initializeStandard(final TypeManager typeManager) throws IPScrumGeneralException {
 		this.doInitializeStateProfile(typeManager);
 		this.doInitializeStandard(typeManager);
 	}
 
 	/**
-	 * Provides a copy of this and adds this to copyOfThis.supersededTypes. Instances of
-	 * this will keep their associations, if a ticket type changes!
+	 * Provides a copy of this and adds this to copyOfThis.supersededTypes. Instances of this will keep their
+	 * associations, if a ticket type changes!
 	 * 
 	 * @return the copy of the current ticket type
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
 	private TicketType supersedeThis() throws IPScrumGeneralException {
-		final TicketType copyOfThis =
-				this.getModel().getTypeManager().provideTicketTypeCopy(this);
-		final Iterator<TicketType> supersededFieldTypesIterator =
-				this.supersededTypes.iterator();
+		final TicketType copyOfThis = this.getModel().getTypeManager().provideTicketTypeCopy(this);
+		final Iterator<TicketType> supersededFieldTypesIterator = this.supersededTypes.iterator();
 		while (supersededFieldTypesIterator.hasNext()) {
 			final TicketType current = supersededFieldTypesIterator.next();
 			copyOfThis.addSupersededType(current);

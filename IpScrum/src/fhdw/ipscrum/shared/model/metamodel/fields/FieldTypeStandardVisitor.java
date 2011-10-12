@@ -56,8 +56,7 @@ public abstract class FieldTypeStandardVisitor implements FieldTypeVisitor {
 	}
 
 	@Override
-	public void handleAcceptanceCriterionFieldType(
-			final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
+	public void handleAcceptanceCriterionFieldType(final AcceptanceCriteriaFieldType acceptanceCriteriaFieldType) {
 		this.standardHandling();
 	}
 

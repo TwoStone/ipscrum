@@ -73,11 +73,9 @@ public class StateTypeTest {
 
 		this.serverContext = ServerContext.getInstance();
 
-		this.modelClient =
-				this.serverContext.getPersistenceManager().getModelForTesting();
+		this.modelClient = this.serverContext.getPersistenceManager().getModelForTesting();
 		this.modelClient.setUuidManager(new IDGenerator());
-		this.modelClient =
-				this.serverContext.getPersistenceManager().getModelForTesting();
+		this.modelClient = this.serverContext.getPersistenceManager().getModelForTesting();
 		this.modelClient.setUuidManager(new IDGenerator());
 		this.persistenceManager = this.serverContext.getPersistenceManager();
 		this.typeManager = this.modelClient.getTypeManager();

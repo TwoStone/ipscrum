@@ -57,8 +57,8 @@ public class TaskCreateCommand extends Command<Task> implements ITaskboardComman
 	 * @param sprintBacklog
 	 *            related to the new task
 	 */
-	public TaskCreateCommand(final String name, final String description,
-			final TaskTicketType taskTicketType, final SprintBacklog sprintBacklog) {
+	public TaskCreateCommand(final String name, final String description, final TaskTicketType taskTicketType,
+			final SprintBacklog sprintBacklog) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -68,16 +68,12 @@ public class TaskCreateCommand extends Command<Task> implements ITaskboardComman
 
 	@Override
 	protected Task onExecute(final Model model) throws IPScrumGeneralException {
-		final TaskTicketType taskTicketType =
-				(TaskTicketType) model.getObject(this.taskTicketTypeId);
-		final SprintBacklog sprintBacklog =
-				(SprintBacklog) model.getObject(this.sprintBacklogId);
-		this.setStringValue(StringUtils.format("Neuer Task '%s' vom Typ %s erstellt.",
-				this.name, taskTicketType.getTypeName()));
+		final TaskTicketType taskTicketType = (TaskTicketType) model.getObject(this.taskTicketTypeId);
+		final SprintBacklog sprintBacklog = (SprintBacklog) model.getObject(this.sprintBacklogId);
+		this.setStringValue(StringUtils.format("Neuer Task '%s' vom Typ %s erstellt.", this.name,
+				taskTicketType.getTypeName()));
 
-		final Task task =
-				new Task(model, taskTicketType, this.name, this.description,
-						sprintBacklog);
+		final Task task = new Task(model, taskTicketType, this.name, this.description, sprintBacklog);
 		return task;
 	}
 

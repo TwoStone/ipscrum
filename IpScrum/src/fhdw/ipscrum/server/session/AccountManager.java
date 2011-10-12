@@ -31,8 +31,7 @@ public class AccountManager {
 	 * @param manager
 	 *            needed to persist
 	 */
-	public AccountManager(final SessionManager sessionManager,
-			final IPersistenceManager manager) {
+	public AccountManager(final SessionManager sessionManager, final IPersistenceManager manager) {
 		super();
 		this.sessionManager = sessionManager;
 		this.manager = manager;
@@ -47,24 +46,19 @@ public class AccountManager {
 	 *            Password of the user
 	 * @param session
 	 *            The Session object used by the gwt session management.
-	 * @return The User object which is connected to the user name and password
-	 *         combination
+	 * @return The User object which is connected to the user name and password combination
 	 * @throws LoginException
 	 *             If there is no account with the user name and password combination.
 	 */
-	public User login(final String username, final String password,
-			final HttpSession session) throws LoginException {
+	public User login(final String username, final String password, final HttpSession session) throws LoginException {
 		for (final Account account : this.manager.getAccounts()) {
-			if (account.getUser().getName().equals(username)
-					&& account.getPassword().equals(password)) {
+			if (account.getUser().getName().equals(username) && account.getPassword().equals(password)) {
 
-				if (account.getUser().getPerson() != null
-						&& !account.getUser().getPerson().isDeleted()) {
+				if (account.getUser().getPerson() != null && !account.getUser().getPerson().isDeleted()) {
 					this.sessionManager.newSession(account.getUser(), session);
 					return account.getUser();
 				} else {
-					throw new LoginException(
-							"Account ist ungültig! Die Person zum Account existiert nicht mehr!");
+					throw new LoginException("Account ist ungültig! Die Person zum Account existiert nicht mehr!");
 				}
 			}
 		}

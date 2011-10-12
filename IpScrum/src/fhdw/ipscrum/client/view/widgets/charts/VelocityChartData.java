@@ -14,8 +14,8 @@ import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 import fhdw.ipscrum.shared.model.nonMeta.Team;
 
 /**
- * This class represents a data container for Velocity-Charts. It also contains
- * calculation-algorithms to generate chart-data.
+ * This class represents a data container for Velocity-Charts. It also contains calculation-algorithms to generate
+ * chart-data.
  */
 public class VelocityChartData {
 
@@ -32,14 +32,12 @@ public class VelocityChartData {
 	 */
 	public VelocityChartData(final Team team) {
 		this.team = team;
-		this.data =
-				new TreeMap<Sprint, VelocityChartData.VelocityChartDataDetails>(
-						new Comparator<Sprint>() {
-							@Override
-							public int compare(final Sprint o1, final Sprint o2) {
-								return o1.getEnd().compareTo(o2.getEnd());
-							}
-						});
+		this.data = new TreeMap<Sprint, VelocityChartData.VelocityChartDataDetails>(new Comparator<Sprint>() {
+			@Override
+			public int compare(final Sprint o1, final Sprint o2) {
+				return o1.getEnd().compareTo(o2.getEnd());
+			}
+		});
 
 		this.initChartData();
 		this.calculateAverages();
@@ -56,13 +54,11 @@ public class VelocityChartData {
 			double currentRelativeValue = 0;
 			try {
 				currentRelativeValue = this.calculateRelativeVelocity(sprint);
-				currentAbsoluteValue =
-						sprint.getCumulatedManDayCostsOfClosedFeatures().getValue();
+				currentAbsoluteValue = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue();
 			} catch (final NoValidValueException e) {
 				Logger.getLogger("ErrorLogger").log(Level.WARNING, e.getMessage());
 			}
-			this.data.put(sprint, new VelocityChartDataDetails(currentAbsoluteValue,
-					currentRelativeValue));
+			this.data.put(sprint, new VelocityChartDataDetails(currentAbsoluteValue, currentRelativeValue));
 		}
 	}
 
@@ -79,8 +75,7 @@ public class VelocityChartData {
 		double resultRel = 0d;
 		for (final Sprint sprint : sprintList) {
 			try {
-				resultAbs +=
-						sprint.getCumulatedManDayCostsOfClosedFeatures().getValue();
+				resultAbs += sprint.getCumulatedManDayCostsOfClosedFeatures().getValue();
 				resultRel += this.calculateRelativeVelocity(sprint);
 			} catch (final NoValidValueException e) {
 				Logger.getLogger("ErrorLogger").log(Level.WARNING, e.getMessage());
@@ -127,8 +122,7 @@ public class VelocityChartData {
 	}
 
 	/**
-	 * This is used to obtain the relative velocity (efforts/sprintlength) of a
-	 * sprint/team.
+	 * This is used to obtain the relative velocity (efforts/sprintlength) of a sprint/team.
 	 * 
 	 * @param sprint
 	 *            the sprint to be processed
@@ -136,8 +130,7 @@ public class VelocityChartData {
 	 */
 	double calculateRelativeVelocity(final Sprint sprint) {
 		double effort = 0;
-		final double tempVar =
-				CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
+		final double tempVar = CalendarUtil.getDaysBetween(sprint.getBegin(), sprint.getEnd());
 		try {
 			effort = sprint.getCumulatedManDayCostsOfClosedFeatures().getValue();
 		} catch (final NoValidValueException e) {
@@ -163,8 +156,7 @@ public class VelocityChartData {
 		 * @param relVelocity
 		 *            is the relative velocity of the team
 		 */
-		public VelocityChartDataDetails(final Double absVelocity,
-				final Double relVelocity) {
+		public VelocityChartDataDetails(final Double absVelocity, final Double relVelocity) {
 			this.absoluteVelocity = absVelocity;
 			this.relativeVelocity = relVelocity;
 		}

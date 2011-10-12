@@ -10,8 +10,8 @@ import fhdw.ipscrum.client.architecture.view.IView;
 import fhdw.ipscrum.shared.model.nonMeta.Sprint;
 
 /**
- * Represents the Interface of the View which is related to this presenter. It's the
- * interface to the ({@link} fhdw.ipscrum.client.view.ReleaseEditView).
+ * Represents the Interface of the View which is related to this presenter. It's the interface to the ({@link}
+ * fhdw.ipscrum.client.view.ReleaseEditView).
  */
 public interface IReleaseEditView extends IView {
 
@@ -22,8 +22,7 @@ public interface IReleaseEditView extends IView {
 	 *            needed to handle the event, which knows the sprint to assign
 	 * @return the event which handles the addition of sprints
 	 */
-	EventRegistration registerAssignEventHandler(
-			EventHandler<TypedEventArg<Sprint>> handler);
+	EventRegistration registerAssignEventHandler(EventHandler<TypedEventArg<Sprint>> handler);
 
 	/**
 	 * Represents the Event to handle the remove of sprints.
@@ -32,8 +31,7 @@ public interface IReleaseEditView extends IView {
 	 *            needed to handle the event, which also knows the sprint
 	 * @return the event which handles the remove of the sprint
 	 */
-	EventRegistration registerRemoveEventHandler(
-			EventHandler<TypedEventArg<Sprint>> handler);
+	EventRegistration registerRemoveEventHandler(EventHandler<TypedEventArg<Sprint>> handler);
 
 	/**
 	 * Represents the Event to handle the close.

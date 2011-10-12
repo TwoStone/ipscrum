@@ -39,8 +39,7 @@ public class SessionManager {
 	 * @param session
 	 *            is the session to get the user from
 	 * @throws NotAuthorizedException
-	 *             The session has no user attribute. Means, that there was no login
-	 *             process done before.
+	 *             The session has no user attribute. Means, that there was no login process done before.
 	 * @return the user
 	 */
 	public User getUser(final HttpSession session) throws NotAuthorizedException {

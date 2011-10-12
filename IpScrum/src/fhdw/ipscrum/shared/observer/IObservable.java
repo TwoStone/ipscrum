@@ -6,8 +6,8 @@ package fhdw.ipscrum.shared.observer;
 public interface IObservable {
 
 	/**
-	 * Adds an observer to the set of observers for this object, provided that it is not
-	 * the same as some observer already in the set.
+	 * Adds an observer to the set of observers for this object, provided that it is not the same as some observer
+	 * already in the set.
 	 * 
 	 * @param observer
 	 *            the current transientObserver to add
@@ -16,8 +16,8 @@ public interface IObservable {
 	void addObserver(final TransientObserver observer);
 
 	/**
-	 * Adds an observer to the set of observers for this object, provided that it is not
-	 * the same as some observer already in the set.
+	 * Adds an observer to the set of observers for this object, provided that it is not the same as some observer
+	 * already in the set.
 	 * 
 	 * @param observer
 	 *            is the persistenObserver to add
@@ -67,16 +67,14 @@ public interface IObservable {
 	void deleteObservers();
 
 	/**
-	 * Notifies all registered observers and calls the update(Observable observable,
-	 * Object argument) method.
+	 * Notifies all registered observers and calls the update(Observable observable, Object argument) method.
 	 * 
 	 * The Update Method will be called in the following way: update(this, null)
 	 */
 	void notifyObservers();
 
 	/**
-	 * Notifies all registered observers and calls the update(Observable observable,
-	 * Object argument) method.
+	 * Notifies all registered observers and calls the update(Observable observable, Object argument) method.
 	 * 
 	 * The Update Method will be called in the following way: update(this, argument)
 	 * 

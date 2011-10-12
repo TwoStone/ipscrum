@@ -4,19 +4,20 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 
 /**
  * Represents the Exception thrown if the Login fails.
- *
+ * 
  */
 public class LoginException extends InfrastructureException {
 
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param string thrown by the Exception
+	 * @param string
+	 *            thrown by the Exception
 	 */
 	public LoginException(final String string) {
 		super(string);
 	}
-	
+
 	/**
 	 * Constructor of the Exception without parameters.
 	 */

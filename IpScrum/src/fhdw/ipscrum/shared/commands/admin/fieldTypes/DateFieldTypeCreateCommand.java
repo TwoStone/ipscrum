@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a date field type.
  */
-public class DateFieldTypeCreateCommand extends Command<DateFieldType>
-		implements IFieldTypesCommand {
+public class DateFieldTypeCreateCommand extends Command<DateFieldType> implements IFieldTypesCommand {
 
 	/**
 	 * Represents the Name of the FieldType.
@@ -50,13 +49,10 @@ public class DateFieldTypeCreateCommand extends Command<DateFieldType>
 
 	@Override
 	protected DateFieldType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.",
-				this.name));
+		this.setStringValue(StringUtils.format("Neuer Feldtyp '%s' erstellt.", this.name));
 
-		final Multiplicity multiplicity =
-				(Multiplicity) model.getObject(this.multiplicityId);
-		final DateFieldType dateFieldType =
-				new DateFieldType(model, this.name, multiplicity);
+		final Multiplicity multiplicity = (Multiplicity) model.getObject(this.multiplicityId);
+		final DateFieldType dateFieldType = new DateFieldType(model, this.name, multiplicity);
 		return dateFieldType;
 	}
 

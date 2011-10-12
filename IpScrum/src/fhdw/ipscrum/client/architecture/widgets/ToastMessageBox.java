@@ -22,8 +22,7 @@ import fhdw.ipscrum.client.resources.MyResources;
 import fhdw.ipscrum.client.resources.css.Toast;
 
 /**
- * represents the tastMassage which is always shown to inform the user if something
- * special happend.
+ * represents the tastMassage which is always shown to inform the user if something special happend.
  */
 public class ToastMessageBox extends PopupPanel {
 
@@ -86,8 +85,7 @@ public class ToastMessageBox extends PopupPanel {
 
 		this.lblNewLabel = new Label("test");
 		this.contentPanel.add(this.lblNewLabel);
-		this.contentPanel.setCellHorizontalAlignment(this.lblNewLabel,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		this.contentPanel.setCellHorizontalAlignment(this.lblNewLabel, HasHorizontalAlignment.ALIGN_CENTER);
 		this.lblNewLabel.setStyleName(resource.stateLabel());
 
 		final Button btnNewButton = new Button("");
@@ -99,8 +97,7 @@ public class ToastMessageBox extends PopupPanel {
 				ToastMessageBox.this.hide();
 			}
 		});
-		this.contentPanel.setCellHorizontalAlignment(btnNewButton,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		this.contentPanel.setCellHorizontalAlignment(btnNewButton, HasHorizontalAlignment.ALIGN_RIGHT);
 	}
 
 	@Override
@@ -149,8 +146,7 @@ public class ToastMessageBox extends PopupPanel {
 	 *            is the handler needed to handle the event
 	 * @return the event needed for handling the mouse over effect.
 	 */
-	public EventRegistration
-			registerMouseOverHandler(final DefaultEventHandler handler) {
+	public EventRegistration registerMouseOverHandler(final DefaultEventHandler handler) {
 		return this.mouseOverEvent.add(handler);
 	}
 

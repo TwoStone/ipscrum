@@ -19,8 +19,7 @@ public class TestEffortFieldCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void test01() throws NoValidValueException {
-		Assert.assertEquals(new Effort(10), SetUpTestDataForCriterion.getPbi1()
-				.getManDayCosts());
+		Assert.assertEquals(new Effort(10), SetUpTestDataForCriterion.getPbi1().getManDayCosts());
 		final EffortFieldCriterion c = new EffortFieldCriterion(new Effort(10));
 		Assert.assertTrue(c.search(SetUpTestDataForCriterion.getPbi1()));
 	}
@@ -33,8 +32,7 @@ public class TestEffortFieldCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void test02() throws NoValidValueException {
-		Assert.assertEquals(new Effort(10), SetUpTestDataForCriterion.getPbi1()
-				.getManDayCosts());
+		Assert.assertEquals(new Effort(10), SetUpTestDataForCriterion.getPbi1().getManDayCosts());
 		final EffortFieldCriterion c = new EffortFieldCriterion(new Effort(5));
 		Assert.assertFalse(c.search(SetUpTestDataForCriterion.getPbi1()));
 	}

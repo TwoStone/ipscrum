@@ -24,8 +24,8 @@ import fhdw.ipscrum.shared.utils.StringUtils;
  * @param <T>
  *            is the attached field type
  */
-public abstract class ListFieldRemoveValueCommand<T extends Serializable>
-		extends Command<Void> implements ITaskboardCommand, IProductBacklogCommand {
+public abstract class ListFieldRemoveValueCommand<T extends Serializable> extends Command<Void>
+		implements ITaskboardCommand, IProductBacklogCommand {
 
 	/**
 	 * creates a command.
@@ -40,14 +40,12 @@ public abstract class ListFieldRemoveValueCommand<T extends Serializable>
 	 *            related to the command
 	 * @return a ListFieldRemoveCommand with the attached type
 	 */
-	public static <T extends Serializable> ListFieldRemoveValueCommand<T>
-			createCommand(final ListField<T> field, final T value, final Ticket ticket) {
+	public static <T extends Serializable> ListFieldRemoveValueCommand<T> createCommand(final ListField<T> field,
+			final T value, final Ticket ticket) {
 		if (value instanceof IdentifiableObject) {
-			return new ListFieldIdentifiableObjectRemoveValueCommand<T>(field, value,
-					ticket);
+			return new ListFieldIdentifiableObjectRemoveValueCommand<T>(field, value, ticket);
 		} else {
-			return new ListFieldNonIdentifiableObjectRemoveValueCommand<T>(field,
-					value, ticket);
+			return new ListFieldNonIdentifiableObjectRemoveValueCommand<T>(field, value, ticket);
 		}
 	}
 
@@ -75,8 +73,7 @@ public abstract class ListFieldRemoveValueCommand<T extends Serializable>
 	 * @param ticket
 	 *            related to the command
 	 */
-	protected ListFieldRemoveValueCommand(final IdentifiableObject receiver,
-			final Ticket ticket) {
+	protected ListFieldRemoveValueCommand(final IdentifiableObject receiver, final Ticket ticket) {
 		super(receiver);
 		this.ticketId = ticket.getId();
 	}
@@ -84,12 +81,10 @@ public abstract class ListFieldRemoveValueCommand<T extends Serializable>
 	@SuppressWarnings("unchecked")
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final ListField<T> listField =
-				(ListField<T>) model.getObject(this.getReceiverGuid());
+		final ListField<T> listField = (ListField<T>) model.getObject(this.getReceiverGuid());
 		final T value = this.getValue(model);
 		final Ticket ticket = (Ticket) model.getObject(this.ticketId);
-		this.setStringValue(StringUtils.format(
-				"Wertänderung im Ticket '%s': %s entfernt.", ticket.getName(), value));
+		this.setStringValue(StringUtils.format("Wertänderung im Ticket '%s': %s entfernt.", ticket.getName(), value));
 		listField.removeValue(value, ticket);
 		return null;
 	}
@@ -113,9 +108,7 @@ public abstract class ListFieldRemoveValueCommand<T extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.interfaces.ICommand#getDependingProject(fhdw.ipscrum
-	 * .shared.model.Model)
+	 * @see fhdw.ipscrum.shared.commands.interfaces.ICommand#getDependingProject(fhdw.ipscrum .shared.model.Model)
 	 */
 	@Override
 	public Project getDependingProject(final Model model) throws NoObjectFindException {
@@ -139,8 +132,7 @@ public abstract class ListFieldRemoveValueCommand<T extends Serializable>
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.commands.interfaces.ICommand#accept(fhdw.ipscrum.shared.commands
+	 * @see fhdw.ipscrum.shared.commands.interfaces.ICommand#accept(fhdw.ipscrum.shared.commands
 	 * .visitor.CommandVisitor)
 	 */
 	@Override

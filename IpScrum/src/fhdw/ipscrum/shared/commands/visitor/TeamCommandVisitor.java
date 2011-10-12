@@ -40,8 +40,7 @@ public interface TeamCommandVisitor {
 	 * @param teamSetDescriptionCommand
 	 *            specific command.
 	 */
-	void handleTeamSetDescriptionCommand(
-			TeamSetDescriptionCommand teamSetDescriptionCommand);
+	void handleTeamSetDescriptionCommand(TeamSetDescriptionCommand teamSetDescriptionCommand);
 
 	/**
 	 * specific visitor action.

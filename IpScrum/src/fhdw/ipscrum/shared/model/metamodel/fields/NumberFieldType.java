@@ -25,8 +25,8 @@ public class NumberFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if a NumberFieldType with the same parameters already exists
 	 */
-	public NumberFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public NumberFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 

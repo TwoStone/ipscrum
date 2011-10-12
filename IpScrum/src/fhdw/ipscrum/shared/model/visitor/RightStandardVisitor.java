@@ -29,13 +29,11 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.RightVisitor#handleProductBacklogRight(fhdw.ipscrum
+	 * @see fhdw.ipscrum.shared.model.visitor.RightVisitor#handleProductBacklogRight(fhdw.ipscrum
 	 * .shared.model.userRights.ProductBacklogRight)
 	 */
 	@Override
-	public void
-			handleProductBacklogRight(final ProductBacklogRight productBacklogRight) {
+	public void handleProductBacklogRight(final ProductBacklogRight productBacklogRight) {
 		this.standardHandling(productBacklogRight);
 
 	}
@@ -43,8 +41,7 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.RightVisitor#handleProjectRight(fhdw.ipscrum.
+	 * @see fhdw.ipscrum.shared.model.visitor.RightVisitor#handleProjectRight(fhdw.ipscrum.
 	 * shared.model.userRights.ProjectRight)
 	 */
 	@Override
@@ -55,13 +52,11 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.RightVisitor#handleProjectHistoryRight(fhdw.ipscrum
+	 * @see fhdw.ipscrum.shared.model.visitor.RightVisitor#handleProjectHistoryRight(fhdw.ipscrum
 	 * .shared.model.userRights.ProjectHistoryRight)
 	 */
 	@Override
-	public void
-			handleProjectHistoryRight(final ProjectHistoryRight projectHistoryRight) {
+	public void handleProjectHistoryRight(final ProjectHistoryRight projectHistoryRight) {
 		this.standardHandling(projectHistoryRight);
 
 	}
@@ -69,8 +64,7 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.RightVisitor#handleTaskboardRight(fhdw.ipscrum
+	 * @see fhdw.ipscrum.shared.model.visitor.RightVisitor#handleTaskboardRight(fhdw.ipscrum
 	 * .shared.model.userRights.TaskboardRight)
 	 */
 	@Override
@@ -81,8 +75,7 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handleTeamAdminRight(fhdw.ipscrum
+	 * @see fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handleTeamAdminRight(fhdw.ipscrum
 	 * .shared.model.userRights.TeamAdminRight)
 	 */
 	@Override
@@ -93,13 +86,11 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handlePersonRoleAdminRight(
+	 * @see fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handlePersonRoleAdminRight(
 	 * fhdw.ipscrum.shared.model.userRights.PersonRoleAdminRight)
 	 */
 	@Override
-	public void handlePersonRoleAdminRight(
-			final PersonRoleAdminRight personRoleAdminRight) {
+	public void handlePersonRoleAdminRight(final PersonRoleAdminRight personRoleAdminRight) {
 		this.standardHandling(personRoleAdminRight);
 
 	}
@@ -107,13 +98,11 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handleTicketTypeAdminRight(
+	 * @see fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handleTicketTypeAdminRight(
 	 * fhdw.ipscrum.shared.model.userRights.TicketTypeAdminRight)
 	 */
 	@Override
-	public void handleTicketTypeAdminRight(
-			final TicketTypeAdminRight ticketTypeAdminRight) {
+	public void handleTicketTypeAdminRight(final TicketTypeAdminRight ticketTypeAdminRight) {
 		this.standardHandling(ticketTypeAdminRight);
 
 	}
@@ -121,13 +110,11 @@ public abstract class RightStandardVisitor implements RightVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handleFieldTypeAdminRight(fhdw
+	 * @see fhdw.ipscrum.shared.model.visitor.AdminRightVisitor#handleFieldTypeAdminRight(fhdw
 	 * .ipscrum.shared.model.userRights.FieldTypeAdminRight)
 	 */
 	@Override
-	public void
-			handleFieldTypeAdminRight(final FieldTypeAdminRight fieldTypeAdminRight) {
+	public void handleFieldTypeAdminRight(final FieldTypeAdminRight fieldTypeAdminRight) {
 		this.standardHandling(fieldTypeAdminRight);
 
 	}

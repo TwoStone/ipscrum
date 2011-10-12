@@ -26,8 +26,7 @@ public class ProjectCreateCommandTest extends ModelTestBase {
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#ProjectCreateCommand(java.lang.String)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#ProjectCreateCommand(java.lang.String)} .
 	 */
 	@Test
 	public final void testProjectCreateCommand() {
@@ -36,30 +35,25 @@ public class ProjectCreateCommandTest extends ModelTestBase {
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#onExecute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#onExecute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
 	 */
 	@Test
 	public final void testOnExecuteModel() throws IPScrumGeneralException {
-		final ProjectCreateCommand command =
-				new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
+		final ProjectCreateCommand command = new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
 		final Project project = command.onExecute(this.getModel());
 		Assert.assertEquals(ProjectCreateCommandTest.TESTPROJECTNAME, project.getName());
 
 	}
 
 	/**
-	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#dependsOnProject()}
-	 * .
+	 * Test method for {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#dependsOnProject()} .
 	 */
 	@Test
 	public final void testDependsOnProject() {
-		final ProjectCreateCommand command =
-				new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
+		final ProjectCreateCommand command = new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
 		Assert.assertFalse(command.dependsOnProject());
 	}
 
@@ -73,15 +67,13 @@ public class ProjectCreateCommandTest extends ModelTestBase {
 	 */
 	@Test
 	public final void testGetDependingProject() throws InfrastructureException {
-		final ProjectCreateCommand command =
-				new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
+		final ProjectCreateCommand command = new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
 		Assert.assertNull(command.getDependingProject(this.getModel()));
 	}
 
 	/**
 	 * Test method for
-	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#execute(fhdw.ipscrum.shared.model.Model)}
-	 * .
+	 * {@link fhdw.ipscrum.shared.commands.project.ProjectCreateCommand#execute(fhdw.ipscrum.shared.model.Model)} .
 	 * 
 	 * @throws IPScrumGeneralException
 	 *             if an error occurs
@@ -89,8 +81,7 @@ public class ProjectCreateCommandTest extends ModelTestBase {
 	 */
 	@Test
 	public final void testExecute() throws IPScrumGeneralException {
-		final ProjectCreateCommand command =
-				new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
+		final ProjectCreateCommand command = new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
 		command.execute(this.getModel());
 		final Project project = command.getResult();
 		Assert.assertEquals(ProjectCreateCommandTest.TESTPROJECTNAME, project.getName());
@@ -106,12 +97,11 @@ public class ProjectCreateCommandTest extends ModelTestBase {
 	 */
 	@Test
 	public final void testAccept() throws NoObjectFindException {
-		final ProjectCreateCommand command =
-				new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
+		final ProjectCreateCommand command = new ProjectCreateCommand(ProjectCreateCommandTest.TESTPROJECTNAME);
 		command.accept(new CommandStandardVisitor() {
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 
 			}
 		});

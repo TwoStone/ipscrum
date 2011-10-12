@@ -11,8 +11,7 @@ import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 /**
  * Represents the PBISingleFieldTypeController needed for editing tickets.
  */
-public class PBISingleFieldTypeController
-		extends SingleFieldTypeController<ProductBacklogItem> {
+public class PBISingleFieldTypeController extends SingleFieldTypeController<ProductBacklogItem> {
 
 	/**
 	 * Constructor of the PBISingleFieldTypeController.
@@ -24,13 +23,10 @@ public class PBISingleFieldTypeController
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public PBISingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter,
+	public PBISingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
 			final SingleField<ProductBacklogItem> field) {
 		super(ticket, presenter, field);
-		this.widget =
-				new ComplexSingleFieldWidget<ProductBacklogItem>(
-						TypeRenderes.PBIRENDERER);
+		this.widget = new ComplexSingleFieldWidget<ProductBacklogItem>(TypeRenderes.PBIRENDERER);
 		this.initialize();
 	}
 

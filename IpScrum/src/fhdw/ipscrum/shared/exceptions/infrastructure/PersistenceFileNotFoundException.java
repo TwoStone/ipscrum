@@ -5,8 +5,7 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 /**
  * Represents a specific PersistenceException.<br />
  * <p>
- * This exception is thrown if loading a model cannot proceed because the
- * required .xml file is not available.
+ * This exception is thrown if loading a model cannot proceed because the required .xml file is not available.
  * </p>
  */
 public class PersistenceFileNotFoundException extends InfrastructureException {
@@ -19,7 +18,8 @@ public class PersistenceFileNotFoundException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message the Exception throws.
+	 * @param message
+	 *            the Exception throws.
 	 */
 	public PersistenceFileNotFoundException(final String message) {
 		super(message);

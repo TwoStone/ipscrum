@@ -5,8 +5,7 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * Service for receiving heart beats from clients to notify the server about their
- * existence.
+ * Service for receiving heart beats from clients to notify the server about their existence.
  */
 @RemoteServiceRelativePath("HeartBeatService")
 public interface HeartBeatService extends RemoteService {

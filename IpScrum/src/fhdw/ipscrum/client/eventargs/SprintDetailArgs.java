@@ -46,8 +46,8 @@ public class SprintDetailArgs extends EventArgs {
 	 * @param description
 	 *            of the sprint
 	 */
-	public SprintDetailArgs(final String name, final Date beginDate,
-			final Date endDate, final Team team, final String description) {
+	public SprintDetailArgs(final String name, final Date beginDate, final Date endDate, final Team team,
+			final String description) {
 		super();
 		this.name = name;
 		this.beginDate = CalendarUtils.copy(beginDate);

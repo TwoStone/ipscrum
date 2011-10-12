@@ -37,8 +37,7 @@ public abstract class MessageStandardVisitor implements MessageVisitor {
 	}
 
 	@Override
-	public void handleRemoveGlobalIncidentMessage(
-			final RemoveGlobalIncidentMessage message) {
+	public void handleRemoveGlobalIncidentMessage(final RemoveGlobalIncidentMessage message) {
 		this.standardHandling();
 	}
 

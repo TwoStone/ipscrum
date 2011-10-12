@@ -7,12 +7,10 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * This class represents the abstract superclass of all field types. A field type
- * determines the content of fields, which have a type reference to field types. Field
- * types are able to create concrete fields according to the multiplicity of the field
- * type, which can be one or many. For example, a field type with the multiplicity ONE,
- * the createField-Operation must return an object of SingleField. Every ticketType
- * contains a set of field types
+ * This class represents the abstract superclass of all field types. A field type determines the content of fields,
+ * which have a type reference to field types. Field types are able to create concrete fields according to the
+ * multiplicity of the field type, which can be one or many. For example, a field type with the multiplicity ONE, the
+ * createField-Operation must return an object of SingleField. Every ticketType contains a set of field types
  */
 public abstract class FieldType extends IdentifiableObject {
 	/**
@@ -47,8 +45,8 @@ public abstract class FieldType extends IdentifiableObject {
 	 * @throws DoubleDefinitionException
 	 *             if a fieldTyp with the same parameters already exists
 	 */
-	public FieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public FieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model);
 		this.name = name;
 		this.checkFieldTypeDoublets(name);
@@ -64,24 +62,20 @@ public abstract class FieldType extends IdentifiableObject {
 	}
 
 	/**
-	 * This method checks if a field type is double defined and gets called in the public
-	 * constructor of {@link FieldType}. A field type is double defined, if the model
-	 * already contains a field type with the same name.
+	 * This method checks if a field type is double defined and gets called in the public constructor of
+	 * {@link FieldType}. A field type is double defined, if the model already contains a field type with the same name.
 	 * 
 	 * @param nameToBeChecked
 	 *            the name that must be unique
 	 * @throws DoubleDefinitionException
 	 *             if the field type is double defined
 	 */
-	private void checkFieldTypeDoublets(final String nameToBeChecked)
-			throws DoubleDefinitionException {
-		final Iterator<FieldType> fieldTypesIterator =
-				this.getModel().getTypeManager().getFieldTypes().iterator();
+	private void checkFieldTypeDoublets(final String nameToBeChecked) throws DoubleDefinitionException {
+		final Iterator<FieldType> fieldTypesIterator = this.getModel().getTypeManager().getFieldTypes().iterator();
 		while (fieldTypesIterator.hasNext()) {
 			final FieldType current = fieldTypesIterator.next();
 			if (current.getName().equals(nameToBeChecked)) {
-				throw new DoubleDefinitionException(
-						"Fehler: ein Feldtyp mit diesem Namen existiert bereits!");
+				throw new DoubleDefinitionException("Fehler: ein Feldtyp mit diesem Namen existiert bereits!");
 			}
 		}
 	}
@@ -96,8 +90,7 @@ public abstract class FieldType extends IdentifiableObject {
 	}
 
 	/**
-	 * returns the concrete multiplicity object. You can use a {@link MultiplicityVisitor}
-	 * to get the right type.
+	 * returns the concrete multiplicity object. You can use a {@link MultiplicityVisitor} to get the right type.
 	 * 
 	 * @return {@link Multiplicity}
 	 */
@@ -114,9 +107,8 @@ public abstract class FieldType extends IdentifiableObject {
 	public abstract void accept(FieldTypeVisitor v);
 
 	/**
-	 * Creates a field with type parameter specified by the specific field type. Every
-	 * Class inheriting from FieldType must specifiy, which field content must be
-	 * returned!
+	 * Creates a field with type parameter specified by the specific field type. Every Class inheriting from FieldType
+	 * must specifiy, which field content must be returned!
 	 * 
 	 * @return {@link Field}
 	 */

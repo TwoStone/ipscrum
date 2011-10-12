@@ -70,8 +70,7 @@ public abstract class PBITicketType extends TicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public PBITicketType(final Model model, final String name, final String description)
-			throws IPScrumGeneralException {
+	public PBITicketType(final Model model, final String name, final String description) throws IPScrumGeneralException {
 		super(model, name, description);
 	}
 
@@ -96,9 +95,8 @@ public abstract class PBITicketType extends TicketType {
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	protected PBITicketType(final Model model, final String name,
-			final String description, final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected PBITicketType(final Model model, final String name, final String description,
+			final TypeManager typeManager) throws IPScrumGeneralException {
 		super(model, name, description, typeManager);
 	}
 
@@ -124,13 +122,10 @@ public abstract class PBITicketType extends TicketType {
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void addAcceptanceCriterion(final String acceptanceCriterion,
-			final ProductBacklogItem pbi) throws DoubleDefinitionException,
-			ForbiddenStateException, ConsistencyException {
+	public void addAcceptanceCriterion(final String acceptanceCriterion, final ProductBacklogItem pbi)
+			throws DoubleDefinitionException, ForbiddenStateException, ConsistencyException {
 		@SuppressWarnings("unchecked")
-		final ListField<String> target =
-				(ListField<String>) this
-						.getField(this.getAcceptanceCriteriaType(), pbi);
+		final ListField<String> target = (ListField<String>) this.getField(this.getAcceptanceCriteriaType(), pbi);
 		target.addValue(acceptanceCriterion, pbi);
 	}
 
@@ -148,12 +143,10 @@ public abstract class PBITicketType extends TicketType {
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state this method is forbidden
 	 */
-	public void addHint(final String hint, final ProductBacklogItem pbi)
-			throws DoubleDefinitionException, ConsistencyException,
-			ForbiddenStateException {
+	public void addHint(final String hint, final ProductBacklogItem pbi) throws DoubleDefinitionException,
+			ConsistencyException, ForbiddenStateException {
 		@SuppressWarnings("unchecked")
-		final ListField<String> field =
-				(ListField<String>) this.getField(this.hintsType, pbi);
+		final ListField<String> field = (ListField<String>) this.getField(this.hintsType, pbi);
 		field.addValue(hint, pbi);
 	}
 
@@ -166,8 +159,7 @@ public abstract class PBITicketType extends TicketType {
 	 */
 	public List<String> getAcceptanceCriteria(final ProductBacklogItem pbi) {
 		@SuppressWarnings("unchecked")
-		final ListField<String> field =
-				(ListField<String>) this.getField(this.acceptanceCriteriaType, pbi);
+		final ListField<String> field = (ListField<String>) this.getField(this.acceptanceCriteriaType, pbi);
 		return field.getValues();
 	}
 
@@ -189,8 +181,7 @@ public abstract class PBITicketType extends TicketType {
 	 */
 	public List<String> getHints(final ProductBacklogItem pbi) {
 		@SuppressWarnings("unchecked")
-		final ListField<String> field =
-				(ListField<String>) this.getField(this.hintsType, pbi);
+		final ListField<String> field = (ListField<String>) this.getField(this.hintsType, pbi);
 		return field.getValues();
 	}
 
@@ -212,8 +203,7 @@ public abstract class PBITicketType extends TicketType {
 	 */
 	public Person getLastEditor(final ProductBacklogItem pbi) {
 		@SuppressWarnings("unchecked")
-		final SingleField<Person> field =
-				(SingleField<Person>) this.getField(this.lastEditorType, pbi);
+		final SingleField<Person> field = (SingleField<Person>) this.getField(this.lastEditorType, pbi);
 		return field.getValue();
 	}
 
@@ -235,8 +225,7 @@ public abstract class PBITicketType extends TicketType {
 	 */
 	public Effort getManDayCosts(final ProductBacklogItem pbi) {
 		@SuppressWarnings("unchecked")
-		final SingleField<Effort> field =
-				(SingleField<Effort>) this.getField(this.manDayCostsType, pbi);
+		final SingleField<Effort> field = (SingleField<Effort>) this.getField(this.manDayCostsType, pbi);
 		return field.getValue();
 	}
 
@@ -258,8 +247,7 @@ public abstract class PBITicketType extends TicketType {
 	 */
 	public Sprint getSprint(final ProductBacklogItem pbi) {
 		@SuppressWarnings("unchecked")
-		final SingleField<Sprint> field =
-				(SingleField<Sprint>) this.getField(this.sprintType, pbi);
+		final SingleField<Sprint> field = (SingleField<Sprint>) this.getField(this.sprintType, pbi);
 		return field.getValue();
 	}
 
@@ -284,13 +272,10 @@ public abstract class PBITicketType extends TicketType {
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state in which the use of this method is forbidden
 	 */
-	public void removeAcceptanceCriterion(final String acceptanceCriterion,
-			final ProductBacklogItem pbi) throws ConsistencyException,
-			ForbiddenStateException {
+	public void removeAcceptanceCriterion(final String acceptanceCriterion, final ProductBacklogItem pbi)
+			throws ConsistencyException, ForbiddenStateException {
 		@SuppressWarnings("unchecked")
-		final ListField<String> target =
-				(ListField<String>) this
-						.getField(this.getAcceptanceCriteriaType(), pbi);
+		final ListField<String> target = (ListField<String>) this.getField(this.getAcceptanceCriteriaType(), pbi);
 		target.removeValue(acceptanceCriterion, pbi);
 	}
 
@@ -306,12 +291,11 @@ public abstract class PBITicketType extends TicketType {
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state the use of this method is forbidden
 	 */
-	public void removeHint(final String hint, final ProductBacklogItem pbi)
-			throws ConsistencyException, ForbiddenStateException {
+	public void removeHint(final String hint, final ProductBacklogItem pbi) throws ConsistencyException,
+			ForbiddenStateException {
 
 		@SuppressWarnings("unchecked")
-		final ListField<String> target =
-				(ListField<String>) this.getField(this.getHintsType(), pbi);
+		final ListField<String> target = (ListField<String>) this.getField(this.getHintsType(), pbi);
 		target.removeValue(hint, pbi);
 	}
 
@@ -342,10 +326,9 @@ public abstract class PBITicketType extends TicketType {
 	 *             if the pbi is in a state the use of this method is forbidden
 	 */
 	@SuppressWarnings("unchecked")
-	public void setDescription(final String description, final ProductBacklogItem pbi)
-			throws ConsistencyException, ForbiddenStateException {
-		((SingleField<String>) this.getField(this.getDescriptionType(), pbi)).setValue(
-				description, pbi);
+	public void setDescription(final String description, final ProductBacklogItem pbi) throws ConsistencyException,
+			ForbiddenStateException {
+		((SingleField<String>) this.getField(this.getDescriptionType(), pbi)).setValue(description, pbi);
 	}
 
 	/**
@@ -375,10 +358,9 @@ public abstract class PBITicketType extends TicketType {
 	 *             if the consistency is hurt
 	 */
 	@SuppressWarnings("unchecked")
-	public void setLastEditor(final Person lastEditor, final ProductBacklogItem pbi)
-			throws ForbiddenStateException, ConsistencyException {
-		((SingleField<Person>) this.getField(this.getLastEditorType(), pbi)).setValue(
-				lastEditor, pbi);
+	public void setLastEditor(final Person lastEditor, final ProductBacklogItem pbi) throws ForbiddenStateException,
+			ConsistencyException {
+		((SingleField<Person>) this.getField(this.getLastEditorType(), pbi)).setValue(lastEditor, pbi);
 	}
 
 	/**
@@ -410,10 +392,9 @@ public abstract class PBITicketType extends TicketType {
 	 *             if the consistency is hurt
 	 */
 	@SuppressWarnings("unchecked")
-	public void setManDayCosts(final Effort manDayCosts, final ProductBacklogItem pbi)
-			throws NoValidValueException, ForbiddenStateException, ConsistencyException {
-		((SingleField<Effort>) this.getField(this.manDayCostsType, pbi)).setValue(
-				manDayCosts, pbi);
+	public void setManDayCosts(final Effort manDayCosts, final ProductBacklogItem pbi) throws NoValidValueException,
+			ForbiddenStateException, ConsistencyException {
+		((SingleField<Effort>) this.getField(this.manDayCostsType, pbi)).setValue(manDayCosts, pbi);
 	}
 
 	/**
@@ -447,11 +428,9 @@ public abstract class PBITicketType extends TicketType {
 	 *             if the pbi is in a state the use of the method is forbidden
 	 */
 	@SuppressWarnings("unchecked")
-	public void setName(final String name, final ProductBacklogItem pbi)
-			throws NoValidValueException, DoubleDefinitionException,
-			ConsistencyException, ForbiddenStateException {
-		((SingleField<String>) this.getField(this.getDescriptionType(), pbi)).setValue(
-				name, pbi);
+	public void setName(final String name, final ProductBacklogItem pbi) throws NoValidValueException,
+			DoubleDefinitionException, ConsistencyException, ForbiddenStateException {
+		((SingleField<String>) this.getField(this.getDescriptionType(), pbi)).setValue(name, pbi);
 	}
 
 	/**
@@ -469,11 +448,9 @@ public abstract class PBITicketType extends TicketType {
 	 *             if the wrong state to use this method
 	 */
 	@SuppressWarnings("unchecked")
-	public void setSprint(final Sprint sprint, final ProductBacklogItem pbi)
-			throws NoSprintDefinedException, ConsistencyException,
-			ForbiddenStateException {
-		((SingleField<Sprint>) this.getField(this.sprintType, pbi)).setValue(sprint,
-				pbi);
+	public void setSprint(final Sprint sprint, final ProductBacklogItem pbi) throws NoSprintDefinedException,
+			ConsistencyException, ForbiddenStateException {
+		((SingleField<Sprint>) this.getField(this.sprintType, pbi)).setValue(sprint, pbi);
 	}
 
 	/**
@@ -491,8 +468,7 @@ public abstract class PBITicketType extends TicketType {
 	}
 
 	@Override
-	protected void doInitializeStandard(final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected void doInitializeStandard(final TypeManager typeManager) throws IPScrumGeneralException {
 		this.setDescriptionType(typeManager.getDescriptionType());
 		this.setNameType(typeManager.getNameType());
 		this.setAcceptanceCriteriaType(typeManager.getAcceptanceCriteriaType());
@@ -513,14 +489,12 @@ public abstract class PBITicketType extends TicketType {
 	}
 
 	@Override
-	protected void doInitializeStateProfile(final TypeManager typeManager)
-			throws IPScrumGeneralException {
+	protected void doInitializeStateProfile(final TypeManager typeManager) throws IPScrumGeneralException {
 		this.doAddPossibleState(typeManager.getOpen());
 		this.doAddPossibleState(typeManager.getClosed());
 		this.doSetStartState(typeManager.getOpen());
 		this.doAddEndState(typeManager.getClosed());
-		this.doAddTransitionRule(new TransitionRule(this.getModel(), typeManager
-				.getOpen(), typeManager.getClosed()));
+		this.doAddTransitionRule(new TransitionRule(this.getModel(), typeManager.getOpen(), typeManager.getClosed()));
 
 	}
 }

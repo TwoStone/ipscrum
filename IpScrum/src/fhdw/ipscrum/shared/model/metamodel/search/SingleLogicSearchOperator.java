@@ -8,8 +8,7 @@ import fhdw.ipscrum.shared.observer.PersistentObserver;
 /**
  * Represents a logical operator with one argument. This argument is a search expression.
  */
-public abstract class SingleLogicSearchOperator extends Operator
-		implements PersistentObserver {
+public abstract class SingleLogicSearchOperator extends Operator implements PersistentObserver {
 
 	/**
 	 * Represents the serialVersionUID.
@@ -37,8 +36,7 @@ public abstract class SingleLogicSearchOperator extends Operator
 	 * @throws CycleException
 	 *             if the method creates a cycle.
 	 */
-	public SingleLogicSearchOperator(final Model model, final SearchExpression arg)
-			throws CycleException {
+	public SingleLogicSearchOperator(final Model model, final SearchExpression arg) throws CycleException {
 		super(model);
 		this.setArg(arg);
 	}

@@ -46,8 +46,7 @@ public class TaskRemovePBICommand extends Command<Void> implements ITaskboardCom
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Task task = (Task) model.getObject(this.getReceiverGuid());
 		final ProductBacklogItem pbi = (ProductBacklogItem) model.getObject(this.pbiId);
-		this.setStringValue(StringUtils.format("Task '%s' wurde das PBI %s entfernt.",
-				task.getName(), pbi.getName()));
+		this.setStringValue(StringUtils.format("Task '%s' wurde das PBI %s entfernt.", task.getName(), pbi.getName()));
 		task.removePBI(pbi);
 		return null;
 	}

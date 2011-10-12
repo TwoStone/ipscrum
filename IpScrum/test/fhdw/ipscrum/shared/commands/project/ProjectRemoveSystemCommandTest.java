@@ -105,7 +105,7 @@ public class ProjectRemoveSystemCommandTest extends ProjectTestBase {
 		command.accept(new CommandStandardVisitor() {
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 
 			}
 		});

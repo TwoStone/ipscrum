@@ -21,8 +21,8 @@ public final class GwtUtils {
 	}
 
 	/**
-	 * Sets the browser focus to the {@link Focusable} object. This is a workaround
-	 * because just calling {@link Focusable#setFocus(true)} sometimes has no affect.
+	 * Sets the browser focus to the {@link Focusable} object. This is a workaround because just calling
+	 * {@link Focusable#setFocus(true)} sometimes has no affect.
 	 * 
 	 * @param focusable
 	 *            the object that should be focused

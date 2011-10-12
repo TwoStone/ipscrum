@@ -65,9 +65,8 @@ public class BugCreateCommand extends Command<Bug> implements IProductBacklogCom
 	 * @param release
 	 *            related to the bug
 	 */
-	public BugCreateCommand(final String name, final String description,
-			final BugTicketType bugTicketType, final ProductBacklog productBacklog,
-			final Release release) {
+	public BugCreateCommand(final String name, final String description, final BugTicketType bugTicketType,
+			final ProductBacklog productBacklog, final Release release) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -78,17 +77,13 @@ public class BugCreateCommand extends Command<Bug> implements IProductBacklogCom
 
 	@Override
 	protected Bug onExecute(final Model model) throws IPScrumGeneralException {
-		final BugTicketType bugTicketType =
-				(BugTicketType) model.getObject(this.bugTicketTypeId);
-		final ProductBacklog productBacklog =
-				(ProductBacklog) model.getObject(this.productBacklogId);
+		final BugTicketType bugTicketType = (BugTicketType) model.getObject(this.bugTicketTypeId);
+		final ProductBacklog productBacklog = (ProductBacklog) model.getObject(this.productBacklogId);
 		final Release release = (Release) model.getObject(this.releaseId);
-		this.setStringValue(StringUtils.format("Neuer Bug '%s' vom Typ %s erstellt.",
-				this.name, bugTicketType.getTypeName()));
+		this.setStringValue(StringUtils.format("Neuer Bug '%s' vom Typ %s erstellt.", this.name,
+				bugTicketType.getTypeName()));
 
-		final Bug bug =
-				new Bug(model, bugTicketType, this.name, this.description,
-						productBacklog, release);
+		final Bug bug = new Bug(model, bugTicketType, this.name, this.description, productBacklog, release);
 		return bug;
 	}
 

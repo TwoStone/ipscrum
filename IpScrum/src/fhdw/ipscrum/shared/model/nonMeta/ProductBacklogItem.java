@@ -28,8 +28,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket#accept(fhdw.ipscrum.
+	 * @see fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.Ticket#accept(fhdw.ipscrum.
 	 * shared.model.visitor.TicketVisitor)
 	 */
 	@Override
@@ -71,15 +70,14 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 * @throws NoValidValueException
-	 *             If the name for the PBI is not valid. Valid names are not null and have
-	 *             not only whitespace characters.
+	 *             If the name for the PBI is not valid. Valid names are not null and have not only whitespace
+	 *             characters.
 	 * @throws DoubleDefinitionException
 	 *             If the name of the PBI already exist within the product backlog
 	 */
-	public ProductBacklogItem(final Model model, final PBITicketType type,
-			final String name, final String description, final ProductBacklog backlog)
-			throws NoValidValueException, DoubleDefinitionException,
-			ConsistencyException, ForbiddenStateException {
+	public ProductBacklogItem(final Model model, final PBITicketType type, final String name, final String description,
+			final ProductBacklog backlog)
+			throws NoValidValueException, DoubleDefinitionException, ConsistencyException, ForbiddenStateException {
 		super(model, type, name, description);
 		this.relations = new ArrayList<Relation>();
 		backlog.addItem(this);
@@ -116,9 +114,8 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void addAcceptanceCriterion(final String acceptanceCriterion)
-			throws DoubleDefinitionException, ForbiddenStateException,
-			ConsistencyException {
+	public void addAcceptanceCriterion(final String acceptanceCriterion) throws DoubleDefinitionException,
+			ForbiddenStateException, ConsistencyException {
 		final Iterator<String> iterator = this.getAcceptanceCriteria().iterator();
 		while (iterator.hasNext()) {
 			final String current = iterator.next();
@@ -143,8 +140,8 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state this method is forbidden
 	 */
-	public void addHint(final String hint) throws DoubleDefinitionException,
-			ConsistencyException, ForbiddenStateException {
+	public void addHint(final String hint) throws DoubleDefinitionException, ConsistencyException,
+			ForbiddenStateException {
 		final Iterator<String> iterator = this.getHints().iterator();
 		while (iterator.hasNext()) {
 			final String current = iterator.next();
@@ -167,8 +164,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state this method is forbidden
 	 */
-	public void addRelation(final Relation relation) throws DoubleDefinitionException,
-			ForbiddenStateException {
+	public void addRelation(final Relation relation) throws DoubleDefinitionException, ForbiddenStateException {
 		final Iterator<Relation> iterator = this.relations.iterator();
 		while (iterator.hasNext()) {
 			final Relation current = iterator.next();
@@ -194,8 +190,8 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state the use of this method is forbidden
 	 */
-	public void removeAcceptanceCriterion(final String acceptanceCriterion)
-			throws ConsistencyException, ForbiddenStateException {
+	public void removeAcceptanceCriterion(final String acceptanceCriterion) throws ConsistencyException,
+			ForbiddenStateException {
 		this.getTicketType().removeAcceptanceCriterion(acceptanceCriterion, this);
 		this.changed();
 	}
@@ -210,8 +206,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state the use of this method is forbidden
 	 */
-	public void removeHint(final String hint) throws ConsistencyException,
-			ForbiddenStateException {
+	public void removeHint(final String hint) throws ConsistencyException, ForbiddenStateException {
 		this.getTicketType().removeHint(hint, this);
 		this.changed();
 	}
@@ -233,8 +228,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	}
 
 	@Override
-	public void setDescription(final String description) throws ConsistencyException,
-			ForbiddenStateException {
+	public void setDescription(final String description) throws ConsistencyException, ForbiddenStateException {
 		this.getTicketType().setDescription(description, this);
 		this.changed();
 	}
@@ -249,8 +243,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ConsistencyException
 	 *             if the consistency is hurt
 	 */
-	public void setLastEditor(final Person lastEditor) throws ForbiddenStateException,
-			ConsistencyException {
+	public void setLastEditor(final Person lastEditor) throws ForbiddenStateException, ConsistencyException {
 		this.getTicketType().setLastEditor(lastEditor, this);
 		this.changed();
 	}
@@ -267,8 +260,8 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ConsistencyException
 	 *             if the consitency is hurt
 	 */
-	public void setManDayCosts(final Effort manDayCosts) throws NoValidValueException,
-			ForbiddenStateException, ConsistencyException {
+	public void setManDayCosts(final Effort manDayCosts) throws NoValidValueException, ForbiddenStateException,
+			ConsistencyException {
 		if (manDayCosts != null && manDayCosts.getValue() >= 0) {
 			this.getTicketType().setManDayCosts(manDayCosts, this);
 			this.changed();
@@ -289,8 +282,8 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @throws ForbiddenStateException
 	 *             if the pbi is in a state the use of this method is forbidden
 	 */
-	public void setSprint(final Sprint sprint) throws NoSprintDefinedException,
-			ConsistencyException, ForbiddenStateException {
+	public void setSprint(final Sprint sprint) throws NoSprintDefinedException, ConsistencyException,
+			ForbiddenStateException {
 		if (sprint != null) {
 			this.getBacklog().getProject().isSprintDefined(sprint);
 			this.getTicketType().setSprint(sprint, this);
@@ -304,8 +297,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @return the acceptanceCriteria
 	 */
 	public List<String> getAcceptanceCriteria() {
-		return Collections.unmodifiableList(this.getTicketType().getAcceptanceCriteria(
-				this));
+		return Collections.unmodifiableList(this.getTicketType().getAcceptanceCriteria(this));
 	}
 
 	/**
@@ -366,8 +358,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 
 	@Override
 	public String toString() {
-		return "ProductBacklogItem [aufwand=" + this.getManDayCosts() + ", name="
-				+ this.getName() + "]";
+		return "ProductBacklogItem [aufwand=" + this.getManDayCosts() + ", name=" + this.getName() + "]";
 	}
 
 	@Override
@@ -381,15 +372,14 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	}
 
 	@Override
-	protected void checkNameValidity(final String name) throws NoValidValueException,
-			DoubleDefinitionException, ConsistencyException {
+	protected void checkNameValidity(final String name) throws NoValidValueException, DoubleDefinitionException,
+			ConsistencyException {
 		if (this.getBacklog() != null) {
 			if (name != null && name.trim().length() > 0) {
 				if (this.getBacklog() != null) {
 					for (final ProductBacklogItem item : this.getBacklog().getItems()) {
 						if (item != this && item.getName().equals(name)) {
-							throw new DoubleDefinitionException(
-									TextConstants.DOUBLE_DEFINITION_PBI);
+							throw new DoubleDefinitionException(TextConstants.DOUBLE_DEFINITION_PBI);
 						}
 					}
 				}
@@ -403,8 +393,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	}
 
 	@Override
-	protected void checkDescriptionValidity(final String description)
-			throws NoValidValueException {
+	protected void checkDescriptionValidity(final String description) throws NoValidValueException {
 		// no check, all values allowed!
 
 	}
@@ -420,8 +409,7 @@ public abstract class ProductBacklogItem extends Ticket implements PersistentObs
 	 * @return true if the pbi is closed
 	 */
 	public boolean isClosed() {
-		if (this.getTicketType().getStateProfile().getEndStates()
-				.contains(this.getCurrentState())) {
+		if (this.getTicketType().getStateProfile().getEndStates().contains(this.getCurrentState())) {
 			return true;
 		}
 

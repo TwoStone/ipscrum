@@ -25,13 +25,11 @@ public class SprintListFieldTypeController extends ListFieldTypeController<Sprin
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public SprintListFieldTypeController(final GenericTicketPresenter presenter,
-			final ListField<Sprint> field, final Ticket ticket) {
+	public SprintListFieldTypeController(final GenericTicketPresenter presenter, final ListField<Sprint> field,
+			final Ticket ticket) {
 		super(presenter, field, ticket);
 
-		this.widget =
-				new ComplexListFieldWidget<Sprint>(this.getField(),
-						TypeRenderes.SPRINTRENDERER);
+		this.widget = new ComplexListFieldWidget<Sprint>(this.getField(), TypeRenderes.SPRINTRENDERER);
 		this.initialize();
 	}
 

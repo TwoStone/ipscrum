@@ -38,8 +38,7 @@ public class StateType extends IdentifiableObject {
 	 * @throws DoubleDefinitionException
 	 *             if the stateType with the same parameters already exists
 	 */
-	public StateType(final Model model, final String name, final String description)
-			throws DoubleDefinitionException {
+	public StateType(final Model model, final String name, final String description) throws DoubleDefinitionException {
 		super(model);
 		this.checkStateTypeDoublets(name);
 		this.name = name;
@@ -55,15 +54,12 @@ public class StateType extends IdentifiableObject {
 	 * @throws DoubleDefinitionException
 	 *             if the stateType already exists
 	 */
-	private void checkStateTypeDoublets(final String nameToCheck)
-			throws DoubleDefinitionException {
-		final Iterator<StateType> stateTypesIterator =
-				this.getModel().getTypeManager().getStateTypes().iterator();
+	private void checkStateTypeDoublets(final String nameToCheck) throws DoubleDefinitionException {
+		final Iterator<StateType> stateTypesIterator = this.getModel().getTypeManager().getStateTypes().iterator();
 		while (stateTypesIterator.hasNext()) {
 			final StateType current = stateTypesIterator.next();
 			if (current.getName().equals(nameToCheck)) {
-				throw new DoubleDefinitionException(
-						"Fehler: Ein Zustandstyp mit diesem Namen existiert bereits!");
+				throw new DoubleDefinitionException("Fehler: Ein Zustandstyp mit diesem Namen existiert bereits!");
 			}
 		}
 	}

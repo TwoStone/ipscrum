@@ -21,20 +21,16 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	/**
 	 * String for no active session.
 	 */
-	private static final String KEINE_AKTIVE_SITZUNG_VORHANDEN =
-			"Keine aktive Sitzung vorhanden!";
+	private static final String KEINE_AKTIVE_SITZUNG_VORHANDEN = "Keine aktive Sitzung vorhanden!";
 	/**
 	 * represents the serialVersionUID.
 	 */
 	private static final long serialVersionUID = 6931028832071255513L;
 
 	@Override
-	public User login(final String username, final String password)
-			throws LoginException {
+	public User login(final String username, final String password) throws LoginException {
 		final HttpSession session = this.getThreadLocalRequest().getSession();
-		final User user =
-				ServerContext.getInstance().getAccountManager()
-						.login(username, password, session);
+		final User user = ServerContext.getInstance().getAccountManager().login(username, password, session);
 		return user;
 	}
 
@@ -45,8 +41,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 	}
 
 	@Override
-	public ResumedSession tryResumeSession(final String username, final String roleId)
-			throws NotAuthorizedException {
+	public ResumedSession tryResumeSession(final String username, final String roleId) throws NotAuthorizedException {
 		final HttpSession session = this.getThreadLocalRequest().getSession();
 		final Object attribute = session.getAttribute(SessionManager.USERSPACE);
 		if (attribute != null && attribute instanceof User) {
@@ -55,17 +50,15 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 				ServerContext.getInstance().getSessionManager().getUser(session);
 				try {
 					final Role role =
-							(Role) ServerContext.getInstance().getPersistenceManager()
-									.getCurrentModel().getObject(roleId);
+							(Role) ServerContext.getInstance().getPersistenceManager().getCurrentModel()
+									.getObject(roleId);
 					return new ResumedSession(user, role);
 
 				} catch (final NoObjectFindException e) {
-					throw new NotAuthorizedException(
-							LoginServiceImpl.KEINE_AKTIVE_SITZUNG_VORHANDEN);
+					throw new NotAuthorizedException(LoginServiceImpl.KEINE_AKTIVE_SITZUNG_VORHANDEN);
 				}
 			}
 		}
-		throw new NotAuthorizedException(
-				LoginServiceImpl.KEINE_AKTIVE_SITZUNG_VORHANDEN);
+		throw new NotAuthorizedException(LoginServiceImpl.KEINE_AKTIVE_SITZUNG_VORHANDEN);
 	}
 }

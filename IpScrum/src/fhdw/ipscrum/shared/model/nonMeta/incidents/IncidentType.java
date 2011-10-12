@@ -7,8 +7,8 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * This class represents the abstract node for specific types of incidents (Knowledge
- * Layer). Users can create specific Incident-Types identified by the name.
+ * This class represents the abstract node for specific types of incidents (Knowledge Layer). Users can create specific
+ * Incident-Types identified by the name.
  */
 public class IncidentType extends IdentifiableObject implements IsSerializable {
 	/**
@@ -31,8 +31,7 @@ public class IncidentType extends IdentifiableObject implements IsSerializable {
 	 * @throws DoubleDefinitionException
 	 *             if a incident type with the same name already exists
 	 */
-	public IncidentType(final Model model, final String name)
-			throws DoubleDefinitionException {
+	public IncidentType(final Model model, final String name) throws DoubleDefinitionException {
 		super(model);
 		this.getModel().getConsistencyManager().checkForDoubleIncident(name);
 		this.setName(name);

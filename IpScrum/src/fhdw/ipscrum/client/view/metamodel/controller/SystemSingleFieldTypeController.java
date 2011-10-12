@@ -25,8 +25,8 @@ public class SystemSingleFieldTypeController extends SingleFieldTypeController<S
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public SystemSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<System> field) {
+	public SystemSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<System> field) {
 		super(ticket, presenter, field);
 
 		this.widget = new ComplexSingleFieldWidget<System>(TypeRenderes.SYSTEMRENDERER);

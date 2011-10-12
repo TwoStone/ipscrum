@@ -10,8 +10,7 @@ import fhdw.ipscrum.shared.model.Model;
 /**
  * {@link TransactionService}.
  */
-public class TransactionServiceImpl extends AbstractSecurityServlet
-		implements TransactionService {
+public class TransactionServiceImpl extends AbstractSecurityServlet implements TransactionService {
 
 	/**
 	 * represents the serialVersionUID.
@@ -19,13 +18,11 @@ public class TransactionServiceImpl extends AbstractSecurityServlet
 	private static final long serialVersionUID = 4260559044869004117L;
 
 	@Override
-	public Model commitTransaction(final Transaction transaction)
-			throws IPScrumGeneralException {
+	public Model commitTransaction(final Transaction transaction) throws IPScrumGeneralException {
 		try {
 			super.getExecutionController().commitTransaction(transaction);
 			transaction.checkUserException();
-			return ServerContext.getInstance().getPersistenceManager()
-					.getCurrentModel();
+			return ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		} catch (final InterruptedException e) {
 			throw new PersistenceException("Executor was interrupted");
 		}

@@ -14,8 +14,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Removes a relation to a product backlog item.
  */
-public class PBIRemoveRelationCommand extends Command<Void>
-		implements IProductBacklogCommand {
+public class PBIRemoveRelationCommand extends Command<Void> implements IProductBacklogCommand {
 
 	/**
 	 * represents the relation to remove.
@@ -38,19 +37,16 @@ public class PBIRemoveRelationCommand extends Command<Void>
 	 * @param relation
 	 *            to remove
 	 */
-	public PBIRemoveRelationCommand(final ProductBacklogItem pbi,
-			final Relation relation) {
+	public PBIRemoveRelationCommand(final ProductBacklogItem pbi, final Relation relation) {
 		super(pbi);
 		this.relationId = relation.getId();
 	}
 
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
-		final ProductBacklogItem pbi =
-				(ProductBacklogItem) model.getObject(this.getReceiverGuid());
+		final ProductBacklogItem pbi = (ProductBacklogItem) model.getObject(this.getReceiverGuid());
 		final Relation relation = (Relation) model.getObject(this.relationId);
-		this.setStringValue(StringUtils.format(
-				"PBI '%s' wurde eine Abhängigkeit entfernt.", pbi.getName()));
+		this.setStringValue(StringUtils.format("PBI '%s' wurde eine Abhängigkeit entfernt.", pbi.getName()));
 		pbi.removeRelation(relation);
 		return null;
 	}
@@ -67,9 +63,7 @@ public class PBIRemoveRelationCommand extends Command<Void>
 
 	@Override
 	public Project getDependingProject(final Model model) throws NoObjectFindException {
-		return model.getBacklogByPBI(
-				(ProductBacklogItem) model.getObject(this.getReceiverGuid()))
-				.getProject();
+		return model.getBacklogByPBI((ProductBacklogItem) model.getObject(this.getReceiverGuid())).getProject();
 	}
 
 }

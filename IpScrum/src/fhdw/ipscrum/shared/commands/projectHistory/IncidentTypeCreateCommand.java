@@ -13,8 +13,7 @@ import fhdw.ipscrum.shared.utils.StringUtils;
 /**
  * Creates a new incident type.
  */
-public class IncidentTypeCreateCommand extends Command<IncidentType>
-		implements IProjectHistoryCommand {
+public class IncidentTypeCreateCommand extends Command<IncidentType> implements IProjectHistoryCommand {
 
 	/**
 	 * Represents the description of the IncidentType.
@@ -42,8 +41,7 @@ public class IncidentTypeCreateCommand extends Command<IncidentType>
 
 	@Override
 	protected IncidentType onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neuer Ereignistyp '%s' erstellt.",
-				this.description));
+		this.setStringValue(StringUtils.format("Neuer Ereignistyp '%s' erstellt.", this.description));
 
 		final IncidentType incidentType = new IncidentType(model, this.description);
 		return incidentType;

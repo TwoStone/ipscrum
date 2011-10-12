@@ -25,8 +25,8 @@ public class PersonSingleFieldTypeController extends SingleFieldTypeController<P
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public PersonSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<Person> field) {
+	public PersonSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<Person> field) {
 		super(ticket, presenter, field);
 
 		this.widget = new ComplexSingleFieldWidget<Person>(TypeRenderes.PERSONRENDERER);

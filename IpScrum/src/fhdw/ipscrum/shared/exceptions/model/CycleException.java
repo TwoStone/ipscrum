@@ -1,12 +1,11 @@
 package fhdw.ipscrum.shared.exceptions.model;
 
 import fhdw.ipscrum.shared.constants.ExceptionConstants;
-
 import fhdw.ipscrum.shared.exceptions.ModelException;
 
 /**
  * Represents the Exception thrown if a operation creates a cycle.
- *
+ * 
  */
 public class CycleException extends ModelException {
 

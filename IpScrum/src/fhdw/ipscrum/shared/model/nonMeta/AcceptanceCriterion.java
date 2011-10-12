@@ -6,8 +6,8 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * An acceptance criterion is a textual description of a condition, under that a product
- * owner accepts a implemented {@link Feature}.
+ * An acceptance criterion is a textual description of a condition, under that a product owner accepts a implemented
+ * {@link Feature}.
  */
 public class AcceptanceCriterion extends IdentifiableObject implements IsSerializable {
 

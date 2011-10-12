@@ -26,8 +26,8 @@ public class PersonFieldType extends FieldType {
 	 * @throws DoubleDefinitionException
 	 *             if the PersonFieldType with the same parameters already exists
 	 */
-	public PersonFieldType(final Model model, final String name,
-			final Multiplicity multiplicity) throws DoubleDefinitionException {
+	public PersonFieldType(final Model model, final String name, final Multiplicity multiplicity)
+			throws DoubleDefinitionException {
 		super(model, name, multiplicity);
 	}
 

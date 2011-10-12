@@ -39,8 +39,8 @@ public abstract class WritePresenter extends Presenter {
 	}
 
 	/**
-	 * Saves the work of the presenter. Deriving presenters should overwrite
-	 * {@link WritePresenter#onSave()} to do own tasks as committing transaction on save.
+	 * Saves the work of the presenter. Deriving presenters should overwrite {@link WritePresenter#onSave()} to do own
+	 * tasks as committing transaction on save.
 	 */
 	public final void save() {
 		if (this.onSave()) {
@@ -74,8 +74,7 @@ public abstract class WritePresenter extends Presenter {
 	 *            is needed to handle the event
 	 * @return the event to fire
 	 */
-	public final EventRegistration registerSaveHandler(
-			final EventHandler<EventArgs> handler) {
+	public final EventRegistration registerSaveHandler(final EventHandler<EventArgs> handler) {
 		return this.saveEvent.add(handler);
 	}
 
@@ -113,8 +112,7 @@ public abstract class WritePresenter extends Presenter {
 
 			@Override
 			public void onFailure(final Throwable caught) {
-				WritePresenter.this.toastMessage(
-						"Error on Commit:\n" + caught.getMessage(),
+				WritePresenter.this.toastMessage("Error on Commit:\n" + caught.getMessage(),
 						ToastMessageController.DisplayDuration.MEDIUM);
 			}
 		});
@@ -141,8 +139,7 @@ public abstract class WritePresenter extends Presenter {
 		try {
 			this.getContext().getTransactionController().beginTransaction();
 		} catch (final PendingCommitException e) {
-			this.showQuestion(
-					"Es existieren noch nicht übertragene Änderungen. Wie sollen diese behandelt werden?",
+			this.showQuestion("Es existieren noch nicht übertragene Änderungen. Wie sollen diese behandelt werden?",
 					new Answer("An den Server senden.") {
 
 						@Override

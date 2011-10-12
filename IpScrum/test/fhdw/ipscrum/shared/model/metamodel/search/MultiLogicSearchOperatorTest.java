@@ -76,8 +76,7 @@ public class MultiLogicSearchOperatorTest extends SetUpTestData {
 	}
 
 	/**
-	 * tests to add an expression to the operator which creates a cycle to check if the
-	 * exception is thrown.
+	 * tests to add an expression to the operator which creates a cycle to check if the exception is thrown.
 	 * 
 	 * @throws CycleException
 	 *             if the cycle is detected

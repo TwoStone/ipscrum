@@ -51,8 +51,7 @@ public class ReleaseCreateCommand extends Command<Release> implements IProjectCo
 	 * @param date
 	 *            the release is terminated
 	 */
-	public ReleaseCreateCommand(final Project project, final String versionDescription,
-			final Date date) {
+	public ReleaseCreateCommand(final Project project, final String versionDescription, final Date date) {
 		super();
 		this.projectId = project.getId();
 		this.versionDescription = versionDescription;
@@ -61,12 +60,10 @@ public class ReleaseCreateCommand extends Command<Release> implements IProjectCo
 
 	@Override
 	protected Release onExecute(final Model model) throws IPScrumGeneralException {
-		this.setStringValue(StringUtils.format("Neues Release '%s' erstellt.",
-				this.versionDescription));
+		this.setStringValue(StringUtils.format("Neues Release '%s' erstellt.", this.versionDescription));
 
 		final Project project = (Project) model.getObject(this.projectId);
-		final Release release =
-				new Release(model, this.versionDescription, this.date, project);
+		final Release release = new Release(model, this.versionDescription, this.date, project);
 		// Project gets notified about new Release by BDAManager-method.
 		return release;
 	}

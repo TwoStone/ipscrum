@@ -21,7 +21,8 @@ public class DoubleDefinitionException extends ModelException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message thrown by the Exception
+	 * @param message
+	 *            thrown by the Exception
 	 */
 	public DoubleDefinitionException(final String message) {
 		super(message);

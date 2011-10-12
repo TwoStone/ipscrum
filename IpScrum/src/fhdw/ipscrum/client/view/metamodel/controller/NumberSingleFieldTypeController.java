@@ -23,8 +23,8 @@ public class NumberSingleFieldTypeController extends SingleFieldTypeController<L
 	 * @param ticket
 	 *            the controller is related to
 	 */
-	public NumberSingleFieldTypeController(final Ticket ticket,
-			final GenericTicketPresenter presenter, final SingleField<Long> field) {
+	public NumberSingleFieldTypeController(final Ticket ticket, final GenericTicketPresenter presenter,
+			final SingleField<Long> field) {
 		super(ticket, presenter, field);
 		this.widget = new NumberSingleFieldWidget();
 		this.initialize();

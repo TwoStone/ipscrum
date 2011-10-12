@@ -67,8 +67,7 @@ public class VariousPBICommandsTest {
 	public void setUp() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		this.model =
-				ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		this.model.setUuidManager(new IDGenerator());
 		try {
 			new RelationType(this.model, "Abhängig von");
@@ -76,20 +75,12 @@ public class VariousPBICommandsTest {
 
 			this.project = new Project(this.model, "test");
 			this.release = new Release(this.model, "version", new Date(), this.project);
-			final BugTicketType ticketType =
-					new BugTicketType(this.model, "Bugtype 1", "description");
-			this.bug =
-					new Bug(this.model, ticketType, "Bug 1", "description",
-							this.project.getBacklog(), this.release);
+			final BugTicketType ticketType = new BugTicketType(this.model, "Bugtype 1", "description");
+			this.bug = new Bug(this.model, ticketType, "Bug 1", "description", this.project.getBacklog(), this.release);
 
-			final FeatureTicketType type =
-					new FeatureTicketType(this.model, "Featuertype 1", "description");
-			this.feature =
-					new Feature(this.model, type, "feature 1", "description",
-							this.project.getBacklog());
-			this.relation =
-					new Relation(this.model, this.model.getAllRelationTypes().get(0),
-							this.feature);
+			final FeatureTicketType type = new FeatureTicketType(this.model, "Featuertype 1", "description");
+			this.feature = new Feature(this.model, type, "feature 1", "description", this.project.getBacklog());
+			this.relation = new Relation(this.model, this.model.getAllRelationTypes().get(0), this.feature);
 
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -112,8 +103,7 @@ public class VariousPBICommandsTest {
 	@Test
 	public void executePBIAddRelationCommandTest() {
 		try {
-			final PBIAddRelationCommand command =
-					new PBIAddRelationCommand(this.bug, this.relation);
+			final PBIAddRelationCommand command = new PBIAddRelationCommand(this.bug, this.relation);
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -128,8 +118,7 @@ public class VariousPBICommandsTest {
 	public void executePBIPriorityDecreaseCommandTest() {
 		try {
 
-			final PBIPriorityDecreaseCommand command =
-					new PBIPriorityDecreaseCommand(this.bug);
+			final PBIPriorityDecreaseCommand command = new PBIPriorityDecreaseCommand(this.bug);
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -144,8 +133,7 @@ public class VariousPBICommandsTest {
 	public void executePBIPriorityIncreaseCommandTest() {
 		try {
 
-			final PBIPriorityIncreaseCommand command =
-					new PBIPriorityIncreaseCommand(this.bug);
+			final PBIPriorityIncreaseCommand command = new PBIPriorityIncreaseCommand(this.bug);
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -154,14 +142,12 @@ public class VariousPBICommandsTest {
 	}
 
 	/**
-	 * test case to remove relation. need execution of executePBIAddRelationCommandTest
-	 * before
+	 * test case to remove relation. need execution of executePBIAddRelationCommandTest before
 	 */
 	@Test
 	public void executePBIRemoveRelationCommandTest() {
 		try {
-			final PBIRemoveRelationCommand command =
-					new PBIRemoveRelationCommand(this.bug, this.relation);
+			final PBIRemoveRelationCommand command = new PBIRemoveRelationCommand(this.bug, this.relation);
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();
@@ -175,8 +161,7 @@ public class VariousPBICommandsTest {
 	@Test
 	public void executeRelationTypeCreateCommandTest() {
 		try {
-			final RelationTypeCreateCommand command =
-					new RelationTypeCreateCommand("title");
+			final RelationTypeCreateCommand command = new RelationTypeCreateCommand("title");
 			command.execute(this.model);
 		} catch (final IPScrumGeneralException e) {
 			e.printStackTrace();

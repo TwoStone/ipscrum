@@ -6,9 +6,8 @@ import fhdw.ipscrum.shared.infrastructure.IdentifiableObject;
 import fhdw.ipscrum.shared.model.Model;
 
 /**
- * Objects of this class describe relations to one target {@link Feature}. The relation
- * has one type (see {@link RelationType}), which can be customized by a user of the
- * ticket system.
+ * Objects of this class describe relations to one target {@link Feature}. The relation has one type (see
+ * {@link RelationType}), which can be customized by a user of the ticket system.
  */
 public class Relation extends IdentifiableObject implements IsSerializable {
 
@@ -44,8 +43,7 @@ public class Relation extends IdentifiableObject implements IsSerializable {
 	 * @param target
 	 *            of the relation
 	 */
-	public Relation(final Model model, final RelationType type,
-			final ProductBacklogItem target) {
+	public Relation(final Model model, final RelationType type, final ProductBacklogItem target) {
 		super(model);
 		this.type = type;
 		this.target = target;

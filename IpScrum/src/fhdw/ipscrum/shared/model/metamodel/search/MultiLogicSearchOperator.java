@@ -9,11 +9,10 @@ import fhdw.ipscrum.shared.observer.Observable;
 import fhdw.ipscrum.shared.observer.PersistentObserver;
 
 /**
- * Represents a logical operator with more than one argument. All arguments will be
- * combined with the same logical operator, e.g. And or Or
+ * Represents a logical operator with more than one argument. All arguments will be combined with the same logical
+ * operator, e.g. And or Or
  */
-public abstract class MultiLogicSearchOperator extends Operator
-		implements PersistentObserver {
+public abstract class MultiLogicSearchOperator extends Operator implements PersistentObserver {
 
 	/**
 	 * Represents the serialVersionUID.

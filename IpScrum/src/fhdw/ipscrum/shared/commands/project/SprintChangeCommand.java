@@ -68,9 +68,8 @@ public class SprintChangeCommand extends Command<Void> implements IProjectComman
 	 * @param assignedTeam
 	 *            : new team assigned to the sprint
 	 */
-	public SprintChangeCommand(final Sprint receiver, final String name,
-			final String description, final Date startdate, final Date enddate,
-			final Team assignedTeam) {
+	public SprintChangeCommand(final Sprint receiver, final String name, final String description,
+			final Date startdate, final Date enddate, final Team assignedTeam) {
 		super(receiver);
 		this.name = name;
 		this.description = description;
@@ -82,8 +81,7 @@ public class SprintChangeCommand extends Command<Void> implements IProjectComman
 	@Override
 	protected Void onExecute(final Model model) throws IPScrumGeneralException {
 		final Sprint sprint = (Sprint) model.getObject(this.getReceiverGuid());
-		this.setStringValue(StringUtils.format("Sprint %s wurde verändert.",
-				sprint.getName()));
+		this.setStringValue(StringUtils.format("Sprint %s wurde verändert.", sprint.getName()));
 
 		sprint.setName(this.name);
 		sprint.setDescription(this.description);

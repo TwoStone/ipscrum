@@ -73,7 +73,7 @@ public class TeamAddMemberCommandTest extends TeamTestBase {
 			}
 
 			@Override
-			public void standardHandling(final ICommand command) {
+			public void standardHandling(final ICommand cmd) {
 				Assert.fail();
 			}
 		});

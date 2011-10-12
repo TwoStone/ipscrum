@@ -14,8 +14,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import fhdw.ipscrum.client.resources.MyResources;
 
 /**
- * represents a question dialog which pops up if the user should be question if something
- * is right or not.
+ * represents a question dialog which pops up if the user should be question if something is right or not.
  */
 public class QuestionDialog extends PopupPanel {
 	private final VerticalPanel buttonPanel;
@@ -48,27 +47,22 @@ public class QuestionDialog extends PopupPanel {
 		final Label questionLabel = new Label(question);
 		questionLabel.setStyleName(MyResources.INSTANCE.questionWidget().getLabel());
 		verticalPanel.add(questionLabel);
-		verticalPanel.setCellVerticalAlignment(questionLabel,
-				HasVerticalAlignment.ALIGN_MIDDLE);
-		verticalPanel.setCellHorizontalAlignment(questionLabel,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellVerticalAlignment(questionLabel, HasVerticalAlignment.ALIGN_MIDDLE);
+		verticalPanel.setCellHorizontalAlignment(questionLabel, HasHorizontalAlignment.ALIGN_CENTER);
 
 		this.buttonPanel = new VerticalPanel();
 		this.buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		this.buttonPanel.setSpacing(3);
 		this.buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
 		verticalPanel.add(this.buttonPanel);
-		verticalPanel.setCellHorizontalAlignment(this.buttonPanel,
-				HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanel.setCellHorizontalAlignment(this.buttonPanel, HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setCellWidth(this.buttonPanel, "100%");
 		this.buttonPanel.setWidth("");
-		verticalPanel.setCellVerticalAlignment(this.buttonPanel,
-				HasVerticalAlignment.ALIGN_BOTTOM);
+		verticalPanel.setCellVerticalAlignment(this.buttonPanel, HasVerticalAlignment.ALIGN_BOTTOM);
 
 		for (final Answer action : actions) {
 			final Button actionButton = new Button(action.getCaption());
-			actionButton.setStyleName(MyResources.INSTANCE.questionWidget()
-					.getAnswerButton());
+			actionButton.setStyleName(MyResources.INSTANCE.questionWidget().getAnswerButton());
 			actionButton.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -87,13 +81,12 @@ public class QuestionDialog extends PopupPanel {
 		final GQuery widget = GQuery.$(this);
 		final int height = widget.height();
 
-		widget.animate("top: '-=" + height + "px' , visibility: hidden, opacity: '0'",
-				500, new Function() {
-					@Override
-					public void f() {
-						QuestionDialog.super.hide();
-					}
-				});
+		widget.animate("top: '-=" + height + "px' , visibility: hidden, opacity: '0'", 500, new Function() {
+			@Override
+			public void f() {
+				QuestionDialog.super.hide();
+			}
+		});
 	}
 
 	@Override
@@ -106,8 +99,7 @@ public class QuestionDialog extends PopupPanel {
 		final int popupLeft = element.left();
 		QuestionDialog.this.setPopupPosition(popupLeft, popupTop + outerHeight);
 		element.css("opacity", "0.0");
-		element.animate("top:'" + popupTop
-				+ "px', visibility:  visible , opacity: '1.0'", 500);
+		element.animate("top:'" + popupTop + "px', visibility:  visible , opacity: '1.0'", 500);
 
 	}
 }

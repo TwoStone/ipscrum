@@ -43,8 +43,7 @@ public class Search extends IdentifiableObject implements Serializable {
 	 * @param expression
 	 *            Wrapped search expression
 	 */
-	public Search(final Model model, final String name,
-			final SearchExpression expression) {
+	public Search(final Model model, final String name, final SearchExpression expression) {
 		super(model);
 		this.setName(name);
 		this.expression = expression;

@@ -4,7 +4,7 @@ import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 
 /**
  * Represents the Exception thrown if a object couldn't be found.
- *
+ * 
  */
 public class NoObjectFindException extends InfrastructureException {
 
@@ -24,7 +24,8 @@ public class NoObjectFindException extends InfrastructureException {
 	/**
 	 * Constructor of the Exception.
 	 * 
-	 * @param message thrown by the Exception.
+	 * @param message
+	 *            thrown by the Exception.
 	 */
 	public NoObjectFindException(final String message) {
 		super(message);

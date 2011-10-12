@@ -68,8 +68,7 @@ public interface PersonRoleCommandVisitor {
 	 * @param roleSetDescriptionCommand
 	 *            specific command.
 	 */
-	void handleRoleSetDescriptionCommand(
-			RoleSetDescriptionCommand roleSetDescriptionCommand);
+	void handleRoleSetDescriptionCommand(RoleSetDescriptionCommand roleSetDescriptionCommand);
 
 	/**
 	 * specific visitor action.

@@ -34,23 +34,21 @@ public class SprintTable extends CellTable<Sprint> {
 		};
 		this.addColumn(clmnName, TextConstants.SPRINTTABLE_DESCRIPTIONHEADER);
 
-		final Column<Sprint, Date> clmnBegin =
-				new Column<Sprint, Date>(new DateCell(this.format)) {
-					@Override
-					public Date getValue(final Sprint object) {
-						return object.getBegin();
-					}
-				};
+		final Column<Sprint, Date> clmnBegin = new Column<Sprint, Date>(new DateCell(this.format)) {
+			@Override
+			public Date getValue(final Sprint object) {
+				return object.getBegin();
+			}
+		};
 		clmnBegin.setSortable(true);
 		this.addColumn(clmnBegin, TextConstants.SPRINTTABLE_BEGINDATEHEADER);
 
-		final Column<Sprint, Date> clmnEnd =
-				new Column<Sprint, Date>(new DateCell(this.format)) {
-					@Override
-					public Date getValue(final Sprint object) {
-						return object.getEnd();
-					}
-				};
+		final Column<Sprint, Date> clmnEnd = new Column<Sprint, Date>(new DateCell(this.format)) {
+			@Override
+			public Date getValue(final Sprint object) {
+				return object.getEnd();
+			}
+		};
 		clmnEnd.setSortable(true);
 		this.addColumn(clmnEnd, TextConstants.SPRINTTABLE_ENDDATEHEADER);
 
