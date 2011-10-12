@@ -31,8 +31,8 @@ public class FieldTypeAdminRight extends AdminRight {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new FieldTypeAdminRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new FieldTypeAdminRightHandler(this, model);
 	}
 
 	@Override

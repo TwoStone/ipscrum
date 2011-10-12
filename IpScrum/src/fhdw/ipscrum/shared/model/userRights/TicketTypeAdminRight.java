@@ -33,8 +33,8 @@ public class TicketTypeAdminRight extends AdminRight {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new TicketTypeAdminRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new TicketTypeAdminRightHandler(this, model);
 	}
 
 	@Override

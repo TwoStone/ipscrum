@@ -31,8 +31,8 @@ public class ProductBacklogRight extends Right {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new PBLRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new PBLRightHandler(this, model);
 	}
 
 	@Override

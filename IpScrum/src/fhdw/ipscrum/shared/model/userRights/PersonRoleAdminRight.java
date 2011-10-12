@@ -31,8 +31,8 @@ public class PersonRoleAdminRight extends AdminRight {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new PersonRoleAdminRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new PersonRoleAdminRightHandler(this, model);
 	}
 
 	@Override

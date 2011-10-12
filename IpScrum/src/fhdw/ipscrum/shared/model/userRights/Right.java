@@ -7,8 +7,8 @@ import fhdw.ipscrum.shared.model.Model;
 import fhdw.ipscrum.shared.model.visitor.RightVisitor;
 
 /**
- * Rights defines allowed actions (commands) that a user can execute. Rights are contained
- * in roles, which can be assigned to persons.
+ * Rights defines allowed actions (commands) that a user can execute. Rights are contained in roles, which can be
+ * assigned to persons.
  */
 public abstract class Right extends IdentifiableObject {
 	/**
@@ -17,13 +17,8 @@ public abstract class Right extends IdentifiableObject {
 	private static final long serialVersionUID = 8345351822949921032L;
 
 	/**
-	 * concrete handler. It is a visitor for commands and decides if an action is allowed
-	 * or not.
-	 */
-	private transient RightHandler handler;
-	/**
-	 * this boolean attribute is the result of an authority check. the default is false,
-	 * but it can be true after a successful authority check.
+	 * this boolean attribute is the result of an authority check. the default is false, but it can be true after a
+	 * successful authority check.
 	 */
 	private transient boolean allowed = false;
 
@@ -43,27 +38,17 @@ public abstract class Right extends IdentifiableObject {
 	public Right(final Model model) {
 		super(model);
 		this.allowed = false;
-		this.handler = this.specifyHandler();
 		this.putToObjectStore();
 	}
 
 	/**
-	 * template method. specifies a concrete handler (visitor) for the concrete right.
+	 * Creates a concrete handler (visitor) for the concrete right.
 	 * 
 	 * @return a concrete right handler.
+	 * @param model
+	 *            the model to use.
 	 */
-	protected abstract RightHandler specifyHandler();
-
-	/**
-	 * 
-	 * @return the concrete handler.
-	 */
-	private RightHandler getHandler() {
-		if (this.handler == null) {
-			this.handler = this.specifyHandler();
-		}
-		return this.handler;
-	}
+	protected abstract RightHandler specifyHandler(final Model model);
 
 	/**
 	 * determine that an authority check failed.
@@ -85,12 +70,14 @@ public abstract class Right extends IdentifiableObject {
 	 * @param command
 	 *            Command which is asked to be executed
 	 * @return true if the action is allowed
+	 * @param model
+	 *            the model to use.
 	 * @throws IPScrumGeneralException
 	 *             if something fails
 	 */
-	public boolean canBeExecuted(final ICommand command) throws IPScrumGeneralException {
+	public boolean canBeExecuted(final ICommand command, final Model model) throws IPScrumGeneralException {
 		this.notAllowed();
-		command.accept(this.getHandler());
+		command.accept(this.specifyHandler(model));
 		return this.allowed;
 	}
 

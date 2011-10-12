@@ -33,8 +33,8 @@ public class TeamAdminRight extends AdminRight {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new TeamAdminRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new TeamAdminRightHandler(this, model);
 	}
 
 	@Override

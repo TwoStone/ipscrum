@@ -31,8 +31,8 @@ public class ProjectHistoryRight extends Right {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new ProjectHistoryRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new ProjectHistoryRightHandler(this, model);
 	}
 
 	@Override

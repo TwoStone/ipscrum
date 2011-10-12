@@ -59,13 +59,12 @@ public class AuthorityChecker implements IsSerializable, Serializable {
 	 * @throws IPScrumGeneralException
 	 *             is something fails
 	 */
-	public void canBeExecuted(final ICommand command, final Role activeRole)
-			throws IPScrumGeneralException {
+	public void canBeExecuted(final ICommand command, final Role activeRole) throws IPScrumGeneralException {
 		this.allowed = false;
 		if (!command.dependsOnProject()) {
 			final Iterator<Right> i = activeRole.getRights().iterator();
 			while (i.hasNext()) {
-				this.allowed = i.next().canBeExecuted(command);
+				this.allowed = i.next().canBeExecuted(command, this.model);
 				if (this.allowed) {
 					break;
 				}
@@ -85,7 +84,7 @@ public class AuthorityChecker implements IsSerializable, Serializable {
 			} else {
 				final Iterator<Right> i = activeRole.getRights().iterator();
 				while (i.hasNext()) {
-					this.allowed = i.next().canBeExecuted(command);
+					this.allowed = i.next().canBeExecuted(command, this.model);
 					if (this.allowed) {
 						break;
 					}

@@ -31,8 +31,8 @@ public class ProjectRight extends Right {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new ProjectRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new ProjectRightHandler(this, model);
 	}
 
 	@Override

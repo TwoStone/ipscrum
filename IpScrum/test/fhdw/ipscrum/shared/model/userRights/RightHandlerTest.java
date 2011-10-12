@@ -246,8 +246,8 @@ public class RightHandlerTest {
 		final SearchCreateCommand scc = new SearchCreateCommand("", new And(RightHandlerTest.model));
 		final SearchDeleteCommand sdc =
 				new SearchDeleteCommand(new Search(RightHandlerTest.model, "sdc", new And(RightHandlerTest.model)));
-		RightHandlerTest.ftar.canBeExecuted(scc);
-		RightHandlerTest.ftar.canBeExecuted(sdc);
+		RightHandlerTest.ftar.canBeExecuted(scc, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(sdc, RightHandlerTest.model);
 	}
 
 	/**
@@ -268,12 +268,12 @@ public class RightHandlerTest {
 		final TicketTypeAddFieldTypeCommand e = new TicketTypeAddFieldTypeCommand(receiver, fieldtype);
 		final TicketTypeAddStatetypeCommand f = new TicketTypeAddStatetypeCommand(receiver, statetype);
 
-		RightHandlerTest.ttar.canBeExecuted(a);
-		RightHandlerTest.ttar.canBeExecuted(b);
-		RightHandlerTest.ttar.canBeExecuted(c);
-		RightHandlerTest.ttar.canBeExecuted(d);
-		RightHandlerTest.ttar.canBeExecuted(e);
-		RightHandlerTest.ttar.canBeExecuted(f);
+		RightHandlerTest.ttar.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.ttar.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.ttar.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.ttar.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.ttar.canBeExecuted(e, RightHandlerTest.model);
+		RightHandlerTest.ttar.canBeExecuted(f, RightHandlerTest.model);
 	}
 
 	/**
@@ -290,11 +290,11 @@ public class RightHandlerTest {
 		final TeamSetDescriptionCommand d = new TeamSetDescriptionCommand(RightHandlerTest.team, "Neue Beschr");
 		final TeamAddProjectCommand e =
 				new TeamAddProjectCommand(RightHandlerTest.team, new Project(RightHandlerTest.model, "projekt"));
-		RightHandlerTest.tar.canBeExecuted(a);
-		RightHandlerTest.tar.canBeExecuted(b);
-		RightHandlerTest.tar.canBeExecuted(c);
-		RightHandlerTest.tar.canBeExecuted(d);
-		RightHandlerTest.tar.canBeExecuted(e);
+		RightHandlerTest.tar.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.tar.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.tar.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.tar.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.tar.canBeExecuted(e, RightHandlerTest.model);
 	}
 
 	/**
@@ -316,12 +316,12 @@ public class RightHandlerTest {
 		final TaskSetPlanEffortCommand e = new TaskSetPlanEffortCommand(task, new Effort(1));
 		final TaskSetResponsibilityCommand f = new TaskSetResponsibilityCommand(task, RightHandlerTest.person);
 
-		RightHandlerTest.tr.canBeExecuted(a);
-		RightHandlerTest.tr.canBeExecuted(b);
-		RightHandlerTest.tr.canBeExecuted(c);
-		RightHandlerTest.tr.canBeExecuted(d);
-		RightHandlerTest.tr.canBeExecuted(e);
-		RightHandlerTest.tr.canBeExecuted(f);
+		RightHandlerTest.tr.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.tr.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.tr.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.tr.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.tr.canBeExecuted(e, RightHandlerTest.model);
+		RightHandlerTest.tr.canBeExecuted(f, RightHandlerTest.model);
 	}
 
 	/**
@@ -353,18 +353,18 @@ public class RightHandlerTest {
 						RightHandlerTest.project);
 		final SystemCreateCommand l = new SystemCreateCommand("d", RightHandlerTest.model.getRootsystem());
 
-		RightHandlerTest.pr.canBeExecuted(a);
-		RightHandlerTest.pr.canBeExecuted(b);
-		RightHandlerTest.pr.canBeExecuted(c);
-		RightHandlerTest.pr.canBeExecuted(d);
-		RightHandlerTest.pr.canBeExecuted(e);
-		RightHandlerTest.pr.canBeExecuted(f);
-		RightHandlerTest.pr.canBeExecuted(g);
-		RightHandlerTest.pr.canBeExecuted(h);
-		RightHandlerTest.pr.canBeExecuted(i);
-		RightHandlerTest.pr.canBeExecuted(j);
-		RightHandlerTest.pr.canBeExecuted(k);
-		RightHandlerTest.pr.canBeExecuted(l);
+		RightHandlerTest.pr.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(e, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(f, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(g, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(h, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(i, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(j, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(k, RightHandlerTest.model);
+		RightHandlerTest.pr.canBeExecuted(l, RightHandlerTest.model);
 
 	}
 
@@ -388,10 +388,10 @@ public class RightHandlerTest {
 		final IncidentVacationCreateCommand d =
 				new IncidentVacationCreateCommand(new Date(), new Date(), RightHandlerTest.person);
 
-		RightHandlerTest.phr.canBeExecuted(a);
-		RightHandlerTest.phr.canBeExecuted(b);
-		RightHandlerTest.phr.canBeExecuted(c);
-		RightHandlerTest.phr.canBeExecuted(d);
+		RightHandlerTest.phr.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.phr.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.phr.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.phr.canBeExecuted(d, RightHandlerTest.model);
 	}
 
 	/**
@@ -409,12 +409,12 @@ public class RightHandlerTest {
 		final RoleAddRightCommand e = new RoleAddRightCommand(RightHandlerTest.role, RightHandlerTest.ftar);
 		final RoleRemoveRightCommand f = new RoleRemoveRightCommand(RightHandlerTest.role, RightHandlerTest.ftar);
 
-		RightHandlerTest.prar.canBeExecuted(a);
-		RightHandlerTest.prar.canBeExecuted(b);
-		RightHandlerTest.prar.canBeExecuted(c);
-		RightHandlerTest.prar.canBeExecuted(d);
-		RightHandlerTest.prar.canBeExecuted(e);
-		RightHandlerTest.prar.canBeExecuted(f);
+		RightHandlerTest.prar.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.prar.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.prar.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.prar.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.prar.canBeExecuted(e, RightHandlerTest.model);
+		RightHandlerTest.prar.canBeExecuted(f, RightHandlerTest.model);
 	}
 
 	/**
@@ -442,13 +442,13 @@ public class RightHandlerTest {
 				new TicketChangeStateCommand(RightHandlerTest.pbi, RightHandlerTest.model.getTypeManager()
 						.getInProcess());
 
-		RightHandlerTest.pbr.canBeExecuted(a);
-		RightHandlerTest.pbr.canBeExecuted(b);
-		RightHandlerTest.pbr.canBeExecuted(c);
-		RightHandlerTest.pbr.canBeExecuted(d);
-		RightHandlerTest.pbr.canBeExecuted(e);
-		RightHandlerTest.pbr.canBeExecuted(f);
-		RightHandlerTest.pbr.canBeExecuted(g);
+		RightHandlerTest.pbr.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.pbr.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.pbr.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.pbr.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.pbr.canBeExecuted(e, RightHandlerTest.model);
+		RightHandlerTest.pbr.canBeExecuted(f, RightHandlerTest.model);
+		RightHandlerTest.pbr.canBeExecuted(g, RightHandlerTest.model);
 	}
 
 	/**
@@ -478,16 +478,16 @@ public class RightHandlerTest {
 				new SystemFieldTypeCreateCommand("aushd", new One(RightHandlerTest.model));
 		final TextFieldTypeCreateCommand k = new TextFieldTypeCreateCommand("uajsdn", new One(RightHandlerTest.model));
 
-		RightHandlerTest.ftar.canBeExecuted(a);
-		RightHandlerTest.ftar.canBeExecuted(b);
-		RightHandlerTest.ftar.canBeExecuted(c);
-		RightHandlerTest.ftar.canBeExecuted(d);
-		RightHandlerTest.ftar.canBeExecuted(e);
-		RightHandlerTest.ftar.canBeExecuted(f);
-		RightHandlerTest.ftar.canBeExecuted(g);
-		RightHandlerTest.ftar.canBeExecuted(h);
-		RightHandlerTest.ftar.canBeExecuted(i);
-		RightHandlerTest.ftar.canBeExecuted(j);
-		RightHandlerTest.ftar.canBeExecuted(k);
+		RightHandlerTest.ftar.canBeExecuted(a, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(b, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(c, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(d, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(e, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(f, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(g, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(h, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(i, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(j, RightHandlerTest.model);
+		RightHandlerTest.ftar.canBeExecuted(k, RightHandlerTest.model);
 	}
 }

@@ -31,8 +31,8 @@ public class TaskboardRight extends Right {
 	}
 
 	@Override
-	protected RightHandler specifyHandler() {
-		return new TaskboardRightHandler(this, this.getModel());
+	protected RightHandler specifyHandler(final Model model) {
+		return new TaskboardRightHandler(this, model);
 	}
 
 	@Override
