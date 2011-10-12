@@ -81,6 +81,7 @@ public class Project extends IdentifiableObject
 		this.releases = new ArrayList<Release>();
 		this.possibleSystems = new ArrayList<System>();
 		this.backlog = new ProductBacklog(model, this);
+		this.sprints = new Vector<Sprint>();
 		model.addProject(this);
 	}
 
@@ -207,9 +208,6 @@ public class Project extends IdentifiableObject
 	 * @return all sprints related to the project
 	 */
 	public List<Sprint> getSprints() {
-		if (this.sprints == null) {
-			this.sprints = new Vector<Sprint>();
-		}
 		return this.sprints;
 	}
 
