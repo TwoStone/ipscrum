@@ -23,12 +23,10 @@ import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.BugTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.FeatureTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TaskTicketType;
 import fhdw.ipscrum.shared.model.metamodel.ticketsAndTypes.TypeManager;
-import fhdw.ipscrum.shared.model.nonMeta.Feature;
 import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
 import fhdw.ipscrum.shared.model.nonMeta.Rootsystem;
-import fhdw.ipscrum.shared.model.nonMeta.Team;
 import fhdw.ipscrum.shared.model.userRights.FieldTypeAdminRight;
 import fhdw.ipscrum.shared.model.userRights.PersonRoleAdminRight;
 import fhdw.ipscrum.shared.model.userRights.ProductBacklogRight;
@@ -60,17 +58,10 @@ public class InitialCommand extends Command<Void> {
 
 		this.initializeRightManager(model, admin);
 
-		final Team team = new Team(model, "Team 1");
-		team.addMember(admin);
 		model.setAdminPerson(admin);
-		final Project p = new Project(model, "Initial Projekt");
-		team.addProject(p);
 		new Rootsystem(model);
 
 		this.initializeMetaModel(model.getTypeManager(), model);
-
-		new Feature(model, model.getTypeManager().getStandardFeatureType(), "Test Feature", "Tes Description",
-				p.getBacklog());
 
 		return null;
 	}

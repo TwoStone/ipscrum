@@ -26,6 +26,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Person;
 import fhdw.ipscrum.shared.model.nonMeta.ProductBacklogItem;
 import fhdw.ipscrum.shared.model.nonMeta.Project;
 import fhdw.ipscrum.shared.model.nonMeta.Role;
+import fhdw.ipscrum.shared.model.nonMeta.Team;
 import fhdw.ipscrum.shared.utils.ClassUtils;
 
 /**
@@ -292,7 +293,8 @@ public class TransactionExecutionTest {
 		final ProjectCreateCommand createCommand = new ProjectCreateCommand("poject1");
 		createCommand.execute(this.modelClient);
 		final Project project = createCommand.getResult();
-		this.modelClient.getAllTeams().get(0).addProject(project);
+		final Team team = new Team(this.modelClient, "Team");
+		team.addProject(project);
 
 		final ReleaseCreateCommand c = new ReleaseCreateCommand(project, "Test", new Date());
 		c.execute(this.modelClient);
