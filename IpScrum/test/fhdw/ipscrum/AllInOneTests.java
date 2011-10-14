@@ -287,7 +287,7 @@ public class AllInOneTests {
 		final Project lvProject = new Project(this.model, "name");
 		final Team lvTeam = new Team(this.model, "Konsistenz");
 		lvTeam.addProject(lvProject);
-		Assert.assertEquals(3, this.model.getAllTeams().size());
+		Assert.assertEquals(2, this.model.getAllTeams().size());
 
 		final Release lvRelease = new Release(this.model, "0.0.1", this.cvCurrentDate2, lvProject);
 		final Sprint lvSprint =
