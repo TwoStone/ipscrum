@@ -830,6 +830,8 @@ public class TypeManager implements IsSerializable, Serializable {
 			}
 		});
 		this.checkException();
+		// TODO: dies sollte vermutlich eine tiefe Kopie sein!
+		this.copy.setStateProfile(original.getStateProfile());
 		final List<FieldType> standardFieldTypes = this.fetchStandardFieldTypes();
 		final Iterator<FieldType> fieldTypesIterator = original.getAllFieldTypes().iterator();
 		while (fieldTypesIterator.hasNext()) {

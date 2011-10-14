@@ -378,12 +378,12 @@ public class TicketTypeTest {
 	}
 
 	/**
-	 * addEndState. With data so that the consistency is hurt to check if the exception is thrown.
+	 * addEndState.
 	 * 
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
-	@Test(expected = ConsistencyException.class)
+	@Test
 	public void testaddEndState3() throws Exception {
 		final BugTicketType anyTicketType = new BugTicketType(this.modelClient, "ExtendedBug", "");
 		final StateType state = new StateType(this.modelClient, "neuer Endstatus", "blubb");
@@ -592,6 +592,7 @@ public class TicketTypeTest {
 		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addPossibleState(state);
 		anyTicketType.addEndState(state);
+		anyTicketType.addFieldType(ft);
 		anyTicketType.setActive(state, ft);
 	}
 
@@ -609,6 +610,7 @@ public class TicketTypeTest {
 		final FieldType ft = new TextFieldType(this.modelClient, "name", this.typeManager.getMany());
 		anyTicketType.addPossibleState(state);
 		anyTicketType.addEndState(state);
+		anyTicketType.addFieldType(ft);
 		anyTicketType.setActive(state, ft);
 	}
 }
