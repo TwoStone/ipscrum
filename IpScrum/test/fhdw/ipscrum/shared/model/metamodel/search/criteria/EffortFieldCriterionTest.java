@@ -9,7 +9,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Effort;
 /**
  * This class represents the test for the EffortFieldCriterion.
  */
-public class TestEffortFieldCriterion extends SetUpTestDataForCriterion {
+public class EffortFieldCriterionTest extends SetUpTestDataForCriterion {
 
 	/**
 	 * tests to create a new effortFieldCriterion.
@@ -19,9 +19,9 @@ public class TestEffortFieldCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void test01() throws NoValidValueException {
-		Assert.assertEquals(new Effort(10), SetUpTestDataForCriterion.getPbi1().getManDayCosts());
+		Assert.assertEquals(new Effort(10), this.getPbi1().getManDayCosts());
 		final EffortFieldCriterion c = new EffortFieldCriterion(new Effort(10));
-		Assert.assertTrue(c.search(SetUpTestDataForCriterion.getPbi1()));
+		Assert.assertTrue(c.search(this.getPbi1()));
 	}
 
 	/**
@@ -32,8 +32,8 @@ public class TestEffortFieldCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void test02() throws NoValidValueException {
-		Assert.assertEquals(new Effort(10), SetUpTestDataForCriterion.getPbi1().getManDayCosts());
+		Assert.assertEquals(new Effort(10), this.getPbi1().getManDayCosts());
 		final EffortFieldCriterion c = new EffortFieldCriterion(new Effort(5));
-		Assert.assertFalse(c.search(SetUpTestDataForCriterion.getPbi1()));
+		Assert.assertFalse(c.search(this.getPbi1()));
 	}
 }

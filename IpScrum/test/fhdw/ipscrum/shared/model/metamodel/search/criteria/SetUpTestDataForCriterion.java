@@ -3,7 +3,7 @@ package fhdw.ipscrum.shared.model.metamodel.search.criteria;
 import java.io.File;
 import java.util.Date;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 
 import fhdw.ipscrum.client.IDGenerator;
 import fhdw.ipscrum.server.ServerContext;
@@ -29,151 +29,151 @@ public abstract class SetUpTestDataForCriterion {
 	/**
 	 * Represents the model needed for using the IPScrum.
 	 */
-	private static Model model;
+	private Model model;
 	/**
 	 * Represents the project textverarbeitung needed for testing the IPScrum.
 	 */
-	private static Project textverarbeitung = null;
+	private Project textverarbeitung = null;
 	/**
 	 * Represents the productBacklog pbltext needed for testing the IPScrum.
 	 */
-	private static ProductBacklog pbltext = null;
+	private ProductBacklog pbltext = null;
 	/**
 	 * Represents the system betriebssystem needed for testing the IPScrum.
 	 */
-	private static System betriebssystem = null;
+	private System betriebssystem = null;
 	/**
 	 * Represents the system windowsXP needed for testing the IPScrum.
 	 */
-	private static System windowsXP = null;
+	private System windowsXP = null;
 	/**
 	 * Represents the system windows2000 needed for testing the IPScrum.
 	 */
-	private static System windows2000 = null;
+	private System windows2000 = null;
 	/**
 	 * Represents the system windowsVista needed for testing the IPScrum.
 	 */
-	private static System windowsVista = null;
+	private System windowsVista = null;
 	/**
 	 * Represents the system windows7 needed for testing the IPScrum.
 	 */
-	private static System windows7 = null;
+	private System windows7 = null;
 	/**
 	 * Represents the system linux needed for testing the IPScrum.
 	 */
-	private static System linux = null;
+	private System linux = null;
 	/**
 	 * Represents the release release1 needed for testing the IPScrum.
 	 */
-	private static Release release1 = null;
+	private Release release1 = null;
 	/**
 	 * Represents the release release2 needed for testing the IPScrum.
 	 */
-	private static Release release2 = null;
+	private Release release2 = null;
 	/**
 	 * Represents the feature pbi1 needed for testing the IPScrum.
 	 */
-	private static Feature pbi1 = null;
+	private Feature pbi1 = null;
 	/**
 	 * Represents the feature pbi2 needed for testing the IPScrum.
 	 */
-	private static Feature pbi2 = null;
+	private Feature pbi2 = null;
 	/**
 	 * Represents the feature pbi3 needed for testing the IPScrum.
 	 */
-	private static Feature pbi3 = null;
+	private Feature pbi3 = null;
 	/**
 	 * Represents the bug pbi4 needed for testing the IPScrum.
 	 */
-	private static Bug pbi4 = null;
+	private Bug pbi4 = null;
 	/**
 	 * Represents the person p1 needed for testing the IPScrum.
 	 */
-	private static Person p1 = null;
+	private Person p1 = null;
 	/**
 	 * Represents the person p2 needed for testing the IPScrum.
 	 */
-	private static Person p2 = null;
+	private Person p2 = null;
 	/**
 	 * Represents the person p3 needed for testing the IPScrum.
 	 */
-	private static Person p3 = null;
+	private Person p3 = null;
 	/**
 	 * Represents the person p4 needed for testing the IPScrum.
 	 */
-	private static Person p4 = null;
+	private Person p4 = null;
 	/**
 	 * Represents the person p5 needed for testing the IPScrum.
 	 */
-	private static Person p5 = null;
+	private Person p5 = null;
 	/**
 	 * Represents the person p6 needed for testing the IPScrum.
 	 */
-	private static Person p6 = null;
+	private Person p6 = null;
 	/**
 	 * Represents the person p7 needed for testing the IPScrum.
 	 */
-	private static Person p7 = null;
+	private Person p7 = null;
 	/**
 	 * Represents the team entwickler needed for testing the IPScrum.
 	 */
-	private static Team entwickler = null;
+	private Team entwickler = null;
 	/**
 	 * Represents the team planung needed for testing the IPScrum.
 	 */
-	private static Team planung = null;
+	private Team planung = null;
 	/**
 	 * Represents the team test needed for testing the IPScrum.
 	 */
-	private static Team test = null;
+	private Team test = null;
 	/**
 	 * Represents the team ideen needed for testing the IPScrum.
 	 */
-	private static Team ideen = null;
+	private Team ideen = null;
 	/**
 	 * Represents the sprint sprint1 needed for testing the IPScrum.
 	 */
-	private static Sprint sprint1 = null;
+	private Sprint sprint1 = null;
 	/**
 	 * Represents the sprint sprint2 needed for testing the IPScrum.
 	 */
-	private static Sprint sprint2 = null;
+	private Sprint sprint2 = null;
 	/**
 	 * Represents the sprint sprint3 needed for testing the IPScrum.
 	 */
-	private static Sprint sprint3 = null;
+	private Sprint sprint3 = null;
 	/**
 	 * Represents the sprint sprint4 needed for testing the IPScrum.
 	 */
-	private static Sprint sprint4 = null;
+	private Sprint sprint4 = null;
 	/**
 	 * Represents the relationType rt1 needed for testing the IPScrum.
 	 */
-	private static RelationType rt1 = null;
+	private RelationType rt1 = null;
 	/**
 	 * Represents the relationType rt2 needed for testing the IPScrum.
 	 */
-	private static RelationType rt2 = null;
+	private RelationType rt2 = null;
 	/**
 	 * Represents the relationType rt3 needed for testing the IPScrum.
 	 */
-	private static RelationType rt3 = null;
+	private RelationType rt3 = null;
 	/**
 	 * Represents the relation r1 needed for testing the IPScrum.
 	 */
-	private static Relation r1 = null;
+	private Relation r1 = null;
 	/**
 	 * Represents the relation r2 needed for testing the IPScrum.
 	 */
-	private static Relation r2 = null;
+	private Relation r2 = null;
 	/**
 	 * Represents the relation r3 needed for testing the IPScrum.
 	 */
-	private static Relation r3 = null;
+	private Relation r3 = null;
 	/**
 	 * Represents the project taschenrechner needed for testing the IPScrum.
 	 */
-	private static Project taschenrechner = null;
+	private Project taschenrechner = null;
 
 	/**
 	 * Sets up the data before the class.
@@ -181,155 +181,134 @@ public abstract class SetUpTestDataForCriterion {
 	 * @throws Exception
 	 *             if the use of one of the methods fails
 	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUpBefore() throws Exception {
 		TestUtils.deleteFolderContent(new File("output"));
 		ServerContext.resetServerContext();
-		SetUpTestDataForCriterion.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
-		SetUpTestDataForCriterion.model.setUuidManager(new IDGenerator());
-		SetUpTestDataForCriterion.setTextverarbeitung(new Project(SetUpTestDataForCriterion.getModel(),
-				"Textverarbeitung"));
-		SetUpTestDataForCriterion
-				.setTaschenrechner(new Project(SetUpTestDataForCriterion.getModel(), "Taschenrechner"));
-		SetUpTestDataForCriterion.pbltext = SetUpTestDataForCriterion.getTextverarbeitung().getBacklog();
-		SetUpTestDataForCriterion.setRelease1(new Release(SetUpTestDataForCriterion.getModel(), "Release 1",
-				new Date(), SetUpTestDataForCriterion.getTextverarbeitung()));
-		SetUpTestDataForCriterion.setRelease2(new Release(SetUpTestDataForCriterion.getModel(), "Release 2",
-				new Date(), SetUpTestDataForCriterion.getTextverarbeitung()));
-		SetUpTestDataForCriterion.betriebssystem =
-				new System(SetUpTestDataForCriterion.getModel(), "Betriebssystem",
-						SetUpTestDataForCriterion.model.getRootsystem());
-		SetUpTestDataForCriterion.setWindowsXP(new System(SetUpTestDataForCriterion.getModel(), "Windows XP",
-				SetUpTestDataForCriterion.betriebssystem));
-		SetUpTestDataForCriterion.setWindows2000(new System(SetUpTestDataForCriterion.getModel(), "Windows 2000",
-				SetUpTestDataForCriterion.betriebssystem));
-		SetUpTestDataForCriterion.windowsVista =
-				new System(SetUpTestDataForCriterion.getModel(), "Windows Vista",
-						SetUpTestDataForCriterion.betriebssystem);
-		SetUpTestDataForCriterion.windows7 =
-				new System(SetUpTestDataForCriterion.getModel(), "Windows 7", SetUpTestDataForCriterion.betriebssystem);
-		SetUpTestDataForCriterion.linux =
-				new System(SetUpTestDataForCriterion.getModel(), "Linux", SetUpTestDataForCriterion.betriebssystem);
-		SetUpTestDataForCriterion.getTextverarbeitung().addSystem(SetUpTestDataForCriterion.betriebssystem);
-		SetUpTestDataForCriterion.getTextverarbeitung().addSystem(SetUpTestDataForCriterion.getWindowsXP());
-		SetUpTestDataForCriterion.getTextverarbeitung().addSystem(SetUpTestDataForCriterion.getWindows2000());
-		SetUpTestDataForCriterion.getTextverarbeitung().addSystem(SetUpTestDataForCriterion.windowsVista);
-		SetUpTestDataForCriterion.getTextverarbeitung().addSystem(SetUpTestDataForCriterion.windows7);
-		SetUpTestDataForCriterion.getTextverarbeitung().addSystem(SetUpTestDataForCriterion.linux);
+		this.model = ServerContext.getInstance().getPersistenceManager().getCurrentModel();
+		this.model.setUuidManager(new IDGenerator());
+		this.setTextverarbeitung(new Project(this.getModel(), "Textverarbeitung"));
+		this.setTaschenrechner(new Project(this.getModel(), "Taschenrechner"));
+		this.pbltext = this.getTextverarbeitung().getBacklog();
+		this.setRelease1(new Release(this.getModel(), "Release 1", new Date(), this.getTextverarbeitung()));
+		this.setRelease2(new Release(this.getModel(), "Release 2", new Date(), this.getTextverarbeitung()));
+		this.betriebssystem = new System(this.getModel(), "Betriebssystem", this.model.getRootsystem());
+		this.setWindowsXP(new System(this.getModel(), "Windows XP", this.betriebssystem));
+		this.setWindows2000(new System(this.getModel(), "Windows 2000", this.betriebssystem));
+		this.windowsVista = new System(this.getModel(), "Windows Vista", this.betriebssystem);
+		this.windows7 = new System(this.getModel(), "Windows 7", this.betriebssystem);
+		this.linux = new System(this.getModel(), "Linux", this.betriebssystem);
+		this.getTextverarbeitung().addSystem(this.betriebssystem);
+		this.getTextverarbeitung().addSystem(this.getWindowsXP());
+		this.getTextverarbeitung().addSystem(this.getWindows2000());
+		this.getTextverarbeitung().addSystem(this.windowsVista);
+		this.getTextverarbeitung().addSystem(this.windows7);
+		this.getTextverarbeitung().addSystem(this.linux);
 		// TODO: Feature erstellen
-		SetUpTestDataForCriterion.setPbi1(new Feature(SetUpTestDataForCriterion.getModel(),
-				SetUpTestDataForCriterion.model.getTypeManager().getStandardFeatureType(), "Texte eingeben",
-				"Texte im Programm erfassen", SetUpTestDataForCriterion.pbltext));
-		SetUpTestDataForCriterion.pbi2 =
-				new Feature(SetUpTestDataForCriterion.getModel(), SetUpTestDataForCriterion.model.getTypeManager()
-						.getStandardFeatureType(), "Textbearbeitung", "Texte bearbeiten",
-						SetUpTestDataForCriterion.pbltext);
-		SetUpTestDataForCriterion.pbi3 =
-				new Feature(SetUpTestDataForCriterion.getModel(), SetUpTestDataForCriterion.model.getTypeManager()
-						.getStandardFeatureType(), "Farben", "Farbige Markierungen ermöglichen",
-						SetUpTestDataForCriterion.pbltext);
-		SetUpTestDataForCriterion.setPbi4(new Bug(SetUpTestDataForCriterion.getModel(), SetUpTestDataForCriterion.model
-				.getTypeManager().getStandardBugType(), "Fehler bei Farben", "Darstellung der Farben fehlerhaft",
-				SetUpTestDataForCriterion.pbltext, SetUpTestDataForCriterion.getRelease1()));
+		this.setPbi1(new Feature(this.getModel(), this.model.getTypeManager().getStandardFeatureType(),
+				"Texte eingeben", "Texte im Programm erfassen", this.pbltext));
+		this.pbi2 =
+				new Feature(this.getModel(), this.model.getTypeManager().getStandardFeatureType(), "Textbearbeitung",
+						"Texte bearbeiten", this.pbltext);
+		this.pbi3 =
+				new Feature(this.getModel(), this.model.getTypeManager().getStandardFeatureType(), "Farben",
+						"Farbige Markierungen ermöglichen", this.pbltext);
+		this.setPbi4(new Bug(this.getModel(), this.model.getTypeManager().getStandardBugType(), "Fehler bei Farben",
+				"Darstellung der Farben fehlerhaft", this.pbltext, this.getRelease1()));
 
-		SetUpTestDataForCriterion.getPbi1().addHint("Groß-/Kleinschreibung, Zahlen, Sonderzeichen");
-		SetUpTestDataForCriterion.getPbi2().addHint("fett, unterstrichen, kursiv, farbig");
-		SetUpTestDataForCriterion.getPbi3().addHint(
+		this.getPbi1().addHint("Groß-/Kleinschreibung, Zahlen, Sonderzeichen");
+		this.getPbi2().addHint("fett, unterstrichen, kursiv, farbig");
+		this.getPbi3().addHint(
 				"Farben für Texte und Hintergründe definieren; Option ergänzen, dass Farben eingefügt werden können");
-		SetUpTestDataForCriterion.getPbi4().addHint("werden bei unterschiedlichen Systemen anders angezeigt");
+		this.getPbi4().addHint("werden bei unterschiedlichen Systemen anders angezeigt");
 
-		SetUpTestDataForCriterion.getPbi4().addSystem(SetUpTestDataForCriterion.betriebssystem);
-		SetUpTestDataForCriterion.getPbi4().addSystem(SetUpTestDataForCriterion.windows7);
-		SetUpTestDataForCriterion.getPbi4().addSystem(SetUpTestDataForCriterion.linux);
-		SetUpTestDataForCriterion.getPbi4().addSystem(SetUpTestDataForCriterion.getWindowsXP());
+		this.getPbi4().addSystem(this.betriebssystem);
+		this.getPbi4().addSystem(this.windows7);
+		this.getPbi4().addSystem(this.linux);
+		this.getPbi4().addSystem(this.getWindowsXP());
 
-		SetUpTestDataForCriterion.getPbi1().setManDayCosts(new Effort(10));
-		SetUpTestDataForCriterion.getPbi2().setManDayCosts(new Effort(7));
-		SetUpTestDataForCriterion.getPbi3().setManDayCosts(new Effort(3));
-		SetUpTestDataForCriterion.getPbi4().setManDayCosts(new Effort(5));
+		this.getPbi1().setManDayCosts(new Effort(10));
+		this.getPbi2().setManDayCosts(new Effort(7));
+		this.getPbi3().setManDayCosts(new Effort(3));
+		this.getPbi4().setManDayCosts(new Effort(5));
 
-		SetUpTestDataForCriterion.pbltext.addItem(SetUpTestDataForCriterion.getPbi1());
-		SetUpTestDataForCriterion.pbltext.addItem(SetUpTestDataForCriterion.getPbi2());
-		SetUpTestDataForCriterion.pbltext.addItem(SetUpTestDataForCriterion.getPbi3());
-		SetUpTestDataForCriterion.pbltext.addItem(SetUpTestDataForCriterion.getPbi4());
+		this.pbltext.addItem(this.getPbi1());
+		this.pbltext.addItem(this.getPbi2());
+		this.pbltext.addItem(this.getPbi3());
+		this.pbltext.addItem(this.getPbi4());
 
-		SetUpTestDataForCriterion.setP1(new Person(SetUpTestDataForCriterion.getModel(), "Max", "Mustermann"));
-		SetUpTestDataForCriterion.setP2(new Person(SetUpTestDataForCriterion.getModel(), "Petra", "Plüsch"));
-		SetUpTestDataForCriterion.setP3(new Person(SetUpTestDataForCriterion.getModel(), "Michel", "Meier"));
-		SetUpTestDataForCriterion.p4 = new Person(SetUpTestDataForCriterion.getModel(), "Michel", "Mayer");
-		SetUpTestDataForCriterion.p5 = new Person(SetUpTestDataForCriterion.getModel(), "Maximilian", "Schulz");
-		SetUpTestDataForCriterion.p6 = new Person(SetUpTestDataForCriterion.getModel(), "Klaus", "Krüger");
-		SetUpTestDataForCriterion.p7 = new Person(SetUpTestDataForCriterion.getModel(), "Joachim", "Krüger");
+		this.setP1(new Person(this.getModel(), "Max", "Mustermann"));
+		this.setP2(new Person(this.getModel(), "Petra", "Plüsch"));
+		this.setP3(new Person(this.getModel(), "Michel", "Meier"));
+		this.p4 = new Person(this.getModel(), "Michel", "Mayer");
+		this.p5 = new Person(this.getModel(), "Maximilian", "Schulz");
+		this.p6 = new Person(this.getModel(), "Klaus", "Krüger");
+		this.p7 = new Person(this.getModel(), "Joachim", "Krüger");
 
-		SetUpTestDataForCriterion.entwickler = new Team(SetUpTestDataForCriterion.getModel(), "Entwickler");
-		SetUpTestDataForCriterion.entwickler.addProject(SetUpTestDataForCriterion.taschenrechner);
-		SetUpTestDataForCriterion.entwickler.addProject(SetUpTestDataForCriterion.textverarbeitung);
-		SetUpTestDataForCriterion.planung = new Team(SetUpTestDataForCriterion.getModel(), "Planung");
-		SetUpTestDataForCriterion.planung.addProject(SetUpTestDataForCriterion.taschenrechner);
-		SetUpTestDataForCriterion.planung.addProject(SetUpTestDataForCriterion.textverarbeitung);
-		SetUpTestDataForCriterion.test = new Team(SetUpTestDataForCriterion.getModel(), "Test");
-		SetUpTestDataForCriterion.test.addProject(SetUpTestDataForCriterion.taschenrechner);
-		SetUpTestDataForCriterion.test.addProject(SetUpTestDataForCriterion.textverarbeitung);
-		SetUpTestDataForCriterion.ideen = new Team(SetUpTestDataForCriterion.getModel(), "Ideen");
-		SetUpTestDataForCriterion.ideen.addProject(SetUpTestDataForCriterion.taschenrechner);
-		SetUpTestDataForCriterion.ideen.addProject(SetUpTestDataForCriterion.textverarbeitung);
+		this.entwickler = new Team(this.getModel(), "Entwickler");
+		this.entwickler.addProject(this.taschenrechner);
+		this.entwickler.addProject(this.textverarbeitung);
+		this.planung = new Team(this.getModel(), "Planung");
+		this.planung.addProject(this.taschenrechner);
+		this.planung.addProject(this.textverarbeitung);
+		this.test = new Team(this.getModel(), "Test");
+		this.test.addProject(this.taschenrechner);
+		this.test.addProject(this.textverarbeitung);
+		this.ideen = new Team(this.getModel(), "Ideen");
+		this.ideen.addProject(this.taschenrechner);
+		this.ideen.addProject(this.textverarbeitung);
 
-		SetUpTestDataForCriterion.entwickler.addMember(SetUpTestDataForCriterion.getP1());
-		SetUpTestDataForCriterion.entwickler.addMember(SetUpTestDataForCriterion.getP3());
-		SetUpTestDataForCriterion.entwickler.addMember(SetUpTestDataForCriterion.p4);
-		SetUpTestDataForCriterion.planung.addMember(SetUpTestDataForCriterion.getP2());
-		SetUpTestDataForCriterion.planung.addMember(SetUpTestDataForCriterion.p4);
-		SetUpTestDataForCriterion.planung.addMember(SetUpTestDataForCriterion.p5);
-		SetUpTestDataForCriterion.planung.addMember(SetUpTestDataForCriterion.p7);
-		SetUpTestDataForCriterion.test.addMember(SetUpTestDataForCriterion.getP1());
-		SetUpTestDataForCriterion.test.addMember(SetUpTestDataForCriterion.p6);
-		SetUpTestDataForCriterion.ideen.addMember(SetUpTestDataForCriterion.getP3());
-		SetUpTestDataForCriterion.ideen.addMember(SetUpTestDataForCriterion.p4);
-		SetUpTestDataForCriterion.ideen.addMember(SetUpTestDataForCriterion.p6);
+		this.entwickler.addMember(this.getP1());
+		this.entwickler.addMember(this.getP3());
+		this.entwickler.addMember(this.p4);
+		this.planung.addMember(this.getP2());
+		this.planung.addMember(this.p4);
+		this.planung.addMember(this.p5);
+		this.planung.addMember(this.p7);
+		this.test.addMember(this.getP1());
+		this.test.addMember(this.p6);
+		this.ideen.addMember(this.getP3());
+		this.ideen.addMember(this.p4);
+		this.ideen.addMember(this.p6);
 
-		SetUpTestDataForCriterion.sprint1 =
-				new Sprint(SetUpTestDataForCriterion.getModel(), "Sprint 1", "Beschreibung", new Date(), new Date(),
-						SetUpTestDataForCriterion.entwickler, SetUpTestDataForCriterion.getTextverarbeitung());
-		SetUpTestDataForCriterion.sprint2 =
-				new Sprint(SetUpTestDataForCriterion.getModel(), "Sprint 2", "Beschreibung", new Date(), new Date(),
-						SetUpTestDataForCriterion.entwickler, SetUpTestDataForCriterion.getTextverarbeitung());
-		SetUpTestDataForCriterion.sprint3 =
-				new Sprint(SetUpTestDataForCriterion.getModel(), "Sprint 3", "Beschreibung", new Date(), new Date(),
-						SetUpTestDataForCriterion.entwickler, SetUpTestDataForCriterion.getTextverarbeitung());
-		SetUpTestDataForCriterion.sprint4 =
-				new Sprint(SetUpTestDataForCriterion.getModel(), "Sprint 4", "Beschreibung", new Date(), new Date(),
-						SetUpTestDataForCriterion.entwickler, SetUpTestDataForCriterion.getTextverarbeitung());
+		this.sprint1 =
+				new Sprint(this.getModel(), "Sprint 1", "Beschreibung", new Date(), new Date(), this.entwickler,
+						this.getTextverarbeitung());
+		this.sprint2 =
+				new Sprint(this.getModel(), "Sprint 2", "Beschreibung", new Date(), new Date(), this.entwickler,
+						this.getTextverarbeitung());
+		this.sprint3 =
+				new Sprint(this.getModel(), "Sprint 3", "Beschreibung", new Date(), new Date(), this.entwickler,
+						this.getTextverarbeitung());
+		this.sprint4 =
+				new Sprint(this.getModel(), "Sprint 4", "Beschreibung", new Date(), new Date(), this.entwickler,
+						this.getTextverarbeitung());
 
-		SetUpTestDataForCriterion.getPbi1().setSprint(SetUpTestDataForCriterion.sprint1);
-		SetUpTestDataForCriterion.getPbi2().setSprint(SetUpTestDataForCriterion.sprint2);
-		SetUpTestDataForCriterion.getPbi3().setSprint(SetUpTestDataForCriterion.sprint3);
-		SetUpTestDataForCriterion.getPbi4().setSprint(SetUpTestDataForCriterion.sprint4);
+		this.getPbi1().setSprint(this.sprint1);
+		this.getPbi2().setSprint(this.sprint2);
+		this.getPbi3().setSprint(this.sprint3);
+		this.getPbi4().setSprint(this.sprint4);
 
-		SetUpTestDataForCriterion.setRt1(new RelationType(SetUpTestDataForCriterion.getModel(), "Abhängig von"));
-		SetUpTestDataForCriterion.setRt2(new RelationType(SetUpTestDataForCriterion.getModel(), "Fehler zu"));
-		SetUpTestDataForCriterion.setRt3(new RelationType(SetUpTestDataForCriterion.getModel(), "ausgehend von"));
+		this.setRt1(new RelationType(this.getModel(), "Abhängig von"));
+		this.setRt2(new RelationType(this.getModel(), "Fehler zu"));
+		this.setRt3(new RelationType(this.getModel(), "ausgehend von"));
 
-		SetUpTestDataForCriterion.r1 =
-				new Relation(SetUpTestDataForCriterion.getModel(), SetUpTestDataForCriterion.getRt1(),
-						SetUpTestDataForCriterion.getPbi1());
-		SetUpTestDataForCriterion.r2 =
-				new Relation(SetUpTestDataForCriterion.getModel(), SetUpTestDataForCriterion.getRt2(),
-						SetUpTestDataForCriterion.getPbi3());
-		SetUpTestDataForCriterion.setR3(new Relation(SetUpTestDataForCriterion.getModel(), SetUpTestDataForCriterion
-				.getRt3(), SetUpTestDataForCriterion.getPbi4()));
+		this.r1 = new Relation(this.getModel(), this.getRt1(), this.getPbi1());
+		this.r2 = new Relation(this.getModel(), this.getRt2(), this.getPbi3());
+		this.setR3(new Relation(this.getModel(), this.getRt3(), this.getPbi4()));
 
-		SetUpTestDataForCriterion.getPbi2().addRelation(SetUpTestDataForCriterion.r1);
-		SetUpTestDataForCriterion.getPbi3().addRelation(SetUpTestDataForCriterion.r1);
-		SetUpTestDataForCriterion.getPbi3().addRelation(SetUpTestDataForCriterion.r2);
-		SetUpTestDataForCriterion.getPbi4().addRelation(SetUpTestDataForCriterion.r2);
+		this.getPbi2().addRelation(this.r1);
+		this.getPbi3().addRelation(this.r1);
+		this.getPbi3().addRelation(this.r2);
+		this.getPbi4().addRelation(this.r2);
 
 	}
 
 	/**
 	 * @return the model needed for using the IPScrum.
 	 */
-	public static Model getModel() {
-		return SetUpTestDataForCriterion.model;
+	public Model getModel() {
+		return this.model;
 	}
 
 	/**
@@ -338,15 +317,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param release1
 	 *            is the release to set
 	 */
-	public static void setRelease1(final Release release1) {
-		SetUpTestDataForCriterion.release1 = release1;
+	public void setRelease1(final Release release1) {
+		this.release1 = release1;
 	}
 
 	/**
 	 * @return the release Release1.
 	 */
-	public static Release getRelease1() {
-		return SetUpTestDataForCriterion.release1;
+	public Release getRelease1() {
+		return this.release1;
 	}
 
 	/**
@@ -355,15 +334,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param pbi4
 	 *            is the Bug to set
 	 */
-	public static void setPbi4(final Bug pbi4) {
-		SetUpTestDataForCriterion.pbi4 = pbi4;
+	public void setPbi4(final Bug pbi4) {
+		this.pbi4 = pbi4;
 	}
 
 	/**
 	 * @return the Bug Pbi4.
 	 */
-	public static Bug getPbi4() {
-		return SetUpTestDataForCriterion.pbi4;
+	public Bug getPbi4() {
+		return this.pbi4;
 	}
 
 	/**
@@ -372,15 +351,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param release2
 	 *            is the release to set
 	 */
-	public static void setRelease2(final Release release2) {
-		SetUpTestDataForCriterion.release2 = release2;
+	public void setRelease2(final Release release2) {
+		this.release2 = release2;
 	}
 
 	/**
 	 * @return the release Release2.
 	 */
-	public static Release getRelease2() {
-		return SetUpTestDataForCriterion.release2;
+	public Release getRelease2() {
+		return this.release2;
 	}
 
 	/**
@@ -389,15 +368,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param pbi1
 	 *            is the feature to set
 	 */
-	public static void setPbi1(final Feature pbi1) {
-		SetUpTestDataForCriterion.pbi1 = pbi1;
+	public void setPbi1(final Feature pbi1) {
+		this.pbi1 = pbi1;
 	}
 
 	/**
 	 * @return the feature Pbi1.
 	 */
-	public static Feature getPbi1() {
-		return SetUpTestDataForCriterion.pbi1;
+	public Feature getPbi1() {
+		return this.pbi1;
 	}
 
 	/**
@@ -406,15 +385,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param windowsXP
 	 *            is the system to set
 	 */
-	public static void setWindowsXP(final System windowsXP) {
-		SetUpTestDataForCriterion.windowsXP = windowsXP;
+	public void setWindowsXP(final System windowsXP) {
+		this.windowsXP = windowsXP;
 	}
 
 	/**
 	 * @return the system WindowsXP.
 	 */
-	public static System getWindowsXP() {
-		return SetUpTestDataForCriterion.windowsXP;
+	public System getWindowsXP() {
+		return this.windowsXP;
 	}
 
 	/**
@@ -423,15 +402,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param windows2000
 	 *            is the system to set
 	 */
-	public static void setWindows2000(final System windows2000) {
-		SetUpTestDataForCriterion.windows2000 = windows2000;
+	public void setWindows2000(final System windows2000) {
+		this.windows2000 = windows2000;
 	}
 
 	/**
 	 * @return the system Windows2000.
 	 */
-	public static System getWindows2000() {
-		return SetUpTestDataForCriterion.windows2000;
+	public System getWindows2000() {
+		return this.windows2000;
 	}
 
 	/**
@@ -440,15 +419,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param p3
 	 *            is the person to set
 	 */
-	public static void setP3(final Person p3) {
-		SetUpTestDataForCriterion.p3 = p3;
+	public void setP3(final Person p3) {
+		this.p3 = p3;
 	}
 
 	/**
 	 * @return the person P3.
 	 */
-	public static Person getP3() {
-		return SetUpTestDataForCriterion.p3;
+	public Person getP3() {
+		return this.p3;
 	}
 
 	/**
@@ -457,15 +436,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param p1
 	 *            is the person to set
 	 */
-	public static void setP1(final Person p1) {
-		SetUpTestDataForCriterion.p1 = p1;
+	public void setP1(final Person p1) {
+		this.p1 = p1;
 	}
 
 	/**
 	 * @return the person P1.
 	 */
-	public static Person getP1() {
-		return SetUpTestDataForCriterion.p1;
+	public Person getP1() {
+		return this.p1;
 	}
 
 	/**
@@ -474,15 +453,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param p2
 	 *            is the person to set
 	 */
-	public static void setP2(final Person p2) {
-		SetUpTestDataForCriterion.p2 = p2;
+	public void setP2(final Person p2) {
+		this.p2 = p2;
 	}
 
 	/**
 	 * @return the person P2.
 	 */
-	public static Person getP2() {
-		return SetUpTestDataForCriterion.p2;
+	public Person getP2() {
+		return this.p2;
 	}
 
 	/**
@@ -491,15 +470,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param pbi2
 	 *            is the feature to set
 	 */
-	public static void setPbi2(final Feature pbi2) {
-		SetUpTestDataForCriterion.pbi2 = pbi2;
+	public void setPbi2(final Feature pbi2) {
+		this.pbi2 = pbi2;
 	}
 
 	/**
 	 * @return the feature Pbi2.
 	 */
-	public static Feature getPbi2() {
-		return SetUpTestDataForCriterion.pbi2;
+	public Feature getPbi2() {
+		return this.pbi2;
 	}
 
 	/**
@@ -508,15 +487,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param pbi3
 	 *            the feature to set
 	 */
-	public static void setPbi3(final Feature pbi3) {
-		SetUpTestDataForCriterion.pbi3 = pbi3;
+	public void setPbi3(final Feature pbi3) {
+		this.pbi3 = pbi3;
 	}
 
 	/**
 	 * @return the feature Pbi3.
 	 */
-	public static Feature getPbi3() {
-		return SetUpTestDataForCriterion.pbi3;
+	public Feature getPbi3() {
+		return this.pbi3;
 	}
 
 	/**
@@ -525,15 +504,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param rt2
 	 *            is the type to set
 	 */
-	public static void setRt2(final RelationType rt2) {
-		SetUpTestDataForCriterion.rt2 = rt2;
+	public void setRt2(final RelationType rt2) {
+		this.rt2 = rt2;
 	}
 
 	/**
 	 * @return the realtionType Rt2.
 	 */
-	public static RelationType getRt2() {
-		return SetUpTestDataForCriterion.rt2;
+	public RelationType getRt2() {
+		return this.rt2;
 	}
 
 	/**
@@ -542,15 +521,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param rt3
 	 *            is the type to set.
 	 */
-	public static void setRt3(final RelationType rt3) {
-		SetUpTestDataForCriterion.rt3 = rt3;
+	public void setRt3(final RelationType rt3) {
+		this.rt3 = rt3;
 	}
 
 	/**
 	 * @return the relationType Rt3.
 	 */
-	public static RelationType getRt3() {
-		return SetUpTestDataForCriterion.rt3;
+	public RelationType getRt3() {
+		return this.rt3;
 	}
 
 	/**
@@ -559,15 +538,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param rt1
 	 *            is the type to set
 	 */
-	public static void setRt1(final RelationType rt1) {
-		SetUpTestDataForCriterion.rt1 = rt1;
+	public void setRt1(final RelationType rt1) {
+		this.rt1 = rt1;
 	}
 
 	/**
 	 * @return the realtionType Rt1.
 	 */
-	public static RelationType getRt1() {
-		return SetUpTestDataForCriterion.rt1;
+	public RelationType getRt1() {
+		return this.rt1;
 	}
 
 	/**
@@ -576,15 +555,15 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param textverarbeitung
 	 *            is the project to set
 	 */
-	public static void setTextverarbeitung(final Project textverarbeitung) {
-		SetUpTestDataForCriterion.textverarbeitung = textverarbeitung;
+	public void setTextverarbeitung(final Project textverarbeitung) {
+		this.textverarbeitung = textverarbeitung;
 	}
 
 	/**
 	 * @return the project textverarbeitung.
 	 */
-	public static Project getTextverarbeitung() {
-		return SetUpTestDataForCriterion.textverarbeitung;
+	public Project getTextverarbeitung() {
+		return this.textverarbeitung;
 	}
 
 	/**
@@ -593,29 +572,29 @@ public abstract class SetUpTestDataForCriterion {
 	 * @param taschenrechner
 	 *            is the project to set
 	 */
-	public static void setTaschenrechner(final Project taschenrechner) {
-		SetUpTestDataForCriterion.taschenrechner = taschenrechner;
+	public void setTaschenrechner(final Project taschenrechner) {
+		this.taschenrechner = taschenrechner;
 	}
 
 	/**
 	 * @return the project taschenrechner.
 	 */
-	public static Project getTaschenrechner() {
-		return SetUpTestDataForCriterion.taschenrechner;
+	public Project getTaschenrechner() {
+		return this.taschenrechner;
 	}
 
 	/**
 	 * @param r3
 	 *            the r3 to set
 	 */
-	public static void setR3(final Relation r3) {
-		SetUpTestDataForCriterion.r3 = r3;
+	public void setR3(final Relation r3) {
+		this.r3 = r3;
 	}
 
 	/**
 	 * @return the r3
 	 */
-	public static Relation getR3() {
-		return SetUpTestDataForCriterion.r3;
+	public Relation getR3() {
+		return this.r3;
 	}
 }

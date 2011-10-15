@@ -32,7 +32,7 @@ import fhdw.ipscrum.shared.model.nonMeta.Team;
  * Tests all tests.
  */
 @SuppressWarnings("deprecation")
-public class AllInOneTests {
+public class AllInOneTest {
 
 	/**
 	 * Represents the model needed to use the IPScrum.

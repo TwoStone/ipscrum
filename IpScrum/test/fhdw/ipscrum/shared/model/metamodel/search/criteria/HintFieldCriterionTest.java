@@ -8,7 +8,7 @@ import fhdw.ipscrum.shared.exceptions.model.NoValidValueException;
 /**
  * Tets the HintFieldCriterion.
  */
-public class TestHintFieldCriterion extends SetUpTestDataForCriterion {
+public class HintFieldCriterionTest extends SetUpTestDataForCriterion {
 
 	/**
 	 * test to create a HintFieldCriterion.
@@ -19,7 +19,7 @@ public class TestHintFieldCriterion extends SetUpTestDataForCriterion {
 	@Test
 	public void test01() throws NoValidValueException {
 		final HintFieldCriterion c = new HintFieldCriterion("Kleinschreibung");
-		Assert.assertTrue(c.search(SetUpTestDataForCriterion.getPbi1()));
+		Assert.assertTrue(c.search(this.getPbi1()));
 	}
 
 	/**
@@ -31,6 +31,6 @@ public class TestHintFieldCriterion extends SetUpTestDataForCriterion {
 	@Test
 	public void test02() throws NoValidValueException {
 		final HintFieldCriterion c = new HintFieldCriterion("Kleinschreibung");
-		Assert.assertFalse(c.search(SetUpTestDataForCriterion.getPbi2()));
+		Assert.assertFalse(c.search(this.getPbi2()));
 	}
 }

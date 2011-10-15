@@ -236,7 +236,7 @@
 			</classpath>
 			<formatter type="${junit.report.format}" />
 			<batchtest haltonfailure="false" haltonerror="false" todir="${junit.report.dir}">
-				<fileset dir="test-classes" includes="**/TestAllIpScrum.class" />
+				<fileset dir="${tests.output.dir}" includes="**/*Test.class" />
 			</batchtest>
 		</junit>
 		<cobertura-report format="${cobertura.report.format}" destdir="${cobertura.report.dir}" datafile="${cobertura.datafile}">
@@ -268,7 +268,7 @@
 			</classpath>
 			<formatter type="${junit.report.format}" />
 			<batchtest haltonfailure="false" haltonerror="false" todir="${junit.report.dir}">
-				<fileset dir="test-classes" includes="**/TestAllIpScrum.class" />
+				<fileset dir="${tests.output.dir}" includes="**/*Test.class" />
 			</batchtest>
 		</junit>
 	</target>

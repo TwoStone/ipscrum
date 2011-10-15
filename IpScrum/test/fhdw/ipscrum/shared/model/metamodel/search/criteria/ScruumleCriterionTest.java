@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Tests the ScruumleCriterion.
  */
-public class TestScruumleCriterion extends SetUpTestDataForCriterion {
+public class ScruumleCriterionTest extends SetUpTestDataForCriterion {
 
 	// ---------------------------------------------------------------------------
 	// ---------------------- Test of functions
@@ -21,8 +21,8 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch1() throws Exception {
-		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Fehler");
-		Assert.assertTrue(srCrit.search(SetUpTestDataForCriterion.getPbi4()));
+		final ScruumleCriterion srCrit = new ScruumleCriterion(this.getModel(), "Fehler");
+		Assert.assertTrue(srCrit.search(this.getPbi4()));
 	}
 
 	/**
@@ -33,8 +33,8 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch2() throws Exception {
-		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "korrekt");
-		Assert.assertFalse(srCrit.search(SetUpTestDataForCriterion.getPbi4()));
+		final ScruumleCriterion srCrit = new ScruumleCriterion(this.getModel(), "korrekt");
+		Assert.assertFalse(srCrit.search(this.getPbi4()));
 	}
 
 	/**
@@ -45,8 +45,8 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch3() throws Exception {
-		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Texte");
-		Assert.assertTrue(srCrit.search(SetUpTestDataForCriterion.getPbi1()));
+		final ScruumleCriterion srCrit = new ScruumleCriterion(this.getModel(), "Texte");
+		Assert.assertTrue(srCrit.search(this.getPbi1()));
 	}
 
 	/**
@@ -57,8 +57,8 @@ public class TestScruumleCriterion extends SetUpTestDataForCriterion {
 	 */
 	@Test
 	public void testsearch4() throws Exception {
-		final ScruumleCriterion srCrit = new ScruumleCriterion(SetUpTestDataForCriterion.getModel(), "Hallo");
-		Assert.assertFalse(srCrit.search(SetUpTestDataForCriterion.getPbi1()));
+		final ScruumleCriterion srCrit = new ScruumleCriterion(this.getModel(), "Hallo");
+		Assert.assertFalse(srCrit.search(this.getPbi1()));
 	}
 
 }
