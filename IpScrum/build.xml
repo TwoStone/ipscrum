@@ -372,4 +372,11 @@
 
 	<target name="all" depends="cleanCompiled, build, analyze, javadoc" description="builds the whole project and generates analyze and test reports" />
 
+	
+	<!-- ================================= 
+          target: checkCommit              
+         ================================= -->
+    <target name="checkCommit" depends="test,checkstyle,findbugs" description="Runs a analyzing build without test-coverage report">
+    </target>
+
 </project>
