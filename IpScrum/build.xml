@@ -6,7 +6,7 @@
 
 	<!-- Source encoding -->
 	<property name="source.encoding" value="utf-8" />
-
+	
 	<!-- Source paths -->
 	<property name="source.dir" value="${basedir}/src" />
 	<property name="tests.dir" value="${basedir}/test" />
@@ -18,7 +18,7 @@
 
 
 	<!-- Paths for external libs and tools -->
-	<property name="extern.dir" value="${basedir}/extern" />
+	<property name="extern.dir" value="${basedir}/../Extern" />
 	<property name="reports.dir" value="${basedir}/reports" />
 	<property name="javadoc.dir" value="${basedir}/doc" />
 

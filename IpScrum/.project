@@ -31,4 +31,11 @@
 		<nature>com.google.gwt.eclipse.core.gwtNature</nature>
 		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>war/WEB-INF/lib/gwt-servlet.jar</name>
+			<type>1</type>
+			<locationURI>WORKSPACE_LOC/Extern/gwt-2.3.0/gwt-servlet.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
