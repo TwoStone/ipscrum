@@ -25,6 +25,7 @@ public final class ServerContext {
 	public static ServerContext getInstance() {
 		if (ServerContext.instance == null) {
 			final ServerContext context = new ServerContext();
+			context.getExecutionController().start();
 			ServerContext.instance = context;
 		}
 		return ServerContext.instance;
