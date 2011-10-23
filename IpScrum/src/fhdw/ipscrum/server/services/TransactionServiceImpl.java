@@ -2,6 +2,7 @@ package fhdw.ipscrum.server.services;
 
 import fhdw.ipscrum.client.services.TransactionService;
 import fhdw.ipscrum.server.ServerContext;
+import fhdw.ipscrum.server.persistence.ExecutionController;
 import fhdw.ipscrum.shared.exceptions.IPScrumGeneralException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.PersistenceException;
 import fhdw.ipscrum.shared.infrastructure.Transaction;
@@ -20,7 +21,11 @@ public class TransactionServiceImpl extends AbstractSecurityServlet implements T
 	@Override
 	public Model commitTransaction(final Transaction transaction) throws IPScrumGeneralException {
 		try {
-			super.getExecutionController().commitTransaction(transaction);
+			final ExecutionController executionController = super.getExecutionController();
+			if (!executionController.isAlive()) {
+				ServerContext.getInstance().restartExecutionController();
+			}
+			executionController.commitTransaction(transaction);
 			transaction.checkUserException();
 			return ServerContext.getInstance().getPersistenceManager().getCurrentModel();
 		} catch (final InterruptedException e) {

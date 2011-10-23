@@ -26,7 +26,10 @@ public class InitServiceImpl extends RemoteServiceServlet implements InitService
 	@Override
 	public void init(final ServletConfig config) throws ServletException {
 		super.init(config);
+
 		this.outputFolder = this.getServletContext().getInitParameter("outputFolder");
+		System.out.println("Realpath: " + this.getServletContext().getRealPath(this.outputFolder));
+
 	}
 
 	/*

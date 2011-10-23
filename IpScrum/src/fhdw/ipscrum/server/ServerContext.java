@@ -25,7 +25,6 @@ public final class ServerContext {
 	public static ServerContext getInstance() {
 		if (ServerContext.instance == null) {
 			final ServerContext context = new ServerContext();
-			context.getExecutionController().start();
 			ServerContext.instance = context;
 		}
 		return ServerContext.instance;
@@ -67,7 +66,7 @@ public final class ServerContext {
 	/**
 	 * represents the executionController.
 	 */
-	private final ExecutionController executionController;
+	private ExecutionController executionController;
 	/**
 	 * represents the persistence manager.
 	 */
@@ -93,6 +92,13 @@ public final class ServerContext {
 	 */
 	public ExecutionController getExecutionController() {
 		return this.executionController;
+	}
+
+	/**
+	 * Restarts the execution controller.
+	 */
+	public void restartExecutionController() {
+		this.executionController = new ExecutionController(this.getPersistenceManager());
 	}
 
 	/**
