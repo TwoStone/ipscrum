@@ -64,11 +64,6 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>jUnitHostImpl</servlet-name>
-		<url-pattern>/ipscrum/junithost/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
 		<servlet-name>AccountService</servlet-name>
 		<url-pattern>/ipscrum/AccountService</url-pattern>
 	</servlet-mapping>
@@ -80,6 +75,7 @@
 	</servlet-mapping>
 	
 	<session-config><session-timeout>30</session-timeout></session-config>	
+	
 	
 	<welcome-file-list>
 		<welcome-file>IpScrum.html</welcome-file>

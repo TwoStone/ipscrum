@@ -380,22 +380,14 @@
 	</target>
 
 	<property name="war.dir" location="${basedir}/war" />
-	<property name="temp.dir" location="${basedir}/temp" />
+
 
 	<target name="setTimestamp" description="inserts the actual date in the host html">
-		<mkdir dir="${temp.dir}" />
+
 		<tstamp>
 			<format property="touch.time" pattern="dd-MM-yyyy hh:mm" />
 		</tstamp>
-		<copy file="${war.dir}/IpScrum.html" todir="${temp.dir}">
-			<filterchain>
-				<replacetokens>
-					<token key="timestamp" value="${touch.time}" />
-				</replacetokens>
-			</filterchain>
-		</copy>
-		<copy file="${temp.dir}/IpScrum.html" todir="${war.dir}"/>
-		<delete dir="${temp.dir}" />
+		<replace file="${war.dir}/IpScrum.html" token="@timestamp@" value="${touch.time}" />
 	</target>
 	
 	<!-- ================================= 
