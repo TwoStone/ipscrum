@@ -118,7 +118,7 @@ public class NavigationView extends Composite implements INavigationView {
 			}
 		});
 
-		final Image image = new Image("images/.svn/text-base/icon_hilfe.gif.svn-base");
+		final Image image = new Image("images/icon_hilfe.gif");
 		rightPanel.add(image);
 		image.setSize("30px", "32px");
 
