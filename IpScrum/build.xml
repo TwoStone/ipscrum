@@ -6,7 +6,7 @@
 
 	<!-- Source encoding -->
 	<property name="source.encoding" value="utf-8" />
-	
+
 	<!-- Source paths -->
 	<property name="source.dir" value="${basedir}/src" />
 	<property name="tests.dir" value="${basedir}/test" />
@@ -372,11 +372,38 @@
 
 	<target name="all" depends="cleanCompiled, build, analyze, javadoc" description="builds the whole project and generates analyze and test reports" />
 
-	
+
 	<!-- ================================= 
           target: checkCommit              
          ================================= -->
-    <target name="checkCommit" depends="test,checkstyle,findbugs" description="Runs a analyzing build without test-coverage report">
+	<target name="checkCommit" depends="test,checkstyle,findbugs" description="Runs a analyzing build without test-coverage report">
+	</target>
+
+	<property name="war.dir" location="${basedir}/war" />
+	<property name="temp.dir" location="${basedir}/temp" />
+
+	<target name="setTimestamp" description="inserts the actual date in the host html">
+		<mkdir dir="${temp.dir}" />
+		<tstamp>
+			<format property="touch.time" pattern="dd-MM-yyyy hh:mm" />
+		</tstamp>
+		<copy file="${war.dir}/IpScrum.html" todir="${temp.dir}">
+			<filterchain>
+				<replacetokens>
+					<token key="timestamp" value="${touch.time}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+		<copy file="${temp.dir}/IpScrum.html" todir="${war.dir}"/>
+		<delete dir="${temp.dir}" />
+	</target>
+	
+	<!-- ================================= 
+          target: buildForDeploy              
+         ================================= -->
+    <target name="buildForDeploy" depends="setTimestamp,war">
+        
     </target>
+
 
 </project>
