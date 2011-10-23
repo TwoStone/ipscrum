@@ -27,4 +27,14 @@ public class PersistenceException extends InfrastructureException {
 	public PersistenceException(final String message) {
 		super(message);
 	}
+
+	/**
+	 * @param message
+	 * @param exception
+	 */
+	public PersistenceException(final String message, final Throwable exception) {
+		super(message, exception);
+
+	}
+
 }

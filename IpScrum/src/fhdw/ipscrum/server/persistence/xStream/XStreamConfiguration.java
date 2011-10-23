@@ -13,10 +13,6 @@ import fhdw.ipscrum.shared.exceptions.infrastructure.PersistenceException;
 public abstract class XStreamConfiguration {
 
 	/**
-	 * represents the output directory.
-	 */
-	private String directory;
-	/**
 	 * represents the directory-separator.
 	 */
 	private String separator;
@@ -40,15 +36,6 @@ public abstract class XStreamConfiguration {
 	 */
 	public XStreamConfiguration() {
 		super();
-	}
-
-	/**
-	 * Returns the output directory path.
-	 * 
-	 * @return the output directory path
-	 */
-	public String getDirectory() {
-		return this.directory;
 	}
 
 	/**
@@ -104,16 +91,6 @@ public abstract class XStreamConfiguration {
 		} catch (final Exception e) {
 			throw new PersistenceException("Der angegebene XSteam-Mode ist ung�ltig!");
 		}
-	}
-
-	/**
-	 * Sets the directory where the persistence file is stored.
-	 * 
-	 * @param directory
-	 *            path to the persistence directory
-	 */
-	protected void setDirectory(final String directory) {
-		this.directory = directory;
 	}
 
 	/**

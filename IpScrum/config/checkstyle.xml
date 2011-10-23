@@ -17,7 +17,9 @@
       <property name="suppressLoadErrors" value="true"/>
     </module>
     <module name="JavadocType"/>
-    <module name="JavadocVariable"/>
+    <module name="JavadocVariable">
+      <property name="scope" value="public"/>
+    </module>
     <module name="JavadocStyle"/>
     <module name="ConstantName">
       <property name="format" value="^[A-ZÄÖÜ][A-Z0-9ÄÖÜ]*(_[A-Z0-9ÄÖÜ]+)*$"/>

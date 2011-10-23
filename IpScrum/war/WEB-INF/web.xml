@@ -5,60 +5,83 @@
 
 <web-app>
 
-	<!-- Servlets -->
+	<context-param>
+		<param-name>outputFolder</param-name>
+		<param-value>.ipscrum</param-value>
+		<description>Describes where the output files are stored. This folder needs write permissions for servlet container.</description>
+	</context-param>
 
-	<!-- Default page to serve -->
-	<welcome-file-list>
-		<welcome-file>IpScrum.html</welcome-file>
-	</welcome-file-list>
+	<!-- Servlets -->
 	<servlet>
 		<servlet-name>LoginService</servlet-name>
 		<servlet-class>fhdw.ipscrum.server.services.LoginServiceImpl</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>LoginService</servlet-name>
-		<url-pattern>/ipscrum/LoginService</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>HeartBeatService</servlet-name>
 		<servlet-class>fhdw.ipscrum.server.services.HeartBeatServiceImpl</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>HeartBeatService</servlet-name>
-		<url-pattern>/ipscrum/HeartBeatService</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>TransactionService</servlet-name>
 		<servlet-class>fhdw.ipscrum.server.services.TransactionServiceImpl</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>TransactionService</servlet-name>
-		<url-pattern>/ipscrum/TransactionService</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>ReceiveModelService</servlet-name>
 		<servlet-class>fhdw.ipscrum.server.services.ReceiveModelServiceImpl</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>jUnitHostImpl</servlet-name>
+		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>AccountService</servlet-name>
+		<servlet-class>fhdw.ipscrum.server.services.AccountServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>InitService</servlet-name>
+		<servlet-class>fhdw.ipscrum.server.services.InitServiceImpl</servlet-class>
+	</servlet>
+	
+	<!-- ServletMappings  -->
+	<servlet-mapping>
+		<servlet-name>LoginService</servlet-name>
+		<url-pattern>/ipscrum/LoginService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>HeartBeatService</servlet-name>
+		<url-pattern>/ipscrum/HeartBeatService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>TransactionService</servlet-name>
+		<url-pattern>/ipscrum/TransactionService</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>ReceiveModelService</servlet-name>
 		<url-pattern>/ipscrum/ReceiveModelService</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>jUnitHostImpl</servlet-name>
-		<servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
-	</servlet>
 	<servlet-mapping>
 		<servlet-name>jUnitHostImpl</servlet-name>
 		<url-pattern>/ipscrum/junithost/*</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>AccountService</servlet-name>
-		<servlet-class>fhdw.ipscrum.server.services.AccountServiceImpl</servlet-class>
-	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>AccountService</servlet-name>
 		<url-pattern>/ipscrum/AccountService</url-pattern>
 	</servlet-mapping>
-
+	
+	
+	<servlet-mapping>
+		<servlet-name>InitService</servlet-name>
+		<url-pattern>/ipscrum/InitService</url-pattern>
+	</servlet-mapping>
+	
+	<session-config><session-timeout>30</session-timeout></session-config>	
+	
+	<welcome-file-list>
+		<welcome-file>IpScrum.html</welcome-file>
+	</welcome-file-list>
 </web-app>

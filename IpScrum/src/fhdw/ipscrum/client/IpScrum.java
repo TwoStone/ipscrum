@@ -30,6 +30,7 @@ import fhdw.ipscrum.client.presenter.TeamPresenter;
 import fhdw.ipscrum.client.presenter.TicketTypeSelectionPresenter;
 import fhdw.ipscrum.client.presenter.UserManagementPresenter;
 import fhdw.ipscrum.client.resources.MyResources;
+import fhdw.ipscrum.client.services.InitService;
 import fhdw.ipscrum.client.utils.GwtUtils;
 import fhdw.ipscrum.client.utils.SimpleCallback;
 import fhdw.ipscrum.client.view.ViewFactory;
@@ -49,6 +50,7 @@ public class IpScrum implements EntryPoint {
 	static {
 		GChart.setCanvasFactory(new GWTCanvasBasedCanvasFactory());
 		MyResources.INSTANCE.architecture().ensureInjected();
+
 	}
 
 	/**
@@ -56,6 +58,7 @@ public class IpScrum implements EntryPoint {
 	 */
 	@Override
 	public void onModuleLoad() {
+		InitService.Util.init();
 		final ViewFactory factory = new ViewFactory();
 		final EventBus eventBus = new EventBus();
 		final SessionController sessionController = new SessionController(factory, eventBus);

@@ -1,5 +1,6 @@
-#Wed Sep 28 12:30:34 CEST 2011
+#Sun Oct 23 15:48:00 CEST 2011
 eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/gwt-dev.jar|H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/gwt-user.jar|H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/validation-api-1.0.0.GA-sources.jar|H\:/SoftwareDevelopement/ip-workspace/IpScrum-t/extern/gwt-2.3.0/validation-api-1.0.0.GA.jar
+launchConfigExternalUrlPrefix=http\://192.168.2.109\:8080/IpScrum/
 warSrcDir=war
 warSrcDirIsOutput=true

@@ -25,7 +25,7 @@ public abstract class MasterView extends VerticalPanel implements IView {
 	 */
 	public MasterView() {
 
-		final Image image = new Image("images/.svn/text-base/icon_hilfe.gif.svn-base");
+		final Image image = new Image("images/icon_hilfe.gif");
 		this.add(image);
 		image.addClickHandler(new ClickHandler() {
 

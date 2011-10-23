@@ -15,8 +15,7 @@ public class XStreamProgramConfiguration extends XStreamConfiguration {
 	/**
 	 * Creates a new instance of the {@link XStreamProgramConfiguration}.
 	 * 
-	 * @param directory
-	 *            where the files are stored.
+	 * 
 	 * @param suffix
 	 *            ending of the stored files.
 	 * @param aliases
@@ -24,10 +23,8 @@ public class XStreamProgramConfiguration extends XStreamConfiguration {
 	 * @param xStreamMode
 	 *            mode used by XStream for representing references in the XML tree.
 	 */
-	public XStreamProgramConfiguration(final String directory, final String suffix,
-			final Map<Class<?>, String> aliases, final int xStreamMode) {
+	public XStreamProgramConfiguration(final String suffix, final Map<Class<?>, String> aliases, final int xStreamMode) {
 		super();
-		this.setDirectory(directory);
 		this.setEnding(suffix);
 		this.setAliases(aliases);
 		this.setSeparator(File.separator);
@@ -37,13 +34,12 @@ public class XStreamProgramConfiguration extends XStreamConfiguration {
 	/**
 	 * Creates a new instance of the {@link XStreamProgramConfiguration}.
 	 * 
-	 * @param directory
-	 *            where the files are stored.
+	 * 
 	 * @param suffix
 	 *            ending of the stored files.
 	 */
-	public XStreamProgramConfiguration(final String directory, final String suffix) {
-		this(directory, suffix, new HashMap<Class<?>, String>(), XStream.ID_REFERENCES);
+	public XStreamProgramConfiguration(final String suffix) {
+		this(suffix, new HashMap<Class<?>, String>(), XStream.ID_REFERENCES);
 	}
 
 }

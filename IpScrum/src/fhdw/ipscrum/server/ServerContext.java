@@ -1,5 +1,6 @@
 package fhdw.ipscrum.server;
 
+import fhdw.ipscrum.server.configuration.Configuration;
 import fhdw.ipscrum.server.persistence.ExecutionController;
 import fhdw.ipscrum.server.persistence.IPersistenceManager;
 import fhdw.ipscrum.server.persistence.PersistenceManager;
@@ -42,8 +43,8 @@ public final class ServerContext {
 	 */
 	private ServerContext() {
 		try {
-
-			this.persistenceManager = new PersistenceManager();
+			this.configuration = new Configuration();
+			this.persistenceManager = new PersistenceManager(this);
 		} catch (final PersistenceException e1) {
 			// TODO überlegen was hier getan werden muss! Der Fehler müsste bis
 			// an den Client übergeben werden
@@ -71,6 +72,7 @@ public final class ServerContext {
 	 * represents the persistence manager.
 	 */
 	private IPersistenceManager persistenceManager;
+	private Configuration configuration;
 
 	/**
 	 * @return the accountManager
@@ -108,5 +110,19 @@ public final class ServerContext {
 	 */
 	public void setPersistenceManager(final IPersistenceManager persistenceManager) {
 		this.persistenceManager = persistenceManager;
+	}
+
+	/**
+	 * @return <code>true</code> if and only if the {@link ServerContext} was initialized before.
+	 */
+	public static boolean isInitialized() {
+		return ServerContext.instance != null;
+	}
+
+	/**
+	 * @return the configuration of the server
+	 */
+	public Configuration getConfiguration() {
+		return this.configuration;
 	}
 }

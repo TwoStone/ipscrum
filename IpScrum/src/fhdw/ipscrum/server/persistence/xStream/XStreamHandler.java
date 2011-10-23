@@ -10,7 +10,9 @@ import java.util.Map.Entry;
 
 import com.thoughtworks.xstream.XStream;
 
+import fhdw.ipscrum.server.ServerContext;
 import fhdw.ipscrum.server.persistence.PersistenceHandler;
+import fhdw.ipscrum.server.utils.FileUtils;
 import fhdw.ipscrum.shared.exceptions.InfrastructureException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.PersistenceException;
 import fhdw.ipscrum.shared.exceptions.infrastructure.PersistenceFileNotFoundException;
@@ -36,15 +38,21 @@ public class XStreamHandler implements PersistenceHandler {
 	 */
 	private final XStream xstream;
 
+	private final ServerContext context;
+
 	/**
 	 * Creates a new instance of {@link XStreamHandler} uses the specified configuration.
 	 * 
 	 * @param config
 	 *            Configuration to be used by the handler.
+	 * @param context
+	 *            the context of the server
+	 * 
 	 * @throws PersistenceException
 	 *             if some error occur while persisting
 	 */
-	public XStreamHandler(final XStreamConfiguration config) throws PersistenceException {
+	public XStreamHandler(final ServerContext context, final XStreamConfiguration config) throws PersistenceException {
+		this.context = context;
 		this.xstream = new XStream();
 		this.config = config;
 
@@ -63,7 +71,8 @@ public class XStreamHandler implements PersistenceHandler {
 	 * @return path to the model file
 	 */
 	private File buildPath(final String identifier) {
-		return new File(this.config.getDirectory() + this.config.getSeparator() + identifier + this.config.getEnding());
+		return new File(FileUtils.buildPath(this.context.getConfiguration().getOutputFolder(),
+				identifier + this.config.getEnding()));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -98,9 +107,9 @@ public class XStreamHandler implements PersistenceHandler {
 		if (model != null && identifier != null && !identifier.trim().isEmpty()) {
 
 			Writer writer = null;
-
+			File file = null;
 			try {
-				final File directory = new File(this.config.getDirectory());
+				final File directory = new File(this.context.getConfiguration().getOutputFolder());
 				if (!directory.exists()) {
 					try {
 						directory.mkdirs();
@@ -108,22 +117,26 @@ public class XStreamHandler implements PersistenceHandler {
 						throw new PersistenceException(e.getMessage());
 					}
 				}
-				final File file = this.buildPath(identifier);
 
+				file = this.buildPath(identifier);
+				System.out.println("Saving file to " + file.getAbsolutePath());
 				writer = new FileWriter(file);
 				writer.write(XStreamHandler.HEADER);
 
 				this.xstream.toXML(model, writer);
 
 			} catch (final IOException e) {
-				throw new PersistenceException(e.getMessage());
+				if (file != null) {
+					throw new PersistenceException("Fehler beim Speichern der Daten " + file.getAbsolutePath(), e);
+				}
+
 			} finally {
 				try {
 					if (writer != null) {
 						writer.close();
 					}
 				} catch (final IOException e) {
-					throw new PersistenceException(e.getMessage());
+					throw new PersistenceException(e.getMessage(), e);
 				}
 			}
 		}

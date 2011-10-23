@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import fhdw.ipscrum.client.IDGenerator;
+import fhdw.ipscrum.server.ServerContext;
 import fhdw.ipscrum.server.persistence.xStream.XStreamHandler;
 import fhdw.ipscrum.server.persistence.xStream.XStreamProgramConfiguration;
 import fhdw.ipscrum.server.session.Account;
@@ -60,13 +61,15 @@ public class PersistenceManager implements IPersistenceManager {
 	/**
 	 * constructor of the persistenceManager.
 	 * 
+	 * @param serverContext
+	 *            the context of the server
+	 * 
 	 * @throws PersistenceException
 	 *             if the persistence is hurt
 	 */
-	public PersistenceManager() throws PersistenceException {
+	public PersistenceManager(final ServerContext serverContext) throws PersistenceException {
 		this.persistentHandler =
-				new XStreamHandler(new XStreamProgramConfiguration(PersistenceManager.OUTPUTDIERECTORY,
-						PersistenceManager.FILEENDING));
+				new XStreamHandler(serverContext, new XStreamProgramConfiguration(PersistenceManager.FILEENDING));
 	}
 
 	/**
