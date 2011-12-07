@@ -15,7 +15,7 @@
 	<property name="source.output.dir" value="${basedir}/war/WEB-INF/classes" />
 	<property name="tests.output.dir" value="${basedir}/test-classes" />
 	<property name="coverage.output.dir" value="${basedir}/coverage-classes" />
-
+	<property name="temp.dir" value="${basedir}/tmp"/>
 
 	<!-- Paths for external libs and tools -->
 	<property name="extern.dir" value="${basedir}/../Extern" />
@@ -170,10 +170,7 @@
 	<target name="build" depends="gwtc" description="Build this project" />
 
 	<target name="war" depends="build" description="Create a war file">
-		<tstamp>
-		    <format property="time" pattern="yyyyMMddhhmm" />
-		</tstamp>
-		<zip destfile="../bin/IpScrum${time}.war" basedir="war" />
+		<zip destfile="IpScrum.war" basedir="war" />
 	</target>	
 
 	<target name="clean" description="Cleans this project">
@@ -401,8 +398,19 @@
 	<!-- ================================= 
           target: buildForDeploy              
          ================================= -->
-    <target name="buildForDeploy" depends="setTimestamp,war">
-        
+    <target name="buildForDeploy" depends="build">
+    	<mkdir dir="${temp.dir}"/>
+        <copydir dest="${temp.dir}" src="${war.dir}">
+        </copydir>
+    	<tstamp>
+    	   <format property="touch.time" pattern="dd-MM-yyyy hh:mm" />
+    	</tstamp>
+    	<replace file="${temp.dir}/IpScrum.html" token="@timestamp@" value="${touch.time}" />
+    	<tstamp>
+    	   <format property="time" pattern="yyyyMMddhhmm" />
+    	</tstamp>
+    	<zip destfile="../bin/IpScrum${time}.war" basedir="${temp.dir}" />
+    	<delete dir="${temp.dir}" includeemptydirs="yes"></delete>
     </target>
 
 
