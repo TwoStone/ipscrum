@@ -170,8 +170,11 @@
 	<target name="build" depends="gwtc" description="Build this project" />
 
 	<target name="war" depends="build" description="Create a war file">
-		<zip destfile="IpScrum.war" basedir="war" />
-	</target>
+		<tstamp>
+		    <format property="time" pattern="yyyyMMddhhmm" />
+		</tstamp>
+		<zip destfile="../bin/IpScrum${time}.war" basedir="war" />
+	</target>	
 
 	<target name="clean" description="Cleans this project">
 		<delete dir="${reports.dir}" includeemptydirs="true" />
