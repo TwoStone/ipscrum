@@ -28,7 +28,7 @@
 	<property name="findbugs.report.format" value="xml" />
 
 	<!-- GWT path -->
-	<property name="gwt.dir" value="${extern.dir}/gwt-2.3.0" />
+	<property name="gwt.dir" value="${extern.dir}/gwt" />
 
 	<!-- XmlMerge -->
 	<property name="xmlmerge.dir" value="${extern.dir}/xmlmerge" />
@@ -88,6 +88,12 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
+	
+	<path id="gwt.classpath">
+		<fileset dir="${gwt.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
 
 	<property name="emma.dir" value="${extern.dir}/emma" />
 
@@ -129,8 +135,7 @@
 			<classpath>
 				<pathelement location="${source.dir}" />
 				<path refid="project.classpath" />
-				<pathelement location="${gwt.dir}/validation-api-1.0.0.GA.jar" />
-				<pathelement location="${gwt.dir}/validation-api-1.0.0.GA-sources.jar" />
+				<path refid="gwt.classpath"/>
 			</classpath>
 			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
 			<jvmarg value="-Xmx512M" />
