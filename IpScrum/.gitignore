@@ -1,5 +1,5 @@
 /gwt-unitCache
 /test-classes
 /war/ipscrum
-/WEB-INF/classes
-/WEB-INF/deploy
+/war/WEB-INF/classes
+/war/WEB-INF/deploy
