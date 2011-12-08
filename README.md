@@ -11,6 +11,7 @@ Zum Einsatz kommen folgenden Frameworks:
 
 	* GWT
 	* GQuery
+	* GChart
 
 * Persistenzschicht
 
