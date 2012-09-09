@@ -1,0 +1,142 @@
+apply plugin: "java"
+apply plugin: "war"
+apply plugin: "eclipse"
+apply plugin: "eclipse-wtp"
+apply plugin: "checkstyle"
+apply plugin: "findbugs"
+apply plugin: "jdepend"
+apply plugin: "jetty"
+
+def sourceDir = "$project.projectDir/src"
+def testDir = "$project.projectDir/test"
+def gwtResources = "$project.projectDir/war"
+webAppDirName = "war"
+project.version = "1.0"
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[findbugsMain, findbugsTest]*.ignoreFailures = true
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile "com.thoughtworks.xstream:xstream:1.4.3"
+	compile "xpp3:xpp3:1.1.4c"
+	compile "org.jdom:jdom:2.0.2"
+	compile "com.googlecode.gwtquery:gwtquery:1.2.0"
+	compile "javax.validation:validation-api:1.0.0.GA"
+	compile fileTree(dir: "libs", include: "*.jar")
+	
+	testCompile "junit:junit:4.10"
+
+	// Compile GWT libs, needed for gwtCompile and the javaCompile
+	// Also includes the servlet-api
+	providedCompile 'com.google.gwt:gwt-user:2.4.0@jar'
+	providedCompile 'com.google.gwt:gwt-dev:2.4.0'
+	 
+	// Runtime GWT libraries, should be included in WAR
+	runtime "com.google.gwt:gwt-servlet:2.4.0"
+	runtime "com.google.gwt:gwt-user:2.4.0"
+	runtime "javax.validation:validation-api:1.0.0.GA"
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir sourceDir
+		}
+	}
+	test {
+		java {
+			srcDir testDir
+		}
+	}
+}
+
+eclipse {
+	classpath {
+		defaultOutputDir file("war/WEB-INF/classes")
+		containers 'com.google.gwt.eclipse.core.GWT_CONTAINER'
+	}
+	project {
+		natures 'com.google.gwt.eclipse.core.gwtNature'
+		buildCommand 'com.google.gdt.eclipse.core.webAppProjectValidator'
+		buildCommand 'com.google.gwt.eclipse.core.gwtProjectValidator'
+	}
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.1'
+}
+
+task compileGwt (dependsOn: classes, type: JavaExec) {
+	description = "Compiles the GWT JavaScript files"
+	
+    ext.buildDir = "${project.buildDir}/gwt"
+    ext.extraDir = "${project.buildDir}/extra"
+     
+    inputs.source sourceSets.main.java.srcDirs
+    inputs.dir sourceSets.main.output.resourcesDir
+    outputs.dir buildDir
+     
+    // Workaround for incremental build (GRADLE-1483)
+    outputs.upToDateSpec = new org.gradle.api.specs.AndSpec()
+     
+    doFirst {
+        file(buildDir).mkdirs()
+    }
+     
+    main = 'com.google.gwt.dev.Compiler'
+     
+    classpath {
+        [
+            sourceSets.main.java.srcDirs,           // Java source
+            sourceSets.main.output.resourcesDir,    // Generated resources
+            sourceSets.main.output.classesDir,      // Generated classes
+            sourceSets.main.compileClasspath,       // Deps
+        ]   
+    }
+     
+    args =
+        [
+            'fhdw.ipscrum.IpScrum', // Your GWT module
+            '-war', buildDir,
+            '-logLevel', 'INFO',
+            '-localWorkers', '2',
+            '-compileReport', 
+            '-extra', extraDir,
+            // '-draftCompile' // Speeds up compile with 25%
+        ]
+         
+    maxHeapSize = '1G'
+}
+
+war {
+	ext.runDate = new Date()
+	classifier =  runDate.format("yyyyMMddHHmmss")
+	
+	dependsOn compileGwt
+    from compileGwt.buildDir
+	exclude "WEB-INF/lib/*"
+	
+	eachFile { d ->
+		if (d.name.equals("IpScrum.html")) {
+			d.expand (
+				version: "$version",
+				buildTime: runDate.format("yyyy-MM-dd HH:mm:ss")
+			)
+		}
+	}
+}
+
+checkstyleTest {
+	configFile = file("$project.projectDir/config/checkstyle/checkstyle-test.xml")
+}
+
+checkstyleMain {
+	excludes = [
+		"fhdw/ipscrum/client/view/**/*.java",
+		"fhdw/ipscrum/client/architecture/widgets/**/*.java"
+		]
+}
