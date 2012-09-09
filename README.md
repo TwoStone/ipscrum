@@ -7,7 +7,7 @@ Das Projekt entstand ursprünglich im Jahr 2011 als Studentenprojekt im Rahmen e
 ## Build ##
 * Windows
  
-	Um das Projekt zu bauen, muss über die Kommandozeile der Befehl "gradlew build" im Verzeichnis IpScrum aufgerufen werden.
+	Um das Projekt zu bauen, muss über die Kommandozeile der Befehl "gradlew build" aufgerufen werden.
 
 ## Technik ##
 Zum Einsatz kommen folgenden Frameworks:
