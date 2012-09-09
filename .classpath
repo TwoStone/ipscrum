@@ -1,79 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container" exported="true"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER" exported="true"/>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.thoughtworks.xstream/xstream/1.4.3/source/c292d3d3091cb0b66c7149b533df1d920b2b679a/xstream-1.4.3-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.thoughtworks.xstream/xstream/1.4.3/jar/3427c153a5ad0f2cfa923528ad8be875c8cb1cff/xstream-1.4.3.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/xpp3/xpp3/1.1.4c/source/8dd0ddee19fe6ed0182b18e0e621d1c8b4d8d56/xpp3-1.1.4c-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/xpp3/xpp3/1.1.4c/jar/9b988ea84b9e4e9f1874e390ce099b8ac12cfff5/xpp3-1.1.4c.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/org.jdom/jdom/2.0.2/source/2c0614e33230394e42f5cfe55c20d5ae8949c108/jdom-2.0.2-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/org.jdom/jdom/2.0.2/jar/d06c71e0df0ac4b94deb737718580ccce22d92e8/jdom-2.0.2.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.googlecode.gwtquery/gwtquery/1.2.0/source/4f94ce3db7ae4fb56313e6aff65520eed947b80d/gwtquery-1.2.0-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.googlecode.gwtquery/gwtquery/1.2.0/jar/d089bfc0138dcb435f7b4bf3761246e708856116/gwtquery-1.2.0.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/javax.validation/validation-api/1.0.0.GA/source/7a561191db2203550fbfa40d534d4997624cd369/validation-api-1.0.0.GA-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/javax.validation/validation-api/1.0.0.GA/jar/b6bd7f9d78f6fdaa3c37dae18a4bd298915f328e/validation-api-1.0.0.GA.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.google.gwt/gwt-user/2.4.0/source/a2ed957cde9b9d0647ed4912220f9f623f5fa5a9/gwt-user-2.4.0-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.google.gwt/gwt-user/2.4.0/jar/949dcb5d14cb0e2c8dec98efc0760be68753c124/gwt-user-2.4.0.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.google.gwt/gwt-dev/2.4.0/source/3b45bdbd082008b6e418f41152adca4a053bfeac/gwt-dev-2.4.0-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.google.gwt/gwt-dev/2.4.0/jar/c0f88ffb55c1fdc87abbbbdb5ca56008b7a37a48/gwt-dev-2.4.0.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.google.gwt/gwt-servlet/2.4.0/source/a2ed957cde9b9d0647ed4912220f9f623f5fa5a9/gwt-servlet-2.4.0-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/com.google.gwt/gwt-servlet/2.4.0/jar/b41d59f359d2cdc3807ea579a7fc072361482244/gwt-servlet-2.4.0.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/junit/junit/4.10/source/6c98d6766e72d5575f96c9479d1c1d3b865c6e25/junit-4.10-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/junit/junit/4.10/jar/e4f1766ce7404a08f45d859fb9c226fc9e41a861/junit-4.10.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/xmlpull/xmlpull/1.1.3.1/jar/2b8e230d2ab644e4ecaa94db7cdedbc40c805dfa/xmlpull-1.1.3.1.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/xpp3/xpp3_min/1.1.4c/source/fffe25ec1f20ec1cfdc0edd41c6e0d55bc0dbaf5/xpp3_min-1.1.4c-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/xpp3/xpp3_min/1.1.4c/jar/19d4e90b43059058f6e056f794f0ea4030d60b86/xpp3_min-1.1.4c.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/javax.validation/validation-api/1.0.0.GA/jar/7a561191db2203550fbfa40d534d4997624cd369/validation-api-1.0.0.GA-sources.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="C:/Users/nik/.gradle/caches/artifacts-14/filestore/org.hamcrest/hamcrest-core/1.1/source/2ccf1154d1a8936042a8a742dc3e611d02ac7213/hamcrest-core-1.1-sources.jar" kind="lib" path="C:/Users/nik/.gradle/caches/artifacts-14/filestore/org.hamcrest/hamcrest-core/1.1/jar/860340562250678d1a344907ac75754e259cdb14/hamcrest-core-1.1.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="D:/Development/ipscrum/ipscrum/IpScrum/libs/gchart.jar" exported="true">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="GROOVY_DSL_SUPPORT"/>
+	<classpathentry kind="con" path="GROOVY_SUPPORT"/>
+	<classpathentry exported="true" kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry kind="con" path="org.springsource.ide.eclipse.gradle.dsld.classpathcontainer"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

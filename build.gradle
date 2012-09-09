@@ -54,6 +54,8 @@ sourceSets {
 	}
 }
 
+defaultTasks "build"
+
 eclipse {
 	classpath {
 		defaultOutputDir file("war/WEB-INF/classes")

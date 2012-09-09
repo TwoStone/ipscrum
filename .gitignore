@@ -3,3 +3,5 @@
 /war/ipscrum
 /war/WEB-INF/classes
 /war/WEB-INF/deploy
+
+/build
